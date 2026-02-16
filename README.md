@@ -51,9 +51,10 @@ All books are publicly available and free of copyright restrictions.
 kardec-study-assistant/
 │
 ├── data/
-│   ├── books/              # Original public-domain PDFs
-│   ├── markdown_files/     # Structured Markdown files
-│   └── json_files/         # Parsed structured JSON output
+│   ├── books/              # Original public-domain PDF files (source material)
+│   ├── embeddings/         # Vector database files and generated embeddings
+│   ├── markdown_files/     # Markdown files generated from PDFs
+│   └── json_files/         # Structured JSON chunks used for ingestion
 │
 ├── src/
 │   └── dialogue_with_the_doctrine/

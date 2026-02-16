@@ -1,7 +1,7 @@
 [project]
-name = "dialogue-with-the-doctrine"
+name = "kardec-study-assistant"
 version = "0.1.0"
-description = "Study assistant based on Allan Kardec's works"
+description = "Backend and LLM study assistant based on Allan Kardec's works"
 authors = [
     { name = "Mary Camila" }
 ]
@@ -33,3 +33,7 @@ profile = "black"
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
+
+[tool.pdm.scripts]
+parsing = "python -m src.parsing.parsing_pipeline"
+

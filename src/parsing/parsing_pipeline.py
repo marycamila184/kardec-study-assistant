@@ -10,11 +10,11 @@ OUTPUT_DIRECTORY = "data/json_files"
 
 
 BOOK_NAME_MAP = {
-    "O Livro dos Espíritos": "livro_espiritos",
-    "O Livro dos Médiuns": "livro_mediuns",
-    "O Evangelho Segundo o Espiritismo": "evangelho_espiritismo",
-    "O Céu e o Inferno": "ceu_inferno",
-    "A Gênese": "a_genese"
+    "livro-espiritos": "O Livro dos Espíritos",
+    "livro-mediuns": "O Livro dos Médiuns",
+    "evangelho": "O Evangelho Segundo o Espiritismo",
+    "ceu-inferno": "O Céu e o Inferno",
+    "genese": "A Gênese" 
 }
 
 
