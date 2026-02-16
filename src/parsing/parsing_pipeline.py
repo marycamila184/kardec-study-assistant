@@ -34,7 +34,7 @@ def process_all_books():
             print(f"Book not found in mapping dictionary: {base_name}")
             continue
 
-        output_filename = BOOK_NAME_MAP[base_name] + ".json"
+        output_filename = base_name + ".json"
         output_path = os.path.join(OUTPUT_DIRECTORY, output_filename)
 
         print(f"Processing: {base_name}")
@@ -43,7 +43,9 @@ def process_all_books():
             markdown_text = f.read()
 
         cleaned_text = clean_markdown(markdown_text)
-        structured_data = parse_md_to_json(cleaned_text, base_name)
+
+        book_name = BOOK_NAME_MAP[base_name]
+        structured_data = parse_md_to_json(cleaned_text, book_name)
 
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(structured_data, f, ensure_ascii=False, indent=2)
