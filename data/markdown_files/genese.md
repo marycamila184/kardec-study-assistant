@@ -1,4 +1,12 @@
 
+# A GÊNESE: OS MILAGRES E AS PREDIÇÕES SEGUNDO O ESPIRITISMO
+
+# CONTRA CAPA
+
+A Doutrina Espírita há resultado do ensino coletivo e concordante dos Espíritos. A Ciência é chamada a constituir a Gênese de acordo com as leis da Natureza. Deus prova a sua grandeza e seu poder pela imutabilidade das suas leis e não pela ab-rogação delas. Para Deus, o passado e o futuro são o presente, por ALLAN KARDEC (Autor de "O Livro dos Espíritos")
+
+---
+
 # A GÊNESE SEGUNDO O ESPIRITISMO
 
 # CAPÍTULO I

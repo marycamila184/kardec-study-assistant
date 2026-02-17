@@ -1,3 +1,25 @@
+# ESPIRITISMO EXPERIMENTAL
+
+# CONTRA CAPA
+
+# O LIVRO DOS MÉDIUNS OU GUIA DOS MÉDIUNS E DOS EVOCADORES
+
+Ensino especial dos Espíritos sobre a teoria de todos os gêneros de manifestações, os meios de comunicação com o mundo invisível, o desenvolvimento da mediunidade, as dificuldades e os tropeços que se podem encontrar na prática do Espiritismo, constituindo o seguimento d’ O Livro dos Espíritos, por Allan Kardec.
+
+---
+
+# O LIVRO DOS MÉDIUNS
+
+# INTRODUÇÃO
+
+Todos os dias a experiência nos traz a confirmação de que as dificuldades e os desenganos, com que muitos topam na prática do Espiritismo, se originam da ignorância dos princípios desta ciência e feliz nos sentimos de haver podido comprovar que o nosso trabalho, feito com o objetivo de precaver os adeptos contra os escolhos de um noviciado, produziu frutos e que à leitura desta obra devem muitos o terem logrado evitá-los. 
+
+Natural é, que entre os que se ocupam com o Espiritismo, o desejo de poderem pôr-se em comunicação com os Espíritos. Esta obra se destina a lhes achanar o caminho, levando-os a tirar proveito dos nossos longos e laboriosos estudos, porquanto muito falsa idéia formaria aquele que pensasse bastar, para se considerar perito nesta matéria, saber colocar os dedos sobre uma mesa, a fim de fazê-la mover-se, ou segurar um lápis, a fim de escrever.
+
+---
+
+# 14
+
 # INTRODUÇÃO
 
 Enganar-se-ia igualmente quem supusesse encontrar nesta obra uma receita universal e infalível para formar médiuns. Se bem cada um traga em si o gérmen das qualidades necessárias para se tornar médium, tais qualidades existem em graus muito diferentes e o seu desenvolvimento depende de causas que a ninguém é dado conseguir se verifiquem à vontade. As regras da poesia, da pintura e da música não fazem que se tornem poetas, pintores, ou músicos os que não têm o gênio de alguma dessas artes. Apenas guiam os que as cultivam, no emprego de suas faculdades naturais. O mesmo sucede com o nosso trabalho. Seu objetivo consiste em indicar os meios de desenvolvimento da faculdade mediúnica, tanto quanto o permitam as disposições de cada um, e, sobretudo, dirigir-lhe o emprego de modo útil, quando ela exista. Esse, porém, não constitui o fim único a que nos propusemos.

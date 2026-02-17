@@ -1,3 +1,15 @@
+# O CÉU E O INFERNO
+
+# CONTRA CAPA
+
+# A JUSTIÇA DIVINA SEGUNDO O ESPIRITISMO
+
+Exame comparado das doutrinas sobre a passagem da vida corporal à vida espiritual, sobre as penalidades e recompensas futuras, sobre os anjos e demônios, sobre as penas, etc., seguido de numerosos exemplos acerca da situação real da alma durante e depois da morte por Allan Kardec.
+
+"Por mim mesmo juro - disse o Senhor Deus - que não quero a morte do ímpio, senão que ele se converta, que deixe o mau caminho e que viva".  
+(EZEQUIEL, 33:11.)
+
+---
 
 # I PARTE
 
@@ -12,8 +24,6 @@
 Todo homem experimenta a necessidade de viver, de gozar, de amar e ser feliz. Dizei ao moribundo que ele viverá ainda; que a sua hora é retardada; dizei-lhe sobre tudo que será mais feliz do que porventura o tenha sido, e o seu coração rejubilará. Mas, de que serviriam essas aspirações de felicidade, se um leve sopro pudesse dissipá-las?
 
 Haverá algo de mais desesperador do que esse pensamento da destruição absoluta? Afeições caras, inteligência, progresso, saber laboriosamente adquiridos, tudo despedaçado, tudo perdido! De nada nos serviria, portanto, qualquer esforço no sofreamento das paixões, de fadiga para nos ilustrarmos, de devotamento à causa do progresso, desde que de tudo isso nada aproveitássemos, predominando o pensamento de que amanhã mesmo, tal-
-
-
 
 ---
 
@@ -73,11 +83,11 @@ Mas, se a religião se mostra impotente para sustar a incredulidade, é que lhe 
 
 O que lhe falta neste século de positivismo, em que se procura compreender antes de crer, é, sem dúvida, a sanção de suas doutrinas por fatos positivos, assim como a concordância das mesmas com os dados positivos da Ciência. Dizendo ela ser branco o que os fatos dizem ser negro, é preciso optar entre a evidência e a fé cega.
 
-É nestas circunstâncias que o Espiritismo vem opor um dique à difusão da incredulidade, não somente pelo raciocínio, não somente pela perspectiva dos perigos que ela acarreta, mas pelos fatos materiais, tornando visíveis e tangíveis a alma e a vida futura.
+4. - É nestas circunstâncias que o Espiritismo vem opor um dique à difusão da incredulidade, não somente pelo raciocínio, não somente pela perspectiva dos perigos que ela acarreta, mas pelos fatos materiais, tornando visíveis e tangíveis a alma e a vida futura.
 
 Todos somos livres na escolha das nossas crenças; podemos crer em alguma coisa ou em nada crer, mas aqueles que procuram fazer prevalecer no espírito das massas, da juventude principalmente, a negação do futuro, apoiando-se na autoridade do seu saber e no ascendente da sua posição, semeiam na sociedade germens de perturbação e dissolução, incorrendo em grande responsabilidade.
 
-Há uma doutrina que se defende da pecha de materialista porque admite a existência de um princípio
+5. - Há uma doutrina que se defende da pecha de materialista porque admite a existência de um princípio
 
 __________
 
@@ -99,9 +109,7 @@ O que lhe é essencial é a conservação do seu eu; sem este, que lhe importa o
 
 Sob o ponto de vista das conseqüências morais, esta doutrina é, pois, tão insensata, tão desesperadora, tão subversiva como o materialismo propriamente dito.
 
-# 6.
-
-Pode-se, além disso, fazer esta objeção: todas as gotas dágua tomadas ao oceano se assemelham e possuem idênticas propriedades como partes de um mesmo todo; por que, pois, as almas tomadas ao grande oceano da inteligência universal tão pouco se assemelham? Por que o gênio e a estupidez, as mais sublimes virtudes e os vícios mais ignóbeis? Por que a bondade, a doçura, a mansuetude ao lado da maldade, da crueldade, da barbaria? Como podem ser tão diferentes entre si as partes de um mesmo todo homogêneo? Dir-se-á que é a educação que a modifica? Neste caso donde vêm as qualidades inatas, as inteligências precoces, os bons e maus instintos independentes de toda a educação e tantas vezes em desarmonia com o meio no qual se desenvolvem?
+6. - Pode-se, além disso, fazer esta objeção: todas as gotas dágua tomadas ao oceano se assemelham e possuem idênticas propriedades como partes de um mesmo todo; por que, pois, as almas tomadas ao grande oceano da inteligência universal tão pouco se assemelham? Por que o gênio e a estupidez, as mais sublimes virtudes e os vícios mais ignóbeis? Por que a bondade, a doçura, a mansuetude ao lado da maldade, da crueldade, da barbaria? Como podem ser tão diferentes entre si as partes de um mesmo todo homogêneo? Dir-se-á que é a educação que a modifica? Neste caso donde vêm as qualidades inatas, as inteligências precoces, os bons e maus instintos independentes de toda a educação e tantas vezes em desarmonia com o meio no qual se desenvolvem?
 
 ---
 
@@ -127,15 +135,11 @@ E como pôde um ser imperfeito, formado de idéias tão divergentes, conceber le
 
 que regem o Universo? Se todas as almas são porções da Divindade, todos concorreram para as leis da Natureza; como sucede, pois, que elas murmurem sem cessar contra essas leis que são obra sua? Uma teoria não pode ser aceita como verdadeira senão com a cláusula de satisfazer a razão e dar conta de todos os fatos que abrange; se um só fato lhe trouxer um desmentido, é que não contém a verdade absoluta.
 
-# 9.
-
-Sob o ponto de vista moral, as conseqüências são igualmente ilógicas. Em primeiro lugar é para as almas, tal como no sistema precedente, a absorção num todo e a perda da individualidade. Dado que se admita, consoante a opinião de alguns panteístas, que as almas conservem essa individualidade, Deus deixaria de ter vontade única para ser um composto de miriades de vontades divergentes.
+9. - Sob o ponto de vista moral, as conseqüências são igualmente ilógicas. Em primeiro lugar é para as almas, tal como no sistema precedente, a absorção num todo e a perda da individualidade. Dado que se admita, consoante a opinião de alguns panteístas, que as almas conservem essa individualidade, Deus deixaria de ter vontade única para ser um composto de miriades de vontades divergentes.
 
 Além disso, sendo cada alma parte integrante da Divindade, deixa de ser dominada por um poder superior; não incorre em responsabilidade por seus atos bons ou maus; soberana, não tendo interesse algum na prática do bem, ela pode praticar o mal impunemente.
 
-# 10.
-
-Demais, estes sistemas não satisfazem nem a razão nem a aspiração humanas; deles decorrem dificuldades insuperáveis, pois são impotentes para resolver todas as questões de fato que suscitam. O homem tem, pois, três alternativas: o nada, a absorção ou a individualidade da alma antes e depois da morte.
+10. - Demais, estes sistemas não satisfazem nem a razão nem a aspiração humanas; deles decorrem dificuldades insuperáveis, pois são impotentes para resolver todas as questões de fato que suscitam. O homem tem, pois, três alternativas: o nada, a absorção ou a individualidade da alma antes e depois da morte.
 
 É para esta última crença que a lógica nos impele irresistivelmente, crença que tem formado a base de todas as religiões desde que o mundo existe.
 
@@ -171,9 +175,7 @@ Apresente-se-lhe, porém, um futuro condicionalmente lógico, digno em tudo da g
 
 O Espiritismo dá coisa melhor; eis por que é acolhido pressurosamente por todos os atormentados da dúvida, os que não encontram nem nas crenças nem nas filosofias vulgares o que procuram. O Espiritismo tem por si a lógica do raciocínio e a sanção dos fatos, e é por isso que inutilmente o têm combatido.
 
-# 14.
-
-Instintivamente tem o homem a crença no futuro, mas não possuindo até agora nenhuma base certa para defini-lo, a sua imaginação fantasiou os sistemas que originaram a diversidade de crenças. A Doutrina Espírita sobre o futuro - não sendo uma obra de imaginação mais ou menos arquitetada engenhosamente, porém o resultado da observação de fatos materiais que se desdobram hoje à nossa vista - congraciará, como já está acontecendo, as opiniões divergentes ou flutuantes e trará gradualmente, pela força das coisas, a unidade de crenças sobre esse ponto, não já baseada em simples hipótese, mas na certeza. A unificação feita relativamente à sorte futura das almas será o primeiro ponto de contacto dos diversos cultos, um passo imenso para a tolerância religiosa em primeiro lugar e, mais tarde, para a completa fusão.
+14. - Instintivamente tem o homem a crença no futuro, mas não possuindo até agora nenhuma base certa para defini-lo, a sua imaginação fantasiou os sistemas que originaram a diversidade de crenças. A Doutrina Espírita sobre o futuro - não sendo uma obra de imaginação mais ou menos arquitetada engenhosamente, porém o resultado da observação de fatos materiais que se desdobram hoje à nossa vista - congraciará, como já está acontecendo, as opiniões divergentes ou flutuantes e trará gradualmente, pela força das coisas, a unidade de crenças sobre esse ponto, não já baseada em simples hipótese, mas na certeza. A unificação feita relativamente à sorte futura das almas será o primeiro ponto de contacto dos diversos cultos, um passo imenso para a tolerância religiosa em primeiro lugar e, mais tarde, para a completa fusão.
 
 
 
@@ -241,9 +243,7 @@ Os entes que lhes são caros, reduzidos ao estado de átomos no seu modo de pens
 
 É considerável o número dos dominados por este pensamento.
 
-# 6.
-
-Outra causa de apego às coisas terrenas, mesmo nos que mais firmemente crêem na vida futura, é a impressão do ensino que relativamente a ela se lhes há dado desde a infância. Convenhamos que o quadro pela religião esboçado, sobre o assunto, é nada sedutor e ainda menos consolatório.
+6. - Outra causa de apego às coisas terrenas, mesmo nos que mais firmemente crêem na vida futura, é a impressão do ensino que relativamente a ela se lhes há dado desde a infância. Convenhamos que o quadro pela religião esboçado, sobre o assunto, é nada sedutor e ainda menos consolatório.
 
 De um lado, contorções de condenados a expiarem em torturas e chamas eternas os erros de uma vida efêmera e passageira. Os séculos sucedem-se aos séculos e não há para tais desgraçados sequer o lenitivo de uma esperança e, o que mais atroz é, não lhes aproveita o arrependimento. De outro lado, as almas combalidas e aflitas do purgatório aguardam a intercessão dos vivos que orarão ou farão orar por elas, sem nada fazerem de esforço próprio para progredirem.
 
@@ -260,17 +260,13 @@ Estes raciocínios não deixam de preocupar os mais fervorosos crentes, por pouc
 
 # 1ª PARTE - CAPÍTULO II
 
-# 7.
-
-Não dependendo a felicidade futura do trabalho progressivo na Terra, a facilidade com que se acredita adquirir essa felicidade, por meio de algumas práticas exteriores, e a possibilidade até de a comprar a dinheiro, sem regeneração de caráter e costumes, dão aos gozos do mundo o melhor valor.
+7. - Não dependendo a felicidade futura do trabalho progressivo na Terra, a facilidade com que se acredita adquirir essa felicidade, por meio de algumas práticas exteriores, e a possibilidade até de a comprar a dinheiro, sem regeneração de caráter e costumes, dão aos gozos do mundo o melhor valor.
 
 Mais de um crente considera, em seu foro íntimo, que assegurado o seu futuro pelo preenchimento de certas fórmulas ou por dádivas póstumas, que de nada o privam, seria supérfluo impor-se sacrifícios ou quaisquer incômodos por outrem, uma vez que se consegue a salvação trabalhando cada qual por si.
 
 Seguramente, nem todos pensam assim, havendo mesmo muitas e honrosas exceções; mas não se poderia contestar que assim pensa o maior número, sobretudo das massas pouco esclarecidas, e que a idéia que fazem das condições de felicidade no outro mundo não entretenha o apego aos bens deste, acoroçoando o egoísmo.
 
-# 8.
-
-Acrescentemos ainda a circunstância de tudo nas usanças concorrer para lamentar a perda da vida terrestre e temer a passagem da Terra ao céu. A morte é rodeada de cerimônias lúgubres, mais próprias a infundirem terror do que a provocarem a esperança. Se descrevem a morte, é sempre com aspecto repelente e nunca como sono de transição; todos os seus emblemas lembram a destruição do corpo, mostrando-o hediondo e descarnado; nenhum simboliza a alma desembaraçando-se radiosa dos grilhões terrestres.
+8. - Acrescentemos ainda a circunstância de tudo nas usanças concorrer para lamentar a perda da vida terrestre e temer a passagem da Terra ao céu. A morte é rodeada de cerimônias lúgubres, mais próprias a infundirem terror do que a provocarem a esperança. Se descrevem a morte, é sempre com aspecto repelente e nunca como sono de transição; todos os seus emblemas lembram a destruição do corpo, mostrando-o hediondo e descarnado; nenhum simboliza a alma desembaraçando-se radiosa dos grilhões terrestres.
 
 A partida para esse mundo mais feliz só se faz acompanhar do lamento dos sobreviventes, como se imensa desgraça atingira os que partem; dizem-lhes eternos adeuses como se jamais devessem revê-los. Lastima-se por eles a perda dos gozos mundanos, como se não fossem encontrar maiores gozos no além-túmulo. Que desgraça, dizem, morrer tão jovem, rico e feliz, tendo a perspectiva de um futuro brilhante! A idéia de um futuro melhor apenas toca de leve o pensamento, porque não tem nele raízes. Tudo concorre, assim,
 
@@ -285,13 +281,13 @@ A partida para esse mundo mais feliz só se faz acompanhar do lamento dos sobrev
 
 para inspirar o terror da morte, em vez de infundir esperança. Sem dúvida que muito tempo será preciso para o homem se desfazer desses preconceitos, o que não quer dizer que isto não suceda, à medida que a sua fé se for firmando, a ponto de conceber uma idéia mais sensata da vida espiritual.
 
-# 9. - Demais, a crença vulgar coloca as almas em regiões apenas acessíveis ao pensamento, onde se tornam de alguma sorte estranhas aos vivos; a própria Igreja põe entre umas e outras uma barreira insuperável, declarando rotas todas as relações e impossível qualquer comunicação. Se as almas estão no inferno, perdida é toda a esperança de as rever, a menos que lá se vá ter também; se estão entre os eleitos, vivem completamente absortas em contemplativa beatitude. Tudo isso interpõe entre mortos e vivos uma distância tal que faz supor eterna a separação, e é por isso que muitos preferem ter junto de si, embora sofrendo, os entes caros, antes que vê-los partir, ainda mesmo que para o céu.
+9. - Demais, a crença vulgar coloca as almas em regiões apenas acessíveis ao pensamento, onde se tornam de alguma sorte estranhas aos vivos; a própria Igreja põe entre umas e outras uma barreira insuperável, declarando rotas todas as relações e impossível qualquer comunicação. Se as almas estão no inferno, perdida é toda a esperança de as rever, a menos que lá se vá ter também; se estão entre os eleitos, vivem completamente absortas em contemplativa beatitude. Tudo isso interpõe entre mortos e vivos uma distância tal que faz supor eterna a separação, e é por isso que muitos preferem ter junto de si, embora sofrendo, os entes caros, antes que vê-los partir, ainda mesmo que para o céu.
 
 E a alma que estiver no céu será realmente feliz vendo, por exemplo, arder eternamente seu filho, seu pai, sua mãe ou seus amigos?
 
 # Por que os espíritas não temem a morte
 
-# 10. - A Doutrina Espírita transforma completamente a perspectiva do futuro. A vida futura deixa de ser uma hipótese para ser realidade. O estado das almas depois da morte não é mais um sistema, porém o resultado da observação. Ergueu-se o véu; o mundo espiritual aparece-nos na plenitude de sua realidade prática; não foram os homens que o descobriram pelo esforço de uma concepção engenhosa, são os próprios habitantes desse mundo que nos vêm descrever a sua situação; aí os vemos em todos os graus da escala espiritual, em todas as rases da felicidade e da desgraça, assistindo, enfim, a todas as peripécias da vida de além-túmulo. Eis aí por que
+10. - A Doutrina Espírita transforma completamente a perspectiva do futuro. A vida futura deixa de ser uma hipótese para ser realidade. O estado das almas depois da morte não é mais um sistema, porém o resultado da observação. Ergueu-se o véu; o mundo espiritual aparece-nos na plenitude de sua realidade prática; não foram os homens que o descobriram pelo esforço de uma concepção engenhosa, são os próprios habitantes desse mundo que nos vêm descrever a sua situação; aí os vemos em todos os graus da escala espiritual, em todas as rases da felicidade e da desgraça, assistindo, enfim, a todas as peripécias da vida de além-túmulo. Eis aí por que
 
 
 
@@ -336,13 +332,9 @@ __________
 
 meiro é o da região do ar e das nuvens; o segundo, o espaço em que giram os astros, e o terceiro, para além deste, é a morada do Altíssimo, a habitação dos que o contemplam face a face. É conforme a esta crença que se diz que S. Paulo foi alçado ao terceiro céu.
 
-# 2.
+2. - As diferentes doutrinas relativamente ao paraíso repousam todas no duplo erro de considerar a Terra centro do Universo, e limitada a região dos astros. É além desse limite imaginário que todas têm colocado a residência afortunada e a morada do Todo-Poderoso. Singular anomalia que coloca o Autor de todas as coisas, Aquele que as governa a todas, nos confins da criação, em vez de no centro, donde o seu pensamento poderia, irradiante, abranger tudo!
 
-As diferentes doutrinas relativamente ao paraíso repousam todas no duplo erro de considerar a Terra centro do Universo, e limitada a região dos astros. É além desse limite imaginário que todas têm colocado a residência afortunada e a morada do Todo-Poderoso. Singular anomalia que coloca o Autor de todas as coisas, Aquele que as governa a todas, nos confins da criação, em vez de no centro, donde o seu pensamento poderia, irradiante, abranger tudo!
-
-# 3.
-
-A Ciência, com a lógica inexorável da observação e dos fatos, levou o seu archote às profundezas do Espaço e mostrou a nulidade de todas essas teorias. A Terra não é mais o eixo do Universo, porém um dos menores astros que rolam na imensidade; o próprio Sol mais não é do que o centro de um turbilhão planetário; as estrelas são outros tantos e inumeráveis sóis, em torno dos quais circulam mundos sem conta, separados por distâncias apenas acessíveis ao pensamento, embora se nos afigure tocarem-se. Neste conjunto grandioso, regido por leis eternas - reveladoras da sabedoria e onipotência do Criador - a Terra não é mais que um ponto imperceptível e um dos planetas menos favorecidos quanto à habitabilidade. E, assim sendo, é lícito perguntar por que Deus faria da Terra a única sede da vida e nela degredaria as suas criaturas prediletas? Mas, ao contrário, tudo anuncia a vida por toda parte e a Humanidade é infinita como o Universo. Revelando-nos a Ciência mundos semelhantes ao nosso, Deus não podia tê-los criado sem intuito, antes deve tê-los povoado de seres capazes de os governar.
+3. - A Ciência, com a lógica inexorável da observação e dos fatos, levou o seu archote às profundezas do Espaço e mostrou a nulidade de todas essas teorias. A Terra não é mais o eixo do Universo, porém um dos menores astros que rolam na imensidade; o próprio Sol mais não é do que o centro de um turbilhão planetário; as estrelas são outros tantos e inumeráveis sóis, em torno dos quais circulam mundos sem conta, separados por distâncias apenas acessíveis ao pensamento, embora se nos afigure tocarem-se. Neste conjunto grandioso, regido por leis eternas - reveladoras da sabedoria e onipotência do Criador - a Terra não é mais que um ponto imperceptível e um dos planetas menos favorecidos quanto à habitabilidade. E, assim sendo, é lícito perguntar por que Deus faria da Terra a única sede da vida e nela degredaria as suas criaturas prediletas? Mas, ao contrário, tudo anuncia a vida por toda parte e a Humanidade é infinita como o Universo. Revelando-nos a Ciência mundos semelhantes ao nosso, Deus não podia tê-los criado sem intuito, antes deve tê-los povoado de seres capazes de os governar.
 
 
 
@@ -351,15 +343,11 @@ A Ciência, com a lógica inexorável da observação e dos fatos, levou o seu a
 
 # O CÉU
 
-# 4.
-
-As idéias do homem estão na razão do que ele sabe; como todas as descobertas importantes, a da constituição dos mundos deveria imprimir-lhes outro curso; sob a influência desses conhecimentos novos, as crenças se modificaram; o Céu foi deslocado e a região estelar, sendo ilimitada, não mais lhe pode servir. Onde está ele, pois? E ante esta questão emudecem todas as religiões.
+4. - As idéias do homem estão na razão do que ele sabe; como todas as descobertas importantes, a da constituição dos mundos deveria imprimir-lhes outro curso; sob a influência desses conhecimentos novos, as crenças se modificaram; o Céu foi deslocado e a região estelar, sendo ilimitada, não mais lhe pode servir. Onde está ele, pois? E ante esta questão emudecem todas as religiões.
 
 O Espiritismo vem resolvê-las demonstrando o verdadeiro destino do homem. Tomando-se por base a natureza deste último e os atributos divinos, chega-se a uma conclusão; isto quer dizer que partindo do conhecido atinge-se o desconhecido por uma dedução lógica, sem falar das observações diretas que o Espiritismo faculta.
 
-# 5.
-
-O homem compõe-se de corpo e Espírito: o Espírito é o ser principal, racional, inteligente; o corpo é o invólucro material que reveste o Espírito temporariamente, para preenchimento da sua missão na Terra e execução do trabalho necessário ao seu adiantamento. O corpo, usado, destrói-se e o Espírito sobrevive à sua destruição. Privado do Espírito, o corpo é apenas matéria inerte, qual instrumento privado da mola real de função; sem o corpo, o Espírito é tudo: a vida, a inteligência. Em deixando o corpo, torna ao mundo espiritual, onde paira, para depois reencarnar.
+5. - O homem compõe-se de corpo e Espírito: o Espírito é o ser principal, racional, inteligente; o corpo é o invólucro material que reveste o Espírito temporariamente, para preenchimento da sua missão na Terra e execução do trabalho necessário ao seu adiantamento. O corpo, usado, destrói-se e o Espírito sobrevive à sua destruição. Privado do Espírito, o corpo é apenas matéria inerte, qual instrumento privado da mola real de função; sem o corpo, o Espírito é tudo: a vida, a inteligência. Em deixando o corpo, torna ao mundo espiritual, onde paira, para depois reencarnar.
 
 Existem, portanto, dois mundos: o corporal, composto de Espíritos encarnados; e o espiritual, formado dos Espíritos desencarnados. Os seres do mundo corporal, devido mesmo à materialidade do seu envoltório, estão ligados à Terra ou a qualquer globo; o mundo espiritual ostenta-se por toda parte, em redor de nós como no Espaço, sem limite algum designado. Em razão mesmo da natureza fluídica do seu envoltório, os seres que o compõem, em lugar de se locomoverem penosamente sobre o solo, transpõem as distâncias com a rapidez do pensamento. A morte do corpo não é mais que a ruptura dos laços que os retinham cativos.
 
@@ -370,9 +358,7 @@ Existem, portanto, dois mundos: o corporal, composto de Espíritos encarnados; e
 
 # 1ª PARTE - CAPÍTULO III
 
-# 6.
-
-Os Espíritos são criados simples e ignorantes, mas dotados de aptidões para tudo conhecerem e para progredirem, em virtude do seu livre-arbítrio. Pelo progresso adquirem novos conhecimentos, novas faculdades, novas percepções e, consequente, novos gozos desconhecidos dos Espíritos inferiores; eles vêem, ouvem, sentem e compreendem o que os Espíritos atrasados não podem ver, sentir, ouvir ou compreender.
+6. - Os Espíritos são criados simples e ignorantes, mas dotados de aptidões para tudo conhecerem e para progredirem, em virtude do seu livre-arbítrio. Pelo progresso adquirem novos conhecimentos, novas faculdades, novas percepções e, consequente, novos gozos desconhecidos dos Espíritos inferiores; eles vêem, ouvem, sentem e compreendem o que os Espíritos atrasados não podem ver, sentir, ouvir ou compreender.
 
 A felicidade está na razão direta do progresso realizado, de sorte que, de dois Espíritos, um pode não ser tão feliz quanto outro, unicamente por não possuir o mesmo adiantamento intelectual e moral, sem que por isso precisem estar, cada qual, em lugar distinto. Ainda que juntos, pode um estar em trevas, enquanto que tudo resplandece para o outro, tal como um cego e um vidente que se dão as mãos: este percebe a luz da qual aquele não recebe a mínima impressão.
 
@@ -382,9 +368,7 @@ Uma comparação vulgar fará compreender melhor esta situação. Se se encontra
 
 O mundo espiritual tem esplendores por toda parte, harmonias e sensações que os Espíritos inferiores, submetidos à influência da matéria, não entrevêem sequer, e que somente são acessíveis aos Espíritos purificados.
 
-# 7.
-
-O progresso nos Espíritos é o fruto do próprio trabalho; mas, como são livres, trabalham no seu adiantamento com maior ou menor atividade, com mais ou menos negligência, segundo sua vontade, acelerando ou
+7. - O progresso nos Espíritos é o fruto do próprio trabalho; mas, como são livres, trabalham no seu adiantamento com maior ou menor atividade, com mais ou menos negligência, segundo sua vontade, acelerando ou
 
 
 
@@ -399,9 +383,7 @@ Todo Espírito que se atrasa não pode queixar-se senão de si mesmo, assim como
 
 O progresso intelectual e o progresso moral raramente marcham juntos, mas o que o Espírito não consegue em dado tempo, alcança em outro, de modo que os dois progressos acabam por atingir o mesmo nível. Eis por que se vêem muitas vezes homens inteligentes e instruídos pouco adiantados moralmente, e vice-versa.
 
-# 8.
-
-A encarnação é necessária ao duplo progresso moral e intelectual do Espírito: ao progresso intelectual pela atividade obrigatória do trabalho; ao progresso moral pela necessidade recíproca dos homens entre si. A vida social é a pedra de toque das boas ou más qualidades.
+8. - A encarnação é necessária ao duplo progresso moral e intelectual do Espírito: ao progresso intelectual pela atividade obrigatória do trabalho; ao progresso moral pela necessidade recíproca dos homens entre si. A vida social é a pedra de toque das boas ou más qualidades.
 
 A bondade, a maldade, a doçura, a violência, a benevolência, a caridade, o egoísmo, a avareza, o orgulho, a humildade, a sinceridade, a franqueza, a lealdade, a má-fé, a hipocrisia, em uma palavra, tudo o que constitui o homem de bem ou o perverso tem por móvel, por alvo e por estímulo as relações do homem com os seus semelhantes.
 
@@ -415,9 +397,7 @@ Para o homem que vivesse insulado não haveria vícios nem virtudes; preservando
 
 # 1ª PARTE - CAPÍTULO III
 
-# 9.
-
-Uma só existência corporal é manifestamente insuficiente para o Espírito adquirir todo o bem que lhe falta e eliminar o mal que lhe sobra. Como poderia o selvagem, por exemplo, em uma só encarnação nivelar-se moral e intelectualmente ao mais adiantado europeu? É materialmente impossível. Deve ele, pois, ficar eternamente na ignorância e barbaria, privado dos gozos que só o desenvolvimento das faculdades pode proporcionar-lhe?
+9. - Uma só existência corporal é manifestamente insuficiente para o Espírito adquirir todo o bem que lhe falta e eliminar o mal que lhe sobra. Como poderia o selvagem, por exemplo, em uma só encarnação nivelar-se moral e intelectualmente ao mais adiantado europeu? É materialmente impossível. Deve ele, pois, ficar eternamente na ignorância e barbaria, privado dos gozos que só o desenvolvimento das faculdades pode proporcionar-lhe?
 
 O simples bom-senso repele tal suposição, que seria não somente a negação da justiça e bondade divinas, mas das próprias leis evolutivas e progressivas da Natureza. Mas Deus, que é soberanamente justo e bom, concede ao Espírito tantas encarnações quantas as necessárias para atingir seu objetivo a perfeição.
 
@@ -425,9 +405,7 @@ Para cada nova existência de permeio à matéria, entra o Espírito com o cabed
 
 A encarnação é inerente à inferioridade dos Espíritos, deixando de ser necessária desde que estes, transpondo-lhe os limites, ficam aptos para progredir no estado espiritual, ou nas existências corporais de mundos superiores, que nada têm da materialidade terrestre. Da parte destes a encarnação é voluntária, tendo por fim exercer sobre os encarnados uma ação mais direta e tendente ao cumprimento da missão que lhes compete junto dos mesmos. Desse modo aceitam abnegadamente as vicissitudes e sofrimentos da encarnação.
 
-# 10.
-
-No intervalo das existências corporais o Espírito torna a entrar no mundo espiritual, onde é feliz ou desgraçado segundo o bem ou o mal que fez. Uma vez que o estado espiritual é o estado definitivo do Espírito e o corpo espiritual não morre, deve ser esse
+10. - No intervalo das existências corporais o Espírito torna a entrar no mundo espiritual, onde é feliz ou desgraçado segundo o bem ou o mal que fez. Uma vez que o estado espiritual é o estado definitivo do Espírito e o corpo espiritual não morre, deve ser esse
 
 __________
 
@@ -444,9 +422,7 @@ também o seu estado normal. O estado corporal é transitório e passageiro. É 
 
 O Espírito progride igualmente na erraticidade, adquirindo conhecimentos especiais que não poderia obter na Terra, e modificando as suas idéias. O estado corporal e o espiritual constituem a fonte de dois gêneros de progresso, pelos quais o Espírito tem de passar alternadamente, nas existências peculiares a cada um dos dois mundos.
 
-# 11. - A reencarnação
-
-pode dar-se na Terra ou em outros mundos. Há entre os mundos alguns mais adiantados onde a existência se exerce em condições menos penosas que na Terra, física e moralmente, mas onde também só são admitidos Espíritos chegados a um grau de perfeição relativo ao estado desses mundos.
+11. - A reencarnação pode dar-se na Terra ou em outros mundos. Há entre os mundos alguns mais adiantados onde a existência se exerce em condições menos penosas que na Terra, física e moralmente, mas onde também só são admitidos Espíritos chegados a um grau de perfeição relativo ao estado desses mundos.
 
 A vida nos mundos superiores já é uma recompensa, visto nos acharmos isentos, aí, dos males e vicissitudes terrenos. Onde os corpos, menos materiais, quase fluídicos, não mais são sujeitos às moléstias, às enfermidades, e tampouco têm as mesmas necessidades. Excluídos os Espíritos maus, gozam os homens de plena paz, sem outra preocupação além da do adiantamento pelo trabalho intelectual.
 
@@ -463,13 +439,9 @@ Comparados à Terra, esses mundos são verdadeiros paraísos, quais pousos ao lo
 
 à medida que se desenvolve, chega ao apogeu da felicidade; porém, antes de ter atingido a culminância da perfeição, goza de uma felicidade relativa ao seu progresso. A criança também frui os prazeres da infância, mais tarde os da mocidade, e finalmente os mais sólidos, da madureza.
 
-# 12.
+12. - A felicidade dos Espíritos bem-aventurados não consiste na ociosidade contemplativa, que seria, como temos dito multas vezes, uma eterna e fastidiosa inutilidade. A vida espiritual em todos os seus graus é, ao contrário, uma constante atividade, mas atividade isenta de fadigas. A suprema felicidade consiste no gozo de todos os esplendores da Criação, que nenhuma linguagem humana jamais poderia descrever, que a imaginação mais fecunda não poderia conceber. Consiste também na penetração de todas as coisas, na ausência de sofrimentos físicos e morais, numa satisfação intima, numa serenidade dalma imperturbável, no amor que envolve todos os seres, por causa da ausência de atrito pelo contacto dos maus, e, acima de tudo, na contemplação de Deus e na compreensão dos seus mistérios revelados aos mais dignos. A felicidade também existe nas tarefas cujo encargo nos faz felizes. Os puros Espíritos são os Messias ou mensageiros de Deus pela transmissão e execução das suas vontades. Preenchem as grandes missões, presidem à formação dos mundos e à harmonia geral do Universo, tarefa gloriosa a que se não chega senão pela perfeição. Os da ordem mais elevada são os únicos a possuírem os segredos de Deus, inspirando-se no seu pensamento, de que são diretos representantes.
 
-A felicidade dos Espíritos bem-aventurados não consiste na ociosidade contemplativa, que seria, como temos dito multas vezes, uma eterna e fastidiosa inutilidade. A vida espiritual em todos os seus graus é, ao contrário, uma constante atividade, mas atividade isenta de fadigas. A suprema felicidade consiste no gozo de todos os esplendores da Criação, que nenhuma linguagem humana jamais poderia descrever, que a imaginação mais fecunda não poderia conceber. Consiste também na penetração de todas as coisas, na ausência de sofrimentos físicos e morais, numa satisfação intima, numa serenidade dalma imperturbável, no amor que envolve todos os seres, por causa da ausência de atrito pelo contacto dos maus, e, acima de tudo, na contemplação de Deus e na compreensão dos seus mistérios revelados aos mais dignos. A felicidade também existe nas tarefas cujo encargo nos faz felizes. Os puros Espíritos são os Messias ou mensageiros de Deus pela transmissão e execução das suas vontades. Preenchem as grandes missões, presidem à formação dos mundos e à harmonia geral do Universo, tarefa gloriosa a que se não chega senão pela perfeição. Os da ordem mais elevada são os únicos a possuírem os segredos de Deus, inspirando-se no seu pensamento, de que são diretos representantes.
-
-# 13.
-
-As atribuições dos Espíritos são proporcionadas ao seu progresso, às luzes que possuem, às suas capacidades, experiência e grau de confiança inspirada ao Senhor soberano.
+13. - As atribuições dos Espíritos são proporcionadas ao seu progresso, às luzes que possuem, às suas capacidades, experiência e grau de confiança inspirada ao Senhor soberano.
 
 
 
@@ -482,13 +454,9 @@ Nem favores, nem privilégios que não sejam o prêmio ao mérito; tudo é medid
 
 As missões mais importantes são confiadas somente àqueles que Deus julga capazes de as cumprir e incapazes de desfalecimento ou comprometimento. E enquanto que os mais dignos compõem o supremo conselho, sob as vistas de Deus, a chefes superiores é cometida a direção de turbilhões planetários, ê a outros conferida a de mundos especiais. Vêm, depois, pela ordem de adiantamento e subordinação hierárquica, as atribuições mais restritas dos prepostos ao progresso dos povos, à proteção das famílias e indivíduos, ao impulso de cada ramo de progresso, às diversas operações da Natureza até aos mais ínfimos pormenores da Criação. Neste vasto e harmônico conjunto há ocupações para todas as capacidades, aptidões e esforços; ocupações aceitas com júbilo, solicitadas com ardor, por serem um meio de adianta- mento para os Espíritos que ao progresso aspiram.
 
-# 14.
+14. - Ao lado das grandes missões confiadas aos Espíritos superiores, há outras de importância relativa em todos os graus, concedidas a Espíritos de todas as categorias, podendo afirmar-se que cada encarnado tem a sua, isto é, deveres a preencher a bem dos seus semelhantes, desde o chefe de família, a quem incumbe o progresso dos filhos, até o homem de gênio que lança às sociedades novos germens de progresso. É nessas missões secundárias que se verificam desfalecimentos, prevaricações e renúncias que prejudicam o indivíduo sem afetar o todo.
 
-Ao lado das grandes missões confiadas aos Espíritos superiores, há outras de importância relativa em todos os graus, concedidas a Espíritos de todas as categorias, podendo afirmar-se que cada encarnado tem a sua, isto é, deveres a preencher a bem dos seus semelhantes, desde o chefe de família, a quem incumbe o progresso dos filhos, até o homem de gênio que lança às sociedades novos germens de progresso. É nessas missões secundárias que se verificam desfalecimentos, prevaricações e renúncias que prejudicam o indivíduo sem afetar o todo.
-
-# 15.
-
-Todas as inteligências concorrem, pois, para a obra geral, qualquer que seja o grau atingido, e cada uma na medida das suas forças, seja no estado de encarnação ou no espiritual. Por toda parte a atividade, desde a base ao ápice da escala, instruindo-se, coadjuvando-se em mútuo apoio, dando-se as mãos para alcançarem o zênite.
+15. - Todas as inteligências concorrem, pois, para a obra geral, qualquer que seja o grau atingido, e cada uma na medida das suas forças, seja no estado de encarnação ou no espiritual. Por toda parte a atividade, desde a base ao ápice da escala, instruindo-se, coadjuvando-se em mútuo apoio, dando-se as mãos para alcançarem o zênite.
 
 
 
@@ -516,15 +484,13 @@ Os membros deste, ora se dispersam para se darem à sua missão, ora se reúnem 
 
 # O CÉU
 
-# 17.
+17. - 
 
 Posto que os Espíritos estejam por toda parte, os mundos são de preferência os seus centros de atração, em virtude da analogia existente entre eles e os que os habitam. Em torno dos mundos adiantados abundam Espíritos superiores, como em torno dos atrasados pululam Espíritos inferiores. Cada globo tem, de alguma sorte, sua população própria de Espíritos encarnados e desencarnados, alimentada em sua maioria pela encarnação e desencarnação dos mesmos. Esta população é mais estável nos mundos inferiores, pelo apego deles à matéria, e mais flutuante nos superiores.
 
 Destes últimos, porém, verdadeiros focos de luz e felicidade, Espíritos se destacam para mundos inferiores a fim de neles semearem os germens do progresso, levar-lhes consolação e esperança, levantar os ânimos abatidos pelas provações da vida. Por vezes também se encarnam para cumprir com mais eficácia a sua missão.
 
-# 18.
-
-Nessa imensidade ilimitada, onde está o Céu? Em toda parte. Nenhum contorno lhe traça limites. Os mundos adiantados são as últimas estações do seu caminho, que as virtudes franqueiam e os vícios interditam. Ante este quadro grandioso que povoa o Universo, que dá a todas as coisas da Criação um fim e uma razão de ser, quanto é pequena e mesquinha a doutrina que circunscreve a Humanidade a um ponto imperceptível do Espaço, que no-la mostra começando em dado instante para acabar igualmente com o mundo que a contém, não abrangendo mais que um minuto na Eternidade!
+18. - Nessa imensidade ilimitada, onde está o Céu? Em toda parte. Nenhum contorno lhe traça limites. Os mundos adiantados são as últimas estações do seu caminho, que as virtudes franqueiam e os vícios interditam. Ante este quadro grandioso que povoa o Universo, que dá a todas as coisas da Criação um fim e uma razão de ser, quanto é pequena e mesquinha a doutrina que circunscreve a Humanidade a um ponto imperceptível do Espaço, que no-la mostra começando em dado instante para acabar igualmente com o mundo que a contém, não abrangendo mais que um minuto na Eternidade!
 
 Como é triste, fria, glacial essa doutrina quando nos mostra o resto do Universo, durante e depois da Humanidade terrestre, sem vida, nem movimento, qual vastíssimo deserto imerso em profundo silêncio! Como é desesperadora a perspectiva dos eleitos votados à contemplação perpétua, enquanto a maioria das criaturas padece tormentos sem-fim! Como lacera os corações sensíveis a idéia dessa barreira entre mortos e vivos! As almas ditosas, dizem, só pensam na sua felicidade, como as desgra-
 
@@ -560,7 +526,6 @@ vens nem limitado pelas estrelas? Poderiam identificar-se com a vida espiritual 
 ---
 
 
-
 # CAPÍTULO IV
 
 # O INFERNO
@@ -588,15 +553,11 @@ __________
 
 titude contemplativa concorrendo com o inferno das torturas físicas.
 
-# 2.
-
-Não podendo compreender senão o que vê, o homem primitivo naturalmente moldou o seu futuro pelo presente; para compreender outros tipos, além dos que tinha à vista, ser-lhe-ia preciso um desenvolvimento intelectual que só o tempo deveria completar. Também o quadro por ele ideado sobre as penas futuras não é senão o reflexo dos males da Humanidade, em mais vasta proporção, reunindo-lhe todas as torturas, suplícios e aflições que achou na Terra. Nos climas abrasadores imaginou um inferno de fogo, e nas regiões boreais um inferno de gelo. Não estando ainda desenvolvido o sentido que mais tarde o levaria a compreender o mundo espiritual, não podia conceber senão penas materiais; e assim, com pequenas diferenças de forma, os infernos de todas as religiões se assemelham.
+2. - Não podendo compreender senão o que vê, o homem primitivo naturalmente moldou o seu futuro pelo presente; para compreender outros tipos, além dos que tinha à vista, ser-lhe-ia preciso um desenvolvimento intelectual que só o tempo deveria completar. Também o quadro por ele ideado sobre as penas futuras não é senão o reflexo dos males da Humanidade, em mais vasta proporção, reunindo-lhe todas as torturas, suplícios e aflições que achou na Terra. Nos climas abrasadores imaginou um inferno de fogo, e nas regiões boreais um inferno de gelo. Não estando ainda desenvolvido o sentido que mais tarde o levaria a compreender o mundo espiritual, não podia conceber senão penas materiais; e assim, com pequenas diferenças de forma, os infernos de todas as religiões se assemelham.
 
 # O inferno cristão imitado do inferno pagão
 
-# 3.
-
-O inferno pagão, descrito e dramatizado pelos poetas, foi o modelo mais grandioso do gênero, e perpetuou-se no seio dos cristãos, onde, por sua vez, houve poetas e cantores. Comparando-os, encontram-se neles - salvo os nomes e variantes de detalhe - numerosas analogias; ambos têm o fogo material por base de tormentos, como símbolo dos sofrimentos mais atrozes. Mas, coisa singular! os cristãos exageraram em muitos pontos o inferno dos pagãos. Se estes tinham o tonel das Danaides, a roda de Íxion, o rochedo de Sísifo, eram estes suplícios individuais; os cristãos, ao contrário, têm para todos, sem distinção, as caldeiras ferventes cujos tampos os anjos levantam para ver as contorções dos supliciados (1); e Deus, sem piedade, ouve-lhes os gemidos por toda a eternidade. Jamais os pagãos descreveram os habitantes dos
+3. - O inferno pagão, descrito e dramatizado pelos poetas, foi o modelo mais grandioso do gênero, e perpetuou-se no seio dos cristãos, onde, por sua vez, houve poetas e cantores. Comparando-os, encontram-se neles - salvo os nomes e variantes de detalhe - numerosas analogias; ambos têm o fogo material por base de tormentos, como símbolo dos sofrimentos mais atrozes. Mas, coisa singular! os cristãos exageraram em muitos pontos o inferno dos pagãos. Se estes tinham o tonel das Danaides, a roda de Íxion, o rochedo de Sísifo, eram estes suplícios individuais; os cristãos, ao contrário, têm para todos, sem distinção, as caldeiras ferventes cujos tampos os anjos levantam para ver as contorções dos supliciados (1); e Deus, sem piedade, ouve-lhes os gemidos por toda a eternidade. Jamais os pagãos descreveram os habitantes dos
 
 __________
 
@@ -621,6 +582,8 @@ O inferno cristão nada cede, pois, ao inferno pagão.
 
 A este respeito, frisemos ainda outra analogia: - O inferno dos pagãos continha de um lado os Campos Elíseos e do outro o Tártaro; o Olimpo, moradia dos deuses e dos homens divinizados, ficava nas regiões superiores.
 
+__________
+
 (1) "Os bem-aventurados, sem deixarem o lugar que ocupam, poderão afastar-se de certo modo em razão do seu dom de inteligência e da vista distinta, a fim de considerarem as torturas dos condenados, e, vendo-os, não somente serão insensíveis à dor, mas até ficarão repletos de alegria e renderão graças a Deus por sua própria felicidade, assistindo à inefável calamidade dos ímpios." (S. Tomás de Aquino.)
 
 (2) Sermão pregado em Paris em 1861.
@@ -636,9 +599,7 @@ Segundo a letra do Evangelho, Jesus desceu aos infernos, isto é, aos lugares ba
 
 A morada dos anjos, assim como o Olimpo, era nos lugares elevados. Colocaram-na para além do céu estelar, que se reputava limitado.
 
-# 6.
-
-Esta mistura de idéias cristãs e pagãs nada tem de surpreendente. Jesus não podia de um só golpe destruir inveteradas crenças, faltando aos homens conhecimentos necessários para conceber a infinidade do Espaço e o número infinito dos mundos; a Terra para eles era o centro do Universo; não lhe conheciam a forma nem a estrutura internas; tudo se limitava ao seu ponto de vista: as noções do futuro não podiam ir além dos seus conhecimentos. Jesus encontrava-se, pois, na impossibilidade de os iniciar no verdadeiro estado das coisas; mas não querendo, por outro lado, com sua autoridade, sancionar prejuízos aceitos, absteve-se de os retificar, deixando ao tempo essa missão.
+6. - Esta mistura de idéias cristãs e pagãs nada tem de surpreendente. Jesus não podia de um só golpe destruir inveteradas crenças, faltando aos homens conhecimentos necessários para conceber a infinidade do Espaço e o número infinito dos mundos; a Terra para eles era o centro do Universo; não lhe conheciam a forma nem a estrutura internas; tudo se limitava ao seu ponto de vista: as noções do futuro não podiam ir além dos seus conhecimentos. Jesus encontrava-se, pois, na impossibilidade de os iniciar no verdadeiro estado das coisas; mas não querendo, por outro lado, com sua autoridade, sancionar prejuízos aceitos, absteve-se de os retificar, deixando ao tempo essa missão.
 
 Ele limitou-se a falar vagamente da vida bem-aventurada, dos castigos reservados aos culpados, sem referir-se jamais nos seus ensinos a castigos e suplícios corporais, que constituíram para os cristãos um artigo de fé. Eis aí como as idéias do inferno pagão se perpetuaram até aos nossos dias. E foi preciso a difusão das modernas luzes, o desenvolvimento geral da inteligência humana para se lhe fazer justiça.
 
@@ -651,17 +612,15 @@ Como, porém, nada de positivo houvesse substituído as idéias recebidas, ao lo
 
 # 1ª PARTE - CAPÍTULO IV
 
-# 7.
-
-Localizados o céu e o inferno, as seitas cristãs foram levadas a não admitir para as almas senão duas situações extremas: a felicidade perfeita e o sofrimento absoluto. O purgatório é apenas uma posição intermediária e passageira, ao sair da qual as almas passam, sem transição, à mansão dos justos.
+7. - Localizados o céu e o inferno, as seitas cristãs foram levadas a não admitir para as almas senão duas situações extremas: a felicidade perfeita e o sofrimento absoluto. O purgatório é apenas uma posição intermediária e passageira, ao sair da qual as almas passam, sem transição, à mansão dos justos.
 
 Outra não pode ser a hipótese, dada a crença na sorte definitiva da alma após a morte. Se não há mais de duas habitações, a dos eleitos e a dos condenados, não se podem admitir muitos graus em cada uma sem admitir a possibilidade de os franquear e, conseguintemente, o progresso. Ora, se há progresso, não há sorte definitiva, e se há sorte definitiva, não há progresso. Jesus resolveu a questão quando disse: - "Há muitas moradas na casa de meu Pai." (1)
 
 # Os limbos
 
-# 8.
+8. - É verdade que a Igreja admite uma posição especial em casos particulares. As crianças falecidas em tenra idade, sem fazer mal algum, não podem ser condenadas ao fogo eterno. Mas, também, não tendo feito bem, não lhes assiste direito à felicidade suprema. Ficam nos limbos, diz-nos a Igreja, nessa situação jamais definida, na qual, se não sofrem, também não gozam da bem-aventurança. Esta, sendo tal sorte irrevogavelmente fixada, fica-lhes defesa para sempre. Tal privação importa, assim, um suplício eterno e tanto mais imerecido, quanto é certo não ter dependido dessas almas que as coisas assim sucedessem. O mesmo se dá quanto ao selvagem que, não tendo recebido a graça do batismo e as luzes da religião, peca por ignorância, entregue aos instintos naturais. Certo, este não tem a responsabilidade e o mérito cabíveis ao que procede com conhecimento de causa. A simples lógica repele uma tal doutrina em nome da justiça de Deus, que se contém integralmente nestas palavras do Cristo: "A cada um, se-
 
-É verdade que a Igreja admite uma posição especial em casos particulares. As crianças falecidas em tenra idade, sem fazer mal algum, não podem ser condenadas ao fogo eterno. Mas, também, não tendo feito bem, não lhes assiste direito à felicidade suprema. Ficam nos limbos, diz-nos a Igreja, nessa situação jamais definida, na qual, se não sofrem, também não gozam da bem-aventurança. Esta, sendo tal sorte irrevogavelmente fixada, fica-lhes defesa para sempre. Tal privação importa, assim, um suplício eterno e tanto mais imerecido, quanto é certo não ter dependido dessas almas que as coisas assim sucedessem. O mesmo se dá quanto ao selvagem que, não tendo recebido a graça do batismo e as luzes da religião, peca por ignorância, entregue aos instintos naturais. Certo, este não tem a responsabilidade e o mérito cabíveis ao que procede com conhecimento de causa. A simples lógica repele uma tal doutrina em nome da justiça de Deus, que se contém integralmente nestas palavras do Cristo: "A cada um, se-
+__________
 
 (1) O Evangelho segundo o Espiritismo, cap. III.
 
@@ -676,18 +635,13 @@ gundo as suas obras." Obras, sim, boas ou más, porém praticadas voluntária e 
 
 # Quadro do inferno pagão
 
-# 9.
-
-O conhecimento do inferno pagão nos é fornecido quase exclusivamente pela narrativa dos poetas. Homero e Vergílio dele deram a mais completa descrição, devendo, contudo, levar-se em conta as necessidades poéticas impostas à forma. A descrição de Fénelon, no Telêmaco, posto que haurida na mesma fonte quanto às crenças fundamentais, tem a simplicidade mais concisa da prosa.
+9. - O conhecimento do inferno pagão nos é fornecido quase exclusivamente pela narrativa dos poetas. Homero e Vergílio dele deram a mais completa descrição, devendo, contudo, levar-se em conta as necessidades poéticas impostas à forma. A descrição de Fénelon, no Telêmaco, posto que haurida na mesma fonte quanto às crenças fundamentais, tem a simplicidade mais concisa da prosa.
 
 Descrevendo o aspecto lúgubre dos lugares, preocupa-se, principalmente, em realçar o gênero de sofrimento dos culpados, estendendo-se sobre a sorte dos maus reis com vista à instrução do seu régio discípulo. Por muito popular que seja esta obra, nem todos têm presente à memória a sua descrição, ou não meditaram sobre ela de modo a estabelecer comparação, e assim acreditamos de utilidade reproduzir os tópicos que mais diretamente interessam ao nosso assunto, Isto é, os que se referem especialmente às penas individuais.
 
-# 10.
-
-"Ao entrar, Telêmaco ouve gemidos de uma sombra inconsolável. Qual é, perguntava-lhe, a vossa desgraça? Quem fostes na Terra? Nabofarzan, responde a sombra, rei da soberba Babilônia. Ao ouvir meu nome tremiam todos os povos do Oriente; fazia-me adorar pelos babilônios num templo todo de mármore, representado por uma estátua de ouro, a cujos pés se queimavam noite e dia os preciosos perfumes da Etiópia; jamais alguém ousou contradizer-me sem de pronto ser punido; inventavam-se dia a dia prazeres novos para tornar-me a vida mais e mais deliciosa.
+10. - "Ao entrar, Telêmaco ouve gemidos de uma sombra inconsolável. Qual é, perguntava-lhe, a vossa desgraça? Quem fostes na Terra? Nabofarzan, responde a sombra, rei da soberba Babilônia. Ao ouvir meu nome tremiam todos os povos do Oriente; fazia-me adorar pelos babilônios num templo todo de mármore, representado por uma estátua de ouro, a cujos pés se queimavam noite e dia os preciosos perfumes da Etiópia; jamais alguém ousou contradizer-me sem de pronto ser punido; inventavam-se dia a dia prazeres novos para tornar-me a vida mais e mais deliciosa.
 
 "Moço e robusto, quantos, oh! quantos prazeres me restavam ainda por usufruir no trono! Mas certa mulher,
-
 
 
 ---
@@ -903,7 +857,7 @@ sua situação à dos demônios, é caso de perguntar quais os mais dignos de l�
 ---
 
 
-O INFERNO
+# 1ª PARTE - CAPÍTULO IV
 
 a esse estado, decrépitos, friorentos, gotosos, cheios de necessidades, sensíveis a uma picada de abelha, assinalados dos estragos da vida e da morte, e está feito o primeiro milagre; depois, a esses corpos raquíticos, prontos a voltarem ao pó donde saíram, outorga propriedades que nunca tiveram - a imortalidade, esse dom que, em sua cólera (dizei antes em sua misericórdia), retirara a Adão ao sair do Éden - e eis completo o segundo milagre. Adão, quando imortal, era invulnerável, e deixando de ser invulnerável tornou-se mortal; a morte seguia de perto a dor. A ressurreição não nos restabelece, pois, nem nas condições físicas do homem inocente, nem nas do culpado, sendo antes uma ressurreição das nossas misérias somente, mas com um acréscimo de misérias novas, infinitamente mais horríveis.
 
@@ -922,15 +876,11 @@ rendo, chamejante, imperecível, mais empestado que a túnica de Dejanira, aband
 
 "Ainda assim Ele não as abandonará para sempre, em absoluto, visto como Céu e Terra não subsistem senão por ato permanente da sua vontade sempre ativa. Deus terá, portanto, sem cessar, esses condenados à mão, para impedir que o fogo se extinga em seus corpos, consumindo-os, e querendo que contribuam perenemente por seus perenes suplícios para edificação dos escolhidos."
 
-# 14.
-
-Dissemos, e com razão, que o inferno dos cristãos excedera o dos pagãos. Efetivamente, no Tártaro vêem-se culpados torturados pelo remorso, ante suas vítimas e seus crimes, acabrunhados por aqueles que espezinharam na vida terrestre; vêmo-los fugirem à luz que os penetra, procurando em vão esconderem-se aos olhares que os perseguem; aí o orgulho é abatido e humilhado, trazendo todos o estigma do seu passado, punidos pelas próprias faltas, a ponto tal que, para alguns, basta entregá-los a si mesmos sem ser preciso aumentar-lhes os castigos. Contudo, são sombras, isto é, almas com corpos fluídicos, imagens da sua vida terrestre; lá não se vê os homens retomarem o corpo carnal para sofrer materialmente, com fogo a penetrar-lhes a pele, saturando-os até à medula dos ossos. Tampouco se vê o requinte das torturas que constituem o fundo do inferno cristão. Juízes inflexíveis, porém justos, proferem a sentença proporcional ao delito, ao passo que no império de Satã são todos confundidos nas mesmas torturas, com a materialidade por base, e banida toda e qualquer equidade.
+14. - Dissemos, e com razão, que o inferno dos cristãos excedera o dos pagãos. Efetivamente, no Tártaro vêem-se culpados torturados pelo remorso, ante suas vítimas e seus crimes, acabrunhados por aqueles que espezinharam na vida terrestre; vêmo-los fugirem à luz que os penetra, procurando em vão esconderem-se aos olhares que os perseguem; aí o orgulho é abatido e humilhado, trazendo todos o estigma do seu passado, punidos pelas próprias faltas, a ponto tal que, para alguns, basta entregá-los a si mesmos sem ser preciso aumentar-lhes os castigos. Contudo, são sombras, isto é, almas com corpos fluídicos, imagens da sua vida terrestre; lá não se vê os homens retomarem o corpo carnal para sofrer materialmente, com fogo a penetrar-lhes a pele, saturando-os até à medula dos ossos. Tampouco se vê o requinte das torturas que constituem o fundo do inferno cristão. Juízes inflexíveis, porém justos, proferem a sentença proporcional ao delito, ao passo que no império de Satã são todos confundidos nas mesmas torturas, com a materialidade por base, e banida toda e qualquer equidade.
 
 Incontestavelmente, há hoje, no selo da Igreja mesma, muitos homens sensatos que não admitem essas coisas à risca, vendo nelas antes simples alegorias cujo sentido convém interpretar. Estas opiniões, no entanto, são individuais e não fazem lei, continuando a crença no inferno material, com suas consequências, a constituir um artigo de fé.
 
-# 15.
-
-Poderíamos perguntar como há homens que têm conseguido ver essas coisas em êxtase, se elas de
+15. - Poderíamos perguntar como há homens que têm conseguido ver essas coisas em êxtase, se elas de
 
 
 
@@ -940,6 +890,8 @@ Poderíamos perguntar como há homens que têm conseguido ver essas coisas em ê
 # O INFERNO
 
 fato não existem. Não cabe aqui explicar a origem das imagens fantásticas, tantas vezes reproduzidas com visos de realidade. Diremos apenas ser preciso considerar, em principio, que o êxtase é a mais incerta de todas as revelações (1), porquanto o estado de sobreexcitação nem sempre importa um desprendimento dalma tão completo que se imponha à crença absoluta, denotando muitas vezes o reflexo de preocupações da véspera. As idéias com que o Espírito se nutre e das quais o cérebro, ou antes o invólucro perispiritual correspondente a este, conserva a forma ou a estampa, se reproduzem amplificadas como em uma miragem, sob formas vaporosas que se cruzam, se confundem e compõem um todo extravagante. Os extáticos de todos os cultos sempre viram coisas em relação com a fé de que se presumem penetrados, não sendo, pois, extraordinário que Santa Teresa e outros, tal qual ela saturados de idéias infernais pelas descrições, verbais ou escritas, hajam tido visões, que não são, propriamente falando, mais que reproduções por efeito de um pesadelo. Um pagão fanático teria antes visto o Tártaro e as Fúrias, ou Júpiter, no Olimpo, empunhando o raio.
+
+__________
 
 (1) O Livro dos Espíritos, nºs 443 e 444.
 
@@ -988,17 +940,11 @@ __________
 
 O prêmio da vitória está na vida espiritual, onde a alma entra radiante e triunfadora como soldado que se destaca da refrega para receber a palma gloriosa.
 
-# 4.
+4. - Em cada existência, uma ocasião se depara à alma para dar um passo avante; de sua vontade depende a maior ou menor extensão desse passo: franquear muitos degraus ou ficar no mesmo ponto. Neste último caso, e porque cedo ou tarde se impõe sempre o pagamento de suas dívidas, terá de recomeçar nova existência em condições ainda mais penosas, porque a uma nódoa não apagada ajunta outra nódoa. É, pois, nas sucessivas encarnações que a alma se despoja das suas imperfeições, que se purga, em uma palavra, até que esteja bastante pura para deixar os mundos de expiação como a Terra, onde os homens expiam o passado e o presente, em proveito do futuro. Contrariamente, porém, à idéia que deles se faz, depende de cada um prolongar ou abreviar a sua permanência, segundo o grau de adiantamento e pureza atingido pelo próprio esforço sobre si mesmo. O livramento se dá, não por conclusão de tempo nem por alheios méritos, mas pelo próprio mérito de cada um, consoante estas palavras do Cristo: - A cada um, segundo as suas obras, palavras que resumem integralmente a justiça de Deus.
 
-Em cada existência, uma ocasião se depara à alma para dar um passo avante; de sua vontade depende a maior ou menor extensão desse passo: franquear muitos degraus ou ficar no mesmo ponto. Neste último caso, e porque cedo ou tarde se impõe sempre o pagamento de suas dívidas, terá de recomeçar nova existência em condições ainda mais penosas, porque a uma nódoa não apagada ajunta outra nódoa. É, pois, nas sucessivas encarnações que a alma se despoja das suas imperfeições, que se purga, em uma palavra, até que esteja bastante pura para deixar os mundos de expiação como a Terra, onde os homens expiam o passado e o presente, em proveito do futuro. Contrariamente, porém, à idéia que deles se faz, depende de cada um prolongar ou abreviar a sua permanência, segundo o grau de adiantamento e pureza atingido pelo próprio esforço sobre si mesmo. O livramento se dá, não por conclusão de tempo nem por alheios méritos, mas pelo próprio mérito de cada um, consoante estas palavras do Cristo: - A cada um, segundo as suas obras, palavras que resumem integralmente a justiça de Deus.
+5. - Aquele, pois, que sofre nesta vida pode dizer-se que é porque não se purificou suficientemente em sua existência anterior, devendo, se o não fizer nesta, sofrer ainda na seguinte. Isto é ao mesmo tempo eqüitativo e lógico. Sendo o sofrimento inerente à imperfeição, tanto mais tempo se sofre quanto mais imperfeito se for, da mesma forma por que tanto mais tempo persistirá uma enfermidade quanto maior a demora em tratá-la. Assim é que, enquanto o homem for orgulhoso, sofrerá as conseqüências do orgulho; enquanto egoísta, as do egoísmo.
 
-# 5.
-
-Aquele, pois, que sofre nesta vida pode dizer-se que é porque não se purificou suficientemente em sua existência anterior, devendo, se o não fizer nesta, sofrer ainda na seguinte. Isto é ao mesmo tempo eqüitativo e lógico. Sendo o sofrimento inerente à imperfeição, tanto mais tempo se sofre quanto mais imperfeito se for, da mesma forma por que tanto mais tempo persistirá uma enfermidade quanto maior a demora em tratá-la. Assim é que, enquanto o homem for orgulhoso, sofrerá as conseqüências do orgulho; enquanto egoísta, as do egoísmo.
-
-# 6.
-
-Devido às suas imperfeições, o Espírito culpado sofre primeiro na vida espiritual, sendo-lhe depois fa-
+6. - Devido às suas imperfeições, o Espírito culpado sofre primeiro na vida espiritual, sendo-lhe depois fa-
 
 
 
@@ -1011,13 +957,9 @@ Cultada a vida corporal como meio de reparação. É por isso que ele se acha ne
 
 A expiação no mundo dos Espíritos e na Terra não constitui duplo castigo para eles, porém um complemento, um desdobramento do trabalho efetivo a facilitar o progresso. Do Espírito depende aproveitá-lo. E não lhe será preferível voltar à Terra, com probabilidades de alcançar o céu, a ser condenado sem remissão, deixando-a definitivamente? A concessão dessa liberdade é uma prova da sabedoria, da bondade e da justiça de Deus, que quer que o homem tudo deva aos seus esforços e seja o obreiro do seu futuro; que, infeliz por mais ou menos tempo, não se queixe senão de si mesmo, pois que a rota do progresso lhe está sempre franca.
 
-# 7.
+7. - Considerando-se quão grande é o sofrimento de certos Espíritos culpados no mundo invisível, quanto é terrível a situação de outros, tanto mais penosa pela impotência de preverem o termo desses sofrimentos, poder-se-ia dizer que se acham no inferno, se tal vocábulo não implicasse a idéia de um castigo eterno e material. Mercê, porém, da revelação dos Espíritos e dos exemplos que nos oferecem, sabemos que o prazo da expiação está subordinado ao melhoramento do culpado.
 
-Considerando-se quão grande é o sofrimento de certos Espíritos culpados no mundo invisível, quanto é terrível a situação de outros, tanto mais penosa pela impotência de preverem o termo desses sofrimentos, poder-se-ia dizer que se acham no inferno, se tal vocábulo não implicasse a idéia de um castigo eterno e material. Mercê, porém, da revelação dos Espíritos e dos exemplos que nos oferecem, sabemos que o prazo da expiação está subordinado ao melhoramento do culpado.
-
-# 8.
-
-O Espiritismo não nega, pois, antes confirma, a penalidade futura. O que ele destrói é o inferno localizado com suas fornalhas e penas irremissíveis. Não nega, outrossim, o purgatório, pois prova que nele nos achamos, e definindo-o precisamente, e explicando a causa das misérias terrestres, conduz à crença aqueles mesmos que o negam. Repele as preces pelos mortos? Ao contrário, visto que os Espíritos sofredores as solicitam; eleva-as a um dever de caridade e demonstra a sua eficácia para os conduzir ao bem e, por esse meio, abreviar-lhes os tor-
+8. - O Espiritismo não nega, pois, antes confirma, a penalidade futura. O que ele destrói é o inferno localizado com suas fornalhas e penas irremissíveis. Não nega, outrossim, o purgatório, pois prova que nele nos achamos, e definindo-o precisamente, e explicando a causa das misérias terrestres, conduz à crença aqueles mesmos que o negam. Repele as preces pelos mortos? Ao contrário, visto que os Espíritos sofredores as solicitam; eleva-as a um dever de caridade e demonstra a sua eficácia para os conduzir ao bem e, por esse meio, abreviar-lhes os tor-
 
 
 
@@ -1080,9 +1022,7 @@ tivo das atenuantes e agravantes, os homens não se impressionariam, então, a n
 
 Tampouco compreenderiam a temporalidade dessas penas e a justiça decorrente das suas gradações e proporções.
 
-# 3.
-
-Quanto mais próximo do estado primitivo, mais material é o homem. O senso moral é o que de mais tardio nele se desenvolve, razão pela qual também não pode fazer de Deus, dos seus atributos e da vida futura, senão uma idéia muito imperfeita e vaga.
+3. Quanto mais próximo do estado primitivo, mais material é o homem. O senso moral é o que de mais tardio nele se desenvolve, razão pela qual também não pode fazer de Deus, dos seus atributos e da vida futura, senão uma idéia muito imperfeita e vaga.
 
 Assimilando-o à sua própria natureza, Deus não passa para ele de um soberano absoluto, tanto mais terrível quanto invisível, como um rei despótico que, fechado no seu palácio, jamais se mostrasse aos súditos. Sem compreenderem o seu poder moral, só o aceitam pela força material. Não o vêem senão armado com o raio, ou no meio de coriscos e tempestades, semeando de passagem a destruição, a ruína, semelhantemente aos guerreiros invencíveis.
 
@@ -1120,9 +1060,7 @@ Se ele prometia o reino dos céus aos bons, esse reino estaria interdito aos mau
 
 Eis a razão por que Jesus não entrou em minúcias supérfluas a este respeito; nessa época não era preciso mais do que opor uma punição à recompensa.
 
-# 6.
-
-Se Jesus ameaçou os culpados com o fogo eterno, também os ameaçou de serem lançados na Geena. Ora, que vem a ser a Geena? Nada mais nada menos que um lugar nos arredores de Jerusalém, um monturo onde se despejavam as imundícies da cidade.
+6. - Se Jesus ameaçou os culpados com o fogo eterno, também os ameaçou de serem lançados na Geena. Ora, que vem a ser a Geena? Nada mais nada menos que um lugar nos arredores de Jerusalém, um monturo onde se despejavam as imundícies da cidade.
 
 Dever-se-ia interpretar isso também ao pé da letra? Entretanto era uma dessas figuras enérgicas de que ele se servia para impressionar as massas. O mesmo se dá com o fogo eterno. E se tal não fora o seu pensar, ele estaria em contradição, exaltando a demência e misericórdia de Deus, pois demência e inexorabilidade são sentimentos antagônicos que se anulam. Desconhecer-se-ia, pois, o sentido das palavras de Jesus, atribuindo-lhes a sanção do dogma das penas eternas, quando todo o seu ensino proclamou a mansidão do Criador, a sua benignidade.
 
@@ -1139,9 +1077,7 @@ Esse perdão é, porém, incondicional? É uma remissão pura e simples da pena 
 
 O Pai Nosso é um protesto cotidiano contra a eterna vingança de Deus.
 
-# 7.
-
-Para homens que só possuíam da espiritualidade da alma uma idéia confusa, o fogo material nada tinha de improcedente, mesmo porque já participava da crença pagã, quase universalmente propagada. Igualmente a eternidade das penas nada tinha que pudesse repugnar a homens desde muitos séculos submetidos à legislação do terrível Jeová. No pensamento de Jesus o fogo eterno não podia passar, portanto, de simples figura, pouco lhe importando fosse essa figura interpretada à letra, desde que ela servisse de freio às paixões humanas. Sabia ele ao demais que o tempo e o progresso se incumbiriam de explicar o sentido alegórico, mesmo porque, segundo a sua predição, o Espírito de Verdade viria esclarecer aos homens todas as coisas. O caráter essencial das penas irrevogáveis é a ineficácia do arrependimento, e Jesus nunca disse que o arrependimento não mereceria a graça do Pai.
+7. - Para homens que só possuíam da espiritualidade da alma uma idéia confusa, o fogo material nada tinha de improcedente, mesmo porque já participava da crença pagã, quase universalmente propagada. Igualmente a eternidade das penas nada tinha que pudesse repugnar a homens desde muitos séculos submetidos à legislação do terrível Jeová. No pensamento de Jesus o fogo eterno não podia passar, portanto, de simples figura, pouco lhe importando fosse essa figura interpretada à letra, desde que ela servisse de freio às paixões humanas. Sabia ele ao demais que o tempo e o progresso se incumbiriam de explicar o sentido alegórico, mesmo porque, segundo a sua predição, o Espírito de Verdade viria esclarecer aos homens todas as coisas. O caráter essencial das penas irrevogáveis é a ineficácia do arrependimento, e Jesus nunca disse que o arrependimento não mereceria a graça do Pai.
 
 Ao contrário, sempre que se lhe deparou ensejo, ele falou de um Deus clemente, misericordioso, solícito em receber o filho pródigo que voltasse ao lar paterno; inflexível, sim, para o pecador obstinado, porém, pronto sempre a trocar o castigo pelo perdão do culpado sinceramente arrependido. Este não é, por certo, o traço de um Deus sem piedade. Também convém assinalar que Jesus nunca pronunciou contra quem quer que fosse, mesmo contra os maiores culpados, a condenação irremissível.
 
@@ -1151,9 +1087,9 @@ Ao contrário, sempre que se lhe deparou ensejo, ele falou de um Deus clemente, 
 
 # DOUTRINA DAS PENAS ETERNAS
 
-8. Todas as religiões primitivas, revestindo o caráter dos povos, tiveram deuses guerreiros que combatiam à frente dos exércitos. O Jeová dos hebreus facultava-lhes mil modos de exterminar os inimigos; recompensava-os com a vitória ou punia-os com a derrota. Tal idéia a respeito de Deus levava a honrá-lo ou apaziguá-lo com sangue de animais ou de homens, e daí os sacrifícios sangrentos que representavam papel tão saliente em todas as religiões da antigüidade. Os judeus tinham abolido os sacrifícios humanos; os cristãos, apesar dos ensinamentos do Cristo, por muito tempo julgaram honrar o Criador votando, aos milhares, às chamas e às torturas, os que denominavam hereges, o que constituía sob outra forma verdadeiros sacrifícios humanos, pois que os promoviam para maior glória de Deus, e com acompanhamento de cerimônias religiosas. Hoje, ainda invocam o Deus dos exércitos antes do combate, glorificam-no após a vitória, e quantas vezes por causas injustas e anticristãs.
+8. - Todas as religiões primitivas, revestindo o caráter dos povos, tiveram deuses guerreiros que combatiam à frente dos exércitos. O Jeová dos hebreus facultava-lhes mil modos de exterminar os inimigos; recompensava-os com a vitória ou punia-os com a derrota. Tal idéia a respeito de Deus levava a honrá-lo ou apaziguá-lo com sangue de animais ou de homens, e daí os sacrifícios sangrentos que representavam papel tão saliente em todas as religiões da antigüidade. Os judeus tinham abolido os sacrifícios humanos; os cristãos, apesar dos ensinamentos do Cristo, por muito tempo julgaram honrar o Criador votando, aos milhares, às chamas e às torturas, os que denominavam hereges, o que constituía sob outra forma verdadeiros sacrifícios humanos, pois que os promoviam para maior glória de Deus, e com acompanhamento de cerimônias religiosas. Hoje, ainda invocam o Deus dos exércitos antes do combate, glorificam-no após a vitória, e quantas vezes por causas injustas e anticristãs.
 
-9. Quão tardo é o homem em desfazer-se dos seus hábitos, prejuízos e primitivas idéias! Quarenta séculos nos separam de Moisés, e a nossa geração cristã ainda vê traços de antigos usos bárbaros, senão consagrados, ao menos aprovados pela religião atual! Foi preciso a poderosa opinião dos não-ortodoxos para acabar com as fogueiras e fazer compreender a verdadeira grandeza de Deus. Mas, à falta de fogueiras, prevalecem ainda as perseguições materiais e morais, tão radicada está no homem a idéia da crueldade divina. Nutrido por sentimentos inculcados desde a infância, poderá o homem estranhar que o Deus que lhe apresentam, lisonjeado por atos bárbaros, condene a eternas torturas e veja sem piedade o sofrimento dos culpados? Sim, são filósofos, ímpios como querem alguns, que se hão escandalizado vendo o nome de Deus profanado por atos indignos dele. São eles que o mostram aos homens na plenitude da sua grandeza, despojando-o de paixões e baixezas atribuídas por uma crença menos esclarecida.
+9. - Quão tardo é o homem em desfazer-se dos seus hábitos, prejuízos e primitivas idéias! Quarenta séculos nos separam de Moisés, e a nossa geração cristã ainda vê traços de antigos usos bárbaros, senão consagrados, ao menos aprovados pela religião atual! Foi preciso a poderosa opinião dos não-ortodoxos para acabar com as fogueiras e fazer compreender a verdadeira grandeza de Deus. Mas, à falta de fogueiras, prevalecem ainda as perseguições materiais e morais, tão radicada está no homem a idéia da crueldade divina. Nutrido por sentimentos inculcados desde a infância, poderá o homem estranhar que o Deus que lhe apresentam, lisonjeado por atos bárbaros, condene a eternas torturas e veja sem piedade o sofrimento dos culpados? Sim, são filósofos, ímpios como querem alguns, que se hão escandalizado vendo o nome de Deus profanado por atos indignos dele. São eles que o mostram aos homens na plenitude da sua grandeza, despojando-o de paixões e baixezas atribuídas por uma crença menos esclarecida.
 
 ---
 
@@ -1183,9 +1119,7 @@ Porque são infinitos, os atributos divinos não sofrem aumento nem diminuição
 
 Estabelecido este ponto de partida, oporemos aos argumentos supra os seguintes:
 
-# 11.
-
-Só um ser infinito pode fazer algo de infinito. O homem, finito nas virtudes, nos conhecimentos, no poderio, nas aptidões e na existência terrestre, não pode produzir senão coisas limitadas. Se o homem pudesse ser infinito no mal que faz, sê-lo-ia igualmente no bem, igualando-se, então, a Deus. Mas se o homem fosse infinito no bem não praticaria o mal, pois o bem absoluto é a exclusão de todo o mal.
+11. - Só um ser infinito pode fazer algo de infinito. O homem, finito nas virtudes, nos conhecimentos, no poderio, nas aptidões e na existência terrestre, não pode produzir senão coisas limitadas. Se o homem pudesse ser infinito no mal que faz, sê-lo-ia igualmente no bem, igualando-se, então, a Deus. Mas se o homem fosse infinito no bem não praticaria o mal, pois o bem absoluto é a exclusão de todo o mal.
 
 Admitindo-se que uma ofensa temporária à Divindade pudesse ser infinita, Deus, vingando-se por um castigo infinito, seria logo infinitamente vingativo; e sendo Deus infinitamente vingativo não pode ser infinitamente bom e misericordioso, visto como um destes atributos exclui o outro. Se não for infinitamente bom não é perfeito; e não sendo perfeito deixa de ser Deus.
 
@@ -1200,13 +1134,9 @@ Se Deus é inexorável para o culpado que se arrepende, não é misericordioso; 
 
 Achando-se em toda parte e tudo vendo, Deus deve ver também as torturas dos condenados; e se Ele se conserva insensível aos gemidos por toda a eternidade, será eternamente impiedoso; ora, sem piedade, não há bondade infinita.
 
-# 12.
+12. - A isto se responde que o pecador arrependido, antes da morte, tem a misericórdia de Deus, e que mesmo o maior culpado pode receber essa graça. Quanto a isto não há dúvida, e compreende-se que Deus só perdoe ao arrependido, mantendo-se inflexível para com os obstinados; mas se Ele é todo misericordioso para a alma arrependida antes da morte, por que deixará de o ser para quem se arrepende depois dela? Por que a eficácia do arrependimento só durante a vida, um breve instante, e não na eternidade que não tem fim? Circunscritas a um dado tempo, a bondade e misericórdia divinas teriam limites, e Deus não seria infinitamente bom.
 
-A isto se responde que o pecador arrependido, antes da morte, tem a misericórdia de Deus, e que mesmo o maior culpado pode receber essa graça. Quanto a isto não há dúvida, e compreende-se que Deus só perdoe ao arrependido, mantendo-se inflexível para com os obstinados; mas se Ele é todo misericordioso para a alma arrependida antes da morte, por que deixará de o ser para quem se arrepende depois dela? Por que a eficácia do arrependimento só durante a vida, um breve instante, e não na eternidade que não tem fim? Circunscritas a um dado tempo, a bondade e misericórdia divinas teriam limites, e Deus não seria infinitamente bom.
-
-# 13.
-
-Deus é soberanamente justo. A soberana justiça não é inexorável absolutamente, nem leva a complacência ao ponto de deixar impunes todas as faltas; ao contrário, pondera rigorosamente o bem e o mal, recompensando um e punindo outro eqüitativa e proporcionalmente, sem se enganar jamais na aplicação. Se por uma falta passageira, resultante sempre da natureza imperfeita do homem e muitas vezes do meio em que vive, a alma pode ser castigada eternamente sem esperança de clemência ou de perdão, não há proporção entre a falta e o castigo - não há justiça. Reconciliando-se com Deus, arrependendo-se, e pedindo para reparar o mal praticado, o culpado deve subsistir para o bem, para os bons sentimentos. Mas, se o castigo é irrevogável, esta subsistência para o bem não frutifica, e um bem não considerado significa injustiça. Entre os homens, o condenado que se corrige tem por comutada e às vezes mesmo perdoada a sua pena; e, assim, haveria mais equidade na justiça humana que na divina.
+13. - Deus é soberanamente justo. A soberana justiça não é inexorável absolutamente, nem leva a complacência ao ponto de deixar impunes todas as faltas; ao contrário, pondera rigorosamente o bem e o mal, recompensando um e punindo outro eqüitativa e proporcionalmente, sem se enganar jamais na aplicação. Se por uma falta passageira, resultante sempre da natureza imperfeita do homem e muitas vezes do meio em que vive, a alma pode ser castigada eternamente sem esperança de clemência ou de perdão, não há proporção entre a falta e o castigo - não há justiça. Reconciliando-se com Deus, arrependendo-se, e pedindo para reparar o mal praticado, o culpado deve subsistir para o bem, para os bons sentimentos. Mas, se o castigo é irrevogável, esta subsistência para o bem não frutifica, e um bem não considerado significa injustiça. Entre os homens, o condenado que se corrige tem por comutada e às vezes mesmo perdoada a sua pena; e, assim, haveria mais equidade na justiça humana que na divina.
 
 
 
@@ -1216,17 +1146,11 @@ Deus é soberanamente justo. A soberana justiça não é inexorável absolutamen
 
 Se a pena é irrevogável, inútil será o arrependimento, e o culpado, nada tendo a esperar de sua correção, persiste no mal, de modo que Deus não só o condena a sofrer perpetuamente, mas ainda a permanecer no mal por toda a eternidade. Nisso não há nem bondade nem Justiça.
 
-# 14.
+14. - Sendo em tudo infinito, Deus deve abranger o passado e o futuro; deve saber, ao criar uma alma, se ela virá a falir, assaz gravemente, para ser eternamente condenada. Se o não souber, a sua sabedoria deixará de ser infinita, e Ele deixará de ser Deus. Sabendo-o, cria voluntariamente uma alma desde logo votada ao eterno suplício, e, nesse caso, deixa de ser bom. Uma vez que Deus pode conferir a graça ao pecador arrependido, tirando-o do inferno, deixam de existir penas eternas, e o juízo dos homens está revogado.
 
-Sendo em tudo infinito, Deus deve abranger o passado e o futuro; deve saber, ao criar uma alma, se ela virá a falir, assaz gravemente, para ser eternamente condenada. Se o não souber, a sua sabedoria deixará de ser infinita, e Ele deixará de ser Deus. Sabendo-o, cria voluntariamente uma alma desde logo votada ao eterno suplício, e, nesse caso, deixa de ser bom. Uma vez que Deus pode conferir a graça ao pecador arrependido, tirando-o do inferno, deixam de existir penas eternas, e o juízo dos homens está revogado.
+15. - Conseguintemente, a doutrina das penas eternas absolutas conduz à negação, ou, pelo menos, ao enfraquecimento de alguns atributos de Deus, sendo incompatível com a perfeição absoluta, donde resulta este dilema: Ou Deus é perfeito, e não há penas eternas, ou há penas eternas, e Deus não é perfeito.
 
-# 15.
-
-Conseguintemente, a doutrina das penas eternas absolutas conduz à negação, ou, pelo menos, ao enfraquecimento de alguns atributos de Deus, sendo incompatível com a perfeição absoluta, donde resulta este dilema: Ou Deus é perfeito, e não há penas eternas, ou há penas eternas, e Deus não é perfeito.
-
-# 16.
-
-Também se invoca a favor do dogma da eternidade das penas o seguinte argumento: "A recompensa conferida aos bons, sendo eterna, deve ter por corolário a eterna punição. Justo é proporcionar a punição à recompensa."
+16. - Também se invoca a favor do dogma da eternidade das penas o seguinte argumento: "A recompensa conferida aos bons, sendo eterna, deve ter por corolário a eterna punição. Justo é proporcionar a punição à recompensa."
 
 Refutação: Deus criou as almas para fazê-las felizes ou desgraçadas? Evidentemente a felicidade da criatura deve ser o fito do Criador, ou Ele não seria bom. Ela atinge a felicidade pelo próprio mérito, que, adquirido, não mais o perde. O contrário seria a sua degeneração. A felicidade eterna é, pois, a conseqüência da sua imortalidade. Antes, porém, de chegar à perfeição, tem lutas a sustentar, combates a travar com as más paixões. Não
 
@@ -1304,9 +1228,7 @@ E assim, segundo a doutrina das penas eternas, teremos um homem salvo somente pe
 
 dado, por que razão não mais poderia progredir depois da morte, se uma causa alheia à sua vontade a tivesse impedido de fazê-lo durante a vida? Por que lhe recusaria Deus os meios de regenerar-se na outra vida, concedendo-lhos nesta? Neste caso, o arrependimento veio, posto que tardio; mas se desde o momento da morte se impusesse irrevogável condenação, esse arrependimento seria infrutífero por todo o sempre, como destruídas seriam as aptidões dessa alma para o progresso, para o bem.
 
-# 21.
-
-O dogma da eternidade absoluta das penas é, portanto, incompatível com o progresso das almas, ao qual opõe uma barreira insuperável. Esses dois princípios destroem-se, e a condição indeclinável da existência de um é o aniquilamento do outro. Qual dos dois existe de fato? A lei do progresso é evidente: não é uma teoria, é um fato corroborado pela experiência: é uma lei da Natureza, divina, imprescritível. E, pois, que esta lei existe inconciliável com a outra, é porque a outra não existe. Se o dogma das penas eternas existisse verdadeiramente, Santo Agostinho, S. Paulo e tantos outros jamais teriam visto o céu, caso morressem antes de realizar o progresso que lhes trouxe a conversão.
+21. - O dogma da eternidade absoluta das penas é, portanto, incompatível com o progresso das almas, ao qual opõe uma barreira insuperável. Esses dois princípios destroem-se, e a condição indeclinável da existência de um é o aniquilamento do outro. Qual dos dois existe de fato? A lei do progresso é evidente: não é uma teoria, é um fato corroborado pela experiência: é uma lei da Natureza, divina, imprescritível. E, pois, que esta lei existe inconciliável com a outra, é porque a outra não existe. Se o dogma das penas eternas existisse verdadeiramente, Santo Agostinho, S. Paulo e tantos outros jamais teriam visto o céu, caso morressem antes de realizar o progresso que lhes trouxe a conversão.
 
 A esta última asserção respondem que a conversão dessas santas personagens não é um resultado do progresso da alma, porém, da graça que lhes foi concedida e de que foram tocadas.
 
@@ -1344,9 +1266,7 @@ Esta crença tem sido grandemente explorada pela idéia de que com dinheiro se a
 
 De bom grado cede a criança o bolo a quem lhe promete afugentar o lobisomem, mas se a criança já não acreditar em lobisomens, guardará o bolo.
 
-# 24.
-
-A Nova Revelação, dando noções mais sensatas da vida futura e provando que podemos, cada um de nós, promover a felicidade pelas próprias obras, deve encontrar tremenda oposição, tanto mais viva por estancar uma das mais rendosas fontes de receita. E assim tem sido, sempre que uma nova descoberta ou invento abala costumes inveterados e preestabelecidos.
+24. - A Nova Revelação, dando noções mais sensatas da vida futura e provando que podemos, cada um de nós, promover a felicidade pelas próprias obras, deve encontrar tremenda oposição, tanto mais viva por estancar uma das mais rendosas fontes de receita. E assim tem sido, sempre que uma nova descoberta ou invento abala costumes inveterados e preestabelecidos.
 
 Quem vive de velhos e custosos processos jamais deixa de preconizar-lhes a superioridade e excelência e de desacreditar os novos, mais econômicos.
 
@@ -1367,13 +1287,16 @@ solo esse dogma tem uma gravidade social pelos abusos que acoroçoa, ao passo qu
 
 25. - A quem pretenda encontrar na Bíblia a justificação da eternidade das penas, pode-se opor os textos contrários que a tal respeito não comportam ambigüidades. As seguintes palavras de Ezequiel são a mais explícita negação, não somente das penas irremissíveis, mas da responsabilidade que o pecado do pai do gênero humano acarretasse à sua raça:
 
-1. O Senhor novamente me falou e disse: - 2. Donde vem o uso desta parábola entre vós e consagrada proverbialmente em Israel: Os pais, dizeis, comeram uvas verdes, e os dentes dos filhos ficaram estragados? - 3. Por mim juro, disse o Senhor Deus, que essa parábola não passará mais entre vós, como provérbio em Israel: - 4. Pois todas as almas me pertencem; a do filho está comigo como a do pai; a alma que tiver pecado morrerá ela própria.
-
-5. Se um homem for justo, se proceder segundo a eqüidade e a justiça; - 7. Se não magoar nem oprimir ninguém; se entregar ao seu devedor o penhor que este lhe houver dado; se não tomar nada do bem de outrem por violência; se dá o seu pão a quem tem fome; se veste os que estão nus; - 8. Se não se presta à usura e não percebe mais do que tem dado; se desvia sua mão da iniqüidade e promove um juízo conciliatório entre dois que contendem; - 9. Se caminha segundo a pauta dos meus preceitos e observa as minhas ordens para obrar conforme a verdade, esse homem é justo e viverá mui certamente, disse o Senhor Deus.
-
-10. Se esse homem tem um filho que dê em ladrão, e derrame sangue, ou que cometa algumas destas faltas; - 13. Esse filho morrerá mui certamente, pois tem praticado.
-
-
+1.O Senhor novamente me falou e disse:
+2.Donde vem o uso desta parábola entre vós e consagrada proverbialmente em Israel: Os pais, dizeis, comeram uvas verdes, e os dentes dos filhos ficaram estragados?
+3.Por mim juro, disse o Senhor Deus, que essa parábola não passará mais entre vós, como provérbio em Israel:
+4.Pois todas as almas me pertencem; a do filho está comigo como a do pai; a alma que tiver pecado morrerá ela própria.
+5.Se um homem for justo, se proceder segundo a eqüidade e a justiça;
+7.Se não magoar nem oprimir ninguém; se entregar ao seu devedor o penhor que este lhe houver dado; se não tomar nada do bem de outrem por violência; se dá o seu pão a quem tem fome; se veste os que estão nus;
+8.Se não se presta à usura e não percebe mais do que tem dado; se desvia sua mão da iniqüidade e promove um juízo conciliatório entre dois que contendem;
+9.Se caminha segundo a pauta dos meus preceitos e observa as minhas ordens para obrar conforme a verdade, esse homem é justo e viverá mui certamente, disse o Senhor Deus.
+10.Se esse homem tem um filho que dê em ladrão, e derrame sangue, ou que cometa algumas destas faltas;
+13.Esse filho morrerá mui certamente, pois tem praticado.
 
 ---
 
@@ -1382,18 +1305,16 @@ solo esse dogma tem uma gravidade social pelos abusos que acoroçoa, ao passo qu
 
 todas essas ações detestáveis, e seu sangue permanecerá sobre a terra.
 
-14. Se esse homem tem um filho que, vendo todos os crimes por seu pai cometidos, se aterrorize e evite imitação; - 17. Este não morrerá por causa da iniqüidade de seu pai, mas viverá mui certamente. - 18. Seu pai, que tinha oprimido os outros por calúnias e que tinha praticado ações criminosas no meio do seu povo, morreu por causa da sua própria iniqüidade.
-
-19. Se dizes: Por que o filho não tem suportado a iniqüidade de seu pai? É porque o filho tem obrado segundo a eqüidade e a justiça; tem guardado todos os meus preceitos; e porque os tem praticado viverá mui certamente.
-
-20. A alma que tem pecado morrerá ela mesma: o filho não sofrerá pela iniqüidade do pai e o pai não sofrerá pelo iniqüidade do filho; a justiça do justo verterá sobre ele mesmo, a impiedade do ímpio verterá sobre ele.
-
-21. Se o ímpio fez penitencia de todos os pecados que tem cometido, se observou todos os meus preceitos, se obra segundo a eqüidade e a justiça, ele viverá certamente e não morrerá. - 22. Eu não me lembrei mais de todas as iniqüidades que ele tenha cometido; viverá nas obras de justiça que houver praticado.
-
-23. É que eu quero a morte do ímpio? disse o Senhor Deus, e não quero antes que se converta e desgarre do mau caminho que trilha? (Ezequiel, cap. XVIII.)
+14.Se esse homem tem um filho que, vendo todos os crimes por seu pai cometidos, se aterrorize e evite imitação;
+17.Este não morrerá por causa da iniqüidade de seu pai, mas viverá mui certamente.
+18.Seu pai, que tinha oprimido os outros por calúnias e que tinha praticado ações criminosas no meio do seu povo, morreu por causa da sua própria iniqüidade.
+19.Se dizes: Por que o filho não tem suportado a iniqüidade de seu pai? É porque o filho tem obrado segundo a eqüidade e a justiça; tem guardado todos os meus preceitos; e porque os tem praticado viverá mui certamente.
+20.A alma que tem pecado morrerá ela mesma: o filho não sofrerá pela iniqüidade do pai e o pai não sofrerá pelo iniqüidade do filho; a justiça do justo verterá sobre ele mesmo, a impiedade do ímpio verterá sobre ele.
+21.Se o ímpio fez penitencia de todos os pecados que tem cometido, se observou todos os meus preceitos, se obra segundo a eqüidade e a justiça, ele viverá certamente e não morrerá.
+22.Eu não me lembrei mais de todas as iniqüidades que ele tenha cometido; viverá nas obras de justiça que houver praticado.
+23.É que eu quero a morte do ímpio? disse o Senhor Deus, e não quero antes que se converta e desgarre do mau caminho que trilha? (Ezequiel, cap. XVIII.)
 
 Dizei-lhes estas palavras: Eu juro por mim mesmo que não quero a morte do ímpio, mas que o ímpio se converta, que abandone o mau caminho e que viva. (Ezequiel, cap. XXXIII, v. 11.)
-
 
 
 ---
@@ -1495,9 +1416,9 @@ aos mais inferiores da escala, por intermédio de outros tantos auxiliares (méd
 
 O Espiritismo não vem, pois, com sua autoridade privada, formular um código de fantasia; a sua lei, no que respeita ao futuro da alma, deduzida das observações do fato, pode resumir-se nos seguintes pontos:
 
-1. A alma ou Espírito sofre na vida espiritual as conseqüências de todas as imperfeições que não conseguiu corrigir na vida corporal. O seu estado, feliz ou desgraçado, é inerente ao seu grau de pureza ou impureza.
-2. A completa felicidade prende-se à perfeição, isto é, à purificação completa do Espírito. Toda imperfeição é, por sua vez, causa de sofrimento e de privação de gozo, do mesmo modo que toda perfeição adquirida é fonte de gozo e atenuante de sofrimentos.
-3. Não há uma única imperfeição da alma que não importe funestas e inevitáveis conseqüências, como não há uma só qualidade boa que não seja fonte de um gozo. A soma das penas é, assim, proporcionada à soma das imperfeições, como a dos gozos à das qualidades.
+1º - A alma ou Espírito sofre na vida espiritual as conseqüências de todas as imperfeições que não conseguiu corrigir na vida corporal. O seu estado, feliz ou desgraçado, é inerente ao seu grau de pureza ou impureza.
+2º - A completa felicidade prende-se à perfeição, isto é, à purificação completa do Espírito. Toda imperfeição é, por sua vez, causa de sofrimento e de privação de gozo, do mesmo modo que toda perfeição adquirida é fonte de gozo e atenuante de sofrimentos.
+3º - Não há uma única imperfeição da alma que não importe funestas e inevitáveis conseqüências, como não há uma só qualidade boa que não seja fonte de um gozo. A soma das penas é, assim, proporcionada à soma das imperfeições, como a dos gozos à das qualidades.
 
 A alma que tem dez imperfeições, por exemplo, sofre mais do que a que tem três ou quatro; e quando dessas dez imperfeições não lhe restar mais que metade ou um quarto, menos sofrerá. De todo extintas, então a alma será perfeitamente feliz. Também na Terra, quem tem muitas moléstias, sofre mais do que quem tenha apenas uma ou nenhuma. Pela mesma razão, a alma que possui dez perfeições, tem mais gozos do que outra menos rica de boas qualidades.
 
@@ -1579,9 +1500,7 @@ __________
 
 # 1ª PARTE - CAPÍTULO VII
 
-existência, por fraqueza ou má-vontade, achar-se-á numa existência ulterior em contacto com as mesmas pessoas que de si tiverem queixas, e em condições voluntariamente escolhidas, de modo a demonstrar-lhes reconhecimento e fazer-lhes tanto bem quanto mal lhes tenha feito. Nem todas as faltas acarretam prejuízo direto e efetivo; em tais casos a reparação se opera, fazendo-se o que se deveria fazer e foi descurado; cumprindo os deveres desprezados, as missões não preenchidas; praticando o bem em compensação ao mal praticado, isto é, tornando-se humilde se se tem sido orgulhoso, amável se se foi austero, caridoso se se tem sido egoísta, benigno se se tem sido perverso, laborioso se se tem sido ocioso, útil se se tem sido inútil, frugal se se tem sido intemperante, trocando em suma por bons os maus exemplos perpetrados. E desse modo progride o Espírito, aproveitando-se do próprio passado.
-
-(1)
+existência, por fraqueza ou má-vontade, achar-se-á numa existência ulterior em contacto com as mesmas pessoas que de si tiverem queixas, e em condições voluntariamente escolhidas, de modo a demonstrar-lhes reconhecimento e fazer-lhes tanto bem quanto mal lhes tenha feito. Nem todas as faltas acarretam prejuízo direto e efetivo; em tais casos a reparação se opera, fazendo-se o que se deveria fazer e foi descurado; cumprindo os deveres desprezados, as missões não preenchidas; praticando o bem em compensação ao mal praticado, isto é, tornando-se humilde se se tem sido orgulhoso, amável se se foi austero, caridoso se se tem sido egoísta, benigno se se tem sido perverso, laborioso se se tem sido ocioso, útil se se tem sido inútil, frugal se se tem sido intemperante, trocando em suma por bons os maus exemplos perpetrados. E desse modo progride o Espírito, aproveitando-se do próprio passado.(1)
 
 18º - Os Espíritos imperfeitos são excluídos dos mundos felizes, cuja harmonia perturbariam. Ficam nos mundos inferiores a expiarem as suas faltas pelas tribulações da vida, e purificando-se das suas imperfeições até que mereçam a encarnação em mundos mais elevados, mais adiantados moral e fisicamente. Se se pode conceber um lugar circunscrito de castigo, tal lugar é, sem dúvida, nesses mundos de expiação, em torno dos quais pululam Espíritos imperfeitos, desencarnados à espera de novas existências que lhes permitam reparar o mal, auxiliando-os no progresso.
 
@@ -1604,7 +1523,9 @@ Então, desde que se manifestam os primeiros vislumbres de arrependimento, Deus 
 
 20º - Quaisquer que sejam a inferioridade e perversidade dos Espíritos, Deus jamais os abandona. Todos têm seu anjo de guarda (guia) que por eles vela, na persuasão de suscitar-lhes bons pensamentos, desejos de progredir e, bem assim, de espreitar-lhes os movimentos da alma, com o que se esforçam por reparar em uma nova existência o mal que praticaram. Contudo, essa interferência do guia faz-se quase sempre ocultamente e de modo a não haver pressão, pois que o Espírito deve progredir por impulso da própria vontade, nunca por qualquer sujeição.
 
-__________ arrependimento, que não custa mais que palavras, por meio de algumas fórmulas; contudo, crendo-se, assim, quites, verão mais tarde se isso lhes bastava. Nós poderíamos perguntar se esse principio não é consagrado pela lei humana, e se a justiça divina pode ser inferior à dos homens? E mais, se essas leis se dariam por desafrontadas desde que o indivíduo que as transgredisse, por abuso de confiança, se limitasse a dizer que as respeita infinitamente.
+__________ 
+
+arrependimento, que não custa mais que palavras, por meio de algumas fórmulas; contudo, crendo-se, assim, quites, verão mais tarde se isso lhes bastava. Nós poderíamos perguntar se esse principio não é consagrado pela lei humana, e se a justiça divina pode ser inferior à dos homens? E mais, se essas leis se dariam por desafrontadas desde que o indivíduo que as transgredisse, por abuso de confiança, se limitasse a dizer que as respeita infinitamente.
 
 Por que hão de vacilar tais pessoas perante uma obrigação que todo homem honesto se impõe como dever, segundo o grau de suas forças?
 
@@ -1630,7 +1551,6 @@ Diante dessa lei, cai também a objeção extraída da presciência divina, pois
 Assim, o suicida é sempre punido; mas aquele que por maldade impele outro a cometê-lo, esse sofre ainda maior pena.
 
 
-
 ---
 
 
@@ -1653,7 +1573,6 @@ Alguns são privados de ver os seres queridos, e todos, geralmente, passam com i
 26º - Para o orgulhoso relegado às classes inferiores, é suplício ver acima dele colocados, cheios de glória.
 
 
-
 ---
 
 
@@ -1666,7 +1585,6 @@ e bem-estar, os que na Terra desprezara. O hipócrita vê desvendados, penetrado
 28º - A situação do Espírito, no mundo espiritual, não é outra senão a por si mesmo preparada na vida corpórea. Mais tarde, outra encarnação se lhe faculta para novas provas de expiação e reparação, com maior ou menor proveito, dependentes do seu livre-arbítrio; e se ele não se corrige, terá sempre uma missão a recomeçar, sempre e sempre mais acerba, de sorte que pode dizer-se que aquele que muito sofre na Terra, muito tinha a expiar; e os que gozam uma felicidade aparente, em que pesem aos seus vícios e inutilidades, pagá-la-ão mui caro em ulterior existência. Nesse sentido foi que Jesus disse: - "Bem-aventurados os aflitos, porque serão consolados," (O Evangelho segundo o Espiritismo, cap. V.)
 
 29º - Certo, a misericórdia de Deus é infinita, mas não é cega. O culpado que ela atinge não fica exonerado, e, enquanto não houver satisfeito à justiça, sofre a consequência dos seus erros. Por infinita misericórdia, devemos ter que Deus não é inexorável, deixando sempre viável o caminho da redenção.
-
 
 
 ---
@@ -1701,12 +1619,10 @@ Todos somos livres no trabalho do próprio progresso, e o que muito e depressa t
 
 O bem como o mal são voluntários e facultativos: livre, o homem não é fatalmente impelido para um nem para outro.
 
-# 33º
+33º - Em que pese à diversidade de gêneros e graus de sofrimentos dos Espíritos imperfeitos, o código penal da vida futura pode resumir-se nestes três princípios:
 
-Em que pese à diversidade de gêneros e graus de sofrimentos dos Espíritos imperfeitos, o código penal da vida futura pode resumir-se nestes três princípios:
-
-1. O sofrimento é inerente à imperfeição.
-2. Toda imperfeição, assim como toda falta dela promanada, traz consigo o próprio castigo nas conse-
+1.O sofrimento é inerente à imperfeição.
+2.Toda imperfeição, assim como toda falta dela promanada, traz consigo o próprio castigo nas conse-
 
 
 
@@ -1716,7 +1632,7 @@ Em que pese à diversidade de gêneros e graus de sofrimentos dos Espíritos imp
 
 qüências naturais e inevitáveis: assim, a moléstia pune os excessos e da ociosidade nasce o tédio, sem que haja mister de uma condenação especial para cada falta ou indivíduo.
 
-3º - Podendo todo homem libertar-se das imperfeições por efeito da vontade, pode igualmente anular os males consecutivos e assegurar a futura felicidade.
+3.Podendo todo homem libertar-se das imperfeições por efeito da vontade, pode igualmente anular os males consecutivos e assegurar a futura felicidade.
 
 A cada um segundo as suas obras, no Céu como na Terra: - tal é a lei da Justiça Divina.
 
@@ -1766,7 +1682,6 @@ tade, ora para anunciar futuros acontecimentos, e os anjos são também quase se
 "Enquanto perdura tão íntima ligação de alma e corpo, as duas substâncias têm vida comum e se exercem recíproca influência; daí o não poder a alma libertar-se completamente das imperfeições de tal condição: as idéias chegam-lhe pelos sentidos na comparação dos objetos externos e sempre debaixo de imagens mais ou menos aparentes. Eis por que a alma não pode contemplar-se a si mesma, nem conceber Deus e os anjos sem atribuir-lhes forma visível e palpável. O mesmo se dá quanto aos anjos, que para se manifestarem aos santos e profetas hão de revestir formas tangíveis e palpáveis. Essas formas no entanto não passavam de corpos aéreos que faziam mover-se e identificar-se com eles, ou de atributos simbólicos de acordo com a missão a seu cargo."
 
 "Seu ser e movimentos não são localizados nem circunscritos a limitado e fixo ponto do Espaço. Desligados integralmente do corpo, não ocupam qualquer espaço no vácuo; mas assim como a nossa alma existe integral no
-
 
 
 ---
@@ -1844,7 +1759,7 @@ Se o destino essencial da alma é estar ligada ao corpo humano; se por sua natur
 
 É verdadeiramente estranhável que um concílio, havido por uma das luzes da Igreja, tenha a tal ponto identificado os seres espiritual e material, de modo a não subsistirem por si mesmos, pois que a condição essencial da sua criação é estarem unidos.
 
-# 6. - O quadro hierárquico dos anjos nos mostra que várias ordens têm, nas suas atribuições, o governo do mundo físico e da Humanidade, para cujo fim foram criados. Mas, segundo a Gênese, o mundo físico e a Humanidade não existem senão há seis mil anos; e o que faziam, pois, tais anjos, anteriormente a essa era, durante a eternidade, quando não existia o objetivo das suas ocupações? E teriam eles sido criados de toda a eternidade? Assim deve ser, uma vez que servem à glorificação do Todo-Poderoso. Mas, criando-os numa época qualquer determi-
+6. - O quadro hierárquico dos anjos nos mostra que várias ordens têm, nas suas atribuições, o governo do mundo físico e da Humanidade, para cujo fim foram criados. Mas, segundo a Gênese, o mundo físico e a Humanidade não existem senão há seis mil anos; e o que faziam, pois, tais anjos, anteriormente a essa era, durante a eternidade, quando não existia o objetivo das suas ocupações? E teriam eles sido criados de toda a eternidade? Assim deve ser, uma vez que servem à glorificação do Todo-Poderoso. Mas, criando-os numa época qualquer determi-
 
 
 
@@ -1855,13 +1770,13 @@ Se o destino essencial da alma é estar ligada ao corpo humano; se por sua natur
 
 nada, Deus ficaria até então, isto é, durante uma eternidade, sem adoradores.
 
-7 - Diz ainda o concílio: "Enquanto dura esta união tão intima da alma com o corpo." Há, por conseguinte, um momento em que a união se desfaz? Esta proposição contradita a que sustenta a essencialidade dessa união. E diz mais o concílio: "As idéias lhes chegam pelos sentidos, na comparação dos objetos exteriores." Eis aí uma doutrina filosófica em parte verdadeira, que não em sentido absoluto.
+7. - Diz ainda o concílio: "Enquanto dura esta união tão intima da alma com o corpo." Há, por conseguinte, um momento em que a união se desfaz? Esta proposição contradita a que sustenta a essencialidade dessa união. E diz mais o concílio: "As idéias lhes chegam pelos sentidos, na comparação dos objetos exteriores." Eis aí uma doutrina filosófica em parte verdadeira, que não em sentido absoluto.
 
 Receber as idéias pelos sentidos é, segundo o eminente teólogo, uma condição inerente à natureza humana; mas ele esquece as idéias inatas, as faculdades por vezes tão transcendentes, a intuição das coisas que a criança traz do berço, não devidas a quaisquer ensinos. Por meio de quais sentidos, jovens pastores, naturais calculistas, admiração dos sábios, adquirem idéias necessárias à resolução quase instantânea dos mais complicados problemas? Outro tanto pode dizer-se de músicos, pintores e filólogos precoces.
 
 "Os conhecimentos dos anjos não resultam da indução e do raciocínio"; têm-nos porque são anjos, sem necessidade de aprendê-los, pois tais foram por Deus criados: quanto à alma, essa deve aprender. Mas se a alma só recebe as idéias por meio dos órgãos corporais, que idéias pode ter a alma de uma criança morta ao fim de alguns dias, se admitirmos com a Igreja que essa alma não renasce?
 
-8. Aqui reponta uma questão vital, qual a de saber-se se a alma pode adquirir conhecimentos após a morte do corpo. Se uma vez liberta do corpo não pode adquirir novos conhecimentos, a alma da criança, do selvagem, do imbecil, do idiota ou do ignorante permanecerá tal qual era no momento da morte, condenada à nulidade por todo o sempre. Mas se, ao contrário, ela adquire novos conhecimentos depois da vida atual, então, é que pode progredir.
+8. - Aqui reponta uma questão vital, qual a de saber-se se a alma pode adquirir conhecimentos após a morte do corpo. Se uma vez liberta do corpo não pode adquirir novos conhecimentos, a alma da criança, do selvagem, do imbecil, do idiota ou do ignorante permanecerá tal qual era no momento da morte, condenada à nulidade por todo o sempre. Mas se, ao contrário, ela adquire novos conhecimentos depois da vida atual, então, é que pode progredir.
 
 
 
@@ -1872,9 +1787,7 @@ OS ANJOS
 
 Sem progresso ulterior para a alma, chega-se a conclusões absurdas, tanto quanto admitindo-o se conclui pela negação de todos os dogmas fundados sobre o estacionamento, a sorte irrevogável, as penas eternas, etc. Progredindo a alma, qual o limite do progresso? Não há razão para não atingir por ele ao grau dos anjos, ou puros Espíritos. Ora, com tal possibilidade não se justificaria a criação de seres especiais e privilegiados, isentos de qualquer labor, gozando incondicionalmente de eterna felicidade, ao passo que outros seres menos favorecidos só obtêm essa felicidade a troco de longos, de cruéis sofrimentos e rudes provas. Sem dúvida que Deus poderia ter assim determinado, mas, admitindo-lhe o infinito de perfeição sem a qual não fora Deus, força é admitir que coisa alguma criaria inutilmente, desmentindo a sua justiça e bondade soberanas.
 
-# 9.
-
-"E se a majestade dos reis ostenta o seu brilhantismo pelo número dos vassalos, oficiais e súditos, que haverá de mais próprio a dar-nos idéia da majestade do Rei dos reis do que essa inumerável multidão de anjos que povoam céu e terra, mar e abismos, a dignidade dos que permanecem continuamente prostrados ou de pé ante seu trono?"
+9. - "E se a majestade dos reis ostenta o seu brilhantismo pelo número dos vassalos, oficiais e súditos, que haverá de mais próprio a dar-nos idéia da majestade do Rei dos reis do que essa inumerável multidão de anjos que povoam céu e terra, mar e abismos, a dignidade dos que permanecem continuamente prostrados ou de pé ante seu trono?"
 
 E não será rebaixar a Divindade confrontá-la com o fausto dos soberanos da Terra? Essa idéia, inculcada no espírito das massas ignorantes, falseia a opinião de sua verdadeira grandeza. Sempre Deus reduzido às mesquinhas proporções da Humanidade! Atribuir-lhe, como necessidade, milhões de adoradores, perenemente genuflexos, é emprestar-lhe vaidade e fraqueza próprias dos orgulhosos déspotas do Oriente! E que é que engrandece os soberanos verdadeiramente grandes? É o número e brilho dos cortesãos? não; é a bondade, é a justiça, é o título merecido de pais do seu povo. perguntareis se haverá algo de mais próprio a dar-nos a idéia da grandeza e majestade de Deus do que a multidão de anjos que lhe compõem a corte... Mas, certamente que há, e essa coisa melhor é apresentar-se Deus às suas criaturas soberana-
 
@@ -1928,7 +1841,7 @@ E, desse modo, completa-se com igualdade a soberana justiça do Criador.
 
 # OS DEMÔNIOS
 
-# Origem da crença nos demônios. - Os demônios segundo a Igreja. - Os demônios segundo o Espiritismo.
+Origem da crença nos demônios. - Os demônios segundo a Igreja. - Os demônios segundo o Espiritismo.
 
 # Origem da crença nos demônios
 
@@ -1949,9 +1862,7 @@ Sem nos remontarmos aos tempos primitivos, olhemos em torno a gente do campo e p
 
 Eis aí tudo o que essa gente almeja, ou, o que é mais, tudo o que da Natureza apreende, conquanto muito distanciada já dos primitivos homens.
 
-# 3.
-
-Se nos remontarmos a estes últimos, então, surpreendê-los-emos mais exclusivamente preocupados com a satisfação de necessidades materiais, resumindo o bem e o mal neste mundo somente no que concerne à satisfação ou prejuízo dessas necessidades.
+3. - Se nos remontarmos a estes últimos, então, surpreendê-los-emos mais exclusivamente preocupados com a satisfação de necessidades materiais, resumindo o bem e o mal neste mundo somente no que concerne à satisfação ou prejuízo dessas necessidades.
 
 Acreditando num poder extra-humano e porque o prejuízo material é sempre o que mais de perto lhes importa, atribuem-no a esse poder, do qual fazem, aliás, uma ideia muito vaga. E por nada conceberem fora do mundo visível e tangível, tal poder se lhes afigura identificado nos seres e coisas que os prejudicam.
 
@@ -1970,9 +1881,7 @@ Mas o homem é comumente mais sensível ao mal que ao bem; este lhe parece natur
 
 Durante muito tempo o homem não compreendeu senão o bem e o mal físicos; os sentimentos morais só mais tarde marcaram o progresso da inteligência humana, fazendo-lhe entrever na espiritualidade um poder extra-humano fora do mundo visível e das coisas materiais. Esta obra foi, seguramente, realizada por inteligências de escol, mas que não puderam exceder certos limites.
 
-# 4.
-
-Provada e patente a luta entre o bem e o mal, triunfante este muitas vezes sobre aquele, e não se podendo racionalmente admitir que o mal derivasse de um benéfico poder, concluiu-se pela existência de dois poderes rivais no governo do mundo. Daí nasceu a doutrina dos dois princípios, aliás lógica numa época em que o homem se encontrava incapaz de, raciocinando, penetrar a essência do Ser Supremo.
+4. - Provada e patente a luta entre o bem e o mal, triunfante este muitas vezes sobre aquele, e não se podendo racionalmente admitir que o mal derivasse de um benéfico poder, concluiu-se pela existência de dois poderes rivais no governo do mundo. Daí nasceu a doutrina dos dois princípios, aliás lógica numa época em que o homem se encontrava incapaz de, raciocinando, penetrar a essência do Ser Supremo.
 
 Como compreenderia, então, que o mal não passa de estado transitório do qual pode emanar o bem, conduzindo-o à felicidade pelo sofrimento e auxiliando-lhe o progresso? Os limites do seu horizonte moral, nada lhe permitindo ver para além do seu presente, no passado como no futuro, também não lhe permitia compreender que já houvesse progredido, que progrediria ainda individualmente, e muito menos que as vicissitudes da vida resultavam das imperfeições do ser espiritual nele residente, o qual preexiste e sobrevive ao corpo, na dependência de uma série de existências purificadoras até atingir a perfeição.
 
@@ -2002,7 +1911,7 @@ pois, o critério de todas as religiões, estalão da verdade de cada um dos pri
 
 # Os demônios segundo a Igreja
 
-7. Satanás, o chefe ou o rei dos demônios, não é, segundo a Igreja, uma personificação alegórica do mal, mas uma entidade real, praticando exclusivamente o mal, enquanto que Deus pratica exclusivamente o bem. Tomemo-lo, pois, tal qual no-lo representam. Satanás existe de toda a eternidade, como Deus, ou ser-lhe-á posterior? Existindo de toda a eternidade é incriado, e, por conseqüência, igual a Deus. Este Deus, por sua vez, deixará de ser único, pois haverá um deus do mal. Mas se lhe for posterior? Neste caso passa a ser uma criatura de Deus. Como tal, só praticando o mal por incapaz de fazer o bem e tampouco de arrepender-se, Deus teria criado um ser votado exclusiva e eternamente ao mal. Não sendo o mal obra de Deus, seria contudo de uma das suas criaturas, e nem por isso deixava Deus de ser o autor, deixando igualmente de ser profundamente bom. O mesmo se dá, exatamente, em relação aos seres maus chamados demônios.
+7. - Satanás, o chefe ou o rei dos demônios, não é, segundo a Igreja, uma personificação alegórica do mal, mas uma entidade real, praticando exclusivamente o mal, enquanto que Deus pratica exclusivamente o bem. Tomemo-lo, pois, tal qual no-lo representam. Satanás existe de toda a eternidade, como Deus, ou ser-lhe-á posterior? Existindo de toda a eternidade é incriado, e, por conseqüência, igual a Deus. Este Deus, por sua vez, deixará de ser único, pois haverá um deus do mal. Mas se lhe for posterior? Neste caso passa a ser uma criatura de Deus. Como tal, só praticando o mal por incapaz de fazer o bem e tampouco de arrepender-se, Deus teria criado um ser votado exclusiva e eternamente ao mal. Não sendo o mal obra de Deus, seria contudo de uma das suas criaturas, e nem por isso deixava Deus de ser o autor, deixando igualmente de ser profundamente bom. O mesmo se dá, exatamente, em relação aos seres maus chamados demônios.
 
 8. - Tal foi, por muito tempo, a crença neste sentido. Hoje dizem (1): "Deus, que é a bondade e santidade por excelência, não os havia criado perversos e maus. A mão paternal que se apraz imprimir em todas as suas obras o cunho de infinitas perfeições, cumulara-os de magníficos predicados. As qualidades eminentíssimas de
 
@@ -2033,9 +1942,9 @@ deriam atribuir a si próprios os títulos dessa glória! Uni mediador entre Deu
 
 "Lúcifer e a terça parte dos anjos sucumbiram a tais pensamentos de inveja e de orgulho. S. Miguel e com ele muitos exclamaram: 'Quem é semelhante a Deus? Ele é o dono de seus dons, o soberano Senhor de todas as coisas. Glória a Deus e ao Cordeiro, que tem de ser imolado à salvação do mundo.' O chefe dos rebeldes, porém, esquecido de que a Deus devia a sua nobreza e prerrogativas, raiando pela temeridade, disse: 'Sou eu quem ao céu subirá; fixarei residência acima dos astros; sentar-me-ei sobre o monte da aliança, nos flancos do Aquilão, dominarei as nuvens mais elevadas e serei semelhante ao Altíssimo.' Os que de tais sentimentos partilharam, acolheram essas palavras com murmúrios de aprovação, e partidários houve em todas as hierarquias. A sua multidão, contudo, não os preserva do castigo."
 
-# 9. - Está doutrina suscita várias objeções:
+9. - Está doutrina suscita várias objeções:
 
-1. Se Satã e os demônios eram anjos, eles eram perfeitos; como, sendo perfeitos, puderam falir a ponto de desconhecer a autoridade desse Deus, em cuja presença se encontravam? Ainda se tivessem logrado uma tal eminência gradualmente, depois de haver percorrido a escala da perfeição, poderíamos conceber um triste retrocesso; não, porém, do modo por que no-los apresentam, isto é, perfeitos de origem.
+1ª - Se Satã e os demônios eram anjos, eles eram perfeitos; como, sendo perfeitos, puderam falir a ponto de desconhecer a autoridade desse Deus, em cuja presença se encontravam? Ainda se tivessem logrado uma tal eminência gradualmente, depois de haver percorrido a escala da perfeição, poderíamos conceber um triste retrocesso; não, porém, do modo por que no-los apresentam, isto é, perfeitos de origem.
 
 A conclusão é esta: - Deus quis criar seres perfeitos, porquanto os favorecera com todos os dons, mas
 
@@ -2067,9 +1976,9 @@ __________
 
 cidos. Como poderia, então, dizer que fixaria residência acima dos astros, dominando as mais elevadas nuvens?! É sempre a velha crença da Terra como centro do Universo, do céu como que formado de nuvens estendendo-se às estrelas, e da limitada região destas, que a Astronomia nos mostra disseminadas ao infinito no infinito espaço! Sabendo-se, como hoje se sabe, que as nuvens não se elevam a mais de duas léguas da superfície terráquea, e falando-se em dominá-las por mais alto, referindo-se a montanhas, preciso fora que a observação partisse da Terra, sendo ela, de fato, a morada dos anjos. Dado, porém, ser esta em região superior, inútil fora alçar-se acima das nuvens. Emprestar aos anjos uma linguagem tisnada de ignorância, é confessar que os homens contemporâneos são mais sábios que os anjos. A Igreja tem caminhado sempre erradamente, não levando em conta os progressos da Ciência.
 
-# 10.
+10. - A resposta à primeira objeção acha-se na seguinte passagem: "A escritura e a tradição denominam céu o lugar no qual se haviam colocado os anjos, no momento da sua criação. Mas esse não era o céu dos céus, o céu da visão beatifica, onde Deus se mostra de face aos seus eleitos, que o contemplam claramente e sem esforço, porque aí não há mais possibilidade nem perigo de pe-
 
-A resposta à primeira objeção acha-se na seguinte passagem: "A escritura e a tradição denominam céu o lugar no qual se haviam colocado os anjos, no momento da sua criação. Mas esse não era o céu dos céus, o céu da visão beatifica, onde Deus se mostra de face aos seus eleitos, que o contemplam claramente e sem esforço, porque aí não há mais possibilidade nem perigo de pe-
+__________
 
 mais fundo dos abismos. Os que te virem, aproximando-se, encarar-te-ão, dizendo: "Será este o homem que turbou a Terra, que aterrou seus remos, que fez do mundo um deserto, que destruiu cidades e reteve acorrentados os que se lhe entregaram prisioneiros?" Estas palavras do profeta não se relerem à revolta dos anjos, são, sim, uma alusão ao orgulho e à queda do rei de Babilônia, que retinha os judeus em cativeiro, como atestam os últimos versículos. O rei de Babilônia é alegoricamente designado por Lúcifer, mas não se faz aí qualquer menção da cena supra descrita. Essas palavras são do rei que as tinha no coração e se colocava por orgulho acima de Deus, cujo povo escravizara. A profecia da libertação do povo judeu, da rainha de Babilônia e do destroço dos assírios é, ao demais, o assunto exclusivo desse capítulo.
 
@@ -2159,9 +2068,7 @@ que o pensamento, acham-se quase instantaneamente sobre diversos pontos do globo
 
 "A sua substância simples e imaterial subtrai-os às nossas vistas; permanecem ao nosso lado sem que os vejamos, interessam-nos a alma sem que nos firam o ouvido. Acreditando obedecer aos nossos pensamentos, estamos no entanto, e muitas vezes, debaixo da sua funesta influência. As nossas disposições, ao contrário, são deles conhecidas pelas impressões que delas transparecem em nós, e atacam-nos ordinariamente pelo lado mais fraco. Para nos seduzirem com mais segurança, costumam servir-se de sugestões e engodos conformes com as nossas inclinações. Modificam a ação segundo as circunstâncias e os traços característicos de cada temperamento. Contudo, suas armas favoritas são a hipocrisia e a mentira."
 
-# 17.
-
-Afirmam que o castigo os segue por toda parte; que não sabem o que seja paz nem repouso. Esta asserção de modo algum destrói a observação que fizemos quanto ao privilégio dos que estão fora do inferno, e que reputamos tanto menos justificado por isso que podem fazer, e fazem, maior mal. É de crer que esses demônios extra-infernais não sejam tão felizes como os bons anjos, mas não se deverá ter em conta a sua relativa liberdade? Eles não possuirão a felicidade moral que a virtude defere, mas são incontestavelmente mais felizes que os seus
+17. - Afirmam que o castigo os segue por toda parte; que não sabem o que seja paz nem repouso. Esta asserção de modo algum destrói a observação que fizemos quanto ao privilégio dos que estão fora do inferno, e que reputamos tanto menos justificado por isso que podem fazer, e fazem, maior mal. É de crer que esses demônios extra-infernais não sejam tão felizes como os bons anjos, mas não se deverá ter em conta a sua relativa liberdade? Eles não possuirão a felicidade moral que a virtude defere, mas são incontestavelmente mais felizes que os seus
 
 
 
@@ -2174,9 +2081,7 @@ comparsas do inferno flamífero. Depois, para o mau, sempre há um certo gozo na
 
 Afirmam, outrossim, que o remorso os persegue sem tréguas nem misericórdia, esquecidos de que o remorso é o precursor imediato do arrependimento, quando não é o próprio arrependimento. "Tornados perversos, obstinam-se em o ser, e sê-lo-ão para sempre." Mas desde que se obstinam em ser perversos, é que não têm remorsos; do contrário, ao menor sentimento de pesar, renunciariam ao mal e pediriam perdão. Logo, o remorso não é para eles um castigo.
 
-# 18.
-
-"São, depois do pecado, o que é o homem depois da morte. A reabilitação dos que caíram torna-se, portanto, impossível."
+18. - "São, depois do pecado, o que é o homem depois da morte. A reabilitação dos que caíram torna-se, portanto, impossível."
 
 Donde provém essa impossibilidade? Não se compreende que ela seja a conseqüência de sua similitude com o homem depois da morte, proposição que, ao demais, é muito ambígua.
 
@@ -2184,10 +2089,7 @@ Acaso provirá da própria vontade dos demônios? Porventura da vontade divina? 
 
 No segundo caso, ainda menos se compreende que Deus inflija como castigo a impossibilidade da reparação, após uma primeira falta. O Evangelho nada diz que com isso se pareça.
 
-# 19.
-
-"A sua perda é desde então irreparável, mantendo-se eles no seu orgulho perante Deus." E de que lhes serviria não manterem tal orgulho, uma vez que é
-
+19. - "A sua perda é desde então irreparável, mantendo-se eles no seu orgulho perante Deus." E de que lhes serviria não manterem tal orgulho, uma vez que é
 
 
 ---
@@ -2201,7 +2103,7 @@ Trata-se, no caso vertente, de um ato de demência, de uma graça pura e simples
 
 # Os demônios segundo o Espiritismo
 
-Segundo o Espiritismo, nem anjos nem demônios são entidades distintas, por isso que a criação de seres inteligentes é uma só. Unidos a corpos materiais, esses seres constituem a Humanidade que povoa a Terra e as outras esferas habitadas; uma vez libertos do corpo material, constituem o mundo espiritual ou dos Espíritos, que povoam os Espaços. Deus criou-os perfectíveis e deu-lhes por escopo a perfeição, com a felicidade que dela decorre. Não lhes deu, contudo, a perfeição, pois quis que
+20. - Segundo o Espiritismo, nem anjos nem demônios são entidades distintas, por isso que a criação de seres inteligentes é uma só. Unidos a corpos materiais, esses seres constituem a Humanidade que povoa a Terra e as outras esferas habitadas; uma vez libertos do corpo material, constituem o mundo espiritual ou dos Espíritos, que povoam os Espaços. Deus criou-os perfectíveis e deu-lhes por escopo a perfeição, com a felicidade que dela decorre. Não lhes deu, contudo, a perfeição, pois quis que
 
 
 
@@ -2229,13 +2131,9 @@ progresso, em virtude da sua aptidão para o mesmo, não progridem, ainda assim,
 
 Os anjos mais elevados conquistaram a sua graduação, passando, como os demais, pela rota comum.
 
-# 22.
+22. - Chegados a certo grau de pureza, os Espíritos têm missões adequadas ao seu progresso; preenchem assim todas as funções atribuídas aos anjos de diferentes categorias. E como Deus criou de toda a eternidade, segue-se que de toda a eternidade houve número suficiente para satisfazer às necessidades do governo universal. Deste modo uma só espécie de seres inteligentes, submetida à lei de progresso, satisfaz todos os fins da Criação. Por fim, a unidade da Criação, aliada à idéia de uma origem comum, tendo o mesmo ponto de partida e trajetória, elevando-se pelo próprio mérito, corresponde melhor à justiça de Deus do que a criação de espécies diferentes, mais ou menos favorecidas de dotes naturais, que seriam outros tantos privilégios.
 
-Chegados a certo grau de pureza, os Espíritos têm missões adequadas ao seu progresso; preenchem assim todas as funções atribuídas aos anjos de diferentes categorias. E como Deus criou de toda a eternidade, segue-se que de toda a eternidade houve número suficiente para satisfazer às necessidades do governo universal. Deste modo uma só espécie de seres inteligentes, submetida à lei de progresso, satisfaz todos os fins da Criação. Por fim, a unidade da Criação, aliada à idéia de uma origem comum, tendo o mesmo ponto de partida e trajetória, elevando-se pelo próprio mérito, corresponde melhor à justiça de Deus do que a criação de espécies diferentes, mais ou menos favorecidas de dotes naturais, que seriam outros tantos privilégios.
-
-# 23.
-
-A doutrina vulgar sobre a natureza dos anjos, dos demônios e das almas, não admitindo a lei do progresso, mas vendo todavia seres de diversos graus, concluiu que seriam produto de outras tantas criações especiais. E assim foi que chegou a fazer de Deus um pai parcial, tudo concedendo a alguns de seus filhos, e a outros impondo o mais rude trabalho. Não admira que por muito tempo os homens achassem justificação para tais preferências, quando eles próprios delas usavam em relação aos filhos, estabelecendo direitos de primogenitura e outros privilégios de nascimento. Podiam tais homens acreditar que andavam mais errados que Deus?
+23. - A doutrina vulgar sobre a natureza dos anjos, dos demônios e das almas, não admitindo a lei do progresso, mas vendo todavia seres de diversos graus, concluiu que seriam produto de outras tantas criações especiais. E assim foi que chegou a fazer de Deus um pai parcial, tudo concedendo a alguns de seus filhos, e a outros impondo o mais rude trabalho. Não admira que por muito tempo os homens achassem justificação para tais preferências, quando eles próprios delas usavam em relação aos filhos, estabelecendo direitos de primogenitura e outros privilégios de nascimento. Podiam tais homens acreditar que andavam mais errados que Deus?
 
 
 
@@ -2247,7 +2145,6 @@ A doutrina vulgar sobre a natureza dos anjos, dos demônios e das almas, não ad
 Hoje, porém, alargou-se o circulo das idéias: o homem vê mais claro e tem noções mais precisas de justiça; desejando-a para si e nem sempre encontrando-a na Terra, ele quer pelo menos encontrá-la mais perfeita no Céu.
 
 E aqui está por que lhe repugna à razão toda e qualquer doutrina, na qual não resplenda a Justiça Divina na plenitude integral da sua pureza.
-
 
 
 ---
@@ -2322,15 +2219,11 @@ opina pela exclusiva intervenção dos maus anjos, nas antigas como nas modernas
 
 A possibilidade da comunicação dos mortos é uma questão de fato, é o resultado de observações e experiências que não vêm ao caso discutir aqui. Admitamos, porém, como hipótese, a doutrina acima citada, e vejamos se ela se não destrói por si mesma com os seus próprios argumentos.
 
-# 6.
-
-Das três categorias de anjos segundo a Igreja, a primeira ocupa-se exclusivamente do céu; a segunda do governo do Universo, e a terceira, da Terra. É nesta última que se encontram os anjos de guarda encarregados da proteção de cada indivíduo. Somente uma parte dos anjos, desta última categoria, é que compartilhou da revolta e foi transformada em demônios. Ora, desde que Deus lhes permitira com tanta liberdade, já por sugestões ocultas, já por ostensivas manifestações, induzir os homens em erro, e porque esse Deus é soberanamente justo e bom, devia ao menos, para atenuar os males de tão odiosa concessão, permitir também a manifestação dos bons anjos. Ao menos, assim, os homens teriam a liberdade e o recurso da escolha. Dar, porém, aos anjos maus o monopólio da tentação, com poderes amplos de simular o bem para melhor seduzir; e vedando ao mesmo tempo toda e qualquer intervenção dos bons, é atribuir a Deus o intuito inconcebível de agravar a fraqueza, a inexperiência e a boa-fé dos homens.
+6. - Das três categorias de anjos segundo a Igreja, a primeira ocupa-se exclusivamente do céu; a segunda do governo do Universo, e a terceira, da Terra. É nesta última que se encontram os anjos de guarda encarregados da proteção de cada indivíduo. Somente uma parte dos anjos, desta última categoria, é que compartilhou da revolta e foi transformada em demônios. Ora, desde que Deus lhes permitira com tanta liberdade, já por sugestões ocultas, já por ostensivas manifestações, induzir os homens em erro, e porque esse Deus é soberanamente justo e bom, devia ao menos, para atenuar os males de tão odiosa concessão, permitir também a manifestação dos bons anjos. Ao menos, assim, os homens teriam a liberdade e o recurso da escolha. Dar, porém, aos anjos maus o monopólio da tentação, com poderes amplos de simular o bem para melhor seduzir; e vedando ao mesmo tempo toda e qualquer intervenção dos bons, é atribuir a Deus o intuito inconcebível de agravar a fraqueza, a inexperiência e a boa-fé dos homens.
 
 É mais ainda: é supor da parte de Deus um abuso de confiança, pela fé que nos merece. A razão recusa admitir tanta parcialidade em proveito do mal. Vejamos os fatos.
 
-# 7.
-
-Aos demônios concedem-se faculdades transcendentes: nada perderam da natureza angélica; possuem o saber, a perspicácia, a previdência e a penetração dos anjos, tendo ainda, a mais, astúcia, ardil e artifício, tudo em grau mais elevado. O objetivo que os move é desviar os homens do bem, afastá-los de Deus e arrastá-
+7. - Aos demônios concedem-se faculdades transcendentes: nada perderam da natureza angélica; possuem o saber, a perspicácia, a previdência e a penetração dos anjos, tendo ainda, a mais, astúcia, ardil e artifício, tudo em grau mais elevado. O objetivo que os move é desviar os homens do bem, afastá-los de Deus e arrastá-
 
 
 
@@ -2378,11 +2271,11 @@ A troco da própria alma, ninguém os evocava que não fosse para obter favores 
 
 tranger Espíritos a ficarem às ordens dos homens e satisfazerem-lhes os desejos. Hoje sabemos que os Espíritos são as almas dos mortos e não os evocamos senão para receber conselhos dos bons, moralizar os maus e continuar relações com seres que nos são caros. Eis o que diz o Espiritismo a tal respeito:
 
-1. Não podereis obrigar nunca a presença de um Espírito vosso igual ou superior em moralidade, por vos faltar autoridade sobre ele; mas, do vosso inferior, e sendo para seu beneficio, conseguí-lo-eis, visto como outros Espíritos vos secundam. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
-2. A mais essencial de todas as disposições para evocar é o recolhimento, quando desejarmos tratar com Espíritos sérios. Com a fé e o desejo do bem, mais aptos nos tornamos para evocar Espíritos superiores. Elevando nossa alma por alguns instantes de concentração no momento de evocá-los, identificamo-nos com os bons Espíritos, predispondo a sua vinda. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
-3. Nenhum objeto, medalha ou talismã tem a propriedade de atrair ou repelir Espíritos, pois a matéria ação alguma exerce sobre eles. Nunca um bom Espírito aconselha tais absurdos. A virtude dos talismãs só pode existir na imaginação de pessoas simplórias. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
-4. Não há fórmulas sacramentais para evocar Espíritos. Quem quer que pretendesse estabelecer uma fórmula, poderia ser tachado de usar de charlatanismo, visto que para os Espíritos puros a fórmula nada vale. A evocação deve, porém, ser feita sempre em nome de Deus. (O Livro dos Médiuns, 2ª Parte, cap. XVII.)
-5. Os Espíritos que prefixam entrevistas em lugares lúgubres, e a horas indevidas, são os que se divertem a custa de quem os ouve. É sempre inútil e muitas vezes perigoso ceder a tais sugestões; inútil, porque nada se ganha além de uma mistificação, e perigoso, não pelo
+-Não podereis obrigar nunca a presença de um Espírito vosso igual ou superior em moralidade, por vos faltar autoridade sobre ele; mas, do vosso inferior, e sendo para seu beneficio, conseguí-lo-eis, visto como outros Espíritos vos secundam. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
+-A mais essencial de todas as disposições para evocar é o recolhimento, quando desejarmos tratar com Espíritos sérios. Com a fé e o desejo do bem, mais aptos nos tornamos para evocar Espíritos superiores. Elevando nossa alma por alguns instantes de concentração no momento de evocá-los, identificamo-nos com os bons Espíritos, predispondo a sua vinda. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
+-Nenhum objeto, medalha ou talismã tem a propriedade de atrair ou repelir Espíritos, pois a matéria ação alguma exerce sobre eles. Nunca um bom Espírito aconselha tais absurdos. A virtude dos talismãs só pode existir na imaginação de pessoas simplórias. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
+-Não há fórmulas sacramentais para evocar Espíritos. Quem quer que pretendesse estabelecer uma fórmula, poderia ser tachado de usar de charlatanismo, visto que para os Espíritos puros a fórmula nada vale. A evocação deve, porém, ser feita sempre em nome de Deus. (O Livro dos Médiuns, 2ª Parte, cap. XVII.)
+-Os Espíritos que prefixam entrevistas em lugares lúgubres, e a horas indevidas, são os que se divertem a custa de quem os ouve. É sempre inútil e muitas vezes perigoso ceder a tais sugestões; inútil, porque nada se ganha além de uma mistificação, e perigoso, não pelo
 
 
 
@@ -2395,13 +2288,13 @@ tranger Espíritos a ficarem às ordens dos homens e satisfazerem-lhes os desejo
 
 mal que possam fazer os Espíritos, mas pela influência que tais fatos podem exercer sobre cérebros fracos. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
 
-- Não há dias nem horas mais especialmente propícios às evocações: isso, como tudo que é material, é completamente indiferente aos Espíritos, além de ser supersticiosa a crença em tais influências. Os momentos mais favoráveis são aqueles em que o evocador pode abstrair-se melhor das suas preocupações habituais, calmo de corpo e de espírito. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
+-Não há dias nem horas mais especialmente propícios às evocações: isso, como tudo que é material, é completamente indiferente aos Espíritos, além de ser supersticiosa a crença em tais influências. Os momentos mais favoráveis são aqueles em que o evocador pode abstrair-se melhor das suas preocupações habituais, calmo de corpo e de espírito. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
 
-- A crítica malévola apraz-se em representar as comunicações espíritas revestidas das práticas ridículas e supersticiosas da magia e da nigromancia. Entretanto, se os que falam do Espiritismo, sem conhecê-lo, procurassem estudá-lo, poupariam trabalhos de imaginação e alegações que só servem para demonstrar a sua ignorância e má-vontade.
+-A crítica malévola apraz-se em representar as comunicações espíritas revestidas das práticas ridículas e supersticiosas da magia e da nigromancia. Entretanto, se os que falam do Espiritismo, sem conhecê-lo, procurassem estudá-lo, poupariam trabalhos de imaginação e alegações que só servem para demonstrar a sua ignorância e má-vontade.
 
 Para conhecimento das pessoas estranhas à ciência, diremos que não há horas mais propícias, umas que outras, como não há dias nem lugares, para comunicar com os Espíritos. Diremos mais: que não há fórmulas nem palavras sacramentais ou cabalísticas para evocá-los; que não há necessidade alguma de preparo ou iniciação; que é nulo o emprego de quaisquer sinais ou objetos materiais para atraí-los ou repeli-los, bastando para tanto o pensamento; e, finalmente, que os médiuns recebem deles as comunicações sem sair do estado normal, tão simples e naturalmente como se tais comunicações fossem ditadas por uma pessoa vivente. Só o charlatanismo poderia emprestar às comunicações formas excêntricas, enxertando-lhes ridículos acessórios. (O que é o Espiritismo, cap. II, nº 49.)
 
-- O futuro é vedado ao homem por princípio, e só em casos raríssimos e excepcionais é que Deus faculta a sua revelação. Se o homem conhecesse o futuro, por certo que negligenciaria o presente e não agiria com a mesma liberdade. Absorvidos pela idéia da fatalidade de
+-O futuro é vedado ao homem por princípio, e só em casos raríssimos e excepcionais é que Deus faculta a sua revelação. Se o homem conhecesse o futuro, por certo que negligenciaria o presente e não agiria com a mesma liberdade. Absorvidos pela idéia da fatalidade de
 
 
 
@@ -2411,9 +2304,9 @@ Para conhecimento das pessoas estranhas à ciência, diremos que não há horas 
 
 um acontecimento, ou procuramos conjurá-lo ou não nos preocupamos dele. Deus não permitiu que assim fosse, a fim de que cada qual concorresse para a realização dos acontecimentos mesmos, que porventura desejaria evitar. Ele permite, no entanto, a revelação do futuro, quando o conhecimento prévio de uma coisa não estorva, mas facilita a sua realização, induzindo a procedimento diverso do que se teria sem tal circunstância. (O Livro dos Espíritos, Parte 3ª, cap. X.)
 
-- Os Espíritos não podem guiar descobertas nem investigações científicas. A Ciência é obra do gênio e só deve ser adquirida pelo trabalho, pois é por este que o homem progride. Que mérito teríamos nós se, para tudo saber, apenas bastasse interrogar os Espíritos? Por esse preço, todo imbecil poderia tornar-se sábio. O mesmo se dá relativamente aos inventos e descobertas da indústria. Chegado que seja o tempo de uma descoberta, os Espíritos encarregados da sua marcha procuram o homem capaz de levá-la a bom termo e inspiram-lhe as idéias necessárias, isto de molde a não lhe tirar o respectivo mérito, que está na elaboração e execução dessas idéias. Assim tem sido com todos os grandes trabalhos da inteligência humana. Os Espíritos deixam cada indivíduo na sua esfera: do homem apenas apto para lavrar a terra não fazem depositários dos segredos de Deus, mas sabem arrancar da obscuridade aquele que se mostra capaz de secundar-lhes os desígnios. Não vos deixeis, por conseguinte, dominar pela ambição e pela curiosidade, em terreno alheio ao do Espiritismo, que tais fitos não tem, pois com eles só conseguireis as mais ridículas mistificações. (O Livro dos Médiuns, 2ª Parte, cap. XXVI.)
+-Os Espíritos não podem guiar descobertas nem investigações científicas. A Ciência é obra do gênio e só deve ser adquirida pelo trabalho, pois é por este que o homem progride. Que mérito teríamos nós se, para tudo saber, apenas bastasse interrogar os Espíritos? Por esse preço, todo imbecil poderia tornar-se sábio. O mesmo se dá relativamente aos inventos e descobertas da indústria. Chegado que seja o tempo de uma descoberta, os Espíritos encarregados da sua marcha procuram o homem capaz de levá-la a bom termo e inspiram-lhe as idéias necessárias, isto de molde a não lhe tirar o respectivo mérito, que está na elaboração e execução dessas idéias. Assim tem sido com todos os grandes trabalhos da inteligência humana. Os Espíritos deixam cada indivíduo na sua esfera: do homem apenas apto para lavrar a terra não fazem depositários dos segredos de Deus, mas sabem arrancar da obscuridade aquele que se mostra capaz de secundar-lhes os desígnios. Não vos deixeis, por conseguinte, dominar pela ambição e pela curiosidade, em terreno alheio ao do Espiritismo, que tais fitos não tem, pois com eles só conseguireis as mais ridículas mistificações. (O Livro dos Médiuns, 2ª Parte, cap. XXVI.)
 
-- Os Espíritos não podem concorrer para a descoberta de tesouros ocultos. Os superiores não se ocupam de tais coisas e só os zombeteiros podem entreter-se com elas, já indicando tesouros que o mais das vezes não existem, já apontando sítios diametralmente opostos àqueles em que realmente existem. Esta circunstância tem, contudo, uma utilidade, qual a de mostrar que a verdadei-
+-Os Espíritos não podem concorrer para a descoberta de tesouros ocultos. Os superiores não se ocupam de tais coisas e só os zombeteiros podem entreter-se com elas, já indicando tesouros que o mais das vezes não existem, já apontando sítios diametralmente opostos àqueles em que realmente existem. Esta circunstância tem, contudo, uma utilidade, qual a de mostrar que a verdadei-
 
 ---
 
@@ -2424,7 +2317,7 @@ um acontecimento, ou procuramos conjurá-lo ou não nos preocupamos dele. Deus n
 
 ra fortuna reside no trabalho. Quando a Providência tem destinado a alguém quaisquer riquezas ocultas, esse alguém as encontrará naturalmente; do contrário não, nunca. (O Livro dos Médiuns, 2ª Parte, cap. XXVI.)
 
-- Esclarecendo-nos sobre as propriedades dos fluidos - agentes e meios de ação do mundo invisível constituindo uma das forças e potências da Natureza - o Espiritismo nos dá a chave de inúmeros fatos e coisas inexplicadas e inexplicáveis de outro modo, fatos e coisas que passaram por prodígios, em outras eras. Do mesmo modo que o magnetismo, ele nos revela uma lei, senão desconhecida, pelo menos incompreendida, ou então, para melhor dizer, efeitos de todos os tempos conhecidos, pois que de todos os tempos se produziram, mas cuja lei se ignorava e de cuja ignorância brotava a superstição. Conhecida essa lei, desaparece o maravilhoso e os fenômenos entram para a ordem das coisas naturais. Eis por que os Espíritos não produzem milagres, fazendo girar as mesas ou escrever os mortos, como milagre não faz o médico em restituir à vida o moribundo, e o físico provocando a queda do raio. Quem pretendesse fazer milagres pelo Espiritismo não passaria de ignorante, ou então de mero prestidigitador. (O Livro dos Médiuns, 1ª Parte, cap. II.)
+-Esclarecendo-nos sobre as propriedades dos fluidos - agentes e meios de ação do mundo invisível constituindo uma das forças e potências da Natureza - o Espiritismo nos dá a chave de inúmeros fatos e coisas inexplicadas e inexplicáveis de outro modo, fatos e coisas que passaram por prodígios, em outras eras. Do mesmo modo que o magnetismo, ele nos revela uma lei, senão desconhecida, pelo menos incompreendida, ou então, para melhor dizer, efeitos de todos os tempos conhecidos, pois que de todos os tempos se produziram, mas cuja lei se ignorava e de cuja ignorância brotava a superstição. Conhecida essa lei, desaparece o maravilhoso e os fenômenos entram para a ordem das coisas naturais. Eis por que os Espíritos não produzem milagres, fazendo girar as mesas ou escrever os mortos, como milagre não faz o médico em restituir à vida o moribundo, e o físico provocando a queda do raio. Quem pretendesse fazer milagres pelo Espiritismo não passaria de ignorante, ou então de mero prestidigitador. (O Livro dos Médiuns, 1ª Parte, cap. II.)
 
 Pessoas há que fazem das evocações uma idéia muito falsa: há mesmo quem acredite que os mortos evocados se apresentam com todo o aparelho lúgubre do túmulo. Tais suposições podem ser atribuídas ao que vemos nos teatros ou lemos nos romances e contos fantásticos, onde os mortos aparecem amortalhados com o chocalhar dos ossos.
 
@@ -2437,7 +2330,7 @@ O Espiritismo, que nunca fez milagres, também não faz esse, pois que jamais fe
 
 # 1ª PARTE - CAPÍTULO X
 
-11 - Ampliamos estas citações para mostrar que os princípios do Espiritismo não têm relação alguma com os da magia. Assim, nem Espíritos às ordens dos homens; nem meios de os constranger; nem sinais ou fórmulas cabalísticas; nem descobertas de tesouros; nem processos para enriquecer, e tampouco milagres ou prodígios, adivinhações e aparições fantásticas: nada, enfim, do que constitui o fim e os elementos essenciais da magia. O Espiritismo não só reprova tais coisas como demonstra a impossibilidade e ineficácia delas. Não há, afirmamo-lo ainda uma vez, analogia alguma entre os processos e fins da magia e os do Espiritismo; só a ignorância e a má-fé poderão confundi-los. Dessa forma, tal erro não pode prevalecer, uma vez que os princípios espíritas não se furtam ao exame, e aí estão formulados inequívoca e claramente para todos.
+11. - Ampliamos estas citações para mostrar que os princípios do Espiritismo não têm relação alguma com os da magia. Assim, nem Espíritos às ordens dos homens; nem meios de os constranger; nem sinais ou fórmulas cabalísticas; nem descobertas de tesouros; nem processos para enriquecer, e tampouco milagres ou prodígios, adivinhações e aparições fantásticas: nada, enfim, do que constitui o fim e os elementos essenciais da magia. O Espiritismo não só reprova tais coisas como demonstra a impossibilidade e ineficácia delas. Não há, afirmamo-lo ainda uma vez, analogia alguma entre os processos e fins da magia e os do Espiritismo; só a ignorância e a má-fé poderão confundi-los. Dessa forma, tal erro não pode prevalecer, uma vez que os princípios espíritas não se furtam ao exame, e aí estão formulados inequívoca e claramente para todos.
 
 Quanto às curas, reconhecidas como reais na pastoral precitada, o exemplo está mal selecionado como meio de evitar relações com os Espíritos. Efetivamente, essas curas são outros tantos benefícios que levam à gratidão e que todos podem experimentar. Pouca gente estará disposta a renunciar a elas, mormente depois de haver esgotado outros recursos antes de recorrer ao diabo. Depois, se o diabo cura, força é confessar que faz uma boa e meritória ação. (1)
 
@@ -2628,9 +2521,7 @@ Demais, é preciso expender os motivos que justificavam essa proibição e que h
 
 Os israelitas não deviam contratar alianças com as nações estrangeiras, e sabido era que naquelas nações que iam combater encontrariam as mesmas práticas. Moisés devia pois, por política, inspirar aos hebreus aversão a todos os costumes que pudessem ter semelhanças e pontos de contacto com o inimigo. Para justificar essa aversão, preciso era que apresentasse tais práticas como reprovadas pelo próprio Deus, e dai estas palavras: - "O Senhor abomina todas essas coisas e destruirá, à vossa chegada, as nações que cometem tais crimes."
 
-# 4.
-
-A proibição de Moisés era assaz justa, porque a evocação dos mortos não se originava nos sentimentos de respeito, afeição ou piedade para com eles, sendo antes um recurso para adivinhações, tal como nos augúrios e presságios explorados pelo charlatanismo e pela superstição. Essas práticas, ao que parece, também eram objeto de negócio, e Moisés, por mais que fizesse, não conseguiu desentranhá-las dos costumes populares.
+4. - A proibição de Moisés era assaz justa, porque a evocação dos mortos não se originava nos sentimentos de respeito, afeição ou piedade para com eles, sendo antes um recurso para adivinhações, tal como nos augúrios e presságios explorados pelo charlatanismo e pela superstição. Essas práticas, ao que parece, também eram objeto de negócio, e Moisés, por mais que fizesse, não conseguiu desentranhá-las dos costumes populares.
 
 As seguintes palavras do profeta justificam o asserto: - "Quando vos disserem: Consultai os mágicos e adivinhos que balbuciam encantamentos, respondei: - Não consulta cada povo ao seu Deus? E aos mortos se fala do que compete aos vivos?" (Isaías, cap. VIII, v. 19.) "Sou eu quem aponta a falsidade dos prodígios mágicos; quem enlouquece os que se propõem adivinhar, quem transtorna o espírito dos sábios e confunde a sua ciência vã." (Cap. XLIV, v. 25.)
 
@@ -2670,9 +2561,7 @@ A lei civil contemporânea pune todos os abusos que Moisés tinha em vista repri
 
 Carecem portanto de razão os que se apóiam na severidade do castigo para provar o grau de culpabilidade da evocação dos mortos. Conviria, por consideração à lei de Moisés, manter a pena capital em todos os casos nos quais ele a prescrevia? Por que, então, reviver com tanta insistência este artigo, silenciando ao mesmo tempo o principio do capítulo que proíbe aos sacerdotes a posse de bens terrenos e partilhar de qualquer herança, porque o Senhor é a sua própria herança? (Deuteronômio, cap. XXVIII, vv. 1 e 2.)
 
-# 5.
-
-Há duas partes distintas na lei de Moisés: a lei de Deus propriamente dita, promulgada sobre o Sinal, e a lei civil ou disciplinar, apropriada aos costumes e caráter do povo. Uma dessas leis é invariável, ao passo que a outra se modifica com o tempo, e a ninguém ocorre que possamos ser governados pelos mesmos meios por que o eram os judeus no deserto e tampouco que os capitulares.
+5. - Há duas partes distintas na lei de Moisés: a lei de Deus propriamente dita, promulgada sobre o Sinal, e a lei civil ou disciplinar, apropriada aos costumes e caráter do povo. Uma dessas leis é invariável, ao passo que a outra se modifica com o tempo, e a ninguém ocorre que possamos ser governados pelos mesmos meios por que o eram os judeus no deserto e tampouco que os capitulares.
 
 
 
@@ -2730,21 +2619,15 @@ velações ilícitas. Certo, se os hebreus usassem das comunicações como fazem
 
 evocações, livres como são, se se manifestam, é porque lhes convém.
 
-# 11.
-
-Ainda uma outra razão é alegada: - As almas permanecem na morada que a justiça divina lhes designa - o que eqüivale dizer no céu ou no inferno. Assim, as que estão no inferno, de lá não podem sair, posto que para tanto a mais ampla liberdade seja outorgada aos demônios. As do céu, inteiramente entregues à sua beatitude, estão muito superiores aos mortais para deles se ocuparem, e são bastantemente felizes para não voltarem a esta terra de misérias, no interesse de parentes e amigos que aqui deixassem. Então essas almas podem ser comparadas aos nababos que dos pobres desviam a vista com receio de perturbar a digestão? Mas se assim fora essas almas se mostrariam pouco dignas da suprema bem-aventurança, transformando-se em padrão de egoísmo!
+11. - Ainda uma outra razão é alegada: - As almas permanecem na morada que a justiça divina lhes designa - o que eqüivale dizer no céu ou no inferno. Assim, as que estão no inferno, de lá não podem sair, posto que para tanto a mais ampla liberdade seja outorgada aos demônios. As do céu, inteiramente entregues à sua beatitude, estão muito superiores aos mortais para deles se ocuparem, e são bastantemente felizes para não voltarem a esta terra de misérias, no interesse de parentes e amigos que aqui deixassem. Então essas almas podem ser comparadas aos nababos que dos pobres desviam a vista com receio de perturbar a digestão? Mas se assim fora essas almas se mostrariam pouco dignas da suprema bem-aventurança, transformando-se em padrão de egoísmo!
 
 Restam ainda as almas do purgatório, porém, estas, sofredoras como devem ser, antes que doutra coisa, devem cuidar da sua salvação. Deste modo, não podendo nem umas nem outras almas corresponder ao nosso apelo, somente o demônio se apresenta em seu lugar.
 
 Então é o caso de dizer: se as almas não podem vir, não há de que recear pela perturbação do seu repouso.
 
-# 12.
+12. - Mas aqui reponta uma outra dificuldade. Se as almas bem-aventuradas não podem deixar a mansão gloriosa para socorrer os mortais, por que invoca a Igreja a assistência dos santos que devem fruir ainda maior soma de beatitude? Por que aconselha invocá-los em casos de moléstia, de aflição, de flagelos? Por que razão e segundo essa mesma Igreja os santos e a própria Virgem aparecem aos homens e fazem milagres? Estes deixam o céu para baixar à Terra; entretanto os que estão menos elevados não o podem fazer!
 
-Mas aqui reponta uma outra dificuldade. Se as almas bem-aventuradas não podem deixar a mansão gloriosa para socorrer os mortais, por que invoca a Igreja a assistência dos santos que devem fruir ainda maior soma de beatitude? Por que aconselha invocá-los em casos de moléstia, de aflição, de flagelos? Por que razão e segundo essa mesma Igreja os santos e a própria Virgem aparecem aos homens e fazem milagres? Estes deixam o céu para baixar à Terra; entretanto os que estão menos elevados não o podem fazer!
-
-# 13.
-
-Que os cépticos neguem a manifestação das almas, vá, visto que nelas não acreditam; mas o que se
+13. - Que os cépticos neguem a manifestação das almas, vá, visto que nelas não acreditam; mas o que se
 
 
 
@@ -2803,13 +2686,9 @@ As seguintes palavras de um Espírito resumem admiravelmente as conseqüências 
 
 deixaram este mundo. O conhecimento do laço fluídico que une a alma ao corpo é a chave desse e de muitos outros fenômenos.
 
-# 3.
+3. - A insensibilidade da matéria inerte é um fato, e só a alma experimenta sensações de dor e de prazer. Durante a vida, toda a desagregação material repercute na alma, que por este motivo recebe uma impressão mais ou menos dolorosa. É a alma e não o corpo quem sofre, pois este não é mais que instrumento da dor: - aquela é o paciente. Após a morte, separada a alma, o corpo pode ser impunemente mutilado que nada sentirá; aquela, por insulada, nada experimenta da destruição orgânica. A alma tem sensações próprias cuja fonte não reside na matéria tangível. O perispírito é o envoltório da alma e não se separa dela nem antes nem depois da morte. Ele não forma com ela mais que uma só entidade, e nem mesmo se pode conceber uma sem outro. Durante a vida o fluido perispirítico penetra o corpo em todas as suas partes e serve de veículo às sensações físicas da alma, do mesmo modo como esta, por seu intermédio, atua sobre o corpo e dirige-lhe os movimentos.
 
-A insensibilidade da matéria inerte é um fato, e só a alma experimenta sensações de dor e de prazer. Durante a vida, toda a desagregação material repercute na alma, que por este motivo recebe uma impressão mais ou menos dolorosa. É a alma e não o corpo quem sofre, pois este não é mais que instrumento da dor: - aquela é o paciente. Após a morte, separada a alma, o corpo pode ser impunemente mutilado que nada sentirá; aquela, por insulada, nada experimenta da destruição orgânica. A alma tem sensações próprias cuja fonte não reside na matéria tangível. O perispírito é o envoltório da alma e não se separa dela nem antes nem depois da morte. Ele não forma com ela mais que uma só entidade, e nem mesmo se pode conceber uma sem outro. Durante a vida o fluido perispirítico penetra o corpo em todas as suas partes e serve de veículo às sensações físicas da alma, do mesmo modo como esta, por seu intermédio, atua sobre o corpo e dirige-lhe os movimentos.
-
-# 4.
-
-A extinção da vida orgânica acarreta a separação da alma em conseqüência do rompimento do laço fluídico que a une ao corpo, mas essa separação nunca é brusca. O fluido perispiritual só pouco a pouco se desprende de todos os órgãos, de sorte que a separação só é completa e absoluta quando não mais reste um átomo do perispírito ligado a uma molécula do corpo. "A sensação dolorosa da alma, por ocasião da morte, está na razão direta da soma dos pontos de contacto existentes entre o corpo e o perispírito, e, por conseguinte, também da maior ou menor dificuldade que apresenta o rompimento." Não é preciso portanto dizer que, conforme as circunstâncias, a morte pode ser mais ou menos penosa. Estas circunstâncias é que nos cumpre examinar.
+4. - A extinção da vida orgânica acarreta a separação da alma em conseqüência do rompimento do laço fluídico que a une ao corpo, mas essa separação nunca é brusca. O fluido perispiritual só pouco a pouco se desprende de todos os órgãos, de sorte que a separação só é completa e absoluta quando não mais reste um átomo do perispírito ligado a uma molécula do corpo. "A sensação dolorosa da alma, por ocasião da morte, está na razão direta da soma dos pontos de contacto existentes entre o corpo e o perispírito, e, por conseguinte, também da maior ou menor dificuldade que apresenta o rompimento." Não é preciso portanto dizer que, conforme as circunstâncias, a morte pode ser mais ou menos penosa. Estas circunstâncias é que nos cumpre examinar.
 
 
 
@@ -2820,10 +2699,10 @@ A extinção da vida orgânica acarreta a separação da alma em conseqüência 
 
 5. - Estabeleçamos em primeiro lugar, e como princípio, os quatro seguintes casos, que podemos reputar situações extremas dentro de cujos limites há uma infinidade de variantes:
 
-1. Se no momento em que se extingue a vida orgânica o desprendimento do perispírito fosse completo, a alma nada sentiria absolutamente.
-2. Se nesse momento a coesão dos dois elementos estiver no auge de sua força, produz-se uma espécie de ruptura que reage dolorosamente sobre a alma.
-3. Se a coesão for fraca, a separação torna-se fácil e opera-se sem abalo.
-4. Se após a cessação completa da vida orgânica existirem ainda numerosos pontos de contacto entre o corpo e o perispírito, a alma poderá ressentir-se dos efeitos da decomposição do corpo, até que o laço inteiramente se desfaça.
+1.Se no momento em que se extingue a vida orgânica o desprendimento do perispírito fosse completo, a alma nada sentiria absolutamente.
+2.Se nesse momento a coesão dos dois elementos estiver no auge de sua força, produz-se uma espécie de ruptura que reage dolorosamente sobre a alma.
+3.Se a coesão for fraca, a separação torna-se fácil e opera-se sem abalo.
+4.Se após a cessação completa da vida orgânica existirem ainda numerosos pontos de contacto entre o corpo e o perispírito, a alma poderá ressentir-se dos efeitos da decomposição do corpo, até que o laço inteiramente se desfaça.
 
 Daí resulta que o sofrimento, que acompanha a morte, está subordinado à força adesiva que une o corpo ao perispírito; que tudo o que puder atenuar essa força, e acelerar a rapidez do desprendimento, torna a passagem menos penosa; e, finalmente, que, se o desprendimento se operar sem dificuldade, a alma deixará de experimentar qualquer sentimento desagradável.
 
@@ -2838,13 +2717,9 @@ Daí resulta que o sofrimento, que acompanha a morte, está subordinado à forç
 
 A perturbação pode, pois, ser considerada o estado normal no instante da morte e perdurar por tempo indeterminado, variando de algumas horas a alguns anos. A proporção que se liberta, a alma encontra-se numa situação comparável à de um homem que desperta de profundo sono; as idéias são confusas, vagas, incertas; a vista apenas distingue como que através de um nevoeiro, mas pouco a pouco se aclara, desperta-se-lhe a memória e o conhecimento de si mesma. Bem diverso é, contudo, esse despertar; calmo, para uns, acorda-lhes sensações deliciosas; tétrico, aterrador e ansioso, para outros, é qual horrendo pesadelo.
 
-# 7.
+7. - O último alento quase nunca é doloroso, uma vez que ordinariamente ocorre em momento de inconsciência, mas a alma sofre antes dele a desagregação da matéria, nos estertores da agonia, e, depois, as angústias da perturbação. Demo-nos pressa em afirmar que esse estado não é geral, porquanto a intensidade e duração do sofrimento estão na razão direta da afinidade existente entre corpo e perispírito. Assim, quanto maior for essa afinidade, tanto mais penosos e prolongados serão os esforços da alma para desprender-se. Há pessoas nas quais a coesão é tão fraca que o desprendimento se opera por si mesmo, como que naturalmente; é como se um fruto maduro se desprendesse do seu caule, e é o caso das mortes calmas, de pacífico despertar.
 
-O último alento quase nunca é doloroso, uma vez que ordinariamente ocorre em momento de inconsciência, mas a alma sofre antes dele a desagregação da matéria, nos estertores da agonia, e, depois, as angústias da perturbação. Demo-nos pressa em afirmar que esse estado não é geral, porquanto a intensidade e duração do sofrimento estão na razão direta da afinidade existente entre corpo e perispírito. Assim, quanto maior for essa afinidade, tanto mais penosos e prolongados serão os esforços da alma para desprender-se. Há pessoas nas quais a coesão é tão fraca que o desprendimento se opera por si mesmo, como que naturalmente; é como se um fruto maduro se desprendesse do seu caule, e é o caso das mortes calmas, de pacífico despertar.
-
-# 8.
-
-A causa principal da maior ou menor facilidade de desprendimento é o estado moral da alma. A afinidade entre o corpo e o perispírito é proporcional ao apego à matéria, que atinge o seu máximo no homem cujas preocupações dizem respeito exclusiva e unicamente à vida e gozos materiais. Ao contrário, nas almas puras, que antecipadamente se identificam com a vida espiritual, o apego é quase nulo. E desde que a lentidão e a dificuldade do desprendimento estão na razão do grau de pureza e desmaterialização da alma, de nós somente.
+8. - A causa principal da maior ou menor facilidade de desprendimento é o estado moral da alma. A afinidade entre o corpo e o perispírito é proporcional ao apego à matéria, que atinge o seu máximo no homem cujas preocupações dizem respeito exclusiva e unicamente à vida e gozos materiais. Ao contrário, nas almas puras, que antecipadamente se identificam com a vida espiritual, o apego é quase nulo. E desde que a lentidão e a dificuldade do desprendimento estão na razão do grau de pureza e desmaterialização da alma, de nós somente.
 
 
 
@@ -2857,15 +2732,11 @@ depende o tornar fácil ou penoso, agradável ou doloroso, esse desprendimento.
 
 Posto isto, quer como teoria, quer como resultado de observações, resta-nos examinar a influência do gênero de morte sobre as sensações da alma nos últimos transes.
 
-# 9.
-
-Em se tratando de morte natural resultante da extinção das forças vitais por velhice ou doença, o desprendimento opera-se gradualmente; para o homem cuja alma se desmaterializou e cujos pensamentos se destacam das coisas terrenas, o desprendimento quase se completa antes da morte real, isto é, ao passo que o corpo ainda tem vida orgânica, já o Espírito penetra a vida espiritual, apenas ligado por elo tão frágil que se rompe com a última pancada do coração. Nesta contingência o Espírito pode ter já recuperado a sua lucidez, de molde a tornar-se testemunha consciente da extinção da vida do corpo, considerando-se feliz por tê-lo deixado. Para esse a perturbação é quase nula, ou antes, não passa de ligeiro sono calmo, do qual desperta com indizível impressão de esperança e ventura.
+9. - Em se tratando de morte natural resultante da extinção das forças vitais por velhice ou doença, o desprendimento opera-se gradualmente; para o homem cuja alma se desmaterializou e cujos pensamentos se destacam das coisas terrenas, o desprendimento quase se completa antes da morte real, isto é, ao passo que o corpo ainda tem vida orgânica, já o Espírito penetra a vida espiritual, apenas ligado por elo tão frágil que se rompe com a última pancada do coração. Nesta contingência o Espírito pode ter já recuperado a sua lucidez, de molde a tornar-se testemunha consciente da extinção da vida do corpo, considerando-se feliz por tê-lo deixado. Para esse a perturbação é quase nula, ou antes, não passa de ligeiro sono calmo, do qual desperta com indizível impressão de esperança e ventura.
 
 No homem materializado e sensual, que mais viveu do corpo que do Espírito, e para o qual a vida espiritual nada significa, nem sequer lhe toca o pensamento, tudo contribui para estreitar os laços materiais, e, quando a morte se aproxima, o desprendimento, conquanto se opere gradualmente também, demanda contínuos esforços. As convulsões da agonia são indícios da luta do Espírito, que às vezes procura romper os elos resistentes, e outras se agarra ao corpo do qual uma força irresistível o arrebata com violência, molécula por molécula.
 
-# 10.
-
-Quanto menos vê o Espírito além da vida corporal, tanto mais se lhe apega, e, assim, sente que ela lhe foge e quer retê-la; em vez de se abandonar ao movimento que o empolga, resiste com todas as forças e pode mesmo prolongar a luta por dias, semanas e meses inteiros.
+10. - Quanto menos vê o Espírito além da vida corporal, tanto mais se lhe apega, e, assim, sente que ela lhe foge e quer retê-la; em vez de se abandonar ao movimento que o empolga, resiste com todas as forças e pode mesmo prolongar a luta por dias, semanas e meses inteiros.
 
 
 
@@ -2876,13 +2747,9 @@ Quanto menos vê o Espírito além da vida corporal, tanto mais se lhe apega, e,
 
 Certo, nesse momento o Espírito não possui toda a lucidez, visto como a perturbação de muito se antecipou à morte; mas nem por isso sofre menos, e o vácuo em que se acha, e a incerteza do que lhe sucederá, agravam-lhe as angústias. Dá-se por fim a morte, e nem por isso está tudo terminado; a perturbação continua, ele sente que vive, mas não define se material, se espiritualmente, luta, e luta ainda, até que as últimas ligações do perispírito se tenham de todo rompido. A morte pôs termo a moléstia efetiva, porém, não lhe sustou as conseqüências, e, enquanto existirem pontos de contacto do perispírito com o corpo, o Espírito ressente-se e sofre com as suas impressões.
 
-# 11.
+11. - Quão diversa é a situação do Espírito desmaterializado, mesmo nas enfermidades mais cruéis! Sendo frágeis os laços fluídicos que o prendem ao corpo, rompem-se suavemente; depois, a confiança do futuro entrevisto em pensamento ou na realidade, como sucede algumas vezes, fá-lo encarar a morte qual redenção e as suas conseqüências como prova, advindo-lhe dai uma calma resignada, que lhe ameniza o sofrimento. Após a morte, rotos os laços, nem uma só reação dolorosa que o afete; o despertar é lépido, desembaraçado; por sensações únicas: o alívio, a alegria!
 
-Quão diversa é a situação do Espírito desmaterializado, mesmo nas enfermidades mais cruéis! Sendo frágeis os laços fluídicos que o prendem ao corpo, rompem-se suavemente; depois, a confiança do futuro entrevisto em pensamento ou na realidade, como sucede algumas vezes, fá-lo encarar a morte qual redenção e as suas conseqüências como prova, advindo-lhe dai uma calma resignada, que lhe ameniza o sofrimento. Após a morte, rotos os laços, nem uma só reação dolorosa que o afete; o despertar é lépido, desembaraçado; por sensações únicas: o alívio, a alegria!
-
-# 12.
-
-Na morte violenta as sensações não são precisamente as mesmas. Nenhuma desagregação inicial há começado previamente a separação do perispírito; a vida orgânica em plena exuberância de força é subitamente aniquilada. Nestas condições, o desprendimento só começa depois da morte e não pode completar-se rapidamente. O Espírito, colhido de improviso, fica como que aturdido e sente, e pensa, e acredita-se vivo, prolongando-se esta ilusão até que compreenda o seu estado. Este estado intermediário entre a vida corporal e a espiritual é dos mais interessantes para ser estudado, porque apresenta o espetáculo singular de um Espírito que julga material o seu corpo fluídico, experimentando ao mesmo tempo.
+12. - Na morte violenta as sensações não são precisamente as mesmas. Nenhuma desagregação inicial há começado previamente a separação do perispírito; a vida orgânica em plena exuberância de força é subitamente aniquilada. Nestas condições, o desprendimento só começa depois da morte e não pode completar-se rapidamente. O Espírito, colhido de improviso, fica como que aturdido e sente, e pensa, e acredita-se vivo, prolongando-se esta ilusão até que compreenda o seu estado. Este estado intermediário entre a vida corporal e a espiritual é dos mais interessantes para ser estudado, porque apresenta o espetáculo singular de um Espírito que julga material o seu corpo fluídico, experimentando ao mesmo tempo.
 
 
 
@@ -2906,9 +2773,7 @@ O PASSAMENTO
 
 olhos; uma realidade que ele toca e vê, por assim dizer, a cada passo e de modo que a dúvida não pode empolgá-lo, ou ter guarida em sua alma. A vida corporal, tão limitada, amesquinha-se diante da vida espiritual, da verdadeira vida. Que lhe importam os incidentes da jornada se ele compreende a causa e utilidade das vicissitudes humanas, quando suportadas com resignação? A alma eleva-se-lhe nas relações com o mundo visível; os laços fluídicos que o ligam à matéria enfraquecem-se, operando-se por antecipação um desprendimento parcial que facilita a passagem para a outra vida. A perturbação conseqüente à transição pouco perdura, porque, uma vez franqueado o passo, para logo se reconhece, nada estranhando, antes compreendendo, a sua nova situação.
 
-15. - Com certeza não é só o Espiritismo que nos assegura tão auspicioso resultado, nem ele tem a pretensão de ser o meio exclusivo, a garantia única de salvação para as almas. Força é confessar, porém, que pelos conhecimentos que fornece, pelos sentimentos que inspira, como pelas disposições em que coloca o Espírito, fazendo-lhe compreender a necessidade de melhorar-se, facilita enormemente a salvação. Ele dá a mais, e a cada um, os meios de auxiliar o desprendimento doutros Espíritos ao deixarem o invólucro material, abreviando-lhes a perturbação pela evocação e pela prece. Pela prece sincera, que é uma magnetização espiritual, provoca-se a desagregação mais rápida do fluido perispiritual; pela evocação conduzida com sabedoria e prudência, com palavras de benevolência e conforto, combate-se o entorpecimento do Espírito, ajudando-o a reconhecer-se mais cedo, e, se é sofredor, incute-se-lhe o arrependimento - único meio de abreviar seus sofrimentos.
-
-(1)
+15. - Com certeza não é só o Espiritismo que nos assegura tão auspicioso resultado, nem ele tem a pretensão de ser o meio exclusivo, a garantia única de salvação para as almas. Força é confessar, porém, que pelos conhecimentos que fornece, pelos sentimentos que inspira, como pelas disposições em que coloca o Espírito, fazendo-lhe compreender a necessidade de melhorar-se, facilita enormemente a salvação. Ele dá a mais, e a cada um, os meios de auxiliar o desprendimento doutros Espíritos ao deixarem o invólucro material, abreviando-lhes a perturbação pela evocação e pela prece. Pela prece sincera, que é uma magnetização espiritual, provoca-se a desagregação mais rápida do fluido perispiritual; pela evocação conduzida com sabedoria e prudência, com palavras de benevolência e conforto, combate-se o entorpecimento do Espírito, ajudando-o a reconhecer-se mais cedo, e, se é sofredor, incute-se-lhe o arrependimento - único meio de abreviar seus sofrimentos.(1)
 
 __________
 
@@ -2934,7 +2799,7 @@ Esses exemplos poderiam ser multiplicados infinitamente, porém, forçados a lim
 
 # ESPÍRITOS FELIZES
 
-SANSON
+# SANSON
 
 Este antigo membro da Sociedade Espírita de Paris faleceu a 21 de abril de 1862, depois de um ano de atrozes padecimentos. Prevendo a morte, dirigira ao presidente da Sociedade uma carta com o tópico seguinte:
 
@@ -2968,9 +2833,7 @@ Para satisfazer-lhe o desejo, evocando-o o mais breve possível, dirigimo-nos co
 
 tuação é bem ditosa; acho-me regenerado, renovado, como se diz entre vós, nada mais sentindo das antigas dores. A passagem da vida terrena para a dos Espíritos deixou-me de começo num estado incompreensível, porque ficamos algumas vezes muitos dias privados de lucidez. Eu havia feito no entanto um pedido a Deus para permitir-me falar aos que estimo, e Deus ouviu-me.
 
-# 4.
-
-Ao fim de que tempo recobrastes a lucidez das idéias? - R. Ao fim de oito horas. Deus, repito, deu-me uma prova de sua bondade, maior que o meu merecimento, e eu não sei como agradecer-lhe.
+4. Ao fim de que tempo recobrastes a lucidez das idéias? - R. Ao fim de oito horas. Deus, repito, deu-me uma prova de sua bondade, maior que o meu merecimento, e eu não sei como agradecer-lhe.
 
 # 5.
 

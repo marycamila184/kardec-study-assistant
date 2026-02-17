@@ -1,3 +1,4 @@
+
 def split_into_subchunks(text: str, max_chars: int = 2000):
     """
     Splits long text into subchunks while preserving paragraph structure.

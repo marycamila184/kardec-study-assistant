@@ -1,3 +1,28 @@
+# O LIVRO DOS ESPÍRITOS
+
+# CONTRA CAPA
+
+# PRINCÍPIOS DA DOUTRINA ESPÍRITA
+
+Sobre a imortalidade da alma, a natureza dos Espíritos e suas relações com os homens, as leis morais, a vida presente, a vida futura e o porvir da Humanidade — segundo os ensinos dados por Espíritos superiores com o concurso de diversos médiuns — recebidos e coordenados, por ALLAN KARDEC
+
+
+---
+
+# O LIVRO DOS ESPÍRITOS
+
+# AO ESTUDO DA DOUTRINA ESPÍRITA
+
+# INTRODUÇÃO
+
+Para se designarem coisas novas são precisos termos novos. Assim o exige a clareza da linguagem, para evitar a confusão inerente à variedade de sentidos das mesmas palavras. Os vocábulos espiritual, espiritualista, espiritualismo têm acepção bem definida. Dar-lhes outra, para aplicá-los à doutrina dos Espíritos, fora multiplicar as causas já numerosas de anfibologia. Com efeito, o espiritismo é o oposto do materialismo. Quem quer que acredite haver em si alguma coisa mais do que matéria, é espiritualista. Não se segue daí, porém, que creia na existência dos Espíritos ou em suas comunicações com o mundo visível. Em vez das palavras espiritual, espiritualismo, empregamos, para indicar a crença a que vimos de referir-nos, os termos espírita e espiritismo, cuja forma lembra a origem e o sentido radical e que, por isso mesmo, apresentam a vantagem de ser perfeitamente inteligíveis, deixando ao vocábulo espiritualismo a acepção que lhe é própria. Diremos, pois, que a doutrina espírita ou o Espiritismo tem por princípio as relações do mundo material com os Espíritos ou seres do mundo invisível. Os adeptos do Espiritismo serão os espíritas, ou, se quiserem, os espiritistas. 
+
+Como especialidade, o Livro dos Espíritos contém a doutrina espírita; como generalidade, prende-se à doutrina espiritualista, uma de cujas fases apresenta. Essa a razão porque traz no cabeçalho do seu título as palavras: Filosofia espiritualista.
+
+
+---
+
+# 14
 
 # INTRODUÇÃO
 
@@ -14,6 +39,9 @@ Sem discutir o mérito de tais opiniões e considerando apenas o lado lingüíst
 
 
 ---
+
+# 15
+
 
 # INTRODUÇÃO
 

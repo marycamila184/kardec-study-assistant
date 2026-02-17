@@ -1,4 +1,14 @@
-# 22
+# O EVANGELHO SEGUNDO O ESPIRITISMO
+
+# CONTRA CAPA
+
+COM A EXPLICAÇÃO DAS MÁXIMAS MORAIS DO CRISTO EM CONCORDÂNCIA COM O ESPIRITISMO E SUAS APLICAÇÕES ÀS DIVERSAS CIRCUNSTÂNCIAS DA VIDA POR ALLAN KARDEC
+
+Fé inabalável só o é a que pode encarar frente a frente a razão, em todas as épocas da Humanidade.
+
+---
+
+# O EVANGELHO SEGUNDO O ESPIRITISMO 
 
 # EXPLICAÇÃO
 
@@ -30,6 +40,7 @@ Homens, irmãos a quem amamos, aqui estamos junto de vós. Amai-vos, também, un
 O ESPÍRITO DE VERDADE
 
 _________
+
 NOTA - A instrução acima, transmitida por via mediúnica, resume a um tempo o verdadeiro caráter do Espiritismo e a finalidade desta obra; por isso foi colocada aqui como prefácio.
 
 
