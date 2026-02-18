@@ -2820,9 +2820,9 @@ Para satisfazer-lhe o desejo, evocando-o o mais breve possível, dirigimo-nos co
 
 (Câmara mortuária, 23 de abril de 1862.)
 
-1. Evocação. - Atendo ao vosso chamado para cumprir a minha promessa.
-2. Meu caro Sr. Sanson, cumprindo um dever, com satisfação vos evocamos o mais cedo possível depois da vossa morte, como era do vosso desejo. - R. É uma graça especial que Deus me concede para que possa manifestar-me; agradeço a vossa boa-vontade, porém, sou tão fraco que tremo.
-3. Fostes tão sofredor que podemos, penso eu, perguntar como vos achais agora... Sentis ainda as vossas dores? Comparando a situação de hoje com a de dois dias atrás, que sensações experimentais? - R. A minha si-
+1.Evocação. - Atendo ao vosso chamado para cumprir a minha promessa.
+2.Meu caro Sr. Sanson, cumprindo um dever, com satisfação vos evocamos o mais cedo possível depois da vossa morte, como era do vosso desejo. - R. É uma graça especial que Deus me concede para que possa manifestar-me; agradeço a vossa boa-vontade, porém, sou tão fraco que tremo.
+3.Fostes tão sofredor que podemos, penso eu, perguntar como vos achais agora... Sentis ainda as vossas dores? Comparando a situação de hoje com a de dois dias atrás, que sensações experimentais? - R. A minha si-
 
 
 
@@ -2833,20 +2833,13 @@ Para satisfazer-lhe o desejo, evocando-o o mais breve possível, dirigimo-nos co
 
 tuação é bem ditosa; acho-me regenerado, renovado, como se diz entre vós, nada mais sentindo das antigas dores. A passagem da vida terrena para a dos Espíritos deixou-me de começo num estado incompreensível, porque ficamos algumas vezes muitos dias privados de lucidez. Eu havia feito no entanto um pedido a Deus para permitir-me falar aos que estimo, e Deus ouviu-me.
 
-4. Ao fim de que tempo recobrastes a lucidez das idéias? - R. Ao fim de oito horas. Deus, repito, deu-me uma prova de sua bondade, maior que o meu merecimento, e eu não sei como agradecer-lhe.
+4.Ao fim de que tempo recobrastes a lucidez das idéias? - R. Ao fim de oito horas. Deus, repito, deu-me uma prova de sua bondade, maior que o meu merecimento, e eu não sei como agradecer-lhe.
 
-# 5.
+5.Estais bem certo de não pertencerdes mais ao nosso mundo? - No caso afirmativo, como comprová-lo? - R. Oh! certamente, eu não sou mais desse mundo, porém, estarei sempre ao vosso lado para vos proteger e sustentar, a fim de pregardes a caridade e a abnegação, que foram os guias da minha vida. Depois, ensinarei a verdadeira fé, a fé espírita, que deve elevar a crença do bom e do justo; estou forte, robusto, em uma palavra transformado. Em mim não reconhecereis mais o velho enfermo que tudo devia esquecer, fugindo de todo prazer e alegria. Eu sou Espírito e a minha pátria é o Espaço, o meu futuro é Deus, que reina na imensidade. Desejara poder falar a meus filhos, ensinar-lhes aquilo mesmo que sempre desdenharam acreditar.
 
-Estais bem certo de não pertencerdes mais ao nosso mundo? - No caso afirmativo, como comprová-lo? - R. Oh! certamente, eu não sou mais desse mundo, porém, estarei sempre ao vosso lado para vos proteger e sustentar, a fim de pregardes a caridade e a abnegação, que foram os guias da minha vida. Depois, ensinarei a verdadeira fé, a fé espírita, que deve elevar a crença do bom e do justo; estou forte, robusto, em uma palavra transformado. Em mim não reconhecereis mais o velho enfermo que tudo devia esquecer, fugindo de todo prazer e alegria. Eu sou Espírito e a minha pátria é o Espaço, o meu futuro é Deus, que reina na imensidade. Desejara poder falar a meus filhos, ensinar-lhes aquilo mesmo que sempre desdenharam acreditar.
+6.Que efeito vos causa o vosso corpo aqui ao lado? - R. Meu corpo! pobre, mísero despojo... volve ao pó, enquanto eu guardo a lembrança de todos que me estimaram. Vejo essa pobre carne decomposta, morada que foi do meu Espírito, provação de tantos anos! Obrigado, mísero corpo, pois que purificaste o meu Espírito! O meu sofrimento, dez vezes bendito, deu-me um lugar bem compensador, por isso que tão depressa posso comunicar-me convosco...
 
-# 6.
-
-Que efeito vos causa o vosso corpo aqui ao lado? - R. Meu corpo! pobre, mísero despojo... volve ao pó, enquanto eu guardo a lembrança de todos que me estimaram. Vejo essa pobre carne decomposta, morada que foi do meu Espírito, provação de tantos anos! Obrigado, mísero corpo, pois que purificaste o meu Espírito! O meu sofrimento, dez vezes bendito, deu-me um lugar bem compensador, por isso que tão depressa posso comunicar-me convosco...
-
-# 7.
-
-Conservastes as idéias até ao último instante? - R. Sim. O meu Espírito conservou as suas faculdades, e
-
+7.Conservastes as idéias até ao último instante? - R. Sim. O meu Espírito conservou as suas faculdades, e
 
 
 ---
@@ -2856,18 +2849,17 @@ Conservastes as idéias até ao último instante? - R. Sim. O meu Espírito cons
 
 quando eu já não mais via, pressentia. Toda a minha existência se desdobrou na memória e o meu último pensamento, a última prece, foi para que pudesse comunicar-me convosco, como o faço agora; em seguida pedi a Deus que vos protegesse, para que o sonho da minha vida se completasse.
 
-8. - Tivestes consciência do momento em que o corpo exalou o derradeiro suspiro? que se passou convosco nesse momento? que sensação experimentastes? - R. Parte-se a vida e a vista, ou antes, a vista do Espírito se extingue; encontra-se o vácuo, o ignoto, e arrastada por não sei que poder, encontra-se a gente num mundo de alegria e grandeza! Eu não sentia, nada compreendia e, no entanto, uma felicidade inefável me extasiava de gozo, livre do peso das dores.
+8.Tivestes consciência do momento em que o corpo exalou o derradeiro suspiro? que se passou convosco nesse momento? que sensação experimentastes? - R. Parte-se a vida e a vista, ou antes, a vista do Espírito se extingue; encontra-se o vácuo, o ignoto, e arrastada por não sei que poder, encontra-se a gente num mundo de alegria e grandeza! Eu não sentia, nada compreendia e, no entanto, uma felicidade inefável me extasiava de gozo, livre do peso das dores.
 
-9. - Tendes ciência... do que pretendo ler sobre a vossa campa?
+9.Tendes ciência... do que pretendo ler sobre a vossa campa?
 
 Nota - Apenas pronunciadas as primeiras palavras sobre o assunto, o Espírito respondeu sem que eu terminasse. Também respondeu, sem interrogação alguma, a certa controvérsia suscitada entre os assistentes, sobre se seria oportuno ler esta comunicação no cemitério, achando-se presentes pessoas que poderiam não compartilhar das nossas opiniões.
 
-- R. Ah! sei, meu amigo, e sei, por que tanto vos via ontem como hoje... que grande é a minha alegria! Obrigado! Obrigado! Falai... falai para que me compreendam e vos estimem; nada tendes que temer, pois que se respeita a morte... falai pois, para que os incrédulos tenham fé. Adeus; falai; coragem, confiança, e oxalá meus filhos possam converter-se a uma crença sacrossanta.
+-R. Ah! sei, meu amigo, e sei, por que tanto vos via ontem como hoje... que grande é a minha alegria! Obrigado! Obrigado! Falai... falai para que me compreendam e vos estimem; nada tendes que temer, pois que se respeita a morte... falai pois, para que os incrédulos tenham fé. Adeus; falai; coragem, confiança, e oxalá meus filhos possam converter-se a uma crença sacrossanta.
 
 J. Sanson.
 
 Durante a cerimônia do cemitério, ele ditou as palavras seguintes: "Não vos atemorize a morte, meus amigos: ela é um estádio da vida, se bem souberdes viver;
-
 
 
 ---
@@ -2881,10 +2873,10 @@ Durante a cerimônia do cemitério, ele ditou as palavras seguintes: "Não vos a
 
 (Sociedade Espírita de Paris, 25 de abril de 1862.)
 
-1. Evocação. - R. Estou perto de vós, meus amigos.
-2. Consideramo-nos felizes pela entrevista que tivemos no dia do vosso enterro, e, visto que o permitis, mais felizes seremos em completá-la para nossa instrução. - R. Estou pronto, e sinto-me feliz por pensardes em mim.
-3. A idéia falsa que fazemos do mundo invisível é, o mais das vezes, o que nos leva à descrença, e, assim, tudo que possa esclarecer-nos, a tal respeito, será para nós da mais alta importância. Não vos surpreendam, portanto, as perguntas que porventura vos fizermos. - R. Espero-as e não ficarei surpreendido.
-4. Descrevestes luminosamente a transição para a outra vida; dissestes que, no momento de exalar o corpo o derradeiro alento, a vida se parte e a vista se extingue. E será esse momento seguido de qualquer sensação dolorosa? - R. Mas, decerto que sim, pois a vida não passa de uma série continua de dores, das quais a morte é complemento. Daí uma ruptura violenta, como se o Espírito houvesse de fazer um esforço sobre-humano para escapar-se do seu invólucro, esforço que absorve todo o ser, fazendo-lhe perder o conhecimento do seu destino.
+1.Evocação. - R. Estou perto de vós, meus amigos.
+2.Consideramo-nos felizes pela entrevista que tivemos no dia do vosso enterro, e, visto que o permitis, mais felizes seremos em completá-la para nossa instrução. - R. Estou pronto, e sinto-me feliz por pensardes em mim.
+3.A idéia falsa que fazemos do mundo invisível é, o mais das vezes, o que nos leva à descrença, e, assim, tudo que possa esclarecer-nos, a tal respeito, será para nós da mais alta importância. Não vos surpreendam, portanto, as perguntas que porventura vos fizermos. - R. Espero-as e não ficarei surpreendido.
+4.Descrevestes luminosamente a transição para a outra vida; dissestes que, no momento de exalar o corpo o derradeiro alento, a vida se parte e a vista se extingue. E será esse momento seguido de qualquer sensação dolorosa? - R. Mas, decerto que sim, pois a vida não passa de uma série continua de dores, das quais a morte é complemento. Daí uma ruptura violenta, como se o Espírito houvesse de fazer um esforço sobre-humano para escapar-se do seu invólucro, esforço que absorve todo o ser, fazendo-lhe perder o conhecimento do seu destino.
 
 Nota - Este caso não é geral, pois a experiência prova que muitos Espíritos perdem a consciência antes de expirar, assim como nos que atingiram certo grau de desmaterialização o desprendimento se opera sem esforço.
 
@@ -2895,14 +2887,13 @@ Nota - Este caso não é geral, pois a experiência prova que muitos Espíritos 
 
 # 2ª PARTE - CAPÍTULO II
 
-5. - Sabeis se há Espíritos para os quais o momento extremo seja mais penoso? Será ele mais doloroso ao materialista, por exemplo? - R. Isso é certo, porque o Espírito preparado tem já esquecido o sofrimento, ou, antes, habituou-se com ele e a calma com que encara a morte o impede de sofrer duplamente, prevendo o que por ela o aguarda. O sofrimento moral é mais forte e a sua ausência, por ocasião da morte, é por si só um grande alivio. O descrente assemelha-se ao condenado à pena última, cujo pensamento antevê o cutelo e o ignoto. Entre esta morte e a do ateu, há paridade.
+5.Sabeis se há Espíritos para os quais o momento extremo seja mais penoso? Será ele mais doloroso ao materialista, por exemplo? - R. Isso é certo, porque o Espírito preparado tem já esquecido o sofrimento, ou, antes, habituou-se com ele e a calma com que encara a morte o impede de sofrer duplamente, prevendo o que por ela o aguarda. O sofrimento moral é mais forte e a sua ausência, por ocasião da morte, é por si só um grande alivio. O descrente assemelha-se ao condenado à pena última, cujo pensamento antevê o cutelo e o ignoto. Entre esta morte e a do ateu, há paridade.
 
-6. - Haverá materialistas bastante endurecidos para julgarem nesse momento que vão ser arremessados ao nada? - R. Sim, eles acreditam em o nada até à última hora, mas, no momento da separação, o Espírito recua, a dúvida empolga-o e tortura-o; pergunta-se a si mesmo o que vai ser, quer algo apreender e nada pode. O desprendimento não pode completar-se sem esta impressão.
+6.Haverá materialistas bastante endurecidos para julgarem nesse momento que vão ser arremessados ao nada? - R. Sim, eles acreditam em o nada até à última hora, mas, no momento da separação, o Espírito recua, a dúvida empolga-o e tortura-o; pergunta-se a si mesmo o que vai ser, quer algo apreender e nada pode. O desprendimento não pode completar-se sem esta impressão.
 
 Nota - Em outras circunstâncias, um Espírito fez-nos a seguinte descrição da morte do incrédulo: Experimentam nos últimos instantes as angustias desses pesadelos terríveis em que se vêem em escarpas de abismos prestes a tragá-los; querem fugir e não podem; procuram agarrar-se a qualquer coisa, mas não encontram apoio e sentem precipitar-se: querem clamar, gritar e nem sequer um som podem articular: - então, vemo-los contorcerem-se, crispar as mãos, dar gritos sufocados, outros tantos sintomas do pesadelo de que são vitimas. No pesadelo ordinário, do sonho, o despertar tira-vos a inquietação e aliviados sois pela compreensão de que sonháveis; o pesadelo da morte prolonga-se muita vez por longo tempo, por anos mesmo, e o que torna a sensação ainda mais penosa para o Espírito são as trevas em que se encontra imerso.
 
-7. - Dissestes que por ocasião de expirar nada víeis, porém pressentíeis. Compreende-se que nada vísseis corporalmente, mas o que pressentíeis antes da extinção seria já a claridade do mundo dos Espíritos? - R. Foi o que eu disse precedentemente, o instante da morte dá
-
+7.Dissestes que por ocasião de expirar nada víeis, porém pressentíeis. Compreende-se que nada vísseis corporalmente, mas o que pressentíeis antes da extinção seria já a claridade do mundo dos Espíritos? - R. Foi o que eu disse precedentemente, o instante da morte dá
 
 
 ---
@@ -2916,12 +2907,9 @@ clarividência ao Espírito; os olhos não vêem, porém o Espírito, que possui
 
 Nota - Trata-se do instante que precede a morte, ou antes, daquele em que se perde a consciência - o que explica a palavra momentaneamente, pois as impressões agradáveis ou penosas, quaisquer que sejam, sobrevivem ao despertar.
 
-# 8.
-
-Podeis dizer-nos o que vos impressionou, o que vistes no momento em que os vossos olhos se abriram à luz? Podeis descrever-nos, se é possível, o aspecto das coisas que se vos depararam? - R. Quando pude voltar a mim e ver o que tinha diante dos olhos, fiquei como que ofuscado, sem poder compreender, porquanto a lucidez não volta repentinamente. Deus, porém, que me deu uma prova exuberante da sua bondade, permitiu-me recuperasse as faculdades, e foi então que me vi cercado de numerosos, bons e fiéis amigos. Todos os Espíritos protetores que nos assistem, rodeavam-me sorrindo; uma alegria sem par irradiava-lhes do semblante e também eu, forte e animado, podia sem esforço percorrer os espaços. O que eu vi não tem nome na linguagem dos homens. Voltarei depois para falar-vos mais amplamente das minhas venturas, sem ultrapassar, já se vê, o limite traçado por Deus. Sabei que a felicidade, como vós outros a compreendeis, não passa de uma ficção. Vivei sabiamente, santamente, pela caridade e pelo amor, e tereis feito jus a impressões e delícias que o maior dos poetas não saberia descrever.
+8.Podeis dizer-nos o que vos impressionou, o que vistes no momento em que os vossos olhos se abriram à luz? Podeis descrever-nos, se é possível, o aspecto das coisas que se vos depararam? - R. Quando pude voltar a mim e ver o que tinha diante dos olhos, fiquei como que ofuscado, sem poder compreender, porquanto a lucidez não volta repentinamente. Deus, porém, que me deu uma prova exuberante da sua bondade, permitiu-me recuperasse as faculdades, e foi então que me vi cercado de numerosos, bons e fiéis amigos. Todos os Espíritos protetores que nos assistem, rodeavam-me sorrindo; uma alegria sem par irradiava-lhes do semblante e também eu, forte e animado, podia sem esforço percorrer os espaços. O que eu vi não tem nome na linguagem dos homens. Voltarei depois para falar-vos mais amplamente das minhas venturas, sem ultrapassar, já se vê, o limite traçado por Deus. Sabei que a felicidade, como vós outros a compreendeis, não passa de uma ficção. Vivei sabiamente, santamente, pela caridade e pelo amor, e tereis feito jus a impressões e delícias que o maior dos poetas não saberia descrever.
 
 Nota - Os contos de fadas estão cheios de coisas absurdas, mas quem sabe se não contêm, de alguma sorte e em parte, algo do que se passa no mundo dos Espíritos? A descrição do Sr. Sanson lembra como que um homem adormecido numa choupana, despertando em palácio esplêndido e rodeado de uma corte brilhante.
-
 
 
 ---
@@ -2931,9 +2919,9 @@ Nota - Os contos de fadas estão cheios de coisas absurdas, mas quem sabe se nã
 
 # III
 
-9. - Debaixo de que aspecto se vos apresentaram os Espíritos? sob a forma humana? - R. Sim, meu caro amigo; os Espíritos nos ensinam, aí na Terra, que conservam no outro mundo a mesma forma que lhes serviu de envoltório, e é a verdade. Mas, que diferença entre a máquina informe, que penosamente aí se arrasta com seu cortejo de misérias, e a fluidez maravilhosa do corpo espiritual! A fealdade não mais existe, porque os traços perderam a dureza de expressão que forma o caráter distintivo da raça humana. Deus beatificou esses corpos graciosos que se movem com todas as elegâncias; a linguagem tem modulações intraduzíveis para vós e o olhar o alcance de uma estrela! Conjeturai sobre o que Deus pode produzir na sua Onipotência, Ele, o arquiteto dos arquitetos, e tereis feito uma fraca idéia da forma dos Espíritos.
+9.Debaixo de que aspecto se vos apresentaram os Espíritos? sob a forma humana? - R. Sim, meu caro amigo; os Espíritos nos ensinam, aí na Terra, que conservam no outro mundo a mesma forma que lhes serviu de envoltório, e é a verdade. Mas, que diferença entre a máquina informe, que penosamente aí se arrasta com seu cortejo de misérias, e a fluidez maravilhosa do corpo espiritual! A fealdade não mais existe, porque os traços perderam a dureza de expressão que forma o caráter distintivo da raça humana. Deus beatificou esses corpos graciosos que se movem com todas as elegâncias; a linguagem tem modulações intraduzíveis para vós e o olhar o alcance de uma estrela! Conjeturai sobre o que Deus pode produzir na sua Onipotência, Ele, o arquiteto dos arquitetos, e tereis feito uma fraca idéia da forma dos Espíritos.
 
-10. - Quanto a vós, como vedes? Reconheceis em vós uma forma limitada, circunscrita, ainda que imponderável? Sentis em vós mesmo uma cabeça, tronco, pernas e braços? - R. O Espírito, conservando a sua forma humana idealizada, divinizada, pode, sem contradição, possuir todos os membros de que falais. Sinto perfeitamente as minhas mãos com os dedos, pois podemos, à vontade, aparecer-vos e apertar-vos as mãos. Estou junto dos meus amigos e aperto-lhes as mãos sem que disso se apercebam. Quanto à nossa fluidez e graças a ela, podemos estar em toda parte sem interceptar o espaço ou produzir quaisquer sensações, se assim o desejamos. Neste momento, entre as vossas mãos cruzadas tenho as minhas. Digo-vos, por exemplo, que vos amo; porém, o meu corpo não ocupa qualquer espaço, a luz atravessa-o e o que chamaríeis - milagre - se acaso vísseis, não passa para o Espírito de ação continua de todos os instantes. A vista dos Espíritos não se pode comparar à humana, uma vez que também seu corpo não tem quaisquer semelhanças reais; para eles tudo se transforma na essência, como no conjunto. Repito-vos que o Espírito tem
+10.Quanto a vós, como vedes? Reconheceis em vós uma forma limitada, circunscrita, ainda que imponderável? Sentis em vós mesmo uma cabeça, tronco, pernas e braços? - R. O Espírito, conservando a sua forma humana idealizada, divinizada, pode, sem contradição, possuir todos os membros de que falais. Sinto perfeitamente as minhas mãos com os dedos, pois podemos, à vontade, aparecer-vos e apertar-vos as mãos. Estou junto dos meus amigos e aperto-lhes as mãos sem que disso se apercebam. Quanto à nossa fluidez e graças a ela, podemos estar em toda parte sem interceptar o espaço ou produzir quaisquer sensações, se assim o desejamos. Neste momento, entre as vossas mãos cruzadas tenho as minhas. Digo-vos, por exemplo, que vos amo; porém, o meu corpo não ocupa qualquer espaço, a luz atravessa-o e o que chamaríeis - milagre - se acaso vísseis, não passa para o Espírito de ação continua de todos os instantes. A vista dos Espíritos não se pode comparar à humana, uma vez que também seu corpo não tem quaisquer semelhanças reais; para eles tudo se transforma na essência, como no conjunto. Repito-vos que o Espírito tem
 
 
 
@@ -2944,16 +2932,11 @@ Nota - Os contos de fadas estão cheios de coisas absurdas, mas quem sabe se nã
 
 uma perspicácia divina que abrange tudo, podendo adivinhar até o pensamento alheio; também pode oportunamente tomar a forma mais própria para tornar-se conhecido. Na realidade, porém, o Espírito que tem terminado a provação prefere a forma que o conduziu para junto de Deus.
 
-# 11.
-
-Os Espíritos não têm sexo; mas como há poucos dias éreis um homem, desejamos saber se no vosso novo estado tendes mais da natureza masculina ou da feminina? E o mesmo que se dá convosco poder-se-á aplicar ao Espírito de longo tempo desencarnado? - R. Não temos motivo para ser de natureza masculina ou feminina: - os Espíritos não se reproduzem. Deus criou-os como quis, e tendo segundo seus maravilhosos desígnios de dar-lhes a encarnação, sobre a Terra, subordinou-os aí às leis de reprodução das espécies, caracterizada pela junção dos sexos. Mas vós deveis senti-lo, sem mais explicação, que os Espíritos não podem ter sexo.
+11.Os Espíritos não têm sexo; mas como há poucos dias éreis um homem, desejamos saber se no vosso novo estado tendes mais da natureza masculina ou da feminina? E o mesmo que se dá convosco poder-se-á aplicar ao Espírito de longo tempo desencarnado? - R. Não temos motivo para ser de natureza masculina ou feminina: - os Espíritos não se reproduzem. Deus criou-os como quis, e tendo segundo seus maravilhosos desígnios de dar-lhes a encarnação, sobre a Terra, subordinou-os aí às leis de reprodução das espécies, caracterizada pela junção dos sexos. Mas vós deveis senti-lo, sem mais explicação, que os Espíritos não podem ter sexo.
 
 Nota - Sempre disseram que os Espíritos não têm sexo, sendo este apenas necessário à reprodução dos corpos. De fato, não se reproduzindo, o sexo ser-lhes-ia inútil. A nossa pergunta não visava confirmar o fato, mas saber, visto que o Sr. Sanson desencarnara recentemente, as impressões que guardava do seu estado terreno. Os Espíritos puros compreendem perfeitamente a sua natureza, porém, entre os inferiores, não desmaterializados, muitos há que se acreditam encarnados sobre a Terra, com as mesmas paixões e desejos. Assim, pensam eles que são ainda os mesmos que foram, isto é, homem ou mulher, havendo quem por esta razão suponha ter realmente um sexo. As contradições a tal respeito são oriundas da graduação de adiantamento dos Espíritos que se manifestam, sendo o erro menos deles que de quem os interroga sem se dar ao trabalho de aprofundar as questões.
 
-# 12.
-
-Que tal se vos afigura a sessão? O seu aspecto é o mesmo de quando éreis vivo? As pessoas guardam para vós a mesma aparência? Será tudo tão claro e distinto como outrora? - R. Muito mais claro, porquanto posso ler o pensamento de todos vós, sentindo-me igual-
-
+12.Que tal se vos afigura a sessão? O seu aspecto é o mesmo de quando éreis vivo? As pessoas guardam para vós a mesma aparência? Será tudo tão claro e distinto como outrora? - R. Muito mais claro, porquanto posso ler o pensamento de todos vós, sentindo-me igual-
 
 
 ---
@@ -2963,13 +2946,11 @@ Que tal se vos afigura a sessão? O seu aspecto é o mesmo de quando éreis vivo
 
 mente feliz pela benéfica impressão que me causa a boa-vontade de todos os Espíritos congregados. Desejo que o mesmo critério se faça sentir não só em Paris, mas na França inteira, onde grupos há que se desligam, invejando-se reciprocamente, dominados por Espíritos turbulentos que se comprazem na discórdia, quando o Espiritismo deve incutir o esquecimento completo e absoluto do "eu".
 
-13. - Dissestes poder ler em nosso pensamento: - podeis explicar-nos como se opera essa transmissão? - R. Não é fácil. Para vos descrever, explicando-o, este prodígio extraordinário da nossa visão, preciso fora franquear-vos todo um arsenal de agentes novos, com o que, aliás, ficaríeis na mesma, por terdes as vossas faculdades limitadas pela matéria. Paciência... Tomai-vos bons e tudo conseguireis. Atualmente só podeis ter o que Deus vos concede, mas com a esperança de progredir continuamente; mais tarde sereis como nós. Procurai no entanto morrer em graça para muito saberdes. A curiosidade, estímulo do homem que pensa, conduzir-vos-á tranqüilamente para a morte, reservando-vos a satisfação de todos os desejos passados, presentes e futuros. Enquanto esperais, direi para responder, ainda que mal, à vossa pergunta: o ar que respirais, impalpável como nós, estereotipa por assim dizer o vosso pensamento; o sopro que exalais é, mais ou menos, a página escrita dos vossos pensamentos lidos e comentados pelos Espíritos que constantemente se encontram convosco, mensageiros de uma telegrafia divina que tudo transmite e grava.
+13.Dissestes poder ler em nosso pensamento: - podeis explicar-nos como se opera essa transmissão? - R. Não é fácil. Para vos descrever, explicando-o, este prodígio extraordinário da nossa visão, preciso fora franquear-vos todo um arsenal de agentes novos, com o que, aliás, ficaríeis na mesma, por terdes as vossas faculdades limitadas pela matéria. Paciência... Tomai-vos bons e tudo conseguireis. Atualmente só podeis ter o que Deus vos concede, mas com a esperança de progredir continuamente; mais tarde sereis como nós. Procurai no entanto morrer em graça para muito saberdes. A curiosidade, estímulo do homem que pensa, conduzir-vos-á tranqüilamente para a morte, reservando-vos a satisfação de todos os desejos passados, presentes e futuros. Enquanto esperais, direi para responder, ainda que mal, à vossa pergunta: o ar que respirais, impalpável como nós, estereotipa por assim dizer o vosso pensamento; o sopro que exalais é, mais ou menos, a página escrita dos vossos pensamentos lidos e comentados pelos Espíritos que constantemente se encontram convosco, mensageiros de uma telegrafia divina que tudo transmite e grava.
 
 # A morte do justo
 
 Em seguida à primeira evocação do Sr. Sanson, feita na Sociedade de Paris, um Espírito deu sob esta epígrafe a comunicação seguinte: "Foi a de um justo a morte desse homem de quem neste momento vos ocupais, isto é, esperançosa e calma.
-
-
 
 ---
 
@@ -2980,7 +2961,7 @@ Como o dia sucede naturalmente à aurora, a vida espiritual se lhe sucedeu à vi
 
 "Orai por essas almas perturbadas; orai por todos os sofredores, que a caridade não se restringe à Humanidade visível, mas deve socorrer e consolar os habitantes do Espaço. Disso tivestes a prova evidente na súbita conversão desse Espírito (1) tocado pelas preces espíritas sobre o túmulo do homem de bem que vindes interrogar e que deseja fazer-vos progredir no bom caminho. O amor não tem limites; enche o Espaço e dá e recebe mutuamente as suas divinas consolações. Também o mar se desenrola numa perspectiva infinita, cujo espetáculo deslumbra o espírito, parecendo confundir-se no seu limite com os céus. São duas grandezas que se extremam. Pois bem; assim é o amor; mais profundo que as ondas, mais infinito que o Espaço, a todos vós, encarnados e desencarnados, deve unir na santa comunhão da caridade, fusão sublime do finito e do eterno.
 
-Georges.
+Georges."
 
 # JOBARD
 
@@ -3007,7 +2988,7 @@ O Sr. Jobard era presidente honorário da Sociedade Espírita de Paris e tratava
 
 Jobard."
 
-1. - Quando estáveis na Terra, recomendastes-nos para vos evocarmos, e ora o fazemos, não só para satisfazer aquele desejo, como para testemunhar-vos ainda uma vez a nossa sincera simpatia, instruindo-nos ao mes-
+1.Quando estáveis na Terra, recomendastes-nos para vos evocarmos, e ora o fazemos, não só para satisfazer aquele desejo, como para testemunhar-vos ainda uma vez a nossa sincera simpatia, instruindo-nos ao mes-
 
 
 
@@ -3018,21 +2999,13 @@ Jobard."
 
 mo tempo, visto que ninguém melhor que vós pode dar-nos esclarecimentos precisos sobre esse mundo em que hoje habitais. Dar-nos-emos por felizes se houverdes por bem responder às nossas perguntas. - R. Presentemente o que mais se impõe é a vossa instrução. Quanto à vossa simpatia, entrevejo-a e tenho a prova dela tão-só pelo que ouço, o que é já um enorme progresso.
 
-# 1.
+1.Para fixarmos idéias e não divagar, principiamos por perguntar em que lugar vos achais aqui, e como vos veríamos se tal coisa nos fosse facultada? - R. Estou junto do médium, com a aparência do mesmo Jobard que se sentava à vossa mesa, visto que os vossos olhos mortais, ainda vendados, não podem ver os Espíritos senão sob a sua forma mortal.
 
-Para fixarmos idéias e não divagar, principiamos por perguntar em que lugar vos achais aqui, e como vos veríamos se tal coisa nos fosse facultada? - R. Estou junto do médium, com a aparência do mesmo Jobard que se sentava à vossa mesa, visto que os vossos olhos mortais, ainda vendados, não podem ver os Espíritos senão sob a sua forma mortal.
+2.Podereis tornar-vos visível? No caso contrário, qual a dificuldade? - R. A disposição que vos diz respeito é que é toda pessoal. Um médium vidente ver-me-ia, e os outros não.
 
-# 2.
-
-Podereis tornar-vos visível? No caso contrário, qual a dificuldade? - R. A disposição que vos diz respeito é que é toda pessoal. Um médium vidente ver-me-ia, e os outros não.
-
-# 3.
-
-O vosso lugar aqui é o mesmo de quando assistíeis encarnado às nossas sessões e que vos reservamos? Aqueles, pois, que em tais condições vos viram, poderão supor que aí estais tal qual éreis então, visto que aí não estais com o corpo material de outrora, estais no entanto com o corpo fluídico de agora e com a mesma forma. Se vos não vemos com os olhos do corpo, vemos-vos com o pensamento; se não podeis comunicar pela palavra, podeis pela escrita, com auxílio de um médium; assim as nossas relações de forma alguma se romperam com a vossa morte e podemos entretê-las tão fácil e completamente como outrora. Ê assim precisamente que se passam as coisas? - R. Sim, e há muito que o sabeis. Ocuparei este lugar muitas vezes, e mesmo sem o saberdes, uma vez que o meu Espírito habitará entre vós.
+3.O vosso lugar aqui é o mesmo de quando assistíeis encarnado às nossas sessões e que vos reservamos? Aqueles, pois, que em tais condições vos viram, poderão supor que aí estais tal qual éreis então, visto que aí não estais com o corpo material de outrora, estais no entanto com o corpo fluídico de agora e com a mesma forma. Se vos não vemos com os olhos do corpo, vemos-vos com o pensamento; se não podeis comunicar pela palavra, podeis pela escrita, com auxílio de um médium; assim as nossas relações de forma alguma se romperam com a vossa morte e podemos entretê-las tão fácil e completamente como outrora. Ê assim precisamente que se passam as coisas? - R. Sim, e há muito que o sabeis. Ocuparei este lugar muitas vezes, e mesmo sem o saberdes, uma vez que o meu Espírito habitará entre vós.
 
 Nota - Chamamos a atenção para esta última frase: o meu Espírito habitará entre vós, que, neste caso, não é uma simples
-
-
 
 ---
 
@@ -3041,14 +3014,13 @@ Nota - Chamamos a atenção para esta última frase: o meu Espírito habitará e
 
 figura, porém, realidade. Pelo conhecimento que o Espiritismo nos dá sobre a natureza dos Espíritos, sabemos que qualquer um pode achar-se entre nós, não só em pensamento, mas pessoalmente, com seu corpo etéreo, que o torna uma individualidade distinta. Um Espírito tanto pode, conseguia temente, habitar entre nós depois de morto como quando vivo, ou, por outra, melhor ainda depois de morto, uma vez que pode ir e vir livre e voluntariamente. Deste modo temos lima multidão de comensais invisíveis, indiferentes uns, outros atraídos por afeição. E a estes últimos que se aplica esta frase: Eles habitam entre nós, que se poderá interpretar assim: Eles nos assistem, inspiram e protegem.
 
-5. - Não há muito que encarnado vos sentáveis nesse mesmo lugar. As condições em que ora o fazeis parecer-vos-ão estranhas? Qual o efeito da mudança de estado? - R. De modo algum se me afiguram estranhas as condições, porque o meu Espírito desencarnado goza de lucidez perfeita para não deixar irresolutas quaisquer questões que encare.
+5.Não há muito que encarnado vos sentáveis nesse mesmo lugar. As condições em que ora o fazeis parecer-vos-ão estranhas? Qual o efeito da mudança de estado? - R. De modo algum se me afiguram estranhas as condições, porque o meu Espírito desencarnado goza de lucidez perfeita para não deixar irresolutas quaisquer questões que encare.
 
-6. - Lembrai-vos de haver estado nas mesmas condições anteriormente à última existência? Experimentais qualquer mudança a este respeito comparando as situações presente e passada? - R. Recordo-me das existências anteriores e sinto-me melhorado, por isso que me identifico com o que vejo, ao passo que, perturbado nas precedentes existências, só me apercebia das faltas terrenas.
+6.Lembrai-vos de haver estado nas mesmas condições anteriormente à última existência? Experimentais qualquer mudança a este respeito comparando as situações presente e passada? - R. Recordo-me das existências anteriores e sinto-me melhorado, por isso que me identifico com o que vejo, ao passo que, perturbado nas precedentes existências, só me apercebia das faltas terrenas.
 
-7. - Lembrai-vos da penúltima encarnação, da que precedeu a do Sr. Jobard? - R. Se me lembro... Fui um operário mecânico acossado pela miséria e pelo desejo de aperfeiçoar a minha arte. Como Jobard, realizei os sonhos do pobre operário, e dou graças a Deus cuja bondade infinita fez germinar a planta, e cuja semente depositara em meu cérebro.
+7.Lembrai-vos da penúltima encarnação, da que precedeu a do Sr. Jobard? - R. Se me lembro... Fui um operário mecânico acossado pela miséria e pelo desejo de aperfeiçoar a minha arte. Como Jobard, realizei os sonhos do pobre operário, e dou graças a Deus cuja bondade infinita fez germinar a planta, e cuja semente depositara em meu cérebro.
 
-8. - Já vos tendes comunicado em outra parte? - R. Pouco me tenho comunicado. Em muitos lugares um
-
+8.Já vos tendes comunicado em outra parte? - R. Pouco me tenho comunicado. Em muitos lugares um
 
 
 ---
@@ -3060,18 +3032,11 @@ figura, porém, realidade. Pelo conhecimento que o Espiritismo nos dá sobre a n
 
 Espírito tomou-me o nome; algumas vezes estava eu perto dele sem que pudesse comunicar-me diretamente. Tão recente é a minha morte que participo ainda de certas influências terrestres. E preciso que haja perfeita simpatia para poder exprimir o meu pensamento. Em breve operarei incondicionalmente, mas por enquanto, repito, não posso fazê-lo. Quando morre um homem um tanto conhecido, é chamado de todos os lados e inúmeros Espíritos se dão pressa de apossar-se da sua individualidade. Eis o que comigo se tem passado em muitos casos. Asseguro-vos que, logo após ao desprendimento, poucos Espíritos podem comunicar-se, mesmo por um médium predileto.
 
-# 9.
+9.Vedes os Espíritos que aqui estão conosco? R. - Vejo, principalmente Lázaro e Erasto; depois, mais afastado, o Espírito de Verdade pairando no espaço, depois, ainda, uma multidão de Espíritos que vos cercam, solícitos e benévolos. Sede felizes, amigos, pois benéficas influências vos disputam às garras do erro.
 
-- Vedes os Espíritos que aqui estão conosco? R. - Vejo, principalmente Lázaro e Erasto; depois, mais afastado, o Espírito de Verdade pairando no espaço, depois, ainda, uma multidão de Espíritos que vos cercam, solícitos e benévolos. Sede felizes, amigos, pois benéficas influências vos disputam às garras do erro.
+10.Quando encarnado compartilháveis da opinião emitida sobre a formação da Terra pela incrustação de quatro planetas que se teriam unido: - Sois ainda da mesma opinião? - R. É um erro. As novas descobertas geológicas provam as convulsões da Terra e sua formação gradual e sucessiva. A Terra, como os outros planetas, teve sua vida própria, e Deus não precisou lançar mão dessa grande desordem que seria a agregação de planetas. A água e o fogo são os únicos elementos orgânicos da Terra.
 
-# 10.
-
-- Quando encarnado compartilháveis da opinião emitida sobre a formação da Terra pela incrustação de quatro planetas que se teriam unido: - Sois ainda da mesma opinião? - R. É um erro. As novas descobertas geológicas provam as convulsões da Terra e sua formação gradual e sucessiva. A Terra, como os outros planetas, teve sua vida própria, e Deus não precisou lançar mão dessa grande desordem que seria a agregação de planetas. A água e o fogo são os únicos elementos orgânicos da Terra.
-
-# 11.
-
-- Admitíeis também que os homens pudessem cair num estado cataléptico por tempo ilimitado, e que o gênero humano tivesse assim aparecido na Terra? - R. Pura ilusão da minha mente, que ultrapassava sempre o seu fim. A catalepsia pode ser longa, porém, não indeterminada: tradições, legendas exageradas pela imaginação oriental. Meus amigos, muito tenho sofrido já com as ilusões que alimentaram o meu Espírito; não vos iludais a
-
+11.Admitíeis também que os homens pudessem cair num estado cataléptico por tempo ilimitado, e que o gênero humano tivesse assim aparecido na Terra? - R. Pura ilusão da minha mente, que ultrapassava sempre o seu fim. A catalepsia pode ser longa, porém, não indeterminada: tradições, legendas exageradas pela imaginação oriental. Meus amigos, muito tenho sofrido já com as ilusões que alimentaram o meu Espírito; não vos iludais a
 
 
 ---
@@ -3079,17 +3044,12 @@ Espírito tomou-me o nome; algumas vezes estava eu perto dele sem que pudesse co
 
 # 2ª PARTE - CAPÍTULO II
 
-tal respeito. Muito aprendi e posso hoje dizer-vos que a minha inteligência, apta para
-assimilar diversos e vastos estudos, guardará no entanto, de sua última encarnação, o
-pendor para o maravilhoso e místico, hauridos nas imaginações populares. Ainda
-agora, pouco me tenho ocupado das questões puramente intelectuais, no sentido em
-que as julgais. E como poderia eu fazê-lo, deslumbrado e aturdido pelo maravilhoso
-espetáculo que me cerca? O vínculo do Espiritismo, que vós homens não podeis compreender, só ele pode atrair-me a esta terra que abandono - não direi com alegria, por
-ser uma impiedade - mas com o profundo reconhecimento da libertação.
+tal respeito. Muito aprendi e posso hoje dizer-vos que a minha inteligência, apta para assimilar diversos e vastos estudos, guardará no entanto, de sua última encarnação, o pendor para o maravilhoso e místico, hauridos nas imaginações populares. Ainda agora, pouco me tenho ocupado das questões puramente intelectuais, no sentido em que as julgais. E como poderia eu fazê-lo, deslumbrado e aturdido pelo maravilhoso espetáculo que me cerca? O vínculo do Espiritismo, que vós homens não podeis compreender, só ele pode atrair-me a esta terra que abandono - não direi com alegria, por ser uma impiedade - mas com o profundo reconhecimento da libertação.
 
 Nota - Quando a Sociedade abriu uma subscrição em favor dos operários de Lião, em fevereiro de 1862, um consócio subscreveu 50 fr., sendo 25 por si e 25 em nome do Sr. Jobard, que, então, deu a tal respeito a comunicação seguinte:
 
 "Exulto e lisonjeio-me de não ter sido esquecido entre os meus irmãos espíritas. Agradeço ao coração generoso que vos trouxe o óbolo que eu daria se habitasse ainda o vosso mundo. Neste em que ora resido é nula a necessidade de dinheiro, de modo que me foi preciso recorrer à bolsa da amizade para provar materialmente que também a mim me compungia o infortúnio dos irmãos de Lião. Intrépidos cultores da vinha do Senhor, muito deveis convencer-vos de que a caridade não é uma palavra oca, pois grandes e pequenos vos patentearam, na emergência, sentimentos de simpatia e fraternidade. Estais na grande via humanitária do progresso.
+
 Pois bem: praza a Deus sejais ditosos na jornada, e os Espíritos amigos que vos sustentem para que triunfeis afinal. Eu começo a viver espiritualmente, mais calmo, menos perturbado pelas evocações constantes que sobre mim choviam. A moda também atua sobre os Espíritos, e quando Jobard, em moda, passar da moda, então, pedirá aos seus amigos sérios que o evoquem."
 
 
@@ -3116,13 +3076,11 @@ Trabalhos, fadigas, sacrifícios, nada o impedia de ser útil, e isto sem ostent
 
 # 2ª PARTE - CAPÍTULO II
 
-- P. Tendes uma recordação nítida dos últimos instantes da vida na Terra? - R. Perfeitamente, conquanto essa recordação reaparecesse gradualmente. No instante preciso do desprendimento eram confusas as minhas idéias.
+P. Tendes uma recordação nítida dos últimos instantes da vida na Terra? - R. Perfeitamente, conquanto essa recordação reaparecesse gradualmente. No instante preciso do desprendimento eram confusas as minhas idéias.
 
-- P. Quereríeis, a bem da nossa instrução e do interesse que nos mereceis pela vossa vida exemplar, descrever como ocorreu o vosso trespasse da vida corporal para a espiritual? - R. De bom grado, tanto mais quanto a narrativa não aproveitará somente a vós, mas a mim próprio, por isso que, dirigindo o meu pensamento para a Terra, a comparação faz-me apreciar melhor a bondade do Criador. Sabeis que de tribulações provei na vida; entretanto, jamais me faltou coragem na adversidade, graças a Deus! E hoje, felicito-me! E ainda tremo ao pensar que tudo quanto sofri se anularia caso desfalecesse, tendo de recomeçar novamente as provações! Oh! meus amigos, compenetrai-vos firmemente desta verdade, pois nela reside a felicidade do vosso futuro. Não é, por certo, comprar muito caro essa felicidade por alguns anos de sofrimento! Ah! Se soubesseis o que são alguns anos comparados ao infinito! Se de fato a minha última existência teve algum mérito aos vossos olhos, outro tanto não diríeis das que a precederam. E não foi senão à força de trabalho sobre mim mesmo, que me tornei o que ora sou. Para apagar os últimos traços das faltas anteriores, era-me preciso sofrer as últimas provas que voluntariamente aceitei. Foi na firmeza das minhas resoluções que escudei a resignação, a fim de sofrer sem me queixar. Hoje abençôo essas provas, pois a elas devo o ter rompido com o passado - simples recordação agora que me permite contemplar com legítima alegria o caminho percorrido.
+P. Quereríeis, a bem da nossa instrução e do interesse que nos mereceis pela vossa vida exemplar, descrever como ocorreu o vosso trespasse da vida corporal para a espiritual? - R. De bom grado, tanto mais quanto a narrativa não aproveitará somente a vós, mas a mim próprio, por isso que, dirigindo o meu pensamento para a Terra, a comparação faz-me apreciar melhor a bondade do Criador. Sabeis que de tribulações provei na vida; entretanto, jamais me faltou coragem na adversidade, graças a Deus! E hoje, felicito-me! E ainda tremo ao pensar que tudo quanto sofri se anularia caso desfalecesse, tendo de recomeçar novamente as provações! Oh! meus amigos, compenetrai-vos firmemente desta verdade, pois nela reside a felicidade do vosso futuro. Não é, por certo, comprar muito caro essa felicidade por alguns anos de sofrimento! Ah! Se soubesseis o que são alguns anos comparados ao infinito! Se de fato a minha última existência teve algum mérito aos vossos olhos, outro tanto não diríeis das que a precederam. E não foi senão à força de trabalho sobre mim mesmo, que me tornei o que ora sou. Para apagar os últimos traços das faltas anteriores, era-me preciso sofrer as últimas provas que voluntariamente aceitei. Foi na firmeza das minhas resoluções que escudei a resignação, a fim de sofrer sem me queixar. Hoje abençôo essas provas, pois a elas devo o ter rompido com o passado - simples recordação agora que me permite contemplar com legítima alegria o caminho percorrido.
 
 "Oh! vós que me fizestes padecer na Terra; que fostes cruéis e malévolos para comigo, que me humilhastes e afligistes; vós, cuja má-fé tantas vezes me acarretou duras privações, não somente vos perdôo mas até vos agradeço. Intentando fazer mal, não suspeitáveis do bem que
-
-
 
 ---
 
@@ -3139,8 +3097,6 @@ Esse estado foi alternado de momentos de lucidez e de sonolência, durante os qu
 
 Pouco a pouco as minhas idéias adquiriram mais lucidez, a luz que entrevia, por denso nevoeiro, fez-se brilhante; e eu comecei a compreender-me, a reconhecer-me, compreendendo e reconhecendo que não mais per-
 
-
-
 ---
 
 
@@ -3155,7 +3111,6 @@ E ainda bem não se desvaneciam tais impressões, já eu interrogava a mim mesmo
 É bem verdade, dizia, que estou isento desses cuidados que fazem o tormento da vida! Graças a Deus! Também o pobre, repentinamente enriquecido, duvida da realidade da sua fortuna e alimenta por algum tempo as apreensões da pobreza. Assim era eu.
 
 
-
 ---
 
 
@@ -3163,12 +3118,11 @@ E ainda bem não se desvaneciam tais impressões, já eu interrogava a mim mesmo
 
 Ah! pudessem os homens compreender a vida futura, e que força, que coragem esta convicção não lhes daria na adversidade. Quem deixaria então, na Terra, de prover e assegurar-se da felicidade que Deus reserva aos filhos dóceis e submissos? Gozos ambicionados, invejados, tornar-se-iam mesquinhos em relação aos que eles desprezam!
 
-- P. Esse mundo tão novo e comparado ao qual nada vale o nosso, bem como os numerosos amigos que nele reencontrastes, fizeram-vos esquecer a família e amigos encarnados?
+-P. Esse mundo tão novo e comparado ao qual nada vale o nosso, bem como os numerosos amigos que nele reencontrastes, fizeram-vos esquecer a família e amigos encarnados?
 
-- R. Se os tivesse esquecido seria indigno da felicidade de que gozo. Deus não recompensa o egoísmo, pune-o. O mundo em que me vejo pode fazer com que desdenhe a Terra, mas não os Espíritos nela encarnados. Somente entre os homens é que a prosperidade faz esquecer os companheiros de infortúnio. Muitas vezes venho visitar os que me são caros, exultando com a recordação que de mim guardaram; assisto às suas diversões, e, atraído por seus pensamentos, gozo se gozam ou sofro se sofrem.
+-R. Se os tivesse esquecido seria indigno da felicidade de que gozo. Deus não recompensa o egoísmo, pune-o. O mundo em que me vejo pode fazer com que desdenhe a Terra, mas não os Espíritos nela encarnados. Somente entre os homens é que a prosperidade faz esquecer os companheiros de infortúnio. Muitas vezes venho visitar os que me são caros, exultando com a recordação que de mim guardaram; assisto às suas diversões, e, atraído por seus pensamentos, gozo se gozam ou sofro se sofrem.
 
 O meu sofrimento é, porém, relativo e não se pode comparar ao sofrimento humano, uma vez que compreendo o alcance, a necessidade e o caráter transitório das provações. Esse sofrimento é, ao demais, suavizado pela convicção de que aqueles a quem amo virão também por sua vez a esta mansão afortunada onde a dor não existe. Para torná-los dignos dela, dessa mansão, é que me esforço por sugerir-lhes bons pensamentos e sobretudo a resignação que tive, consoante a vontade de Deus. A minha desolação avulta quando os vejo retardar o advento por falta de coragem, murmúrios, vacilações e sobretudo por qualquer ato reprovável. Trato então de os desviar do mau caminho, e, se o consigo, é isso uma felicidade não só para mim, como para outros Espíritos; quando, ao contrário, a intervenção é improfícua, exclamo com
-
 
 
 ---
@@ -3178,7 +3132,7 @@ O meu sofrimento é, porém, relativo e não se pode comparar ao sofrimento huma
 
 pesar: Mais um momento de atraso; mas consola-me a idéia de que nada se perde irremissivelmente.
 
-Samuel Filipe.
+Samuel Filipe."
 
 # VAN DURST
 
@@ -3193,7 +3147,6 @@ Decorridos os quatro dias recebemos a comunicação seguinte:
 De fato, ela foi grande; viver e não viver, estar rudemente preso ao corpo sem poder servir-se dele, ver os que nos foram caros, sentindo extinguir-se o pensamento que a eles nos prende, oh! que coisa horrível! Que momento cruel esse em que o aturdimento nos empolga e constrange, para desfazer-se em trevas logo após! Sentir tudo, para estar um momento depois aniquilado! Quer-se ter a consciência do seu eu, sem encontrá-la; não existir, e sentir que se existe!
 
 
-
 ---
 
 
@@ -3203,8 +3156,7 @@ Perturbação profunda! Depois, transcorrido um tempo incalculável de angústia
 
 Amigos, adeus a todos vós; espero-vos, e, enquanto estiverdes na Terra, virei muitas vezes instruir-me convosco, visto como sei menos ainda que muitos dentre vós. Notai que aqui onde estou, sem velhice que me enfraqueça nem entraves de qualquer espécie, aprenderei mais depressa e facilmente. Aqui se vive às claras, caminhando com desassombro, tendo ante os olhos horizontes tão belos que a gente se torna impaciente por abrangê-los. Adeus, deixo-vos, adeus.
 
-Van Durst.
-
+Van Durst."
 
 
 ---
@@ -3218,16 +3170,15 @@ Homem de bem, morto por acidente e conhecido do médium, quando encarnado.
 
 (Bordéus, 11 de fevereiro de 1861.)
 
-- P. Podeis dar-nos quaisquer detalhes sobre a vossa morte? - R. Depois de afogar-me, sim.
+-P. Podeis dar-nos quaisquer detalhes sobre a vossa morte? - R. Depois de afogar-me, sim.
 
-- P. E por que não antes? - R. Porque já os conheceis. (O médium conhecia-os, efetivamente.)
+-P. E por que não antes? - R. Porque já os conheceis. (O médium conhecia-os, efetivamente.)
 
-- P. Quereis então descrever as vossas sensações depois da morte? - R. Permaneci muito tempo sem me reconhecer, mas com a graça de Deus e o auxílio dos que me cercavam, quando a luz se fez, inundou-me. Confia, e encontrareis sempre mais do que esperardes. Nada existe aqui de material; tudo fere os sentidos ocultos sem auxílio da vista ou do tato: compreendeis? É uma admiração, porque não há palavras que a expliquem. Só a alma pode percebê-la. Bem feliz foi o meu despertar. A vida é um desses sonhos, que, apesar da ideia grosseira que se lhe atribui, só pode ser qualificada de medonho pesadelo.
+-P. Quereis então descrever as vossas sensações depois da morte? - R. Permaneci muito tempo sem me reconhecer, mas com a graça de Deus e o auxílio dos que me cercavam, quando a luz se fez, inundou-me. Confia, e encontrareis sempre mais do que esperardes. Nada existe aqui de material; tudo fere os sentidos ocultos sem auxílio da vista ou do tato: compreendeis? É uma admiração, porque não há palavras que a expliquem. Só a alma pode percebê-la. Bem feliz foi o meu despertar. A vida é um desses sonhos, que, apesar da ideia grosseira que se lhe atribui, só pode ser qualificada de medonho pesadelo.
 
 Imaginai que estais encerrado em calabouço infecto onde o vosso corpo, corroído pelos vermes até à medula dos ossos, se suspende por sobre ardente fornalha; que a vossa ressequida boca não encontra sequer o ar para refrescá-la; que o vosso Espírito aterrorizado só vê ao seu redor monstros prestes a devorá-lo; figurai-vos enfim tudo quanto um sonho fantástico pode engendrar de hediondo, de mais terrível, e transportai-vos depois e repentinamente a delicioso Éden.
 
 Despertai cercado de todos os que amastes e chorastes; vede, rodeando-vos, semblantes adorados a sorrirem de felicidade; respirai os mais suaves perfumes; desalterai a ressequida garganta na fonte de água viva; senti o corpo palrando no Espaço infinito que o suporta e baloiça, qual a flor que da fronde se destaca aos impulsos da brisa; julgai-vos envolto no amor de Deus qual recém-nascidos no materno amor e
-
 
 
 ---
@@ -3239,21 +3190,21 @@ Despertai cercado de todos os que amastes e chorastes; vede, rodeando-vos, sembl
 
 tereis uma idéia, aliás apenas imperfeita, dessa transição. Procurei explicar-vos a felicidade da vida que aguarda o homem depois da morte do corpo e não pude. Será possível explicar o infinito àquele que tem os olhos fechados à luz e que não pode sair do estreito círculo que o encerra? Para explicar-vos a eterna felicidade, dir-vos-ei apenas: amai, pois só o amor faculta o pressenti-la, e quem diz amor diz ausência de egoísmo.
 
-- P. A vossa posição foi feliz desde logo que entrastes no mundo dos Espíritos?
+-P. A vossa posição foi feliz desde logo que entrastes no mundo dos Espíritos?
 
-- R. Não; tive de pagar a divida humana. Meu coração pressentira o futuro do Espírito, mas faltava-me a fé. Tive que expiar a indiferença para com o meu Criador, porém a sua misericórdia levou-me em conta o bem insignificante que pude fazer, as dores que resignado padeci, apesar dos sofrimentos, e a sua justiça, cuja balança os homens jamais compreenderão, tão benévola e amorosamente pesou o bem, que o mal depressa se extinguiu.
+-R. Não; tive de pagar a divida humana. Meu coração pressentira o futuro do Espírito, mas faltava-me a fé. Tive que expiar a indiferença para com o meu Criador, porém a sua misericórdia levou-me em conta o bem insignificante que pude fazer, as dores que resignado padeci, apesar dos sofrimentos, e a sua justiça, cuja balança os homens jamais compreenderão, tão benévola e amorosamente pesou o bem, que o mal depressa se extinguiu.
 
-- P. Podereis dar-me notícias da vossa filha? (morta quatro ou cinco anos antes)
+-P. Podereis dar-me notícias da vossa filha? (morta quatro ou cinco anos antes)
 
-- R. Está em missão aí na Terra.
+-R. Está em missão aí na Terra.
 
-- P. Ela é infeliz como encarnada? Notai que não quero fazer perguntas indiscretas.
+-P. Ela é infeliz como encarnada? Notai que não quero fazer perguntas indiscretas.
 
-- R. Sei. Ou eu não veria o vosso pensamento como um quadro ante meus olhos. Minha filha não é feliz, encarnada, antes, pelo contrário, deverá provar todas as misérias terrenas, pregando pelo exemplo as grandes virtudes de que fazeis simples vocábulos retumbantes. Ajudá-la-ei, no entanto, certo de que lhe não será penoso superar os obstáculos, pois está na Terra em missão, e não em expiação. Tranqüilizai-vos por ela, e obrigado pela lembrança.
+-R. Sei. Ou eu não veria o vosso pensamento como um quadro ante meus olhos. Minha filha não é feliz, encarnada, antes, pelo contrário, deverá provar todas as misérias terrenas, pregando pelo exemplo as grandes virtudes de que fazeis simples vocábulos retumbantes. Ajudá-la-ei, no entanto, certo de que lhe não será penoso superar os obstáculos, pois está na Terra em missão, e não em expiação. Tranqüilizai-vos por ela, e obrigado pela lembrança.
 
 Neste comenos, experimentando dificuldades em escrever, diz o médium: - Se é um Espírito sofredor que mo impede, peço-lhe que escreva seu nome.
 
-- R. Uma infeliz.
+-R. Uma infeliz.
 
 
 
@@ -3262,28 +3213,27 @@ Neste comenos, experimentando dificuldades em escrever, diz o médium: - Se é u
 
 # 2ª PARTE - CAPÍTULO II
 
-- P. Queira dizer-me o seu nome. - R. Valéria.
+-P. Queira dizer-me o seu nome. - R. Valéria.
 
-- P. Podereis dizer-me o motivo do vosso sofrimento? - R. Não.
+-P. Podereis dizer-me o motivo do vosso sofrimento? - R. Não.
 
-- P. Estais arrependida dos vossos erros? - R. Podes julgá-lo.
+-P. Estais arrependida dos vossos erros? - R. Podes julgá-lo.
 
-- P. Quem vos trouxe aqui? - R. Sixdeniers.
+-P. Quem vos trouxe aqui? - R. Sixdeniers.
 
-- P. Com que fito? - R. De me ajudares.
+-P. Com que fito? - R. De me ajudares.
 
-- P. E fostes vós que ainda há pouco me impedistes de escrever? - R. Sixdeniers me colocou em seu lugar.
+-P. E fostes vós que ainda há pouco me impedistes de escrever? - R. Sixdeniers me colocou em seu lugar.
 
-- P. Que relação há entre vós e ele? - R. Guia-me.
+-P. Que relação há entre vós e ele? - R. Guia-me.
 
-- P. Pedi-lhe que nos acompanhasse na prece. (Depois da prece, Sixdeniers retoma a palavra, dizendo: - Obrigado por ela. Já compreendestes; não vos esquecerei; pensai nela.)
+-P. Pedi-lhe que nos acompanhasse na prece. (Depois da prece, Sixdeniers retoma a palavra, dizendo: - Obrigado por ela. Já compreendestes; não vos esquecerei; pensai nela.)
 
-- P. (A Sixdeniers.) Tendes muitos Espíritos sofredores a guiar? - R. Não; entretanto, regenerando algum, buscamos logo outro e assim por diante, sem abandonar os primeiros.
+-P. (A Sixdeniers.) Tendes muitos Espíritos sofredores a guiar? - R. Não; entretanto, regenerando algum, buscamos logo outro e assim por diante, sem abandonar os primeiros.
 
-- P. Como podeis prover uma vigilância que deverá multiplicar-se ao infinito no decurso dos séculos? - R. Os que regeneramos purificam-se e progridem sem que por isso nos dêem maior cuidado; além disso, também nos vamos elevando, e, à proporção que subimos, as faculdades, como os poderes, se dilatam, na razão direta da nossa pureza.
+-P. Como podeis prover uma vigilância que deverá multiplicar-se ao infinito no decurso dos séculos? - R. Os que regeneramos purificam-se e progridem sem que por isso nos dêem maior cuidado; além disso, também nos vamos elevando, e, à proporção que subimos, as faculdades, como os poderes, se dilatam, na razão direta da nossa pureza.
 
 NOTA - Os Espíritos inferiores, pelo que vemos, são assistidos por bons Espíritos com a missão de os guiar, tarefa esta que não é exclusivamente delegada aos encarnados, os quais nem por isso ficam desobrigados de auxiliá-la, uma vez que também isso constitui para eles meio de progresso. Nem sempre com boa intenção um Espírito inferior vem interrom-
-
 
 
 ---
@@ -3299,7 +3249,6 @@ per boas comunicações, mas é certo que o fazem algumas vezes, como no caso pr
 Falecido em Albi (Tarn) a 25 de janeiro de 1865.
 
 Nota - Era um médico homeopata e distintíssimo. Seu caráter, tanto quanto o saber, haviam-lhe granjeado a estima e veneração dos seus concidadãos. Eram-lhe inextinguíveis a bondade e a caridade, e, a despeito da idade avançada, não se lhe conheciam fadigas, em se tratando de socorrer doentes pobres. O preço das visitas era o que menos o preocupava, e de preferência sacrificava as suas comodidades ao pobre, dizendo que os ricos, em sua falta, bem podiam recorrer a outro médico. E quantas e quantas vezes ao doente sem recursos provia do necessário às exigências materiais, no caso de serem mais úteis que o próprio medicamento. Dele pode dizer-se que era o Cura d'Ars da Medicina. Encontrando, na Doutrina Espírita, a chave de problemas cuja solução debalde pedira à Ciência como a todas as filosofias, o Dr. Demeure abraçara com ardor essa doutrina. Pela profundeza do seu espírito investigador compreendeu-lhe subitamente todo o alcance, de maneira a tornar-se um dos seus mais solícitos propagadores. Relações de mútua e viva simpatia se haviam estabelecido entre nós, correspondendo-nos. Soubemos do seu decesso a 30 de janeiro, sendo que o nosso imediato desejo
-
 
 
 ---
@@ -3336,10 +3285,9 @@ Demeure.
 
 "Sou eu, Demeure, o amigo do Sr. Kardec. Venho dizer-lhe que o acompanhava quando lhe sobreveio o acidente. Este seria certamente funesto sem a intervenção eficaz para a qual me ufano de haver concorrido. De acordo com as minhas observações e com os informes colhidos em boa fonte, é evidente para mim que, quanto mais cedo se der a sua desencarnação, tanto mais breve reencarnará para completar a sua obra. É preciso, contudo, antes de partir, dar a última demão às obras complementares da teoria doutrinal de que é o iniciador. Se, portanto, por excesso de trabalho, não atendendo à imperfeição do seu organismo, antecipar a partida para cá, será passível da pena de homicídio voluntário. É mister dizer-lhe toda a verdade, para que se previna e siga estritamente as nossas prescrições.
 
-Demeure.
+Demeure."
 
 Nota - A seguinte comunicação foi obtida em Montauban, aos 26 de janeiro, dia seguinte ao da sua desencarnação, num Centro de amigos espíritas que havia nessa cidade.
-
 
 
 ---
@@ -3355,10 +3303,9 @@ Nota - A seguinte comunicação foi obtida em Montauban, aos 26 de janeiro, dia 
 
 "Não choreis, meus amigos, porque me faríeis lamentar o haver-vos conhecido. Deixai correr o tempo, e Deus vos encaminhará para esta mansão, onde nos devemos todos reunir finalmente. Boa-noite, amigos; que Deus vos conforte, ficando eu ao vosso lado.
 
-Demeure.
+Demeure."
 
 Nota - Ainda de uma carta de Montauban extraímos a narrativa seguinte: "Tínhamos ocultado à Sra. G..., médium sonambúlico e vidente muito lúcido - a morte do Dr. Demeure, em atenção à sua extrema sensibilidade. Sem dúvida, secundando o nosso intuito, o bom médico também evitou manifestar-se-lhe. A 10 de fevereiro reunimo-nos a convite dos guias, que diziam querer aliviar a Sra. G... de uma luxação, em conseqüência da qual muito sofria desde a véspera. Nada mais sabíamos, e longe estávamos de pensar na surpresa que nos aguardava. Logo que essa senhora se mediunizou, começou a soltar gritos lancinantes, mostrando o pé. Eis o que se passava: "A Sra. G... via
-
 
 
 ---
@@ -3389,7 +3336,6 @@ NOTA - A situação espiritual do Dr. Demeure é justamente a que se podia antev
 A Sra. Foulon, falecida em Antibes a 3 de fevereiro de 1865, residiu por muito tempo no Havre, onde granjeou a reputação de miniaturista habilíssima. De notável talento, aproveitou-o primeiro como simples amadora, mas, quando lhe sobrevieram necessidades, fez da sua arte proveitosa fonte de receita. O que a tornava admirada e estimada, conquistando-lhe depois, da parte dos que a conheceram, uma recordação memorável, era sobretudo a amenidade do caráter, as qualidades pessoais, que só os íntimos podiam conhecer em toda a sua extensão. É que a Sra. Foulon, como todos os que têm inato o sentimento
 
 
-
 ---
 
 
@@ -3400,8 +3346,6 @@ do bem, não o alardeava, antes o considerava predicado natural. Se houve pessoa
 Fora preciso avaliar todas as incertezas, todas as dúvidas da sua existência, provenientes não dela, mas dos parentes, para julgar das consolações que hauriu na sublime revelação, e que lhe deram a fé inquebrantável do futuro, a consciência da nulidade das coisas terrenas.
 
 Também a sua morte foi digna da vida que teve. Sem a mínima apreensão angustiosa, viu-a aproximar-se como libertação que lhe era das cadelas terrestres, ao mesmo tempo que lhe abria as portas da vida espiritual, com a qual se identificara no estudo do Espiritismo. E morreu calmamente, convicta de haver completado a missão que aceitara ao encarnar, pois cumprira escrupulosamente os deveres de esposa e mãe de família; e assim como durante a vida declinara de todo e qualquer ressentimento em relação àqueles de quem porventura pudera queixar-se por ingratos; e assim como sempre trocara o bem pelo mal, assim também desencarnou, perdoando-lhes, implorando para eles a bondade e a justiça divinas. Desencarnou, finalmente, com a serenidade decorrente de uma consciência ilibada, e a convicção de que
-
-
 
 ---
 
@@ -3425,7 +3369,6 @@ Não há mais de três dias que desencarnei e sinto que sou artista: as minhas a
 Mas, quanto trabalho para reproduzir uma obra-prima e digna da grandiosa cena que se antolha ao Espírito chegado às regiões da luz! Pincéis! pincéis e eu provarei ao mundo que a arte espírita é o complemento da arte pagã da arte cristã que periclita, cabendo so-
 
 
-
 ---
 
 
@@ -3442,7 +3385,6 @@ Isto é o bastante para a artista; e agora, à amiga:
 "É uma amiga que vo-lo diz - acautelai-vos.
 
 
-
 ---
 
 
@@ -3451,18 +3393,17 @@ Isto é o bastante para a artista; e agora, à amiga:
 "Agora parto para junto dos meus queridos filhos, depois do que irei ver, além-mar, se a minha ovelha viajora aportou à terra ou permanece à mercê das tempestades. (Refere-se a uma das filhas que residia na América.) Oxalá a protejam os bons Espíritos, aos quais para o mesmo fim vou reunir-me. Voltarei a conversar convosco, pois não vos esqueçais de que sou uma conversadora infatigável.
 "Até breve, bons e caros amigos; até logo.
 
-Viúva Foulon.
+Viúva Foulon."
 
 # II
 
 (8 de fevereiro de 1865.)
 
-- P. Cara Sra. Foulon, considero-me satisfeito com a comunicação de há dias, na qual prometestes continuar a nossa conversação. Crede que vos reconheci logo, por falardes de coisas desconhecidas do médium e muito próprias do vosso Espírito. A linguagem afetuosa para conosco é, seguramente, de uma alma amorosa como a vossa, conquanto notássemos nas palavras uma firmeza, uma segurança, uma pronúncia até então desconhecida em vós. Lembrai-vos certamente que neste sentido eu me permiti fazer-vos mais de uma advertência, em certas e determinadas circunstâncias.
+-P. Cara Sra. Foulon, considero-me satisfeito com a comunicação de há dias, na qual prometestes continuar a nossa conversação. Crede que vos reconheci logo, por falardes de coisas desconhecidas do médium e muito próprias do vosso Espírito. A linguagem afetuosa para conosco é, seguramente, de uma alma amorosa como a vossa, conquanto notássemos nas palavras uma firmeza, uma segurança, uma pronúncia até então desconhecida em vós. Lembrai-vos certamente que neste sentido eu me permiti fazer-vos mais de uma advertência, em certas e determinadas circunstâncias.
 
-- R. É verdade, sim, porém, desde que enfermei gravemente, tratei de readquirir a firmeza de espírito, abalada pelos desgostos e vicissitudes que tantas vezes me fizeram tímida na Terra. Eu disse para comigo: - Pois que és espírita, esquece a Terra; prepara-te para a transformação do teu ser e vê, pelo pensamento, a trilha luminosa que espera a tua alma após o desenlace, e pela qual deverás libertar-te, desembaraçada e feliz, às esferas celestes, onde, de futuro, irás habitar.
+-R. É verdade, sim, porém, desde que enfermei gravemente, tratei de readquirir a firmeza de espírito, abalada pelos desgostos e vicissitudes que tantas vezes me fizeram tímida na Terra. Eu disse para comigo: - Pois que és espírita, esquece a Terra; prepara-te para a transformação do teu ser e vê, pelo pensamento, a trilha luminosa que espera a tua alma após o desenlace, e pela qual deverás libertar-te, desembaraçada e feliz, às esferas celestes, onde, de futuro, irás habitar.
 
 Dir-me-eis talvez que era um tanto presunçosa em contar com a perfeita felicidade, uma vez desencarnada;
-
 
 
 ---
@@ -3472,16 +3413,15 @@ Dir-me-eis talvez que era um tanto presunçosa em contar com a perfeita felicida
 
 mas o fato é que eu sofrera tanto, tanto, que deveria expiar as faltas não só da última, como das anteriores encarnações. Essa intuição não me iludia e foi ela quem me deu a coragem, a calma e a firmeza dos últimos momentos. Pois bem: essa firmeza cresceu de pronto quando, após a libertação, vi as esperanças realizadas.
 
-- P. Descrevei-nos agora a transição, o despertar e as primeiras impressões que aí recebestes.
+-P. Descrevei-nos agora a transição, o despertar e as primeiras impressões que aí recebestes.
 
-- R. Eu sofri, mas o Espírito sobrepujou o sofrimento material que o desprendimento em si lhe acordava. Depois do último alento, encontrei-me como que em desmaio, sem consciência do meu estado, não pensando em coisa alguma, numa vaga sonolência que não era bem o sono do corpo nem o despertar da alma. Nesse estado fiquei longo tempo, e depois, como se saísse de prolongada síncope, lentamente despertei no meio de irmãos que não conhecia. Eles prodigalizavam-me cuidados e carícias, ao mesmo tempo que me mostravam no Espaço um ponto algo semelhante a uma estrela, dizendo: "É para ali que vais conosco, pois já não pertences mais à Terra." Então, recordei-me; e, apoiada sobre eles, formando um grupo gracioso que se lança para as esferas desconhecidas, mas na certeza de aí achar a felicidade, subimos, subimos, a proporção que a estrela se engrandecia...
+-R. Eu sofri, mas o Espírito sobrepujou o sofrimento material que o desprendimento em si lhe acordava. Depois do último alento, encontrei-me como que em desmaio, sem consciência do meu estado, não pensando em coisa alguma, numa vaga sonolência que não era bem o sono do corpo nem o despertar da alma. Nesse estado fiquei longo tempo, e depois, como se saísse de prolongada síncope, lentamente despertei no meio de irmãos que não conhecia. Eles prodigalizavam-me cuidados e carícias, ao mesmo tempo que me mostravam no Espaço um ponto algo semelhante a uma estrela, dizendo: "É para ali que vais conosco, pois já não pertences mais à Terra." Então, recordei-me; e, apoiada sobre eles, formando um grupo gracioso que se lança para as esferas desconhecidas, mas na certeza de aí achar a felicidade, subimos, subimos, a proporção que a estrela se engrandecia...
 
 Era um mundo feliz, um centro superior no qual a vossa amiga vai repousar. Quando digo repouso, quero referir-me às fadigas corporais que amarguei, às contingências da vida terrestre, não à indolência do Espírito, pois que este tem na atividade uma fonte de gozos.
 
-- P. Então deixastes a Terra definitivamente?
+-P. Então deixastes a Terra definitivamente?
 
-- R. Deixo nela muitos entes queridos, para que possa separar-me definitivamente. A ela virei, portanto, em Espírito, incumbida como estou de uma missão junto de meus filhinhos. De sobejo sabeis que nenhum obstáculo se
-
+-R. Deixo nela muitos entes queridos, para que possa separar-me definitivamente. A ela virei, portanto, em Espírito, incumbida como estou de uma missão junto de meus filhinhos. De sobejo sabeis que nenhum obstáculo se
 
 
 ---
@@ -3491,22 +3431,21 @@ Era um mundo feliz, um centro superior no qual a vossa amiga vai repousar. Quand
 
 opõe à vinda à Terra, à visita, em suma, dos Espíritos que demoram em mundos superiores.
 
-- P. A vossa posição de agora poderia de algum modo diminuir ou enfraquecer as relações com os que aqui deixastes?
+-P. A vossa posição de agora poderia de algum modo diminuir ou enfraquecer as relações com os que aqui deixastes?
 
-- R. Não, meu amigo, o amor aproxima as almas. Ficai certo de que na Terra podeis estar mais próximos dos que atingiram a perfeição, do que daqueles que por sua inferioridade e egoísmo gravitam ao redor da esfera terrestre.
+-R. Não, meu amigo, o amor aproxima as almas. Ficai certo de que na Terra podeis estar mais próximos dos que atingiram a perfeição, do que daqueles que por sua inferioridade e egoísmo gravitam ao redor da esfera terrestre.
 
 A caridade e o amor são dois motores de poderosa atração, a qual consolida e prolonga a união das almas, a despeito de distâncias e lugares.
 
 A distância só existe para os corpos materiais, nunca para os Espíritos.
 
-- P. Que idéia fazeis agora dos meus trabalhos sobre Espiritismo?
+-P. Que idéia fazeis agora dos meus trabalhos sobre Espiritismo?
 
-- R. Parece-me que sois um missionário e que o fardo é pesado, mas também prevejo o fim da vossa missão e sei que o atingireis. Ajudar-vos-ei no que estiver ao meu alcance, com os meus conselhos de Espírito, para que possais superar as dificuldades que vos serão suscitadas, animando-vos, enfim, a tomar medidas concernentes à dinamização do movimento renovador em que se funda o Espiritismo, isto enquanto aí permanecerdes.
+-R. Parece-me que sois um missionário e que o fardo é pesado, mas também prevejo o fim da vossa missão e sei que o atingireis. Ajudar-vos-ei no que estiver ao meu alcance, com os meus conselhos de Espírito, para que possais superar as dificuldades que vos serão suscitadas, animando-vos, enfim, a tomar medidas concernentes à dinamização do movimento renovador em que se funda o Espiritismo, isto enquanto aí permanecerdes.
 
 Demeure, o vosso amigo, unido ao Espírito de Verdade, vos será mais útil ainda, porquanto é mais sábio e ponderado do que eu. Sei que a assistência dos bons Espíritos vos fortalece e sustenta no vosso labor, e assim também vos asseguro o meu concurso sempre e em qualquer parte.
 
-- P. De algumas das vossas palavras pode inferir-se que não prestareis mui ativa colaboração pessoal na propagação do Espiritismo?
-
+-P. De algumas das vossas palavras pode inferir-se que não prestareis mui ativa colaboração pessoal na propagação do Espiritismo?
 
 
 ---
@@ -3518,14 +3457,13 @@ R. Enganais-vos. O fato é que vejo tantos outros Espíritos mais capazes do que
 
 Adeus e até breve, caro mestre. A vossa boa amiga ama-vos e amará sempre, visto como a vós exclusivamente deve a única consolação duradoura e verdadeira que teve na Terra.
 
-Viúva Foulon.
+Viúva Foulon."
 
 # III
 
 Nota - A comunicação seguinte foi destinada a seus filhos em data de 9 de fevereiro:
 
 Meus amantíssimos filhos: Deus retirou-me de junto de vós, mas a recompensa que se dignou conceder-me é bem maior que o pouco que fiz na Terra. Resignai-vos, queridos filhos, às vontades do Onipotente e tirai, de tudo quanto vos permitiu receberdes, a força para suportar as provações da vida. Tende firme
-
 
 
 ---
@@ -3541,7 +3479,7 @@ Caros filhos, cultivai carinhosamente esta crença sublime. A vós que a tendes,
 
 Voltarei, meus filhos, mas é preciso consolar a filha que de mim tanto precisa agora. Adeus, até breve. Eu vo-lo suplico por vós: crede na bondade divina. Até sempre.
 
-Viúva Foulon.
+Viúva Foulon."
 
 
 
@@ -3560,7 +3498,7 @@ Retida pela enfermidade e pelos anos numa pequena cidade do Sul, a Sra. Foulon a
 
 M. P..., de Moscou, era um médico tão eminente pelo saber como pelas qualidades morais. Quem o evocou apenas o conhecia por tradição, não havendo tido com ele relações sequer indiretas. A original comunicação foi dada em idioma russo.
 
-- P. (Depois da evocação.) Estais presente? - R. Sim. No dia da minha morte vos persegui com a minha presença, e resististes às tentativas que fiz para escreverdes. As palavras, que a meu respeito dissestes, deram ocasião a que vos reconhecesse, e daí o desejo de me entreter convosco para vosso benefício.
+-P. (Depois da evocação.) Estais presente? - R. Sim. No dia da minha morte vos persegui com a minha presença, e resististes às tentativas que fiz para escreverdes. As palavras, que a meu respeito dissestes, deram ocasião a que vos reconhecesse, e daí o desejo de me entreter convosco para vosso benefício.
 
 
 
@@ -3569,18 +3507,17 @@ M. P..., de Moscou, era um médico tão eminente pelo saber como pelas qualidade
 
 # 2ª PARTE - CAPÍTULO II
 
-- P. Bom como éreis, por que sofrestes tanto? - R. Porque ao Senhor aprouve fazer-me sentir duplamente por esse meio o preço da minha libertação, querendo ao mesmo tempo que na Terra progredisse o mais possível.
+-P. Bom como éreis, por que sofrestes tanto? - R. Porque ao Senhor aprouve fazer-me sentir duplamente por esse meio o preço da minha libertação, querendo ao mesmo tempo que na Terra progredisse o mais possível.
 
-- P. A idéia da morte causou-vos terror? - R. Tinha bastante fé em Deus para que tal não sucedesse.
+-P. A idéia da morte causou-vos terror? - R. Tinha bastante fé em Deus para que tal não sucedesse.
 
-- P. O desprendimento foi doloroso? - R. Não. Isso que denominais últimos momentos, nada é. Eu apenas senti um rápido abalo, para encontrar-me logo feliz, inteiramente desembaraçado da mísera carcaça.
+-P. O desprendimento foi doloroso? - R. Não. Isso que denominais últimos momentos, nada é. Eu apenas senti um rápido abalo, para encontrar-me logo feliz, inteiramente desembaraçado da mísera carcaça.
 
-- P. E que sucedeu depois? - R. Tive o prazer de ver aproximarem-se inúmeros amigos, notadamente os que tive a satisfação de ajudar, dando-me todos as boas-vindas.
+-P. E que sucedeu depois? - R. Tive o prazer de ver aproximarem-se inúmeros amigos, notadamente os que tive a satisfação de ajudar, dando-me todos as boas-vindas.
 
-- P. Que regiões habitais? Acaso algum planeta? - R. Tudo que não seja planeta, constitui o que chamais Espaço e é neste que permaneço. O homem não pode, contudo, calcular, fazer uma idéia, sequer, do número de gradações desta imensidade. Que infinidade de escalas nesta escada de Jacob que vai da Terra ao Céu, isto é, do aviltamento da encarnação em mundo inferior, como esse, até à depuração completa da alma! Ao lugar em que ora me encontro não se chega senão depois de uma série enorme de provas, ou, por outra, de encarnações.
+-P. Que regiões habitais? Acaso algum planeta? - R. Tudo que não seja planeta, constitui o que chamais Espaço e é neste que permaneço. O homem não pode, contudo, calcular, fazer uma idéia, sequer, do número de gradações desta imensidade. Que infinidade de escalas nesta escada de Jacob que vai da Terra ao Céu, isto é, do aviltamento da encarnação em mundo inferior, como esse, até à depuração completa da alma! Ao lugar em que ora me encontro não se chega senão depois de uma série enorme de provas, ou, por outra, de encarnações.
 
-- P. Logo, deveis ter tido multas existências? - R. Nem podia ser de outra maneira. Nada há excepcional na ordem imutável do Universo, estabelecida por Deus. A recompensa só pode vir depois da luta vencida: assim, se grande for aquela é que também esta o foi e necessariamente. Mas a vida humana é tão curta que a luta apenas se trava por intervalos, que são as diferentes e sucessivas encarnações. É fácil, pois, concluir que, estando eu num dos graus elevados, o atingi depois de uma série de combates, nos quais Deus me permitiu saísse vitorioso algumas vezes.
-
+-P. Logo, deveis ter tido multas existências? - R. Nem podia ser de outra maneira. Nada há excepcional na ordem imutável do Universo, estabelecida por Deus. A recompensa só pode vir depois da luta vencida: assim, se grande for aquela é que também esta o foi e necessariamente. Mas a vida humana é tão curta que a luta apenas se trava por intervalos, que são as diferentes e sucessivas encarnações. É fácil, pois, concluir que, estando eu num dos graus elevados, o atingi depois de uma série de combates, nos quais Deus me permitiu saísse vitorioso algumas vezes.
 
 
 ---
@@ -3588,12 +3525,11 @@ M. P..., de Moscou, era um médico tão eminente pelo saber como pelas qualidade
 
 # ESPÍRITOS FELIZES
 
-- P. Em que consiste a vossa felicidade? - R. Isso é mais difícil de vos fazer compreender. Essa ventura que gozo é uma espécie de contentamento extremo de mim mesmo, não pelos meus merecimentos - o que seria orgulho - e este é predicado de Espíritos atrasados - mas contentamento como que saturado, imerso no amor de Deus, no reconhecimento da sua infinita bondade. Em suma, é a alegria que nos infunde o bem, podendo supor-se ter a seu arbítrio contribuído para o progresso de outros, que se elevaram até o Criador. Ficamos como que identificados com esse bem-estar, que é uma espécie de fusão do Espírito com a bondade divina. Temos o dom de ver os Espíritos mais adiantados, de compreender-lhes a missão, de saber que também nós a tanto chegaremos; no infinito incomensurável, entrevemos as regiões em que rútilo esplende o fogo divino, a ponto de deslumbrar-nos, mesmo através do véu que as envolve.
+-P. Em que consiste a vossa felicidade? - R. Isso é mais difícil de vos fazer compreender. Essa ventura que gozo é uma espécie de contentamento extremo de mim mesmo, não pelos meus merecimentos - o que seria orgulho - e este é predicado de Espíritos atrasados - mas contentamento como que saturado, imerso no amor de Deus, no reconhecimento da sua infinita bondade. Em suma, é a alegria que nos infunde o bem, podendo supor-se ter a seu arbítrio contribuído para o progresso de outros, que se elevaram até o Criador. Ficamos como que identificados com esse bem-estar, que é uma espécie de fusão do Espírito com a bondade divina. Temos o dom de ver os Espíritos mais adiantados, de compreender-lhes a missão, de saber que também nós a tanto chegaremos; no infinito incomensurável, entrevemos as regiões em que rútilo esplende o fogo divino, a ponto de deslumbrar-nos, mesmo através do véu que as envolve.
 
 Mas, que digo? Compreendeis as minhas palavras? Acreditais ser esse fogo, a que me refiro, comparável ao Sol, por exemplo? Não, nunca. É uma coisa indizível ao homem, uma vez que as palavras só exprimem para ele coisas físicas ou metafísicas que conhece de memória ou intuitivamente. Desde que o homem não pode guardar na memória o que absolutamente desconhece, como insinuar-se-lhe a percepção? Ficai porém ciente de que é já uma grande ventura o pensar na possibilidade de progredir infinitamente.
 
-- P. Tivestes a bondade de exprimir o desejo de me ser útil: peço-vos me digais em quê. - R. Posso ajudar-vos e amparar nos desfalecimentos, fortalecer nos momentos de desânimo, consolar nos de aflição. Se a vossa fé se abalar e qualquer comoção vos perturbar, evocai-me, porque Deus me permitirá vo-lo fazer lembrado, atraindo-vos para Ele. Se vos sentirdes prestes a sucumbir ao peso das más tendências, que a própria consciência acuse de culposas, chamai-me ainda, porque eu vos ajudarei a carregar a vossa cruz, tal como a Jesus ajudaram a carregar aquela donde tão solenemente deveria proclamar a
-
+-P. Tivestes a bondade de exprimir o desejo de me ser útil: peço-vos me digais em quê. - R. Posso ajudar-vos e amparar nos desfalecimentos, fortalecer nos momentos de desânimo, consolar nos de aflição. Se a vossa fé se abalar e qualquer comoção vos perturbar, evocai-me, porque Deus me permitirá vo-lo fazer lembrado, atraindo-vos para Ele. Se vos sentirdes prestes a sucumbir ao peso das más tendências, que a própria consciência acuse de culposas, chamai-me ainda, porque eu vos ajudarei a carregar a vossa cruz, tal como a Jesus ajudaram a carregar aquela donde tão solenemente deveria proclamar a
 
 
 ---
@@ -3607,12 +3543,11 @@ Certo, na Terra tendes amigos, os quais, compartilhando das vossas angústias, t
 
 É uma consolação poder-se dizer: Quando eu morrer, enquanto à cabeceira do leito os amigos da Terra chorarem e pedirem, os do Espaço, no limiar da vida, irão sorridentes conduzir-me ao lugar adequado aos meus méritos e virtudes.
 
-- P. Por que faço jus a essa proteção que quereis dispensar-me? - R. Eis a razão: A vós me afeiçoei logo no dia da minha morte: - é que, como Espírito, vos vi do Espiritismo adepto sincero e bom médium. E como dentre tantos que aí deixei fostes vós que vi primeiramente, logo me propus contribuir para o vosso progresso. O proveito não é apenas vosso, mas também dos que deveis instruir no conhecimento da verdade.
+-P. Por que faço jus a essa proteção que quereis dispensar-me? - R. Eis a razão: A vós me afeiçoei logo no dia da minha morte: - é que, como Espírito, vos vi do Espiritismo adepto sincero e bom médium. E como dentre tantos que aí deixei fostes vós que vi primeiramente, logo me propus contribuir para o vosso progresso. O proveito não é apenas vosso, mas também dos que deveis instruir no conhecimento da verdade.
 
 Na vossa missão podeis ver uma prova eloqüente do amor de Deus para convosco. Os que a vós se chegarem, pouco a pouco se tornarão crentes, e aos mais refratários, em vos ouvindo, também chegará, embora mais tarde, a vez de crer. Desanimar, nunca; caminhar sempre, apesar dos pedregulhos. Tomai-me por apoio nos momentos de desânimo.
 
-- P. Não me julgo digno de tão grande favor. - R. Mas por certo que bem longe estais da perfeição. Não obstante o vosso ardor na prática das sãs doutrinas; o cuidado em manter a fé dos que vos ouvem; em aconse-
-
+-P. Não me julgo digno de tão grande favor. - R. Mas por certo que bem longe estais da perfeição. Não obstante o vosso ardor na prática das sãs doutrinas; o cuidado em manter a fé dos que vos ouvem; em aconse-
 
 
 ---
@@ -3631,7 +3566,6 @@ Sou, de há muitos séculos, um Espírito esquecido. Aí na Terra vivi no oprób
 Mulher ultrajada, filhas raptadas e repudiadas em seguida, tudo sem poder queixar-me. Meus filhos, esses, levavam-nos às guerras de pilhagens e de crimes, para os enforcarem depois por faltas não cometidas. Ah! se o soubésseis, pobres amigos, o que padeci na minha longa
 
 
-
 ---
 
 
@@ -3639,24 +3573,23 @@ Mulher ultrajada, filhas raptadas e repudiadas em seguida, tudo sem poder queixa
 
 existência... Eu esperava, contudo, e o Senhor concedeu-ma - essa felicidade que não existe na Terra. A todos vós, portanto, coragem, paciência e resignação. Tu, meu filho, guarda o que te dei e que é um ensinamento prático. Quem aconselha é sempre mais acatado quando pode dizer: - Suportei mais que vós, e suportei sem me queixar.
 
-- P. Em que época vivestes?
+-P. Em que época vivestes?
 
-- R. De 1400 a 1460.
+-R. De 1400 a 1460.
 
-- P. E tivestes depois uma outra existência?
+-P. E tivestes depois uma outra existência?
 
-- R. Vivi ainda entre vós como missionário... Sim como missionário da fé, porém da fé pura, verdadeira, provinda de Deus, e não manipulada pelos homens.
+-R. Vivi ainda entre vós como missionário... Sim como missionário da fé, porém da fé pura, verdadeira, provinda de Deus, e não manipulada pelos homens.
 
-P. E como Espírito, agora, tendes ainda ocupações?
+-P. E como Espírito, agora, tendes ainda ocupações?
 
-- R. Acreditaríeis então que os Espíritos ficassem inativos? A inação, a inutilidade ser-nos-ia um suplício. A minha missão é guiar centros espíritas aos quais inspiro bons pensamentos, ao mesmo tempo que me esforço por neutralizar os sugeridos por maus Espíritos.
+-R. Acreditaríeis então que os Espíritos ficassem inativos? A inação, a inutilidade ser-nos-ia um suplício. A minha missão é guiar centros espíritas aos quais inspiro bons pensamentos, ao mesmo tempo que me esforço por neutralizar os sugeridos por maus Espíritos.
 
 Bernardin.
 
 # A CONDESSA PAULA
 
 Bela, jovem, rica e de estirpe ilustre, esta era também perfeito modelo de qualidades intelectuais e morais. Faleceu com 36 anos de idade, em 1851. Seu necrológio é daqueles que podem resumir-se nestas palavras por mil bocas repetidas: - "Por que tão cedo retira Deus tais pessoas da Terra?" Felizes os que assim fazem abençoada a sua memória. Ela era boa, meiga e indulgente, sempre pronta a desculpar ou atenuar o mal, em lugar de aumentá-lo. Jamais a maledicência lhe conspurcara os lábios. Sem arrogância nem austeridade, era, ao contrário, com benevolência e delicada familiaridade que
-
 
 
 ---
@@ -3681,9 +3614,9 @@ E desse modo se permitia facultar da sua fortuna maior quinhão aos necessitados
 
 túnios (1). Um dos seus parentes, iniciado no Espiritismo, evocou-a doze anos depois de falecida, e obteve, em resposta a diversas perguntas, a seguinte comunicação (2):
 
-"Tendes razão, amigo, em pensar que sou feliz. Assim é, efetivamente, e mais ainda do que a linguagem pode exprimir, conquanto longe do seu último grau. Mas eu estive na Terra entre os felizes, pois não me lembro de haver aí experimentado um só desgosto real. Juventude, homenagens, saúde, fortuna, tudo o que entre vós outros constitui felicidade eu possuía! O que é, no entanto, essa felicidade comparada à que desfruto aqui? Esplêndidas festas terrenas em que se ostentam os mais ricos paramentos, o que são elas comparadas a estas assembléias de Espíritos resplendentes de brilho que as vossas vistas não suportariam, brilho que é o apanágio da sua pureza? Os vossos palácios de dourados salões, que são eles comparados a estas moradas aéreas, vastas regiões do Espaço matizadas de cores que obumbrariam o arco-íris? Os vossos passeios, a contados passos nos parques, a que se reduzem, comparados aos percursos da imensidade, mais céleres que o raio?
+"Tendes razão, amigo, em pensar que sou feliz. Assim é, efetivamente, e mais ainda do que a linguagem pode exprimir, conquanto longe do seu último grau. Mas eu estive na Terra entre os felizes, pois não me lembro de haver aí experimentado um só desgosto real. Juventude, homenagens, saúde, fortuna, tudo o que entre vós outros constitui felicidade eu possuía! O que é, no entanto, essa felicidade comparada à que desfruto aqui? Esplêndidas festas terrenas em que se ostentam os mais ricos paramentos, o que são elas comparadas a estas assembléias de Espíritos resplendentes de brilho que as vossas vistas não suportariam, brilho que é o apanágio da sua pureza? Os vossos palácios de dourados salões, que são eles comparados a estas moradas aéreas, vastas regiões do Espaço matizadas de cores que obumbrariam o arco-íris? Os vossos passeios, a contados passos nos parques, a que se reduzem, comparados aos percursos da imensidade, mais céleres que o raio?"
 
-"Horizontes nebulosos e limitados, que são, comparados ao espetáculo de mundos a moverem-se no Universo infinito ao influxo do Altíssimo? E como são monótonos os vossos concertos mais harmoniosos em relação à suave melodia que faz vibrar os fluidos do éter e todas as fibras dalma! E como são tristes e insípidas as vossas maiores alegrias comparadas à sensação inefável de felicidade que nos satura todo o ser como um eflúvio benéfico, sem mescla de inquietação, de apreensão, de sofrimento?! Aqui, tudo ressumbra amor, confiança, sinceridade: por toda parte corações amantes, amigos por toda parte!
+"Horizontes nebulosos e limitados, que são, comparados ao espetáculo de mundos a moverem-se no Universo infinito ao influxo do Altíssimo? E como são monótonos os vossos concertos mais harmoniosos em relação à suave melodia que faz vibrar os fluidos do éter e todas as fibras dalma! E como são tristes e insípidas as vossas maiores alegrias comparadas à sensação inefável de felicidade que nos satura todo o ser como um eflúvio benéfico, sem mescla de inquietação, de apreensão, de sofrimento?! Aqui, tudo ressumbra amor, confiança, sinceridade: por toda parte corações amantes, amigos por toda parte!"
 
 __________
 
@@ -3698,11 +3631,11 @@ __________
 
 # ESPÍRITOS FELIZES
 
-"Nem invejosos, nem ciumentos! É este o mundo em que me encontro, meu amigo, e ao qual chegareis infalivelmente, se seguirdes o reto caminho da vida.
+"Nem invejosos, nem ciumentos! É este o mundo em que me encontro, meu amigo, e ao qual chegareis infalivelmente, se seguirdes o reto caminho da vida."
 
-"A felicidade uniforme fatigaria, no entanto, e assim não acrediteis que a nossa seja extreme de peripécias: nem concerto perene, nem festa interminável, nem beatifica contemplação por toda a eternidade, porém o movimento, a atividade, a vida.
+"A felicidade uniforme fatigaria, no entanto, e assim não acrediteis que a nossa seja extreme de peripécias: nem concerto perene, nem festa interminável, nem beatifica contemplação por toda a eternidade, porém o movimento, a atividade, a vida."
 
-"As ocupações, posto que isentas de fadiga, revestem-se de perspectivas e emoções variáveis e incessantes, pelos mil incidentes que se lhes filiam. Tem cada qual sua missão a cumprir, seus protegidos a velar, amigos terrenos a visitar, mecanismos na Natureza a dirigir, almas sofredoras a consolar; e é o vaivém, não de uma rua a outra, porém, de um a outro mundo; reunindo-nos, separando-nos para novamente nos juntarmos; e, reunidos em certo ponto, comunicamo-nos o trabalho realizado, felicitando-nos pelos êxitos obtidos; ajustamo-nos, mutuamente nos assistimos nos casos difíceis. Finalmente, asseguro-vos que ninguém tem tempo para enfadar-se, por um segundo que seja. Presentemente, a Terra é o magno assunto das nossas cogitações. Que movimento entre os Espíritos! Que numerosas falanges aí afluem, a fim de lhe auxiliarem o progresso e a evolução! Dir-se-ia uma nuvem de trabalhadores a destrinçarem uma floresta, sob as ordens de chefes experimentados; abatem uns os troncos seculares, arrancam-lhes as raízes profundas, desbastam outros o terreno; amanham estes a terra, semeando; edificam aqueles a nova cidade sobre as ruínas carunchosas de um velho mundo. Neste comenos reúnem-se os chefes em conferência e transmitem suas ordens por mensageiros, em todas as direções. A Terra deve regenerar-se, em dado tempo - pois importa que os desígnios da Providência se realizem, e, assim, tem cada qual o seu papel. Não me julgueis simples expectadora desta grande empresa, o que me envergonharia, uma vez que todos nela trabalham. importante missão me é afeta, e grandemente me esforço por cumpri-la, o melhor possível. Não foi sem luta que alcancei a posição que ora ocupo.
+"As ocupações, posto que isentas de fadiga, revestem-se de perspectivas e emoções variáveis e incessantes, pelos mil incidentes que se lhes filiam. Tem cada qual sua missão a cumprir, seus protegidos a velar, amigos terrenos a visitar, mecanismos na Natureza a dirigir, almas sofredoras a consolar; e é o vaivém, não de uma rua a outra, porém, de um a outro mundo; reunindo-nos, separando-nos para novamente nos juntarmos; e, reunidos em certo ponto, comunicamo-nos o trabalho realizado, felicitando-nos pelos êxitos obtidos; ajustamo-nos, mutuamente nos assistimos nos casos difíceis. Finalmente, asseguro-vos que ninguém tem tempo para enfadar-se, por um segundo que seja. Presentemente, a Terra é o magno assunto das nossas cogitações. Que movimento entre os Espíritos! Que numerosas falanges aí afluem, a fim de lhe auxiliarem o progresso e a evolução! Dir-se-ia uma nuvem de trabalhadores a destrinçarem uma floresta, sob as ordens de chefes experimentados; abatem uns os troncos seculares, arrancam-lhes as raízes profundas, desbastam outros o terreno; amanham estes a terra, semeando; edificam aqueles a nova cidade sobre as ruínas carunchosas de um velho mundo. Neste comenos reúnem-se os chefes em conferência e transmitem suas ordens por mensageiros, em todas as direções. A Terra deve regenerar-se, em dado tempo - pois importa que os desígnios da Providência se realizem, e, assim, tem cada qual o seu papel. Não me julgueis simples expectadora desta grande empresa, o que me envergonharia, uma vez que todos nela trabalham. importante missão me é afeta, e grandemente me esforço por cumpri-la, o melhor possível. Não foi sem luta que alcancei a posição que ora ocupo
 
 
 
@@ -3711,11 +3644,11 @@ __________
 
 # 2ª PARTE - CAPÍTULO II
 
-na vida espiritual; e ficai certo de que a minha última existência, por mais meritória que porventura vos pareça, não era por si só e a tanto suficiente. Em várias existências passei por provas de trabalho e miséria que voluntariamente havia escolhido para fortalecer e depurar o meu Espírito; dessas provas tive a dita de triunfar, vindo a faltar no entanto uma, porventura de todas a mais perigosa: a da fortuna e bem-estar materiais, um bem-estar sem sombras de desgosto. Nessa consistia o perigo. E antes de o tentar, eu quis sentir-me assaz forte para não sucumbir. Deus, tendo em vista as minhas boas intenções, concedeu-me a graça do seu auxilio. Muitos Espíritos há que, seduzidos por aparências, pressurosos escolhem essa prova, mas, fracos para afrontar-lhe os perigos, deixam que as seduções do mundo triunfem da sua inexperiência.
+na vida espiritual; e ficai certo de que a minha última existência, por mais meritória que porventura vos pareça, não era por si só e a tanto suficiente. Em várias existências passei por provas de trabalho e miséria que voluntariamente havia escolhido para fortalecer e depurar o meu Espírito; dessas provas tive a dita de triunfar, vindo a faltar no entanto uma, porventura de todas a mais perigosa: a da fortuna e bem-estar materiais, um bem-estar sem sombras de desgosto. Nessa consistia o perigo. E antes de o tentar, eu quis sentir-me assaz forte para não sucumbir. Deus, tendo em vista as minhas boas intenções, concedeu-me a graça do seu auxilio. Muitos Espíritos há que, seduzidos por aparências, pressurosos escolhem essa prova, mas, fracos para afrontar-lhe os perigos, deixam que as seduções do mundo triunfem da sua inexperiência."
 
-"Trabalhadores! estou nas vossas fileiras: eu, a dama nobre, ganhei como vós o pão com o suor do meu rosto; saturei-me de privações, sofri reveses e foi isso que me retemperou as forças da alma; do contrário eu teria falido na última prova, o que me teria deixado para trás, na minha carreira.
+"Trabalhadores! estou nas vossas fileiras: eu, a dama nobre, ganhei como vós o pão com o suor do meu rosto; saturei-me de privações, sofri reveses e foi isso que me retemperou as forças da alma; do contrário eu teria falido na última prova, o que me teria deixado para trás, na minha carreira."
 
-"Como eu, também vós tereis a vossa prova da riqueza, mas não vos apresseis em pedi-la muito cedo. E vós outros, ricos, tende sempre em mente que a verdadeira fortuna, a fortuna imorredoura, não existe na Terra; procurai antes saber o preço pelo qual podeis alcançar os benefícios do Todo-Poderoso.
+"Como eu, também vós tereis a vossa prova da riqueza, mas não vos apresseis em pedi-la muito cedo. E vós outros, ricos, tende sempre em mente que a verdadeira fortuna, a fortuna imorredoura, não existe na Terra; procurai antes saber o preço pelo qual podeis alcançar os benefícios do Todo-Poderoso."
 
 Paula, na Terra Condessa de ***.
 
@@ -3724,7 +3657,6 @@ JEAN REYNAUD
 (Sociedade Espírita de Paris. Comunicação espontânea.)
 
 Meus amigos: como é esplêndida esta nova vida! Semelhante a luminosa torrente, ela arrasta em seu curso imenso os Espíritos inebriados pelo infinito! Passei das
-
 
 
 ---
@@ -3742,9 +3674,9 @@ Jean Reynaud.
 
 Nota - O Espírito responde a uma reflexão sobre sua morte inesperada, em idade pouco avançada, o que a muita gente surpreendeu.
 
-"Quem vos disse que a minha morte não seja, de futuro e por suas conseqüências, um benefício para o Espiritismo?
+"Quem vos disse que a minha morte não seja, de futuro e por suas conseqüências, um benefício para o Espiritismo?"
 
-"Notastes, meu amigo, a marcha que segue o progresso, a direção que toma a crença espírita? Primeiro que tudo, deu-lhe Deus as provas materiais: movimento de mesas, pancadas e toda sorte de fenômenos, para despertar a atenção.
+"Notastes, meu amigo, a marcha que segue o progresso, a direção que toma a crença espírita? Primeiro que tudo, deu-lhe Deus as provas materiais: movimento de mesas, pancadas e toda sorte de fenômenos, para despertar a atenção."
 
 
 
@@ -3753,7 +3685,7 @@ Nota - O Espírito responde a uma reflexão sobre sua morte inesperada, em idade
 
 # 2ª PARTE - CAPÍTULO II
 
-"Era um como prefácio divertido. Os homens precisam de provas tangíveis para crer. Agora é muito diferente o caso. Depois dos fatos materiais, Deus fala à inteligência, ao bom-senso, à razão fria; não são mais efeitos físicos, porém coisas racionais que devem convencer e congregar todos os incrédulos, mesmo os mais teimosos. E isto é apenas o começo: Tomai bem nota do que vos digo: - toda uma série de fenômenos inteligentes, irrefutáveis, vão seguir-se, e o número já tão grande dos adeptos da crença espírita vai aumentar ainda. Deus vai insinuar-se às inteligências de escol, às sumidades do espírito, do talento e do saber. Será como um raio de luz a expandir-se, a derramar-se por sobre a Terra inteira, qual fluido magnético irresistível, arrastando os mais recalcitrantes à investigação do infinito, ao estudo dessa admirável ciência que tão sublimes máximas nos ensina.
+"Era um como prefácio divertido. Os homens precisam de provas tangíveis para crer. Agora é muito diferente o caso. Depois dos fatos materiais, Deus fala à inteligência, ao bom-senso, à razão fria; não são mais efeitos físicos, porém coisas racionais que devem convencer e congregar todos os incrédulos, mesmo os mais teimosos. E isto é apenas o começo: Tomai bem nota do que vos digo: - toda uma série de fenômenos inteligentes, irrefutáveis, vão seguir-se, e o número já tão grande dos adeptos da crença espírita vai aumentar ainda. Deus vai insinuar-se às inteligências de escol, às sumidades do espírito, do talento e do saber. Será como um raio de luz a expandir-se, a derramar-se por sobre a Terra inteira, qual fluido magnético irresistível, arrastando os mais recalcitrantes à investigação do infinito, ao estudo dessa admirável ciência que tão sublimes máximas nos ensina."
 
 Vão todos grupar-se em torno de vós e, fazendo abstração do diploma do gênio, tornarem-se humildes e pequenos para aprender e para crer. Depois, mais tarde, quando estiverem instruídos e convencidos, servir-se-ão da sua autoridade e notoriedade para levar mais longe ainda, aos seus últimos limites, o fim que vos propusestes - a regeneração da espécie humana pelo conhecimento racional e profundo das passadas e futuras existências. Eis aí a minha opinião sincera sobre o estado atual do Espiritismo."
 
@@ -3768,13 +3700,13 @@ Evocação: - Acudo com prazer ao vosso chamado, senhora. Tendes razão; a pertu
 
 # ESPÍRITOS FELIZES
 
-- P. Agradeço a vossa presença, embora não creia que o simples desejo de conversar convosco determinasse a vossa vinda; deve haver necessariamente uma tão grande diferença entre nós, que só em considerá-la sinto-me possuído de respeito.
+-P. Agradeço a vossa presença, embora não creia que o simples desejo de conversar convosco determinasse a vossa vinda; deve haver necessariamente uma tão grande diferença entre nós, que só em considerá-la sinto-me possuído de respeito.
 
-- R. Minha filha, obrigado por essa boa idéia; entretanto, deveis saber também que por maior que seja a distância, em virtude da conclusão das provas mais ou menos felizes e prontamente terminadas, existe sempre um elo poderoso que nos liga - a simpatia - e esse elo vindes de o estreitar pelo vosso constante pensamento.
+-R. Minha filha, obrigado por essa boa idéia; entretanto, deveis saber também que por maior que seja a distância, em virtude da conclusão das provas mais ou menos felizes e prontamente terminadas, existe sempre um elo poderoso que nos liga - a simpatia - e esse elo vindes de o estreitar pelo vosso constante pensamento.
 
-- P. Posto que muitos Espíritos tenham explicado as suas primeiras sensações ao despertar, poderíeis dizer-me o que experimentastes em tal conjuntura e como se operou a separação do vosso Espírito?
+-P. Posto que muitos Espíritos tenham explicado as suas primeiras sensações ao despertar, poderíeis dizer-me o que experimentastes em tal conjuntura e como se operou a separação do vosso Espírito?
 
-- R. Igualmente qual com os outros. Senti o momento da partida que se aproximava; mais feliz, porém, que muitos, esse momento não me infundiu angústias, porque já lhe conhecia as conseqüências, conquanto fossem estas mais importantes do que o supunha. O corpo é um estorvo às faculdades espirituais e, por maiores que sejam as luzes por ele conservadas, elas são mais ou menos empanadas ao contacto da matéria. Fechei os olhos na esperança de um despertar feliz e, se o sono foi breve, a admiração foi imensa. Os esplendores celestes, desenvolvidos aos meus olhos, pompeavam em toda a sua magnificência! A minha vista deslumbrada imergia na imensidão dos mundos cuja existência afirmara, bem como a sua habitabilidade. Era uma miragem a revelar e confirmar concomitantemente a justeza dos meus pensamentos. O homem, por mais convencido que seja, quando fala tem, algumas vezes, a dúvida no íntimo do coração, desconfiando, senão da verdade que proclama, ao menos dos meios imperfeitos empregados para demonstrá-la. Convencido da verdade que insinuava, tive, muitas vezes, de dar combate a mim mesmo, ao desânimo de ver, de tocar por assim dizer a verdade, e não poder torná-la igualmen-
+-R. Igualmente qual com os outros. Senti o momento da partida que se aproximava; mais feliz, porém, que muitos, esse momento não me infundiu angústias, porque já lhe conhecia as conseqüências, conquanto fossem estas mais importantes do que o supunha. O corpo é um estorvo às faculdades espirituais e, por maiores que sejam as luzes por ele conservadas, elas são mais ou menos empanadas ao contacto da matéria. Fechei os olhos na esperança de um despertar feliz e, se o sono foi breve, a admiração foi imensa. Os esplendores celestes, desenvolvidos aos meus olhos, pompeavam em toda a sua magnificência! A minha vista deslumbrada imergia na imensidão dos mundos cuja existência afirmara, bem como a sua habitabilidade. Era uma miragem a revelar e confirmar concomitantemente a justeza dos meus pensamentos. O homem, por mais convencido que seja, quando fala tem, algumas vezes, a dúvida no íntimo do coração, desconfiando, senão da verdade que proclama, ao menos dos meios imperfeitos empregados para demonstrá-la. Convencido da verdade que insinuava, tive, muitas vezes, de dar combate a mim mesmo, ao desânimo de ver, de tocar por assim dizer a verdade, e não poder torná-la igualmen-
 
 
 
@@ -3785,9 +3717,9 @@ Evocação: - Acudo com prazer ao vosso chamado, senhora. Tendes razão; a pertu
 
 te palpável aos que dela tanto precisam para prosseguir no caminho que lhes conviria.
 
-P. - Em vida professáveis o Espiritismo?
+-P. Em vida professáveis o Espiritismo?
 
-R. - Há uma grande diferença em professar e praticar. Muita gente professa uma doutrina, que não pratica; pois bem, eu praticava e não professava. Assim como cristão é todo homem que segue as leis do Cristo, mesmo sem conhecê-lo, assim também podemos ser espíritas, acreditando na imortalidade da alma, nas reencarnações, no progresso incessante, nas provações terrenas - abluções necessárias ao melhoramento. Acreditando em tudo isso, eu era, portanto, espírita. Compreendi a erraticidade, laço intermediário das reencarnações e purgatório no qual o Espírito culposo se despoja das vestes impuras para revestir nova toga, e onde o Espírito, em evolução, tece cuidadosamente essa toga que há de carregar no intuito de conservá-la pura. Compreendi tudo isso, e, sem professar, continuei a praticar.
+-R. Há uma grande diferença em professar e praticar. Muita gente professa uma doutrina, que não pratica; pois bem, eu praticava e não professava. Assim como cristão é todo homem que segue as leis do Cristo, mesmo sem conhecê-lo, assim também podemos ser espíritas, acreditando na imortalidade da alma, nas reencarnações, no progresso incessante, nas provações terrenas - abluções necessárias ao melhoramento. Acreditando em tudo isso, eu era, portanto, espírita. Compreendi a erraticidade, laço intermediário das reencarnações e purgatório no qual o Espírito culposo se despoja das vestes impuras para revestir nova toga, e onde o Espírito, em evolução, tece cuidadosamente essa toga que há de carregar no intuito de conservá-la pura. Compreendi tudo isso, e, sem professar, continuei a praticar.
 
 Nota - Estas três comunicações foram obtidas por três médiuns diferentes e estranhos entre si. Pela analogia dos pensamentos e forma da linguagem, podemos, ao menos como presunção, admitir a autenticidade.
 
@@ -3796,7 +3728,6 @@ A expressão: "tecer cuidadosamente a toga que há de carregar" é uma figura fe
 # ANTOINE COSTEAU
 
 Membro da Sociedade Espírita de Paris, sepultado em 12 de setembro de 1863 no cemitério de Montmartre, em vala comum. Era um homem de coração que o Espiritismo reconduziu a Deus; completa, sincera e profunda era a sua fé em Deus. Simples calceteiro, praticava a caridade por pensamentos, palavras e obras consoante os fracos re-
-
 
 
 ---
@@ -3808,7 +3739,7 @@ cursos de que dispunha e encontrando meios, ainda assim, de socorrer os que poss
 
 O Sr. Canu, secretário da Sociedade e profundo materialista de outros tempos, pronunciou sobre a campa a seguinte alocução:
 
-"Caro irmão Costeau: Faz alguns anos, muitos dentre nós, e eu em primeiro lugar, não viríamos ante este túmulo aberto, que representaria apenas o fim das misérias humanas, e depois o nada, o pavoroso nada, isto é, onde não existia nem alma para merecer ou expiar, e, conseqüentemente, nem Deus para recompensar, castigar, ou perdoar. Hoje, graças à nossa santa Doutrina, divisamos aqui o termo das provas, e para vós, querido irmão, cujos despojos baixam à terra, o triunfo dos labores e o início das recompensas a que fizeram jus a vossa coragem, resignação, caridade, as vossas virtudes, e, acima de tudo isso, a glorificação de um Deus sábio, onipotente, justo e bom.
+"Caro irmão Costeau: Faz alguns anos, muitos dentre nós, e eu em primeiro lugar, não viríamos ante este túmulo aberto, que representaria apenas o fim das misérias humanas, e depois o nada, o pavoroso nada, isto é, onde não existia nem alma para merecer ou expiar, e, conseqüentemente, nem Deus para recompensar, castigar, ou perdoar. Hoje, graças à nossa santa Doutrina, divisamos aqui o termo das provas, e para vós, querido irmão, cujos despojos baixam à terra, o triunfo dos labores e o início das recompensas a que fizeram jus a vossa coragem, resignação, caridade, as vossas virtudes, e, acima de tudo isso, a glorificação de um Deus sábio, onipotente, justo e bom."
 
 "Sede, pois, caro irmão, o portador das graças que rendemos ao Eterno por ter permitido dissiparem-se as trevas do erro e da incredulidade que nos assoberbavam. Não há muito tempo, e nestas mesmas circunstâncias, com a fronte abatida e o coração lacerado, em desânimo, nós vos diríamos: - "Amigo, adeus para sempre". Mas hoje vos dizemos, de fronte erguida, radiante de esperanças, e com o coração repleto de amor e de coragem: - "Caro irmão, até breve, orai por nós." (1)
 
@@ -3819,7 +3750,6 @@ __________
 (1) Para mais detalhes, e outras alocuções, ver a Revue Spirite de outubro de 1863, pág. 297.
 
 
-
 ---
 
 
@@ -3827,17 +3757,17 @@ __________
 
 ouvida por todos os assistentes, coveiros inclusive, de cabeça descoberta e com profunda emoção. Era, de fato, um espetáculo novo e surpreendente esse de ouvir palavras de um morto, recolhidas do selo do próprio túmulo:
 
-"Obrigado, amigos, obrigado. O meu túmulo ainda nem mesmo de todo é fechado, mas, passando um segundo, a terra cobrirá os meus despojos. Vós sabeis, no entanto, que minha alma não será sepultada nesse pó, antes pairará no Espaço a fim de subir até Deus!
+"Obrigado, amigos, obrigado. O meu túmulo ainda nem mesmo de todo é fechado, mas, passando um segundo, a terra cobrirá os meus despojos. Vós sabeis, no entanto, que minha alma não será sepultada nesse pó, antes pairará no Espaço a fim de subir até Deus!"
 
-"E como consola poder-se dizer a respeito da dissolução do invólucro: Oh! eu não morri, vivo a verdadeira vida, a vida eterna! O enterro do pobre não tem grandes cortejos, nem orgulhosas manifestações se abeiram da sua campa...
+"E como consola poder-se dizer a respeito da dissolução do invólucro: Oh! eu não morri, vivo a verdadeira vida, a vida eterna! O enterro do pobre não tem grandes cortejos, nem orgulhosas manifestações se abeiram da sua campa..."
 
-"Em compensação, acreditai-me, imensa multidão aqui não falta, e bons Espíritos acompanharam convosco, e com estas mulheres piedosas, o corpo que aí jaz estendido.
+"Em compensação, acreditai-me, imensa multidão aqui não falta, e bons Espíritos acompanharam convosco, e com estas mulheres piedosas, o corpo que aí jaz estendido."
 
-"Ao menos todos vós tendes fé e amais o bom Deus!
+"Ao menos todos vós tendes fé e amais o bom Deus!"
 
-"Oh! certamente não morremos só porque o nosso corpo se esfacela, esposa amada! Demais, eu estarei sempre ao teu lado para te consolar, para te ajudar a suportar as provações. Rude ser-te-á a vida, mas repleto o coração com as idéias da eternidade e do amor de Deus. Como serão efêmeros os teus sofrimentos! Parentes que rodeais a minha amantíssima companheira, amai-a, respeitai-a, sede para ela como irmãos. Não vos esqueçais nunca da assistência que mutuamente vos deveis na Terra, se é que pretendeis penetrar a morada do Senhor.
+"Oh! certamente não morremos só porque o nosso corpo se esfacela, esposa amada! Demais, eu estarei sempre ao teu lado para te consolar, para te ajudar a suportar as provações. Rude ser-te-á a vida, mas repleto o coração com as idéias da eternidade e do amor de Deus. Como serão efêmeros os teus sofrimentos! Parentes que rodeais a minha amantíssima companheira, amai-a, respeitai-a, sede para ela como irmãos. Não vos esqueçais nunca da assistência que mutuamente vos deveis na Terra, se é que pretendeis penetrar a morada do Senhor."
 
-"Quanto a vós, espíritas, irmãos, amigos, obrigado por terdes vindo a esta morada de pó e lama, a dizer-me adeus. Mas sabeis, e sabeis multo bem, vós, que minha alma imortal vive, e que algumas vezes vos irá pedir preces que jamais lhe recusareis para auxiliá-la na vida magnífica que lhe descortinastes na vida terrena.
+"Quanto a vós, espíritas, irmãos, amigos, obrigado por terdes vindo a esta morada de pó e lama, a dizer-me adeus. Mas sabeis, e sabeis multo bem, vós, que minha alma imortal vive, e que algumas vezes vos irá pedir preces que jamais lhe recusareis para auxiliá-la na vida magnífica que lhe descortinastes na vida terrena."
 
 "A vós todos que aqui estais, adeus. Nós nos podemos rever noutro lugar que não sobre este túmulo. As
 
@@ -3848,19 +3778,19 @@ ouvida por todos os assistentes, coveiros inclusive, de cabeça descoberta e com
 
 # ESPÍRITOS FELIZES
 
-almas me chamam a conferenciar. Adeus, orai pelos que sofrem e até outra vista. Costeau.
+almas me chamam a conferenciar. Adeus, orai pelos que sofrem e até outra vista. Costeau."
 
 Três dias depois, evocado num grupo particular, o Espírito de Costeau assim se exprimiu por intermédio doutro médium:
 
-"A morte é a vida. Não faço mais que repetir o que já disseram, mas para vós não há outra expressão senão esta, a despeito do que afirmam os materialistas, os que preferem ficar cegos. Oh! meus amigos, que belo espetáculo sobre a Terra o de ver tremular os estandartes do Espiritismo!
+"A morte é a vida. Não faço mais que repetir o que já disseram, mas para vós não há outra expressão senão esta, a despeito do que afirmam os materialistas, os que preferem ficar cegos. Oh! meus amigos, que belo espetáculo sobre a Terra o de ver tremular os estandartes do Espiritismo!"
 
-"Ciência profunda, imensa, da qual apenas soletrais as primeiras palavras. E que de luzes leva aos homens de boa-vontade, aos que, libertando-se das terríveis cadeias do orgulho, altamente proclamam a sua crença em Deus! Homens, orai, rendei graças por tantos benefícios. Pobre Humanidade! Ah! se te fora dado compreender!... Mas não, que o tempo não é chegado ainda, no qual a misericórdia do Senhor deve estender-se por sobre todos os homens, a fim de lhe reconhecerem as vontades e a elas se submeterem. Por teus raios luminosos, ciência bendita, é que eles lá chegarão e compreenderão.
+"Ciência profunda, imensa, da qual apenas soletrais as primeiras palavras. E que de luzes leva aos homens de boa-vontade, aos que, libertando-se das terríveis cadeias do orgulho, altamente proclamam a sua crença em Deus! Homens, orai, rendei graças por tantos benefícios. Pobre Humanidade! Ah! se te fora dado compreender!... Mas não, que o tempo não é chegado ainda, no qual a misericórdia do Senhor deve estender-se por sobre todos os homens, a fim de lhe reconhecerem as vontades e a elas se submeterem. Por teus raios luminosos, ciência bendita, é que eles lá chegarão e compreenderão."
 
-"Ao teu calor benéfico aquecerão os corações, tonificando-os no fogo divino, portador de consolações, como de fé.
+"Ao teu calor benéfico aquecerão os corações, tonificando-os no fogo divino, portador de consolações, como de fé."
 
-"Aos teus raios vivificantes, o mestre e o operário virão a confundir-se e identificar-se, compenetrados dessa caridade fraterna preconizada pelo divino Messias.
+"Aos teus raios vivificantes, o mestre e o operário virão a confundir-se e identificar-se, compenetrados dessa caridade fraterna preconizada pelo divino Messias."
 
-"Oh! meus irmãos, pensai na felicidade imensa que possuís como primeiros iniciados na obra da regeneração.
+"Oh! meus irmãos, pensai na felicidade imensa que possuís como primeiros iniciados na obra da regeneração."
 
 "Honra vos seja feita. Prossegui, e um dia, como eu, vendo a pátria dos Espíritos, exclamareis: - A morte é a vida, ou antes um sonho, espécie de pesadelo que dura o espaço de um minuto, e do qual despertamos para nos vermos rodeados de amigos que nos felicitam, ditosos por nos abraçarem. Tão grande foi a minha ventura, que eu
 
@@ -3871,7 +3801,7 @@ Três dias depois, evocado num grupo particular, o Espírito de Costeau assim se
 
 # 2ª PARTE - CAPÍTULO II
 
-não podia compreender que Deus me destinasse tantas graças relativamente ao pouco que fiz. Parecia-me sonhar, e como outrora me acontecia sonhar que estava morto, fui por instantes obrigado ao temor de voltar ao desgraçado corpo. Muito não tardou, porém, que me desse contas da realidade e rendesse graças a Deus. Eu bendizia o mestre que tão bem soube incutir-me os deveres de homem que crê na vida futura. Sim, eu o bendizia, agradecia-lhe, porquanto O Livro dos Espíritos despertara-me nalma os elos de amor ao meu Criador.
+não podia compreender que Deus me destinasse tantas graças relativamente ao pouco que fiz. Parecia-me sonhar, e como outrora me acontecia sonhar que estava morto, fui por instantes obrigado ao temor de voltar ao desgraçado corpo. Muito não tardou, porém, que me desse contas da realidade e rendesse graças a Deus. Eu bendizia o mestre que tão bem soube incutir-me os deveres de homem que crê na vida futura. Sim, eu o bendizia, agradecia-lhe, porquanto O Livro dos Espíritos despertara-me nalma os elos de amor ao meu Criador."
 
 “Obrigado, bons amigos que me atraístes para junto de vós. Participai aos nossos irmãos que estou muitas vezes com o nosso amigo Sanson. Até outra vista e coragem, porque o triunfo vos espera. Felizes os que houverem tomado parte no combate!”
 
@@ -3894,11 +3824,11 @@ __________
 
 # ESPÍRITOS FELIZES
 
-tos, escaldantes? Éreis vós, meu Guia, cuja auréola branca me cercava; e éreis vós outros, Espíritos caros e amigos, que vínheis murmurar-me ao ouvido palavras de esperança e de amor.
+tos, escaldantes? Éreis vós, meu Guia, cuja auréola branca me cercava; e éreis vós outros, Espíritos caros e amigos, que vínheis murmurar-me ao ouvido palavras de esperança e de amor."
 
-"A chama que me consumia o corpo débil também me despojou das suas cadeias, e, assim, morri vivendo já a verdadeira vida. Não experimentei a perturbação; entrei serena e recolhida no dia radiante que envolve aqueles que, depois de muito terem sofrido, souberam esperar um pouco. Minha mãe, minha querida mãe foi a última vibração terrestre que me repercutiu na alma. Como eu desejo que ela se torne espírita! Desprendi-me da Terra qual fruto maduro que se destacasse da árvore antes do tempo. Eu não tinha sido tocada pelo demônio do orgulho que estimula as almas desditosas, arrastadas pelos sucessos embriagadores e brilhantes da juventude.
+"A chama que me consumia o corpo débil também me despojou das suas cadeias, e, assim, morri vivendo já a verdadeira vida. Não experimentei a perturbação; entrei serena e recolhida no dia radiante que envolve aqueles que, depois de muito terem sofrido, souberam esperar um pouco. Minha mãe, minha querida mãe foi a última vibração terrestre que me repercutiu na alma. Como eu desejo que ela se torne espírita! Desprendi-me da Terra qual fruto maduro que se destacasse da árvore antes do tempo. Eu não tinha sido tocada pelo demônio do orgulho que estimula as almas desditosas, arrastadas pelos sucessos embriagadores e brilhantes da juventude."
 
-"Bendigo, pois, o fogo, o sofrimento, a prova, que não passavam de expiação. Semelhante a esses brancos e leves fios do outono, flutuo na torrente luminosa, e não são mais as estrelas de diamante que me rebrilham na fronte, mas as áureas estrelas do bom Deus.
+"Bendigo, pois, o fogo, o sofrimento, a prova, que não passavam de expiação. Semelhante a esses brancos e leves fios do outono, flutuo na torrente luminosa, e não são mais as estrelas de diamante que me rebrilham na fronte, mas as áureas estrelas do bom Deus."
 
 Emma.
 
@@ -3917,13 +3847,13 @@ Fez-se a evocação na Sociedade de Paris, a 31 de março.
 
 # 2ª PARTE - CAPÍTULO II
 
-P. - Caro Sr. Vignal, todos os vossos velhos colegas da Sociedade de Paris guardam de vós as mais vivas saudades, e eu, particularmente, das boas relações, aliás nunca interrompidas. Evocando-vos, tivemos por fim primeiramente testemunhar a nossa simpatia, considerando-nos felizes se puderdes e quiserdes palestrar conosco.
+P. Caro Sr. Vignal, todos os vossos velhos colegas da Sociedade de Paris guardam de vós as mais vivas saudades, e eu, particularmente, das boas relações, aliás nunca interrompidas. Evocando-vos, tivemos por fim primeiramente testemunhar a nossa simpatia, considerando-nos felizes se puderdes e quiserdes palestrar conosco.
 
-R. - Prezado amigo e digno mestre: tão bondosa lembrança e testemunhos de simpatia me são muito lisonjeiros. Graças à vossa evocação e assistência, levadas pelas preces, pude vir hoje assistir desembaraçado a esta reunião de bons amigos e irmãos espíritas. Como justamente disse o jovem secretário, eu estava impaciente por me comunicar; desde o anoitecer de hoje, empreguei todas as forças espirituais para dominar esse desejo; como os graves assuntos, tratados na vossa conversação, me interessassem vivamente, tornaram a minha expectativa menos penosa. Perdoai-me caro amigo, mas a minha gratidão exigia me manifestasse.
+R. Prezado amigo e digno mestre: tão bondosa lembrança e testemunhos de simpatia me são muito lisonjeiros. Graças à vossa evocação e assistência, levadas pelas preces, pude vir hoje assistir desembaraçado a esta reunião de bons amigos e irmãos espíritas. Como justamente disse o jovem secretário, eu estava impaciente por me comunicar; desde o anoitecer de hoje, empreguei todas as forças espirituais para dominar esse desejo; como os graves assuntos, tratados na vossa conversação, me interessassem vivamente, tornaram a minha expectativa menos penosa. Perdoai-me caro amigo, mas a minha gratidão exigia me manifestasse.
 
-P. - Dizei-nos primeiramente como vos encontrais no mundo espiritual, descrevendo o trabalho da separação, as sensações desse momento, bem como o tempo necessário ao reconhecimento do vosso estado.
+P. Dizei-nos primeiramente como vos encontrais no mundo espiritual, descrevendo o trabalho da separação, as sensações desse momento, bem como o tempo necessário ao reconhecimento do vosso estado.
 
-R. - Sou tão feliz quanto possível, vendo plenamente confirmados os secretos pensamentos concebíveis em relação a uma doutrina confortante e consoladora. Sou feliz, e tanto mais por ver agora, sem obstáculo algum, desenvolver-se diante de mim o futuro da ciência e da filosofia espíritas. Mas deixemos por hoje estas digressões inoportunas; de novo voltarei a entreter-vos sobre este assunto, máxime sabendo que a minha presença vos dará tanto prazer quanto o que experimento em visitar-vos. A separação foi rápida; mais do que podia esperar pelo meu apoucado merecimento. Fui eficazmente auxiliado pelo vosso concurso e o sonâmbulo vos deu uma ideia bastante clara do fenômeno da separação, para que eu nele insista. Era uma espécie de oscilação intermitente.
+R. Sou tão feliz quanto possível, vendo plenamente confirmados os secretos pensamentos concebíveis em relação a uma doutrina confortante e consoladora. Sou feliz, e tanto mais por ver agora, sem obstáculo algum, desenvolver-se diante de mim o futuro da ciência e da filosofia espíritas. Mas deixemos por hoje estas digressões inoportunas; de novo voltarei a entreter-vos sobre este assunto, máxime sabendo que a minha presença vos dará tanto prazer quanto o que experimento em visitar-vos. A separação foi rápida; mais do que podia esperar pelo meu apoucado merecimento. Fui eficazmente auxiliado pelo vosso concurso e o sonâmbulo vos deu uma ideia bastante clara do fenômeno da separação, para que eu nele insista. Era uma espécie de oscilação intermitente.
 
 
 
@@ -3934,20 +3864,19 @@ R. - Sou tão feliz quanto possível, vendo plenamente confirmados os secretos p
 
 te, um como arrastamento em sentidos opostos. Triunfou o Espírito aqui presente. Só deixei completamente o corpo quando ele baixou à terra; e aqui vim ter convosco.
 
-- P. Que dizeis dos vossos funerais? Julguei-me no dever de a eles comparecer. Nesse momento éreis assaz livre para apreciá-los; e as preces por mim feitas a vosso favor (discretamente, já se vê) tinham chegado até vós?
+P. Que dizeis dos vossos funerais? Julguei-me no dever de a eles comparecer. Nesse momento éreis assaz livre para apreciá-los; e as preces por mim feitas a vosso favor (discretamente, já se vê) tinham chegado até vós?
 
-- R. Sim; já o disse; a vossa assistência auxiliou-me grandemente, e voltei a vós, abandonando por completo a velha carcaça. Demais, sabeis, pouco me importam as coisas materiais. Só pensava na alma e em Deus.
+R. Sim; já o disse; a vossa assistência auxiliou-me grandemente, e voltei a vós, abandonando por completo a velha carcaça. Demais, sabeis, pouco me importam as coisas materiais. Só pensava na alma e em Deus.
 
-- P. Recordai-vos que a vosso pedido, há 5 anos, em fevereiro de 1860, fizemos um estudo a vosso respeito (1). Nessa ocasião quando estáveis ainda entre nós - o vosso Espírito desprendeu-se para vir falar conosco. Podereis descrever-nos da melhor forma a diferença entre o vosso atual desprendimento e aquele de então?
+P. Recordai-vos que a vosso pedido, há 5 anos, em fevereiro de 1860, fizemos um estudo a vosso respeito (1). Nessa ocasião quando estáveis ainda entre nós - o vosso Espírito desprendeu-se para vir falar conosco. Podereis descrever-nos da melhor forma a diferença entre o vosso atual desprendimento e aquele de então?
 
-- R. Sim, lembro-me. E que grande diferença entre um e outro! Naquele estado, a matéria me oprimia ainda na sua trama inflexível, isto é, queria mas não podia desembaraçar-me radicalmente. Hoje sou livre; um vasto campo desconhecido se me depara, e eu espero com o vosso auxílio e o dos bons Espíritos, aos quais me recomendo, progredir e compenetrar-me o mais rapidamente possível dos sentimentos que é mister possuir, e dos atos que me cumpre empreender para suportar as provações e merecer a recompensa. Que majestade! que grandeza! É quase um sentimento de temor que predomina, quando, fracos quais somos, queremos fixar as paragens luminosas.
+R. Sim, lembro-me. E que grande diferença entre um e outro! Naquele estado, a matéria me oprimia ainda na sua trama inflexível, isto é, queria mas não podia desembaraçar-me radicalmente. Hoje sou livre; um vasto campo desconhecido se me depara, e eu espero com o vosso auxílio e o dos bons Espíritos, aos quais me recomendo, progredir e compenetrar-me o mais rapidamente possível dos sentimentos que é mister possuir, e dos atos que me cumpre empreender para suportar as provações e merecer a recompensa. Que majestade! que grandeza! É quase um sentimento de temor que predomina, quando, fracos quais somos, queremos fixar as paragens luminosas.
 
-- P. Com prazer continuaremos a entreter-nos no assunto, sempre que o quiserdes.
+P. Com prazer continuaremos a entreter-nos no assunto, sempre que o quiserdes.
 
 __________
 
 (1) Ver a Revue Spirite de março de 1860.
-
 
 
 ---
@@ -3955,7 +3884,7 @@ __________
 
 # 2ª PARTE - CAPÍTULO II
 
-- R. Respondi sucintamente e desordenadamente às diversas perguntas. - Não exijais mais, agora, do vosso fiel discípulo, porquanto não estou ainda inteiramente livre. Continuar a conversar seria o meu prazer, mas o meu guia modera-me o entusiasmo, e já pude apreciar-lhe bastante a bondade e a justiça para submeter-me inteiramente à sua decisão, por maior que seja o meu pesar em ser interrompido. Consola-me, pensando que poderei vir assistir algumas vezes, incógnito, às vossas reuniões.
+R. Respondi sucintamente e desordenadamente às diversas perguntas. - Não exijais mais, agora, do vosso fiel discípulo, porquanto não estou ainda inteiramente livre. Continuar a conversar seria o meu prazer, mas o meu guia modera-me o entusiasmo, e já pude apreciar-lhe bastante a bondade e a justiça para submeter-me inteiramente à sua decisão, por maior que seja o meu pesar em ser interrompido. Consola-me, pensando que poderei vir assistir algumas vezes, incógnito, às vossas reuniões.
 
 Falar-vos-ei sempre que possa, pois estimo-vos e desejo prová-lo. Outros Espíritos, porém, mais adiantados, reclamam prioridade, devendo eu curvar-me àqueles que me permitiram dar livre curso à torrente das idéias acumuladas.
 
@@ -3982,7 +3911,7 @@ Na véspera da morte, exigiu de sua mãe que fosse repousar, dizendo-lhe ter, ta
 
 Uma família espírita, conhecedora da sua bela conduta, interessando-se por sua mãe, que ficara sozinha, teve a idéia de o evocar pouco tempo após a morte e ele se manifestou espontaneamente, dando a seguinte comunicação:
 
-"Desejais saber como estou agora; feliz, felicíssimo! Devem ser levados em conta os sofrimentos e angústias, que são a origem das bênçãos e da felicidade de além-túmulo. A felicidade! Ah! não compreendeis o que significa essa palavra. As aventuras terrenas quão longe estão das que experimentamos ao regressar para Jesus, com a consciência pura, com a confiança do servo cumpridor do seu dever, que espera cheio de alegria a aprovação dAquele que é tudo.
+"Desejais saber como estou agora; feliz, felicíssimo! Devem ser levados em conta os sofrimentos e angústias, que são a origem das bênçãos e da felicidade de além-túmulo. A felicidade! Ah! não compreendeis o que significa essa palavra. As aventuras terrenas quão longe estão das que experimentamos ao regressar para Jesus, com a consciência pura, com a confiança do servo cumpridor do seu dever, que espera cheio de alegria a aprovação dAquele que é tudo."
 
 "Ah! meus amigos, a vida é penosa e difícil, quando se não tem em vista o seu fim; mas eu vos digo, em verdade, que quando vierdes para junto de nós, se seguirdes a lei de Deus, sereis recompensados além, mas muito além dos sofrimentos e dos méritos que porventura julgardes ter adquirido para a outra vida. Sede bons e caritativos, dessa caridade tão desconhecida entre os homens, e que se chama benevolência. Socorrei os vossos semelhantes, fazendo por outrem mais que por vós mesmos."
 
@@ -4005,40 +3934,38 @@ Era muito jovem e notável pela doçura do caráter e de eminentes qualidades mo
 
 Evocação: - R. Presente.
 
-- P. Vosso pai e vosso marido pediram-me para evocar-vos, e felizes se julgariam se obtivessem uma comunicação.
+P. Vosso pai e vosso marido pediram-me para evocar-vos, e felizes se julgariam se obtivessem uma comunicação.
 
 ---
 
 
 # ESPÍRITOS FELIZES
 
-- R. Eu também sou feliz em dá-la.
+R. Eu também sou feliz em dá-la.
 
-- P. Por que tão cedo vos furtastes aos carinhos da família?
+P. Por que tão cedo vos furtastes aos carinhos da família?
 
-- R. Porque terminei as provações terrenas.
+R. Porque terminei as provações terrenas.
 
-- P. Podeis ver algumas vezes os vossos parentes?
+P. Podeis ver algumas vezes os vossos parentes?
 
-- R. Oh! estou sempre ao lado deles.
+R. Oh! estou sempre ao lado deles.
 
-- P. Sois feliz como Espírito?
+P. Sois feliz como Espírito?
 
-- R. Sou feliz. Amo e espero. Os céus não me infundem temor, e cheia de confiança aguardo que asas brancas me alcem até eles.
+R. Sou feliz. Amo e espero. Os céus não me infundem temor, e cheia de confiança aguardo que asas brancas me alcem até eles.
 
-- P. Que entendeis por asas brancas?
+P. Que entendeis por asas brancas?
 
-- R. Tornar-me Espírito puro, resplandecer como os mensageiros celestes que me ofuscam.
+R. Tornar-me Espírito puro, resplandecer como os mensageiros celestes que me ofuscam.
 
 Nota - As asas dos anjos, arcanjos, serafins, que não passam de Espíritos puros, são evidentemente apenas um atributo pelos homens imaginado para dar idéia da rapidez com que se transportam, visto como a sua natureza etérea os dispensa de qualquer amparo para fender os espaços. Contudo, eles podem aparecer aos homens com tal acessório para lhes corresponderem ao pensamento, assim como os Espíritos se revestem da aparência terrestre a fim de se fazerem cognoscíveis.
 
-- P. Podem os vossos parentes fazer algo em vosso favor?
+P. Podem os vossos parentes fazer algo em vosso favor?
 
-- R. Podem, caros irmãos, não mais me entristecendo com as suas lamentações, pois sabem que não estou perdida de todo para eles. Desejo que a recordação de meu ser lhes seja suave e doce. Passei qual flor sobre a Terra, e nada de pesaroso deve subsistir dessa passagem.
+R. Podem, caros irmãos, não mais me entristecendo com as suas lamentações, pois sabem que não estou perdida de todo para eles. Desejo que a recordação de meu ser lhes seja suave e doce. Passei qual flor sobre a Terra, e nada de pesaroso deve subsistir dessa passagem.
 
-- P. Como pode ser tão poética a vossa linguagem, e tão pouco em harmonia com a posição que tivestes na Terra?
-
-
+P. Como pode ser tão poética a vossa linguagem, e tão pouco em harmonia com a posição que tivestes na Terra?
 
 ---
 
@@ -4056,7 +3983,6 @@ Era filho único e faleceu, aos dezoito anos, de uma afecção pulmonar. Intelig
 Exprobrando-se, então, diziam: "De que lhe serve agora tudo o que aprendeu? Melhor fora ficasse ignorante, pois a ciência não lhe era necessária para viver, e assim estaria, sem dúvida, entre nós; seria o consolo da nossa velhice." Se conhecessem o Espiritismo, raciocinariam de outra forma. Nele encontraram, contudo, a verdadeira consolação. O ditado seguinte foi dado pelo rapaz a um dos seus amigos, meses após o decesso.
 
 
-
 ---
 
 
@@ -4064,12 +3990,11 @@ Exprobrando-se, então, diziam: "De que lhe serve agora tudo o que aprendeu? Mel
 
 P. Meu caro Maurice, a terna afeição que votáveis a vossos país traz-me a convicção de que desejais reconfortar-lhes o ânimo, se estiver ao vosso alcance fazê-lo. O pesar, direi mesmo desespero, que o vosso passamento lhes trouxe, altera-lhes visivelmente a saúde, levando-os a desgostarem-se da vida. Algumas palavras de consolo poderão certamente fazer renascer-lhes a esperança.
 
-R. - Meu amigo, esperava com impaciência esta ocasião, que ora me facultais, de comunicar-me. A dor de meus país aflige-me, porém, ela se acalmará quando tiverem a certeza de que não estou perdido para eles; aproximai-vos deles a fim de os convencer desta verdade, o que certamente conseguireis. Era preciso este acontecimento para insinuar-lhes uma crença que lhes trará a felicidade, impedindo-os de murmurar contra os decretos da Providência. Sabeis que meu pai era muito céptico a respeito da vida futura. - Deus concedeu-lhe este desgosto para arrancá-lo do seu erro. Aqui nos reencontraremos, neste mundo onde não se conhecem desgostos da vida, e no qual os precedi; afirmai-lhes categoricamente que a ventura de tornarem a ver-me ser-lhes-á recusada como castigo à falta de confiança na bondade de Deus. Interdita me seria mesmo a comunicação com eles, durante o tempo da sua permanência na Terra. O desespero é uma rebeldia à vontade do Onipotente, sempre punido com o prolongamento da causa que o produziu, até que haja completa submissão.
+R. Meu amigo, esperava com impaciência esta ocasião, que ora me facultais, de comunicar-me. A dor de meus país aflige-me, porém, ela se acalmará quando tiverem a certeza de que não estou perdido para eles; aproximai-vos deles a fim de os convencer desta verdade, o que certamente conseguireis. Era preciso este acontecimento para insinuar-lhes uma crença que lhes trará a felicidade, impedindo-os de murmurar contra os decretos da Providência. Sabeis que meu pai era muito céptico a respeito da vida futura. - Deus concedeu-lhe este desgosto para arrancá-lo do seu erro. Aqui nos reencontraremos, neste mundo onde não se conhecem desgostos da vida, e no qual os precedi; afirmai-lhes categoricamente que a ventura de tornarem a ver-me ser-lhes-á recusada como castigo à falta de confiança na bondade de Deus. Interdita me seria mesmo a comunicação com eles, durante o tempo da sua permanência na Terra. O desespero é uma rebeldia à vontade do Onipotente, sempre punido com o prolongamento da causa que o produziu, até que haja completa submissão.
 
 O desespero é verdadeiro suicídio por minar as forças corpóreas, e quem abrevia os seus dias, no intuito de escapar mais cedo aos travos da dor, faz jus às mais cruéis decepções; deve-se, ao contrário, avigorar o corpo a fim de suportar mais facilmente o peso das provações.
 
 Meus queridos e bondosos pais, é a vós que neste momento me dirijo. Desde que deixei o despojo mortal, jamais deixei de estar ao vosso lado. Aí estou muito mais vezes mesmo que quando na Terra. Consolai-vos, pois, porque eu não estou morto, ou antes, estou mais vivo que...
-
 
 
 ---
@@ -4087,10 +4012,9 @@ E podereis acaso julgar da minha fortaleza para não sucumbir nessa luta que imp
 
 Neste caso, uma dor inconsolável acusaria descrença só legitimável pela idéia do nada. Os que assim descrêem, esses é que são dignos de lástima, pois para eles não pode haver consolação possível; os entes caros figuram-se-lhes irremediavelmente perdidos, porque a tumba lhes leva a última esperança!
 
-- P. Vossa morte foi dolorosa?
+P. Vossa morte foi dolorosa?
 
-- R. Não, meu amigo, apenas sofri, antes da morte, os efeitos da moléstia, porém, esse sofrimento diminuía à proporção que o último instante se aproximava: depois, um dia, adormeci sem pensar na morte. E tive então um sonho delicioso! Sonhei que estava curado, que não mais sofria, e respirava a longos haustos, prazerosamente, um ar embalsamado e puro: transportava-me através do Espaço uma força desconhecida. Brilhante luz resplandecia em torno, mas sem cansar-me a vista! Vi meu avô, não mais esquálido, alquebrado, porém, com aspecto juvenil e loução. E ele estendia-me os braços, estreitando-me efusivamente ao coração.
-
+R. Não, meu amigo, apenas sofri, antes da morte, os efeitos da moléstia, porém, esse sofrimento diminuía à proporção que o último instante se aproximava: depois, um dia, adormeci sem pensar na morte. E tive então um sonho delicioso! Sonhei que estava curado, que não mais sofria, e respirava a longos haustos, prazerosamente, um ar embalsamado e puro: transportava-me através do Espaço uma força desconhecida. Brilhante luz resplandecia em torno, mas sem cansar-me a vista! Vi meu avô, não mais esquálido, alquebrado, porém, com aspecto juvenil e loução. E ele estendia-me os braços, estreitando-me efusivamente ao coração.
 
 
 ---
@@ -4100,16 +4024,15 @@ Neste caso, uma dor inconsolável acusaria descrença só legitimável pela idé
 
 Multidão de outras pessoas, de risonhos semblantes, o acompanhavam, acolhendo-me todos com benevolência e doçura; parecia-me reconhecê-los e, venturoso por tornar a vê-los, trocávamos felicitações e testemunhos de amizade. Pois bem! o que eu supunha ser um sonho era a realidade, porque de tal sonho não devia despertar na Terra: é que acordara no mundo espiritual.
 
-- P. A vossa moléstia não se originou da grande assiduidade no estudo?
+P. A vossa moléstia não se originou da grande assiduidade no estudo?
 
-- R. Oh! não, desenganai-vos. Contado estava o tempo que eu deveria passar na Terra, e coisa alguma poderia aí reter-me. Sabia-o meu Espírito nos momentos de desprendimento e considerava-me feliz com a idéia da próxima libertação. Mas, o tempo que aí passei não foi sem proveito, e hoje me felicito de o não ter perdido.
+R. Oh! não, desenganai-vos. Contado estava o tempo que eu deveria passar na Terra, e coisa alguma poderia aí reter-me. Sabia-o meu Espírito nos momentos de desprendimento e considerava-me feliz com a idéia da próxima libertação. Mas, o tempo que aí passei não foi sem proveito, e hoje me felicito de o não ter perdido.
 
 Os sérios estudos feitos fortificaram-me a alma, aumentando-lhe os conhecimentos, e se em virtude da minha curta existência não pude dar-lhes aplicação, nem por isso deixarei de o fazer mais tarde e com maior utilidade.
 
 Adeus, caro amigo: eu parto para junto de meus pais, a fim de predíspô-los ao recebimento desta comunicação.
 
 Maurice.
-
 
 
 ---
@@ -4125,13 +4048,11 @@ JOSEPH BRÊ
 
 # O homem honesto segundo Deus ou segundo os homens
 
-1. Caro avô, podeis dizer-me como vos encontrais no mundo dos Espíritos, dando-me quaisquer pormenores úteis ao nosso progresso?
+1.Caro avô, podeis dizer-me como vos encontrais no mundo dos Espíritos, dando-me quaisquer pormenores úteis ao nosso progresso?
 
-- R. Tudo que quiseres, querida filha. Eu expio a minha descrença; porém, grande é a bondade de Deus, que atende às circunstâncias. Sofro, mas não como poderias imaginar: é o desgosto de não ter melhor aproveitado o tempo aí na Terra.
-2. Como? Pois não vivestes sempre honestamente?
-
-- R. Sim, no juízo dos homens; mas há um abismo entre a honestidade perante os homens e a honestidade perante Deus. E uma vez que desejas instruir-te, procurarei demonstrar-te a diferença. Aí, entre vós, é reputado honesto aquele que respeita as leis do seu país, respeito arbitrário para muitos. Honesto é aquele que não prejudica o próximo ostensivamente, embora lhe arranque muitas vezes a felicidade e a honra, visto o código penal e a opinião pública não atingirem o culpado hipócrita.
-
+R. Tudo que quiseres, querida filha. Eu expio a minha descrença; porém, grande é a bondade de Deus, que atende às circunstâncias. Sofro, mas não como poderias imaginar: é o desgosto de não ter melhor aproveitado o tempo aí na Terra.
+2.Como? Pois não vivestes sempre honestamente?
+R. Sim, no juízo dos homens; mas há um abismo entre a honestidade perante os homens e a honestidade perante Deus. E uma vez que desejas instruir-te, procurarei demonstrar-te a diferença. Aí, entre vós, é reputado honesto aquele que respeita as leis do seu país, respeito arbitrário para muitos. Honesto é aquele que não prejudica o próximo ostensivamente, embora lhe arranque muitas vezes a felicidade e a honra, visto o código penal e a opinião pública não atingirem o culpado hipócrita.
 
 
 ---
@@ -4175,19 +4096,16 @@ Nota - O sentimento da dualidade que não está ainda destruído por uma complet
 
 # ESPÍRITOS EM CONDIÇÕES MEDIANAS
 
-tretanto será confortada, e o que a seus olhos constitui sensível desgraça, era fatal e indispensável para que as coisas do Céu se lhe tornassem no que devem ser: tudo. Estarei ao seu lado até o fim da sua provação terrestre, ajudando-a a suportá-la.
+tretanto será confortada, e o que a seus olhos constitui sensível desgraça, era fatal e indispensável para que as coisas do Céu se lhe tornassem no que devem ser: tudo. Estarei ao seu lado até o fim da sua provação terrestre, ajudando-a a suportá-la."
 
-"Não sou infeliz, porém, muito tenho ainda a fazer para aproximar-me da situação dos bem-aventurados. Pedirei a Deus me conceda voltar a essa Terra para reparação do tempo que aí perdi nesta última existência.
+"Não sou infeliz, porém, muito tenho ainda a fazer para aproximar-me da situação dos bem-aventurados. Pedirei a Deus me conceda voltar a essa Terra para reparação do tempo que aí perdi nesta última existência."
 
 "A fé vos ampare, meus amigos; confiai na eficácia da prece, mormente quando partida do coração. Deus é bom."
 
-- P. Levastes muito tempo a reconhecer-vos?
-
-- R. Compreendi a morte no mesmo dia que por mim orastes.
-
-- P. Era doloroso o estado de perturbação?
-
-- R. Não, eu não sofria, acreditava sonhar e aguardava o despertar. Minha vida não foi isenta de dores, mas todo ser encarnado nesse mundo deve sofrer. Resignando-me à vontade de Deus, a minha resignação foi por Ele levada em conta. Grata vos sou pelas preces que me auxiliaram no reconhecimento de mim mesma. Obrigada; voltarei sempre com prazer. Adeus.
+P. Levastes muito tempo a reconhecer-vos?
+R. Compreendi a morte no mesmo dia que por mim orastes.
+P. Era doloroso o estado de perturbação?
+R. Não, eu não sofria, acreditava sonhar e aguardava o despertar. Minha vida não foi isenta de dores, mas todo ser encarnado nesse mundo deve sofrer. Resignando-me à vontade de Deus, a minha resignação foi por Ele levada em conta. Grata vos sou pelas preces que me auxiliaram no reconhecimento de mim mesma. Obrigada; voltarei sempre com prazer. Adeus.
 
 Hélène.
 
@@ -4195,9 +4113,9 @@ Hélène.
 
 (Falecido em 1860 e evocado, a pedido de uma sua irmã, consóror da Sociedade de Paris, em 16 de maio de 1861)
 
-1. - Evocação: - R. Eis-me aqui.
+1.Evocação: - R. Eis-me aqui.
 
-2. - Vossa irmã pediu-nos para evocar-vos, pois, conquanto seja médium, não está ainda bastante desenvolvida. - R. Responderei da melhor forma possível.
+2.Vossa irmã pediu-nos para evocar-vos, pois, conquanto seja médium, não está ainda bastante desenvolvida. - R. Responderei da melhor forma possível.
 
 
 
@@ -4206,25 +4124,25 @@ Hélène.
 
 # 2ª PARTE - CAPÍTULO III
 
-3. - Em primeiro lugar ela deseja saber se sois feliz.
+3.Em primeiro lugar ela deseja saber se sois feliz.
 
-R. - Estou na erraticidade, estado transitório que não proporciona nem felicidade nem castigo absolutos.
+R. Estou na erraticidade, estado transitório que não proporciona nem felicidade nem castigo absolutos.
 
-4. - Permanecestes por muito tempo inconsciente do vosso estado? - R. Estive muito tempo perturbado e só voltei a mim para bendizer da piedade dos que, lembrando-se de mim, por mim oraram.
+4.Permanecestes por muito tempo inconsciente do vosso estado? - R. Estive muito tempo perturbado e só voltei a mim para bendizer da piedade dos que, lembrando-se de mim, por mim oraram.
 
-5. - E podeis precisar o tempo dessa perturbação? - R. Não.
+5.E podeis precisar o tempo dessa perturbação? - R. Não.
 
-6. - Quais os parentes que reconhecestes primeiro? - R. Minha mãe e meu pai, os quais me receberam ao despertar, iniciando-me em a nova vida.
+6.Quais os parentes que reconhecestes primeiro? - R. Minha mãe e meu pai, os quais me receberam ao despertar, iniciando-me em a nova vida.
 
-7. - A que atribuir o fato de parecer que nos últimos extremos da moléstia confabuláveis com as pessoas caras da Terra? - R. Ao conhecimento antecipado pela revelação do mundo que viria habitar. Vidente antes da morte, meus olhos só se turbaram no momento da separação do corpo, porque os laços carnais eram ainda muito vigorosos.
+7.A que atribuir o fato de parecer que nos últimos extremos da moléstia confabuláveis com as pessoas caras da Terra? - R. Ao conhecimento antecipado pela revelação do mundo que viria habitar. Vidente antes da morte, meus olhos só se turbaram no momento da separação do corpo, porque os laços carnais eram ainda muito vigorosos.
 
-8. - Como explicar as recordações da infância que de preferência vos ocorriam? - R. Ao fato de o principio se identificar mais com o fim, que com o meio da vida.
+8.Como explicar as recordações da infância que de preferência vos ocorriam? - R. Ao fato de o principio se identificar mais com o fim, que com o meio da vida.
 
 P. Como explicar isso? - R. Importa dizer que os moribundos lembram e vêem, como reflexo consolador, a pureza infantil dos primeiros anos.
 
 Nota - É provavelmente por motivo providencial semelhante que os velhos, à proporção que se aproximam do termo da vida, têm, por vezes, nítida lembrança dos mais ínfimos episódios da infância.
 
-9. - Por que, referindo-vos ao corpo, faláveis sempre na terceira pessoa? - R. Porque era vidente como
+9.Por que, referindo-vos ao corpo, faláveis sempre na terceira pessoa? - R. Porque era vidente como
 
 
 
@@ -4239,14 +4157,11 @@ vo-lo disse, e sentia claramente as diferenças entre o físico e o moral; essas
 
 Nota - Eis aí uma particularidade singular da morte deste senhor. Nos seus últimos momentos, ele dizia sempre: Ele tem sede, é preciso dar-lhe de beber; ele tem frio, é preciso aquecê-lo; sofre em tal ou tal região, etc. E quando se lhe dizia: Mas sois vós que tendes sede? - respondia: "Não, é ele." Aqui ressaltam perfeitamente as duas existências; o eu pensante está no Espírito e não no corpo; o Espírito, em parte desprendido, considerava o corpo outra individualidade, que a bem dizer lhe não pertencia; era portanto ao seu corpo que se fazia mister dessedentar, e não a ele Espírito. Este fenômeno nota-se também em alguns sonâmbulos.
 
-# 10.
-
-O que dissestes sobre a erraticidade do vosso Espírito e sua respectiva perturbação, levaria a duvidar da vossa felicidade, ao contrário do que se poderia inferir das vossas qualidades. Demais, há Espíritos errantes felizes e infelizes. - R. Estou num estado transitório; aqui as virtudes humanas passam a ter seu justo valor. Certo, este estado é mil vezes preferível ao da minha encarnação terrestre; mas porque alimentei sempre aspirações ao verdadeiramente bom e belo, minha alma não ficará satisfeita senão quando se alçar aos pés do Criador.
+10.O que dissestes sobre a erraticidade do vosso Espírito e sua respectiva perturbação, levaria a duvidar da vossa felicidade, ao contrário do que se poderia inferir das vossas qualidades. Demais, há Espíritos errantes felizes e infelizes. - R. Estou num estado transitório; aqui as virtudes humanas passam a ter seu justo valor. Certo, este estado é mil vezes preferível ao da minha encarnação terrestre; mas porque alimentei sempre aspirações ao verdadeiramente bom e belo, minha alma não ficará satisfeita senão quando se alçar aos pés do Criador.
 
 # SR. CARDON, médico
 
 Passara uma parte da sua vida na marinha mercante, como médico de navio baleeiro, adquirindo em tal ambiente idéias um tanto materialistas; recolhido à cidade de J..., exerceu aí a modesta profissão de médico da roça. Havia algum tempo, adquirira a certeza de estar afetado de uma hipertrofia do coração, e, sabendo a moléstia incurável, deixava-se abater pela perspectiva da morte, num estado de melancolia inconsolável. Predisse o dia certo do falecimento, com antecipação de cerca de
-
 
 
 ---
@@ -4272,13 +4187,12 @@ rém, conservou uma expressão tão imponente que, até ao momento de ser amorta
 
 Tendo-nos um amigo da família fornecido estes pormenores assaz interessantes, lembramo-nos que a evocação podia tornar-se instrutiva a todos nós, e útil ao próprio Espírito.
 
-1. Evocação: - R. Estou perto de vós.
-2. Relataram-nos as circunstâncias em que se deu a vossa passagem, e ficamos cheios de admiração. Quereis ter a bondade de nos descrever ainda mais minuciosamente o que vistes no intervalo do que poderíamos denominar as vossas duas mortes? - R. O que vi... E poderíeis compreendê-lo? Não sei, visto como não encontraria expressões apropriadas à compreensão do que pude ver durante os instantes em que me foi possível deixar o envoltório mortal.
-3. E sabeis em que lugar estivestes? Seria longe da Terra, em outro planeta, ou no Espaço? - R. O Espírito não mede distâncias, nem lhes conhece o valor como a vós acontece. Arrebatado por não sei que agente maravilhoso, eu vi os esplendores de um céu, desses que só em sonho podemos imaginar. Esse percurso, através do infinito, fazia-se com celeridade tal que eu não pude precisar os instantes nele empregados pelo meu Espírito.
-4. E fruís atualmente a felicidade que entrevistes? - R. Não; bem desejaria poder frui-la, mas Deus não deveria recompensar-me de tal maneira. Revoltei-me muitas vezes contra os pensamentos abençoados que o coração me ditava e a morte parecia-me uma injustiça.
+1.Evocação: - R. Estou perto de vós.
+2.Relataram-nos as circunstâncias em que se deu a vossa passagem, e ficamos cheios de admiração. Quereis ter a bondade de nos descrever ainda mais minuciosamente o que vistes no intervalo do que poderíamos denominar as vossas duas mortes? - R. O que vi... E poderíeis compreendê-lo? Não sei, visto como não encontraria expressões apropriadas à compreensão do que pude ver durante os instantes em que me foi possível deixar o envoltório mortal.
+3.E sabeis em que lugar estivestes? Seria longe da Terra, em outro planeta, ou no Espaço? - R. O Espírito não mede distâncias, nem lhes conhece o valor como a vós acontece. Arrebatado por não sei que agente maravilhoso, eu vi os esplendores de um céu, desses que só em sonho podemos imaginar. Esse percurso, através do infinito, fazia-se com celeridade tal que eu não pude precisar os instantes nele empregados pelo meu Espírito.
+4.E fruís atualmente a felicidade que entrevistes? - R. Não; bem desejaria poder frui-la, mas Deus não deveria recompensar-me de tal maneira. Revoltei-me muitas vezes contra os pensamentos abençoados que o coração me ditava e a morte parecia-me uma injustiça.
 
 Médico incrédulo, eu havia assimilado na arte de curar uma aversão profunda à segunda natureza, que é o nosso impulso inteligente, divino; para mim a imortalidade da alma não passava de ficção própria para seduzir as naturezas pouco instruídas, embora o nada me.
-
 
 
 ---
@@ -4288,16 +4202,15 @@ Médico incrédulo, eu havia assimilado na arte de curar uma aversão profunda �
 
 espantasse, maldizendo o misterioso agente que atua perenemente. A Filosofia desviara-me, sem que eu desse por isto, da compreensão da grandeza do Eterno, que sabe distribuir a dor e a alegria para ensino da Humanidade.
 
-5. - Logo após o definitivo desprendimento reconhecestes o vosso estado? - R. Não; eu só me reconheci durante a transição que o meu Espírito experimentou para percorrer a etérea região. Isto, porém, não ocorreu imediatamente, sendo-me precisos alguns dias para o meu despertar.
+5.Logo após o definitivo desprendimento reconhecestes o vosso estado? - R. Não; eu só me reconheci durante a transição que o meu Espírito experimentou para percorrer a etérea região. Isto, porém, não ocorreu imediatamente, sendo-me precisos alguns dias para o meu despertar.
 
 Deus concedera-me uma graça, em razão do que vos vou explicar: A minha primitiva descrença não mais existia; tornara-me crente antes da morte, depois de haver cientificamente sondado com gravidade a matéria que me atormentava, de não haver encontrado ao fim das razões terrestres senão a razão divina, que me inspirou e consolou, dando-me coragem mais forte que a dor. Assim, bendizia o que amaldiçoara, encarava a morte como uma libertação. A idéia de Deus é grande como o mundo! Oh! que supremo consolo na prece, que nos enternece e comove: ela é o elemento mais positivo da nossa natureza imaterial; foi por ela que compreendi, que cri firme, soberanamente, e, por isso, Deus, levando em conta os meus atos, houve por bem recompensar-me antes do termo da minha encarnação.
 
-6. - Poder-se-ia dizer que estivestes morto nessa primeira crise? - R. Sim e não: tendo o Espírito abandonado o corpo, naturalmente a carne extinguia-se; entretanto, retomando posse da morada terrena, a vida voltou ao corpo, que passou por uma transição, por um sono.
+6.Poder-se-ia dizer que estivestes morto nessa primeira crise? - R. Sim e não: tendo o Espírito abandonado o corpo, naturalmente a carne extinguia-se; entretanto, retomando posse da morada terrena, a vida voltou ao corpo, que passou por uma transição, por um sono.
 
-7. - E sentíeis então os laços que vos prendiam ao corpo? - R. Sem dúvida; o Espírito tem um grilhão fortíssimo a prendê-lo, e não entra na vida natural antes que dê o último estremecimento da carne.
+7.E sentíeis então os laços que vos prendiam ao corpo? - R. Sem dúvida; o Espírito tem um grilhão fortíssimo a prendê-lo, e não entra na vida natural antes que dê o último estremecimento da carne.
 
-8. - Como, pois, na vossa morte aparente e durante alguns minutos, pôde o vosso Espírito desprender-se
-
+8.Como, pois, na vossa morte aparente e durante alguns minutos, pôde o vosso Espírito desprender-se
 
 
 ---
@@ -4307,12 +4220,11 @@ Deus concedera-me uma graça, em razão do que vos vou explicar: A minha primiti
 
 súbita e imperturbavelmente, ao passo que o desprendimento efetivo se fez acompanhar da perturbação por alguns dias? Parece-nos que no primeiro caso, os laços entre corpo e Espírito subsistindo mais que no segundo, o desprendimento devera ser mais lento, ao contrário justamente do que se deu. - R. Tendes muitas vezes evocado um Espírito encarnado, recebendo respostas exatas; eu estava nas condições desses tais, porque Deus me chamava e os seus servidores me diziam: - "Vem..." Obedeci, agradecendo-lhe o favor especial que houve por bem conceder-me para que pudesse entrever, compreendendo-a, a sua infinita grandeza. Obrigado a vós, que antes da morte real me permitistes doutrinar os meus, para que façam boas e justas encarnações.
 
-9. - Donde provinham as belas palavras que após o despertar dirigistes à vossa família? - R. Eram o reflexo do que tinha visto e ouvido; os bons Espíritos inspiravam-me a linguagem e davam fulgor à minha fisionomia.
+9.Donde provinham as belas palavras que após o despertar dirigistes à vossa família? - R. Eram o reflexo do que tinha visto e ouvido; os bons Espíritos inspiravam-me a linguagem e davam fulgor à minha fisionomia.
 
-10. - Que impressão julgais ter a vossa revelação produzido nos assistentes, notadamente nos vossos filhos? - R. Surpreendente, profunda; a morte não é mentirosa; os filhos, por mais ingratos que possam ser, curvam-se sempre à encarnação que termina. Se pudéssemos penetrar o coração dos filhos, junto de um túmulo entreaberto, vê-lo-íamos apenas palpitar de sentimentos verdadeiros, sinceros, tocados pela mão secreta dos Espíritos, que dizem em todos os pensamentos: Tremei se duvidais; a morte é a reparação, a justiça de Deus, e eu vos asseguro, em que pese aos incrédulos, que a minha família e os amigos creram nas palavras por mim pronunciadas antes da morte. Eu era, ao demais, intérprete de um outro mundo.
+10.Que impressão julgais ter a vossa revelação produzido nos assistentes, notadamente nos vossos filhos? - R. Surpreendente, profunda; a morte não é mentirosa; os filhos, por mais ingratos que possam ser, curvam-se sempre à encarnação que termina. Se pudéssemos penetrar o coração dos filhos, junto de um túmulo entreaberto, vê-lo-íamos apenas palpitar de sentimentos verdadeiros, sinceros, tocados pela mão secreta dos Espíritos, que dizem em todos os pensamentos: Tremei se duvidais; a morte é a reparação, a justiça de Deus, e eu vos asseguro, em que pese aos incrédulos, que a minha família e os amigos creram nas palavras por mim pronunciadas antes da morte. Eu era, ao demais, intérprete de um outro mundo.
 
-11. - Dizendo não gozardes da felicidade entrevista, pode inferir-se que sejais infeliz? - R. Não, uma vez
-
+11.Dizendo não gozardes da felicidade entrevista, pode inferir-se que sejais infeliz? - R. Não, uma vez
 
 
 ---
@@ -4322,7 +4234,7 @@ súbita e imperturbavelmente, ao passo que o desprendimento efetivo se fez acomp
 
 que me tornei crente antes da morte, e isto de coração e consciência. A dor acabrunha nesse mundo, mas fortalece sob o ponto de vista do futuro espiritual. Notai que Deus teve em conta as minhas preces e a crença nEle depositada em absoluto; estou firme no caminho da perfeição, e chegarei ao fim que me foi permitido lobrigar. Orai, meus amigos, por este mundo invisível que preside aos vossos destinos; esta permuta fraternal é de caridade; é a alavanca que põe em comunhão os Espíritos de todos os mundos.
 
-12. - Acaso quereríeis dirigir algumas palavras à vossa mulher e filhos? - R. Peço a todos os meus que acreditem no Deus poderoso, justo, imutável; na prece que consola e alivia; na caridade que é a mais pura prática da encarnação humana; peço-lhes que se lembrem que do pouco também se pode dar, pois o óbolo do pobre é o mais meritório aos olhos de Deus, desse Deus que sabe que muito dá um pobre, mesmo que dê pouco.
+12.Acaso quereríeis dirigir algumas palavras à vossa mulher e filhos? - R. Peço a todos os meus que acreditem no Deus poderoso, justo, imutável; na prece que consola e alivia; na caridade que é a mais pura prática da encarnação humana; peço-lhes que se lembrem que do pouco também se pode dar, pois o óbolo do pobre é o mais meritório aos olhos de Deus, desse Deus que sabe que muito dá um pobre, mesmo que dê pouco.
 
 "O rico precisa dar muito, e repetidamente, para merecer outro tanto. O futuro é a caridade, a benevolência em todos os atos; é considerar que todos os Espíritos são irmãos, sem se preocupar jamais com as mil pueris vaidades da Terra.
 
@@ -4331,7 +4243,6 @@ que me tornei crente antes da morte, e isto de coração e consciência. A dor a
 "Seja teu nome emblema de liberdade, oh! meu Deus! - O consolador de todos os oprimidos, de todos os que necessitam amar, perdoar e crer.
 
 Cardon.
-
 
 
 ---
@@ -4354,15 +4265,14 @@ Cardon.
 "Amigos, quanto vos agradeço, quanto de forças entre vós recobrei! Ó homens de bem, reuni-vos constantemente; estudai, uma vez que não podeis duvidar dos frutos das reuniões sérias; os Espíritos que têm muito ainda a aprender, os que ficam voluntariamente inativos, preguiçosos e esquecidos dos seus deveres, podem encontrar-se, em virtude de circunstâncias fortuitas ou não, aí entre vós; e então, fortemente tocados, quantas vezes lhes é dado, reconhecendo-se, entreverem o fim, o objetivo cobiçado, ao mesmo tempo que procurarem, fortes pelo exemplo que lhes dais, os meios de fugir ao penoso estado que os avassala.
 
 
-
 ---
 
 
 # 2ª PARTE - CAPÍTULO III
 
-"Com grande satisfação me constituo intérprete das almas sofredoras, porquanto é a homens de coração que me dirijo, na certeza de não ser repelido.
+"Com grande satisfação me constituo intérprete das almas sofredoras, porquanto é a homens de coração que me dirijo, na certeza de não ser repelido."
 
-"Ainda uma vez aceitai, pois, homens generosos, a expressão do meu reconhecimento em particular, e em geral de todos a quem tanto bem tendes feito, talvez sem o saberdes.
+"Ainda uma vez aceitai, pois, homens generosos, a expressão do meu reconhecimento em particular, e em geral de todos a quem tanto bem tendes feito, talvez sem o saberdes."
 
 Eric Stanislas.
 
@@ -4371,7 +4281,6 @@ O guia do médium: - Meus filhos, este é um Espírito que sofreu por muito temp
 # Sra. ANNA BELLEVILLE
 
 Jovem mulher falecida aos trinta e cinco anos de idade, após cruel enfermidade. Vivaz, espirituosa, dotada de inteligência rara, de meticuloso critério e eminentes qualidades morais; esposa e mãe de família devotada, ela possuía, ao demais, uma integridade de caráter pouco comum e uma fecundidade de recursos que a trazia sempre a coberto das mais críticas eventualidades da existência. Sem guardar ressentimento das pessoas de quem poderia queixar-se, estava sempre pronta a prestar-lhes oportuno serviço. Intimamente ligados à sua pessoa desde longos anos, pudemos acompanhar todas as fases da sua existência, bem como todas as peripécias do seu fim. Proveio de um acidente a moléstia que havia de levá-la, depois de a reter três anos de cama, presa dos mais cruéis sofrimentos, aliás suportados até ao fim com uma coragem heróica, e a despeito dos quais a graça natural do seu Espírito jamais a abandonou. Ela acreditava firmemente
-
 
 
 ---
@@ -4394,7 +4303,6 @@ Então sentiu renascer-lhe a vida e recobrou o uso pleno das suas faculdades. Qu
 Evocação no dia seguinte ao da morte: - Meus bons amigos, obrigada pelo interesse que vos mereço; demais, fostes para mim como bons parentes. Pois bem, regozijai-vos porque sou feliz. Confortai meu pobre marido e
 
 
-
 ---
 
 
@@ -4402,21 +4310,21 @@ Evocação no dia seguinte ao da morte: - Meus bons amigos, obrigada pelo intere
 
 velai por meus filhos. Eu segui logo para junto deles, depois que desencarnei.
 
-- P. Podemos supor que a vossa perturbação não foi longa, uma vez que nos respondeis com lucidez.
+P. Podemos supor que a vossa perturbação não foi longa, uma vez que nos respondeis com lucidez.
 
-- R. Ah! meus amigos, eu sofri tanto... e vós bem sabeis que sofria com resignação. Pois bem! a minha provação está concluída. Não direi que esteja completamente libertada, não; mas o certo é que não sofro mais, e isso para mim é um grande alívio! Desta feita estou radicalmente curada, porém, preciso ainda do auxílio das vossas preces para vir mais tarde colaborar convosco.
+R. Ah! meus amigos, eu sofri tanto... e vós bem sabeis que sofria com resignação. Pois bem! a minha provação está concluída. Não direi que esteja completamente libertada, não; mas o certo é que não sofro mais, e isso para mim é um grande alívio! Desta feita estou radicalmente curada, porém, preciso ainda do auxílio das vossas preces para vir mais tarde colaborar convosco.
 
-- P. Qual poderia ser a causa dos vossos longos sofrimentos?
+P. Qual poderia ser a causa dos vossos longos sofrimentos?
 
-- R. Um passado terrível, meu amigo.
+R. Um passado terrível, meu amigo.
 
-- P. Podeis revelar-nos esse passado?
+P. Podeis revelar-nos esse passado?
 
-- R. Oh! deixai que o esqueça um pouco... paguei-o tão caro...
+R. Oh! deixai que o esqueça um pouco... paguei-o tão caro...
 
 Um mês depois da morte: - P. Agora que deveis estar completamente desprendida e que melhor nos reconheceis, muito estimaríamos ter convosco uma palestra mais explícita. Podereis, por exemplo, dizer-nos qual a causa da vossa prolongada agonia? Estivestes durante três meses entre a vida e a morte...
 
-- R. Obrigada, meus amigos, pela vossa lembrança como pelas vossas preces! Quão salutares me foram estas, e como concorreram para a minha libertação! Tenho ainda necessidade de ser confortada; continuai a orar por mim. Vós compreendeis o valor da prece. As que dizeis não são de modo algum fórmulas banais, como as murmuradas por tantos outros que lhes não medem o alcance, o fruto de uma boa prece.
+R. Obrigada, meus amigos, pela vossa lembrança como pelas vossas preces! Quão salutares me foram estas, e como concorreram para a minha libertação! Tenho ainda necessidade de ser confortada; continuai a orar por mim. Vós compreendeis o valor da prece. As que dizeis não são de modo algum fórmulas banais, como as murmuradas por tantos outros que lhes não medem o alcance, o fruto de uma boa prece.
 
 "Sofri muito, porém os meus sofrimentos foram largamente compensados, sendo-me permitido estar muitas
 
@@ -4424,26 +4332,26 @@ Um mês depois da morte: - P. Agora que deveis estar completamente desprendida e
 
 ---
 
-vezes perto dos queridos filhos, que deixei com tanto pesar!
+vezes perto dos queridos filhos, que deixei com tanto pesar!"
 
-"Prolonguei por mim mesma esses sofrimentos; o desejo ardente de viver, por amor dos filhos, fazia com que me agarrasse de alguma sorte à matéria, e, ao contrário dos outros, eu não queria abandonar o desgraçado corpo com o qual era forçoso romper, se bem que ele fosse para mim o instrumento de tantas torturas.
+"Prolonguei por mim mesma esses sofrimentos; o desejo ardente de viver, por amor dos filhos, fazia com que me agarrasse de alguma sorte à matéria, e, ao contrário dos outros, eu não queria abandonar o desgraçado corpo com o qual era forçoso romper, se bem que ele fosse para mim o instrumento de tantas torturas."
 
 Eis aí a razão da minha longa agonia. Quanto à moléstia e aos padecimentos decorrentes, eram expiação do passado - uma divida a mais, que paguei. Ah! meus bons amigos, se eu vos tivesse ouvido, quanta mudança na minha vida atual!
 
-"Que alívio experimentaria nos últimos momentos, e quão fácil teria sido a separação, se em vez de a contrariar eu me tivesse abandonado confiadamente à vontade de Deus, à corrente que me arrastava! Mas, em lugar de volver os olhos ao futuro que me aguardava, eu apenas via o presente que ia deixar!
+"Que alívio experimentaria nos últimos momentos, e quão fácil teria sido a separação, se em vez de a contrariar eu me tivesse abandonado confiadamente à vontade de Deus, à corrente que me arrastava! Mas, em lugar de volver os olhos ao futuro que me aguardava, eu apenas via o presente que ia deixar!"
 
-"Quando houver de voltar à Terra, serei espírita, vo-lo afirmo. Que ciência sublime! Assisto constantemente às vossas reuniões e aos conselhos que vos são transmitidos. Se eu, quando na Terra, pudesse compreendê-los, os meus sofrimentos teriam sido atenuados. A ocasião não tinha chegado.
+"Quando houver de voltar à Terra, serei espírita, vo-lo afirmo. Que ciência sublime! Assisto constantemente às vossas reuniões e aos conselhos que vos são transmitidos. Se eu, quando na Terra, pudesse compreendê-los, os meus sofrimentos teriam sido atenuados. A ocasião não tinha chegado."
 
 "Hoje compreendo a bondade e a justiça de Deus, conquanto me não encontre suficientemente adiantada para despreocupar-me das coisas da vida; meus filhos principalmente me atraem, não mais para amimá-los, porém para velar por eles, inculcando-lhes o caminho que o Espiritismo traça neste momento. Sim, meus bons amigos, eu tenho ainda graves preocupações, entre as quais avulta aquela da qual depende o futuro dos meus filhos."
 
-- P. Podeis ministrar-nos quaisquer informações sobre o passado que deplorais?
+P. Podeis ministrar-nos quaisquer informações sobre o passado que deplorais?
 
 ---
 
 
 # 2ª PARTE - CAPÍTULO III
 
-- R. Ah! meus bons amigos, estou pronta a confessar-me. Eu tinha desprezado o sofrimento alheio, vendo indiferente os sofrimentos da minha mãe, a quem chamava doente imaginária. Por não vê-la de cama, supunha que não sofresse e zombava dos seus queixumes. Eis como Deus castiga.
+R. Ah! meus bons amigos, estou pronta a confessar-me. Eu tinha desprezado o sofrimento alheio, vendo indiferente os sofrimentos da minha mãe, a quem chamava doente imaginária. Por não vê-la de cama, supunha que não sofresse e zombava dos seus queixumes. Eis como Deus castiga.
 
 Seis meses depois da morte: - P. Agora que um tempo assaz longo se passou desde que deixastes o invólucro material, tende a bondade de descrever-nos a vossa posição e ocupações no mundo espiritual.
 
@@ -4458,7 +4366,6 @@ Importante questão decorre dos fatos supramencionados. Ei-la: Poderá uma pesso
 Resposta do Espírito S. Luís: - Resolvida afirmativamente, sem restrições, esta questão poderia dar lugar a conseqüências falsas.
 
 Certamente, em dadas condições, pode um Espírito encarnado prolongar a existência corporal a fim de terminar instruções indispensáveis, ou, ao menos, por ele.
-
 
 
 ---
@@ -4506,8 +4413,6 @@ Não lhes bastando esse motejo, atiram-se para a Terra quais abutres famintos, p
 
 O mau Espírito, no exercício da sua cólera, é quase feliz, sofrendo apenas nos momentos em que deixa do
 
-
-
 ---
 
 
@@ -4523,7 +4428,7 @@ E contudo ele ouve, flutuando em torno do corpo que não deseja abandonar. Uma f
 
 Retribuem-lhe outros Espíritos o mal que fez; castigado, confuso e escarnecido, por sua vez vagueia e vagueará até que a divina luz o penetre e esclareça, mostrando-lhe o Deus vingador, o Deus triunfante de todo o mal, e ao qual não poderá apaziguar senão à força de expiação e gemidos.
 
-Georges.
+Georges."
 
 
 
@@ -4557,9 +4462,9 @@ turas materiais pelos arrepios da carne; mas as vossas frágeis dores, amenizada
 
 Chamaste-me finalmente, e pela primeira vez um sentimento suave e terno me acalmou; escutei os ensinos que te dão os teus guias, a verdade impôs-se-me, orei; Deus ouviu-me, revelou-se-me por sua Clemência, como já se me havia revelado por sua Justiça.
 
-Novel.
+Novel."
 
-AUGUSTE MICHEL
+# AUGUSTE MICHEL
 
 (Havre, março de 1863)
 
@@ -4576,7 +4481,7 @@ Sem maldade, antes bom que mau, fazia-se estimar por seus companheiros de pânde
 
 # ESPÍRITOS SOFREDORES
 
-que me ocasionou a morte do corpo perturbou profundamente o meu Espírito.
+que me ocasionou a morte do corpo perturbou profundamente o meu Espírito."
 
 "Inquieta-me esta incerteza cruel do meu futuro. O doloroso sofrimento corporal experimentado nada é comparativamente a esta perturbação. Orai para que Deus me perdoe.
 
@@ -4586,9 +4491,9 @@ que me ocasionou a morte do corpo perturbou profundamente o meu Espírito.
 
 6 de abril. - "Sou eu quem vem pedir que oreis por mim.
 
-"Será preciso irdes ao lugar em que jaz meu corpo, a fim de implorar do Onipotente que me acalme os sofrimentos?
+"Será preciso irdes ao lugar em que jaz meu corpo, a fim de implorar do Onipotente que me acalme os sofrimentos?"
 
-"Sofro! oh! se sofro! Ide a esse lugar - assim é preciso - e dirigi ao Senhor uma prece para que me perdoe.
+"Sofro! oh! se sofro! Ide a esse lugar - assim é preciso - e dirigi ao Senhor uma prece para que me perdoe."
 
 "Vejo que poderei ficar mais tranqüilo, mas volto incessantemente ao lugar em que depositaram o que me pertencia."
 
@@ -4601,13 +4506,13 @@ Nota - O médium, não dando importância ao pedido que lhe faziam de orar sobre
 
 # 2ª PARTE - CAPÍTULO IV
 
-11 de maio. - "Aqui vos esperava. Aguardava que viésseis ao lugar em que meu Espírito parece preso ao seu invólucro, a fim de implorar ao Deus de misericórdia e bondade acalmar os meus sofrimentos. Podeis beneficiar-me com as vossas preces, não o esqueçais, eu vo-lo suplico. Vejo quanto a minha vida foi contrária ao que deveria ser; vejo as faltas cometidas.
+11 de maio. - "Aqui vos esperava. Aguardava que viésseis ao lugar em que meu Espírito parece preso ao seu invólucro, a fim de implorar ao Deus de misericórdia e bondade acalmar os meus sofrimentos. Podeis beneficiar-me com as vossas preces, não o esqueçais, eu vo-lo suplico. Vejo quanto a minha vida foi contrária ao que deveria ser; vejo as faltas cometidas."
 
 "Fui no mundo um ser inútil; não fiz uso algum proveitoso das minhas faculdades; a fortuna serviu apenas à satisfação das minhas paixões, aos meus caprichos de luxo e à minha vaidade; não pensei senão nos gozos do corpo, desprezando os da alma e a própria alma. Descerá a misericórdia de Deus até mim, pobre Espírito que sofre as conseqüências das suas faltas terrenas? Orai para que Ele me perdoe, libertando-me das dores que ainda me pungem. Agradeço-vos o terdes vindo aqui orar por mim."
 
-8 de junho. - "Posso falar e agradeço a Deus que mo faculta.
+8 de junho. - "Posso falar e agradeço a Deus que mo faculta."
 
-"Compreendi as minhas faltas e espero que Deus me perdoe.
+"Compreendi as minhas faltas e espero que Deus me perdoe."
 
 "Trilhai sempre na vida de conformidade com a crença que vos alenta, porque ela vos reserva de futuro um repouso que eu ainda não tenho. Obrigado pelas vossas preces. Até outra vista."
 
@@ -4624,7 +4529,7 @@ Nota - A insistência do Espírito, para que se orasse sobre o seu túmulo, é u
 
 # (Bordéus, 19 de abril de 1862)
 
-30 de julho. - "Presentemente sou menos infeliz, visto não mais sentir a pesada cadeia que me jungia ao corpo. Estou livre, enfim, mas ainda não expiei e preciso é que repare o tempo perdido se eu não quiser prolongar os sofrimentos. Espero que Deus, tendo em conta a sinceridade do arrependimento, me concede a graça do seu perdão. Pedi ainda por mim, eu vo-lo suplico. Homens, meus irmãos, eu vivi só para mim e agora expio e sofro! Conceda-vos Deus a graça de evitardes os espinhos que ora me laceram. Prossegui na senda larga do Senhor e orai por mim, pois abusei dos favores que Deus faculta às suas criaturas!
+30 de julho. - "Presentemente sou menos infeliz, visto não mais sentir a pesada cadeia que me jungia ao corpo. Estou livre, enfim, mas ainda não expiei e preciso é que repare o tempo perdido se eu não quiser prolongar os sofrimentos. Espero que Deus, tendo em conta a sinceridade do arrependimento, me concede a graça do seu perdão. Pedi ainda por mim, eu vo-lo suplico. Homens, meus irmãos, eu vivi só para mim e agora expio e sofro! Conceda-vos Deus a graça de evitardes os espinhos que ora me laceram. Prossegui na senda larga do Senhor e orai por mim, pois abusei dos favores que Deus faculta às suas criaturas!"
 
 "Quem sacrifica aos instintos brutos a inteligência e os bons sentimentos que Deus lhe dá, assemelha-se ao animal que muitas vezes se maltrata. O homem deve utilizar-se sobriamente dos bens de que é depositário, habituando-se a visar a eternidade que o espera, abrindo mão, por conseqüência, dos gozos materiais. A sua alimentação deve ter por exclusivo fim a vitalidade; o luxo deve apenas restringir-se às necessidades da sua posição; os gostos, os pendores, mesmo os mais naturais, devem obedecer ao mais são raciocínio; sem o que, ele se materializa em vez de se purificar. As paixões humanas são estreitos grilhões que se enroscam na carne e, assim, não lhes deis abrigo. Vós não sabeis o seu preço, quando regressamos à pátria! As paixões humanas vos despem antes mesmo de vos deixarem, de modo a chegardes nus, completamente nus, ante o Senhor. Ah! cobri-vos de boas obras que vos ajudem a franquear o Espaço entre vós e a eternidade. Manto brilhante, elas escondem as vossas torpezas humanas. Envolvei-vos na caridade e no amor - vestes divinas que duram eternamente."
 
@@ -4643,13 +4548,13 @@ A influência da matéria segue-os além-túmulo, sem que a morte lhes ponha ter
 
 Daí, um tédio mortal cujo termo não prevêem e ao qual prefeririam o nada. Mas o nada não existe... Puderam matar o corpo, mas não podem aniquilar o Espírito. Importa pois que vivam nessas torturas morais, até que, vencidos pelo cansaço, se decidam a volver os olhos para Deus.
 
-LISBETH
+# LISBETH
 
 (Bordéus, 13 de fevereiro de 1862)
 
 Um Espírito sofredor inscreve-se com o nome de Lisbeth.
 
-1. - Quereis dar-nos algumas informações a respeito da vossa posição, assim como da causa dos vossos sofrimentos? - R. Sede humilde de coração, submisso à vontade de Deus, paciente na provação, caridoso para com
+1.Quereis dar-nos algumas informações a respeito da vossa posição, assim como da causa dos vossos sofrimentos? - R. Sede humilde de coração, submisso à vontade de Deus, paciente na provação, caridoso para com
 
 
 
@@ -4660,21 +4565,17 @@ Um Espírito sofredor inscreve-se com o nome de Lisbeth.
 
 o pobre, consolador do fraco, sensível a todos os sofrimentos e não sofrereis as torturas que amargo.
 
-# 2.
-
-Pareceis sentir as falhas decorrentes de contrário procedimento... O arrependimento deverá dar-vos alívio? - R. Não: - O arrependimento é inútil quando apenas produzido pelo sofrimento. O arrependimento profícuo tem por base a mágoa de haver ofendido a Deus, e importa no desejo ardente de uma reparação. Ainda não posso tanto, infelizmente. Recomendai-me às preces de quantos se interessam pelos sofrimentos alheios, porque delas tenho necessidade.
+2.Pareceis sentir as falhas decorrentes de contrário procedimento... O arrependimento deverá dar-vos alívio? - R. Não: - O arrependimento é inútil quando apenas produzido pelo sofrimento. O arrependimento profícuo tem por base a mágoa de haver ofendido a Deus, e importa no desejo ardente de uma reparação. Ainda não posso tanto, infelizmente. Recomendai-me às preces de quantos se interessam pelos sofrimentos alheios, porque delas tenho necessidade.
 
 Nota - Este ensinamento é uma grande verdade; às vezes o sofrimento provoca um brado de arrependimento menos sincero, que não é a expressão de pesar pela prática do mal, visto como, se o Espírito deixasse de sofrer, não duvidaria reencetá-la. Eis por que o arrependimento nem sempre acarreta a imediata libertação do Espírito. Predispõe-no, porém, para ela - eis tudo. É-lhe preciso, além disso, provar a sinceridade e firmeza da resolução, por meio de novas provações reparadoras do mal praticado.
 
 Meditando-se cuidadosamente sobre todos os exemplos que citamos, encontrar-se-á nas palavras dos Espíritos mesmo dos mais inferiores profundos ensinamentos, pondo-nos a par dos mais íntimos pormenores da vida espiritual. O homem superficial pode não ver nesses exemplos mais que pitorescas narrativas; mas o homem sério e refletido encontrará neles abundante manancial de estudos.
 
-# 3.
-
-Farei o que desejais. Podereis dar-me alguns pormenores da vossa última existência corporal? Daí talvez nos advenha um ensinamento útil e assim tomareis proveitoso o arrependimento.
+3.Farei o que desejais. Podereis dar-me alguns pormenores da vossa última existência corporal? Daí talvez nos advenha um ensinamento útil e assim tomareis proveitoso o arrependimento.
 
 (O Espírito vacila na resposta, não só desta pergunta, como de algumas das que se seguem.)
 
-- R. Tive um nascimento de elevada condição. Possuía tudo o que os homens julgam a fonte da felicidade. Rica, tornei-me egoísta; bela, fui vaidosa, insensível, hipócrita; nobre, era ambiciosa. Calquei ao meu poderio os
+R. Tive um nascimento de elevada condição. Possuía tudo o que os homens julgam a fonte da felicidade. Rica, tornei-me egoísta; bela, fui vaidosa, insensível, hipócrita; nobre, era ambiciosa. Calquei ao meu poderio os
 
 
 
@@ -4685,12 +4586,15 @@ Farei o que desejais. Podereis dar-me alguns pormenores da vossa última existê
 
 que se me não rolavam aos pés e oprimia ainda mais os que sob eles se colocavam, esquecida de que também a cólera do Senhor esmaga, cedo ou tarde, as mais altivas frontes.
 
-1. Em que época vivestes? - R. Há cento e cinqüenta anos, na Prússia.
-2. Desde então não fizestes progresso algum como Espírito? - R. Não; a matéria revoltava-se sempre, e tu não podes avaliar a influência que ela ainda exerce sobre mim, a despeito da separação do corpo. O orgulho agrilhoa-nos a brônzeas cadeias, cujos anéis mais e mais comprimem o mísero que lhe hipoteca o coração. O orgulho, hidra de cem cabeças a renovarem-se incessantes, modulando silvos empeçonhados que chegam a parecer celeste harmonia! O orgulho - esse demônio multiforme que se amolda a todas as aberrações do Espírito, que se oculta em todos os refolhos do coração; que penetra as velas; que absorve e arrasta às trevas da eterna geena!... Oh! sim. . eterna!
+4.Em que época vivestes? R. Há cento e cinqüenta anos, na Prússia.
+
+5.Desde então não fizestes progresso algum como Espírito? R. Não; a matéria revoltava-se sempre, e tu não podes avaliar a influência que ela ainda exerce sobre mim, a despeito da separação do corpo. O orgulho agrilhoa-nos a brônzeas cadeias, cujos anéis mais e mais comprimem o mísero que lhe hipoteca o coração. O orgulho, hidra de cem cabeças a renovarem-se incessantes, modulando silvos empeçonhados que chegam a parecer celeste harmonia! O orgulho - esse demônio multiforme que se amolda a todas as aberrações do Espírito, que se oculta em todos os refolhos do coração; que penetra as velas; que absorve e arrasta às trevas da eterna geena!... Oh! sim. . eterna!
 
 Nota - Provavelmente, o Espírito diz não ter feito progresso algum, por ser a sua situação sempre penosa; a maneira pela qual descreve o orgulho e lhe deplora as conseqüências é, incontestavelmente, um progresso. Certo, quando encarnado e mesmo logo após a morte, ele não poderia raciocinar assim. Compreende o mal, o que já é alguma coisa, e a coragem e o propósito de o evitar lhe advirão mais tarde.
-3. Deus é muito bom para não condenar seus filhos a penas eternas. Confiai na sua misericórdia. - R. Dizem que isto pode ter um termo, mas onde e quando? Há muito que o procuro e só vejo sofrimento, sempre, sempre, sempre!
-4. Como viestes hoje aqui? - R. Conduzida por um Espírito que me acompanha muitas vezes. - P. Desde quando o vedes, a esse Espírito? - R. Não há muito tempo. - P. E desde quando tendes consciência das faltas
+
+6.Deus é muito bom para não condenar seus filhos a penas eternas. Confiai na sua misericórdia. - R. Dizem que isto pode ter um termo, mas onde e quando? Há muito que o procuro e só vejo sofrimento, sempre, sempre, sempre!
+
+7.Como viestes hoje aqui? - R. Conduzida por um Espírito que me acompanha muitas vezes. - P. Desde quando o vedes, a esse Espírito? - R. Não há muito tempo. - P. E desde quando tendes consciência das faltas
 
 
 
@@ -4701,17 +4605,11 @@ Nota - Provavelmente, o Espírito diz não ter feito progresso algum, por ser a 
 
 que cometestes? - R. (Depois de longa reflexão.) Sim, tendes razão: foi dai para cá que principiei a vê-lo.
 
-# 8.
+8.Compreendeis agora a relação existente entre o arrependimento e o auxílio prestado por vosso protetor? Tomai por origem desse apoio o amor de Deus, cujo fim será o seu perdão e misericórdia infinitos. - R. Oh! como desejaria que assim fosse. - Creio poder prometer no nome, aliás sacratíssimo, dAquele que jamais foi surdo à voz dos filhos aflitos.
 
-- Compreendeis agora a relação existente entre o arrependimento e o auxílio prestado por vosso protetor? Tomai por origem desse apoio o amor de Deus, cujo fim será o seu perdão e misericórdia infinitos. - R. Oh! como desejaria que assim fosse. - Creio poder prometer no nome, aliás sacratíssimo, dAquele que jamais foi surdo à voz dos filhos aflitos.
+9.Pedi de coração e sereis ouvida. - R. Não posso; tenho medo. - Oremos juntos, Ele nos atenderá. (Depois da prece.) Ainda estais ai? - R. Sim. Obrigada! Não me esqueçais.
 
-# 9.
-
-- Pedi de coração e sereis ouvida. - R. Não posso; tenho medo. - Oremos juntos, Ele nos atenderá. (Depois da prece.) Ainda estais ai? - R. Sim. Obrigada! Não me esqueçais.
-
-# 10.
-
-- Vinde inscrever-vos aqui todos os dias. - R. Sim, sim, virei sempre.
+10.Vinde inscrever-vos aqui todos os dias. - R. Sim, sim, virei sempre.
 
 O guia do médium. - Nunca esqueçais os ensinos que bebeis nos sofrimentos dos vossos protegidos e notadamente nas suas causas, visto serem lição que a todos aproveita no sentido de se preservarem dos mesmos perigos e de idênticos castigos.
 
@@ -4720,7 +4618,6 @@ Purificai os corações, sede humildes, amai-vos e ajudai-vos sem esquecerdes ja
 Ide a ela, meus amigos, e bebei com fé. Mergulhai nela as vossas vasilhas, que sairão de suas ondas pejadas de bênçãos. Adverti vossos irmãos dos perigos em que podem incorrer. Difundi as bênçãos do Senhor, que se reproduzem incessantes; e quanto mais as propagardes, tanto mais se multiplicarão.
 
 Está em vossas mãos a tarefa, porquanto, dizendo aos vossos irmãos - aí estão os perigos, lá os escolhos; vinde conosco a fim de os evitar; imitai-nos a nós que damos o exemplo - assim difundíreis as bênçãos do Senhor sobre os que vos ouvirem.
-
 
 
 ---
@@ -4738,12 +4635,11 @@ Saint Paulin.
 
 Um Espírito sofredor apresentou-se dando o nome de Ouran, príncipe russo de outros tempos.
 
-- P. Quereis dar-nos algumas minudências sobre a vossa situação?
+P. Quereis dar-nos algumas minudências sobre a vossa situação?
 
-- R. Oh! felizes os humildes de coração, porque deles é o reino do céu! Orai por mim. Felizes os humildes de coração que escolhem uma posição modesta a fim de cumprirem a provação. Vós todos, a quem devora a inveja, não sabeis o estado a que ficou reduzido um desses que na Terra são considerados felizes; não avaliais o fogo que o abrasa nem os sacrifícios impostos pela riqueza quando por ela se quer obter a salvação! Permita-me o Senhor a mim, déspota orgulhoso, expiar os crimes derivados do meu orgulho entre aqueles mesmos a quem oprimi com a tirania! Orgulho! Repita-se constantemente a palavra para que se não esqueça nunca que ele é a fonte de todos os sofrimentos que nos acabrunham. Sim, eu abusei do poderio e favores de que dispunha; fui duro e cruel para com os inferiores, os quais tiveram de curvar-se a todos os meus caprichos, satisfazer a todas as minhas depravações. Quis a nobreza, a fortuna, as honras, e sucumbi sob peso superior às próprias forças.
+R. Oh! felizes os humildes de coração, porque deles é o reino do céu! Orai por mim. Felizes os humildes de coração que escolhem uma posição modesta a fim de cumprirem a provação. Vós todos, a quem devora a inveja, não sabeis o estado a que ficou reduzido um desses que na Terra são considerados felizes; não avaliais o fogo que o abrasa nem os sacrifícios impostos pela riqueza quando por ela se quer obter a salvação! Permita-me o Senhor a mim, déspota orgulhoso, expiar os crimes derivados do meu orgulho entre aqueles mesmos a quem oprimi com a tirania! Orgulho! Repita-se constantemente a palavra para que se não esqueça nunca que ele é a fonte de todos os sofrimentos que nos acabrunham. Sim, eu abusei do poderio e favores de que dispunha; fui duro e cruel para com os inferiores, os quais tiveram de curvar-se a todos os meus caprichos, satisfazer a todas as minhas depravações. Quis a nobreza, a fortuna, as honras, e sucumbi sob peso superior às próprias forças.
 
 Nota - Os Espíritos que sucumbem são geralmente levados a alegar um compromisso superior às próprias forças - o que é ainda um resto de orgulho e um meio de se desculparem para consigo mesmos, não se conformando com a própria fraqueza. Deus não dá a ninguém mais do que possa suportar. não exige da árvore nascente os frutos dados pelo
-
 
 
 ---
@@ -4755,21 +4651,21 @@ Nota - Os Espíritos que sucumbem são geralmente levados a alegar um compromiss
 
 tronco desenvolvido. Demais, os Espíritos têm liberdade; o que lhes falta é a vontade, e esta depende deles exclusivamente. Com força de vontade não há tendências viciosas insuperáveis; mas, quando um vício nos apraz, é natural que não façamos esforços por domá-lo. Assim, somente a nós devemos atribuir as respectivas consequências.
 
-- P. Tendes consciência das vossas faltas, e isso é já um passo para a regeneração.
+P. Tendes consciência das vossas faltas, e isso é já um passo para a regeneração.
 
-- R. Esta consciência é ainda um sofrimento. Para muitos Espíritos o sofrimento é um efeito quase material, visto como, atidos à Humanidade de sua última encarnação, não experimentam nem apreendem as sensações morais. Liberto da matéria, o sentimento moral aumentou-se, para mim, de tudo quanto as cruéis sensações físicas tinham de horrível.
+R. Esta consciência é ainda um sofrimento. Para muitos Espíritos o sofrimento é um efeito quase material, visto como, atidos à Humanidade de sua última encarnação, não experimentam nem apreendem as sensações morais. Liberto da matéria, o sentimento moral aumentou-se, para mim, de tudo quanto as cruéis sensações físicas tinham de horrível.
 
-- P. Lobrigais um termo aos vossos padecimentos?
+P. Lobrigais um termo aos vossos padecimentos?
 
-- R. Sei que não serão eternos, mas não lhes entrevejo o fim, sendo-me antes preciso recomeçar a provação.
+R. Sei que não serão eternos, mas não lhes entrevejo o fim, sendo-me antes preciso recomeçar a provação.
 
-- P. E esperais fazê-lo em breve?
+P. E esperais fazê-lo em breve?
 
-- R. Não sei ainda.
+R. Não sei ainda.
 
-- P. Lembrai-vos dos vossos antecedentes? Faço-vos esta pergunta no intuito de me instruir.
+P. Lembrai-vos dos vossos antecedentes? Faço-vos esta pergunta no intuito de me instruir.
 
-- R. Vossos guias aí estão, e sabem do que precisais. Vivi no tempo de Marco Aurélio. Poderoso então, sucumbi ao orgulho, causa de todas as quedas. Depois de uma erraticidade de séculos, quis experimentar uma existência obscura.
+R. Vossos guias aí estão, e sabem do que precisais. Vivi no tempo de Marco Aurélio. Poderoso então, sucumbi ao orgulho, causa de todas as quedas. Depois de uma erraticidade de séculos, quis experimentar uma existência obscura.
 
 "Pobre estudante, mendiguei o pão, mas o orgulho possuía-me sempre: o Espírito ganhara em ciência, mas não em virtude. Sábio ambicioso, vendi a consciência a quem mais dava, servindo a todas as vinganças, a todos os ódios. Sentia-me culpado, mas a sede de glórias e riquezas estrangulava a voz da consciência. A expiação
 
@@ -4793,7 +4689,6 @@ Desvanecei tais dúvidas, porque recebestes uma comunicação séria. Por mais s
 Nosso Pai celestial é justíssimo na sua sabedoria e leva em conta os esforços da criatura para dominar os maus instintos. Cada vitória sobre vós mesmos é um degrau franqueado nessa escada que tem uma extremidade na Terra e outra aos pés do Juiz supremo. Alçai-vos por esses degraus resolutamente, porque a subida é tanto mais suave quanto firme a vontade. Olhai sempre para cima a fim de vos encorajardes, porque ai daquele
 
 
-
 ---
 
 
@@ -4803,7 +4698,7 @@ que pára e se volta. Depressa o atinge a vertigem, espanta-se do vácuo que o c
 
 O orgulho está incorporado no homem; pois bem! aproveita-o na força e na coragem de terminar a vossa ascensão. Empregai-o ainda em dominar as fraquezas e galgai o topo da montanha eterna.
 
-PASCAL LAVIC
+# PASCAL LAVIC
 
 (Havre, 9 de agosto de 1863)
 
@@ -4828,9 +4723,9 @@ era para mim uma terrível provação, eis por que necessito das preces de quem,
 
 Pascal Lavic.
 
-- P. Onde foi achado o vosso corpo?
+P. Onde foi achado o vosso corpo?
 
-- R. Não muito longe de vós.
+R. Não muito longe de vós.
 
 Nota - O Journal du Havre, de 11 de agosto de 1863, continha o seguinte tópico, do qual o médium não podia ter ciência:
 
@@ -4839,7 +4734,6 @@ Nota - O Journal du Havre, de 11 de agosto de 1863, continha o seguinte tópico,
 Nota - A 12 de agosto, como se tratasse desse acontecimento no Centro em que o Espírito se manifestara pela primeira vez, deu este de novo, e espontaneamente, a seguinte comunicação:
 
 "Sou efetivamente Pascal Lavic, que tem necessidade das vossas preces. Podeis beneficiar-me, pois terrível foi a provação por mim experimentada. A separação do meu Espírito do corpo só se deu depois que reconheci as minhas faltas; e depois disso, ainda não totalmente destacado, acompanhava-o no oceano que o tragara. Orai, pois, para que Deus me perdoe e me conceda repouso. Orai, eu vo-lo suplico. Oxalá este desastrado fim de uma infeliz vida terrena vos sirva de grande ensinamento! Deveis ter sempre em vista a vida futura, não deixando
-
 
 
 ---
@@ -4851,7 +4745,7 @@ jamais de implorar a Deus a sua divina misericórdia. Orai por mim; tenho necess
 
 Pascal Lavic.
 
-FERDINAND BERTIN
+# FERDINAND BERTIN
 
 Nota - Um médium do Havre evocou o Espírito de pessoa dele conhecida, que respondeu: - "Quero comunicar-me, porém não posso vencer o obstáculo existente entre nós. Sou forçado a deixar que se aproximem estes infelizes sofredores."
 
@@ -4877,7 +4771,6 @@ __________
 (1) Nota da Editora (FEB) à 21ª edição, em 1973: O Espírito, na página anterior, foi designado pelo nome Ferdinand, exatamente como no original. Consultamos diversas edições francesas (páginas 324/5), inclusive a 4ª, de 1869.
 
 
-
 ---
 
 
@@ -4897,11 +4790,9 @@ Dias depois, numa reunião espírita em Paris, dirigiram-se a este Espírito as 
 
 Eis as perguntas:
 
-- Quem vos levou a comunicar espontaneamente pelo outro médium?
-- De que tempo datava a vossa morte quando vos manifestastes?
-- Quando o fizestes parecíeis duvidar ainda do vosso estado, ao mesmo tempo que externáveis angústias de
-
-
+-Quem vos levou a comunicar espontaneamente pelo outro médium?
+-De que tempo datava a vossa morte quando vos manifestastes?
+-Quando o fizestes parecíeis duvidar ainda do vosso estado, ao mesmo tempo que externáveis angústias de
 
 ---
 
@@ -4937,9 +4828,8 @@ Era um velho celibatário, avarento e muito popular, falecido em C..., em 1857, 
 
 Passados alguns dias, uma vez que se manifestara espontaneamente confirmando aquele intuito, entretiveram com ele a seguinte conversação:
 
-- P. Que pretendeis de nós?
-
-- R. O dinheiro do qual se apossaram, os miseráveis, a fim de o repartirem! Venderam fazendas, casas, tudo para se locupletarem! Desbarataram meus bens como se não mais me pertencessem. Fazei que se me faça justiça, já que a mim me não ouvem, e não quero presenciar infâmias tais. Dizem que eu era usurário, e guardaram-me o cobre. Por que não mo querem restituir? Acharão que foi mal ganho?
+-P. Que pretendeis de nós?
+-R. O dinheiro do qual se apossaram, os miseráveis, a fim de o repartirem! Venderam fazendas, casas, tudo para se locupletarem! Desbarataram meus bens como se não mais me pertencessem. Fazei que se me faça justiça, já que a mim me não ouvem, e não quero presenciar infâmias tais. Dizem que eu era usurário, e guardaram-me o cobre. Por que não mo querem restituir? Acharão que foi mal ganho?
 
 
 
@@ -4948,22 +4838,21 @@ Passados alguns dias, uma vez que se manifestara espontaneamente confirmando aqu
 
 # 2ª PARTE - CAPÍTULO IV
 
-- P. Mas vós estais morto, meu caro senhor, e não tendes mais necessidade alguma de dinheiro. Implorai a Deus para vos conceder uma nova existência de pobreza a fim de expiardes a usura desta última.
+-P. Mas vós estais morto, meu caro senhor, e não tendes mais necessidade alguma de dinheiro. Implorai a Deus para vos conceder uma nova existência de pobreza a fim de expiardes a usura desta última.
 
-- R. Não, eu não poderei viver na pobreza. Preciso do meu dinheiro, sem o qual não posso viver. Demais, não preciso de outra existência, porque vivo estou atualmente.
+-R. Não, eu não poderei viver na pobreza. Preciso do meu dinheiro, sem o qual não posso viver. Demais, não preciso de outra existência, porque vivo estou atualmente.
 
-- P. (Foi-lhe feita a seguinte pergunta no intuito de chamá-lo à realidade.) Sofreis?
+-P. (Foi-lhe feita a seguinte pergunta no intuito de chamá-lo à realidade.) Sofreis?
 
-- R. Oh! sim. Sofro piores torturas que as da mais cruel enfermidade, pois é minha alma quem as padece. Tendo sempre em mente a iniquidade de uma vida que foi para muitos motivo de escândalos, tenho a consciência de ser um miserável indigno de piedade, mas o meu sofrimento é tão grande que mister se faz me auxiliem a sair desta situação deplorável.
+-R. Oh! sim. Sofro piores torturas que as da mais cruel enfermidade, pois é minha alma quem as padece. Tendo sempre em mente a iniquidade de uma vida que foi para muitos motivo de escândalos, tenho a consciência de ser um miserável indigno de piedade, mas o meu sofrimento é tão grande que mister se faz me auxiliem a sair desta situação deplorável.
 
-- P. Oraremos por vós.
+-P. Oraremos por vós.
 
-- R. Obrigado! Orai para que eu esqueça os meus bens terrenos, sem o que não poderei arrepender-me. Adeus e obrigado.
+-R. Obrigado! Orai para que eu esqueça os meus bens terrenos, sem o que não poderei arrepender-me. Adeus e obrigado.
 
 François Riquier, Rue de la Charité nº 14.
 
 É curioso ver-se este Espírito indicar a moradia como se estivesse vivo. A senhora deu-se pressa em verificá-la e ficou muito surpreendida por ver que era justamente a última casa que Riquier habitara. Eis como, após cinco anos, ainda ele não se considerava morto, antes experimentava a ansiedade, bem cruel para um usurário, de ver os bens partilhados pelos herdeiros. A evocação, provocada indubitavelmente por qualquer Espírito bom, teve por fim fazer-lhe compreender o seu estado e predispô-lo ao arrependimento.
-
 
 
 ---
@@ -4977,9 +4866,7 @@ François Riquier, Rue de la Charité nº 14.
 
 O Espírito que forneceu os ditados seguintes pertenceu a uma senhora que o médium conhecera quando na Terra. A sua conduta, como o seu caráter, justificam plenamente os tormentos que lhe sobrevieram. Além do mais, ela era dominada por um sentimento exagerado de orgulho e egoísmo pessoais, sentimento que se patenteia na terceira das mensagens, quando pretende que o médium apenas se ocupe com ela. As comunicações foram obtidas em diferentes épocas, sendo que as três últimas já denotam sensível progresso nas disposições do Espírito, graças ao cuidado do médium, que empreendera a sua educação moral.
 
-# 1.
-
-- Eis-me aqui, eu, a desgraçada Claire. Que queres tu que te diga? A resignação, a esperança não passam de palavras, para os que sabem que, inumeráveis como as pedras da saraivada, os sofrimentos lhe perdurarão na sucessão interminável dos séculos. Posso suavizá-los, dizes tu... Que vaga palavra! Onde encontrar coragem e esperança para tanto? Procura, pois, inteligência obtusa, compreender o que seja um dia eterno. Um dia, um ano, um século... que sei eu? se as horas o não dividem, as estações não variam; eterno e lento como a água que o rochedo roreja, este dia execrando, maldito, pesa sobre mim como avalancha de chumbo... Eu sofro!... Em torno de mim, apenas sombras silenciosas e indiferentes... Eu sofro!
+1.Eis-me aqui, eu, a desgraçada Claire. Que queres tu que te diga? A resignação, a esperança não passam de palavras, para os que sabem que, inumeráveis como as pedras da saraivada, os sofrimentos lhe perdurarão na sucessão interminável dos séculos. Posso suavizá-los, dizes tu... Que vaga palavra! Onde encontrar coragem e esperança para tanto? Procura, pois, inteligência obtusa, compreender o que seja um dia eterno. Um dia, um ano, um século... que sei eu? se as horas o não dividem, as estações não variam; eterno e lento como a água que o rochedo roreja, este dia execrando, maldito, pesa sobre mim como avalancha de chumbo... Eu sofro!... Em torno de mim, apenas sombras silenciosas e indiferentes... Eu sofro!
 
 Contudo, sei que acima desta miséria reina o Deus Pai, para o qual tudo se encaminha. Quero pensar nEle, quero implorar-lhe misericórdia. Debato-me e vivo de rojo como o estropiado que rasteja ao longo do caminho. Não sei que poder me atrai para ti; talvez sejas a salvação. Eu te deixo mais calma, mais reanimada, qual anciã enregelada que se aquecesse a um raio de sol. Gélida, minha alma se reanima à tua aproximação.
 
@@ -4990,11 +4877,11 @@ Contudo, sei que acima desta miséria reina o Deus Pai, para o qual tudo se enca
 
 # 2ª PARTE - CAPÍTULO IV
 
-2. - A minha desgraça aumenta dia a dia, proporcionalmente ao conhecimento da eternidade. Ó miséria! Malditas sejam as horas de egoísmo e inércia, nas quais, esquecida de toda a caridade, de todo o afeto, eu só pensava no meu bem-estar! Malditos interesses humanos, preocupações materiais que me cegaram e perderam! Agora o remorso do tempo perdido. Que te direi a ti, que me ouves? Olha, vela constantemente, ama os outros mais que a ti mesmo, não retardes a marcha nem engordes o corpo em detrimento da alma. Vela, conforme pregava o Salvador aos seus discípulos. Não me agradeças estes conselhos, porque se o meu Espírito os concebe, o coração nunca os ouviu. Qual o cão escorraçado rastejando de medo, assim me humilho eu sem conhecer ainda o voluntário amor. Muito tarda a sua divina aurora a despontar! Ora por minha alma dessecada e tão miserável!
+2.A minha desgraça aumenta dia a dia, proporcionalmente ao conhecimento da eternidade. Ó miséria! Malditas sejam as horas de egoísmo e inércia, nas quais, esquecida de toda a caridade, de todo o afeto, eu só pensava no meu bem-estar! Malditos interesses humanos, preocupações materiais que me cegaram e perderam! Agora o remorso do tempo perdido. Que te direi a ti, que me ouves? Olha, vela constantemente, ama os outros mais que a ti mesmo, não retardes a marcha nem engordes o corpo em detrimento da alma. Vela, conforme pregava o Salvador aos seus discípulos. Não me agradeças estes conselhos, porque se o meu Espírito os concebe, o coração nunca os ouviu. Qual o cão escorraçado rastejando de medo, assim me humilho eu sem conhecer ainda o voluntário amor. Muito tarda a sua divina aurora a despontar! Ora por minha alma dessecada e tão miserável!
 
-3. - Por que me esqueces, até aqui venho procurar-te. Acreditas que preces isoladas e a simples pronúncia do meu nome bastarão ao apaziguamento das minhas penas? Não, cem vezes não. Eu urro de dor, errante, sem repouso, sem asilo, sem esperança, sentindo o aguilhão eterno do castigo a enterrar-se-me na alma revoltada. Quando ouço os vossos lamentos, rio-me, assim como quando vos vejo abatido. As vossas efêmeras misérias, as lágrimas, tormentos que o sono susta, que são? Durmo eu aqui? Quero (ouviste?) quero que, deixando as tuas lucubrações filosóficas, te ocupes de mim, além de fazeres com que outros mais também se ocupem. Não tenho expressões para definir esse tempo que se escoa, sem que as horas lhe assinalem períodos. Vejo apenas um tênue raio de esperança, foste tu que ma deste: não me abandones, pois.
+3.Por que me esqueces, até aqui venho procurar-te. Acreditas que preces isoladas e a simples pronúncia do meu nome bastarão ao apaziguamento das minhas penas? Não, cem vezes não. Eu urro de dor, errante, sem repouso, sem asilo, sem esperança, sentindo o aguilhão eterno do castigo a enterrar-se-me na alma revoltada. Quando ouço os vossos lamentos, rio-me, assim como quando vos vejo abatido. As vossas efêmeras misérias, as lágrimas, tormentos que o sono susta, que são? Durmo eu aqui? Quero (ouviste?) quero que, deixando as tuas lucubrações filosóficas, te ocupes de mim, além de fazeres com que outros mais também se ocupem. Não tenho expressões para definir esse tempo que se escoa, sem que as horas lhe assinalem períodos. Vejo apenas um tênue raio de esperança, foste tu que ma deste: não me abandones, pois.
 
-4. - O Espírito S. Luís. - Este quadro é de todo verdadeiro e em nada exagerado. Perguntar-se-á talvez o que fez essa mulher para ser assim tão miserável. Cometeu ela algum crime horrível? roubou? assassinou? Não; ela nada fez que afrontasse a justiça dos homens. Ao
+4.O Espírito S. Luís. - Este quadro é de todo verdadeiro e em nada exagerado. Perguntar-se-á talvez o que fez essa mulher para ser assim tão miserável. Cometeu ela algum crime horrível? roubou? assassinou? Não; ela nada fez que afrontasse a justiça dos homens. Ao
 
 
 
@@ -5011,12 +4898,9 @@ Eis o que constitui o seu tormento. Tendo apenas procurado os gozos mundanos que
 
 S. Luís.
 
-# 5.
-
-- Falar-vos-ei da importante diferença existente entre a moral divina e a moral humana. A primeira assiste a mulher adúltera no seu abandono e diz aos pecadores: "Arrependei-vos, e aberto vos será o reino dos céus."
+5.Falar-vos-ei da importante diferença existente entre a moral divina e a moral humana. A primeira assiste a mulher adúltera no seu abandono e diz aos pecadores: "Arrependei-vos, e aberto vos será o reino dos céus."
 
 Finalmente, a moral divina aceita todo arrependimento, todas as faltas confessadas, ao passo que a moral humana rejeita aquele e sorri aos pecados ocultos que, diz, são em parte perdoados. Cabe a uma a graça do perdão, e a outra a hipocrisia. Escolhei, Espíritos ávidos da verdade! Escolhei entre os céus abertos ao arrependimento e a tolerância que admite o mal, repelindo os soluços do arrependimento francamente patenteado, só para não ferir o seu egoísmo e preconceitos. Arrependei-vos todos vós que pecais; renunciai ao mal e principalmente
-
 
 
 ---
@@ -5026,13 +4910,13 @@ Finalmente, a moral divina aceita todo arrependimento, todas as faltas confessad
 
 à hipocrisia - véu que é de torpezas, máscara risonha de recíprocas conveniências.
 
-6. - "Estou mais calma e resignada à expiação das minhas faltas. O mal não está fora de mim, reside em mim, devendo ser eu que me transforme e não as coisas exteriores.
+6."Estou mais calma e resignada à expiação das minhas faltas. O mal não está fora de mim, reside em mim, devendo ser eu que me transforme e não as coisas exteriores.
 
 "Em nós e conosco trazemos o céu e o inferno; as nossas faltas, gravadas na consciência, são lidas correntemente no dia da ressurreição. E uma vez que o estado da alma nos abate ou eleva, somos nós os juizes de nós mesmos. Explico-me: um Espírito impuro e sobrecarregado de culpas não pode conceber nem anelar uma elevação que lhe seria insuportável. Assim como as diferentes espécies de seres vivem, cada qual, na esfera que lhes é própria, assim os Espíritos, segundo o grau de adiantamento, movem-se no meio adequado às suas faculdades e não concebem outro senão quando o progresso (instrumento da lenta transformação das almas) lhes subtrai as baixas tendências, despojando-os da crisálida do pecado, a fim de que possam adejar antes de se lançarem, rápidos quais flechas, para o fim único e almejado - Deus! Ah! rastejo ainda, mas não odeio mais, e concebo a indizível felicidade do amor divino. Orai, pois, sempre por mim, que espero e aguardo."
 
 Nota - Na comunicação a seguir, Claire fala de seu marido, que muito a martirizara, e da posição em que ele se encontra no mundo espiritual. Esse quadro que ela por si não pôde completar, foi concluído pelo guia espiritual do médium.
 
-7. - Venho procurar-te, a ti, que por tanto tempo me deixas no esquecimento. Tenho, porém, adquirido paciência e não mais me desespero. Queres saber qual a situação do pobre Félix? Erra nas trevas entregue à profunda nudez de sua alma. Superficial e leviano, aviltado pelo sensualismo, nunca soube o que eram o amor e a amizade. Nem mesmo a paixão esclareceu suas sombrias luzes. Seu estado presente é comparável ao da criança inapta para as funções da vida e privada de todo o
+7.Venho procurar-te, a ti, que por tanto tempo me deixas no esquecimento. Tenho, porém, adquirido paciência e não mais me desespero. Queres saber qual a situação do pobre Félix? Erra nas trevas entregue à profunda nudez de sua alma. Superficial e leviano, aviltado pelo sensualismo, nunca soube o que eram o amor e a amizade. Nem mesmo a paixão esclareceu suas sombrias luzes. Seu estado presente é comparável ao da criança inapta para as funções da vida e privada de todo o
 
 
 
@@ -5043,9 +4927,7 @@ Nota - Na comunicação a seguir, Claire fala de seu marido, que muito a martiri
 
 amparo. Félix vaga aterrorizado nesse mundo estranho onde tudo fulgura ao brilho desse Deus por ele negado.
 
-# 8. - O guia do médium.
-
-Vou falar por Claire, visto que ela não pode continuar a análise dos sofrimentos do marido, sem compartilhá-los:
+8.O guia do médium. Vou falar por Claire, visto que ela não pode continuar a análise dos sofrimentos do marido, sem compartilhá-los:
 
 "Félix - superficial nas idéias como nos sentimentos; violento por fraqueza; devasso por frivolidade - entrou no mundo espiritual tão nu quanto ao moral como quanto ao físico. Em reencarnar nada adquiriu e, conseqüentemente, tem de recomeçar toda a obra. - Qual homem ao despertar de prolongado sonho, reconhecendo a profunda agitação dos seus nervos, esse pobre ser, saindo da perturbação, reconhecerá que viveu de quimeras, que lhe desvirtuaram a existência. Então, maldirá do materialismo que lhe dera o vácuo pela realidade; apostrofará o positivismo que lhe fizera ter por desvarios as idéias sobre a vida futura, como por loucura a sua aspiração, como por fraqueza a crença em Deus. O desgraçado, ao despertar, verá que esses nomes por ele escarnecidos são a fórmula da verdade, e que, ao contrário da fábula, a caça da presa foi menos proveitosa que a da sombra."
 
@@ -5054,7 +4936,6 @@ Georges.
 # Estudo sobre as comunicações de Claire
 
 Estas comunicações são instrutivas por nos mostrarem principalmente uma das feições mais comuns da vida - a do egoísmo. Delas não resultam esses grandes crimes que atordoam mesmo os mais perversos, mas a condição de uma turba enorme que vive neste mundo, honrada e venerada, somente por ter um certo verniz e isentar-se do opróbrio da repressão das leis sociais. Essa gente não vai encontrar castigos excepcionais no mundo espiritual, mas uma situação simples, natural e consentânea com o estado de sua alma e maneira de viver. O insulamento, o abandono, o desamparo, eis a punição daquele que só viveu para si. Claire era, como vimos, um
-
 
 
 ---
@@ -5075,7 +4956,6 @@ E de tal modo esses Espíritos se identificam com esse modo de vida, que da cheg
 Esses Espíritos, quando desencarnados, não podem prontamente adquirir a delicadeza dos sentimentos, e, durante um tempo mais ou menos longo, ocuparão as camadas inferiores do mundo espiritual, tal como acontece na Terra; assim permanecerão enquanto rebeldes ao progresso, mas, com o tempo, a experiência, as tribulações e misérias das sucessivas encarnações, chegará o momento de conceberem algo de melhor do que até então possuíam. Elevam-se-lhes por fim as aspirações, começam a compreender o que lhes falta e principiam os esforços da regeneração.
 
 
-
 ---
 
 
@@ -5085,14 +4965,13 @@ Esses Espíritos, quando desencarnados, não podem prontamente adquirir a delica
 
 Uma vez nesse caminho, a marcha é rápida, visto como compreenderam um bem superior, comparado ao qual os outros, que não passam de grosseiras sensações, acabam por inspirar-lhes repugnância.
 
-- P. (a S. Luís). Que devemos entender por trevas em que se acham mergulhadas certas almas sofredoras? Serão as referidas tantas vezes na Escritura?
+P. (a S. Luís). Que devemos entender por trevas em que se acham mergulhadas certas almas sofredoras? Serão as referidas tantas vezes na Escritura?
 
-- R. Sim, efetivamente, as designadas por Jesus e pelos profetas em referências ao castigo dos maus. Mas isso não passava de alegoria destinada a ferir os sentidos materializados dos seus contemporâneos, os quais jamais poderiam compreender a punição de maneira espiritual. Certos Espíritos estão imersos em trevas, mas deve-se depreender dai uma verdadeira noite da alma comparável à obscuridade intelectual do idiota. Não é uma loucura da alma, porém uma inconsciência daquele e do que o rodeia, a qual se produz quer na presença, quer na ausência da luz material. É, principalmente, a punição dos que duvidaram do seu destino. Pois que acreditaram em o nada, as aparências desse nada os supliciam, até que a alma, caindo em si, quebra as malhas de enervamento que a prostrava e envolvia, tal qual o homem oprimido por penoso sonhar luta em dado momento, com todo o vigor das suas faculdades, contra os terrores que de começo o dominaram. Esta momentânea redução da alma a um nada fictício e consciente de sua existência é sentimento mais cruel do que se pode imaginar, em razão da aparência de repouso que a acomete: - é esse repouso forçado, essa nulidade de ser, essa incerteza que lhe fazem o suplício. O aborrecimento que a invade é o mais terrível dos castigos, visto como coisa alguma percebe em torno nem coisas, nem seres; somente trevas, em verdade, representa isso tudo para ela.
+R. Sim, efetivamente, as designadas por Jesus e pelos profetas em referências ao castigo dos maus. Mas isso não passava de alegoria destinada a ferir os sentidos materializados dos seus contemporâneos, os quais jamais poderiam compreender a punição de maneira espiritual. Certos Espíritos estão imersos em trevas, mas deve-se depreender dai uma verdadeira noite da alma comparável à obscuridade intelectual do idiota. Não é uma loucura da alma, porém uma inconsciência daquele e do que o rodeia, a qual se produz quer na presença, quer na ausência da luz material. É, principalmente, a punição dos que duvidaram do seu destino. Pois que acreditaram em o nada, as aparências desse nada os supliciam, até que a alma, caindo em si, quebra as malhas de enervamento que a prostrava e envolvia, tal qual o homem oprimido por penoso sonhar luta em dado momento, com todo o vigor das suas faculdades, contra os terrores que de começo o dominaram. Esta momentânea redução da alma a um nada fictício e consciente de sua existência é sentimento mais cruel do que se pode imaginar, em razão da aparência de repouso que a acomete: - é esse repouso forçado, essa nulidade de ser, essa incerteza que lhe fazem o suplício. O aborrecimento que a invade é o mais terrível dos castigos, visto como coisa alguma percebe em torno nem coisas, nem seres; somente trevas, em verdade, representa isso tudo para ela.
 
 S. Luís.
 
 (Claire) : Eis-me aqui. Também eu posso responder à pergunta relativa às trevas, pois vaguei e sofri por mui-
-
 
 
 ---
@@ -5111,7 +4990,6 @@ Ainda sobre este ponto obtivemos a seguinte explicação:
 Esta teoria é perfeitamente exata quanto à irradiação de fluidos luminosos pelos Espíritos superiores e é confirmada pela observação, conquanto se não possa inferir seja aquela a verdadeira causa, ou, pelo menos, a única causa do fenômeno; primeiro, porque nem todos os
 
 
-
 ---
 
 
@@ -5121,14 +4999,9 @@ Espíritos inferiores estão em trevas; segundo, porque um mesmo Espírito pode 
 
 Assim, tudo indica que, independente da luz que lhes é própria, os Espíritos recebem uma luz exterior que lhes falta segundo as circunstâncias, donde força é concluir que a obscuridade depende de uma causa ou de uma vontade estranha, constituindo punição especial da soberana justiça, para casos determinados.
 
-# Pergunta (a S. Luís)
+Pergunta (a S. Luís) - Qual a causa de a educação moral dos desencarnados ser mais fácil que a dos encarnados? As relações pelo Espiritismo estabelecidas entre homens e Espíritos dão azo a que estes últimos se corrijam mais rapidamente sob a influência dos conselhos salutares, mais do que acontece em relação aos encarnados, como se vê na cura das obsessões.
 
-Qual a causa de a educação moral dos desencarnados ser mais fácil que a dos encarnados? As relações pelo Espiritismo estabelecidas entre homens e Espíritos dão azo a que estes últimos se corrijam mais rapidamente sob a influência dos conselhos salutares, mais do que acontece em relação aos encarnados, como se vê na cura das obsessões.
-
-# Resposta (Sociedade de Paris)
-
-O encarnado, em virtude da própria natureza, está numa luta incessante devido aos elementos contrários de que se compõe e que devem conduzi-lo ao seu fim providencial, reagindo um sobre o outro. A matéria facilmente sofre o predomínio de um fluido exterior; se a alma, com todo o poder moral de que é capaz, não reagir, deixar-se-á dominar pelo intermediário do seu corpo, seguindo o impulso das influências perversas que o rodeiam, e isso com facilidade tanto maior quanto os invisíveis, que a subjugavam, atacam de preferência os pontos mais vulneráveis, as tendências para a paixão dominante.
-
+Resposta (Sociedade de Paris) - O encarnado, em virtude da própria natureza, está numa luta incessante devido aos elementos contrários de que se compõe e que devem conduzi-lo ao seu fim providencial, reagindo um sobre o outro. A matéria facilmente sofre o predomínio de um fluido exterior; se a alma, com todo o poder moral de que é capaz, não reagir, deixar-se-á dominar pelo intermediário do seu corpo, seguindo o impulso das influências perversas que o rodeiam, e isso com facilidade tanto maior quanto os invisíveis, que a subjugavam, atacam de preferência os pontos mais vulneráveis, as tendências para a paixão dominante.
 
 
 ---
@@ -5147,7 +5020,6 @@ Toda ação material pode sustar momentaneamente os sofrimentos do homem vicioso
 S. Luís.
 
 
-
 ---
 
 
@@ -5161,9 +5033,9 @@ A 7 de abril de 1858, pelas 7 horas da noite, um homem de cerca de 50 anos e dec
 
 Deparou-se-lhe então um quadro horroroso: o infeliz degolara-se com uma navalha e todo o seu sangue misturava-se à água da banheira. E como a identidade do suicida não pôde ser averiguada, foi o cadáver removido para o necrotério.
 
-1. Evocação. (Resposta do guia do médium.) - Esperai, ele aí está.
-2. Onde vos achais hoje? - R. Não sei... dizei-mo.
-3. Estais numa reunião de pessoas que estudam o Espiritismo e que são benévolas para convosco. - R. Dizei-me se vivo, pois este ambiente me sufoca.
+1.Evocação. (Resposta do guia do médium.) - Esperai, ele aí está.
+2.Onde vos achais hoje? - R. Não sei... dizei-mo.
+3.Estais numa reunião de pessoas que estudam o Espiritismo e que são benévolas para convosco. - R. Dizei-me se vivo, pois este ambiente me sufoca.
 
 Nota - Sua alma, posto que separada do corpo, está ainda completamente imersa no que poderia chamar-se o turbilhão da matéria corporal; vivazes lhe são as idéias terrenas, a ponto de se acreditar encarnado.
 
@@ -5174,25 +5046,25 @@ Nota - Sua alma, posto que separada do corpo, está ainda completamente imersa n
 
 # 2ª PARTE - CAPÍTULO V
 
-4 - Quem vos impeliu a vir aqui? - R. Sinto-me aliviado.
+4.Quem vos impeliu a vir aqui? - R. Sinto-me aliviado.
 
-5. - Qual o motivo que vos arrastou ao suicídio? - R. Morto? Eu? Não... que habito o meu corpo... Não sabeis como sofro!... Sufoco-me... Oxalá que mão compassiva me aniquilasse de vez!
+5.Qual o motivo que vos arrastou ao suicídio? - R. Morto? Eu? Não... que habito o meu corpo... Não sabeis como sofro!... Sufoco-me... Oxalá que mão compassiva me aniquilasse de vez!
 
-6. - Por que não deixastes indícios que pudessem tornar-vos reconhecível? - R. Estou abandonado; fugi ao sofrimento para entregar-me à tortura.
+6.Por que não deixastes indícios que pudessem tornar-vos reconhecível? - R. Estou abandonado; fugi ao sofrimento para entregar-me à tortura.
 
-7. - Tendes ainda os mesmos motivos para ficar incógnito? - R. Sim; não revolvais com ferro candente a ferida que sangra.
+7.Tendes ainda os mesmos motivos para ficar incógnito? - R. Sim; não revolvais com ferro candente a ferida que sangra.
 
-8. - Podereis dar-nos o vosso nome, idade, profissão e domicilio? - R. Absolutamente não.
+8.Podereis dar-nos o vosso nome, idade, profissão e domicilio? - R. Absolutamente não.
 
-9. - Tínheis família, mulher, filhos? - R. Era um desprezado, ninguém me amava.
+9.Tínheis família, mulher, filhos? - R. Era um desprezado, ninguém me amava.
 
-10. - E que fizestes para ser assim repudiado? - R. Quantos o são como eu!... Um homem pode viver abandonado no seio da família, quando ninguém o preza.
+10.E que fizestes para ser assim repudiado? - R. Quantos o são como eu!... Um homem pode viver abandonado no seio da família, quando ninguém o preza.
 
-11. - No momento de vos suicidardes não experimentastes qualquer hesitação? - R. Ansiava pela morte... Esperava repousar.
+11.No momento de vos suicidardes não experimentastes qualquer hesitação? - R. Ansiava pela morte... Esperava repousar.
 
-12. - Como é que a idéia do futuro não vos fez renunciar a um tal projeto? - R. Não acreditava nele, absolutamente. Era um desiludido. O futuro é a esperança.
+12.Como é que a idéia do futuro não vos fez renunciar a um tal projeto? - R. Não acreditava nele, absolutamente. Era um desiludido. O futuro é a esperança.
 
-13. - Que reflexões vos ocorreram ao sentirdes a extinção da vida? - R. Não refleti, senti... Mas a vida não se me extinguiu... minha alma está ligada ao corpo... Sinto os vermes a corroerem-me.
+13.Que reflexões vos ocorreram ao sentirdes a extinção da vida? - R. Não refleti, senti... Mas a vida não se me extinguiu... minha alma está ligada ao corpo... Sinto os vermes a corroerem-me.
 
 
 
@@ -5201,15 +5073,15 @@ Nota - Sua alma, posto que separada do corpo, está ainda completamente imersa n
 
 # SUICIDAS
 
-14. - Que sensação experimentastes no momento decisivo da morte? - R. Pois ela se completou?
+14.Que sensação experimentastes no momento decisivo da morte? - R. Pois ela se completou?
 
-15. - Foi doloroso o momento em que a vida se vos extinguiu? - R. Menos doloroso que depois. Só o corpo sofreu.
+15.Foi doloroso o momento em que a vida se vos extinguiu? - R. Menos doloroso que depois. Só o corpo sofreu.
 
-16. - (Ao Espírito S. Luís.) - Que quer dizer o Espírito afirmando que o momento da morte foi menos doloroso que depois? - R. O Espírito descarregou o fardo que o oprimia; ele ressentia a volúpia da dor.
+16.(Ao Espírito S. Luís.) - Que quer dizer o Espírito afirmando que o momento da morte foi menos doloroso que depois? - R. O Espírito descarregou o fardo que o oprimia; ele ressentia a volúpia da dor.
 
-17. - Tal estado sobrevém sempre ao suicídio? - R. Sim. O Espírito do suicida fica ligado ao corpo até o termo dessa vida. A morte natural é a libertação da vida: o suicídio a rompe por completo.
+17.Tal estado sobrevém sempre ao suicídio? - R. Sim. O Espírito do suicida fica ligado ao corpo até o termo dessa vida. A morte natural é a libertação da vida: o suicídio a rompe por completo.
 
-18. - Dar-se-á o mesmo nas mortes acidentais, embora involuntárias, mas que abreviam a existência? - R. Não. Que entendeis por suicídio? O Espírito só responde pelos seus atos.
+18.Dar-se-á o mesmo nas mortes acidentais, embora involuntárias, mas que abreviam a existência? - R. Não. Que entendeis por suicídio? O Espírito só responde pelos seus atos.
 
 Nota - Esta dúvida da morte é muito comum nas pessoas recentemente desencarnadas, e principalmente naquelas que, durante a vida, não elevam a alma acima da matéria. É um fenômeno que parece singular à primeira vista, mas que se explica naturalmente. Se a um indivíduo, pela primeira vez sonambulizado, perguntarmos se dorme, ele responderá quase sempre que não, e essa resposta é lógica: o interlocutor é que faz mal a pergunta, servindo-se de um termo impróprio. Na linguagem comum, a idéia do sono prende-se à suspensão de todas as faculdades sensitivas; ora, o sonâmbulo que pensa, que vê e sente, que tem consciência da sua liberdade, não se crê adormecido, e de fato não dorme, na acepção vulgar do vocábulo. Eis a razão por que responde não, até que se familiariza com essa maneira de apreender o fato. O mesmo acontece com o homem que acaba de desencarnar; para ele a morte era o aniquilamento do ser, e, tal como o sonâmbulo, ele vê, sente e fala, e assim não se considera morto, e isto afirmando até que adquira a intuição do seu novo estado. Essa ilusão é sempre mais ou menos dolorosa, uma vez que nunca é completa e dá ao Espírito uma tal ou qual ansie-
 
@@ -5226,13 +5098,13 @@ No começo da guerra da Itália, em 1859, um negociante de Paris, pai de famíli
 
 (A S. Luís.) - Podereis dizer-nos se é possível evocar o Espírito a que vimos de nos referir? - R. Sim, e ele ganhará com isso, porque ficará mais aliviado.
 
-1. Evocação. - R. Oh! obrigado! Sofro muito, mas... é justo. Contudo, ele me perdoará.
+1.Evocação. - R. Oh! obrigado! Sofro muito, mas... é justo. Contudo, ele me perdoará.
 
 Nota - O Espírito escreve com grande dificuldade; os caracteres são irregulares e mal formados; depois da palavra mas, ele pára, e, procurando em vão escrever, apenas consegue fazer alguns traços indecifráveis e pontos. É evidente que foi a palavra Deus que ele não conseguiu escrever.
 
-Tende a bondade de preencher a lacuna com a palavra que deixastes de escrever. - R. Sou indigno de escrevê-la.
+2.Tende a bondade de preencher a lacuna com a palavra que deixastes de escrever. - R. Sou indigno de escrevê-la.
 
-Dissestes que sofreis; compreendeis que fizestes muito mal em vos suicidar; mas o motivo que vos acar-
+3.Dissestes que sofreis; compreendeis que fizestes muito mal em vos suicidar; mas o motivo que vos acar-
 
 
 
@@ -5242,14 +5114,13 @@ Dissestes que sofreis; compreendeis que fizestes muito mal em vos suicidar; mas 
 # SUICIDAS
 
 retou esse ato não provocou qualquer indulgência? - R. A punição será menos longa, mas nem por isso a ação deixa de ser má.
-
-1. - Podereis descrever-nos essa punição? - R. Sofro duplamente, na alma e no corpo; e sofro neste ultimo, conquanto o não possua, como sofre o operado a falta de um membro amputado.
-2. - A realização do vosso suicido teve por causa unicamente a isenção do vosso filho, ou concorreram para ele outras razões? - R. Fui completamente inspirado pelo amor paterno, porém, mal inspirado. Em atenção a isso, a minha pena será abreviada.
-3. - Podeis precisar a duração dos vossos padecimentos? - R. Não lhes entrevejo o termo, mas tenho certeza de que ele existe, o que é um alivio para mim.
-4. - Há pouco não vos foi possível escrever a palavra Deus, e no entanto temos visto Espíritos muito sofredores fazê-lo: será isso uma conseqüência da vossa punição? - R. Poderei fazê-lo com grandes esforços de arrependimento.
-5. - Pois então fazei esses esforços para escrevê-lo, porque estamos certos de que sereis aliviado. (O Espírito acabou por traçar esta frase com caracteres grossos, irregulares e trêmulos: - Deus é muito bom.)
-6. - Estamos satisfeitos pela boa-vontade com que correspondestes à nossa evocação, e vamos pedir a Deus para que estenda sobre vós a sua misericórdia. - R. Sim, obrigado.
-7. - (A S. Luís.) - Podereis ministrar-nos a vossa apreciação sobre esse suicídio? - R. Este Espírito sofre justamente, pois lhe faltou a confiança em Deus, falta que é sempre punível. A punição seria maior e mais duradoura, se não houvera como atenuante o motivo lou-
+4.Podereis descrever-nos essa punição? - R. Sofro duplamente, na alma e no corpo; e sofro neste ultimo, conquanto o não possua, como sofre o operado a falta de um membro amputado.
+5.A realização do vosso suicido teve por causa unicamente a isenção do vosso filho, ou concorreram para ele outras razões? - R. Fui completamente inspirado pelo amor paterno, porém, mal inspirado. Em atenção a isso, a minha pena será abreviada.
+6.Podeis precisar a duração dos vossos padecimentos? - R. Não lhes entrevejo o termo, mas tenho certeza de que ele existe, o que é um alivio para mim.
+7.Há pouco não vos foi possível escrever a palavra Deus, e no entanto temos visto Espíritos muito sofredores fazê-lo: será isso uma conseqüência da vossa punição? - R. Poderei fazê-lo com grandes esforços de arrependimento.
+8.Pois então fazei esses esforços para escrevê-lo, porque estamos certos de que sereis aliviado. (O Espírito acabou por traçar esta frase com caracteres grossos, irregulares e trêmulos: - Deus é muito bom.)
+9.Estamos satisfeitos pela boa-vontade com que correspondestes à nossa evocação, e vamos pedir a Deus para que estenda sobre vós a sua misericórdia. - R. Sim, obrigado.
+10.(A S. Luís.) - Podereis ministrar-nos a vossa apreciação sobre esse suicídio? - R. Este Espírito sofre justamente, pois lhe faltou a confiança em Deus, falta que é sempre punível. A punição seria maior e mais duradoura, se não houvera como atenuante o motivo lou-
 
 
 
@@ -5260,9 +5131,7 @@ retou esse ato não provocou qualquer indulgência? - R. A punição será menos
 
 vável de evitar que o filho se expusesse à morte na guerra. Deus, que é justo e vê o fundo dos corações, não o pune senão de acordo com suas obras.
 
-# OBSERVAÇÕES
-
-À primeira vista, como ato de abnegação, este suicídio poder-se-ia considerar desculpável. Efetivamente assim é, mas não de modo absoluto. A esse homem faltou a confiança em Deus, como disse o Espírito S. Luís. A sua ação talvez impediu a realização dos destinos do filho; ao demais, ele não tinha a certeza de que aquele sucumbiria na guerra e a carreira militar talvez lhe fornecesse ocasião de adiantar-se. A intenção era boa, e isso lhe atenua o mal provocado e merece indulgência; mas o mal é sempre o mal, e se o não fora, poder-se-ia, escudado no raciocínio, desculpar todos os crimes e até matar a pretexto de prestar serviços.
+OBSERVAÇÕES - À primeira vista, como ato de abnegação, este suicídio poder-se-ia considerar desculpável. Efetivamente assim é, mas não de modo absoluto. A esse homem faltou a confiança em Deus, como disse o Espírito S. Luís. A sua ação talvez impediu a realização dos destinos do filho; ao demais, ele não tinha a certeza de que aquele sucumbiria na guerra e a carreira militar talvez lhe fornecesse ocasião de adiantar-se. A intenção era boa, e isso lhe atenua o mal provocado e merece indulgência; mas o mal é sempre o mal, e se o não fora, poder-se-ia, escudado no raciocínio, desculpar todos os crimes e até matar a pretexto de prestar serviços.
 
 A mãe que mata o filho, crente de o enviar ao céu, seria menos culpada por tê-lo feito com boa intenção? Aí está um sistema que chegaria a justificar todos os crimes cometidos pelo cego fanatismo das guerras religiosas.
 
@@ -5283,7 +5152,7 @@ Em regra, o homem não tem o direito de dispor da vida, por isso que esta lhe fo
 
 A seguinte comunicação foi dada espontaneamente, em uma reunião espírita no Havre, a 12 de fevereiro de 1863:
 
-"Tereis piedade de um pobre miserável que passa de há muito por cruéis torturas?! Oh! o vácuo... o Espaço..... despenho-me... caio... morro... Acudam-me! Deus, eu tive uma existência tão miserável... Pobre diabo, sofri fome muitas vezes na velhice; e foi por isso que me habituei a beber, a ter vergonha e desgosto de tudo.
+"Tereis piedade de um pobre miserável que passa de há muito por cruéis torturas?! Oh! o vácuo... o Espaço..... despenho-me... caio... morro... Acudam-me! Deus, eu tive uma existência tão miserável... Pobre diabo, sofri fome muitas vezes na velhice; e foi por isso que me habituei a beber, a ter vergonha e desgosto de tudo."
 
 "Quis morrer, e atirei-me... Oh! meu Deus! Que momento! E para que tal desejo, quando o termo estava tão próximo? Orai, para que eu não veja incessantemente este vácuo debaixo de mim.... Vou despedaçar-me de encontro a essas pedras! Eu vo-lo suplico, a vós que conheceis as misérias dos que não mais pertencem a esse mundo. Não me conheceis, mas eu sofro tanto... Para que mais provas? Sofro! Não será isso o bastante? Se eu tivera fome, em vez deste sofrimento mais terrível e aliás imperceptível para vós, não vacilaríeis em aliviar-me com uma migalha de pão. Pois eu vos peço que oreis por mim... Não posso permanecer por mais tempo neste estado... Perguntai a qualquer desses felizes que aqui estão, e sabereis quem fui. Orai por mim."
 
@@ -5311,8 +5180,6 @@ Nota - Seis anos fazia que esse homem morrera e ele se via ainda cair da torre, 
 Em março de 1865, o Sr. M. C..., negociante em pequena cidade dos arredores de Paris, tinha em sua casa, gravemente enfermo, o mais velho dos seus filhos, que contava 21 anos de idade. Este moço, prevendo o desenlace, chamou sua mãe e teve forças ainda para abraçá-la. Esta, vertendo copiosas lágrimas, disse-lhe: "Vai, meu filho, precede-me, que não tardarei a seguir-te." Dito isto, retirou-se, escondendo o rosto entre as mãos.
 
 As pessoas presentes a essa cena desoladora consideravam simples explosão de dor as palavras da Sra. C ...
-
-
 
 ---
 
@@ -5348,8 +5215,6 @@ Ela. - Disseram-me que não mais o tornaria a ver, e compreendi que o haviam lev
 
 Evocador. - Vosso filho não está perdido para sempre; certo tomareis a vê-lo, mas é preciso merecê-lo pela submissão à vontade de Deus, ao passo que a revolta poderá retardar indefinidamente esse momento. Ouvi-me: Deus é infinitamente bom, mas é também infinitamente justo. Assim, ninguém é punido sem causa, e se sobre a Terra Ele vos infligiu grandes dores, é porque as merecestes. A morte de vosso filho era uma prova à vossa re-
 
-
-
 ---
 
 
@@ -5376,13 +5241,13 @@ Nota - A morte, mesmo pelo suicídio, não produziu neste Espírito a ilusão de
 
 É de um jornal de 13 de junho de 1862 a seguinte narrativa:
 
-"A jovem Palmyre, modista, residindo com seus pais, era dotada de aparência encantadora e de caráter afável. Por isso, era, também, muito requestada a sua mão. Entre todos os pretendentes ela escolheu o Sr. B ..., que lhe retribuía essa preferência com a mais viva das paixões. Não obstante essa afeição, por deferência aos pais, Palmyre consentiu em desposar o Sr. D..., cuja posição social se afigurava mais vantajosa àqueles, do que a do seu rival. Os Srs. B... e D... eram amigos íntimos, e posto não houvesse entre eles quaisquer relações de interesse, jamais deixaram de se avistar. O amor recíproco de B... e Palmyre, que passou a ser a Sra. D..., de modo algum se atenuara, e como se esforçassem ambos por contê-lo, aumentava-se ele de intensidade na razão direta daquele esforço. Visando extingui-lo, B... tomou o partido de se casar, e desposou, de fato, uma jovem possuidora de eminentes predicados, fazendo o possível por amá-la.
+"A jovem Palmyre, modista, residindo com seus pais, era dotada de aparência encantadora e de caráter afável. Por isso, era, também, muito requestada a sua mão. Entre todos os pretendentes ela escolheu o Sr. B ..., que lhe retribuía essa preferência com a mais viva das paixões. Não obstante essa afeição, por deferência aos pais, Palmyre consentiu em desposar o Sr. D..., cuja posição social se afigurava mais vantajosa àqueles, do que a do seu rival. Os Srs. B... e D... eram amigos íntimos, e posto não houvesse entre eles quaisquer relações de interesse, jamais deixaram de se avistar. O amor recíproco de B... e Palmyre, que passou a ser a Sra. D..., de modo algum se atenuara, e como se esforçassem ambos por contê-lo, aumentava-se ele de intensidade na razão direta daquele esforço. Visando extingui-lo, B... tomou o partido de se casar, e desposou, de fato, uma jovem possuidora de eminentes predicados, fazendo o possível por amá-la."
 
-"Cedo, contudo, percebeu que esse meio heróico lhe fora inútil à cura. Decorreram quatro anos sem que B... ou a Senhora D... faltassem aos seus deveres.
+"Cedo, contudo, percebeu que esse meio heróico lhe fora inútil à cura. Decorreram quatro anos sem que B... ou a Senhora D... faltassem aos seus deveres."
 
-"O que padeceram, só eles o sabem, pois D... que estimava deveras o seu amigo, atraía-o sempre ao seu lar, insistindo para que nele ficasse quando tentava retirar-se.
+"O que padeceram, só eles o sabem, pois D... que estimava deveras o seu amigo, atraía-o sempre ao seu lar, insistindo para que nele ficasse quando tentava retirar-se."
 
-"Aproximados um dia por circunstâncias fortuitas e independentes da própria vontade, os dois amantes deram-se ciência do mal que os torturava e acharam que a morte era, no caso, o único remédio que se lhes deparava. Assentaram que se suicidariam juntamente, no dia seguinte, em que o Sr. D... estaria ausente de casa mais prolongadamente. Feitos os últimos aprestos, escreveram longa e tocante missiva, explicando a causa da sua resolução: para não prevaricarem. Essa carta terminava pedindo que lhes perdoassem e, mais, para serem enterrados na mesma sepultura.
+"Aproximados um dia por circunstâncias fortuitas e independentes da própria vontade, os dois amantes deram-se ciência do mal que os torturava e acharam que a morte era, no caso, o único remédio que se lhes deparava. Assentaram que se suicidariam juntamente, no dia seguinte, em que o Sr. D... estaria ausente de casa mais prolongadamente. Feitos os últimos aprestos, escreveram longa e tocante missiva, explicando a causa da sua resolução: para não prevaricarem. Essa carta terminava pedindo que lhes perdoassem e, mais, para serem enterrados na mesma sepultura."
 
 
 
@@ -5403,22 +5268,21 @@ Sendo esta ocorrência submetida à Sociedade de Paris, como assunto de estudo, 
 
 1. # Evocação da suicida.
 
-- Vedes o vosso amante, com o qual vos suicidastes?
+-Vedes o vosso amante, com o qual vos suicidastes?
 
-- R. Nada vejo, nem mesmo os Espíritos que comigo erram neste mundo. Que noite! Que noite! E que véu espesso me circunda a fronte!
-2. - Que sensação experimentastes ao despertar no outro mundo?
+R. Nada vejo, nem mesmo os Espíritos que comigo erram neste mundo. Que noite! Que noite! E que véu espesso me circunda a fronte!
+2.Que sensação experimentastes ao despertar no outro mundo?
 
-- R. Singular! Tinha frio e escaldava. Tinha gelo nas veias e fogo na fronte! Coisa estranha, conjunto inaudito! Fogo e gelo pareciam consumir-me! E eu julgava que ia sucumbir uma segunda vez!...
-3. - Experimentais qualquer dor física?
+R. Singular! Tinha frio e escaldava. Tinha gelo nas veias e fogo na fronte! Coisa estranha, conjunto inaudito! Fogo e gelo pareciam consumir-me! E eu julgava que ia sucumbir uma segunda vez!...
+3.Experimentais qualquer dor física?
 
-- R. Todo o meu sofrimento reside aqui, aqui ...
+R. Todo o meu sofrimento reside aqui, aqui ...
 
-- Que quereis dizer por aqui, aqui?
+Que quereis dizer por aqui, aqui?
 
-- R. Aqui, no meu cérebro; aqui, no meu coração...
+R. Aqui, no meu cérebro; aqui, no meu coração...
 
 É provável que, visível, o Espírito levasse a mão à cabeça e ao coração.
-
 
 
 ---
@@ -5426,19 +5290,19 @@ Sendo esta ocorrência submetida à Sociedade de Paris, como assunto de estudo, 
 
 # 2ª PARTE - CAPÍTULO V
 
-4. - Acreditais na perenidade dessa situação? - R. Oh! sempre! sempre! Ouço às vezes risos infernais, vozes horrendas que bradam: sempre assim!
+4.Acreditais na perenidade dessa situação? - R. Oh! sempre! sempre! Ouço às vezes risos infernais, vozes horrendas que bradam: sempre assim!
 
-5. Pois bem: podemos com segurança dizer-vos que nem sempre assim será. Pelo arrependimento obtereis o perdão. - R. Que dizeis? Não ouço.
+5.Pois bem: podemos com segurança dizer-vos que nem sempre assim será. Pelo arrependimento obtereis o perdão. - R. Que dizeis? Não ouço.
 
-6. - Repetimos que os vossos sofrimentos terão um termo, que os podereis abreviar pelo arrependimento, sendo-nos possível auxiliar-vos com a prece. - R. Não ouvi além de sons confusos, mais que uma palavra. Essa palavra é: - graça! Seria efetivamente graça o que pronunciastes? Falastes em graça, mas sem dúvida o fizestes à alma que por aqui passou junto de mim, pobre criança que chora e espera.
+6.Repetimos que os vossos sofrimentos terão um termo, que os podereis abreviar pelo arrependimento, sendo-nos possível auxiliar-vos com a prece. - R. Não ouvi além de sons confusos, mais que uma palavra. Essa palavra é: - graça! Seria efetivamente graça o que pronunciastes? Falastes em graça, mas sem dúvida o fizestes à alma que por aqui passou junto de mim, pobre criança que chora e espera.
 
 Nota - Uma senhora, presente à reunião, declarou que fizera fervorosa prece pela infeliz, o que sem dúvida a comoveu, e que de fato, mentalmente, havia implorado em seu favor a graça de Deus.
 
-7. - Dissestes estar em trevas e nada ouvir? - R. É-me permitido ouvir algumas das vossas palavras, mas o que vejo é apenas um crepe negro, no qual de vez em quando se desenha um semblante que chora.
+7.Dissestes estar em trevas e nada ouvir? - R. É-me permitido ouvir algumas das vossas palavras, mas o que vejo é apenas um crepe negro, no qual de vez em quando se desenha um semblante que chora.
 
-8. - Mas uma vez que ele aqui está sem o avistardes, nem sequer vos apercebeis da presença do vosso amante? - R. Ah! não me faleis dele. Devo esquecê-lo presentemente para que do crepe se extinga a imagem retratada.
+8.Mas uma vez que ele aqui está sem o avistardes, nem sequer vos apercebeis da presença do vosso amante? - R. Ah! não me faleis dele. Devo esquecê-lo presentemente para que do crepe se extinga a imagem retratada.
 
-9. - Que imagem é essa? - R. A de um homem que sofre, e cuja existência moral sobre a Terra aniquilei por muito tempo.
+9.Que imagem é essa? - R. A de um homem que sofre, e cuja existência moral sobre a Terra aniquilei por muito tempo.
 
 Nota - Da leitura dessa narrativa logo se depreende haver neste suicídio circunstâncias atenuantes, encarado como ato heróico provocado pelo cumprimento do dever. Mas reconhece-se,
 
@@ -5480,9 +5344,9 @@ Depressa acorre a vizinhança, e Victorine, abrindo então a porta, deu um grito
 
 (Sociedade Espírita de Paris, agosto de 1858)
 
-1. - Ao Espírito S. Luís. - A moça, causadora involuntária do suicídio, tem responsabilidade? - R. Sim, porque o não amava.
-2. - Então para prevenir a desgraça deveria desposá-lo a despeito da repugnância que lhe causava? - R. Ela procurava uma ocasião de descartar-se, e assim fez em começo da ligação o que viria a fazer mais tarde.
-3. - Neste caso, a sua responsabilidade decorre de haver alimentado sentimentos dos quais não participava.
+1.Ao Espírito S. Luís. - A moça, causadora involuntária do suicídio, tem responsabilidade? - R. Sim, porque o não amava.
+2.Então para prevenir a desgraça deveria desposá-lo a despeito da repugnância que lhe causava? - R. Ela procurava uma ocasião de descartar-se, e assim fez em começo da ligação o que viria a fazer mais tarde.
+3.Neste caso, a sua responsabilidade decorre de haver alimentado sentimentos dos quais não participava.
 
 
 
@@ -5492,19 +5356,17 @@ Depressa acorre a vizinhança, e Victorine, abrindo então a porta, deu um grito
 # SUICIDAS
 
 e que deram em resultado o suicídio do moço? - R. Sim, exatamente.
+4.Mas então essa responsabilidade deve ser proporcional à falta, e não tão grande como se consciente e voluntariamente houvesse provocado o suicídio... - R. É evidente.
 
-4. - Mas então essa responsabilidade deve ser proporcional à falta, e não tão grande como se consciente e voluntariamente houvesse provocado o suicídio... - R. É evidente.
-
-5. - E o suicídio de Luís tem desculpa pelo desvario que lhe acarretou a obstinação de Victorine? - R. Sim, pois o suicídio oriundo do amor é menos criminoso aos olhos de Deus, do que o suicídio de quem procura libertar-se da vida por motivos de covardia.
+5.E o suicídio de Luís tem desculpa pelo desvario que lhe acarretou a obstinação de Victorine? - R. Sim, pois o suicídio oriundo do amor é menos criminoso aos olhos de Deus, do que o suicídio de quem procura libertar-se da vida por motivos de covardia.
 
 Ao Espírito Luís G..., evocado mais tarde, foram feitas as seguintes perguntas:
 
-1. - Que julgais da ação que praticastes? - R. Victorine era uma ingrata, e eu fiz mal em suicidar-me por sua causa, pois ela não o merecia.
-2. - Então não vos amava? - R. Não. A princípio iludia-se, mas a desavença que tivemos abriu-lhe os olhos, e ela até se deu por feliz achando um pretexto para se desembaraçar de mim.
-3. - E o vosso amor por ela era sincero? - R. Paixão somente, creia; pois se o amor fosse puro eu me teria poupado de lhe causar um desgosto.
-4. - E se acaso ela adivinhasse a vossa intenção persistiria na sua recusa? - R. Não sei, penso mesmo que não, porque ela não é má. Mas, ainda assim, não seria feliz, e melhor foi para ela que as coisas se passassem de tal forma.
-5. - Batendo-lhe à porta, tínheis já a idéia de vos matar, caso se desse a recusa? - R. Não, em tal não pensava, porque também não contava com a sua obstinação. Foi somente à vista desta que perdi a razão.
-
+1.Que julgais da ação que praticastes? - R. Victorine era uma ingrata, e eu fiz mal em suicidar-me por sua causa, pois ela não o merecia.
+2.Então não vos amava? - R. Não. A princípio iludia-se, mas a desavença que tivemos abriu-lhe os olhos, e ela até se deu por feliz achando um pretexto para se desembaraçar de mim.
+3.E o vosso amor por ela era sincero? - R. Paixão somente, creia; pois se o amor fosse puro eu me teria poupado de lhe causar um desgosto.
+4.E se acaso ela adivinhasse a vossa intenção persistiria na sua recusa? - R. Não sei, penso mesmo que não, porque ela não é má. Mas, ainda assim, não seria feliz, e melhor foi para ela que as coisas se passassem de tal forma.
+5.Batendo-lhe à porta, tínheis já a idéia de vos matar, caso se desse a recusa? - R. Não, em tal não pensava, porque também não contava com a sua obstinação. Foi somente à vista desta que perdi a razão.
 
 
 ---
@@ -5512,11 +5374,11 @@ Ao Espírito Luís G..., evocado mais tarde, foram feitas as seguintes perguntas
 
 # 2ª PARTE - CAPÍTULO V
 
-6. - Parece que não deplorais o suicídio senão pelo fato de Victorine o não merecer... E realmente o vosso único pesar? - R. Neste momento, sim; estou ainda perturbado, afigura-se-me estar ainda à porta, conquanto também experimente outra sensação que não posso definir.
+6.Parece que não deplorais o suicídio senão pelo fato de Victorine o não merecer... E realmente o vosso único pesar? - R. Neste momento, sim; estou ainda perturbado, afigura-se-me estar ainda à porta, conquanto também experimente outra sensação que não posso definir.
 
-7. - Chegareis a compreendê-la mais tarde? - R. Sim, quando estiver livre desta perturbação. Fiz mal, deveria resignar-me... Fui fraco e sofro as conseqüências da minha fraqueza. A paixão cega o homem a ponto de praticar loucuras, e infelizmente ele só o compreende bastante tarde.
+7.Chegareis a compreendê-la mais tarde? - R. Sim, quando estiver livre desta perturbação. Fiz mal, deveria resignar-me... Fui fraco e sofro as conseqüências da minha fraqueza. A paixão cega o homem a ponto de praticar loucuras, e infelizmente ele só o compreende bastante tarde.
 
-8. - Dizeis que tendes um desgosto... qual é? - R. Fiz mal em abreviar a vida. Não deveria fazê-lo. Era preferível tudo suportar a morrer antes do tempo. Sou portanto infeliz; sofro, e é sempre ela que me faz sofrer, a ingrata. Parece-me estar sempre à sua porta, mas... não falemos nem pensemos mais nisso, que me incomoda muito. Adeus.
+8.Dizeis que tendes um desgosto... qual é? - R. Fiz mal em abreviar a vida. Não deveria fazê-lo. Era preferível tudo suportar a morrer antes do tempo. Sou portanto infeliz; sofro, e é sempre ela que me faz sofrer, a ingrata. Parece-me estar sempre à sua porta, mas... não falemos nem pensemos mais nisso, que me incomoda muito. Adeus.
 
 Nota - Por isso se vê ainda uma nova confirmação da justiça que preside à distribuição das penas, conforme o grau de responsabilidade dos culpados. É à moça, neste caso, que cabe a maior responsabilidade, por haver entretido em Luís, por brincadeira, um amor que não sentia. Quanto ao moço, este já é de sobejo punido pelo sofrimento que lhe perdura, mas a sua pena é leve, porquanto apenas cedeu a um movimento irrefletido em momento de exaltação, que não à fria premeditação dos suicidas que buscam subtrair-se às provações da vida.
 
@@ -5525,23 +5387,24 @@ Nota - Por isso se vê ainda uma nova confirmação da justiça que preside à d
 M.J.-B.D... era um homem instruído, mas em extremo saturado de idéias materialistas, não acreditando em Deus nem na existência da alma. A pedido de um parente, foi evocado dois anos depois de desencarnado, na Sociedade Espírita de Paris.
 
 
-
 ---
 
 
 # SUICIDAS
 
-1. Evocação. - R. Sofro. Sou um réprobo.
-2. Fomos levados a evocar-vos em nome de parentes que, como tais, desejam conhecer da vossa sorte. Podereis dizer-nos se esta nossa evocação vos é penosa ou agradável? - R. Penosa.
-3. A vossa morte foi voluntária? - R. Sim.
+1.Evocação. - R. Sofro. Sou um réprobo.
+2.Fomos levados a evocar-vos em nome de parentes que, como tais, desejam conhecer da vossa sorte. Podereis dizer-nos se esta nossa evocação vos é penosa ou agradável? - R. Penosa.
+3.A vossa morte foi voluntária? - R. Sim.
 
 Nota - O Espírito escreve com extrema dificuldade. A letra é grossa, irregular, convulsa e quase ininteligível. Ao terminar a escrita encoleriza-se, quebra o lápis e rasga o papel.
-4. Tende calma, que nós todos pediremos a Deus por vós. - R. Sou forçado a crer nesse Deus.
-5. Que motivo poderia ter-vos levado ao suicídio? - R. O tédio de uma vida sem esperança.
+
+4.Tende calma, que nós todos pediremos a Deus por vós. - R. Sou forçado a crer nesse Deus.
+5.Que motivo poderia ter-vos levado ao suicídio? - R. O tédio de uma vida sem esperança.
 
 Nota - Concebe-se o suicídio quando a vida é sem esperança; procura-se então fugir-lhe a qualquer preço. Com o Espiritismo, ao contrário, a esperança fortalece-se porque o futuro se nos desdobra. O suicídio deixa de ser objetivo, uma vez reconhecido que apenas se isenta a gente do mal para arrostar com um mal cem vezes pior. Eis por que o Espiritismo tem seqüestrado muita gente a uma morte voluntária. Grandemente culpados são os que se esforçam por acreditar, com sofismas científicos e a pretexto de uma falsa razão, nessa idéia desesperadora, fonte de tantos crimes e males, de que tudo acaba com a vida. Esses serão responsáveis não só pelos próprios erros, como igualmente por todos os males a que os mesmos derem causa.
-6. Quisestes escapar às vicissitudes da vida... Adiantastes alguma coisa? Sois agora mais feliz? - R. Por que não existe o nada?
-7. Tende a bondade de nos descrever do melhor modo possível a vossa atual situação. - R. Sofro pelo constrangimento em que estou de crer em tudo quanto negava. Meu Espírito está como num braseiro, horrivelmente atormentado.
+
+6.Quisestes escapar às vicissitudes da vida... Adiantastes alguma coisa? Sois agora mais feliz? - R. Por que não existe o nada?
+7.Tende a bondade de nos descrever do melhor modo possível a vossa atual situação. - R. Sofro pelo constrangimento em que estou de crer em tudo quanto negava. Meu Espírito está como num braseiro, horrivelmente atormentado.
 
 
 
@@ -5550,21 +5413,21 @@ Nota - Concebe-se o suicídio quando a vida é sem esperança; procura-se então
 
 # 2ª PARTE - CAPÍTULO V
 
-8. - Donde provinham as vossas idéias materialistas de outrora? - R. Em anterior encarnação eu fora mau e por isso condenei-me na seguinte aos tormentos da incerteza, e assim foi que me suicidei.
+8.Donde provinham as vossas idéias materialistas de outrora? - R. Em anterior encarnação eu fora mau e por isso condenei-me na seguinte aos tormentos da incerteza, e assim foi que me suicidei.
 
 Nota - Aqui há todo um corolário de idéias. Muitas vezes nos perguntamos como pode haver materialistas quando, tendo eles passado pelo mundo espiritual, deveriam ter do mesmo a intuição; ora, é precisamente essa intuição que é recusada a alguns Espíritos que, conservando o orgulho, não se arrependeram das suas faltas. Para esses tais, a prova consiste na aquisição, durante a vida corporal e à custa do próprio raciocínio, da prova da existência de Deus e da vida futura que têm, por assim dizer, incessantemente sob os olhos. Muitas vezes, porém, a presunção de nada admitir, acima de si, os empolga e absorve. Assim, sofrem eles a pena até que, domado o orgulho, se rendem à evidência.
 
-9. - Quando vos afogastes, que idéias tínheis das conseqüências? Que reflexões fizestes nesse momento? - R. Nenhuma, pois tudo era o nada para mim. Depois é que vi que, tendo cumprido toda a sentença, teria de sofrer mais ainda.
+9.Quando vos afogastes, que idéias tínheis das conseqüências? Que reflexões fizestes nesse momento? - R. Nenhuma, pois tudo era o nada para mim. Depois é que vi que, tendo cumprido toda a sentença, teria de sofrer mais ainda.
 
-10. - Estais bem convencido agora da existência de Deus, da alma e da vida futura? - R. Ah! Tudo isso muito me atormenta!
+10.Estais bem convencido agora da existência de Deus, da alma e da vida futura? - R. Ah! Tudo isso muito me atormenta!
 
-11. - Tornastes a ver vosso irmão? - R. Oh! não.
+11.Tornastes a ver vosso irmão? - R. Oh! não.
 
-12. - E por que não? - R. Para que confundir os nossos desesperos? Exila-se a gente na desgraça e na ventura se reúne, eis o que é.
+12.E por que não? - R. Para que confundir os nossos desesperos? Exila-se a gente na desgraça e na ventura se reúne, eis o que é.
 
-13. - Incomodar-vos-ia a presença de vosso irmão, que poderíamos atrair aí para junto de vós? - R. Não o façais, que o não mereço.
+13.Incomodar-vos-ia a presença de vosso irmão, que poderíamos atrair aí para junto de vós? - R. Não o façais, que o não mereço.
 
-14. - Por que vos opondes? - R. Porque ele também não é feliz.
+14.Por que vos opondes? - R. Porque ele também não é feliz.
 
 
 
@@ -5573,19 +5436,19 @@ Nota - Aqui há todo um corolário de idéias. Muitas vezes nos perguntamos como
 
 # SUICIDAS
 
-15. - Receais a sua presença, e no entanto ela só poderia ser benéfica para vós.
+15.Receais a sua presença, e no entanto ela só poderia ser benéfica para vós.
 
-- R. Não; mais tarde...
+R. Não; mais tarde...
 
-16. - Tendes algum recado para os vossos parentes? - R. Que orem por mim.
+16.Tendes algum recado para os vossos parentes? - R. Que orem por mim.
 
-17. - Parece que na roda das vossas relações há quem partilhe das vossas opiniões. Quereis que lhes digamos algo a respeito? - R. Oh! os desgraçados! Assim possam eles crer em outra existência, eis quanto lhes posso desejar. Se eles pudessem avaliar a minha triste posição, muito refletiriam.
+17.Parece que na roda das vossas relações há quem partilhe das vossas opiniões. Quereis que lhes digamos algo a respeito? - R. Oh! os desgraçados! Assim possam eles crer em outra existência, eis quanto lhes posso desejar. Se eles pudessem avaliar a minha triste posição, muito refletiriam.
 
 (Evocação de um irmão do precedente, que professava as mesmas teorias, mas que não se suicidou. Posto que também infeliz, este se apresenta mais calmo; a sua escrita é clara e legível.)
 
-18. - Evocação. - R. Possa o quadro dos nossos sofrimentos ser útil lição, persuadindo-vos da realidade de uma outra existência, na qual se expiam as faltas oriundas da incredulidade.
+18.Evocação. - R. Possa o quadro dos nossos sofrimentos ser útil lição, persuadindo-vos da realidade de uma outra existência, na qual se expiam as faltas oriundas da incredulidade.
 
-19. - Vós, e vosso irmão que acabamos de evocar, vos vedes reciprocamente? - R. Não; ele me foge.
+19.Vós, e vosso irmão que acabamos de evocar, vos vedes reciprocamente? - R. Não; ele me foge.
 
 Nota - Poder-se-ia perguntar como é que os Espíritos se podem evitar no mundo espiritual, uma vez que aí não existem obstáculos materiais nem refúgios impenetráveis à vista. Tudo é, porém, relativo nesse mundo e conforme a natureza fluídica dos seres que o habitam. Só os Espíritos superiores têm percepções indefinidas, que nos inferiores são limitadas. Para estes, os obstáculos fluídicos equivalem a obstáculos materiais. Os Espíritos furtam-se às vistas dos semelhantes por efeito volitivo, que atua sobre o envoltório perispiritual e fluidos ambientes. A Providência, porém, qual mãe, por todos os seus filhos vela, e por intermédio dos mesmos, individualmente, lhes concede ou nega essa faculdade, conforme as suas disposições morais, o que constitui, conforme as circunstâncias, um castigo ou uma recompensa.
 
@@ -5596,13 +5459,13 @@ Nota - Poder-se-ia perguntar como é que os Espíritos se podem evitar no mundo 
 
 # 2ª PARTE - CAPÍTULO V
 
-20. - Estais mais calmo do que vosso irmão. Podereis dar-nos uma descrição mais precisa dos vossos sofrimentos? - R. Não sofreis aí na Terra no vosso orgulho, no vosso amor-próprio, quando obrigados a reconhecer os vossos erros?
+20.Estais mais calmo do que vosso irmão. Podereis dar-nos uma descrição mais precisa dos vossos sofrimentos? - R. Não sofreis aí na Terra no vosso orgulho, no vosso amor-próprio, quando obrigados a reconhecer os vossos erros?
 
 "O vosso Espírito não se revolta com a idéia de vos humilhardes a quem vos demonstre o vosso erro? Pois bem! Julgai quanto deve sofrer o Espírito que durante toda a sua vida se persuadiu de que nada existia além dele, e que sobre todos prevalecia sempre a sua razão. Encontrando-se de súbito em face da verdade imponente, esse Espírito sente-se aniquilado, humilhado. A isso vem ainda juntar-se o remorso de haver por tanto tempo esquecido a existência de um Deus tão bom, tão indulgente. A situação é insuportável; não há calma nem repouso; não se encontra um pouco de tranqüilidade senão no momento em que a graça divina, isto é, o amor de Deus, nos toca, pois o orgulho de tal modo se apossa de nós, que de todo nos embota, a ponto de ser preciso ainda muito tempo para que nos despojemos completamente dessa roupagem fatal. Só a prece dos nossos irmãos pode ajudar-nos nesses transes.
 
-21. - Quereis falar dos irmãos encarnados, ou dos Espíritos? - R. De uns como de outros.
+21.Quereis falar dos irmãos encarnados, ou dos Espíritos? - R. De uns como de outros.
 
-22. - Enquanto nos entretínhamos com o vosso irmão, uma das pessoas aqui presentes orou por ele: - essa prece lhe foi proveitosa? - R. Ela não se perderá. Se ele agora recusa a graça, outro tanto não fará quando estiver em condições de recorrer a essa divina panacéia.
+22.Enquanto nos entretínhamos com o vosso irmão, uma das pessoas aqui presentes orou por ele: - essa prece lhe foi proveitosa? - R. Ela não se perderá. Se ele agora recusa a graça, outro tanto não fará quando estiver em condições de recorrer a essa divina panacéia.
 
 Nota - Aqui lobrigamos um outro gênero de castigo, mas que não é o mesmo em todos os cépticos. Para este Espírito, é independente do sofrimento a necessidade de reconhecer verdades que repudiara quando encarnado. As suas idéias atuais revelam certo grau de adiantamento, comparativamente às de outros Espíritos persistentes na
 
@@ -5634,7 +5497,7 @@ Transmitindo a resultante destas duas evocações à pessoa que no-las havia sol
 
 # 2ª PARTE - CAPÍTULO V
 
-senhor, insistir pela resposta categórica a essas perguntas, pois são essenciais para os que ainda duvidam. Estou convencido de que darão, nesse caso, imensos resultados.
+senhor, insistir pela resposta categórica a essas perguntas, pois são essenciais para os que ainda duvidam. Estou convencido de que darão, nesse caso, imensos resultados."
 
 "Dou-me pressa a fim de esta vos ser entregue na sexta-feira de manhã, de modo a poder fazer-se a evocação na sessão da Sociedade desse mesmo dia... etc."
 
@@ -5684,11 +5547,11 @@ Nota - Apesar de o Espírito nos declarar que se acha numa sociedade assaz prom�
 
 Tal circunstância deixava-nos em dúvida sobre a identidade.
 
-- P. Tende a bondade de nos dizer como morrestes... - R. Como morri? Pela morte por mim escolhida, a que mais me agradou, sendo para notar que meditei muito tempo nessa escolha com o intuito de me desembaraçar da vida. Apesar disso, confesso que não ganhei grande coisa: - libertei-me dos cuidados materiais, porém, para encontrá-los mais graves e penosos na condição de Espírito, da qual nem sequer prevejo o termo.
+P. Tende a bondade de nos dizer como morrestes... - R. Como morri? Pela morte por mim escolhida, a que mais me agradou, sendo para notar que meditei muito tempo nessa escolha com o intuito de me desembaraçar da vida. Apesar disso, confesso que não ganhei grande coisa: - libertei-me dos cuidados materiais, porém, para encontrá-los mais graves e penosos na condição de Espírito, da qual nem sequer prevejo o termo.
 
-- P. (ao guia do médium). O Espírito em comunicação será efetivamente o de Félicien? Esta linguagem, quase despreocupada, torna-se suspeita em se tratando de um suicida...
+P. (ao guia do médium). O Espírito em comunicação será efetivamente o de Félicien? Esta linguagem, quase despreocupada, torna-se suspeita em se tratando de um suicida...
 
-- R. Sim. Entretanto, por um sentimento justificável na sua posição, ele não queria revelar ao médium.
+R. Sim. Entretanto, por um sentimento justificável na sua posição, ele não queria revelar ao médium.
 
 
 
@@ -5701,12 +5564,11 @@ Tal circunstância deixava-nos em dúvida sobre a identidade.
 
 o seu gênero de morte. Foi por isso que dissimulou a frase, acabando no entanto por confessá-lo diante da pergunta direta que lhe fizestes, e não sem angústias. O suicídio fá-lo sofrer muito, e por isso desvia, o mais possível, tudo o que lhe recorde o seu fim funesto.
 
-- P. (ao Espírito). A vossa desencarnação tanto mais nos comoveu, quanto lhe prévíamos as tristes conseqüências, além da estima e intimidade das nossas relações. Pessoalmente, não me esqueci do quanto éreis obsequioso e bom para comigo. Seria feliz se pudesse testemunhar-vos a minha gratidão, fazendo algo de útil para vós.
+P. (ao Espírito). A vossa desencarnação tanto mais nos comoveu, quanto lhe prévíamos as tristes conseqüências, além da estima e intimidade das nossas relações. Pessoalmente, não me esqueci do quanto éreis obsequioso e bom para comigo. Seria feliz se pudesse testemunhar-vos a minha gratidão, fazendo algo de útil para vós.
 
-- R. Entretanto, eu não podia furtar-me de outro modo aos embaraços da minha posição material. Agora, só tenho necessidade de preces; orai, principalmente, para que me veja livre desses hórridos companheiros que aqui estão junto de mim, obsidiando-me com gritos, sorrisos e infernais motejos. Eles chamam-me covarde, e com razão, porque é covardia renunciar à vida. É a quarta vez que sucumbo a essa prova, não obstante a formal promessa de não falir... Fatalidade!... Ah! Orai... Que suplício o meu! Quanto sou desgraçado! Orando, fazeis por mim mais que por vós pude fazer quando na Terra; mas a prova, ante a qual fracassei tantas vezes, aí está retratada, indelével, diante de mim! E preciso tentá-la novamente, em dado tempo... Terei forças? Ah! recomeçar a vida tantas vezes; lutar por tanto tempo para sucumbir aos acontecimentos, é desesperador, mesmo aqui! Eis por que tenho carência de força. Dizem que podemos obtê-la pela prece... Orai por mim, que eu quero orar também.
+R. Entretanto, eu não podia furtar-me de outro modo aos embaraços da minha posição material. Agora, só tenho necessidade de preces; orai, principalmente, para que me veja livre desses hórridos companheiros que aqui estão junto de mim, obsidiando-me com gritos, sorrisos e infernais motejos. Eles chamam-me covarde, e com razão, porque é covardia renunciar à vida. É a quarta vez que sucumbo a essa prova, não obstante a formal promessa de não falir... Fatalidade!... Ah! Orai... Que suplício o meu! Quanto sou desgraçado! Orando, fazeis por mim mais que por vós pude fazer quando na Terra; mas a prova, ante a qual fracassei tantas vezes, aí está retratada, indelével, diante de mim! E preciso tentá-la novamente, em dado tempo... Terei forças? Ah! recomeçar a vida tantas vezes; lutar por tanto tempo para sucumbir aos acontecimentos, é desesperador, mesmo aqui! Eis por que tenho carência de força. Dizem que podemos obtê-la pela prece... Orai por mim, que eu quero orar também.
 
 Nota - Este caso particular de suicídio, posto que realizado em circunstâncias vulgares, apresenta uma feição especial. Ele mostra-nos um Espírito que sucumbiu muitas vezes à provação, que se renova a cada existência e que renovará até que ele tenha forças para resistir.
-
 
 
 ---
@@ -5723,7 +5585,6 @@ Ao Espírito do Sr. Félicien. - Ouvi, eu vo-lo peço, ouvi e meditai sobre as m
 Essa prova, tal como pressentis com razão, deve renovar-se ainda; na vossa próxima encarnação tereis de enfrentar acontecimentos que vos sugerirão a idéia do suicídio, e sempre assim acontecerá até que de todo tenhais triunfado.
 
 
-
 ---
 
 
@@ -5734,7 +5595,7 @@ Longe de acusar a sorte, que é a vossa própria obra, admirai a bondade de Deus
 
 Assim, sofrereis, não eternamente, mas por tanto tempo quanto reincidirdes no erro. De vós depende, no estado espiritual, tomar a resolução bastante enérgica de manifestar a Deus um sincero arrependimento, solicitando instantaneamente o apoio dos bons Espíritos. Voltareis então à Terra, blindado na resistência a todas as tentações. Uma vez alcançada essa vitória, caminhareis na via da felicidade com mais rapidez, visto que sob outros aspectos o vosso progresso é já considerável. Como vedes, há ainda um passo a franquear, para o qual vos auxiliaremos com as nossas preces. Estas só serão improfícuas se nos não secundardes com os vossos esforços.
 
-- R. Oh! obrigado! Oh! obrigado por tão boas exortações. Delas tenho tanto maior necessidade, quanto sou mais desgraçado do que demonstrava. Vou aproveitá-las, garanto, no preparo da próxima encarnação, durante a qual farei todo o possível por não sucumbir. Já me custa suportar o meio ignóbil do meu exílio.
+R. Oh! obrigado! Oh! obrigado por tão boas exortações. Delas tenho tanto maior necessidade, quanto sou mais desgraçado do que demonstrava. Vou aproveitá-las, garanto, no preparo da próxima encarnação, durante a qual farei todo o possível por não sucumbir. Já me custa suportar o meio ignóbil do meu exílio.
 
 Félicien.
 
@@ -5755,11 +5616,11 @@ esta em que se dirigia para a casa bancária, onde, aliás, escriturava os seus 
 
 A pedido desse amigo, foi ele evocado em Paris, a 17 de abril de 1865.
 
-1. Evocação. - R. Que pretendeis de mim? Sujeitar-me a um interrogatório? É inútil, tudo confessarei.
-2. Bem longe de nós o pensamento de vos afligir com perguntas indiscretas; desejamos saber apenas qual a vossa posição nesse mundo, bem como se poderemos ser-vos úteis... - R. Ah! Se for possível, ser-vos-ei extremamente grato. Tenho horror ao meu crime e sou muito infeliz!
-3. Temos a esperança de que as nossas preces atenuarão as vossas penas. Afigura-se-nos que vos achais em boas condições, visto como o arrependimento já vos assedia o coração - o que constitui um começo de reabilitação. Deus, infinitamente misericordioso, sempre tem piedade do pecador arrependido. Orai conosco. (Faz-se a prece pelos suicidas, a qual se encontra em O Evangelho segundo o Espiritismo.) Agora, tende a bondade de nos dizer de quais crimes vos reconheceis culpado. Tal confissão, humildemente feita, ser-vos-á favorável.
+1.Evocação. - R. Que pretendeis de mim? Sujeitar-me a um interrogatório? É inútil, tudo confessarei.
+2.Bem longe de nós o pensamento de vos afligir com perguntas indiscretas; desejamos saber apenas qual a vossa posição nesse mundo, bem como se poderemos ser-vos úteis... - R. Ah! Se for possível, ser-vos-ei extremamente grato. Tenho horror ao meu crime e sou muito infeliz!
+3.Temos a esperança de que as nossas preces atenuarão as vossas penas. Afigura-se-nos que vos achais em boas condições, visto como o arrependimento já vos assedia o coração - o que constitui um começo de reabilitação. Deus, infinitamente misericordioso, sempre tem piedade do pecador arrependido. Orai conosco. (Faz-se a prece pelos suicidas, a qual se encontra em O Evangelho segundo o Espiritismo.) Agora, tende a bondade de nos dizer de quais crimes vos reconheceis culpado. Tal confissão, humildemente feita, ser-vos-á favorável.
 
-- R. Deixai primeiro que vos agradeça por esta esperança que fizestes ralar no meu coração. Oh! há já bastante tempo que vivia numa cidade banhada pelo Mediterrâneo. Amava, então, uma bela moça que me correspondia; mas, pelo fato de ser pobre, fui repelido pela família. A minha eleita participou-me que desposaria o
+R. Deixai primeiro que vos agradeça por esta esperança que fizestes ralar no meu coração. Oh! há já bastante tempo que vivia numa cidade banhada pelo Mediterrâneo. Amava, então, uma bela moça que me correspondia; mas, pelo fato de ser pobre, fui repelido pela família. A minha eleita participou-me que desposaria o
 
 
 
@@ -5770,17 +5631,13 @@ A pedido desse amigo, foi ele evocado em Paris, a 17 de abril de 1865.
 
 filho de um negociante cujas transações se estendiam para além de dois mares, e assim fui eu desprezado. Louco de dor, resolvi acabar com a vida, não sem deixar de assassinar o detestado rival, saciando o meu desejo de vingança. Repugnando-me os meios violentos, horrorizava-me a perpetração do crime, porém o meu ciúme a tudo sobrepujou. Na véspera do casamento, morria o meu rival envenenado, pelo meio que me pareceu mais fácil. Eis como se explicam as reminiscências do passado... Sim, eu já reencarnei, e preciso é que reencarne ainda... Oh! meu Deus, tende piedade das minhas lágrimas e da minha fraqueza!
 
-# 4.
+4.Deploramos essa infelicidade que retardou vosso progresso e sinceramente vos lamentamos; dado, porém, que vos arrependais, Deus se compadecerá de vós. Dizei-nos se chegastes a executar o vosso projeto de suicídio...
 
-- Deploramos essa infelicidade que retardou vosso progresso e sinceramente vos lamentamos; dado, porém, que vos arrependais, Deus se compadecerá de vós. Dizei-nos se chegastes a executar o vosso projeto de suicídio...
+R. Não; e confesso, para vergonha minha, que a esperança se me desabrochou novamente no coração, com o desejo de me aproveitar do crime já cometido. Traíram-me, porém, os remorsos e acabei por expiar, no último suplício, aquele meu desvario: enforquei-me.
 
-- R. Não; e confesso, para vergonha minha, que a esperança se me desabrochou novamente no coração, com o desejo de me aproveitar do crime já cometido. Traíram-me, porém, os remorsos e acabei por expiar, no último suplício, aquele meu desvario: enforquei-me.
+5.Na vossa última encarnação tínheis a consciência do mal praticado na penúltima?
 
-# 5.
-
-- Na vossa última encarnação tínheis a consciência do mal praticado na penúltima?
-
-- R. Nos últimos anos somente, e eis como: - eu era bom por natureza, e, depois de submetido, como todos os homicidas, ao tormento da visão perseverante da vítima, que me perseguia qual vivo remorso, dela me descartei depois de muitos anos, pelo meu arrependimento e pelas minhas preces. Recomecei outra existência - a última - que atravessei calmo e tímido. Tinha em mim como que vaga intuição da minha inata fraqueza, bem como da culpa anterior, cuja lembrança em estado latente conservara. Mas um Espírito obsessor e vingativo, que não era outro senão o pai da minha vítima, facilmente se apo-
+R. Nos últimos anos somente, e eis como: - eu era bom por natureza, e, depois de submetido, como todos os homicidas, ao tormento da visão perseverante da vítima, que me perseguia qual vivo remorso, dela me descartei depois de muitos anos, pelo meu arrependimento e pelas minhas preces. Recomecei outra existência - a última - que atravessei calmo e tímido. Tinha em mim como que vaga intuição da minha inata fraqueza, bem como da culpa anterior, cuja lembrança em estado latente conservara. Mas um Espírito obsessor e vingativo, que não era outro senão o pai da minha vítima, facilmente se apo-
 
 
 
@@ -5803,7 +5660,7 @@ R. Certamente, pois a obsessão que, de si mesma, é já um gênero de provaçã
 
 Assim é que, sucumbindo, o faz sempre por assentimento da sua vontade. Quanto ao mais, o Espírito tem razão dizendo que a ação instigada por outrem é menos culposa e repreensível, do que quando voluntariamente cometida. Contudo, nem por isso se inocenta de culpa, visto como, afastando-se do caminho reto, mostra que o bem ainda não está vinculado ao seu coração.
 
-6. - Como, apesar da prece e do arrependimento terem libertado esse Espírito da visão tormentosa da sua vitima, pôde ele ser atingido pela vingança de um obsessor na última encarnação?
+6.Como, apesar da prece e do arrependimento terem libertado esse Espírito da visão tormentosa da sua vitima, pôde ele ser atingido pela vingança de um obsessor na última encarnação?
 
 
 
@@ -5837,11 +5694,11 @@ Vemos ainda por aí que todas as existências são solidárias entre si; que a j
 
 A 3 de janeiro de 1857, Mons. Sibour, arcebispo de Paris, ao sair da Igreja de Saint-Étienne-du-Mont, foi mortalmente ferido por um jovem padre chamado Verger. O criminoso foi condenado à morte e executado a 30 de janeiro. Até o último instante não manifestou qualquer sentimento de pesar, de arrependimento, ou de sensibilidade. Evocado no mesmo dia da execução, deu as seguintes respostas:
 
-1. Evocação. - R. Ainda estou preso ao corpo.
-2. - Então a vossa alma não está inteiramente liberta? - R. Não... tenho medo... não sei... Esperai que torne a mim. Não estou morto, não é assim?
-3. - Arrependei-vos do que fizestes? - R. Fiz mal em matar, mas a isso fui levado pelo meu caráter, que não podia tolerar humilhações... Evocar-me-eis de outra vez.
-4. - Por que vos retirais? - R. Se o visse, muito me atemorizaria, pelo receio de que me fizesse outro tanto.
-5. - Mas nada tendes a temer, uma vez que a vossa alma está separada do corpo. Renunciai a qualquer in-
+1.Evocação. - R. Ainda estou preso ao corpo.
+2.Então a vossa alma não está inteiramente liberta? - R. Não... tenho medo... não sei... Esperai que torne a mim. Não estou morto, não é assim?
+3.Arrependei-vos do que fizestes? - R. Fiz mal em matar, mas a isso fui levado pelo meu caráter, que não podia tolerar humilhações... Evocar-me-eis de outra vez.
+4.Por que vos retirais? - R. Se o visse, muito me atemorizaria, pelo receio de que me fizesse outro tanto.
+5.Mas nada tendes a temer, uma vez que a vossa alma está separada do corpo. Renunciai a qualquer in-
 
 
 
@@ -5854,19 +5711,19 @@ A 3 de janeiro de 1857, Mons. Sibour, arcebispo de Paris, ao sair da Igreja de S
 
 quietação, que não é razoável agora. - R. Que quereis? Acaso sois senhor das vossas impressões? Quanto a mim, não sei onde estou... estou doido.
 
-6. Esforçai-vos por ser calmo. - R. Não posso, porque estou louco... Esperai, que vou invocar toda a minha lucidez.
+6.Esforçai-vos por ser calmo. - R. Não posso, porque estou louco... Esperai, que vou invocar toda a minha lucidez.
 
-7. - Se orásseis, talvez pudésseis concentrar os vossos pensamentos... - R. Intimido-me... não me atrevo a orar.
+7.Se orásseis, talvez pudésseis concentrar os vossos pensamentos... - R. Intimido-me... não me atrevo a orar.
 
-8. - Orai, que grande é a misericórdia de Deus! Oraremos convosco. - R. Sim; eu sempre acreditei na infinita misericórdia de Deus.
+8.Orai, que grande é a misericórdia de Deus! Oraremos convosco. - R. Sim; eu sempre acreditei na infinita misericórdia de Deus.
 
-9. - Compreendeis melhor, agora, a vossa situação? - R. Ela é tão extraordinária que ainda não posso apreendê-la.
+9.Compreendeis melhor, agora, a vossa situação? - R. Ela é tão extraordinária que ainda não posso apreendê-la.
 
-10. - Vedes a vossa vítima? - R. Parece-me ouvir uma voz semelhante à sua, dizendo-me: 'Não mais te quero..." Será, talvez, um efeito da imaginação!... Estou doido, vo-lo asseguro, pois que vejo meu corpo de um lado e a cabeça de outro... afigurando-se-me, porém, que vivo no Espaço, entre a Terra e o que denominais céu... Sinto como o frio de uma faca prestes a decepar-me o pescoço, mas isso será talvez o terror da morte... Também me parece ver uma multidão de Espíritos a rodear-me, olhando-me compadecidos... E falam-me, mas não os compreendo.
+10.Vedes a vossa vítima? - R. Parece-me ouvir uma voz semelhante à sua, dizendo-me: 'Não mais te quero..." Será, talvez, um efeito da imaginação!... Estou doido, vo-lo asseguro, pois que vejo meu corpo de um lado e a cabeça de outro... afigurando-se-me, porém, que vivo no Espaço, entre a Terra e o que denominais céu... Sinto como o frio de uma faca prestes a decepar-me o pescoço, mas isso será talvez o terror da morte... Também me parece ver uma multidão de Espíritos a rodear-me, olhando-me compadecidos... E falam-me, mas não os compreendo.
 
-11. - Entretanto, entre esses Espíritos há talvez um cuja presença vos humilha por causa do vosso crime. - R. Dir-vos-ei que há apenas um que me apavora - o daquele a quem matei.
+11.Entretanto, entre esses Espíritos há talvez um cuja presença vos humilha por causa do vosso crime. - R. Dir-vos-ei que há apenas um que me apavora - o daquele a quem matei.
 
-12. - Lembrai-vos das anteriores existências? - R. Não; estou indeciso, acreditando sonhar... Ainda uma vez, preciso tornar a mim.
+12.Lembrai-vos das anteriores existências? - R. Não; estou indeciso, acreditando sonhar... Ainda uma vez, preciso tornar a mim.
 
 
 
@@ -5875,17 +5732,17 @@ quietação, que não é razoável agora. - R. Que quereis? Acaso sois senhor da
 
 # 2ª PARTE - CAPÍTULO VI
 
-13. - (Três dias depois.) - Reconhecei-vos melhor agora? - R. Já sei que não mais pertenço a esse mundo, e não o deploro. Pesa-me o que fiz, porém meu Espírito está mais livre. Sei a mais que há uma série de encarnações que nos dão conhecimentos úteis, a fim de nos tornarmos tão perfeitos quanto possível à criatura humana.
+13.(Três dias depois.) - Reconhecei-vos melhor agora? - R. Já sei que não mais pertenço a esse mundo, e não o deploro. Pesa-me o que fiz, porém meu Espírito está mais livre. Sei a mais que há uma série de encarnações que nos dão conhecimentos úteis, a fim de nos tornarmos tão perfeitos quanto possível à criatura humana.
 
-14. - Sois punido pelo crime que cometestes? - R. Sim; lamento o que fiz e isso faz-me sofrer.
+14.Sois punido pelo crime que cometestes? - R. Sim; lamento o que fiz e isso faz-me sofrer.
 
-15. - Qual a vossa punição? - R. Sou punido porque tenho consciência da minha falta, e para ela peço perdão a Deus; sou punido porque reconheço a minha descrença nesse Deus, sabendo agora que não devemos abreviar os dias de vida de nossos irmãos; sou punido pelo remorso de haver adiado o meu progresso, enveredando por caminho errado, sem ouvir o grito da própria consciência que me dizia não ser pelo assassínio que alcançaria o meu desiderato. Deixei-me dominar pela inveja e pelo orgulho; enganei-me e arrependo-me, pois o homem deve esforçar-se sempre por dominar as más paixões - o que aliás não fiz.
+15.Qual a vossa punição? - R. Sou punido porque tenho consciência da minha falta, e para ela peço perdão a Deus; sou punido porque reconheço a minha descrença nesse Deus, sabendo agora que não devemos abreviar os dias de vida de nossos irmãos; sou punido pelo remorso de haver adiado o meu progresso, enveredando por caminho errado, sem ouvir o grito da própria consciência que me dizia não ser pelo assassínio que alcançaria o meu desiderato. Deixei-me dominar pela inveja e pelo orgulho; enganei-me e arrependo-me, pois o homem deve esforçar-se sempre por dominar as más paixões - o que aliás não fiz.
 
-16. - Qual a vossa sensação quando vos evocamos? - R. De prazer e de temor, por isso que não sou mau.
+16.Qual a vossa sensação quando vos evocamos? - R. De prazer e de temor, por isso que não sou mau.
 
-17. - Em que consiste tal prazer e tal temor? - R. Prazer de conversar com os homens e poder em parte reparar as minhas faltas, confessando-as; e temor, que não posso definir - um quê de vergonha por ter sido um assassino.
+17.Em que consiste tal prazer e tal temor? - R. Prazer de conversar com os homens e poder em parte reparar as minhas faltas, confessando-as; e temor, que não posso definir - um quê de vergonha por ter sido um assassino.
 
-18. - Desejais reencarnar na Terra? - R. Até o peço e desejo achar-me constantemente exposto ao assassínio, provando-lhe o temor.
+18.Desejais reencarnar na Terra? - R. Até o peço e desejo achar-me constantemente exposto ao assassínio, provando-lhe o temor.
 
 Nota - Monsenhor Sibour, evocado, disse que perdoava ao assassino e orava para que ele se arrependesse. Disse mais que, posto estivesse presente à sua evocação, não se lhe tinha.
 
@@ -5898,7 +5755,7 @@ Nota - Monsenhor Sibour, evocado, disse que perdoava ao assassino e orava para q
 
 mostrado para lhe não aumentar os sofrimentos, porquanto o receio de o ver já era um sintoma de remorso, era já um castigo.
 
-- P. O homem que mata sabe que, ao escolher nova existência, nela se tornará assassino? - R. Não; ele sabe que, escolhendo uma vida de luta, tem probabilidades de matar um semelhante, ignorando porém se o fará, pois está quase sempre em luta consigo mesmo.
+P. O homem que mata sabe que, ao escolher nova existência, nela se tornará assassino? - R. Não; ele sabe que, escolhendo uma vida de luta, tem probabilidades de matar um semelhante, ignorando porém se o fará, pois está quase sempre em luta consigo mesmo.
 
 Nota - A situação de Verger, ao morrer, é a de quase todos os que sucumbem violentamente. Não se verificando bruscamente a separação, eles ficam como aturdidos, sem saber se estão mortos ou vivos. A visão do arcebispo foi-lhe poupada por desnecessária ao seu remorso; mas outros Espíritos, em circunstâncias idênticas, são constantemente acossados pelo olhar das suas vítimas.
 
@@ -5907,7 +5764,6 @@ Nota - A situação de Verger, ao morrer, é a de quase todos os que sucumbem vi
 Por que não considerar valioso esse arrependimento? Por que admiti-lo dias antes como salvante do inferno, e depois não? E por que, finalmente, o Deus misericordioso para o penitente, em vida, deixaria de o ser, por questão de horas, mais tarde? Fora para causar admiração a rápida mudança algumas vezes operada nas idéias de um criminoso, endurecido e impenitente até à morte, se o trespasse lhe não fosse também bastante, às vezes, para reconhecer toda a iniquidade da sua conduta. Contudo, esse resultado está longe de ser geral - o que daria em conseqüência o não haver Espíritos maus. O arrependimento é muita vez tardio, e dai a dilação do castigo.
 
 A obstinação no mal, em vida, provém às vezes do orgulho de quem recusa submeter-se e confessar os próprios erros, visto estar o homem sujeito à influência da matéria.
-
 
 
 ---
@@ -5921,12 +5777,11 @@ LEMAIRE
 
 Condenado à pena última pelo júri de Aisne, e executado a 31 de dezembro de 1857. Evocado em 29 de janeiro de 1858.
 
-1. Evocação. - R. Aqui estou.
-2. Vendo-nos, que sensação experimentais? - R. A da vergonha.
-3. Retivestes os sentidos até o último momento? - R. Sim.
-4. Após a execução tivestes imediata noção dessa nova existência? - R. Eu estava imerso em grande perturbação, da qual, aliás, ainda me não libertei. Senti uma dor imensa, afigurando-se-me ser o coração quem a sofria. Vi rolar não sei quê aos pés do cadafalso; vi o sangue que corria e mais pungente se me tornou a minha dor. - P. Era uma dor puramente física, análoga à que proviria de um grande ferimento, pela amputação de um membro, por exemplo? - R. Não; figurai-vos antes um remorso, uma grande dor moral.
-5. Mas a dor física do suplício, quem a experimentava: o corpo ou o Espírito? - R. A dor moral es-
-
+1.Evocação. - R. Aqui estou.
+2.Vendo-nos, que sensação experimentais? - R. A da vergonha.
+3.Retivestes os sentidos até o último momento? - R. Sim.
+4.Após a execução tivestes imediata noção dessa nova existência? - R. Eu estava imerso em grande perturbação, da qual, aliás, ainda me não libertei. Senti uma dor imensa, afigurando-se-me ser o coração quem a sofria. Vi rolar não sei quê aos pés do cadafalso; vi o sangue que corria e mais pungente se me tornou a minha dor. - P. Era uma dor puramente física, análoga à que proviria de um grande ferimento, pela amputação de um membro, por exemplo? - R. Não; figurai-vos antes um remorso, uma grande dor moral.
+5.Mas a dor física do suplício, quem a experimentava: o corpo ou o Espírito? - R. A dor moral es-
 
 
 ---
@@ -5936,12 +5791,12 @@ Condenado à pena última pelo júri de Aisne, e executado a 31 de dezembro de 1
 
 tava em meu Espírito, sentindo o corpo a dor física; mas o Espírito desligado também dela se ressentia.
 
-1. - Vistes o corpo mutilado? - R. Vi qualquer coisa informe, à qual me parecia integrado; entretanto, reconhecia-me intacto, isto é, que eu era eu mesmo... - P. Que impressões vos advieram desse fato? - R. Eu sentia muito a minha dor, estava completamente ligado a ela.
-2. - Será verdade que o corpo viva ainda alguns instantes depois da decapitação, tendo o supliciado a consciência das suas idéias? - R. O Espírito retira-se pouco a pouco; quanto mais o retêm os laços materiais, menos pronta é a separação.
-3. - Dizem que se há notado a expressão da cólera e movimentos na fisionomia de certos supliciados, como se estes quisessem falar; será isso efeito de contrações nervosas, ou um ato da vontade? - R. Da vontade, visto como o Espírito não se tem desligado.
-4. - Qual o primeiro sentimento que experimentastes ao penetrar na vossa nova existência? - R. Um sofrimento intolerável, uma espécie de remorso pungente cuja causa ignorava.
-5. - Acaso vos achastes reunido aos vossos cúmplices concomitantemente supliciados? - R. Infelizmente, sim, por desgraça nossa, pois essa visão recíproca é um suplício contínuo, exprobrando-se uns aos outros os seus crimes.
-6. - Tendes encontrado as vossas vítimas? - R. Vejo-as... são felizes; seus olhares perseguem-me... sinto que me varam o ser e debalde tento fugir-lhes. - P. Que impressão vos causam esses olhares? - R. Vergonha e remorso. Ocasionei-os voluntariamente e ainda os abomino.
+6.Vistes o corpo mutilado? - R. Vi qualquer coisa informe, à qual me parecia integrado; entretanto, reconhecia-me intacto, isto é, que eu era eu mesmo... - P. Que impressões vos advieram desse fato? - R. Eu sentia muito a minha dor, estava completamente ligado a ela.
+7.Será verdade que o corpo viva ainda alguns instantes depois da decapitação, tendo o supliciado a consciência das suas idéias? - R. O Espírito retira-se pouco a pouco; quanto mais o retêm os laços materiais, menos pronta é a separação.
+8.Dizem que se há notado a expressão da cólera e movimentos na fisionomia de certos supliciados, como se estes quisessem falar; será isso efeito de contrações nervosas, ou um ato da vontade? - R. Da vontade, visto como o Espírito não se tem desligado.
+9.Qual o primeiro sentimento que experimentastes ao penetrar na vossa nova existência? - R. Um sofrimento intolerável, uma espécie de remorso pungente cuja causa ignorava.
+10.Acaso vos achastes reunido aos vossos cúmplices concomitantemente supliciados? - R. Infelizmente, sim, por desgraça nossa, pois essa visão recíproca é um suplício contínuo, exprobrando-se uns aos outros os seus crimes.
+11.Tendes encontrado as vossas vítimas? - R. Vejo-as... são felizes; seus olhares perseguem-me... sinto que me varam o ser e debalde tento fugir-lhes. - P. Que impressão vos causam esses olhares? - R. Vergonha e remorso. Ocasionei-os voluntariamente e ainda os abomino.
 
 
 
@@ -5950,17 +5805,17 @@ tava em meu Espírito, sentindo o corpo a dor física; mas o Espírito desligado
 
 # 2ª PARTE - CAPÍTULO VI
 
-- P. E qual a impressão que lhes causais vós? - R. Piedade, é sentimento que lhes apreendo a meu respeito.
+P. E qual a impressão que lhes causais vós? - R. Piedade, é sentimento que lhes apreendo a meu respeito.
 
-12. - Terão por sua vez o ódio e o desejo de vingança? - R. Não; os olhares que volvem lembram-me a minha expiação. Vós não podeis avaliar o suplício horrível de tudo devermos àqueles a quem odiamos.
+12.Terão por sua vez o ódio e o desejo de vingança? - R. Não; os olhares que volvem lembram-me a minha expiação. Vós não podeis avaliar o suplício horrível de tudo devermos àqueles a quem odiamos.
 
-13. - Lamentais a perda da vida corporal? - R. Apenas lamento os meus crimes. Se o fato ainda dependesse de mim, não mais sucumbiria.
+13.Lamentais a perda da vida corporal? - R. Apenas lamento os meus crimes. Se o fato ainda dependesse de mim, não mais sucumbiria.
 
-14. - O pendor para o mal estava na vossa natureza, ou fostes ainda influenciado pelo meio em que vivestes? - R. Sendo eu um Espírito inferior, a tendência para o mal estava na minha própria natureza. Quis elevar-me rapidamente, mas pedi mais do que comportavam as minhas forças. Acreditando-me forte, escolhi uma rude prova e acabei por ceder às tentações do mal.
+14.O pendor para o mal estava na vossa natureza, ou fostes ainda influenciado pelo meio em que vivestes? - R. Sendo eu um Espírito inferior, a tendência para o mal estava na minha própria natureza. Quis elevar-me rapidamente, mas pedi mais do que comportavam as minhas forças. Acreditando-me forte, escolhi uma rude prova e acabei por ceder às tentações do mal.
 
-15. - Se tivésseis recebido sãos princípios de educação, ter-vos-íeis desviado da senda criminosa? - R. Sim, mas eu havia escolhido a condição do nascimento. - P. Acaso não vos poderíeis ter feito homem de bem? - R. Um homem fraco é incapaz, tanto para o bem como para o mal. Poderia, talvez, corrigir na vida o mal inerente à minha natureza, mas nunca me elevar à prática do bem.
+15.Se tivésseis recebido sãos princípios de educação, ter-vos-íeis desviado da senda criminosa? - R. Sim, mas eu havia escolhido a condição do nascimento. - P. Acaso não vos poderíeis ter feito homem de bem? - R. Um homem fraco é incapaz, tanto para o bem como para o mal. Poderia, talvez, corrigir na vida o mal inerente à minha natureza, mas nunca me elevar à prática do bem.
 
-16. - Quando encarnado acreditáveis em Deus? - R. Não. - P. Mas dizem que à última hora vos arrependeste.... - R. Porque acreditei num Deus vingativo, era natural que o temesse... - P. E agora o vosso arrependimento é mais sincero? - R. Pudera! Eu vejo o que fiz... - P. Que pensais de Deus então? - R. Sinto-o e não o compreendo.
+16.Quando encarnado acreditáveis em Deus? - R. Não. - P. Mas dizem que à última hora vos arrependeste.... - R. Porque acreditei num Deus vingativo, era natural que o temesse... - P. E agora o vosso arrependimento é mais sincero? - R. Pudera! Eu vejo o que fiz... - P. Que pensais de Deus então? - R. Sinto-o e não o compreendo.
 
 
 
@@ -5969,23 +5824,23 @@ tava em meu Espírito, sentindo o corpo a dor física; mas o Espírito desligado
 
 # CRIMINOSOS ARREPENDIDOS
 
-17. - Parece-vos justo o castigo que vos infligiram na Terra? - R. Sim.
+17.Parece-vos justo o castigo que vos infligiram na Terra? - R. Sim.
 
-18. - Esperais obter o perdão dos vossos crimes? - R. Não sei.
+18.Esperais obter o perdão dos vossos crimes? - R. Não sei.
 
-- P. Como pretendeis repará-los? Por novas provações, conquanto me pareça que uma eternidade existe entre elas e mim.
+P. Como pretendeis repará-los? Por novas provações, conquanto me pareça que uma eternidade existe entre elas e mim.
 
-19. - Onde vos achais agora? - R. Estou no meu sofrimento.
+19.Onde vos achais agora? - R. Estou no meu sofrimento.
 
-- P. Perguntamos qual o lugar em que vos encontrais... - R. Perto da médium.
+P. Perguntamos qual o lugar em que vos encontrais... - R. Perto da médium.
 
-20. - Uma vez que assim é, sob que forma vos veríamos, se tal nos fosse possível? - R. Ver-me-íeis sob a minha forma corpórea: a cabeça separada do tronco.
+20.Uma vez que assim é, sob que forma vos veríamos, se tal nos fosse possível? - R. Ver-me-íeis sob a minha forma corpórea: a cabeça separada do tronco.
 
-- P. Podereis aparecer-nos? - R. Não; deixai-me.
+P. Podereis aparecer-nos? - R. Não; deixai-me.
 
-21. - Poderíeis dizer-nos como vos evadistes da prisão de Montdidier? - R. Nada mais sei... é tão grande o meu sofrimento, que apenas guardo a lembrança do crime... Deixai-me.
+21.Poderíeis dizer-nos como vos evadistes da prisão de Montdidier? - R. Nada mais sei... é tão grande o meu sofrimento, que apenas guardo a lembrança do crime... Deixai-me.
 
-22. - Poderíamos concorrer para vos aliviar desse sofrimento? - R. Fazei votos para que sobrevenha a expiação.
+22.Poderíamos concorrer para vos aliviar desse sofrimento? - R. Fazei votos para que sobrevenha a expiação.
 
 # BENOIST
 
@@ -5993,7 +5848,7 @@ tava em meu Espírito, sentindo o corpo a dor física; mas o Espírito desligado
 
 Nota - Um Espírito apresenta-se espontaneamente ao médium, sob o nome de Benoist, dizendo ter morrido em 1704 e padecer horríveis sofrimentos.
 
-1. - Que fostes na Terra? - R. Frade sem fé.
+1.Que fostes na Terra? - R. Frade sem fé.
 
 
 
@@ -6002,17 +5857,17 @@ Nota - Um Espírito apresenta-se espontaneamente ao médium, sob o nome de Benoi
 
 # 2ª PARTE - CAPÍTULO VI
 
-2. - Foi a descrença a vossa única falta? - R. Só ela é bastante para acarretar outras.
+2.Foi a descrença a vossa única falta? - R. Só ela é bastante para acarretar outras.
 
-3. - Podereis dar-nos alguns pormenores sobre a vossa vida? Ser-vos-á levada em boa conta a sinceridade da confissão. - R. Pobre e indolente, ordenei-me para ter uma posição, sem pendor aliás para tal encargo. Inteligente, consegui essa posição; influente, abusei do meu poderio; vicioso, corrompi aqueles que tinha por missão salvar; cruel, persegui os que me pareciam querer verberar os meus excessos; os pacíficos foram por mim inquietados. As torturas da fome de muitas vítimas eram extintas amiúde pela violência. Agora, sofro todas as torturas do inferno, ateando-me as vítimas o fogo que me devora. A luxúria e a fome insaciáveis perseguem-me; cresta-me a sede os lábios escaldantes, sem que uma gota lhes cala em refrigério. Orai pelo meu Espírito.
+3.Podereis dar-nos alguns pormenores sobre a vossa vida? Ser-vos-á levada em boa conta a sinceridade da confissão. - R. Pobre e indolente, ordenei-me para ter uma posição, sem pendor aliás para tal encargo. Inteligente, consegui essa posição; influente, abusei do meu poderio; vicioso, corrompi aqueles que tinha por missão salvar; cruel, persegui os que me pareciam querer verberar os meus excessos; os pacíficos foram por mim inquietados. As torturas da fome de muitas vítimas eram extintas amiúde pela violência. Agora, sofro todas as torturas do inferno, ateando-me as vítimas o fogo que me devora. A luxúria e a fome insaciáveis perseguem-me; cresta-me a sede os lábios escaldantes, sem que uma gota lhes cala em refrigério. Orai pelo meu Espírito.
 
-4. - As preces feitas pelos finados deverão ser-vos atribuídas como aos outros? - R. Acreditais que sejam edificantes, e no entanto elas têm para mim o valor das que eu simulava fazer. Não executei o meu trabalho, e, assim, recebo o salário.
+4.As preces feitas pelos finados deverão ser-vos atribuídas como aos outros? - R. Acreditais que sejam edificantes, e no entanto elas têm para mim o valor das que eu simulava fazer. Não executei o meu trabalho, e, assim, recebo o salário.
 
-5. - Nunca vos arrependestes? - R. Há muito tempo; mas ele só veio pelo sofrimento. E como fui surdo ao clamor de vítimas inocentes, o Senhor também é surdo aos meus clamores. Justiça!
+5.Nunca vos arrependestes? - R. Há muito tempo; mas ele só veio pelo sofrimento. E como fui surdo ao clamor de vítimas inocentes, o Senhor também é surdo aos meus clamores. Justiça!
 
-6. - Reconheceis a Justiça do Senhor; pois bem, confiai na sua bondade e socorrei-vos do seu auxílio. - R. Os demônios berram mais do que eu; seus gritos sufocam-me; enchem-me a boca de pez fervente!... Eu o fiz, grande... (O Espírito não pôde escrever a palavra Deus.)
+6.Reconheceis a Justiça do Senhor; pois bem, confiai na sua bondade e socorrei-vos do seu auxílio. - R. Os demônios berram mais do que eu; seus gritos sufocam-me; enchem-me a boca de pez fervente!... Eu o fiz, grande... (O Espírito não pôde escrever a palavra Deus.)
 
-7. - Não estais suficientemente liberto das idéias terrenas de modo a compreender que essas torturas são todas morais? - R. Sofro-as... sinto-as... vejo os meus
+7.Não estais suficientemente liberto das idéias terrenas de modo a compreender que essas torturas são todas morais? - R. Sofro-as... sinto-as... vejo os meus
 
 
 
@@ -6023,15 +5878,15 @@ Nota - Um Espírito apresenta-se espontaneamente ao médium, sob o nome de Benoi
 
 carrascos, que têm todos uma cara conhecida, um nome que repercute em meu cérebro.
 
-1. Mas, que poderia impelir-vos ao cometimento de tantas infâmias? - R. Os vícios de que me achava saturado, a brutalidade das paixões.
-2. Nunca implorastes a assistência dos bons Espíritos para vos ajudarem a sair dessa contingência? - R. Apenas vejo os demônios do inferno.
-3. E quando estáveis na Terra temíeis esses demônios? - R. Não, absolutamente, visto que só cria em o nada. Os prazeres a todo o transe constituíam o meu culto. E, pois que lhes consagrei a vida, as divindades do inferno não mais me abandonaram, nem abandonarão!
-4. Então não lobrigais um termo para esses sofrimentos? - R. O infinito não tem termo.
-5. Mas Deus é infinito na sua misericórdia, e tudo pode ter um fim quando lhe aprover. - R. Se Ele o quisesse!
-6. Por que vos viestes inscrever aqui? - R. Não sei mesmo como, mas eu queria falar e gritar para que me aliviassem.
-7. E esses demônios não vos inibem de escrever? - R. Não, mas conservam-se à minha frente, e esperam-me... Também por isso, eu desejaria não terminar.
-8. É a primeira vez que deste modo escreveis? - R. Sim. - P. E sabíeis que os Espíritos podiam assim aproximar-se dos homens? - R. Não. - P. Como, pois, o percebestes? - R. Não sei.
-9. Que sensações experimentastes ao acercar-vos de mim? - R. Um como entorpecimento dos meus terrores.
+8.Mas, que poderia impelir-vos ao cometimento de tantas infâmias? - R. Os vícios de que me achava saturado, a brutalidade das paixões.
+9.Nunca implorastes a assistência dos bons Espíritos para vos ajudarem a sair dessa contingência? - R. Apenas vejo os demônios do inferno.
+10.E quando estáveis na Terra temíeis esses demônios? - R. Não, absolutamente, visto que só cria em o nada. Os prazeres a todo o transe constituíam o meu culto. E, pois que lhes consagrei a vida, as divindades do inferno não mais me abandonaram, nem abandonarão!
+11.Então não lobrigais um termo para esses sofrimentos? - R. O infinito não tem termo.
+12.Mas Deus é infinito na sua misericórdia, e tudo pode ter um fim quando lhe aprover. - R. Se Ele o quisesse!
+13.Por que vos viestes inscrever aqui? - R. Não sei mesmo como, mas eu queria falar e gritar para que me aliviassem.
+14.E esses demônios não vos inibem de escrever? - R. Não, mas conservam-se à minha frente, e esperam-me... Também por isso, eu desejaria não terminar.
+15.É a primeira vez que deste modo escreveis? - R. Sim. - P. E sabíeis que os Espíritos podiam assim aproximar-se dos homens? - R. Não. - P. Como, pois, o percebestes? - R. Não sei.
+16.Que sensações experimentastes ao acercar-vos de mim? - R. Um como entorpecimento dos meus terrores.
 
 
 
@@ -6040,19 +5895,19 @@ carrascos, que têm todos uma cara conhecida, um nome que repercute em meu cére
 
 # 2ª PARTE - CAPÍTULO VI
 
-17. - Como vos apercebestes da vossa presença aqui? - R. Como quando se acorda.
+17.Como vos apercebestes da vossa presença aqui? - R. Como quando se acorda.
 
-18. - Como procedestes para comunicar comigo? - R. Não posso compreender, mas tu também não sentiste?
+18.Como procedestes para comunicar comigo? - R. Não posso compreender, mas tu também não sentiste?
 
-19. - Não se trata de mim, porém de vós... Procurai assegurar-vos do que fazeis enquanto eu escrevo. - R. És o meu pensamento, eis tudo.
+19.Não se trata de mim, porém de vós... Procurai assegurar-vos do que fazeis enquanto eu escrevo. - R. És o meu pensamento, eis tudo.
 
-20. Não tivestes, pois, o desejo de me fazer escrever? - R. Não, sou eu quem escreve, e tu pensas por mim.
+20.Não tivestes, pois, o desejo de me fazer escrever? - R. Não, sou eu quem escreve, e tu pensas por mim.
 
-21. - Procurai assegurar-vos do vosso estado, porque os bons Espíritos que vos cercam vos ajudarão. - R. Não, que os anjos não vêm ao inferno. Tu não estás só? - P. Vedes em torno. - R. Sinto que me auxiliam a atuar sobre ti... a tua mão obedece-me... não te toco, aliás, e seguro-te... Como? Não sei...
+21.Procurai assegurar-vos do vosso estado, porque os bons Espíritos que vos cercam vos ajudarão. - R. Não, que os anjos não vêm ao inferno. Tu não estás só? - P. Vedes em torno. - R. Sinto que me auxiliam a atuar sobre ti... a tua mão obedece-me... não te toco, aliás, e seguro-te... Como? Não sei...
 
-22. - Implorai a assistência dos vossos protetores. Vamos pedir ambos. - R. Queres deixar-me? Fica comigo, porque vão reapossar-se de mim. Eu to peço... Fica! Fica!...
+22.Implorai a assistência dos vossos protetores. Vamos pedir ambos. - R. Queres deixar-me? Fica comigo, porque vão reapossar-se de mim. Eu to peço... Fica! Fica!...
 
-23. - Não posso demorar-me por mais tempo. Voltai diariamente para orarmos juntos e os bons Espíritos vos auxiliarão. - R. Sim, desejo o perdão. Orai por mim, que não posso fazê-lo.
+23.Não posso demorar-me por mais tempo. Voltai diariamente para orarmos juntos e os bons Espíritos vos auxiliarão. - R. Sim, desejo o perdão. Orai por mim, que não posso fazê-lo.
 
 (O guia do médium.) - Coragem, meu filho, porque ser-lhe-á concedido o que pedes, posto longe esteja ainda o termo da expiação. As atrocidades por ele cometidas não têm número nem conta, e maior é a sua culpa porque possuía inteligência, instrução e luzes para guiar-se. Tendo falido com conhecimento de causa, mais terríveis lhe são os sofrimentos, os quais, não obstante, se suavizarão com o auxílio e o exemplo da prece, de modo a que lhes veja o termo, confortado pela esperança. Deus o vê no caminho do arrependimento, e já lhe
 
@@ -6082,7 +5937,7 @@ Rumores e outras estranhas e várias manifestações ocorridas numa casinha pert
 
 tem o seu livre-arbítrio, do qual o infeliz tem feito triste uso.
 
-- P. Este Espírito é passível de melhora? - R. Por que não? pois não o são todos, este como os outros? É possível entretanto que haja nisso dificuldades, porém a permuta do bem pelo mal acabará por sensibilizá-lo. Orai em primeiro lugar, e, se o evocardes daqui a um mês, vereis a transformação operada.
+P. Este Espírito é passível de melhora? - R. Por que não? pois não o são todos, este como os outros? É possível entretanto que haja nisso dificuldades, porém a permuta do bem pelo mal acabará por sensibilizá-lo. Orai em primeiro lugar, e, se o evocardes daqui a um mês, vereis a transformação operada.
 
 Novamente evocado mais tarde, o Espírito mostrou-se mais brando e, pouco a pouco, submisso e arrependido. Explicações posteriores, ministradas não só por ele como por outros Espíritos, deram em resultado saber-se que, em 1608, habitando aquela casa, assassinara um irmão por motivos de terrível ciúme, degolando-o durante o sono. Alguns anos decorridos, também assassinara a esposa.
 
@@ -6090,7 +5945,7 @@ O seu falecimento ocorreu em 1659, na idade de 80 anos, sem que houvesse respond
 
 Um médium vidente que assistiu à primeira evocação viu-o, no momento em que pretendiam forçá-lo a escrever, quando sacudiu violentamente o braço do médium. De medonha catadura, trajava uma camisa ensanguentada, tendo na mão um punhal.
 
-1. - P. (A S. Luís.) - Tende a bondade de nos descrever o gênero de suplício deste Espírito. - R. É atroz, porque está condenado a habitar a casa em que cometeu o crime, sem poder fixar o pensamento noutra coisa que não no crime, tendo-o sempre ante os olhos e acreditando na eternidade de tal tortura. Está como no momento do próprio crime, porque qualquer outra recordação lhe foi retirada e interdita toda comunicação com qualquer outro Espírito. Sobre a Terra, só pode permanecer naquela casa, e no Espaço só lhe restam solidão e trevas.
+1.(A S. Luís.) - Tende a bondade de nos descrever o gênero de suplício deste Espírito. - R. É atroz, porque está condenado a habitar a casa em que cometeu o crime, sem poder fixar o pensamento noutra coisa que não no crime, tendo-o sempre ante os olhos e acreditando na eternidade de tal tortura. Está como no momento do próprio crime, porque qualquer outra recordação lhe foi retirada e interdita toda comunicação com qualquer outro Espírito. Sobre a Terra, só pode permanecer naquela casa, e no Espaço só lhe restam solidão e trevas.
 
 
 
@@ -6099,13 +5954,13 @@ Um médium vidente que assistiu à primeira evocação viu-o, no momento em que 
 
 # CRIMINOSOS ARREPENDIDOS
 
-1. Haveria um meio de o desalojar dessa casa? Qual seria esse meio? - R. Quando se quer desembaraçar obsessões de semelhantes Espíritos, o meio é fácil - orar por eles. Contudo, é precisamente isso que se deixa de fazer muitas vezes, preferindo-se intimidá-los com exorcismos formulados que, aliás, muito os divertem.
-2. Insinuando às pessoas interessadas essa idéia de orar por ele, fazendo-o também nós, conseguiríamos desalojá-lo? - R. Sim, mas reparai que eu disse para orar e não para mandar orar.
-3. - Estando em tal situação há dois séculos, apreciará ele todo esse tempo como se fora encarnado, isto é, o tempo parecer-lhe-á tanto ou menos longo do que quando na Terra? - R. Mais longo: o sono não existe para ele.
-4. - Disseram-nos que o tempo não existe para os Espíritos e que um século, para eles, não passa de um instante na eternidade. Dar-se-á efetivamente esse fato para com todos os Espíritos? - R. Não, decerto, porquanto isso só se dá com os Espíritos que têm atingido elevadíssimo grau de adiantamento; para os inferiores, porém, o tempo é freqüentemente moroso, sobretudo quando sofrem.
-5. - Donde vinha esse Espírito antes da sua encarnação? - R. Tivera uma existência entre tribos das mais ferozes e selvagens, e, precedentemente, em planeta inferior à Terra.
-6. - Severamente punido agora por esse crime, sê-lo-ia igualmente pelos que porventura tivesse cometido, como é de supor, quando vivendo entre selvagens? - R. Sim, porém não tanto, visto como, em ser mais ignorante, menos alcançava a extensão do delito.
-7. - O estado em que se vê esse Espírito é o dos seres vulgarmente designados por danados? - R. Abso-
+2.Haveria um meio de o desalojar dessa casa? Qual seria esse meio? - R. Quando se quer desembaraçar obsessões de semelhantes Espíritos, o meio é fácil - orar por eles. Contudo, é precisamente isso que se deixa de fazer muitas vezes, preferindo-se intimidá-los com exorcismos formulados que, aliás, muito os divertem.
+3.Insinuando às pessoas interessadas essa idéia de orar por ele, fazendo-o também nós, conseguiríamos desalojá-lo? - R. Sim, mas reparai que eu disse para orar e não para mandar orar.
+4.Estando em tal situação há dois séculos, apreciará ele todo esse tempo como se fora encarnado, isto é, o tempo parecer-lhe-á tanto ou menos longo do que quando na Terra? - R. Mais longo: o sono não existe para ele.
+5.Disseram-nos que o tempo não existe para os Espíritos e que um século, para eles, não passa de um instante na eternidade. Dar-se-á efetivamente esse fato para com todos os Espíritos? - R. Não, decerto, porquanto isso só se dá com os Espíritos que têm atingido elevadíssimo grau de adiantamento; para os inferiores, porém, o tempo é freqüentemente moroso, sobretudo quando sofrem.
+6.Donde vinha esse Espírito antes da sua encarnação? - R. Tivera uma existência entre tribos das mais ferozes e selvagens, e, precedentemente, em planeta inferior à Terra.
+7.Severamente punido agora por esse crime, sê-lo-ia igualmente pelos que porventura tivesse cometido, como é de supor, quando vivendo entre selvagens? - R. Sim, porém não tanto, visto como, em ser mais ignorante, menos alcançava a extensão do delito.
+8.O estado em que se vê esse Espírito é o dos seres vulgarmente designados por danados? - R. Abso-
 
 
 
@@ -6116,9 +5971,9 @@ Um médium vidente que assistiu à primeira evocação viu-o, no momento em que 
 
 Lutamente não, pois há condições ainda mais horrorosas. Os sofrimentos estão longe de ser os mesmos para todos, variando conforme seja o culpado mais ou menos acessível ao arrependimento. Para este, aquela casa é o seu inferno, outros trazem esse inferno em si mesmos, pelas paixões que os atormentam sem que possam saciá-las.
 
-9. Apesar da sua inferioridade, este Espírito é sensível aos efeitos da prece, o que também temos verificado com Espíritos igualmente perversos e da mais grosseira natureza; entretanto, Espíritos há que, esclarecidos, de mais desenvolvida inteligência, demonstram completa ausência de bons sentimentos, motejando de tudo que há de mais sagrado; a nada se comovendo e até não dando tréguas ao seu cinismo... - R. A prece só aproveita ao Espírito que se arrepende; para aqueles que, arrebatados de orgulho, se revoltam contra Deus e persistem no erro, exagerando-o mesmo, tal como procedem os infelizes; para esses a prece nada adianta, nem adiantará senão quando tênue vislumbre de arrependimento começar a germinar-lhes na consciência. A ineficácia da prece também é para eles um castigo. Enfim, ela só alivia os não totalmente endurecidos.
+9.Apesar da sua inferioridade, este Espírito é sensível aos efeitos da prece, o que também temos verificado com Espíritos igualmente perversos e da mais grosseira natureza; entretanto, Espíritos há que, esclarecidos, de mais desenvolvida inteligência, demonstram completa ausência de bons sentimentos, motejando de tudo que há de mais sagrado; a nada se comovendo e até não dando tréguas ao seu cinismo... - R. A prece só aproveita ao Espírito que se arrepende; para aqueles que, arrebatados de orgulho, se revoltam contra Deus e persistem no erro, exagerando-o mesmo, tal como procedem os infelizes; para esses a prece nada adianta, nem adiantará senão quando tênue vislumbre de arrependimento começar a germinar-lhes na consciência. A ineficácia da prece também é para eles um castigo. Enfim, ela só alivia os não totalmente endurecidos.
 
-10. - Vendo-se um Espírito insensível à ação da prece, será motivo para que se deixe de orar por ele? - R. Não, porquanto, cedo ou tarde, a prece poderá triunfar do seu endurecimento, sugerindo-lhe benéficos pensamentos. O mesmo sucede com certos doentes nos quais a ação medicamentosa só se torna sensível depois de muito tempo, e vice-versa. Compenetrando-nos bem de que todos os Espíritos são suscetíveis de progresso, e que nenhum é fatal e eternamente condenado, fácil nos será compreender a eficácia da prece em quaisquer circunstâncias. Por mais ineficaz que ela possa parecer-nos à primeira vista, o certo é que contém germens em si mesma, bastante benéficos, para bem predisporem o Espírito, quando o não afetem imediatamente. Erro seria, pois, desanimarmos por não colher dela imediato resultado.
+10.Vendo-se um Espírito insensível à ação da prece, será motivo para que se deixe de orar por ele? - R. Não, porquanto, cedo ou tarde, a prece poderá triunfar do seu endurecimento, sugerindo-lhe benéficos pensamentos. O mesmo sucede com certos doentes nos quais a ação medicamentosa só se torna sensível depois de muito tempo, e vice-versa. Compenetrando-nos bem de que todos os Espíritos são suscetíveis de progresso, e que nenhum é fatal e eternamente condenado, fácil nos será compreender a eficácia da prece em quaisquer circunstâncias. Por mais ineficaz que ela possa parecer-nos à primeira vista, o certo é que contém germens em si mesma, bastante benéficos, para bem predisporem o Espírito, quando o não afetem imediatamente. Erro seria, pois, desanimarmos por não colher dela imediato resultado.
 
 
 
@@ -6127,19 +5982,19 @@ Lutamente não, pois há condições ainda mais horrorosas. Os sofrimentos estã
 
 # CRIMINOSOS ARREPENDIDOS
 
-11. Ao reencarnar-se este Espírito, qual será a sua categoria? - R. Depende dele e do arrependimento que então tiver. Muitos colóquios com este Espírito deram em resultado notável transformação do seu moral. Eis aqui algumas das suas respostas:
+11.Ao reencarnar-se este Espírito, qual será a sua categoria? - R. Depende dele e do arrependimento que então tiver. Muitos colóquios com este Espírito deram em resultado notável transformação do seu moral. Eis aqui algumas das suas respostas:
 
-12. - (Ao Espírito.) Por que não pudestes escrever da primeira vez que vos evocamos? - R. Porque não queria. - P. Mas por quê? - R. Ignorância e embrutecimento.
+12.(Ao Espírito.) Por que não pudestes escrever da primeira vez que vos evocamos? - R. Porque não queria. - P. Mas por quê? - R. Ignorância e embrutecimento.
 
-13. - Agora podeis deixar, quando vos apraz, a casa de Castelnaudary? - R. Permitem-mo, porque aproveito os vossos conselhos. - P. Sentis algum alívio? - R. Começo a ter esperança.
+13.Agora podeis deixar, quando vos apraz, a casa de Castelnaudary? - R. Permitem-mo, porque aproveito os vossos conselhos. - P. Sentis algum alívio? - R. Começo a ter esperança.
 
-14. - Se possível nos fora o vermo-vos, qual a vossa aparência? - R. Ver-me-íeis com a camisa, mas sem o punhal. - P. Por que não mais com o punhal? Que fim lhe destes? - R. Amaldiçoando-o, Deus arrebatou-mo das vistas.
+14.Se possível nos fora o vermo-vos, qual a vossa aparência? - R. Ver-me-íeis com a camisa, mas sem o punhal. - P. Por que não mais com o punhal? Que fim lhe destes? - R. Amaldiçoando-o, Deus arrebatou-mo das vistas.
 
-15. - Se o filho do Sr. D... (o da bofetada) voltasse àquela casa, que lhe faríeis? - R. Nada, porque estou arrependido. - P. E se ele pretendesse ainda desafiar-vos? - R. Não me façais essa pergunta! Eu não me dominaria, isso está acima das minhas forças, pois sou um miserável.
+15.Se o filho do Sr. D... (o da bofetada) voltasse àquela casa, que lhe faríeis? - R. Nada, porque estou arrependido. - P. E se ele pretendesse ainda desafiar-vos? - R. Não me façais essa pergunta! Eu não me dominaria, isso está acima das minhas forças, pois sou um miserável.
 
-16. - Lobrigais um termo aos vossos padecimentos? - R. Oh! ainda não. É já muito o saber, graças à vossa intercessão, que esses padecimentos não serão eternos.
+16.Lobrigais um termo aos vossos padecimentos? - R. Oh! ainda não. É já muito o saber, graças à vossa intercessão, que esses padecimentos não serão eternos.
 
-17. - Tende a bondade de nos descrever a vossa situação antes de vos evocarmos pela primeira vez. Não é preciso acrescentarmos que este pedido tem por fim sabermos como ser-vos úteis, e não a simples e fútil curiosidade. - R. Já vos disse que nada mais compreendia além do meu crime, e que não podia abandonar a casa em que o cometi, a não ser para vagar no Espaço, solitário e obscuro; disso não poderia eu dar-vos uma idéia.
+17.Tende a bondade de nos descrever a vossa situação antes de vos evocarmos pela primeira vez. Não é preciso acrescentarmos que este pedido tem por fim sabermos como ser-vos úteis, e não a simples e fútil curiosidade. - R. Já vos disse que nada mais compreendia além do meu crime, e que não podia abandonar a casa em que o cometi, a não ser para vagar no Espaço, solitário e obscuro; disso não poderia eu dar-vos uma idéia.
 
 
 
@@ -6150,9 +6005,9 @@ Lutamente não, pois há condições ainda mais horrorosas. Os sofrimentos estã
 
 porque nunca pude compreender o que se passava. Desde que me alçava ao Espaço, era tudo negrume e vácuo, ou, antes, não sei mesmo o que era... Hoje o meu remorso é muito maior, e no entanto não sou constrangido a permanecer naquela casa fatal, sendo-me permitido vagar sobre a Terra e orientar-me pela observação de quanto aí vejo, compreendendo melhor, assim, a enormidade dos meus crimes, e, se menos sofro por um lado, por outro aumentam as torturas do remorso... Mas... ainda bem que tenho esperança.
 
-18. - A terdes de reencarnar, que existência preferiríeis? - R. Sobre isso não tenho meditado suficientemente.
+18.A terdes de reencarnar, que existência preferiríeis? - R. Sobre isso não tenho meditado suficientemente.
 
-19. - Durante o vosso longo insulamento - quase podemos dizer cativeiro - experimentastes algum remorso? - R. Nenhum, e por isso sofri tão longamente. Somente quando o senti, foi que ele provocou, sem que disso me apercebesse, as circunstâncias determinantes da vossa evocação ao meu Espírito, para inicio da libertação. Obrigado, pois, a vós que de mim vos apiedastes e me esclarecestes.
+19.Durante o vosso longo insulamento - quase podemos dizer cativeiro - experimentastes algum remorso? - R. Nenhum, e por isso sofri tão longamente. Somente quando o senti, foi que ele provocou, sem que disso me apercebesse, as circunstâncias determinantes da vossa evocação ao meu Espírito, para inicio da libertação. Obrigado, pois, a vós que de mim vos apiedastes e me esclarecestes.
 
 Efetivamente, temos visto avaros sofrerem à vista do ouro, que para eles não passava de verdadeira quimera; orgulhosos, atormentados pelo ciúme das honrarias prestadas a outros que não eles; homens que dominavam na Terra, humilhados pela potência invisível, constrangidos à obediência, em presença de subordinados, que não mais se lhe curvavam; ateus atônitos pela dúvida, em face da imensidade, no mais absoluto insulamento, sem um ser que os esclareça.
 
@@ -6194,7 +6049,7 @@ Deus patenteia por esse modo a solidariedade existente entre todos os seres do U
 
 Aos sofredores jamais faltaram socorros em qualquer época e, se as evocações lhes proporcionam uma nova via de salvação, aproveitam ainda mais, talvez, aos encarnados, por lhes proporcionar novos meios de fazer o benefício, instruindo-se ao mesmo tempo sobre as condições da vida futura.
 
-JACQUES LATOUR
+# JACQUES LATOUR
 
 (Assassino condenado pelo júri de Foix e executado em setembro de 1864)
 
@@ -6215,7 +6070,7 @@ Surpreendidos com a inesperada comunicação, de modo algum provocada, visto com
 
 nesse infeliz, cuja morte até então era ignorada por uma parte dos assistentes, dirigimos ao Espírito palavras de conforto e comiseração, fazendo-lhe em seguida esta pergunta:
 
-- Que motivo vos levou a manifestar-vos aqui, de preferência a outro lugar, quando não vos evocamos?
+Que motivo vos levou a manifestar-vos aqui, de preferência a outro lugar, quando não vos evocamos?
 
 Responde o médium de viva voz:
 
@@ -6254,7 +6109,6 @@ Feita essa prece, o Espírito continua, depois de breves instantes de calma: "Ob
 Depois desta cena o médium fica alquebrado, abatido, os membros lassos por algum tempo. A princípio, apenas tem vaga idéia do que se há passado, mas pouco a pouco vai-se lembrando de algumas das palavras que
 
 
-
 ---
 
 
@@ -6287,7 +6141,7 @@ Voltarei a manifestar-me na Sociedade, a fim de fazer revelações que serão um
 ---
 
 
-CRIMINOSOS ARREPENDIDOS
+# CRIMINOSOS ARREPENDIDOS
 
 minhas faltas, podendo também servir de ensinamento a todos os criminosos que me lerem e meditarem na exposição dos meus sofrimentos. É somente sobre o Espírito dos homens fracos ou das crianças que a narrativa de penas infernais pode produzir efeitos terroristas. Ora; um grande malfeitor não é um Espírito pusilânime, e o temor de um polícia é para ele mais real que a descrição dos tormentos do inferno. Eis por que todos os que me lerem ficarão comovidos com as minhas palavras e com os meus padecimentos, que não são ficções. Não há um só padre que possa dizer que viu o que tenho visto, porque tenho assistido às torturas dos danados. Mas, quando eu vier dizer: "Eis o que se passou após a minha morte, a morte do corpo; eis a minha enorme decepção ao reconhecer-me vivo, ao contrário do que supunha e tinha tomado pelo termo dos suplícios, quando era o começo de outras torturas, aliás indescritíveis!" - então, mais de um ser estará à borda do precipício em que ia despenhar-se, e cada um dos desgraçados, desviados por mim da senda criminosa, concorrerá para o resgate das minhas faltas.
 
@@ -6299,9 +6153,7 @@ Sim, oremos juntos. A prece faz tanto bem... Estou mais aliviado; não sinto tã
 
 # II
 
-# O médium.
-
-Em vez de pedir a Deus para vos furtar ao olhar das vossas vítimas, eu vos convido a pedir co-
+O médium - Em vez de pedir a Deus para vos furtar ao olhar das vossas vítimas, eu vos convido a pedir co-
 
 
 
@@ -6389,7 +6241,6 @@ Latour."
 Não se pode desconhecer a profundeza e a alta significação de algumas das frases encerradas nessa comunicação. Além disso, ela oferece um dos aspectos do mundo dos Espíritos em castigo, pairando ainda assim sobre ele a misericórdia divina. A alegoria mitológica das Eumênides não é tão ridícula como parece, e os demônios, carrascos oficiais do mundo invisível, que as substituem perante as modernas crenças, são menos racionais com seus cornos e forcados, do que estas vítimas que servem elas próprias ao castigo do culpado.
 
 Admitindo-se a identidade deste Espírito, talvez se estranhe tão pronta mudança do seu moral. É o caso da ponderação já feita, de que pode um Espírito brutalmente mau ter em si melhores predicados do que o dominado pelo orgulho ou pela hipocrisia. Esta reversão a sentimentos mais benéficos indica uma natureza mais selvagem que perversa, à qual apenas faltava boa direção. Comparando esta linguagem com a de outro Espírito, adiante consignada sob a epígrafe: castigo pela luz, é fácil concluir qual dos dois seja mais adiantado moralmente, apesar da disparidade de instrução e hierarquia social, obedecendo um ao natural instinto de ferocidade.
-
 
 
 ---
@@ -6503,7 +6354,6 @@ Para estes, a luz brilha, gozando o Espírito, e plenamente, das suas faculdades
 E ainda nesta frase: - "a luz ofusca-me e penetra, qual flecha aguda, a sutileza do meu ser". Essas palavras: - "sutileza do meu ser", são características, dando a entender que sabe que o seu corpo é fluídico e penetrável à luz, à qual não pode escapar, luz que o penetra qual aguda flecha. Este Espírito aqui está colocado entre os endurecidos, em razão do muito tempo que levou, antes que manifestasse arrependimen-
 
 
-
 ---
 
 
@@ -6520,7 +6370,6 @@ Neste caso a expiação ou, antes, o sofrimento fatal que os oprime, ao invés d
 Esta frase, simbólica por excelência, é o sinal do sofredor abatido, porém insubmisso, isolado na própria dor, mas bastante forte ainda para recusar a verdade do castigo e da recompensa! Os grandes erros perduram no mundo espiritual quase sempre, assim como as consciências grandemente criminosas. Lutar, apesar de tudo, e desafiar o infinito, pode comparar-se à cegueira do homem que, contemplando as estrelas, as tivesse por arabescos de um teto, tal como acreditavam os gauleses do tempo de Alexandre.
 
 O infinito moral existe! E miserável e mesquinho é quem, a pretexto de continuar as lutas e imposturas abjetas da Terra, não vê mais longe no outro mundo, do que neste.
-
 
 
 ---
@@ -6588,11 +6437,11 @@ Ao lado deste quadro vivo, baseado sobre um fato, eis, para estabelecer um paral
 
 Com este nome, um Espírito se apresentou espontaneamente ao médium.
 
-1. - Arrependei-vos das vossas faltas? - R. Não. - P. Então por que me procurais? - R. Para experimentar. - P. Acaso não sois feliz? - R. Não. - P. Sofreis? - R. Não. - P. Que vos falta, pois? - R. A paz.
+1.Arrependei-vos das vossas faltas? - R. Não. - P. Então por que me procurais? - R. Para experimentar. - P. Acaso não sois feliz? - R. Não. - P. Sofreis? - R. Não. - P. Que vos falta, pois? - R. A paz.
 
 Nota - Certos Espíritos só consideram sofrimento o que lhes lembra as suas dores físicas, convindo, não obstante, ser intolerável o seu estado moral.
-2. - Como pode faltar-vos a paz na vida espiritual? - R. Uma mágoa do passado. - P. A mágoa do passado é remorso; estareis, pois, arrependida? - R. Não; temor do futuro é o que experimento. - P. Que temeis? - R. O desconhecido.
-3. - Estais disposta a dizer-me o que fizestes na última encarnação? Isso talvez me facilite a orientar-vos. - R. Nada.
+2.Como pode faltar-vos a paz na vida espiritual? - R. Uma mágoa do passado. - P. A mágoa do passado é remorso; estareis, pois, arrependida? - R. Não; temor do futuro é o que experimento. - P. Que temeis? - R. O desconhecido.
+3.Estais disposta a dizer-me o que fizestes na última encarnação? Isso talvez me facilite a orientar-vos. - R. Nada.
 
 
 
@@ -6601,11 +6450,11 @@ Nota - Certos Espíritos só consideram sofrimento o que lhes lembra as suas dor
 
 # 2ª PARTE - CAPÍTULO VII
 
-4. - Qual a vossa posição social? - R. Mediana. - P. Fostes casada? - R. Sim; fui esposa e mãe. - P. E cumpristes zelosa os deveres decorrentes desse duplo encargo? - R. Não; meu marido entediava-me, bem como meus filhos.
+4.Qual a vossa posição social? - R. Mediana. - P. Fostes casada? - R. Sim; fui esposa e mãe. - P. E cumpristes zelosa os deveres decorrentes desse duplo encargo? - R. Não; meu marido entediava-me, bem como meus filhos.
 
-5. - E de que modo preenchestes a existência? - R. Divertindo-me em solteira e enfadando-me como mulher. - P. Quais eram as vossas ocupações? - R. Nenhuma. - P. E quem cuidava da vossa casa? - R. A criada.
+5.E de que modo preenchestes a existência? - R. Divertindo-me em solteira e enfadando-me como mulher. - P. Quais eram as vossas ocupações? - R. Nenhuma. - P. E quem cuidava da vossa casa? - R. A criada.
 
-6. - Não será cabível atribuir a essa inércia a causa dos vossos pesares e temores? - R. Talvez tenhais razão. Mas não basta concordar. - P. Quereis reparar a inutilidade dessa existência e auxiliar os Espíritos sofredores que nos cercam? - R. Como? - P. Ajudando-os a aperfeiçoarem-se pelos vossos conselhos e pelas vossas preces. - R. Eu não sei orar. - P. Fá-lo-emos juntos e aprendereis. Sim? - R. Não. - P. Mas por quê? - R. Cansa.
+6.Não será cabível atribuir a essa inércia a causa dos vossos pesares e temores? - R. Talvez tenhais razão. Mas não basta concordar. - P. Quereis reparar a inutilidade dessa existência e auxiliar os Espíritos sofredores que nos cercam? - R. Como? - P. Ajudando-os a aperfeiçoarem-se pelos vossos conselhos e pelas vossas preces. - R. Eu não sei orar. - P. Fá-lo-emos juntos e aprendereis. Sim? - R. Não. - P. Mas por quê? - R. Cansa.
 
 # Instruções do guia do médium
 
@@ -6623,9 +6472,9 @@ Deturpou-lhes o coração e os sentimentos, já por seu exemplo, já pelo abando
 
 Estudai os ensinamentos do Senhor; meditai-os e compenetrai-vos de que eles, se vos fazem estacar na senda do mal, também vos impõem voltar atrás, a fim de tomardes o caminho oposto que conduz ao bem. O mal é a antítese do bem; logo, quem quiser evitar o primeiro deve seguir o segundo, sem o qual a vida se torna nula, mortas as suas obras, e Deus, nosso pai, não é o Deus dos mortos, mas dos vivos.
 
-- P. Ser-me-á permitido saber qual teria sido a penúltima existência de Angèle? A última deveria ter sido conseqüência dela, isto é, da penúltima.
+P. Ser-me-á permitido saber qual teria sido a penúltima existência de Angèle? A última deveria ter sido conseqüência dela, isto é, da penúltima.
 
-- R. Ela viveu na indolência beatífica, na inutilidade da vida monástica. Preguiçosa e egoísta por gosto, quis experimentar a vida doméstica, mas seu Espírito pouco progrediu. Sempre repeliu a voz íntima que lhe apontava o perigo, e, como a propensão era suave, preferiu abandonar-se a ela, a fazer um esforço para sustá-la em começo. Hoje ainda compreende o perigo dessa neutralidade, mas não se sente com forças para tentar o mínimo esforço. Orai por ela, procurai despertá-la e fazer que seus olhos se abram à luz. É um dever, e dever algum se despreza.
+R. Ela viveu na indolência beatífica, na inutilidade da vida monástica. Preguiçosa e egoísta por gosto, quis experimentar a vida doméstica, mas seu Espírito pouco progrediu. Sempre repeliu a voz íntima que lhe apontava o perigo, e, como a propensão era suave, preferiu abandonar-se a ela, a fazer um esforço para sustá-la em começo. Hoje ainda compreende o perigo dessa neutralidade, mas não se sente com forças para tentar o mínimo esforço. Orai por ela, procurai despertá-la e fazer que seus olhos se abram à luz. É um dever, e dever algum se despreza.
 
 O homem foi criado para a atividade; a atividade do Espírito é da sua própria essência; e a do corpo, uma necessidade. Cumpri, portanto, as prescrições da existência, como Espírito votado à paz eterna. A serviço do Espírito, o corpo mais não é que máquina submetida à inteligência:
 
@@ -6650,12 +6499,8 @@ Monod.
 
 Este Espírito apresenta-se espontaneamente ao médium, reclamando preces.
 
-1. Que vos leva a pedir preces? - R. Estou farto de vagar sem objetivo.
-2. Estais há muito em tal situação? - R. Faz cento e oitenta anos mais ou menos.
-3. Que fizestes na Terra? - R. Nada de bom.
-4. Qual a vossa posição entre os Espíritos? - R. Estou entre os entediados.
-5. Mas isso não forma categoria... - R. Entre nós, tudo forma categoria. Cada sensação encontra suas semelhantes, ou suas simpatias que se reúnem.
-
+1.Que vos leva a pedir preces? - R. Estou farto de vagar sem objetivo. - Estais há muito em tal situação? - R. Faz cento e oitenta anos mais ou menos. - Que fizestes na Terra? - R. Nada de bom.
+2.Qual a vossa posição entre os Espíritos? - R. Estou entre os entediados - Mas isso não forma categoria... - R. Entre nós, tudo forma categoria. Cada sensação encontra suas semelhantes, ou suas simpatias que se reúnem.
 
 
 ---
@@ -6663,22 +6508,13 @@ Este Espírito apresenta-se espontaneamente ao médium, reclamando preces.
 
 # ESPÍRITOS ENDURECIDOS
 
-# 3.
+3.Por que permanecestes tanto tempo estacionário, sem que fosseis condenado a sofrer? - R. É que eu estava votado ao tédio, que entre nós é um sofrimento. Tudo o que não é alegria, é dor. - P. Fostes, pois, forçado à erraticidade contra a vontade? - R. São coisas sutilíssimas para vossa inteligência material. - P. Procurando explicar-me essas coisas, talvez comeceis a beneficiar-vos a vós mesmos... - R. Faltando-me termos de comparação, não poderei fazê-lo. Uma vida sem proveito, extinguindo-se, lega ao Espírito, que a encarnou, o mesmo que ao papel pode legar o fogo quando o consome - fagulhas, que lembram às cinzas ainda compactas a sua proveniência, a causa do seu nascimento, ou, se o quiseres, da destruição do papel. Essas fagulhas são a lembrança dos laços terrestres que vinculam o Espírito, até que este disperse as cinzas do seu corpo. Então, e só então, tem ele, eterizada essência, o conhecimento de si mesmo, desejando o progresso.
 
-Por que permanecestes tanto tempo estacionário, sem que fosseis condenado a sofrer? - R. É que eu estava votado ao tédio, que entre nós é um sofrimento. Tudo o que não é alegria, é dor. - P. Fostes, pois, forçado à erraticidade contra a vontade? - R. São coisas sutilíssimas para vossa inteligência material. - P. Procurando explicar-me essas coisas, talvez comeceis a beneficiar-vos a vós mesmos... - R. Faltando-me termos de comparação, não poderei fazê-lo. Uma vida sem proveito, extinguindo-se, lega ao Espírito, que a encarnou, o mesmo que ao papel pode legar o fogo quando o consome - fagulhas, que lembram às cinzas ainda compactas a sua proveniência, a causa do seu nascimento, ou, se o quiseres, da destruição do papel. Essas fagulhas são a lembrança dos laços terrestres que vinculam o Espírito, até que este disperse as cinzas do seu corpo. Então, e só então, tem ele, eterizada essência, o conhecimento de si mesmo, desejando o progresso.
+4.Qual poderia ter sido a causa desse aborrecimento de que vos acusais? - R. conseqüências da existência. O tédio é filho da inação; por não ter eu sabido utilizar o longo tempo de encarnação, as conseqüências vieram refletir-se neste mundo.
 
-# 4.
+5.Os Espíritos que, como vós, foram tomados de tédio, não podem libertar-se de tal contingência desde que o desejem? - R. Não, nem sempre, porque o tédio lhes paralisa a vontade. Sofrem as conseqüências da vida que levaram, e, como foram inúteis, desprovidos de iniciativa, assim também não encontram entre si concurso algum. Entregues a si mesmos, nesse estado permanecem, até que o cansaço, decorrente de tal neutralidade, os agite em sentido contrario, momento no qual a sua menor vontade vai encontrar apoio e bons conselhos e secundar-lhes o esforço e a perseverança.
 
-Qual poderia ter sido a causa desse aborrecimento de que vos acusais? - R. conseqüências da existência. O tédio é filho da inação; por não ter eu sabido utilizar o longo tempo de encarnação, as conseqüências vieram refletir-se neste mundo.
-
-# 5.
-
-Os Espíritos que, como vós, foram tomados de tédio, não podem libertar-se de tal contingência desde que o desejem? - R. Não, nem sempre, porque o tédio lhes paralisa a vontade. Sofrem as conseqüências da vida que levaram, e, como foram inúteis, desprovidos de iniciativa, assim também não encontram entre si concurso algum. Entregues a si mesmos, nesse estado permanecem, até que o cansaço, decorrente de tal neutralidade, os agite em sentido contrario, momento no qual a sua menor vontade vai encontrar apoio e bons conselhos e secundar-lhes o esforço e a perseverança.
-
-# 6.
-
-Podeis dizer-me algo da vossa existência terrena? - R. Oh! Deveis compreender que pouco me é dado
-
+6.Podeis dizer-me algo da vossa existência terrena? - R. Oh! Deveis compreender que pouco me é dado
 
 
 ---
@@ -6688,11 +6524,11 @@ Podeis dizer-me algo da vossa existência terrena? - R. Oh! Deveis compreender q
 
 dizer, visto como o tédio, a nulidade e a inação provêm da preguiça, que, por sua vez, é mãe da ignorância.
 
-7. - E não vos aproveitaram as existências anteriores? - R. Sim, todas, porém, parcamente, visto serem reflexos umas das outras. O progresso existe sempre, porém tão insensível que se nos torna inapreciável.
+7.E não vos aproveitaram as existências anteriores? - R. Sim, todas, porém, parcamente, visto serem reflexos umas das outras. O progresso existe sempre, porém tão insensível que se nos torna inapreciável.
 
-8. - Enquanto esperais uma nova encarnação, apraz-vos repetir as vossas comunicações? - R. Evocai-me para me obrigardes a vir, pois com isso me prestareis um beneficio.
+8.Enquanto esperais uma nova encarnação, apraz-vos repetir as vossas comunicações? - R. Evocai-me para me obrigardes a vir, pois com isso me prestareis um beneficio.
 
-9. - Podeis dizer-nos por que tão freqüentemente varia a vossa caligrafia? - R. Porque interrogais muito, o que aliás me fatiga, quando tenho necessidade de auxilio.
+9.Podeis dizer-nos por que tão freqüentemente varia a vossa caligrafia? - R. Porque interrogais muito, o que aliás me fatiga, quando tenho necessidade de auxilio.
 
 O guia do médium. - O trabalho intelectual é que o fatiga, obrigando-nos a prestar o nosso concurso para que possa dar resposta às tuas perguntas. Este é um ocioso no mundo espiritual, assim como o foi no planeta. Trouxemo-lo a ti para que tentasses arrancá-lo dessa apatia, desse tédio que constitui verdadeiro sofrimento, às vezes mais doloroso que os sofrimentos agudos, por se poder prolongar indefinidamente.
 
@@ -6702,8 +6538,7 @@ Imagina a perspectiva de um tédio sem-fim. A maior parte das vezes são os Esp�
 
 (Falecida em França, em 1858)
 
-1. - Quais as vossas sensações ao deixardes o mundo terrestre? - R. Ainda perturbada, torna-se-me impos-
-
+1.Quais as vossas sensações ao deixardes o mundo terrestre? - R. Ainda perturbada, torna-se-me impos-
 
 
 ---
@@ -6713,19 +6548,18 @@ Imagina a perspectiva de um tédio sem-fim. A maior parte das vezes são os Esp�
 
 sível explicá-las. - P. Sois feliz? - R. Tenho saudades da vida... não sei... experimento acerba dor da qual a vida me libertaria... quisera que o corpo se levantasse do túmulo...
 
-1. - Lamentais o ter sido sepultada entre cristãos, que não no vosso país? - R. Sim, a terra indiana menos me pesaria sobre o corpo.
+2.Lamentais o ter sido sepultada entre cristãos, que não no vosso país? - R. Sim, a terra indiana menos me pesaria sobre o corpo.
 
-- P. Que pensais das honras fúnebres tributadas aos vossos despojos? - R. Não foram grande coisa, pois eu era rainha e nem todos se curvaram diante de mim... Deixai-me... forçam-me a falar, quando não quero que saibais o que ora sou... Asseguro-vos, eu era rainha...
-2. - Respeitamos a vossa hierarquia e só insistimos para que nos respondais no propósito de nos instruirmos. Acreditais que vosso filho recupere de futuro os Estados de seu pai? - R. Meu sangue reinará, por certo, visto como é digno disso.
+P. Que pensais das honras fúnebres tributadas aos vossos despojos? - R. Não foram grande coisa, pois eu era rainha e nem todos se curvaram diante de mim... Deixai-me... forçam-me a falar, quando não quero que saibais o que ora sou... Asseguro-vos, eu era rainha...
+3.Respeitamos a vossa hierarquia e só insistimos para que nos respondais no propósito de nos instruirmos. Acreditais que vosso filho recupere de futuro os Estados de seu pai? - R. Meu sangue reinará, por certo, visto como é digno disso.
 
-- P. Ligais a essa reintegração de vosso filho a mesma importância que lhe dáveis quando encarnada? - R. Meu sangue não pode misturar-se com o do povo.
-3. - Não se pôde fazer constar na respectiva certidão de óbito o lugar do vosso nascimento; podereis no-lo dizer, agora? - R. Sou oriunda do mais nobre dos sangues da Índia. Penso que nasci em Delhi.
-4. - Vós, que vivestes nos esplendores do luxo, cercada de honras, que pensais hoje de tudo isso? - R. Que tenho direito.
+P. Ligais a essa reintegração de vosso filho a mesma importância que lhe dáveis quando encarnada? - R. Meu sangue não pode misturar-se com o do povo.
+4.Não se pôde fazer constar na respectiva certidão de óbito o lugar do vosso nascimento; podereis no-lo dizer, agora? - R. Sou oriunda do mais nobre dos sangues da Índia. Penso que nasci em Delhi.
+5.Vós, que vivestes nos esplendores do luxo, cercada de honras, que pensais hoje de tudo isso? - R. Que tenho direito.
 
-- P. A vossa hierarquia terrestre concorreu para que tivésseis outra mais elevada nesse mundo em que ora estais? - R. Continuo a ser rainha... que se enviem escravas para me servirem!... Mas... não sei... parece-me que pouco se preocupam com a minha pessoa aqui... e contudo eu... sou sempre a mesma.
-5. - Professáveis a religião muçulmana ou a hindu? - R. Muçulmana; eu, porém, era bastante poderosa para que me ocupasse de Deus.
-
-- P. No ponto de vista da feli-
+P. A vossa hierarquia terrestre concorreu para que tivésseis outra mais elevada nesse mundo em que ora estais? - R. Continuo a ser rainha... que se enviem escravas para me servirem!... Mas... não sei... parece-me que pouco se preocupam com a minha pessoa aqui... e contudo eu... sou sempre a mesma.
+6.Professáveis a religião muçulmana ou a hindu? - R. Muçulmana; eu, porém, era bastante poderosa para que me ocupasse de Deus.
+P. No ponto de vista da feli-
 
 
 
@@ -6736,15 +6570,15 @@ sível explicá-las. - P. Sois feliz? - R. Tenho saudades da vida... não sei...
 
 cidade humana, quais as diferenças que assinalais entre a vossa religião e o Cristianismo? - R. A religião cristã é absurda; diz que todos são irmãos. - P. Qual a vossa opinião a respeito de Maomé? - R. Não era filho de rei. - P. Acreditais que ele houvesse tido uma missão divina? - R. Isso que me importa?! - P. Qual a vossa opinião quanto ao Cristo? - R. O filho do carpinteiro não é digno de preocupar meus pensamentos.
 
-7. - Que pensais desse uso pelo qual as mulheres muçulmanas se furtam aos olhos masculinos? - R. Penso que as mulheres nasceram para dominar: - eu era mulher. - P. Tendes inveja da liberdade de que gozam as européias? - R. Que poderia importar-me tal liberdade? Servem-nas, acaso, ajoelhados?
+7.Que pensais desse uso pelo qual as mulheres muçulmanas se furtam aos olhos masculinos? - R. Penso que as mulheres nasceram para dominar: - eu era mulher. - P. Tendes inveja da liberdade de que gozam as européias? - R. Que poderia importar-me tal liberdade? Servem-nas, acaso, ajoelhados?
 
-8. - Tendes reminiscências de encarnações anteriores a esta que vindes de deixar? - R. Deveria ter sido sempre rainha.
+8.Tendes reminiscências de encarnações anteriores a esta que vindes de deixar? - R. Deveria ter sido sempre rainha.
 
-9. - Por que acudistes tão prontamente ao nosso apelo? - R. Não queria fazê-lo, mas forçaram-me. Acaso julgarás que eu me dignaria responder-te? Que és tu a meu lado? - P. E quem vos forçou a vir? - R. Eu mesma não sei... posto que não deva existir ninguém mais poderoso do que eu.
+9.Por que acudistes tão prontamente ao nosso apelo? - R. Não queria fazê-lo, mas forçaram-me. Acaso julgarás que eu me dignaria responder-te? Que és tu a meu lado? - P. E quem vos forçou a vir? - R. Eu mesma não sei... posto que não deva existir ninguém mais poderoso do que eu.
 
-10. - Sob que forma vos apresentais aqui? - R. Sempre rainha... e pensas que eu tenha deixado de o ser? És pouco respeitoso... fica sabendo que não é desse modo que se fala a rainhas.
+10.Sob que forma vos apresentais aqui? - R. Sempre rainha... e pensas que eu tenha deixado de o ser? És pouco respeitoso... fica sabendo que não é desse modo que se fala a rainhas.
 
-11. - Se nos fosse dado enxergar-vos, ver-vos-íamos com os vossos ornatos e pedrarias? - R. Certamente... - P. E como se explica o fato de, despojado de tudo isso, conservar o vosso Espírito tais aparatos, sobretudo os ornamentos? - R. É que eles me não deixaram. Sou tão bela quanto era, e não compreendo o juízo que de mim fazeis! É verdade que nunca me vistes.
+11.Se nos fosse dado enxergar-vos, ver-vos-íamos com os vossos ornatos e pedrarias? - R. Certamente... - P. E como se explica o fato de, despojado de tudo isso, conservar o vosso Espírito tais aparatos, sobretudo os ornamentos? - R. É que eles me não deixaram. Sou tão bela quanto era, e não compreendo o juízo que de mim fazeis! É verdade que nunca me vistes.
 
 
 
@@ -6753,9 +6587,7 @@ cidade humana, quais as diferenças que assinalais entre a vossa religião e o C
 
 # ESPÍRITOS ENDURECIDOS
 
-# 12.
-
-Qual a impressão que vos causa em vos achardes entre nós? - R. Se eu pudesse evitá-la... Tratam-me com tão pouca cortesia...
+12.Qual a impressão que vos causa em vos achardes entre nós? - R. Se eu pudesse evitá-la... Tratam-me com tão pouca cortesia...
 
 S. Luís. Deixai-a, a pobre perturbada. Tende compaixão da sua cegueira e oxalá vos sirva de exemplo. Não sabeis quanto padece o seu orgulho.
 
@@ -6767,13 +6599,13 @@ Nota - Evocando esta grandeza decaída ao túmulo, não esperávamos respostas d
 
 Nota - Sob este nome, um Espírito se apresenta espontaneamente ao médium, habituado a este gênero de manifestações, pois sua missão parece ser a de assistir os Espíritos inferiores que o seu guia espiritual lhe conduz, no duplo propósito da sua própria instrução e do progresso deles.
 
-- P. Quem sois? Este nome é de homem ou de mulher? - R. De homem, e tão infeliz quanto possível. Sofro todos os tormentos do inferno.
+P. Quem sois? Este nome é de homem ou de mulher? - R. De homem, e tão infeliz quanto possível. Sofro todos os tormentos do inferno.
 
-- P. Mas se o inferno não existe, como podeis sofrer-lhe as torturas? - R. Pergunta inútil.
+P. Mas se o inferno não existe, como podeis sofrer-lhe as torturas? - R. Pergunta inútil.
 
-- P. Compreendo, mas outros precisam de explicações... - R. Isso pouco me incomoda.
+P. Compreendo, mas outros precisam de explicações... - R. Isso pouco me incomoda.
 
-- P. O egoísmo não será uma das causas do vosso sofrimento? - R. Pode ser.
+P. O egoísmo não será uma das causas do vosso sofrimento? - R. Pode ser.
 
 
 
@@ -6782,24 +6614,23 @@ Nota - Sob este nome, um Espírito se apresenta espontaneamente ao médium, habi
 
 # 2ª PARTE - CAPÍTULO VII
 
-- P. Se quiserdes ser aliviado, começai repudiando as más tendências ... - R. Não te incomodes com o que não é da tua conta; principia orando por mim, como praticas com os outros, e depois veremos.
+P. Se quiserdes ser aliviado, começai repudiando as más tendências ... - R. Não te incomodes com o que não é da tua conta; principia orando por mim, como praticas com os outros, e depois veremos.
 
-- P. A não me auxiliardes com o vosso arrependimento, a prece pouco valor poderá ter. - R. Mas falando, em vez de orares, menos ainda me adiantarás.
+P. A não me auxiliardes com o vosso arrependimento, a prece pouco valor poderá ter. - R. Mas falando, em vez de orares, menos ainda me adiantarás.
 
-- P. Então desejais adiantar-vos? - R. Talvez... não sei. Vejamos o essencial, isto é, se a prece alivia os sofrimentos.
+P. Então desejais adiantar-vos? - R. Talvez... não sei. Vejamos o essencial, isto é, se a prece alivia os sofrimentos.
 
-- P. Unamos então os nossos pensamentos com a firme vontade de obter o vosso alívio. - R. Vá lá.
+P. Unamos então os nossos pensamentos com a firme vontade de obter o vosso alívio. - R. Vá lá.
 
-- P. (Depois da prece.) Estais satisfeito? - R. Não como fora para desejar.
+P. (Depois da prece.) Estais satisfeito? - R. Não como fora para desejar.
 
-- P. Mas o remédio, aplicado pela primeira vez, não pode curar imediatamente um mal antigo... - R. É possível...
+P. Mas o remédio, aplicado pela primeira vez, não pode curar imediatamente um mal antigo... - R. É possível...
 
-- P. Quereis voltar? - R. Se me chamares...
+P. Quereis voltar? - R. Se me chamares...
 
 O guia da médium. - Filha, terás muito trabalho com este Espírito endurecido, mas o maior mérito não advém de salvar os não perdidos. Coragem, perseverança, e triunfarás afinal. Não há culpados que se não possam regenerar por meio da persuasão e do exemplo, visto como os Espíritos, por mais perversos, acabam por corrigir-se com o tempo. O fato de muitas vezes ser impossível regenerá-los prontamente, não importa na inutilidade de tais esforços. Mesmo a contragosto, as idéias sugeridas a tais Espíritos fazem-nos refletir. São como sementes que, cedo ou tarde, tivessem de frutificar. Não se arrebenta a pedra com a primeira marretada.
 
 Isto que te digo pode aplicar-se também aos encarnados e tu deves compreender a razão por que o Espi-
-
 
 
 ---
@@ -6836,7 +6667,7 @@ Havia num hospital de província um menino de 8 a 10 anos, cujo estado era difí
 
 Um dia, o menino disse-lhe: - "Doutor, tenha a bondade de me dar ainda uma vez aquelas pílulas ultimamente receitadas." Para quê? replicou-lhe o médico, se já te ministrei o suficiente, e maior quantidade pode fazer-te mal...
 
-- "É que eu sofro tanto, que dificilmente posso orar a Deus para que me dê forças, pois não quero incomodar os outros enfermos que aí estão. Essas pílulas fazem-me dormir e, ao menos quando durmo, a ninguém incomodo."
+"É que eu sofro tanto, que dificilmente posso orar a Deus para que me dê forças, pois não quero incomodar os outros enfermos que aí estão. Essas pílulas fazem-me dormir e, ao menos quando durmo, a ninguém incomodo."
 
 
 
@@ -6872,7 +6703,7 @@ __________
 
 os que entre vós encarnam para aprender a sofrer. O Espiritismo será a pedra de toque; os padecentes terão o exemplo e a palavra, e então as imprecações se transformarão em gritos de alegria e lágrimas de contentamento.
 
-- P. Pelo que afirmais, parece que os vossos sofrimentos não eram expiação de faltas anteriores...
+P. Pelo que afirmais, parece que os vossos sofrimentos não eram expiação de faltas anteriores...
 
 R. - Não seriam uma expiação direta, mas asseguro-vos que todo sofrimento tem uma causa justa. Aquele a quem conhecestes tão mísero foi belo, grande, rico e adulado. Eu tivera turiferários e cortesãos, fora fútil e orgulhoso. Anteriormente fui bem culpado; reneguei Deus, prejudiquei meu semelhante, mas expiei cruelmente, primeiro no mundo espiritual e depois na Terra. Os meus sofrimentos de alguns anos apenas, nesta última encarnação, suportei-os eu anteriormente por toda uma existência que ralou pela extrema velhice. Por meu arrependimento reconquistei a graça do Senhor, o qual me confiou muitas missões, inclusive a última, que bem conheceis. E fui eu quem as solicitou, para terminar a minha depuração. Adeus, amigos; tornarei algumas vezes. A minha missão é de consolar, e não de instruir. Há, porém, aqui muitas pessoas cujas feridas jazem ocultas, e essas terão prazer com a minha presença.
 
@@ -6883,7 +6714,6 @@ Marcel..
 Pobrezinho sofredor, definhado, ulceroso e disforme! Nesse asilo de misérias e lágrimas, quantos gemidos exalados! E como era resignado... e como a sua alma lobrigava já então o termo dos sofrimentos, apesar da tenra idade! No além-túmulo, pressentia a recompensa de tantos gemidos abafados, e esperava! E como orava também por aqueles que não tinham resignação no sofrimento, pelos que trocavam preces por blasfêmias!
 
 Foi-lhe lenta a agonia, mas terrível não lhe foi a hora do trespasse; certo, os membros convulsos contor-
-
 
 
 ---
@@ -6904,19 +6734,19 @@ Este não passou de um pobre israelita de Vilna, falecido em maio de 1865. Duran
 A noite, destinava-a ele ao preparo do rapé, que vendia a fim de prover às suas necessidades, e o que lhe sobrava era dos pobres. Foi só no mundo, e no entanto o seu enterro teve o acompanhamento de grande parte da população de Vilna, cujos armazéns cerraram as portas.
 
 
-
 ---
 
-382
+# 382
+
 # 2ª PARTE - CAPÍTULO VIII
 
 Sociedade de Paris, 15 de junho de 1865
 
 Evocação: Excessivamente feliz, chegado, enfim, à plenitude do que mais ambicionava e bem caro paguei, aqui estou, entre vós, desde o cair da noite. Agradecido, pelo interesse que vos desperta o Espírito do pobre mendigo, que, com satisfação, vai procurar responder às vossas perguntas.
 
-- P. Uma carta de Vilna nos deu conhecimento das particularidades mais notáveis da vossa existência, e da simpatia que tais particularidades nos inspiram nasceu o desejo de nos comunicar convosco. Agradecemos a vossa presença, e, uma vez que quereis responder-nos, principiaremos por vos assegurar que mui felizes seremos se, para nossa orientação, pudermos conhecer a vossa posição espiritual, bem como as causas que determinaram o gênero de vida que tivestes na última encarnação.
+P. Uma carta de Vilna nos deu conhecimento das particularidades mais notáveis da vossa existência, e da simpatia que tais particularidades nos inspiram nasceu o desejo de nos comunicar convosco. Agradecemos a vossa presença, e, uma vez que quereis responder-nos, principiaremos por vos assegurar que mui felizes seremos se, para nossa orientação, pudermos conhecer a vossa posição espiritual, bem como as causas que determinaram o gênero de vida que tivestes na última encarnação.
 
-- R. Em primeiro lugar, concedei ao meu Espírito, cônscio da sua verdadeira posição, o favor de vos transmitir a sua opinião, com respeito a um pensamento que vos ocorreu quanto à minha personalidade. E reclamo previamente os vossos conselhos, para o caso de ser falsa essa minha opinião. Parece-vos singular que as manifestações públicas tomassem tanto vulto, para homenagear a memória do homem insignificante que soube por seu Espírito caridoso atrair tal simpatia. Não me refiro a vós, caro mestre, nem a ti, prezado médium, nem a vós outros verdadeiros e sinceros espíritas; falo, sim, para as pessoas indiferentes a crença, pois, nisso, nada houve de extraordinário. A pressão moral exercida pela prática do bem, sobre a Humanidade, é tal que, por mais materializada que esta seja, inclina-se sempre, venera o bem, a despeito da sua tendência para o mal.
+R. Em primeiro lugar, concedei ao meu Espírito, cônscio da sua verdadeira posição, o favor de vos transmitir a sua opinião, com respeito a um pensamento que vos ocorreu quanto à minha personalidade. E reclamo previamente os vossos conselhos, para o caso de ser falsa essa minha opinião. Parece-vos singular que as manifestações públicas tomassem tanto vulto, para homenagear a memória do homem insignificante que soube por seu Espírito caridoso atrair tal simpatia. Não me refiro a vós, caro mestre, nem a ti, prezado médium, nem a vós outros verdadeiros e sinceros espíritas; falo, sim, para as pessoas indiferentes a crença, pois, nisso, nada houve de extraordinário. A pressão moral exercida pela prática do bem, sobre a Humanidade, é tal que, por mais materializada que esta seja, inclina-se sempre, venera o bem, a despeito da sua tendência para o mal.
 
 Agora, as perguntas que, da vossa parte, não são ditadas pela curiosidade, mas simplesmente formuladas no intuito de ampliar o ensino. Visto que disponho de liberdade, vou, portanto, dizer-vos, o mais laconicamente.
 
@@ -6950,9 +6780,9 @@ Dizem que as somas por mim esmoladas foram todas destinadas ao alívio dos meus 
 
 Desencarnei calmamente, confiando no valor da minha reparação, e sou premiado muito mais do que poderiam ter cogitado as minhas secretas aspirações. Hoje sou feliz, felicíssimo, podendo afirmar-vos que todos quantos se elevam serão humilhados, como elevados serão todos quantos se humilharem.
 
-- P. Tende a bondade de dizer-nos em que consistiu a vossa expiação no mundo espiritual, e quanto tempo durou, a contar da vossa morte até ao momento da atenuação por efeito do arrependimento e das boas resoluções. Dizei-nos também o que foi que provocou a mudança das vossas idéias, no estado espiritual.
+P. Tende a bondade de dizer-nos em que consistiu a vossa expiação no mundo espiritual, e quanto tempo durou, a contar da vossa morte até ao momento da atenuação por efeito do arrependimento e das boas resoluções. Dizei-nos também o que foi que provocou a mudança das vossas idéias, no estado espiritual.
 
-- R. Essa pergunta desperta-me muitas recordações dolorosas! Quanto sofri eu... Mas não, que me não lamento: - apenas recordo!... Quereis saber a natureza da minha expiação? Pois ei-la na sua terrível hediondez:
+R. Essa pergunta desperta-me muitas recordações dolorosas! Quanto sofri eu... Mas não, que me não lamento: - apenas recordo!... Quereis saber a natureza da minha expiação? Pois ei-la na sua terrível hediondez:
 
 Carrasco que fui de todos os bons sentimentos, fiquei por muito, por longo tempo preso pelo perispírito ao corpo em decomposição. Até que esta se completasse, vime corroído pelos vermes - o que muito me torturava! e quando me vi liberto das peias que me prendiam ao instrumento do suplício, mais cruel suplício me espe-
 
@@ -6967,14 +6797,13 @@ Carrasco que fui de todos os bons sentimentos, fiquei por muito, por longo tempo
 
 rava!... Depois do sofrimento físico, o sofrimento moral muito mais longo. Fui colocado em presença de todas as minhas vítimas. Periodicamente, constrangido por uma força superior, era eu levado a rever o quadro vivo dos meus crimes. E via física e moralmente todas as dores que a outrem fizera sofrer! Ah! meus amigos, que terrível é a visão constante daqueles a quem fizemos mal! Entre vós, tendes apenas um fraco exemplo no confronto do acusado com a sua vítima. Aí tendes, em resumo, o que sofri durante três e meio séculos, até que Deus, compadecido da minha dor e tocado pelo meu arrependimento, solicitado pelos que me assistiam, permitisse a vida de expiação que conheceis.
 
-- P. Algum motivo particular vos induziu à escolha da última existência, subordinada à religião israelita?
+P. Algum motivo particular vos induziu à escolha da última existência, subordinada à religião israelita?
 
-- R. Não escolhi por mim só, mas ouvi o conselho dos meus guias. A religião de Israel era uma pequena humilhação a mais na minha prova, visto como em certos países a maioria dos encarnados menosprezam os judeus, e principalmente os judeus mendicantes.
+R. Não escolhi por mim só, mas ouvi o conselho dos meus guias. A religião de Israel era uma pequena humilhação a mais na minha prova, visto como em certos países a maioria dos encarnados menosprezam os judeus, e principalmente os judeus mendicantes.
 
-- P. Na Terra, com que idade começastes a vossa obra de expiação? Como vos ocorre o pensamento de vos desobrigar das resoluções previamente tomadas? Ao exercerdes tão abnegadamente a caridade, teríeis a intuição das causas que a isso vos predispunham?
+P. Na Terra, com que idade começastes a vossa obra de expiação? Como vos ocorre o pensamento de vos desobrigar das resoluções previamente tomadas? Ao exercerdes tão abnegadamente a caridade, teríeis a intuição das causas que a isso vos predispunham?
 
-- R. Meus pais eram pobres, porém inteligentes e avaros. Moço ainda, eu fui privado da afeição e carinhos de minha mãe. A perda desta me causou tanto maior e fundo pesar, quanto meu pai, dominado pela avidez de ganhos, me abandonava por completo. Quanto aos meus irmãos, todos mais velhos do que eu, não pareciam aperceber-se das minhas mágoas. Foi um outro judeu quem, movido por sentimento mais egoístico do que caritativo, me recolheu em sua casa e me ensinou a trabalhar. O que isso lhe custara era largamente compensado pelo meu trabalho, aliás excedente multas vezes às minhas forças.
-
+R. Meus pais eram pobres, porém inteligentes e avaros. Moço ainda, eu fui privado da afeição e carinhos de minha mãe. A perda desta me causou tanto maior e fundo pesar, quanto meu pai, dominado pela avidez de ganhos, me abandonava por completo. Quanto aos meus irmãos, todos mais velhos do que eu, não pareciam aperceber-se das minhas mágoas. Foi um outro judeu quem, movido por sentimento mais egoístico do que caritativo, me recolheu em sua casa e me ensinou a trabalhar. O que isso lhe custara era largamente compensado pelo meu trabalho, aliás excedente multas vezes às minhas forças.
 
 
 ---
@@ -7020,7 +6849,6 @@ Na comuna de Villate, perto de Nozai (Loire-Inferior), havia uma pobre mulher de
 "Ela é feliz e inteiramente devotada aos que se lhe mostraram compassivos. Tu és um dos seus bons amigos;
 
 
-
 ---
 
 
@@ -7034,7 +6862,7 @@ ela quase que te não deixa e contigo se comunica muitas vezes, sem que o saibas
 
 Evocação: - Boa Julienne, sei que sois feliz e é tudo quanto desejava saber; isso não impede, porém, que de vós me lembre muitas vezes, bem como de não vos esquecer nas minhas preces.
 
-- R. Tem confiança em Deus, procura inspirar aos teus doentes uma fé sincera, porque assim alcançarás sempre o que desejares. Não te preocupes jamais com a recompensa, porque ela será sempre superior ao que podes esperar. Deus sabe recompensar justamente a quem se dedique ao alívio dos seus irmãos, inspirado por absoluto desinteresse. A não ser assim, tudo é ilusão, é quimera. É preciso ter fé antes de tudo, pois de outro modo nada se conseguirá. Lembra-te desta máxima e ficarás admirado dos seus resultados. Os dois doentes que curaste são a prova do que te afirmo, pois, no estado em que estavam, só com remédios nada terias conseguido.
+R. Tem confiança em Deus, procura inspirar aos teus doentes uma fé sincera, porque assim alcançarás sempre o que desejares. Não te preocupes jamais com a recompensa, porque ela será sempre superior ao que podes esperar. Deus sabe recompensar justamente a quem se dedique ao alívio dos seus irmãos, inspirado por absoluto desinteresse. A não ser assim, tudo é ilusão, é quimera. É preciso ter fé antes de tudo, pois de outro modo nada se conseguirá. Lembra-te desta máxima e ficarás admirado dos seus resultados. Os dois doentes que curaste são a prova do que te afirmo, pois, no estado em que estavam, só com remédios nada terias conseguido.
 
 Quando implorares permissão a Deus para que os bons Espíritos te transmitam fluidos benéficos, se não sentires um estremecimento involuntário, é que a tua prece não foi bastante fervorosa para ser ouvida. É só nestas condições que a prece pode tornar-se valiosa. Nem outra coisa resulta de dizer: "Deus Todo-Poderoso, Pai de bondade
 
@@ -7093,14 +6921,13 @@ Julienne-Marie.
 
 Transmitida a A... esta comunicação, ele por sua vez obteve a que se segue, o que é aliás uma confirmação:
 
-- P. Boa Julienne, uma vez que é vosso desejo auxiliar-me com os vossos conselhos, a fim de que me adiante em nossa santa Doutrina, vinde comunicar-vos comigo, certa de que me esforçarei por aproveitar-vos os ensinamentos.
+P. Boa Julienne, uma vez que é vosso desejo auxiliar-me com os vossos conselhos, a fim de que me adiante em nossa santa Doutrina, vinde comunicar-vos comigo, certa de que me esforçarei por aproveitar-vos os ensinamentos.
 
-- R. Lembra-te da recomendação que vou fazer e não te afastes dela jamais. Procura sempre ser caridoso na medida de tuas forças; compreendes a caridade tal como deve ser praticada em todos os atos da vida. Não tenho necessidade, por conseguinte, de aconselhar-te uma coisa da qual podes tu mesmo ser o juiz; todavia, dir-te-ei que sigas a voz da consciência, a qual jamais te enganará, desde que a consultes sinceramente.
+R. Lembra-te da recomendação que vou fazer e não te afastes dela jamais. Procura sempre ser caridoso na medida de tuas forças; compreendes a caridade tal como deve ser praticada em todos os atos da vida. Não tenho necessidade, por conseguinte, de aconselhar-te uma coisa da qual podes tu mesmo ser o juiz; todavia, dir-te-ei que sigas a voz da consciência, a qual jamais te enganará, desde que a consultes sinceramente.
 
 Não te iludas com as missões a cumprir; pequenos e grandes, cada qual tem a sua missão. Penosa foi a minha, porém, eu fazia jus a tal punição, em conseqüência das precedentes existências, como confessei ao bom presidente da Sociedade-máter, de Paris, que um dia vos há de congregar a todos. Esse dia vem menos longe do que supões, pois o Espiritismo caminha a passos largos, apesar de todos os óbices que se lhe antepõem. Segui, pois, sem temores, fervorosos adeptos; segui, que os vossos esforços serão coroados por outros tantos êxitos. Que vos importa o que de vós possam dizer? Colocai-vos acima da critica irrisória, a qual recairá sobre os próprios adversários do Espiritismo.
 
 Ah! os orgulhosos! julgam-se fortes pensando poder aniquilar-vos, mas... bons amigos, tranqüilizai-vos e não receeis enfrentá-los, porque são menos invencíveis do que
-
 
 
 ---
@@ -7186,19 +7013,19 @@ Mais tarde, veio-nos a idéia de evocar esse rapaz, e eis o que nos disse ele: "
 
 então, é hoje o Sr. G..., ao serviço do qual me conhecestes. É que eu quis expiar o orgulho, na última existência, sob a condição de servo, provando ao mesmo tempo a dedicação devida ao meu benfeitor. Cheguei mesmo a salvar-lhe a vida sem que ele o soubesse. Isso constituiu também uma provação da qual saí vitorioso e bastante confortado para me não deixar corromper num meio vicioso. Conservando-me impoluto, a despeito dos maus exemplos, agradeço a Deus a recompensa, na felicidade que hoje gozo.
 
-- P. Em que circunstâncias salvastes a vida de G...?
+P. Em que circunstâncias salvastes a vida de G...?
 
-- R. Evitando que fosse esmagado por um grande tronco, em passeio a cavalo. Eu que o seguia, só, percebi a iminência do perigo, e com um grito lancinante fi-lo voltar rápido, enquanto o tronco se abatia.
+R. Evitando que fosse esmagado por um grande tronco, em passeio a cavalo. Eu que o seguia, só, percebi a iminência do perigo, e com um grito lancinante fi-lo voltar rápido, enquanto o tronco se abatia.
 
 Nota - G..., a quem referimos o fato, dele se lembrou perfeitamente.
 
-- P. Por que desencarnastes tão jovem?
+P. Por que desencarnastes tão jovem?
 
-- R. Porque Deus julgou suficiente a prova.
+R. Porque Deus julgou suficiente a prova.
 
-- P. Como pudestes aproveitar essa provação quando não tínheis noção da sua causa anterior?
+P. Como pudestes aproveitar essa provação quando não tínheis noção da sua causa anterior?
 
-- R. Na humildade da minha condição ainda me restava um instinto daquele orgulho; fui feliz por tê-lo domado, tornando proveitosa a provação que, a não ser assim, eu teria de recomeçar. Nos seus momentos de liberdade, o meu Espírito lembrava-se do que fora e ao despertar invadia-lhe um desejo intuitivo de resistir às más tendências. Tive mais mérito lutando assim, do que se tivesse a lembrança do passado. Com essa lembrança o orgulho de outros tempos se teria exaltado, perturbando-me, ao passo que deste modo apenas tive que combater as influências nocivas da minha nova condição.
+R. Na humildade da minha condição ainda me restava um instinto daquele orgulho; fui feliz por tê-lo domado, tornando proveitosa a provação que, a não ser assim, eu teria de recomeçar. Nos seus momentos de liberdade, o meu Espírito lembrava-se do que fora e ao despertar invadia-lhe um desejo intuitivo de resistir às más tendências. Tive mais mérito lutando assim, do que se tivesse a lembrança do passado. Com essa lembrança o orgulho de outros tempos se teria exaltado, perturbando-me, ao passo que deste modo apenas tive que combater as influências nocivas da minha nova condição.
 
 
 
@@ -7209,17 +7036,17 @@ Nota - G..., a quem referimos o fato, dele se lembrou perfeitamente.
 
 # EXPIAÇÕES TERRESTRES
 
-- P. De que serviu terdes recebido uma brilhante educação, uma vez que na última encarnação não vos era possível lembrar os conhecimentos adquiridos?
+P. De que serviu terdes recebido uma brilhante educação, uma vez que na última encarnação não vos era possível lembrar os conhecimentos adquiridos?
 
-- R. Tais conhecimentos, dada a minha ulterior condição, seriam supérfluos; por isso ficaram num estado latente para que hoje eu os reencontrasse. Mas tais conhecimentos não me foram de todo inúteis, visto como, desenvolvendo-me a inteligência, me incutiram predileção instintiva pelas coisas elevadas e repugnância pelos baixos e ignóbeis exemplos que tinha à vista. Sem aquela educação, eu não passaria de um criado.
+R. Tais conhecimentos, dada a minha ulterior condição, seriam supérfluos; por isso ficaram num estado latente para que hoje eu os reencontrasse. Mas tais conhecimentos não me foram de todo inúteis, visto como, desenvolvendo-me a inteligência, me incutiram predileção instintiva pelas coisas elevadas e repugnância pelos baixos e ignóbeis exemplos que tinha à vista. Sem aquela educação, eu não passaria de um criado.
 
-- P. A abnegação dos criados para com os patrões terá por ascendente o fato de relações anteriores?
+P. A abnegação dos criados para com os patrões terá por ascendente o fato de relações anteriores?
 
-- R. Sem dúvida, e ao menos é esse o caso comum. As vezes tais criados são membros da mesma família, ou, como no meu caso, escravos do reconhecimento e que procuram saldar uma dívida, ao mesmo tempo concorrendo para que progridam por sua dedicação. Vós não compreendeis todos os efeitos da simpatia que a anterioridade de relações produz aí no mundo. A morte em absoluto não interrompe essas relações, que podem perpetuar-se por séculos e séculos.
+R. Sem dúvida, e ao menos é esse o caso comum. As vezes tais criados são membros da mesma família, ou, como no meu caso, escravos do reconhecimento e que procuram saldar uma dívida, ao mesmo tempo concorrendo para que progridam por sua dedicação. Vós não compreendeis todos os efeitos da simpatia que a anterioridade de relações produz aí no mundo. A morte em absoluto não interrompe essas relações, que podem perpetuar-se por séculos e séculos.
 
-- P. Por que são hoje tão raros esses exemplos de dedicação?
+P. Por que são hoje tão raros esses exemplos de dedicação?
 
-- R. Causal a feição egoística e orgulhosa do vosso século, agravada ainda pela incredulidade das idéias materialistas. A verdadeira fé antepõe-se presentemente a cobiça, a avidez do ganho, em detrimento da abnegação. Induzindo os homens à verdade, o Espiritismo fará reviver igualmente as virtudes esquecidas.
+R. Causal a feição egoística e orgulhosa do vosso século, agravada ainda pela incredulidade das idéias materialistas. A verdadeira fé antepõe-se presentemente a cobiça, a avidez do ganho, em detrimento da abnegação. Induzindo os homens à verdade, o Espiritismo fará reviver igualmente as virtudes esquecidas.
 
 Nota - Nada melhor do que este exemplo para evidenciar o benefício do esquecimento em relação às existências anteriores. Se G... tivesse ciência do que havia dito o seu criado, ficaria para com ele numa posição embaraçosa, e não o conservaria como tal, obstando, por conseguinte, uma provação proveitosa para ambos.
 
@@ -7244,11 +7071,10 @@ Ficou então patente que o infeliz Antônio B... fora enterrado vivo, e deveria 
 
 Evocado na Sociedade de Paris, em agosto de 1861, a pedido de parentes, deu as seguintes explicações:
 
-1. Evocação. - Que quereis?
-2. A pedido de um vosso parente, nós vos evocamos com prazer e seremos felizes se quiserdes responder-nos. - R. Sim, desejo fazê-lo.
-3. Lembrai-vos dos incidentes da vossa morte? - R. Ah! Certamente que me lembro: - Mas por que avivar essa lembrança do castigo?
-4. Efetivamente fostes enterrado por descuido? - R. Assim deveria ser, visto revestir-se a morte aparente.
-
+1.Evocação. - Que quereis?
+2.A pedido de um vosso parente, nós vos evocamos com prazer e seremos felizes se quiserdes responder-nos. - R. Sim, desejo fazê-lo.
+3.Lembrai-vos dos incidentes da vossa morte? - R. Ah! Certamente que me lembro: - Mas por que avivar essa lembrança do castigo?
+4.Efetivamente fostes enterrado por descuido? - R. Assim deveria ser, visto revestir-se a morte aparente.
 
 
 ---
@@ -7262,10 +7088,10 @@ de todos os caracteres da morte real: eu estava quase exangue. (1)
 
 "Não se deve, porém, imputar a ninguém um acontecimento que me estava predestinado desde que nasci.
 
-1. Incomodam-vos estas perguntas? Será mister lhes demos fim? - R. Não. Podeis continuar.
-2. Porque deixastes a reputação de um homem de bem, esperamos fosseis feliz. - R. Eu vos agradeço, pois sei que haveis de interceder por mim. Vou fazer o possível para vos responder, e, se não puder fazê-lo, fá-lo-á um dos vossos guias por mim.
-3. Podeis descrever-nos as vossas sensações daquele momento? - R. Que dolorosa provação sentir-me encerrado entre quatro tábuas, tolhido, absolutamente tolhido! Gritar! Impossível! A voz, por falta de ar, não tinha eco! Ah! que tortura a do infeliz que em vão se esforça para respirar num ambiente limitado! Eu era qual condenado à boca de um forno, abstração feita do calor. A ninguém desejo um fim rematado por semelhantes torturas. Não, não desejo a ninguém um tal fim! Oh! cruel punição de cruel e feroz existência! Não saberia dizer no que então pensava; apenas revendo o passado, vagamente entrevia o futuro.
-4. Dissestes: - cruel punição de feroz existência... Como se pode conciliar esta afirmativa com a vossa reputação ilibada? - R. Que vale uma existência diante da eternidade?! Certo, procurei ser honesto e bom na minha última encarnação, mas eu aceitara um tal epílogo previamente, isto é, antes de encarnar. Ah!... Por que interrogar-me sobre esse passado doloroso que só eu e os bons Espíritos enviados do Senhor conhecíamos? Mas, visto que assim é preciso, dir-vos-ei que numa existência
+5.Incomodam-vos estas perguntas? Será mister lhes demos fim? - R. Não. Podeis continuar.
+6.Porque deixastes a reputação de um homem de bem, esperamos fosseis feliz. - R. Eu vos agradeço, pois sei que haveis de interceder por mim. Vou fazer o possível para vos responder, e, se não puder fazê-lo, fá-lo-á um dos vossos guias por mim.
+7.Podeis descrever-nos as vossas sensações daquele momento? - R. Que dolorosa provação sentir-me encerrado entre quatro tábuas, tolhido, absolutamente tolhido! Gritar! Impossível! A voz, por falta de ar, não tinha eco! Ah! que tortura a do infeliz que em vão se esforça para respirar num ambiente limitado! Eu era qual condenado à boca de um forno, abstração feita do calor. A ninguém desejo um fim rematado por semelhantes torturas. Não, não desejo a ninguém um tal fim! Oh! cruel punição de cruel e feroz existência! Não saberia dizer no que então pensava; apenas revendo o passado, vagamente entrevia o futuro.
+8.Dissestes: - cruel punição de feroz existência... Como se pode conciliar esta afirmativa com a vossa reputação ilibada? - R. Que vale uma existência diante da eternidade?! Certo, procurei ser honesto e bom na minha última encarnação, mas eu aceitara um tal epílogo previamente, isto é, antes de encarnar. Ah!... Por que interrogar-me sobre esse passado doloroso que só eu e os bons Espíritos enviados do Senhor conhecíamos? Mas, visto que assim é preciso, dir-vos-ei que numa existência
 
 __________
 
@@ -7279,13 +7105,13 @@ __________
 
 anterior eu enterrara viva uma mulher - a minha mulher, e por sinal que num fosso! A pena de talião devia ser-me aplicada. Olho por olho, dente por dente.
 
-9. - Agradecemos essas respostas e pedimos a Deus vos perdoe o passado, em atenção ao mérito da vossa última encarnação. - R. Voltarei mais tarde, mas, não obstante, o Espírito de Éraste completará esta minha comunicação.
+9.Agradecemos essas respostas e pedimos a Deus vos perdoe o passado, em atenção ao mérito da vossa última encarnação. - R. Voltarei mais tarde, mas, não obstante, o Espírito de Éraste completará esta minha comunicação.
 
 # Instruções do guia do médium
 
 Por essa comunicação podeis inferir a correlatividade e dependência imediata das vossas existências entre si; as tribulações, as vicissitudes, as dificuldades e dores humanas são sempre as conseqüências de uma vida anterior, culposa ou mal aproveitada. Devo todavia dizer-vos que desfechos como este de Antônio B... são raros, visto como, se de tal modo terminou uma existência correta, foi por tê-lo solicitado ele próprio, com o fito de abreviar a sua erraticidade e atingir mais rápido as esferas superiores. Efetivamente, depois de um período de perturbação e sofrimento moral, inerente à expiação do hediondo crime, ser-lhe-á perdoado este, e ele se alçará a um mundo melhor, onde o espera a vítima que há muito lho perdoou. Aproveitai este exemplo cruel, queridos espíritas, a fim de suportardes, com paciência, os sofrimentos morais e físicos, todas as pequenas misérias da Terra.
 
-- P. Que proveito pode a Humanidade auferir de semelhantes punições? - R. As penas não existem para desenvolver a Humanidade, porém para punição dos que erram. De fato, a Humanidade não pode ter interesse algum no sofrimento de um dos seus membros. Neste caso, a punição foi apropriada à falta. Por que há loucos, idiotas, paralíticos? Por que morrem estes queimados, enquanto que aqueles padecem as torturas de longa agonia entre a vida e a morte?
+P. Que proveito pode a Humanidade auferir de semelhantes punições? - R. As penas não existem para desenvolver a Humanidade, porém para punição dos que erram. De fato, a Humanidade não pode ter interesse algum no sofrimento de um dos seus membros. Neste caso, a punição foi apropriada à falta. Por que há loucos, idiotas, paralíticos? Por que morrem estes queimados, enquanto que aqueles padecem as torturas de longa agonia entre a vida e a morte?
 
 ---
 
@@ -7303,7 +7129,6 @@ O despotismo, o fanatismo, a ignorância e os prejuízos da Idade Média e dos s
 # LETIL
 
 Este industrial, que residiu nos arredores de Paris, morreu em abril de 1864, de modo horroroso. Incendian-
-
 
 
 ---
@@ -7401,16 +7226,16 @@ Este era um rapas de 13 anos, ainda encarnado, cujas faculdades intelectuais era
 
 # EXPIAÇÕES TERRESTRES
 
-1. (A S. Luís.) Poderemos evocar o Espírito deste menino? - R. Sim, é como se o fizésseis ao de um desencarnado.
-2. Essa resposta faz-nos supor que a evocação se pode fazer a qualquer hora... - R. Sim, visto como presa ao corpo por laços materiais, que não espirituais, a sua alma pode desligar-se a qualquer hora.
-3. (Evocação de Charles.) - R. Sou um pobre Espírito preso à Terra por um pé, qual um passarinho.
-4. Presentemente, isto é, como Espírito, tendes consciência de vossa nulidade neste mundo? - R. Decerto que sinto o cativeiro.
-5. Quando o corpo adormece e o vosso Espírito se desprende, tendes as idéias tão lúcidas como se estivésseis em estado normal? - R. Quando o corpo infeliz repousa, fico um pouco mais livre para alçar-me ao céu a que aspiro.
-6. Experimentais no estado espiritual qualquer sensação dolorosa oriunda do vosso estado corpóreo? - R. Sim, por isso que é uma punição.
-7. Lembrai-vos da precedente encarnação? - R. Oh! sim, e ela é a causa do meu exílio atual.
-8. Que existência era essa? - R. A de um jovem libertino no reinado de Henrique III.
-9. Dizeis ser uma punição a vossa condição atual... acaso não a escolhestes? - R. Não.
-10. Como pode vossa atual existência servir ao vosso adiantamento no estado de nulidade em que vos achais? - R. Para mim não há nulidade, pois foi Deus quem me impôs esta contingência.
+1.(A S. Luís.) Poderemos evocar o Espírito deste menino? - R. Sim, é como se o fizésseis ao de um desencarnado.
+2.Essa resposta faz-nos supor que a evocação se pode fazer a qualquer hora... - R. Sim, visto como presa ao corpo por laços materiais, que não espirituais, a sua alma pode desligar-se a qualquer hora.
+3.(Evocação de Charles.) - R. Sou um pobre Espírito preso à Terra por um pé, qual um passarinho.
+4.Presentemente, isto é, como Espírito, tendes consciência de vossa nulidade neste mundo? - R. Decerto que sinto o cativeiro.
+5.Quando o corpo adormece e o vosso Espírito se desprende, tendes as idéias tão lúcidas como se estivésseis em estado normal? - R. Quando o corpo infeliz repousa, fico um pouco mais livre para alçar-me ao céu a que aspiro.
+6.Experimentais no estado espiritual qualquer sensação dolorosa oriunda do vosso estado corpóreo? - R. Sim, por isso que é uma punição.
+7.Lembrai-vos da precedente encarnação? - R. Oh! sim, e ela é a causa do meu exílio atual.
+8.Que existência era essa? - R. A de um jovem libertino no reinado de Henrique III.
+9.Dizeis ser uma punição a vossa condição atual... acaso não a escolhestes? - R. Não.
+10.Como pode vossa atual existência servir ao vosso adiantamento no estado de nulidade em que vos achais? - R. Para mim não há nulidade, pois foi Deus quem me impôs esta contingência.
 
 
 
@@ -7419,15 +7244,15 @@ Este era um rapas de 13 anos, ainda encarnado, cujas faculdades intelectuais era
 
 # 2ª PARTE - CAPÍTULO VIII
 
-11. - Podeis prever o tempo de duração da existência atual? - R. Não, porém, mais ano menos ano, reentrarei na minha pátria.
+11.Podeis prever o tempo de duração da existência atual? - R. Não, porém, mais ano menos ano, reentrarei na minha pátria.
 
-12. - Durante o tempo que mediou entre a vossa última desencarnação e a encarnação atual, que fizestes? - R. Deus encarcerou-me; logo, era eu um Espírito leviano.
+12.Durante o tempo que mediou entre a vossa última desencarnação e a encarnação atual, que fizestes? - R. Deus encarcerou-me; logo, era eu um Espírito leviano.
 
-13. - Tendes, quando acordado, a consciência do que se passa, apesar da imperfeição dos vossos órgãos? - R. Vejo e ouço, mas meu corpo nada vê nem percebe.
+13.Tendes, quando acordado, a consciência do que se passa, apesar da imperfeição dos vossos órgãos? - R. Vejo e ouço, mas meu corpo nada vê nem percebe.
 
-14. - Poderemos fazer algo de proveitoso por vós? - R. Nada.
+14.Poderemos fazer algo de proveitoso por vós? - R. Nada.
 
-15. - (A S. Luís.) Em se tratando de Espírito encarnado, as preces têm a mesma eficácia que para os desencarnados? - R. As preces, além de sempre úteis, agradam a Deus. No caso deste Espírito, elas de nada lhe servem imediatamente, porém mais tarde Deus lhas levará em conta.
+15.(A S. Luís.) Em se tratando de Espírito encarnado, as preces têm a mesma eficácia que para os desencarnados? - R. As preces, além de sempre úteis, agradam a Deus. No caso deste Espírito, elas de nada lhe servem imediatamente, porém mais tarde Deus lhas levará em conta.
 
 Nota - Esta evocação ratifica o que sempre se disse dos idiotas. A nulidade moral não importa nulidade do Espírito, que, abstração feita dos órgãos, goza de todas as suas faculdades. A imperfeição dos órgãos é apenas um obstáculo à livre manifestação dos pensamentos. É, pois, o caso de um homem vigoroso, que fosse momentaneamente manietado.
 
@@ -7453,7 +7278,6 @@ Os atos de fúria, como de imbecilidade a que se entregam, são no íntimo julga
 A loucura não é das leis divinas, pois resultando materialmente da ignorância, da sordidez e da miséria, pode
 
 
-
 ---
 
 
@@ -7468,7 +7292,6 @@ Nota - Houve tempo em que se punha em dúvida a existência da alma dos idiotas,
 Pela reencarnação, ao contrário, o que se afigura injustiça torna-se admiravelmente justo, o que parece inexplicável, racionalmente se explica.
 
 Demais, sabemos que os nossos antagonistas, que os adversários desta doutrina não têm argumentos para comba-
-
 
 
 ---
@@ -7512,37 +7335,21 @@ Evocação. - Ao Deus Onipotente rogamos nos permita a comunicação do Espírit
 
 com as privações. Para isso me preparei durante longo tempo, e Deus manteve-me a coragem, de modo a poder atingir o fim a que me propusera.
 
-# P.
+P. Já tornastes a ver os antigos patrões? Dizei-nos qual a vossa posição perante eles, e se ainda vos considerais deles subalterna?
 
-Já tornastes a ver os antigos patrões? Dizei-nos qual a vossa posição perante eles, e se ainda vos considerais deles subalterna?
+R.Vi-os, pois, quando cheguei a este mundo, já aqui estavam. Humildemente vos confesso que me consideram como lhes sendo superior.
 
-# R.
+P.Tínheis qualquer motivo de afeição para com eles, de preferência a outros quaisquer?
 
-Vi-os, pois, quando cheguei a este mundo, já aqui estavam. Humildemente vos confesso que me consideram como lhes sendo superior.
+R.Obrigatório, nenhum, visto que em qualquer parte conseguiria o meu objetivo. Escolhi-os, no entanto, para retribuir uma dívida de reconhecimento. É que outrora haviam sido benévolos para comigo, prestando-me serviços.
 
-# P.
+P.Que futuro julgais que vos aguarde?
 
-Tínheis qualquer motivo de afeição para com eles, de preferência a outros quaisquer?
+R.Espero a reencarnação em um mundo onde se não conheçam dores. Talvez me julgueis muito presunçosa, porém eu vos falo com a vivacidade própria do meu caráter. Além disso, submeto-me à vontade de Deus.
 
-# R.
+P.Gratos à vossa presença, não duvidamos que Deus vos cumule de benefícios.
 
-Obrigatório, nenhum, visto que em qualquer parte conseguiria o meu objetivo. Escolhi-os, no entanto, para retribuir uma dívida de reconhecimento. É que outrora haviam sido benévolos para comigo, prestando-me serviços.
-
-# P.
-
-Que futuro julgais que vos aguarde?
-
-# R.
-
-Espero a reencarnação em um mundo onde se não conheçam dores. Talvez me julgueis muito presunçosa, porém eu vos falo com a vivacidade própria do meu caráter. Além disso, submeto-me à vontade de Deus.
-
-# P.
-
-Gratos à vossa presença, não duvidamos que Deus vos cumule de benefícios.
-
-# R.
-
-Obrigada. Assim Deus vos abençoe a todos, para que possais, quando desencarnados, gozar das puras alegrias que a mim me foram concedidas.
+R.Obrigada. Assim Deus vos abençoe a todos, para que possais, quando desencarnados, gozar das puras alegrias que a mim me foram concedidas.
 
 # CLARA RIVIER
 
@@ -7561,10 +7368,10 @@ Daí por diante, um Espírito batedor principiou a visitar a casa dos Rivier: - 
 
 Segundo afirma essa criança, a irmã lhe aparece frequentemente, e tais aparições lhe provocam exclamações de alegria como esta: "Mas vejam como Clara é bonita!"
 
-1. Evocação. - R. Aqui estou, disposta a responder-vos.
-2. Tão jovem quando encarnada, donde vos vinham as elevadas idéias sobre a vida futura, manifestadas neste mundo? - R. Do pouco tempo que me cumpria passar no vosso planeta e da minha precedente encarnação. Eu era médium tanto ao deixar como ao voltar à Terra; predestinada, sentia e via o que dizia.
-3. Como se explica que uma criança da vossa idade não desse um só gemido durante quatro anos de sofrimento? - R. Porque esse sofrimento físico era dominado por maior potência - a do meu guia, continuamente visível ao meu lado. Ele, ao mesmo tempo que me aliviava, sabia incutir-me uma força de vontade superior aos sofrimentos.
-4. Como vos apercebestes do momento decisivo da morte? - R. Por influxo do meu anjo de guarda, que jamais me iludiu.
+1.Evocação. - R. Aqui estou, disposta a responder-vos.
+2.Tão jovem quando encarnada, donde vos vinham as elevadas idéias sobre a vida futura, manifestadas neste mundo? - R. Do pouco tempo que me cumpria passar no vosso planeta e da minha precedente encarnação. Eu era médium tanto ao deixar como ao voltar à Terra; predestinada, sentia e via o que dizia.
+3.Como se explica que uma criança da vossa idade não desse um só gemido durante quatro anos de sofrimento? - R. Porque esse sofrimento físico era dominado por maior potência - a do meu guia, continuamente visível ao meu lado. Ele, ao mesmo tempo que me aliviava, sabia incutir-me uma força de vontade superior aos sofrimentos.
+4.Como vos apercebestes do momento decisivo da morte? - R. Por influxo do meu anjo de guarda, que jamais me iludiu.
 
 
 
@@ -7573,15 +7380,15 @@ Segundo afirma essa criança, a irmã lhe aparece frequentemente, e tais apariç
 
 # EXPIAÇÕES TERRESTRES
 
-5. - Dissestes a vosso pai que se resignasse porque viríeis visitá-lo. Como se explica, pois, que, animada de tão bons sentimentos para com vossos pais, viésseis perturbar-lhes depois com arruídos em sua casa? - R. É que eu tenho indubitavelmente uma provação, ou antes uma missão a realizar. Acreditais que venha ver meus pais sem fito algum? Esses rumores, essas lutas derivadas da minha presença são um aviso. Nisso sou também auxiliada por outros Espíritos cuja turbulência tem sua razão de ser, como razão de ser tem a minha aparição à irmãzinha... Graças a nós, muitas convicções vão despontar. Meus pais haviam de passar por uma provação. Bem cedo isso passará, mas não antes de terem convencido uma multidão de pessoas.
+5.Dissestes a vosso pai que se resignasse porque viríeis visitá-lo. Como se explica, pois, que, animada de tão bons sentimentos para com vossos pais, viésseis perturbar-lhes depois com arruídos em sua casa? - R. É que eu tenho indubitavelmente uma provação, ou antes uma missão a realizar. Acreditais que venha ver meus pais sem fito algum? Esses rumores, essas lutas derivadas da minha presença são um aviso. Nisso sou também auxiliada por outros Espíritos cuja turbulência tem sua razão de ser, como razão de ser tem a minha aparição à irmãzinha... Graças a nós, muitas convicções vão despontar. Meus pais haviam de passar por uma provação. Bem cedo isso passará, mas não antes de terem convencido uma multidão de pessoas.
 
-6. - Então não sois vós, individualmente, o autor desses rumores? - R. Sou, porém ajudada por Espíritos ao serviço da provação reservada aos meus genitores.
+6.Então não sois vós, individualmente, o autor desses rumores? - R. Sou, porém ajudada por Espíritos ao serviço da provação reservada aos meus genitores.
 
-7. - Como se explica, então, que a irmãzinha só vos reconhecesse, não sendo vós a autora exclusiva de tais manifestações? - R. É que ela apenas me viu a mim. Agora dispõe de vista dupla, e ainda terei de confortá-la muitas vezes com a minha presença.
+7.Como se explica, então, que a irmãzinha só vos reconhecesse, não sendo vós a autora exclusiva de tais manifestações? - R. É que ela apenas me viu a mim. Agora dispõe de vista dupla, e ainda terei de confortá-la muitas vezes com a minha presença.
 
-8. - Qual a razão dos vossos sofrimentos mortificantes numa idade tão infantil? - R. Faltas anteriores, expiação. Na precedente existência eu abusara da saúde, como da posição brilhante que ocupara. Eis por que Deus me disse: - "Gozaste demasiada e desmesuradamente; portanto, pagarás a diferença; eras orgulhosa, logo, serás humilde; vaidosa da tua beleza, importa que dela decaias, esforçando-te antes por adquirir a caridade e a bondade." Procedi consoante a vontade divina, e o meu guia me auxiliou.
+8.Qual a razão dos vossos sofrimentos mortificantes numa idade tão infantil? - R. Faltas anteriores, expiação. Na precedente existência eu abusara da saúde, como da posição brilhante que ocupara. Eis por que Deus me disse: - "Gozaste demasiada e desmesuradamente; portanto, pagarás a diferença; eras orgulhosa, logo, serás humilde; vaidosa da tua beleza, importa que dela decaias, esforçando-te antes por adquirir a caridade e a bondade." Procedi consoante a vontade divina, e o meu guia me auxiliou.
 
-9. - Quereis que digamos algo aos vossos pais? - R. A pedido de um médium, eles já tiveram ensejo de praticar a caridade, de não orarem só com os lábios, e
+9.Quereis que digamos algo aos vossos pais? - R. A pedido de um médium, eles já tiveram ensejo de praticar a caridade, de não orarem só com os lábios, e
 
 
 
@@ -7613,12 +7420,11 @@ Esta era cega de nascimento e filha de um rendeiro das cercanias de Tolosa. Fale
 
 # Evocação em Paris, em maio de 1865:
 
-- P. Quereis dizer-nos que luz seria essa a guiar-vos naquela noite trevosa e só vista por vós? - R. Quê! Pois as pessoas como vós, em contínuas relações com os Espíritos, têm necessidade de explicação sobre tal fato? Era o meu anjo de guarda quem me guiava.
+P. Quereis dizer-nos que luz seria essa a guiar-vos naquela noite trevosa e só vista por vós? - R. Quê! Pois as pessoas como vós, em contínuas relações com os Espíritos, têm necessidade de explicação sobre tal fato? Era o meu anjo de guarda quem me guiava.
 
-- P. Essa era também a nossa opinião, mas desejávamos vê-la confirmada. Mas sabíeis naquela ocasião que era o vosso anjo de guarda quem vos conduzia? - R. Confesso que não, posto acreditasse numa intervenção do céu. Eu orara por tanto tempo para que o Pai celestial se apiedasse de mim... É tão cruel a cegueira... Sim, ela é bem cruel, mas também reconheço ser justa.
+P. Essa era também a nossa opinião, mas desejávamos vê-la confirmada. Mas sabíeis naquela ocasião que era o vosso anjo de guarda quem vos conduzia? - R. Confesso que não, posto acreditasse numa intervenção do céu. Eu orara por tanto tempo para que o Pai celestial se apiedasse de mim... É tão cruel a cegueira... Sim, ela é bem cruel, mas também reconheço ser justa.
 
 "Aqueles que pecam pelos olhos, por eles devem ser punidos; e assim deve suceder quanto a todas as outras faculdades do homem, que o levam ao abuso. Não procureis, portanto, nos inúmeros sofrimentos humanos,
-
 
 
 ---
@@ -7630,12 +7436,11 @@ outra causa que lhes não seja a própria e natural, a expiação.
 
 "Esta, contudo, só é meritória quando suportada com humildade, podendo ser suavizada por meio da prece, pela atração de influências espirituais que, protegendo os réus da penitenciária humana, lhes infundam esperança e conforto.
 
-- P. Dedicada ao ensino das crianças pobres, tivestes dificuldade em adquirir os conhecimentos do catecismo, quando o mudaram? - R. Ordinariamente, os cegos têm outros sentidos duplos, se assim se pode dizer. A observação não é uma das menores faculdades da sua natureza.
+P. Dedicada ao ensino das crianças pobres, tivestes dificuldade em adquirir os conhecimentos do catecismo, quando o mudaram? - R. Ordinariamente, os cegos têm outros sentidos duplos, se assim se pode dizer. A observação não é uma das menores faculdades da sua natureza.
 
 "A memória lhes é qual armário onde se colocam coordenados, e para sempre, os ensinos referentes às suas aptidões e tendências. E porque nada do exterior pode perturbar esta faculdade, o seu desenvolvimento pode ser notável, pela educação. Quanto a mim, agradeço a Deus o haver-me concedido que tal faculdade me permitisse preencher a missão que levava, junto dessas crianças, e que constituía também uma reparação do mau exemplo que lhes dera em anterior existência. Tudo é assunto sério para os espíritas; basta, para afirmá-lo, olhar ao derredor deles. Os meus ensinos lhes seriam porventura mais úteis do que se se deixassem levar pelas sutilezas filosóficas de certos Espíritos, que se divertem com lisonjear-lhes o orgulho em frases tão bombásticas quão vazias de sentido.
 
-- P. Pela vossa conduta terrena, tivemos uma prova do vosso adiantamento morai, e agora, pela vossa linguagem, temos a de que esse adiantamento também é intelectual. - R. Muito me resta por adquirir; há, porém, muita gente que na Terra passa por ignorante, só porque tem a inteligência embotada pela expiação. Com a morte se rasga o véu, e freqüentemente os ignorantes são mais instruídos do que os desdenhosos da sua ignorância. Crede
-
+P. Pela vossa conduta terrena, tivemos uma prova do vosso adiantamento morai, e agora, pela vossa linguagem, temos a de que esse adiantamento também é intelectual. - R. Muito me resta por adquirir; há, porém, muita gente que na Terra passa por ignorante, só porque tem a inteligência embotada pela expiação. Com a morte se rasga o véu, e freqüentemente os ignorantes são mais instruídos do que os desdenhosos da sua ignorância. Crede
 
 
 ---
@@ -7685,14 +7490,13 @@ dade não acarretava sofrimentos; eu era como que instrumento da provação de m
 
 O Pai (um mês depois da morte). - Evocando-vos, temos por fim nos informarmos da vossa situação no mundo dos Espíritos e ser-vos úteis na medida das nossas forças. - R. O mundo dos Espíritos? Não o vejo... O que vejo são homens conhecidos, que comigo não se preocupam e tampouco me deploram a sorte, antes parecendo-me contentes de se verem livres de mim.
 
-- P. Mas fazeis uma idéia exata da vossa condição? - R. Perfeitamente: por algum tempo julguei-me ainda no vosso mundo, mas hoje sei muito bem que não mais lhe pertenço.
+P. Mas fazeis uma idéia exata da vossa condição? - R. Perfeitamente: por algum tempo julguei-me ainda no vosso mundo, mas hoje sei muito bem que não mais lhe pertenço.
 
-- P. Por que, então, não podeis divisar outros Espíritos que vos rodeiam? - R. Ignoro-o, conquanto tudo esteja bem claro em torno de mim.
+P. Por que, então, não podeis divisar outros Espíritos que vos rodeiam? - R. Ignoro-o, conquanto tudo esteja bem claro em torno de mim.
 
-- P. Ainda não vistes a vossa filha? - R. Não, ela está morta; procuro-a, chamo por ela inutilmente. Que vácuo horrível que a sua morte me deixou na Terra! Morrendo, julgava encontrá-la, mas nada! O insulamento sempre e sempre! ninguém que me dirija uma palavra de consolação e de esperança. Adeus, vou procurar minha filha.
+P. Ainda não vistes a vossa filha? - R. Não, ela está morta; procuro-a, chamo por ela inutilmente. Que vácuo horrível que a sua morte me deixou na Terra! Morrendo, julgava encontrá-la, mas nada! O insulamento sempre e sempre! ninguém que me dirija uma palavra de consolação e de esperança. Adeus, vou procurar minha filha.
 
 O guia do médium. - Este homem não era ateu nem materialista, mas daqueles que crêem vagamente, sem se preocuparem de Deus e do futuro, empolgados como são pelos interesses terrenos. Profundamente egoísta, tudo sacrificaria para salvar a filha, mas também sem o mí-
-
 
 
 ---
