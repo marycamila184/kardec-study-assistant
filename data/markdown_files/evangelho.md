@@ -241,13 +241,11 @@ Para bem se compreenderem algumas passagens dos Evangelhos, necessário se faz c
 
 palavras foram com freqüência mal‑interpretadas, causando isso uma espécie de incerteza. A inteligência da significação delas explica, ao demais, o verdadeiro sentido de certas máximas que, à primeira vista, parecem singulares.
 
-# Escribas
+Escribas. - Nome dado, a princípio, aos secretários dos reis de Judá e a certos intendentes dos exércitos judeus. Mais tarde, foi aplicado especialmente aos doutores que ensinavam a lei de Moisés e a interpretavam para o povo. Faziam causa comum com os fariseus, de cujos princípios partilhavam, bem como da antipatia que aqueles votavam aos inovadores. Daí o envolvê‑los Jesus na reprovação que lançava aos fariseus.
 
-Nome dado, a princípio, aos secretários dos reis de Judá e a certos intendentes dos exércitos judeus. Mais tarde, foi aplicado especialmente aos doutores que ensinavam a lei de Moisés e a interpretavam para o povo. Faziam causa comum com os fariseus, de cujos princípios partilhavam, bem como da antipatia que aqueles votavam aos inovadores. Daí o envolvê‑los Jesus na reprovação que lançava aos fariseus.
+Essênios ou esseus. - Também seita judia fundada cerca do ano 150 antes de Jesus‑Cristo, ao tempo dos macabeus, e cujos membros, habitando uma especie de mosteiros, formavam entre si uma como associação moral e religiosa. Distinguiam‑se pelos costumes brandos e por austeras virtudes, ensinavam o amor a Deus e ao próximo, a imortalidade da alma e acreditavam na ressurreição. Viviam em celibato, condenavam a escravidão e a guerra, punham em comunhão os seus bens e se entregavam à agricultura. Contrários aos saduceus sensuais, que negavam a imortalidade; aos fariseus de rígidas práticas exteriores e de virtudes apenas aparentes, nunca os essênios tomaram parte nas querelas que tornaram antagonistas aquelas duas outras seitas. Pelo gênero de vida que levavam, assemelhavam‑se muito aos primeiros cristãos, e os princípios da moral que professavam induziram muitas pessoas a supor que Jesus, antes de dar começo à sua missão pública, lhes pertencera à comunidade. E certo que ele há de tê‑la conhecido, mas nada prova que se lhe houvesse filiado, sendo, pois, hipotético tudo quanto a esse respeito se escreveu.
 
-# Essênios ou esseus
-
-Também seita judia fundada cerca do ano 150 antes de Jesus‑Cristo, ao tempo dos macabeus, e cujos membros, habitando uma especie de mosteiros, formavam entre si uma como associação moral e religiosa. Distinguiam‑se pelos costumes brandos e por austeras virtudes, ensinavam o amor a Deus e ao próximo, a imortalidade da alma e acreditavam na ressurreição. Viviam em celibato, condenavam a escravidão e a guerra, punham em comunhão os seus bens e se entregavam à agricultura. Contrários aos saduceus sensuais, que negavam a imortalidade; aos fariseus de rígidas práticas exteriores e de virtudes apenas aparentes, nunca os essênios tomaram parte nas querelas que tornaram antagonistas aquelas duas outras seitas. Pelo gênero de vida que levavam, assemelhavam‑se muito aos primeiros cristãos, e os princípios da moral que professavam induziram muitas pessoas a supor que Jesus, antes de dar começo à sua missão pública, lhes pertencera à comunidade. E certo que ele há de tê‑la conhecido, mas nada prova que se lhe houvesse filiado, sendo, pois, hipotético tudo quanto a esse respeito se escreveu.
+______________
 
 (1) A morte de Jesus, supostamente escrita por um essênio, é obra inteiramente apócrifa, cujo único fim foi servir de apoio a uma opinião. Ela traz em si mesma a prova de sua origem moderna.
 
@@ -304,9 +302,7 @@ Saduceus. ‑ Seita judia, que se formou por volta do ano 248 antes de Jesus‑C
 
 Entretanto, criam em Deus; nada, porém, esperando após a morte, só o serviam tendo em vista recompensas temporais, ao que, segundo eles, se limitava a providência divina. Assim pensando, tinham a satisfação dos sentidos tísicos por objetivo essencial da vida. Quanto às Escrituras, atinham‑se ao texto da lei antiga. Não admitiam a tradição, nem interpretações quaisquer. Colocavam as boas obras e a observância pura e simples da Lei acima das práticas exteriores do culto. Eram, como se vê, os materialistas, os deístas e os sensualistas da época. Seita pouco numerosa, mas que contava em seu seio importantes personagens e se tornou um partido político oposto constantemente aos fariseus.
 
-# Samaritanos
-
-Após o cisma das dez tribos, Samaria se constituiu a capital do reino dissidente de Israel. Destruída e reconstruída várias vezes, tomou‑se, sob os romanos, a cabeça da Samaria, uma das quatro divisões da Palestina. Herodes, chamado o Grande, a embelezou de suntuosos monumentos e, para lisonjear Augusto, lhe deu o nome de Augusta, em grego Sebaste.
+Samaritanos. - Após o cisma das dez tribos, Samaria se constituiu a capital do reino dissidente de Israel. Destruída e reconstruída várias vezes, tomou‑se, sob os romanos, a cabeça da Samaria, uma das quatro divisões da Palestina. Herodes, chamado o Grande, a embelezou de suntuosos monumentos e, para lisonjear Augusto, lhe deu o nome de Augusta, em grego Sebaste.
 
 Os samaritanos estiveram quase constantemente em guerra com os reis de Judá. Aversão profunda, datando da época da separação, perpetuou‑se entre os dois povos, que evitavam todas as relações recíprocas. Aqueles, para tornarem maior a cisão e não terem de vir a Jerusalém pela celebração das festas religiosas, construíram para si um templo particular e adotaram algumas reformas. Somente admitiam o Pentateuco, que continha a lei de Moisés, e rejeitavam todos os outros livros que a esse foram posteriormente anexados. Seus livros sagrados eram escritos em caracteres hebraicos da mais alta antigüidade. Para os judeus ortodoxos, eles eram heréticos e, portanto, desprezados, anatematizados e perseguidos. Ó antagonismo das duas nações tinha, pois, por fundamento único a divergência das opiniões religiosas; se bem fosse a mesma a origem das crenças de uma e outra. Eram os protestantes desse tempo.
 
@@ -370,15 +366,11 @@ II. A alma se transvia e perturba, quando se serve do corpo para considerar qual
 
 Assim, ilude‑se a si mesmo o homem que considera as coisas de modo terra‑a‑terra, do ponto de vista material. Para as apreciar com justeza, tem de as ver do alto, isto é, do ponto de vista espiritual. Aquele, pois, que está de posse da verdadeira sabedoria, tem de isolar do corpo a alma, para ver com os olhos do Espírito. E o que ensina o Espiritismo. (Cap. II, nº 5.)
 
-# III.
-
-Enquanto tivermos o nosso corpo e a alma se achar mergulhado nessa corrupção, nunca possuiremos o objeto dos nossos desejos: a verdade. Com efeito, o corpo nos suscita mil obstáculos pela necessidade em que nas achamos de cuidar dele. Ao demais, ele nos enche de desejos, de apetites, de temores, de mil quimeras e de mil tolices, de maneira que, com ele, impossível se nos torna ser ajuizados, sequer por um instante. Mas, se não nos é possível conhecer puramente coisa alguma, enquanto a alma nos está ligada ao corpo, de duas uma: ou jamais conheceremos a verdade, ou só a conheceremos após a morte. Libertos da loucura do corpo, conversaremos então, lícito é esperá-lo, com homens igualmente libertos e conheceremos, por nós mesmos, a essência das coisas. Essa a razão por que os verdadeiros filósofos se exercitam em morrer e a morte não se lhes afigura, de modo nenhum, temível.
+III. Enquanto tivermos o nosso corpo e a alma se achar mergulhado nessa corrupção, nunca possuiremos o objeto dos nossos desejos: a verdade. Com efeito, o corpo nos suscita mil obstáculos pela necessidade em que nas achamos de cuidar dele. Ao demais, ele nos enche de desejos, de apetites, de temores, de mil quimeras e de mil tolices, de maneira que, com ele, impossível se nos torna ser ajuizados, sequer por um instante. Mas, se não nos é possível conhecer puramente coisa alguma, enquanto a alma nos está ligada ao corpo, de duas uma: ou jamais conheceremos a verdade, ou só a conheceremos após a morte. Libertos da loucura do corpo, conversaremos então, lícito é esperá-lo, com homens igualmente libertos e conheceremos, por nós mesmos, a essência das coisas. Essa a razão por que os verdadeiros filósofos se exercitam em morrer e a morte não se lhes afigura, de modo nenhum, temível.
 
 Está ai o princípio das faculdades da alma obscurecidas por motivo dos órgãos corporais e o da expansão dessas faculdades depois da morte. Mas trata‑se apenas de almas já depuradas; o mesmo não se dá com as almas impuras. (O Céu e o Inferno, 1ª Parte, cap. II; 2ª Parte, cap. I.)
 
-# IV.
-
-A alma impura, nesse estado, se encontra oprimida e se vê de novo arrastado para o mundo visível, pelo horror do que é invisível e imaterial. Erra, então, diz-se, em torno dos monumentos e dos túmulos, junto aos quais já se têm visto tenebrosos fantasmas, quais devem ser as imagens das almas que deixaram o corpo sem estarem ainda inteiramente puras, que ainda conservam alguma coisa do forma material, o que faz que a vista humana possa percebê-las. Não são as almas dos bons; silo, porém, as dos maus, que se vêem forçadas a vagar por esses lugares, onde arrastam consigo a pena do primeira vida que tiveram e onde continuam a vagar até que os apetites inerentes à forma material de que se revestiram as reconduzam a um corpo.
+IV.  A alma impura, nesse estado, se encontra oprimida e se vê de novo arrastado para o mundo visível, pelo horror do que é invisível e imaterial. Erra, então, diz-se, em torno dos monumentos e dos túmulos, junto aos quais já se têm visto tenebrosos fantasmas, quais devem ser as imagens das almas que deixaram o corpo sem estarem ainda inteiramente puras, que ainda conservam alguma coisa do forma material, o que faz que a vista humana possa percebê-las. Não são as almas dos bons; silo, porém, as dos maus, que se vêem forçadas a vagar por esses lugares, onde arrastam consigo a pena do primeira vida que tiveram e onde continuam a vagar até que os apetites inerentes à forma material de que se revestiram as reconduzam a um corpo.
 
 
 
@@ -408,21 +400,15 @@ A palavra daimon, da qual fizeram o termo demônio, não era, na antigüidade, t
 
 Deus só se comunica com os homens por intermédio dos Espíritos puros, que são os incumbidos de lhe transmitir as vontades; que os Espíritos se comunicam com eles durante a vigília e durante o sono. Ponde, em lugar da palavra demônio, a palavra Espírito e tereis a doutrina espírita; ponde a palavra anjo e tereis a doutrina cristã.
 
-# VII.
-
-A preocupação constante do filósofo (tal como o compreendiam Sócrates e Platão) é, a de tomar o maior cuidado com a alma, menos pelo que respeita a esta vida, que não dura mais que um instante, do que tendo em vista a eternidade. Desde que a alma é imortal, não será prudente viver visando a eternidade?
+VII. A preocupação constante do filósofo (tal como o compreendiam Sócrates e Platão) é, a de tomar o maior cuidado com a alma, menos pelo que respeita a esta vida, que não dura mais que um instante, do que tendo em vista a eternidade. Desde que a alma é imortal, não será prudente viver visando a eternidade?
 
 O Cristianismo e o Espiritismo ensinam a mesma coisa.
 
-# VIII.
-
-Se a alma é imaterial, tem de passar, após essa vida, a um mundo igualmente invisível e imaterial, do mesmo modo que o corpo, decompondo-se, volta à matéria. Muito importa, no entanto, distinguir bem a alma pura, verdadeiramente imaterial, que se alimente, como Deus, de ciência e pensamentos, da alma mais ou menos maculada de impurezas materiais, que a impedem de elevar-se para o divino e a retêm nos lugares da sua estada na Terra.
+VIII. Se a alma é imaterial, tem de passar, após essa vida, a um mundo igualmente invisível e imaterial, do mesmo modo que o corpo, decompondo-se, volta à matéria. Muito importa, no entanto, distinguir bem a alma pura, verdadeiramente imaterial, que se alimente, como Deus, de ciência e pensamentos, da alma mais ou menos maculada de impurezas materiais, que a impedem de elevar-se para o divino e a retêm nos lugares da sua estada na Terra.
 
 Sócrates e Platão, como se vê, compreendiam perfeitamente os diferentes graus de desmaterialização da alma. Insistem na diversidade de situação que resulta para elas da sua maior ou menor pureza. O que eles diziam, por intuição, o Espiritismo o prova com os inúmeros exemplos que nos põe sob as vistas. (O Céu e o Inferno, 2ª Parte.)
 
-# IX.
-
-Se a morte fosse a dissolução completa do homem, muito ganhariam com a morte os maus, pois se veriam livres, ao mesmo tempo, do corpo, da alma e dos vícios. Aquele que guarnecer a alma, não de ornatos estranhos, mas com os que lhe são próprios, só esse poderá aguardar tranqüilamente a hora da sua partida para o outro mundo.
+IX. Se a morte fosse a dissolução completa do homem, muito ganhariam com a morte os maus, pois se veriam livres, ao mesmo tempo, do corpo, da alma e dos vícios. Aquele que guarnecer a alma, não de ornatos estranhos, mas com os que lhe são próprios, só esse poderá aguardar tranqüilamente a hora da sua partida para o outro mundo.
 
 Eqüivale isso a dizer que o materialismo, com o proclamar para depois da morte o nada, anula toda responsabilidade moral ulterior, sendo, conseguintemente, um incen‑
 
@@ -435,15 +421,11 @@ Eqüivale isso a dizer que o materialismo, com o proclamar para depois da morte 
 
 tivo para o mal; que o mau tem tudo a ganhar do nada. Somente o homem que se despojou dos vícios e se enriqueceu de virtudes, pode esperar com tranqúilidade o despertar na outra vida. Por meio de exemplos, que todos os dias nos apresenta, o Espiritismo mostra quão penoso é, para o mau, o passar desta à outra vida, a entrada na vida futura. (O Céu e o Inferno, 2ª Parte, cap. 1.)
 
-# X.
-
-O corpo conserva bem impressos os vestígios dos cuidados de que foi objeto e dos acidentes que sofreu. Dá-se o mesmo com a alma. Quando despida do corpo, ela guarda, evidentes, os traços do seu caráter, de suas afeições e as marcas que lhe deixaram todos os atos de sua visa. Assim, a maior desgraça que pode acontecer ao homem é ir para o outro mundo com a alma carregado de crimes. Vês, Cálicles, que nem tu, nem Pólux, nem Górgias podereis provar que devamos levar outra vida que nos seja útil quando estejamos do outro lado. De tantas opiniões diversas, a única que permanece inabalável é a de que mais vale receber do que cometer uma injustiça e que, acima de tudo, devemos cuidar, não de parecer, mas de ser homem de bem. (Colóquios de Sócrates com seus discípulos, na prisão.)
+X. O corpo conserva bem impressos os vestígios dos cuidados de que foi objeto e dos acidentes que sofreu. Dá-se o mesmo com a alma. Quando despida do corpo, ela guarda, evidentes, os traços do seu caráter, de suas afeições e as marcas que lhe deixaram todos os atos de sua visa. Assim, a maior desgraça que pode acontecer ao homem é ir para o outro mundo com a alma carregado de crimes. Vês, Cálicles, que nem tu, nem Pólux, nem Górgias podereis provar que devamos levar outra vida que nos seja útil quando estejamos do outro lado. De tantas opiniões diversas, a única que permanece inabalável é a de que mais vale receber do que cometer uma injustiça e que, acima de tudo, devemos cuidar, não de parecer, mas de ser homem de bem. (Colóquios de Sócrates com seus discípulos, na prisão.)
 
 Depara‑se‑nos aqui outro ponto capital, confirmado hoje pela experiência: o de que a alma não depurada conserva as idéias, as tendências, o caráter e as paixões que teve na Terra. Não é inteiramente cristã esta máxima: mais vale receber do que cometer uma injustiça? O mesmo pensamento exprimiu Jesus, usando desta figura: "Se alguém vos bater numa face, apresentai‑lhe a outra." (Cap. XII, nº 7 e nº 8.)
 
-# XI.
-
-De duas uma: ou a morte é uma destruição absoluta, ou é passagem da alma para outro lugar. Se tudo tem de extinguir-se, a morte será como uma dessas raras noites que passamos sem sonho e sem nenhuma consciência de nós mesmos. Todavia, se a morte é apenas uma mudança de morada, a passagem para o lugar onde os mortos se têm de reunir, que felicidade a de encontrarmos lá aqueles a quem conhecemos! O meu maior prazer seria examinar de perto os habitantes dessa outra morada e distinguir lá, como aqui, os que são dignos dos que se julgam tais e não o são. Mas, é tempo de nos separarmos, eu para morrer, vós para viverdes. (Sócrates aos seus juizes.)
+XI. De duas uma: ou a morte é uma destruição absoluta, ou é passagem da alma para outro lugar. Se tudo tem de extinguir-se, a morte será como uma dessas raras noites que passamos sem sonho e sem nenhuma consciência de nós mesmos. Todavia, se a morte é apenas uma mudança de morada, a passagem para o lugar onde os mortos se têm de reunir, que felicidade a de encontrarmos lá aqueles a quem conhecemos! O meu maior prazer seria examinar de perto os habitantes dessa outra morada e distinguir lá, como aqui, os que são dignos dos que se julgam tais e não o são. Mas, é tempo de nos separarmos, eu para morrer, vós para viverdes. (Sócrates aos seus juizes.)
 
 
 
@@ -476,19 +458,13 @@ XIV. A riqueza é um grande perigo. Todo homem que ama a riqueza não ama a si m
 
 que lhe é ainda mais estranha do que o que lhe pertence. (Capítulo XVI.)
 
-# XIV.
+XIV. As mais belas preces e os mais belos sacrifícios prazem menos à Divindade do que uma alma virtuosa que faz esforços por se lhe assemelhar. Grave coisa fora que os deuses dispensassem mais atenção às nossas oferendas, do que a nossa alma; se tal se desse, poderiam os mais culpados conseguir que eles se lhes tornassem propícios. Mas, não: verdadeiramente justos e retos só o são os que, por suas palavras e atos, cumprem seus deveres para com os deuses e para com os homens. (Cap. X, nº 7 e nº e 8.)
 
-As mais belas preces e os mais belos sacrifícios prazem menos à Divindade do que uma alma virtuosa que faz esforços por se lhe assemelhar. Grave coisa fora que os deuses dispensassem mais atenção às nossas oferendas, do que a nossa alma; se tal se desse, poderiam os mais culpados conseguir que eles se lhes tornassem propícios. Mas, não: verdadeiramente justos e retos só o são os que, por suas palavras e atos, cumprem seus deveres para com os deuses e para com os homens. (Cap. X, nº 7 e nº e 8.)
-
-# XV.
-
-Chamo homem vicioso a esse amante vulgar, que mais ama o corpo do que a alma. O amor está por toda parte em a Natureza, que nos convida ao exercício da nossa inteligência; até no movimento dos astros o encontramos. É o amor que orna a Natureza de seus ricos tapetes; ele se enfeita e fixa morada onde se lhe deparem flores e perfumes. É ainda o amor que dá paz aos homens, calma ao mar, silêncio aos ventos e sono a dor.
+XV. Chamo homem vicioso a esse amante vulgar, que mais ama o corpo do que a alma. O amor está por toda parte em a Natureza, que nos convida ao exercício da nossa inteligência; até no movimento dos astros o encontramos. É o amor que orna a Natureza de seus ricos tapetes; ele se enfeita e fixa morada onde se lhe deparem flores e perfumes. É ainda o amor que dá paz aos homens, calma ao mar, silêncio aos ventos e sono a dor.
 
 O amor, que há de unir os homens por um laço fraternal, é uma conseqüência dessa teoria de Platão sobre o amor universal, como lei da Natureza. Tendo dito Sócrates que "o amor não é nem um deus, nem um mortal, mas um grande demônio", isto é, um grande Espírito que preside ao amor universal, essa proposição lhe foi imputada como crime.
 
-# XVI.
-
-A virtude não pode ser ensinada; vem por dom de Deus aos que a possuem.
+XVI. A virtude não pode ser ensinada; vem por dom de Deus aos que a possuem.
 
 É quase a doutrina cristã sobre a graça; mas, se a virtude é um dom de Deus, é um favor e, então, pode perguntar‑se por que não é concedida a todos. Por outro lado, se é um dom, carece de mérito para aquele que a possui. O Espiritismo é mais explícito, dizendo que aquele que possui a virtude a adquiriu por seus esforços, em existências sucessivas, despojando‑se pouco a pouco de suas imperfeições. A graça é a força que Deus faculta ao homem de boa vontade para se expungir do mal e praticar o bem.
 
@@ -498,27 +474,19 @@ A virtude não pode ser ensinada; vem por dom de Deus aos que a possuem.
 
 # INTRODUÇÃO
 
-# XVIII.
-
-É disposição natural em todos nós a de nos apercebermos muito menos dos nossos defeitos, do que dos de outrem.
+XVIII. É disposição natural em todos nós a de nos apercebermos muito menos dos nossos defeitos, do que dos de outrem.
 
 Diz o Evangelho: "Vedes a palha que está no olho do vosso próximo e não vedes a trave que está no vosso." (Cap. X, nº 9 e nº 10.)
 
-# XIX.
-
-Se os médicos são malsucedidos, tratando da maior parte das moléstias, é que tratam do corpo, sem tratarem da alma. Ora, não se achando o todo em bom estado, impossível é que uma parte dele passe bem.
+XIX. Se os médicos são malsucedidos, tratando da maior parte das moléstias, é que tratam do corpo, sem tratarem da alma. Ora, não se achando o todo em bom estado, impossível é que uma parte dele passe bem.
 
 O Espiritismo fornece a chave das relações existentes entre a alma e o corpo e prova que um reage incessantemente sobre o outro. Abre, assim, nova senda para a Ciência. Com o lhe mostrar a verdadeira causa de certas afecções, faculta‑lhe os meios de as combater. Quando a Ciência levar em conta a ação do elemento espiritual na economia, menos freqüentes serão os seus maus êxitos.
 
-# XX.
-
-Todos os homens, a partir da infância, muito mais fazem de mal, do que de bem.
+XX.  Todos os homens, a partir da infância, muito mais fazem de mal, do que de bem.
 
 Essa sentença de Sócrates fere a grave questão da predominância do mal na Terra, questão insolúvel sem o conhecimento da pluralidade dos mundos e da destinação do planeta terreno, habitado apenas por uma fração mínima da Humanidade. Somente o Espiritismo resolve essa questão, que se encontra explanada aqui adiante, nos capítulos II, III e V.
 
-# XXI.
-
-Ajuizado serás, não supondo que sabes o que ignoras.
+XXI. Ajuizado serás, não supondo que sabes o que ignoras.
 
 Isso vai com vistas aos que criticam aquilo de que desconhecem até mesmo os primeiros termos. Platão completa esse pensamento de Sócrates, dizendo: "Tentemos, primeiro, torná‑los, se for possível, mais honestos nas palavras; se não o forem, não nos preocupemos com eles e não procuremos senão a verdade. Cuidemos de instruir‑nos, mas não nos injuriemos."
 
@@ -549,7 +517,7 @@ As três revelações: Moisés, Cristo, Espiritismo. Aliança da Ciência e da R
 
 Na lei moisaica, há duas partes distintas: a lei de Deus, promulgada no monte Sinai, e a lei civil ou disciplinar, decretada por Moisés. Uma é invariável; a outra, apropriada aos costumes e ao caráter do povo, se modifica com o tempo. A lei de Deus está formulada nos dez mandamentos seguintes:
 
-1. Eu sou o Senhor, vosso Deus, que vos tirei do Egito, da casa da servidão. Não tereis, diante de mim, outros deuses estrangeiros.
+I. Eu sou o Senhor, vosso Deus, que vos tirei do Egito, da casa da servidão. Não tereis, diante de mim, outros deuses estrangeiros.
 
 
 
@@ -558,17 +526,17 @@ Na lei moisaica, há duas partes distintas: a lei de Deus, promulgada no monte S
 
 # CAPÍTULO 1
 
-- Não fareis imagem esculpida, nem figura alguma do que está em cima do céu, nem embaixo na Terra, nem do que quer que esteja nas águas sob a terra. Não os adorareis e não lhes prestareis culto soberano. (1)
+Não fareis imagem esculpida, nem figura alguma do que está em cima do céu, nem embaixo na Terra, nem do que quer que esteja nas águas sob a terra. Não os adorareis e não lhes prestareis culto soberano. (1)
 
-1. Não pronunciareis em vão o nome do Senhor, vosso Deus.
-2. Lembrai-vos de santificar o dia do sábado.
-3. Honrai a vosso pai e a vossa mãe, a fim de viverdes longo tempo na terra que o Senhor vosso Deus vos dará.
-4. Não mateis.
-5. Não cometais adultério.
-6. Não roubeis.
-7. Não presteis testemunho falso contra o vosso próximo.
-8. Não desejeis a mulher do vosso próximo.
-9. Não cobiceis a casa do vosso próximo, nem o seu servo, nem a sua serva, nem o seu boi, nem o seu asno, nem qualquer das coisas que lhe pertençam.
+II. Não pronunciareis em vão o nome do Senhor, vosso Deus.
+III. Lembrai-vos de santificar o dia do sábado.
+IV. Honrai a vosso pai e a vossa mãe, a fim de viverdes longo tempo na terra que o Senhor vosso Deus vos dará.
+V. Não mateis.
+VI. Não cometais adultério.
+VII. Não roubeis.
+VIII. Não presteis testemunho falso contra o vosso próximo.
+IX. Não desejeis a mulher do vosso próximo.
+X. Não cobiceis a casa do vosso próximo, nem o seu servo, nem a sua serva, nem o seu boi, nem o seu asno, nem qualquer das coisas que lhe pertençam.
 
 É de todos os tempos e de todos os países essa lei e tem, por isso mesmo, caráter divino. Todas as outras são leis que Moisés decretou, obrigado que se via a conter, pelo temor, um povo de seu natural turbulento e indisciplinado, no qual tinha ele de combater arraigados abusos e preconceitos, adquiridos durante a escravidão do Egito. Para imprimir autoridade às suas leis, houve de lhes atribuir origem divina, conforme o fizeram todos os legisladores dos povos primitivos. A autoridade do homem precisava
 
@@ -585,7 +553,7 @@ Esses textos truncados que aparecem na tradução da Igreja Anglicana, na Catól
 ---
 
 
-NÃO VIM DESTRUIR A LEI
+# NÃO VIM DESTRUIR A LEI
 
 apoiar‑se na autoridade de Deus; mas, só a idéia de um Deus terrível podia impressionar criaturas ignorantes, em as quais ainda pouco desenvolvidos se encontravam o senso moral e o sentimento de uma justiça reta. E evidente que aquele que incluíra, entre os seus mandamentos, este: “Não matareis; não causareis dano ao vosso próximo", não poderia contradizer‑se, fazendo da exterminação um dever. As leis moisaicas, propriamente ditas, revestiam, pois, um caráter essencialmente transitório.
 
@@ -612,15 +580,11 @@ Achamos conveniente acrescentar aqui esta nota, para facilitar a compreensão do
 
 dizer Jesus ser necessário que a lei de Deus tivesse cumprimento integral, isto é, fosse praticada na Terra inteira, em toda a sua pureza, com todas as suas ampliações e conseqüências. Efetivamente, de que serviria haver sido promulgada aquela lei, se ela devesse constituir privilégio de alguns homens, ou, sequer, de um único povo? Sendo filhos de Deus todos os homens, todos, sem distinção nenhuma, são objeto da mesma solicitude.
 
-# 4.
-
-Mas, o papel de Jesus não foi o de um simples legislador moralista, tendo por exclusiva autoridade a sua palavra. Cabia‑lhe dar cumprimento às profecias que lhe anunciaram o advento; a autoridade lhe vinha da natureza excepcional do seu Espírito e da sua missão divina. Ele viera ensinar aos homens que a verdadeira vida não é a que transcorre na Terra e sim a que é vivida no reino dos céus; viera ensinar‑lhes o caminho que a esse reino conduz, os meios de eles se reconciliarem com Deus e de pressentirem esses meios na marcha das coisas por vir, para a realização dos destinos humanos. Entretanto, não disse tudo, limitando‑se, respeito a muitos pontos, a lançar o gérmen de verdades que, segundo ele próprio o declarou, ainda não podiam ser compreendidas. Falou de tudo, mas em termos mais ou menos implícitos. Para ser apreendido o sentido oculto de algumas palavras suas, mister se fazia que novas idéias e novos conhecimentos lhes trouxessem a chave indispensável, idéias que, porém, não podiam surgir antes que o espírito humano houvesse alcançado um certo grau de madureza. A Ciência tinha de contribuir poderosamente para a eclosão e o desenvolvimento de tais idéias. Importava, pois, dar à Ciência tempo para progredir.
+4.  Mas, o papel de Jesus não foi o de um simples legislador moralista, tendo por exclusiva autoridade a sua palavra. Cabia‑lhe dar cumprimento às profecias que lhe anunciaram o advento; a autoridade lhe vinha da natureza excepcional do seu Espírito e da sua missão divina. Ele viera ensinar aos homens que a verdadeira vida não é a que transcorre na Terra e sim a que é vivida no reino dos céus; viera ensinar‑lhes o caminho que a esse reino conduz, os meios de eles se reconciliarem com Deus e de pressentirem esses meios na marcha das coisas por vir, para a realização dos destinos humanos. Entretanto, não disse tudo, limitando‑se, respeito a muitos pontos, a lançar o gérmen de verdades que, segundo ele próprio o declarou, ainda não podiam ser compreendidas. Falou de tudo, mas em termos mais ou menos implícitos. Para ser apreendido o sentido oculto de algumas palavras suas, mister se fazia que novas idéias e novos conhecimentos lhes trouxessem a chave indispensável, idéias que, porém, não podiam surgir antes que o espírito humano houvesse alcançado um certo grau de madureza. A Ciência tinha de contribuir poderosamente para a eclosão e o desenvolvimento de tais idéias. Importava, pois, dar à Ciência tempo para progredir.
 
 # O Espiritismo
 
-# 5.
-
-O Espiritismo é a ciência nova que vem revelar aos homens, por meio de provas irrecusáveis, a existência e a natureza do mundo espiritual e as suas relações com o mundo corpóreo. Ele no‑lo mostra, não mais como coisa
+5. O Espiritismo é a ciência nova que vem revelar aos homens, por meio de provas irrecusáveis, a existência e a natureza do mundo espiritual e as suas relações com o mundo corpóreo. Ele no‑lo mostra, não mais como coisa
 
 
 
@@ -699,9 +663,7 @@ material, redundava em proveito do espírito das trevas. Como sabeis, cristãos,
 
 A revolução que se apresta é antes moral do que material. Os grandes Espíritos, mensageiros divinos, sopram a fé, para que todos vós, obreiros esclarecidos e ardorosos, façais ouvir a vossa voz humilde, porquanto sois o grão de areia; mas, sem grãos de areia, não existiriam as montanhas. Assim, pois, que estas palavras ‑ "Somos pequenos" ‑ careçam para vós de significação. A cada um a sua missão, a cada um o seu trabalho. Não constrói a formiga o edifício de sua república e imperceptíveis animálculos não elevam continentes? Começou a nova cruzada. Apóstolos da paz universal, que não de uma guerra, modernos São Bernardos, olhai e marchai para frente; a lei dos mundos é a do progresso. Fénelon. (Poitiers, 1861.)
 
-# 11. Santo Agostinho
-
-é um dos maiores vulgarizadores do Espiritismo. Manifesta‑se quase por toda parte. A razão disso, encontramo‑la na vida desse grande filósofo cristão. Pertence ele à vigorosa falange do Pais da Igreja, aos quais deve a cristandade seus mais sólidos esteios. Como vários outros, foi arrancado ao paganismo, ou melhor, à impiedade mais profunda, pelo fulgor da verdade. Quando, entregue aos maiores excessos, sentiu em sua alma aquela singular vibração que o fez voltar a si e compreender que a felicidade estava alhures, que não nos prazeres enervantes e fugitivos; quando, afinal, no seu caminho de Damasco, também lhe foi dado ouvir a santa voz a clamar‑lhe: "Saulo, Saulo, por que me persegues?" exclamou:
+11. Santo Agostinho é um dos maiores vulgarizadores do Espiritismo. Manifesta‑se quase por toda parte. A razão disso, encontramo‑la na vida desse grande filósofo cristão. Pertence ele à vigorosa falange do Pais da Igreja, aos quais deve a cristandade seus mais sólidos esteios. Como vários outros, foi arrancado ao paganismo, ou melhor, à impiedade mais profunda, pelo fulgor da verdade. Quando, entregue aos maiores excessos, sentiu em sua alma aquela singular vibração que o fez voltar a si e compreender que a felicidade estava alhures, que não nos prazeres enervantes e fugitivos; quando, afinal, no seu caminho de Damasco, também lhe foi dado ouvir a santa voz a clamar‑lhe: "Saulo, Saulo, por que me persegues?" exclamou:
 
 
 
@@ -710,7 +672,7 @@ A revolução que se apresta é antes moral do que material. Os grandes Espírit
 
 # CAPÍTULO I
 
-"Meu Deus! Meu Deus! perdoai‑me, creio, sou cristão!" E desde então tornou‑se um dos mais fortes sustentáculos do Evangelho. Podem ler‑se, nas notáveis confissões que esse eminente espírito deixou, as características e, ao mesmo tempo, proféticas palavras que proferiu, depois da morte de Santa Mônica: Estou convencido de que minha mãe me virá visitar e dar conselhos, revelando-me o que nos espera na vida futura. Que ensinamento nessas palavras e que retumbante previsão da doutrina porvindoura! Essa a razão por que hoje, vendo chegada a hora de divulgar‑se a verdade que ele outrora pressentira, se constituiu seu ardoroso disseminador e, por assim dizer, se multiplica para responder a todos os que o chamam. ‑ Erasto, discípulo de S. Paulo. (Paris, 1863.)
+"Meu Deus! Meu Deus! perdoai‑me, creio, sou cristão!" E desde então tornou‑se um dos mais fortes sustentáculos do Evangelho. Podem ler‑se, nas notáveis confissões que esse eminente espírito deixou, as características e, ao mesmo tempo, proféticas palavras que proferiu, depois da morte de Santa Mônica: Estou convencido de que minha mãe me virá visitar e dar conselhos, revelando-me o que nos espera na vida futura. Que ensinamento nessas palavras e que retumbante previsão da doutrina porvindoura! Essa a razão por que hoje, vendo chegada a hora de divulgar‑se a verdade que ele outrora pressentira, se constituiu seu ardoroso disseminador e, por assim dizer, se multiplica para responder a todos os que o chamam. ‑ Erasto, discípulo de S. Paulo. (Paris, 1863.)"
 
 Nota. - Dar‑se‑á venha Santo Agostinho demolir o que edificou? Certamente que não. Como tantos outros, ele vê com os olhos do espírito o que não via enquanto homem. Liberta, sua alma entrevê claridades novas, compreende o que antes não compreendia. Novas idéias lhe revelaram o sentido verdadeiro de algumas sentenças. Na Terra, apreciava as coisas de acordo com os conhecimentos que possuía; desde que, porém, uma nova luz lhe brilhou, pôde apreciá‑las mais judiciosamente Assim é que teve de abandonar a crença, que alimentara, nos Espíritos íncubos e súcubos e o anátema que lançara contra a teoria dos antípodas. Agora que o Cristianismo se lhe mostra em toda a pureza, pode ele, sobre alguns pontos, pensar de modo diverso do que pensava quando vivo, sem deixar de ser um apóstolo cristão. Pode, sem renegar a sua fé, constituir‑se disseminador do Espiritismo, porque vê cumprir‑se o que fora predito. Proclamando‑o, na atualidade, outra coisa não faz senão conduzir‑nos a uma interpretação mais acertada e lógica dos textos. O mesmo ocorre com outros Espíritos que se encontram em posição análoga.
 
@@ -728,6 +690,7 @@ A vida futura. ‑ A realeza de Jesus. ‑ O ponto de vista. - Instruções dos 
 1. Pilatos, tendo entrado de novo no palácio e feito vir Jesus à sua presença, perguntou-lhe: És o rei dos judeus? - Respondeu-lhe Jesus: Meu reino não é deste mundo. Se o meu reino fosse deste mundo, a minha gente houvera combatido para impedir que eu caísse nas mãos dos judeus; mas, o meu reino ainda não é aqui.
 
 Disse-lhe então Pilatos: És, pois, rei? - Jesus lhe respondeu: Tu o dizes; sou rei; não nasci e não vim a este mundo senão para dar testemunho da verdade. Aquele que pertence a verdade escuta a minha voz. (S. JOÃO, cap. XVIII, vv. 33, 36 e 37.)
+
 2. Por essas palavras, Jesus claramente se refere à vida futura, que ele apresenta, em todas as circunstâncias, como a meta a que a Humanidade irá ter e como devendo constituir objeto das maiores preocupações do homem na Terra. Todas as suas máximas se reportam a esse grande principio. Com efeito, sem a vida futura, nenhuma razão de ser teria a maior parte dos seus preceitos morais, donde vem que os que não crêem na vida futura, imaginando
 
 
@@ -826,10 +789,6 @@ Compadecei‑vos dos que não ganharam o reino dos céus; ajudai‑os com as vos
 
 ---
 
-70
-
----
-
 
 # CAPÍTULO III
 
@@ -841,7 +800,7 @@ Diferentes estados da alma na erraticidade. ‑ Diferentes categorias de mundos 
 
 # Diferentes estados da alma na erraticidade
 
-A casa do Pai é o Universo. As diferentes moradas são os mundos que circulam no espaço infinito e oferecem, aos Espíritos que neles encarnam, moradas correspondentes ao adiantamento dos mesmos Espíritos. Independente da diversidade dos mundos, essas palavras de Jesus também podem referir‑se ao estado venturoso ou desgraçado do Espírito na erraticidade. Conforme se ache este mais ou menos depurado e desprendido dos laços materiais, variarão ao infinito o meio em que ele se encontre, o aspecto das coisas, as sensações que experimente.
+2. A casa do Pai é o Universo. As diferentes moradas são os mundos que circulam no espaço infinito e oferecem, aos Espíritos que neles encarnam, moradas correspondentes ao adiantamento dos mesmos Espíritos. Independente da diversidade dos mundos, essas palavras de Jesus também podem referir‑se ao estado venturoso ou desgraçado do Espírito na erraticidade. Conforme se ache este mais ou menos depurado e desprendido dos laços materiais, variarão ao infinito o meio em que ele se encontre, o aspecto das coisas, as sensações que experimente.
 
 
 
@@ -866,13 +825,11 @@ as percepções que tenha. Enquanto uns não se podem afastar da esfera onde viv
 
 sando das fadigas da luta; mundos ditosos, onde o bem sobrepuja o mal; mundos celestes ou divinos, habitações de Espíritos depurados, onde exclusivamente reina o bem. A Terra pertence à categoria dos mundos de expiação e provas, razão por que aí vive o homem a braços com tantas misérias.
 
-# 5. Os Espíritos que encarnam em um mundo
-
-não se acham a ele presos indefinidamente, nem nele atravessam todas as fases do progresso que lhes cumpre realizar, para atingir a perfeição. Quando, em um mundo, eles alcançam o grau de adiantamento que esse mundo comporta, passam para outro mais adiantado, e assim por diante, até que cheguem ao estado de puros Espíritos. São outras tantas estações, em cada uma das quais se lhes deparam elementos de progresso apropriados ao adiantamento que já conquistaram. É-lhes uma recompensa ascenderem a um mundo de ordem mais elevada, como é um castigo o prolongarem a sua permanência em um mundo desgraçado, ou serem relegados para outro ainda mais infeliz do que aquele a que se vêem impedidos de voltar quando se obstinaram no mal.
+5. Os Espíritos que encarnam em um mundo não se acham a ele presos indefinidamente, nem nele atravessam todas as fases do progresso que lhes cumpre realizar, para atingir a perfeição. Quando, em um mundo, eles alcançam o grau de adiantamento que esse mundo comporta, passam para outro mais adiantado, e assim por diante, até que cheguem ao estado de puros Espíritos. São outras tantas estações, em cada uma das quais se lhes deparam elementos de progresso apropriados ao adiantamento que já conquistaram. É-lhes uma recompensa ascenderem a um mundo de ordem mais elevada, como é um castigo o prolongarem a sua permanência em um mundo desgraçado, ou serem relegados para outro ainda mais infeliz do que aquele a que se vêem impedidos de voltar quando se obstinaram no mal.
 
 # Destinação da Terra. - Causas das misérias humanas
 
-Muitos se admiram de que na Terra haja tanta maldade e tantas paixões grosseiras, tantas misérias e enfermidades de toda natureza, e daí concluem que a espécie humana bem triste coisa é. Provém esse juízo do acanhado ponto de vista cm que se colocam os que o emitem e que lhes dá uma falsa idéia do conjunto. Deve-se considerar que na Terra não está a Humanidade toda, mas apenas uma pequena fração da Humanidade. Com efeito, a espécie humana abrange todos os seres dotados de razão que povoam os inúmeros orbes do Universo. Ora, que é a população da Terra, em face da população total desses mundos? Muito menos que a de uma aldeia, em confronto com a de um grande império. A situação material e moral da Humanidade terrena nada tem que espante, desde que se
+6. Muitos se admiram de que na Terra haja tanta maldade e tantas paixões grosseiras, tantas misérias e enfermidades de toda natureza, e daí concluem que a espécie humana bem triste coisa é. Provém esse juízo do acanhado ponto de vista cm que se colocam os que o emitem e que lhes dá uma falsa idéia do conjunto. Deve-se considerar que na Terra não está a Humanidade toda, mas apenas uma pequena fração da Humanidade. Com efeito, a espécie humana abrange todos os seres dotados de razão que povoam os inúmeros orbes do Universo. Ora, que é a população da Terra, em face da população total desses mundos? Muito menos que a de uma aldeia, em confronto com a de um grande império. A situação material e moral da Humanidade terrena nada tem que espante, desde que se
 
 ---
 
@@ -904,9 +861,7 @@ Revestem a forma humana, mas sem nenhuma beleza. Seus instintos não têm a abra
 
 Entre os degraus inferiores e os mais elevados, inúmeros outros há, e difícil é reconhecer‑se nos Espíritos puros, desmaterializados e resplandecentes de glória, os que foram esses seres primitivos, do mesmo modo que no homem adulto se custa a reconhecer o embrião.
 
-# 9.
-
-Nos mundos que chegaram a um grau superior, as condições da vida moral e material são muitíssimo diversas das da vida na Terra. Como por toda parte, a forma corpórea aí é sempre a humana, mas embelezada, aperfeiçoada e, sobretudo, purificada. O corpo nada tem da materialidade terrestre e não está, conseguintemente, sujeito às necessidades, nem às doenças ou deteriorações que a predominância da matéria provoca. Mais apurados, os sentidos são aptos a percepções a que neste mundo a grosseria da matéria obsta. A leveza específica do corpo permite locomoção rápida e fácil: em vez de se arrastar penosamente pelo solo, desliza, a bem dizer, pela superfície, ou plana na atmosfera, sem qualquer outro esforço além do da vontade, conforme se representam os anjos, ou como os antigos imaginavam os manes nos Campos Elíseos. Os homens conservam, a seu grado, os traços de suas passadas migrações e se mostram a seus amigos tais quais estes os conheceram, porém, irradiando uma luz divina, transfigurados pelas impressões interiores, então sempre elevadas. Em lugar de semblantes descorados, abatidos pelos sofrimentos e paixões, a inteligência e a vida cintilam.
+9. Nos mundos que chegaram a um grau superior, as condições da vida moral e material são muitíssimo diversas das da vida na Terra. Como por toda parte, a forma corpórea aí é sempre a humana, mas embelezada, aperfeiçoada e, sobretudo, purificada. O corpo nada tem da materialidade terrestre e não está, conseguintemente, sujeito às necessidades, nem às doenças ou deteriorações que a predominância da matéria provoca. Mais apurados, os sentidos são aptos a percepções a que neste mundo a grosseria da matéria obsta. A leveza específica do corpo permite locomoção rápida e fácil: em vez de se arrastar penosamente pelo solo, desliza, a bem dizer, pela superfície, ou plana na atmosfera, sem qualquer outro esforço além do da vontade, conforme se representam os anjos, ou como os antigos imaginavam os manes nos Campos Elíseos. Os homens conservam, a seu grado, os traços de suas passadas migrações e se mostram a seus amigos tais quais estes os conheceram, porém, irradiando uma luz divina, transfigurados pelas impressões interiores, então sempre elevadas. Em lugar de semblantes descorados, abatidos pelos sofrimentos e paixões, a inteligência e a vida cintilam.
 
 
 
@@ -928,12 +883,12 @@ com o fulgor que os pintores hão figurado no nimbo ou auréola dos santos. A po
 
 ninguém se acha em expiação. Numa palavra: o mal, nesses mundos, não existe.
 
-1. No vosso, precisais do mal para sentirdes o bem; da noite, para admirardes a luz; da doença, para apreciardes a saúde. Naqueles outros não há necessidade desses contrastes. A eterna luz, a eterna beleza e a eterna serenidade da alma proporcionam uma alegria eterna, livre de ser perturbada pelas angústias da vida material, ou pelo contacto dos maus, que lá não têm acesso. Isso o que o espírito humano maior dificuldade encontra para compreender. Ele foi bastante engenhoso para pintar os tormentos do inferno, mas nunca pôde imaginar as alegrias do céu. Por quê? Porque, sendo inferior, só há experimentado dores e misérias, jamais entreviu as claridades celestes; não pode, pois, falar do que não conhece. A medida, porém, que se eleva e depura, o horizonte se lhe dilata e ele compreende o bem que está diante de si, como compreendeu o mal que lhe está atrás.
-2. Entretanto, os mundos felizes não são orbes privilegiados, visto que Deus não é parcial para qualquer de seus filhos; a todos dá os mesmos direitos e as mesmas facilidades para chegarem a tais mundos. Fá‑los partir todos do mesmo ponto e a nenhum dota melhor do que aos outros; a todos são acessíveis as mais altas categorias: apenas lhes cumpre a eles conquistá‑las pelo seu trabalho, alcançá‑las mais depressa, ou permanecer inativos por séculos de séculos no lodaçal da Humanidade. (Resumo do ensino de todos os Espíritos superiores.)
+11. No vosso, precisais do mal para sentirdes o bem; da noite, para admirardes a luz; da doença, para apreciardes a saúde. Naqueles outros não há necessidade desses contrastes. A eterna luz, a eterna beleza e a eterna serenidade da alma proporcionam uma alegria eterna, livre de ser perturbada pelas angústias da vida material, ou pelo contacto dos maus, que lá não têm acesso. Isso o que o espírito humano maior dificuldade encontra para compreender. Ele foi bastante engenhoso para pintar os tormentos do inferno, mas nunca pôde imaginar as alegrias do céu. Por quê? Porque, sendo inferior, só há experimentado dores e misérias, jamais entreviu as claridades celestes; não pode, pois, falar do que não conhece. A medida, porém, que se eleva e depura, o horizonte se lhe dilata e ele compreende o bem que está diante de si, como compreendeu o mal que lhe está atrás.
+12. Entretanto, os mundos felizes não são orbes privilegiados, visto que Deus não é parcial para qualquer de seus filhos; a todos dá os mesmos direitos e as mesmas facilidades para chegarem a tais mundos. Fá‑los partir todos do mesmo ponto e a nenhum dota melhor do que aos outros; a todos são acessíveis as mais altas categorias: apenas lhes cumpre a eles conquistá‑las pelo seu trabalho, alcançá‑las mais depressa, ou permanecer inativos por séculos de séculos no lodaçal da Humanidade. (Resumo do ensino de todos os Espíritos superiores.)
 
 # Mundos de expiações e de provas
 
-Que vos direi dos mundos de expiações que já não saibais, pois basta observeis o em que habitais? A superioridade da inteligência, em grande número dos seus habitantes, indica que a Terra não é um mundo primitivo, destinado à encarnação dos Espíritos que acabaram de sair das mãos do Criador. As qualidades inatas que eles
+13. Que vos direi dos mundos de expiações que já não saibais, pois basta observeis o em que habitais? A superioridade da inteligência, em grande número dos seus habitantes, indica que a Terra não é um mundo primitivo, destinado à encarnação dos Espíritos que acabaram de sair das mãos do Criador. As qualidades inatas que eles
 
 
 
@@ -944,11 +899,11 @@ Que vos direi dos mundos de expiações que já não saibais, pois basta observe
 
 trazem consigo constituem a prova de que já viveram e realizaram certo progresso. Mas, também, os numerosos vícios a que se mostram propensos constituem o índice de grande imperfeição moral. Por isso os colocou Deus num mundo ingrato, para expiarem aí suas faltas, mediante penoso trabalho e misérias da vida, até que hajam merecido ascender a um planeta mais ditoso.
 
-Entretanto, nem todos os Espíritos que encarnam na Terra vão para aí em expiação. As raças a que chamais selvagens são formadas de Espíritos que apenas saíram da infância e que na Terra se acham, por assim dizer, em curso de educação, para se desenvolverem pelo contacto com Espíritos mais adiantados. Vêm depois as raças semicivilizadas, constituídas desses mesmos os Espíritos em via de progresso. São elas, de certo modo, raças indígenas da Terra, que aí se elevaram pouco a pouco em longos períodos seculares, algumas das quais hão podido chegar ao aperfeiçoamento intelectual dos povos mais esclarecidos.
+14. Entretanto, nem todos os Espíritos que encarnam na Terra vão para aí em expiação. As raças a que chamais selvagens são formadas de Espíritos que apenas saíram da infância e que na Terra se acham, por assim dizer, em curso de educação, para se desenvolverem pelo contacto com Espíritos mais adiantados. Vêm depois as raças semicivilizadas, constituídas desses mesmos os Espíritos em via de progresso. São elas, de certo modo, raças indígenas da Terra, que aí se elevaram pouco a pouco em longos períodos seculares, algumas das quais hão podido chegar ao aperfeiçoamento intelectual dos povos mais esclarecidos.
 
 Os Espíritos em expiação, se nos podemos exprimir dessa forma, são exóticos, na Terra; já tiveram noutros mundos, donde foram excluídos em consequência da sua obstinação no mal e por se haverem constituído, em tais mundos, causa de perturbação para os bons. Tiveram de ser degradados, por algum tempo, para o meio de Espíritos mais atrasados, com a missão de fazer que estes últimos avançassem, pois que levam consigo inteligências desenvolvidas e o gérmen dos conhecimentos que adquiriram. Daí vem que os Espíritos em punição se encontram no seio das raças mais inteligentes. Por isso mesmo, para essas raças é que de mais amargor se revestem os infortúnios da vida. E que há nelas mais sensibilidade, sendo, portanto, mais provadas pelas contrariedades e desgostos do que as raças primitivas, cujo senso moral se acha mais embotado.
 
-A Terra, conseguintemente, oferece um dos tipos de mundos expiatórios, cuja variedade é infinita, mas reve‑
+15. A Terra, conseguintemente, oferece um dos tipos de mundos expiatórios, cuja variedade é infinita, mas reve‑
 
 
 
@@ -966,7 +921,6 @@ lando todos, como caráter comum, o servirem de lugar de exílio para Espíritos
 17. Os mundos regeneradores servem de transição entre os mundos de expiação e os mundos felizes. A alma penitente encontra neles a calma e o repouso e acaba por depurar‑se. Sem dúvida, em tais mundos o homem ainda se acha sujeito às leis que regem a matéria; a Humanidade experimenta as vossas sensações e desejos, mas liberta das paixões desordenadas de que sois escravos, isenta do orgulho que impõe silêncio ao coração, da inveja que
 
 
-
 ---
 
 
@@ -976,7 +930,7 @@ a tortura, do ódio que a sufoca. Em todas as frontes, vê‑se escrita a palavr
 
 Nesses mundos, todavia, ainda não existe a felicidade perfeita, mas a aurora da felicidade. O homem lá é ainda de carne e, por isso, sujeito às vicissitudes de que libertos só se acham os seres completamente desmaterializados. Ainda tem de suportar provas, porém, sem as pungentes angústias da expiação. Comparados à Terra, esses mundos são bastante ditosos e muitos dentre vós se alegrariam de habitá‑los, pois que eles representam a calma após a tempestade, a convalescença após a moléstia cruel. Contudo, menos absorvido pelas coisas materiais, o homem divisa, melhor do que vós, o futuro; compreende a existência de outros gozos prometidos pelo Senhor aos que deles se mostrem dignos, quando a morte lhes houver de novo ceifado os corpos, a fim de lhes outorgar a verdadeira vida. Então, liberta, a alma pairará acima de todos os horizontes. Não mais sentidos materiais e grosseiros; somente os sentidos de um perispírito puro e celeste, a aspirar as emanações do próprio Deus, nos aromas de amor e de caridade que do seu seio emanam.
 
-Mas, ah! nesses mundos, ainda falível é o homem e o Espírito do mal não há perdido completamente o seu império. Não avançar é recuar, e, se o homem não se houver firmado bastante na senda do bem, pode recair nos mundos de expiação, onde, então, novas e mais terríveis provas o aguardam.
+18. Mas, ah! nesses mundos, ainda falível é o homem e o Espírito do mal não há perdido completamente o seu império. Não avançar é recuar, e, se o homem não se houver firmado bastante na senda do bem, pode recair nos mundos de expiação, onde, então, novas e mais terríveis provas o aguardam.
 
 Contemplai, pois, à noite, à hora do repouso e da prece, a abóbada azulada e, das inúmeras esferas que brilham sobre as vossas cabeças, indagai de vós mesmos quais as que conduzem a Deus e pedi‑lhe que uni mundo regenerador vos abra seu seio, após a expiação na Terra. ‑ Santo Agostinho. (Paris, 1862.)
 
@@ -998,11 +952,6 @@ Ao mesmo tempo que todos os seres vivos progridem moralmente, progridem material
 
 Segundo aquela lei, este mundo esteve material e moralmente num estado inferior ao em que hoje se acha e se alçará sob esse duplo aspecto a um grau mais elevado. Ele há chegado a um dos seus períodos de transformação, em que, de orbe expiatório, mudar‑se‑á em planeta de regeneração, onde os homens serão ditosos, porque nele imperará a lei de Deus. ‑ Santo Agostinho. (Paris, 1862.)
 
-
-
----
-
-82
 
 ---
 
@@ -1046,13 +995,9 @@ Retorquiu-lhe Jesus: "Em verdade, em verdade, digo-te: Se um homem não renasce 
 
 Respondeu-lhe Nicodemos: "Como pode isso fazer-se?" - Jesus lhe observou: "Pois quê! és mestre em Israel e ignoras estas coisas? Digo-te em verdade, em verdade, que não dizemos senão o que sabemos e que não damos testemunho, senão do que temos visto. Entretanto, não aceitas o nosso testemunho. - Mas, se não me credes, quando vos falo das coisas da Terra, como me crereis, quando vos fale das coisas do céu?" (S. JOÃO, cap. III, vv. 1 a 12.)
 
-# 6.
+6. A idéia de que João Batista era Elias e de que os profetas podiam reviver na Terra se nos depara em muitas passagens dos Evangelhos, notadamente nas acima reproduzidas (nº 1, nº 2, nº 3). Se fosse errônea essa crença, Jesus não houvera deixado de a combater, como combateu tantas outras. Longe disso, ele a sanciona com toda a sua autoridade e a põe por princípio e como condição necessária, quando diz: "Ninguém pode ver o reino de Deus se não nascer de novo." E insiste, acrescentando: Não te admires de que eu te haja dito ser preciso nasças de novo.
 
-A idéia de que João Batista era Elias e de que os profetas podiam reviver na Terra se nos depara em muitas passagens dos Evangelhos, notadamente nas acima reproduzidas (nº 1, nº 2, nº 3). Se fosse errônea essa crença, Jesus não houvera deixado de a combater, como combateu tantas outras. Longe disso, ele a sanciona com toda a sua autoridade e a põe por princípio e como condição necessária, quando diz: "Ninguém pode ver o reino de Deus se não nascer de novo." E insiste, acrescentando: Não te admires de que eu te haja dito ser preciso nasças de novo.
-
-# 7.
-
-Estas palavras: Se um homem não renasce do água e do Espírito foram interpretadas no sentido da regeneração pela água do batismo. O texto primitivo, porém, rezava simplesmente: não renasce da água e do Espírito, ao passo que nalgumas traduções as palavras - do Espírito - foram substituídas pelas seguintes: do Santo Espírito, o que já não corresponde ao mesmo pensamento. Esse ponto capital ressalta dos primeiros comentários a que os Evangelhos.
+7. Estas palavras: Se um homem não renasce do água e do Espírito foram interpretadas no sentido da regeneração pela água do batismo. O texto primitivo, porém, rezava simplesmente: não renasce da água e do Espírito, ao passo que nalgumas traduções as palavras - do Espírito - foram substituídas pelas seguintes: do Santo Espírito, o que já não corresponde ao mesmo pensamento. Esse ponto capital ressalta dos primeiros comentários a que os Evangelhos.
 
 
 
@@ -1154,13 +1099,9 @@ Cada vez menos presos à matéria, mais viva se lhes torna a afeição recíproc
 
 Está bem visto que aqui se trata de afeição real, de alma a alma, única que sobrevive à destruição do corpo, porquanto os seres que neste mundo se unem apenas pelos sentidos nenhum motivo têm para se procurarem no mundo dos Espíritos. Duráveis somente o são as afeições espirituais; as de natureza carnal se extinguem com a causa que lhes deu origem. Ora, semelhante causa não subsiste no mundo dos Espíritos, enquanto a alma existe sempre. No que concerne às pessoas que se unem exclusivamente por motivo de interesse, essas nada realmente são umas para as outras: a morte as separa na Terra e no céu.
 
-# 19.
+19. A união e a afeição que existem entre pessoas parentes são um índice da simpatia anterior que as aproximou, Daí vem que, falando‑se de alguém cujo caráter, gostos e pendores nenhuma semelhança apresentam com os dos seus parentes mais próximos, se costuma dizer que ela não é da família. Dizendo‑se isso, enuncia‑se uma verdade mais profunda do que se supõe. Deus permite que, nas famílias, ocorram essas encarnações de Espíritos antipáticos ou estranhos, com o duplo objetivo de servir de prova para uns e, para outros, de meio de progresso. Assim, os maus se melhoram pouco a pouco, ao contacto dos bons e por efeito dos cuidados que se lhes dispensam. O caráter deles se abranda, seus costumes se apuram, as antipatizas se esvaem. E desse modo que se opera a fusão das diferentes categorias de Espíritos, como se dá na Terra com as raças e os povos.
 
-A união e a afeição que existem entre pessoas parentes são um índice da simpatia anterior que as aproximou, Daí vem que, falando‑se de alguém cujo caráter, gostos e pendores nenhuma semelhança apresentam com os dos seus parentes mais próximos, se costuma dizer que ela não é da família. Dizendo‑se isso, enuncia‑se uma verdade mais profunda do que se supõe. Deus permite que, nas famílias, ocorram essas encarnações de Espíritos antipáticos ou estranhos, com o duplo objetivo de servir de prova para uns e, para outros, de meio de progresso. Assim, os maus se melhoram pouco a pouco, ao contacto dos bons e por efeito dos cuidados que se lhes dispensam. O caráter deles se abranda, seus costumes se apuram, as antipatizas se esvaem. E desse modo que se opera a fusão das diferentes categorias de Espíritos, como se dá na Terra com as raças e os povos.
-
-# 20.
-
-O temor de que a parentela aumente indefinidamente, em conseqüência da reencarnação, é de fundo egoístico: prova, naquele que o sente, falta de amor bastante amplo para abranger grande número de pessoas. Um pai,
+20. O temor de que a parentela aumente indefinidamente, em conseqüência da reencarnação, é de fundo egoístico: prova, naquele que o sente, falta de amor bastante amplo para abranger grande número de pessoas. Um pai,
 
 
 
@@ -1184,12 +1125,7 @@ que tem muitos filhos, ama‑os menos do que amaria a um deles, se fosse único?
 
 espaço e juntos gravitam para Deus. Se alguns fraquejam no caminho, esses retardam o seu adiantamento e a sua felicidade, mas não há para eles perda de toda esperança. Ajudados, encorajados e amparados pelos que os amam, um dia sairão do lodaçal em que se enterraram. Com a reencarnação, finalmente, há perpétua solidariedade entre os encarnados e os desencarnados, e, daí, estreitamento dos laços de afeição.
 
-# 23. Em resumo, quatro alternativas se apresentam ao homem, para o seu futuro de além‑túmulo:
-
-1. o nada, de acordo com a doutrina materialista;
-2. a absorção no todo universal, de acordo com a doutrina panteísta;
-3. a individualidade, com fixação definitiva da sorte, segundo a doutrina da Igreja;
-4. a individualidade, com progressão indefinida, conforme a Doutrina Espírita.
+23. Em resumo, quatro alternativas se apresentam ao homem, para o seu futuro de além‑túmulo: 1. o nada, de acordo com a doutrina materialista; 2. a absorção no todo universal, de acordo com a doutrina panteísta; 3. a individualidade, com fixação definitiva da sorte, segundo a doutrina da Igreja; 4. a individualidade, com progressão indefinida, conforme a Doutrina Espírita.
 
 Segundo as duas primeiras, os laços de família se rompem por ocasião da morte e nenhuma esperança resta às almas de se encontrarem futuramente. Com a terceira, há para elas a possibilidade de se tornarem a ver, desde que sigam para a mesma região, que tanto pode ser o inferno como o paraíso. Com a pluralidade das existências, inseparável da progressão gradativa, há a certeza na continuidade das relações entre os que se amaram, e é isso o que constitui a verdadeira família.
 
@@ -1197,7 +1133,7 @@ Segundo as duas primeiras, os laços de família se rompem por ocasião da morte
 
 # Limites da encarnação
 
-# 24. Quais os limites da encarnação?
+24. Quais os limites da encarnação? 
 
 A bem dizer, a encarnação carece de limites precisamente traçados, se tivermos em vista apenas o envoltório que constitui o corpo do Espírito, dado que a materialidade desse envoltório diminui à proporção que o Espírito se purifica. Em certos mundos mais adiantados do que a Terra, já ele é menos compacto, menos pesado e menos grosseiro e, por conseguinte, menos sujeito a vicissitudes.
 
@@ -1230,9 +1166,7 @@ A passagem dos Espíritos pela vida corporal é necessária para que eles possam
 
 mesma liberdade de proceder. Qualquer privilégio seria uma preferência, uma injustiça. Mas, a encarnação para todos os Espíritos, é apenas um estado transitório. E uma tarefa que Deus lhes impõe, quando iniciam a vida, como primeira experiência do uso que farão do livre-arbítrio. Os que desempenham com zelo essa tarefa transpõem rapidamente e menos penosamente os primeiros graus da iniciação e mais cedo gozam do fruto de seus labores. Os que, ao contrário, usam mal da liberdade que Deus lhes concede retardam a sua marcha e, tal seja a obstinação que demonstrem, podem prolongar indefinidamente a necessidade da reencarnação e é quando se torna um castigo. ‑ S. Luís. (Paris, 1859.)
 
-# 26. NOTA.
-
-Uma comparação vulgar fará se compreenda melhor essa diferença. O escolar não chega aos estudos superiores da Ciência, senão depois de haver percorrido a série das classes que até lá o conduzirão. Essas classes, qualquer que seja o trabalho que exijam, são um meio de o estudante alcançar o fim e não um castigo que se lhe inflige. Se ele é esforçado, abrevia o caminho, no qual, então, menos espinhos encontra. Outro tanto não sucede àquele a quem a negligência e a preguiça obrigam a passar duplamente por certas classes. Não é o trabalho da classe que constitui a punição; esta se acha na obrigação de recomeçar o mesmo trabalho.
+26. NOTA. Uma comparação vulgar fará se compreenda melhor essa diferença. O escolar não chega aos estudos superiores da Ciência, senão depois de haver percorrido a série das classes que até lá o conduzirão. Essas classes, qualquer que seja o trabalho que exijam, são um meio de o estudante alcançar o fim e não um castigo que se lhe inflige. Se ele é esforçado, abrevia o caminho, no qual, então, menos espinhos encontra. Outro tanto não sucede àquele a quem a negligência e a preguiça obrigam a passar duplamente por certas classes. Não é o trabalho da classe que constitui a punição; esta se acha na obrigação de recomeçar o mesmo trabalho.
 
 Assim acontece com o homem na Terra. Para o Espírito do selvagem, que está apenas no início da vida espiritual, a encarnação é um meio de ele desenvolver a sua inteligência; contudo, para o homem esclarecido, em quem o senso moral se acha largamente desenvolvido e que é obrigado a percorrer de novo as etapas de uma vida corpórea cheia de angústias, quando já poderia ter chegado ao fim, é um castigo, pela necessidade em que se vê de prolongar sua permanência em mundos inferiores e desgraçados. Aquele que, ao contrário, trabalha ativamente pelo seu progresso moral, além de abreviar o tempo da encarnação material, pode também transpor de uma só.
 
@@ -1341,9 +1275,7 @@ atual, há de ser anterior a essa vida, isto é, há de estar numa existência p
 
 O homem, pois, nem sempre é punido, ou punido completamente, na sua existência atual; mas não escapa nunca às conseqüências de suas faltas. A prosperidade do mau é apenas momentânea; se ele não expiar hoje, expiará amanhã, ao passo que aquele que sofre está expiando o seu passado. O infortúnio que, à primeira vista, parece imerecido tem sua razão de ser, e aquele que se encontra em sofrimento pode sempre dizer: 'Perdoa‑me, Senhor, porque pequei.
 
-# 7.
-
-Os sofrimentos devidos a causas anteriores à existência presente, como os que se originam de culpas atuais, são muitas vezes a conseqüência da falta cometida, isto é, o homem, pela ação de uma rigorosa justiça distributiva, sofre o que fez sofrer aos outros. Se foi duro e desumano, poderá ser a seu turno tratado duramente e com desumanidade; se foi orgulhoso, poderá nascer em humilhante condição; se foi avaro, egoísta, ou se fez mau uso de suas riquezas, poderá ver‑se privado do necessário; se foi mau filho, poderá sofrer pelo procedimento de seus filhos, etc.
+7. Os sofrimentos devidos a causas anteriores à existência presente, como os que se originam de culpas atuais, são muitas vezes a conseqüência da falta cometida, isto é, o homem, pela ação de uma rigorosa justiça distributiva, sofre o que fez sofrer aos outros. Se foi duro e desumano, poderá ser a seu turno tratado duramente e com desumanidade; se foi orgulhoso, poderá nascer em humilhante condição; se foi avaro, egoísta, ou se fez mau uso de suas riquezas, poderá ver‑se privado do necessário; se foi mau filho, poderá sofrer pelo procedimento de seus filhos, etc.
 
 Assim se explicam pela pluralidade das existências e pela destinação da Terra, como mundo expiatório, as anomalias que apresenta a distribuição da ventura e da desventura entre os bons e os maus neste planeta. Semelhante anomalia, contudo, só existe na aparência, porque considerada tão‑só do ponto de vista da vida presente. Aquele que se elevar, pelo pensamento, de maneira a apreender toda uma série de existências, verá que a cada um é atribuída a parte que lhe compete, sem prejuízo da que lhe tocará no mundo dos Espíritos, e verá que a justiça de Deus nunca se interrompe.
 
@@ -1428,9 +1360,7 @@ algo que devemos ter merecido, se acusarmos a Deus de ser injusto, nova dívida 
 
 Ao entrar no mundo dos Espíritos, o homem ainda está como o operário que comparece no dia do pagamento. A uns dirá o Senhor: "Aqui tens a paga dos teus dias de trabalho"; a outros, aos venturosos da Terra, aos que hajam vivido na ociosidade, que tiverem feito consistir a sua felicidade nas satisfações do amor‑próprio e nos gozos mundanos: "Nada vos toca, pois que recebestes na Terra o vosso salário. Ide e recomeçai a tarefa."
 
-# 13.
-
-O homem pode suavizar ou aumentar o amargor de suas provas, conforme o modo por que encare a vida terrena. Tanto mais sofre ele, quanto mais longa se lhe afigura a duração do sofrimento. Ora, aquele que a encara pelo prisma da vida espiritual apanha, num golpe de vista, a vida corpórea. Ele a vê como um ponto no infinito, compreende‑lhe a curteza e reconhece que esse penoso momento terá presto passado. A certeza de um próximo futuro mais ditoso o sustenta e anima e, longe de se queixar, agradece ao Céu as dores que o fazem avançar. Contrariamente, para aquele que apenas vê a vida corpórea, interminável lhe parece esta, e a dor o oprime com todo o seu peso. Daquela maneira de considerar a vida, resulta ser diminuída a importância das coisas deste mundo, e sentir‑se compelido o homem a moderar seus desejos, a contentar‑se com a sua posição, sem invejar a dos outros, a receber atenuada a impressão dos reveses e das decepções que experimente. Dai tira ele uma calma e uma resignação tão úteis à saúde do corpo quanto à da alma, ao passo que, com a inveja, o ciúme e a ambição, voluntariamente se condena à tortura e aumenta as misérias e as angústias da sua curta existência.
+13. O homem pode suavizar ou aumentar o amargor de suas provas, conforme o modo por que encare a vida terrena. Tanto mais sofre ele, quanto mais longa se lhe afigura a duração do sofrimento. Ora, aquele que a encara pelo prisma da vida espiritual apanha, num golpe de vista, a vida corpórea. Ele a vê como um ponto no infinito, compreende‑lhe a curteza e reconhece que esse penoso momento terá presto passado. A certeza de um próximo futuro mais ditoso o sustenta e anima e, longe de se queixar, agradece ao Céu as dores que o fazem avançar. Contrariamente, para aquele que apenas vê a vida corpórea, interminável lhe parece esta, e a dor o oprime com todo o seu peso. Daquela maneira de considerar a vida, resulta ser diminuída a importância das coisas deste mundo, e sentir‑se compelido o homem a moderar seus desejos, a contentar‑se com a sua posição, sem invejar a dos outros, a receber atenuada a impressão dos reveses e das decepções que experimente. Dai tira ele uma calma e uma resignação tão úteis à saúde do corpo quanto à da alma, ao passo que, com a inveja, o ciúme e a ambição, voluntariamente se condena à tortura e aumenta as misérias e as angústias da sua curta existência.
 
 
 
@@ -1460,9 +1390,7 @@ fato levando‑os a deduzir que, se são desgraçados, coisa melhor não lhes re
 
 A propagação das doutrinas materialistas é, pois, o veneno que inocula a idéia do suicídio na maioria dos que se suicidam, e os que se constituem apóstolos de semelhantes doutrinas assumem tremenda responsabilidade. Com o Espiritismo, tornada impossível a dúvida, muda o aspecto da vida. O crente sabe que a existência se prolonga indefinidamente para lá do túmulo, mas em condições muito diversas; donde a paciência e a resignação que o afastam muito naturalmente de pensar no suicídio; donde, em suma, a coragem moral.
 
-# 17.
-
-O Espiritismo ainda produz, sob esse aspecto, outro resultado igualmente positivo e talvez mais decisivo. Apresenta‑nos os próprios suicidas a informar‑nos da situação desgraçada em que se encontram e a provar que ninguém viola impunemente a lei de Deus, que proíbe ao homem encurtar a sua vida. Entre os suicidas, alguns há cujos sofrimentos, nem por serem temporários e não eternos, não são menos terríveis e de natureza a fazer refletir os que porventura pensam em daqui sair, antes que Deus o haja ordenado. O espírita tem, assim, vários motivos a contrapor à idéia do suicídio: a certeza de uma vida futura, em que, sabe-o ele, será tanto mais ditoso, quanto mais inditoso e resignado haja sido na Terra: a certeza de que, abreviando seus dias, chega, precisamente, a resultado oposto ao que esperava; que se liberta de um mal, para incorrer num mal pior, mais longo e mais terrível; que se engana, imaginando que, com o matar‑se, vai mais depressa para o céu; que o suicídio é um obstáculo a que no outro mundo ele se reúna aos que foram objeto de suas afeições e aos quais esperava encontrar; donde
+17. O Espiritismo ainda produz, sob esse aspecto, outro resultado igualmente positivo e talvez mais decisivo. Apresenta‑nos os próprios suicidas a informar‑nos da situação desgraçada em que se encontram e a provar que ninguém viola impunemente a lei de Deus, que proíbe ao homem encurtar a sua vida. Entre os suicidas, alguns há cujos sofrimentos, nem por serem temporários e não eternos, não são menos terríveis e de natureza a fazer refletir os que porventura pensam em daqui sair, antes que Deus o haja ordenado. O espírita tem, assim, vários motivos a contrapor à idéia do suicídio: a certeza de uma vida futura, em que, sabe-o ele, será tanto mais ditoso, quanto mais inditoso e resignado haja sido na Terra: a certeza de que, abreviando seus dias, chega, precisamente, a resultado oposto ao que esperava; que se liberta de um mal, para incorrer num mal pior, mais longo e mais terrível; que se engana, imaginando que, com o matar‑se, vai mais depressa para o céu; que o suicídio é um obstáculo a que no outro mundo ele se reúna aos que foram objeto de suas afeições e aos quais esperava encontrar; donde
 
 
 
@@ -1613,7 +1541,7 @@ Que de tormentos, ao contrário, se poupa aquele que sabe contentar‑se com o q
 
 # A desgraça real
 
-Toda a gente fala da desgraça, toda a gente já a sentiu e julga conhecer‑lhe o caráter múltiplo. Venho eu dizer‑vos que quase toda a gente se engana e que a desgraça real não é, absolutamente, o que os homens, isto é, os desgraçados, o supõem. Eles a vêem na miséria, no fogão sem lume, no credor que ameaça, no berço de que o anjo sorridente desapareceu, nas lágrimas, no féretro que se acompanha de cabeça descoberta e com o coração despedaçado, na angústia da traição, na desnudação do orgulho que desejara envolver‑se em púrpura e mal oculta a sua nudez sob os andrajos da vaidade. A tudo isso e a muitas coisas mais se dá o nome de desgraça, na
+24. Toda a gente fala da desgraça, toda a gente já a sentiu e julga conhecer‑lhe o caráter múltiplo. Venho eu dizer‑vos que quase toda a gente se engana e que a desgraça real não é, absolutamente, o que os homens, isto é, os desgraçados, o supõem. Eles a vêem na miséria, no fogão sem lume, no credor que ameaça, no berço de que o anjo sorridente desapareceu, nas lágrimas, no féretro que se acompanha de cabeça descoberta e com o coração despedaçado, na angústia da traição, na desnudação do orgulho que desejara envolver‑se em púrpura e mal oculta a sua nudez sob os andrajos da vaidade. A tudo isso e a muitas coisas mais se dá o nome de desgraça, na
 
 
 
@@ -1711,7 +1639,7 @@ Não haveria imenso orgulho, da parte do homem, em se considerar no direito de, 
 
 # Será lícito abreviar a vida de um doente que sofra sem esperança de cura?
 
-Um homem está agonizante, presa de cruéis sofrimentos. Sabe-se que seu estado é desesperador. Será lícito pouparem-se-lhe alguns instantes de angústias, apressando-se-lhe o fim?
+28. Um homem está agonizante, presa de cruéis sofrimentos. Sabe-se que seu estado é desesperador. Será lícito pouparem-se-lhe alguns instantes de angústias, apressando-se-lhe o fim?
 
 Quem vos daria o direito de prejulgar os desígnios de Deus? Não pode ele conduzir o homem até à borda do fosso, para dai o retirar, a fim de fazê‑lo voltar a si e alimentar idéias diversas das que tinha? Ainda que haja chegado ao último extremo um moribundo, ninguém pode afirmar com segurança que lhe haja soado a hora derradeira. A Ciência não se terá enganado nunca em suas previsões?
 
@@ -1726,15 +1654,13 @@ Sei bem haver casos que se podem, com razão, considerar desesperadores; mas, se
 
 e quantos tormentos lhe pode poupar um relâmpago de arrependimento. O materialista, que apenas vê o corpo e em nenhuma conta tem a alma, é inapto a compreender essas coisas; o espírita, porém, que já sabe o que se passa no além‑túmulo, conhece o valor de um último pensamento. Minorai os derradeiros sofrimentos, quanto o puderdes; mas, guardai‑vos de abreviar a vida, ainda que de um minuto, porque esse minuto pode evitar muitas lágrimas no futuro. ‑ S. Luís. (Paris, 1860.)
 
-# 29. Sacrifício da própria vida
+# Sacrifício da própria vida
 
-Aquele que se acha desgostoso da vida mas que não quer extingui-la por suas próprias mãos, será culpado se procurar a morte num campo de batalha, com o propósito de tornar útil sua morte?
+29. Aquele que se acha desgostoso da vida mas que não quer extingui-la por suas próprias mãos, será culpado se procurar a morte num campo de batalha, com o propósito de tornar útil sua morte?
 
 Que o homem se mate ele próprio, ou faça que outrem o mate, seu propósito é sempre cortar o fio da existência: há, por conseguinte, suicídio intencional, se não de fato. E ilusória a idéia de que sua morte servirá para alguma coisa; isso não passa de pretexto para colorir o ato e escusá‑lo aos seus próprios olhos. Se ele desejasse seriamente servir ao seu país, cuidaria de viver para defendê‑lo; não procuraria morrer, pois que, morto, de nada mais lhe serviria. O verdadeiro devotamento consiste em não temer a morte, quando se trate de ser útil, em afrontar o perigo, em fazer, de antemão e sem pesar, o sacrifício da vida, se for necessário. Mas, buscar a morte com premeditada intenção, expondo‑se a um perigo, ainda que para prestar serviço, anula o mérito da ação. - S. Luís. (Paris, 1860)
 
-# 30.
-
-Se um homem se expõe a um perigo iminente para salvar a vida a um de seus semelhantes, sabendo de antemão que sucumbirá, pode o seu ato ser considerado suicídio?
+30. Se um homem se expõe a um perigo iminente para salvar a vida a um de seus semelhantes, sabendo de antemão que sucumbirá, pode o seu ato ser considerado suicídio?
 
 Desde que no ato não entre a intenção de buscar a morte, não há suicídio e, sim, apenas, devotamento e abnegação, embora também haja a certeza de que morrera. Mas, quem pode ter essa certeza? Quem poderá dizer
 
@@ -1762,7 +1688,7 @@ Podem esses sofrimentos ser de proveito para outrem, material e moralmente: mate
 
 # O CRISTO CONSOLADOR
 
-# O jugo leve. Consolador prometido. ‑ Instruções dos Espíritos : Advento do Espírito de Verdade.
+O jugo leve. Consolador prometido. ‑ Instruções dos Espíritos : Advento do Espírito de Verdade.
 
 # O jugo leve
 
@@ -1825,7 +1751,7 @@ Sinto-me por demais tomado de compaixão pelas vossas misérias, pela vossa fraq
 
 Espíritas! amai-vos, este o primeiro ensinamento; instruí-vos, este o segundo. No Cristianismo encontram-se todas as verdades; são de origem humana os erros que nele se enraizaram. Eis que do além-túmulo, que julgáveis o nada, vozes vos clamam: "Irmãos! nada perece. Jesus-Cristão é o vencedor do mal, sede os vencedores da impiedade." ‑  O Espírito de Verdade. (Paris, 1860.)
 
-Venho instruir e consolar os pobres deserdados. Venho dizer-lhes que elevem a sua resignação ao nível de suas provas, que chorem, porquanto a dor foi sagrada no Jardim das Oliveiras; mas, que esperem, pois que também a eles os anjos consoladores lhes virão enxugar as lágrimas.
+6. Venho instruir e consolar os pobres deserdados. Venho dizer-lhes que elevem a sua resignação ao nível de suas provas, que chorem, porquanto a dor foi sagrada no Jardim das Oliveiras; mas, que esperem, pois que também a eles os anjos consoladores lhes virão enxugar as lágrimas.
 
 Obreiros, traçai o vosso sulco; recomeçai no dia seguinte o afanoso labor da véspera; o trabalho das vossas mãos vos fornece aos corpos o pão terrestre; vossas almas, porém, não estão esquecidas; e eu, o jardineiro divino, as cultivo no silêncio dos vossos pensamentos. Quando soar a hora do repouso, e a trama da vida se vos escapar das mãos e vossos olhos se fecharem para a luz, sentireis que surge em vós e germina a minha preciosa semente.
 
@@ -1840,9 +1766,7 @@ Nada fica perdido no reino de nosso Pai e os vossos suores e misérias formam o 
 
 Em verdade vos digo: os que carregam seus fardos e assistem os seus irmãos são bem‑amados meus. Instruí‑vos na preciosa doutrina que dissipa o erro das revoltas e vos mostra o sublime objetivo da provação humana. Assim como o vento varre a poeira, que também o sopro dos Espíritos dissipe os vossos despeitos contra os ricos do mundo, que são, não raro, muito miseráveis, porquanto se acham sujeitos a provas mais perigosas do que as vossas. Estou convosco e meu apóstolo vos instrui. Bebei na fonte viva do amor e preparai‑vos, cativos da vida, a lançar‑vos um dia, livres e alegres, no seio dAquele que vos criou fracos para vos tornar perfectíveis e que quer modeleis vós mesmos a vossa maleável argila, a fim de serdes os artífices da vossa imortalidade. ‑ O Espírito de Verdade. (Paris, 1861.)
 
-# 7.
-
-Sou o grande médico das almas e venho trazer‑vos o remédio que vos há de curar. Os fracos, os sofredores e os enfermos são os meus filhos prediletos. Venho salvá‑los. Vinde, pois, a mim, vós que sofreis e vos achais oprimidos, e sereis aliviados e consolados. Não busqueis alhures a força e a consolação, pois que o mundo é impotente para dá‑las. Deus dirige um supremo apelo aos vossos corações, por meio do Espiritismo. Escutai‑o. Extirpados sejam de vossas almas doloridas a impiedade, a mentira, o erro, a incredulidade. São monstros que sugam o vosso mais puro sangue e que vos abrem chagas quase sempre mortais. Que, no futuro, humildes e submissos ao Criador, pratiqueis a sua lei divina. Amai e orai; sede dóceis aos Espíritos do Senhor; invocai‑o do fundo de vossos corações. Ele, então, vos enviará o seu Filho bem‑amado, para vos instruir e dizer estas boas palavras: Eis‑me aqui; venho até vós, porque me chamastes. ‑ O Espírito de Verdade. (Bordéus, 1861.)
+7. Sou o grande médico das almas e venho trazer‑vos o remédio que vos há de curar. Os fracos, os sofredores e os enfermos são os meus filhos prediletos. Venho salvá‑los. Vinde, pois, a mim, vós que sofreis e vos achais oprimidos, e sereis aliviados e consolados. Não busqueis alhures a força e a consolação, pois que o mundo é impotente para dá‑las. Deus dirige um supremo apelo aos vossos corações, por meio do Espiritismo. Escutai‑o. Extirpados sejam de vossas almas doloridas a impiedade, a mentira, o erro, a incredulidade. São monstros que sugam o vosso mais puro sangue e que vos abrem chagas quase sempre mortais. Que, no futuro, humildes e submissos ao Criador, pratiqueis a sua lei divina. Amai e orai; sede dóceis aos Espíritos do Senhor; invocai‑o do fundo de vossos corações. Ele, então, vos enviará o seu Filho bem‑amado, para vos instruir e dizer estas boas palavras: Eis‑me aqui; venho até vós, porque me chamastes. ‑ O Espírito de Verdade. (Bordéus, 1861.)
 
 
 
@@ -2014,7 +1938,7 @@ Despertai, meus irmãos, meus amigos. Que a voz dos Espíritos ecoe nos vossos c
 
 palmas que aí tenhais deposto, volvendo ao bem, à caridade, à fraternidade. Então, o vosso mundo se tornará o paraíso terrestre. Mas, se permanecerdes insensíveis à voz dos Espíritos enviados para depurar e renovar a vossa sociedade civilizada, rica de ciências, mas, no entanto, tão pobre de bons sentimentos, ah! então não nos restará senão chorar e gemer pela vossa sorte. Mas, não, assim não será. Voltai para Deus, vosso pai, e todos nós que houvermos contribuído para o cumprimento da sua vontade entoaremos o cântico de ação de graças, agradecendo‑lhe a inesgotável bondade e glorificando‑o por todos os séculos dos séculos. Assim seja. Lacordaire. (Constantina, 1863.)
 
-# 12. Homens, por que vos queixais das calamidades que vós mesmos amontoastes sobre as vossas cabeças?
+12. Homens, por que vos queixais das calamidades que vós mesmos amontoastes sobre as vossas cabeças?
 
 Desprezastes a santa e divina moral do Cristo; não vos espanteis, pois, de que a taça da iniquidade haja transbordado de todos os lados. Generaliza‑se o mal‑estar. A quem inculpar, senão a vós que incessantemente procurais esmagar‑vos uns aos outros? Não podeis ser felizes, sem mútua benevolência; mas, como pode a benevolência coexistir com o orgulho? O orgulho, eis a fonte de todos os vossos males. Aplicai‑vos, portanto, em destruí‑lo, se não lhe quiserdes perpetuar as funestas conseqüências. Um único meio se vos oferece para isso, mas infalível: tomardes para regra invariável do vosso proceder a lei do Cristo, lei que tendes repelido ou falseado em sua interpretação.
 
@@ -2052,14 +1976,7 @@ A inteligência é rica de méritos para o futuro, mas, sob a condição de ser 
 
 ‑ Ferdinando, Espírito protetor. (Bordéus, 1862.)
 
-
-
 ---
-
-146
-
----
-
 
 
 # CAPÍTULO VIII
@@ -2140,9 +2057,9 @@ Depois, tendo chamado o povo, disse: “Escutai e compreendei bem isto: - Não �
 
 Então, aproximando-se, disseram-lhe seus discípulos: “Sabeis que, ouvindo o que acabais de dizer, os fariseus se escandalizaram?” - Ele, porém, respondeu: “Arrancada será toda planta que meu Pai celestial não plantou. - Deixai-os, são cegos que conduzem cegos; se um cego conduz outro, caem ambos no fosso.” (S. Mateus, cap. XV, vv. 1 a 20.)
 
-Enquanto ele falava, um fariseu lhe pediu que fosse jantar em sua companhia. Jesus foi e sentou-se à mesa. - O fariseu entrou então a dizer consigo mesmo: "Por que não lavou ele as mãos antes de jantar?” Disse-lhe, porém, o Senhor: "Vós outros, fariseus, pondes grandes cuidado em limpar o exterior do copo e do prato; entretanto, o interior dos vossos corações está cheio de rapinas e de iniqüidades. Insensatos que sois! aquele que fez o exterior não é o que faz também o interior?" (S. LUCAS, cap. XI. vv., 37 a 40.)
+9. Enquanto ele falava, um fariseu lhe pediu que fosse jantar em sua companhia. Jesus foi e sentou-se à mesa. - O fariseu entrou então a dizer consigo mesmo: "Por que não lavou ele as mãos antes de jantar?” Disse-lhe, porém, o Senhor: "Vós outros, fariseus, pondes grandes cuidado em limpar o exterior do copo e do prato; entretanto, o interior dos vossos corações está cheio de rapinas e de iniqüidades. Insensatos que sois! aquele que fez o exterior não é o que faz também o interior?" (S. LUCAS, cap. XI. vv., 37 a 40.)
 
-Os judeus haviam desprezado os verdadeiros mandamentos de Deus para se aferrarem à prática dos regulamentos que os homens tinham estatuído e da rígida observância desses regulamentos faziam casos de consciência. A substância, muito simples, acabara por desaparecer debaixo da complicação da forma. Como fosse muito mais fácil praticar atos exteriores, do que se reformar moralmente, lavar as mãos do que expurgar o coração, iludiram‑se a si próprios os homens, tendo‑se como quites para com.
+10. Os judeus haviam desprezado os verdadeiros mandamentos de Deus para se aferrarem à prática dos regulamentos que os homens tinham estatuído e da rígida observância desses regulamentos faziam casos de consciência. A substância, muito simples, acabara por desaparecer debaixo da complicação da forma. Como fosse muito mais fácil praticar atos exteriores, do que se reformar moralmente, lavar as mãos do que expurgar o coração, iludiram‑se a si próprios os homens, tendo‑se como quites para com.
 
 
 
@@ -2180,13 +2097,9 @@ que venham escândalos; mas, ai do homem por quem o escândalo venha. Tende muit
 
 Se a vossa mão ou o vosso pé vos é objeto de escândalo, cortai-os e lançai-os longe de vós; melhor será para vós que entreis na vida tendo um só pé ou uma só mão, do que terdes dois e serdes lançados no fogo eterno. - Se o vosso olho vos é objeto de escândalo, arrancai-o e lançai-o longe de vós; melhor para vós será que entreis na vida tendo um só olho, do que terdes dois e serdes precipitados no fogo do inferno. (S. MATEUS, cap. XVIII, vv. 6 a 11; V, vv. 29 e 30.)
 
-# 12.
+12. No sentido vulgar, escândalo se diz de toda ação que de modo ostensivo vá de encontro à moral ou ao decoro. O escândalo não está na ação em si mesma, mas na repercussão que possa ter. A palavra escândalo implica sempre a idéia de um certo arruído. Muitas pessoas se contentam com evitar o escândalo, porque este lhes faria sofrer o orgulho, lhes acarretaria perda de consideração da parte dos homens. Desde que as suas torpezas fiquem ignoradas, é quanto basta para que se lhes conserve em repouso a consciência. São, no dizer de Jesus: “sepulcros branqueados por fora, mas cheios, por dentro, de podridões; vasos limpos no exterior e sujos no interior".
 
-No sentido vulgar, escândalo se diz de toda ação que de modo ostensivo vá de encontro à moral ou ao decoro. O escândalo não está na ação em si mesma, mas na repercussão que possa ter. A palavra escândalo implica sempre a idéia de um certo arruído. Muitas pessoas se contentam com evitar o escândalo, porque este lhes faria sofrer o orgulho, lhes acarretaria perda de consideração da parte dos homens. Desde que as suas torpezas fiquem ignoradas, é quanto basta para que se lhes conserve em repouso a consciência. São, no dizer de Jesus: “sepulcros branqueados por fora, mas cheios, por dentro, de podridões; vasos limpos no exterior e sujos no interior".
-
-# 13.
-
-É preciso que haja escândalo no mundo, disse Jesus, porque, imperfeitos como são na Terra, os homens se mostram propensos a praticar o mal, e porque, árvores más, só maus frutos dão. Deve‑se, pois, entender por essas palavras que o mal é uma conseqüência da imperfei‑
+13. É preciso que haja escândalo no mundo, disse Jesus, porque, imperfeitos como são na Terra, os homens se mostram propensos a praticar o mal, e porque, árvores más, só maus frutos dão. Deve‑se, pois, entender por essas palavras que o mal é uma conseqüência da imperfei‑
 
 
 
@@ -2212,9 +2125,7 @@ No sentido vulgar, escândalo se diz de toda ação que de modo ostensivo vá de
 
 seu pai. Passa ele pela pena de talião. Mas, essa circunstância não pode servir de escusa ao filho que, a seu turno, terá de ser castigado em seus próprios filhos, ou de outra maneira.
 
-# 17.
-
-Se vossa mão é causa de escândalo, cortai-a. Figura enérgica esta, que seria absurda se tomada ao pé da letra, e que apenas significa que cada um deve destruir em si toda causa de escândalo, isto é, de mal; arrancar do coração todo sentimento impuro e toda tendência viciosa. Quer dizer também que, para o homem, mais vale ter cortada uma das mãos, antes que servir essa mão de instrumento para uma ação má; ficar privado da vista, antes que lhe servirem os olhos para conceber maus pensamentos. Jesus nada disse de absurdo, para quem quer que apreenda o sentido alegórico e profundo de suas palavras. Muitas coisas, entretanto, não podem ser compreendidas sem a chave que para as decifrar o Espiritismo faculta.
+17. Se vossa mão é causa de escândalo, cortai-a. Figura enérgica esta, que seria absurda se tomada ao pé da letra, e que apenas significa que cada um deve destruir em si toda causa de escândalo, isto é, de mal; arrancar do coração todo sentimento impuro e toda tendência viciosa. Quer dizer também que, para o homem, mais vale ter cortada uma das mãos, antes que servir essa mão de instrumento para uma ação má; ficar privado da vista, antes que lhe servirem os olhos para conceber maus pensamentos. Jesus nada disse de absurdo, para quem quer que apreenda o sentido alegórico e profundo de suas palavras. Muitas coisas, entretanto, não podem ser compreendidas sem a chave que para as decifrar o Espiritismo faculta.
 
 # INSTRUÇÕES DOS ESPÍRITOS
 
@@ -2264,7 +2175,7 @@ ______
 
 ---
 
-# CAPÍTULO VIU
+# CAPÍTULO VIII
 
 mundo que um dia, nas trevas, maldirão o terem visto a luz! Oh! sim, como são felizes os que, por expiação, vêm a ser atingidos na vista! Os olhos não lhes serão causa de escândalo e de queda; podem viver inteiramente da vida das almas; podem ver mais do que vós que tendes límpida a visão!... Quando Deus me permite descerrar as pálpebras a algum desses pobres sofredores e lhes restituir a luz, digo a mim mesmo: Alma querida, por que não conheces todas as delicias do Espírito que vive de contemplação e de amor? Não pedirias, então, que se te concedesse ver imagens menos puras e menos suaves, do que as que te é dado entrever na tua cegueira!
 
@@ -2278,13 +2189,10 @@ Antes que me vá, recebei todos vós, que aqui vos achais reunidos, a minha bên
 
 ---
 
-OS QUE TÊM PURO O CORAÇÃO
+# OS QUE TÊM PURO O CORAÇÃO
 
 esteja sempre em correlação com a falta. Se, por sua bondade, lançou um véu sobre os nossos atos passados, por outro lado nos aponta o caminho, dizendo: '“Quem matou à espada, pela espada perecerá", palavras que se podem traduzir assim: "A criatura é sempre punida por aquilo em que pecou." Se, portanto, alguém sofre o tormento da perda da vista, é que esta lhe foi causa de queda. Talvez tenha sido também causa de que outro perdesse a vista; de que alguém haja perdido a vista em conseqüência do excesso de trabalho que aquele lhe impôs, ou de maus‑tratos, de falta de cuidados, etc. Nesse caso, passa ele pela pena de talião. É possível que ele próprio, tomado de arrependimento, haja escolhido essa expiação, aplicando a si estas palavras de Jesus: "Se o teu olho for motivo de escândalo, arranca‑o."
 
----
-
-# 160
 
 ---
 
@@ -2317,7 +2225,7 @@ para com seus semelhantes. Raca, entre os hebreus, era um termo desdenhoso que s
 
 Evidente se torna que aqui, como em todas as circunstâncias, a intenção agrava ou atenua a falta; mas, em que pode uma simples palavra revestir‑se de tanta gravidade que mereça tão severa reprovação? E que toda palavra ofensiva exprime um sentimento contrário à lei do amor e da caridade que deve presidir às relações entre os homens e manter entre eles a concórdia e a união; é que constitui um golpe desferido na benevolência recíproca e na fraternidade que entretém o ódio e a animosidade; é' enfim, que, depois da humildade para com Deus, a caridade para com o próximo é a lei primeira de todo cristão.
 
-Mas, que queria Jesus dizer por estas palavras: "Bem‑aventurados os que são brandos, porque possuirão a Terra", tendo recomendado aos homens que renunciassem aos bens deste mundo e havendo‑lhes prometido os do céu?
+5. Mas, que queria Jesus dizer por estas palavras: "Bem‑aventurados os que são brandos, porque possuirão a Terra", tendo recomendado aos homens que renunciassem aos bens deste mundo e havendo‑lhes prometido os do céu?
 
 Enquanto aguarda os bens do céu, tem o homem necessidade dos da Terra para viver. Apenas, o que ele lhe recomenda é que não ligue a estes últimos mais importância do que aos primeiros.
 
@@ -2359,7 +2267,7 @@ Coragem, amigos! Tendes no Cristo o vosso modelo. Mais sofreu ele do que qualque
 
 # Obediência e resignação
 
-A doutrina de Jesus ensina, em todos os seus pontos, a obediência e a resignação, duas virtudes companheiras da doçura e muito ativas, se bem os homens erradamente as confundam com a negação do sentimento e da vontade. A obediência é o consentimento da razão; a resignação é o consentimento do coração, forças ativas ambas, porquanto carregam o fardo das provações que a revolta insensata deixa cair. O pusilânime não pode ser resignado, do mesmo modo que o orgulhoso e o egoísta não podem ser obedientes. Jesus foi a encarnação dessas virtudes que a antigüidade material desprezava. Ele veio no momento em que a sociedade romana perecia nos desfalecimentos.
+8. A doutrina de Jesus ensina, em todos os seus pontos, a obediência e a resignação, duas virtudes companheiras da doçura e muito ativas, se bem os homens erradamente as confundam com a negação do sentimento e da vontade. A obediência é o consentimento da razão; a resignação é o consentimento do coração, forças ativas ambas, porquanto carregam o fardo das provações que a revolta insensata deixa cair. O pusilânime não pode ser resignado, do mesmo modo que o orgulhoso e o egoísta não podem ser obedientes. Jesus foi a encarnação dessas virtudes que a antigüidade material desprezava. Ele veio no momento em que a sociedade romana perecia nos desfalecimentos.
 
 
 
@@ -2391,9 +2299,7 @@ Se ponderasse que a cólera a nada remedeia, que lhe altera a saúde e compromet
 
 Em suma, a cólera não exclui certas qualidades do coração, mas impede se faça muito bem e pode levar à prática de muito mal. Isto deve bastar para induzir o homem a esforçar‑se pela dominar. O espírita, ao demais, é concitado a isso por outro motivo: o de que a cólera é contrária à caridade e à humildade cristãs. ‑ Um Espírito protetor. (Bordéus, 1863.)
 
-# 10.
-
-Segundo a idéia falsíssima de que lhe não é possível reformar a sua própria natureza, o homem se julga dispensado de empregar esforços para se corrigir dos defeitos em que de boa‑vontade se compraz, ou que exigiriam muita perseverança para serem extirpados. E assim, por exemplo, que o indivíduo, propenso a encolerizar‑se, quase sempre se desculpa com o seu temperamento. Em vez de se confessar culpado, lança a culpa ao seu organismo, acusando a Deus, dessa forma, de suas próprias faltas. É ainda uma conseqüência do orgulho que se encontra de permeio a todas as suas imperfeições.
+10. Segundo a idéia falsíssima de que lhe não é possível reformar a sua própria natureza, o homem se julga dispensado de empregar esforços para se corrigir dos defeitos em que de boa‑vontade se compraz, ou que exigiriam muita perseverança para serem extirpados. E assim, por exemplo, que o indivíduo, propenso a encolerizar‑se, quase sempre se desculpa com o seu temperamento. Em vez de se confessar culpado, lança a culpa ao seu organismo, acusando a Deus, dessa forma, de suas próprias faltas. É ainda uma conseqüência do orgulho que se encontra de permeio a todas as suas imperfeições.
 
 Indubitavelmente, temperamentos há que se prestam mais que outros a atos violentos, como há músculos mais
 
@@ -2410,11 +2316,6 @@ flexíveis que se prestam melhor aos atos de força. Não acrediteis, porém, qu
 
 O corpo não dá cólera àquele que não na tem, do mesmo modo que não dá os outros vícios. Todas as virtudes e todos os vícios são inerentes ao Espírito. A não ser assim, onde estariam o mérito e a responsabilidade? O homem deformado não pode tornar‑se direito, porque o Espírito nisso não pode atuar; mas, pode modificar o que é do Espírito, quando o quer com vontade firme. Não vos mostra a experiência, a vós espíritas, até onde é capaz de ir o poder da vontade, pelas transformações verdadeiramente miraculosas que se operam sob as vossas vistas? Compenetrai‑vos, pois, de que o homem não se conserva vicioso, senão porque quer permanecer vicioso; de que aquele que queira corrigir‑se sempre o pode. De outro modo, não existiria para o homem a lei do progresso. ‑ Hahnemann. (Paris, 1863.)
 
-
-
----
-
-# 168
 
 ---
 
@@ -2459,9 +2360,7 @@ Há, porém, duas maneiras bem diferentes de perdoar: uma, grande, nobre, verdad
 
 metido em prisão. - Digo-vos, em verdade, que daí não saireis, enquanto não houverdes pago o último ceitil. (S. MATEUS, cap. V, vv. 25 e 26.)
 
-# 6.
-
-Na prática do perdão, como, em geral, na do bem, não há somente um efeito moral: há também um efeito material. A morte, como sabemos, não nos livra dos nossos inimigos; os Espíritos vingativos perseguem, muitas vezes, com seu ódio, no além‑túmulo, aqueles contra os quais guardam rancor; donde decorre a falsidade do provérbio que diz: "Morto o animal, morto o veneno", quando aplicado ao homem. O Espírito mau espera que o outro, a quem ele quer mal, esteja preso ao seu corpo e, assim, menos livre, para mais facilmente o atormentar, ferir nos seus interesses, ou nas suas mais caras afeições. Nesse fato reside a causa da maioria dos casos de obsessão, sobretudo dos que apresentam certa gravidade, quais os de subjugação e possessão. O obsidiado e o possesso são, pois, quase sempre vítimas de uma vingança, cujo motivo se encontra em existência anterior, e à qual o que a sofre deu lugar pelo seu proceder. Deus o permite, para os punir do mal que a seu turno praticaram, ou, se tal não ocorreu, por haverem faltado com a indulgência e a caridade, não perdoando. Importa, conseguintemente, do ponto de vista da tranqüilidade futura, que cada um repare, quanto antes, os agravos que haja causado ao seu próximo, que perdoe aos seus inimigos, a fim de que, antes que a morte lhe chegue, esteja apagado qualquer motivo de dissensão, toda causa fundada de ulterior animosidade. Por essa forma, de um inimigo encarniçado neste mundo se pode fazer um amigo no outro; pelo menos, o que assim procede põe de seu lado o bom direito e Deus não consente que aquele que perdoou sofra qualquer vingança. Quando Jesus recomenda que nos reconciliemos o mais cedo possível com o nosso adversário, não é somente objetivando apaziguar as discórdias no curso da nossa atual existência; é, principalmente, para que elas se não perpetuem nas existências futuras. Não saireis de lá, da prisão, enquanto não houverdes pago
+6. Na prática do perdão, como, em geral, na do bem, não há somente um efeito moral: há também um efeito material. A morte, como sabemos, não nos livra dos nossos inimigos; os Espíritos vingativos perseguem, muitas vezes, com seu ódio, no além‑túmulo, aqueles contra os quais guardam rancor; donde decorre a falsidade do provérbio que diz: "Morto o animal, morto o veneno", quando aplicado ao homem. O Espírito mau espera que o outro, a quem ele quer mal, esteja preso ao seu corpo e, assim, menos livre, para mais facilmente o atormentar, ferir nos seus interesses, ou nas suas mais caras afeições. Nesse fato reside a causa da maioria dos casos de obsessão, sobretudo dos que apresentam certa gravidade, quais os de subjugação e possessão. O obsidiado e o possesso são, pois, quase sempre vítimas de uma vingança, cujo motivo se encontra em existência anterior, e à qual o que a sofre deu lugar pelo seu proceder. Deus o permite, para os punir do mal que a seu turno praticaram, ou, se tal não ocorreu, por haverem faltado com a indulgência e a caridade, não perdoando. Importa, conseguintemente, do ponto de vista da tranqüilidade futura, que cada um repare, quanto antes, os agravos que haja causado ao seu próximo, que perdoe aos seus inimigos, a fim de que, antes que a morte lhe chegue, esteja apagado qualquer motivo de dissensão, toda causa fundada de ulterior animosidade. Por essa forma, de um inimigo encarniçado neste mundo se pode fazer um amigo no outro; pelo menos, o que assim procede põe de seu lado o bom direito e Deus não consente que aquele que perdoou sofra qualquer vingança. Quando Jesus recomenda que nos reconciliemos o mais cedo possível com o nosso adversário, não é somente objetivando apaziguar as discórdias no curso da nossa atual existência; é, principalmente, para que elas se não perpetuem nas existências futuras. Não saireis de lá, da prisão, enquanto não houverdes pago
 
 
 
@@ -2591,11 +2490,7 @@ Que é o que pedis ao Senhor, quando implorais para vós o seu perdão? Será un
 
 Quando perdoardes aos vossos irmãos, não vos contenteis com o estender o véu do esquecimento sobre suas faltas, porquanto, as mais das vezes, muito transparente é esse véu para os olhares vossos. Levai‑lhes simultaneamente, com o perdão, o amor; fazei por eles o que pediríeis fizesse o vosso Pai celestial por vós. Substitui a cólera que conspurca, pelo amor que purifica. Pregai, exemplificando, essa caridade ativa, infatigável, que Jesus vos ensinou; pregai‑a, como ele o fez durante todo o tempo em que esteve na Terra, visível aos olhos corporais e como ainda a prega incessantemente, desde que se tornou visível tão‑somente aos olhos do Espírito. Segui esse modelo divino; caminhai em suas pegadas; elas vos conduzirão ao refúgio onde encontrareis o repouso após a luta. Como ele, carregai todos vós as vossas cruzes e subi penosamente, mas com coragem, o vosso calvário, em cujo cimo está a glorificação. ‑ João, bispo de Bordéus. (1862.)
 
-# 18.
-
-Caros amigos, sede severos convosco, indulgentes para as fraquezas dos outros. E esta uma prática da santa caridade, que bem poucas pessoas observam. Todos vós tendes maus pendores a vencer, defeitos a corrigir, hábitos a modificar; todos tendes um fardo mais ou menos
-
-
+18. Caros amigos, sede severos convosco, indulgentes para as fraquezas dos outros. E esta uma prática da santa caridade, que bem poucas pessoas observam. Todos vós tendes maus pendores a vencer, defeitos a corrigir, hábitos a modificar; todos tendes um fardo mais ou menos
 
 ---
 
@@ -2621,13 +2516,9 @@ Certamente que não é essa a conclusão a tirar‑se, porquanto cada um de vós
 
 Mas, por isso mesmo, deveis fazê‑lo com moderação, para um fim útil, e não, como as mais das vezes, pelo prazer de denegrir. Neste último caso, a repreensão é uma maldade; no primeiro, é um dever que a caridade manda seja cumprido com todo o cuidado possível. Ao demais, a censura que alguém faça a outrem deve ao mesmo tempo dirigi‑la a si próprio, procurando saber se não a terá merecido. ‑ S. Luís. (Paris, 1860.)
 
-# 20.
+20. Será repreensível notarem-se as imperfeições dos outros, quando daí nenhum proveito possa resultar para eles, uma vez que não sejam divulgadas? Tudo depende da intenção. Decerto, a ninguém é defeso ver o mal, quando ele existe. Fora mesmo inconveniente ver em toda a parte só o bem. Semelhante ilusão prejudicaria o progresso. O erro está no fazer‑se que a observação redunde em detrimento do próximo, desacreditando‑o, sem necessidade, na opinião geral. Igualmente repreensível seria fazê‑lo alguém apenas para dar expansão a um sentimento de malevolência e à satisfação de apanhar os outros em falta. Dá‑se inteiramente o contrário quando, estendendo sobre o mal um véu, para que o público não o veja, aquele que note os defeitos do próximo o faça em seu proveito pessoal, isto é, para se exercitar em evitar o que reprova nos outros. Essa observação, em suma, não é proveitosa ao moralista? Como pintaria ele os defeitos humanos, se não estudasse os modelos? ‑ S. Luís. (Paris, 1860.)
 
-Será repreensível notarem-se as imperfeições dos outros, quando daí nenhum proveito possa resultar para eles, uma vez que não sejam divulgadas? Tudo depende da intenção. Decerto, a ninguém é defeso ver o mal, quando ele existe. Fora mesmo inconveniente ver em toda a parte só o bem. Semelhante ilusão prejudicaria o progresso. O erro está no fazer‑se que a observação redunde em detrimento do próximo, desacreditando‑o, sem necessidade, na opinião geral. Igualmente repreensível seria fazê‑lo alguém apenas para dar expansão a um sentimento de malevolência e à satisfação de apanhar os outros em falta. Dá‑se inteiramente o contrário quando, estendendo sobre o mal um véu, para que o público não o veja, aquele que note os defeitos do próximo o faça em seu proveito pessoal, isto é, para se exercitar em evitar o que reprova nos outros. Essa observação, em suma, não é proveitosa ao moralista? Como pintaria ele os defeitos humanos, se não estudasse os modelos? ‑ S. Luís. (Paris, 1860.)
-
-# 21.
-
-Haverá casos em que convenha se desvende o mal de outrem? É muito delicada esta questão e, para resolvê‑la, necessário se toma apelar para a caridade bem compreendida. Se as imperfeições de uma pessoa só a ela prejudicam, nenhuma utilidade haverá nunca em divulgá‑la. Se, porém, podem acarretar prejuízo a terceiros, deve‑se atender de preferência ao interesse do maior número. Segundo as circunstâncias, desmascarar a hipocrisia e a mentira pode
+21. Haverá casos em que convenha se desvende o mal de outrem? É muito delicada esta questão e, para resolvê‑la, necessário se toma apelar para a caridade bem compreendida. Se as imperfeições de uma pessoa só a ela prejudicam, nenhuma utilidade haverá nunca em divulgá‑la. Se, porém, podem acarretar prejuízo a terceiros, deve‑se atender de preferência ao interesse do maior número. Segundo as circunstâncias, desmascarar a hipocrisia e a mentira pode
 
 
 
@@ -2636,7 +2527,7 @@ Haverá casos em que convenha se desvende o mal de outrem? É muito delicada est
 
 # CAPÍTULO X
 
-constituir um dever, pois mais vale caia um homem, do que virem muitos a ser suas vítimas.
+constituir um dever, pois mais vale caia um homem, do que virem muitos a ser suas vítimas. 
 
 Em tal caso, deve‑se pesar a soma das vantagens e dos inconvenientes. ‑   São Luís. (Paris, 1860.)
 
@@ -2707,7 +2598,7 @@ Havia nessa pergunta uma armadilha. Contavam os que a formularam poder, conforme
 
 # A lei de amor
 
-O amor resume a doutrina de Jesus toda inteira, visto que esse é o sentimento por excelência, e os sentimentos são os instintos elevados à altura do progresso feito. Em sua origem, o homem só tem instintos; quando mais avançado e corrompido, só tem sensações; quando instruído e depurado, tem sentimentos. E o ponto delicado do sentimento é o amor, não o amor no sentido vulgar do termo, mas esse sol interior que condensa e reúne em seu ardente foco todas as aspirações e todas as revelações sobre‑humanas. A lei de amor substitui a personalidade pela fusão dos seres; extingue as misérias sociais. Ditoso aquele que, ultrapassando a sua humanidade, ama com amplo amor os seus irmãos em sofrimento! ditoso aquele que ama, pois não conhece a miséria da alma, nem a do corpo. Tem ligeiros os pés e vive como que transportado, fora de si mesmo. Quando Jesus pronunciou a divina palavra ‑ amor, os povos sobressaltaram‑se e os mártires, ébrios de esperança, desceram ao circo.
+8. O amor resume a doutrina de Jesus toda inteira, visto que esse é o sentimento por excelência, e os sentimentos são os instintos elevados à altura do progresso feito. Em sua origem, o homem só tem instintos; quando mais avançado e corrompido, só tem sensações; quando instruído e depurado, tem sentimentos. E o ponto delicado do sentimento é o amor, não o amor no sentido vulgar do termo, mas esse sol interior que condensa e reúne em seu ardente foco todas as aspirações e todas as revelações sobre‑humanas. A lei de amor substitui a personalidade pela fusão dos seres; extingue as misérias sociais. Ditoso aquele que, ultrapassando a sua humanidade, ama com amplo amor os seus irmãos em sofrimento! ditoso aquele que ama, pois não conhece a miséria da alma, nem a do corpo. Tem ligeiros os pés e vive como que transportado, fora de si mesmo. Quando Jesus pronunciou a divina palavra ‑ amor, os povos sobressaltaram‑se e os mártires, ébrios de esperança, desceram ao circo.
 
 O Espiritismo a seu turno vem pronunciar uma segunda palavra do alfabeto divino. Estai atentos, pois que essa palavra ergue a lápide dos túmulos vazios, e a reencarnação, triunfando da morte, revela às criaturas deslumbradas o seu patrimônio intelectual. Já não é ao suplício que ela conduz o homem: condu‑lo à conquista do seu ser, elevado e transfigurado. O sangue resgatou o Espírito e o Espírito tem hoje que resgatar da matéria o homem.
 
@@ -2722,9 +2613,7 @@ O Espiritismo a seu turno vem pronunciar uma segunda palavra do alfabeto divino.
 
 Disse eu que em seus começos o homem só instintos possuía. Mais próximo, portanto, ainda se acha do ponto de partida, do que da meta, aquele em quem predominam os instintos. A fim de avançar para a meta, tem a criatura que vencer os instintos, em proveito dos sentimentos, isto é, que aperfeiçoar estes últimos, sufocando os germes latentes da matéria. Os instintos são a germinação e os embriões do sentimento; trazem consigo o progresso, como a glande encerra em si o carvalho, e os seres menos adiantados são os que, emergindo pouco a pouco de suas crisálidas, se conservam escravizados aos instintos. O Espírito precisa ser cultivado, como um campo. Toda a riqueza futura depende do labor atual, que vos granjeará muito mais do que bens terrenos: a elevação gloriosa. E então que, compreendendo a lei de amor que liga todos os seres, buscareis nela os gozos suavíssimos da alma, prelúdios das alegrias celestes. ‑ Lázaro. (Paris, 1862.)
 
-# 9.
-
-O amor é de essência divina e todos vós, do primeiro ao último, tendes, no fundo do coração, a centelha desse fogo sagrado. E fato, que já haveis podido comprovar muitas vezes, este: o homem, por mais abjeto, vil e criminoso que seja, vota a um ente ou a um objeto qualquer viva e ardente afeição, à prova de tudo quanto tendesse a diminuí‑la e que alcança, não raro, sublimes proporções.
+9. O amor é de essência divina e todos vós, do primeiro ao último, tendes, no fundo do coração, a centelha desse fogo sagrado. E fato, que já haveis podido comprovar muitas vezes, este: o homem, por mais abjeto, vil e criminoso que seja, vota a um ente ou a um objeto qualquer viva e ardente afeição, à prova de tudo quanto tendesse a diminuí‑la e que alcança, não raro, sublimes proporções.
 
 A um ente ou um objeto qualquer, disse eu, porque há entre vós indivíduos que, com o coração a transbordar de amor, despendem tesouros desse sentimento com animais, plantas e, até, com coisas materiais: espécies de misantropos que, a se queixarem da Humanidade em geral e a resistirem ao pendor natural de suas almas, que buscam em torno de si a afeição e a simpatia, rebaixam a lei de amor à condição de instinto. Entretanto, por mais que façam, não logram sufocar o gérmen vivaz que Deus lhes depositou nos corações ao criá‑los. Esse gérmen se desenvolve e cresce com a moralidade e a inteligência e, embora comprimido amiúde pelo egoísmo, torna‑se a fonte das santas e doces virtudes que geram as afeições sinceras.
 
@@ -2756,9 +2645,7 @@ a caridade, a humildade, a paciência, o devotamento, a abnegação, a resignaç
 
 Amados irmãos, aproveitai dessas lições; é difícil o praticá‑las, porém, a alma colhe delas imenso bem. Crede‑me, fazei o sublime esforço que vos peço: "Amai‑vos" e vereis a Terra em breve transformada num Paraíso onde as almas dos justos virão repousar. ‑ Fénelon. (Bordéus, 1861.)
 
-# 10.
-
-Meus caros condiscípulos, os Espíritos aqui presentes vos dizem, por meu intermédio: "Amai muito, a fim de serdes amados." E tão justo esse pensamento, que nele encontrareis tudo o que consola e abranda as penas de cada dia; ou melhor: pondo em prática esse sábio conselho, elevar‑vos‑eis de tal modo acima da matéria que vos espiritualizareis antes de deixardes o invólucro terrestre. Havendo os estudos espíritas desenvolvido em vós a compreensão do futuro, uma certeza tendes: a de caminhardes para Deus, vendo realizadas todas as promessas que correspondem às aspirações de vossa alma. Por isso, deveis elevar‑vos bem alto para julgardes sem as constrições da matéria, e não condenardes o vosso próximo sem terdes dirigido a Deus o pensamento.
+10. Meus caros condiscípulos, os Espíritos aqui presentes vos dizem, por meu intermédio: "Amai muito, a fim de serdes amados." E tão justo esse pensamento, que nele encontrareis tudo o que consola e abranda as penas de cada dia; ou melhor: pondo em prática esse sábio conselho, elevar‑vos‑eis de tal modo acima da matéria que vos espiritualizareis antes de deixardes o invólucro terrestre. Havendo os estudos espíritas desenvolvido em vós a compreensão do futuro, uma certeza tendes: a de caminhardes para Deus, vendo realizadas todas as promessas que correspondem às aspirações de vossa alma. Por isso, deveis elevar‑vos bem alto para julgardes sem as constrições da matéria, e não condenardes o vosso próximo sem terdes dirigido a Deus o pensamento.
 
 Amar, no sentido profundo do termo, é o homem ser leal, probo, consciencioso, para fazer aos outros o que queira que estes lhe façam; é procurar em torno de si o sentido íntimo de todas as dores que acabrunham seus irmãos, para suavizá‑las; é considerar como sua a grande família humana, porque essa família todos a encontrareis, dentro de certo período, em mundos mais adiantados; e os Espíritos que a compõem são, como vós, filhos de Deus, destinados a se elevarem ao infinito. Assim, não podeis recusar aos vossos irmãos o que Deus liberalmente vos outorgou, porquanto, de vosso lado, muito vos
 
@@ -2813,7 +2700,7 @@ O egoísmo é a negação da caridade. Ora, sem a caridade não haverá descanso
 
 # A fé e a caridade
 
-Disse-vos, não há muito, meus caros filhos, que a caridade, sem a fé, não basta para manter entre os homens uma ordem social capaz de os tornar felizes. Pudera ter dito que a caridade é impossível sem a fé. Na verdade, impulsos generosos se vos depararão, mesmo entre os que nenhuma religião têm; porém, essa caridade austera, que só com abnegação se pratica, com um constante sacrifício de todo interesse egoístico, somente a fé pode inspirá-la, porquanto só ela dá se possa carregar com coragem e perseverança a cruz da vida terrena.
+13. Disse-vos, não há muito, meus caros filhos, que a caridade, sem a fé, não basta para manter entre os homens uma ordem social capaz de os tornar felizes. Pudera ter dito que a caridade é impossível sem a fé. Na verdade, impulsos generosos se vos depararão, mesmo entre os que nenhuma religião têm; porém, essa caridade austera, que só com abnegação se pratica, com um constante sacrifício de todo interesse egoístico, somente a fé pode inspirá-la, porquanto só ela dá se possa carregar com coragem e perseverança a cruz da vida terrena.
 
 Sim, meus filhos, é inútil que o homem ávido de gozos procure iludir-se sobre o seu destino nesse mundo, pretendendo ser-lhe lícito ocupar-se unicamente com a sua felicidade. Sem dúvida, Deus nos criou para sermos felizes.
 
@@ -2830,7 +2717,7 @@ Tereis, contudo, razão, se afirmardes que a felicidade se acha destinada ao hom
 
 # Caridade para com os criminosos
 
-A verdadeira caridade constitui um dos mais sublimes ensinamentos que Deus deu ao mundo. Completa fraternidade deve existir entre os verdadeiros seguidores da sua doutrina. Deveis amar os desgraçados, os criminosos, como criaturas, que são, de Deus, às quais o perdão e a misericórdia serão concedidos, se se arrependerem, como também a vós, pelas faltas que cometeis contra sua Lei. Considerai que sois mais repreensíveis, mais culpados do que aqueles a quem negardes perdão e comiseração, pois, as mais das vezes, eles não conhecem Deus como o conheceis, e muito menos lhes será pedido do que a vós.
+14. A verdadeira caridade constitui um dos mais sublimes ensinamentos que Deus deu ao mundo. Completa fraternidade deve existir entre os verdadeiros seguidores da sua doutrina. Deveis amar os desgraçados, os criminosos, como criaturas, que são, de Deus, às quais o perdão e a misericórdia serão concedidos, se se arrependerem, como também a vós, pelas faltas que cometeis contra sua Lei. Considerai que sois mais repreensíveis, mais culpados do que aqueles a quem negardes perdão e comiseração, pois, as mais das vezes, eles não conhecem Deus como o conheceis, e muito menos lhes será pedido do que a vós.
 
 Não julgueis, oh! não julgueis absolutamente, meus caros amigos, porquanto o juízo que proferirdes ainda mais severamente vos será aplicado e precisais de indulgência para os pecados em que sem cessar incorreis. Ignorais que há muitas ações que são crimes aos olhos do Deus
 
@@ -2863,11 +2750,6 @@ como a vossa, para se aperfeiçoar; ajudai‑o, pois, a sair do lameiro e orai p
 Questão muito grave é esta e que naturalmente se pode apresentar ao espírito. Responderei, na conformidade do meu adiantamento moral, pois o de que se trata é de saber se se deve expor a vida, mesmo por um malfeitor. O devotamento é cego; socorre‑se um inimigo; deve‑se, portanto, socorrer o inimigo da sociedade, a um malfeitor, em suma. Julgais que será somente à morte que, em tal caso, se corre a arrancar o desgraçado? E, talvez, a toda a sua vida passada. Imaginai, com efeito, que, nos rápidos instantes que lhe arrebatam os derradeiros alentos de vida, o homem perdido volve ao seu passado, ou que, antes, este se ergue diante dele. A morte, quiçá, lhe chega cedo demais; a reencarnação poderá vir a ser‑lhe terrível. Lançai‑vos, então, ó homens; lançai‑vos todos vós a quem a ciência espírita esclareceu; lançai‑vos, arrancai‑o à sua condenação e, talvez, esse homem, que teria morrido a blasfemar, se atirará nos vossos braços. Todavia, não tendes que indagar se o fará, ou não; socorrei‑o, porquanto, salvando‑o, obedeceis a essa voz do coração, que vos diz: "Podes salvá‑lo, salva‑o!" ‑ Lamennais. (Paris, 1862.)
 
 
-
----
-
-196
-
 ---
 
 
@@ -2891,9 +2773,7 @@ Retribuir o mal com o bem. ‑ Os inimigos desencarnados ‑ Se alguém vos bate
 
 má vida se entreajudam dessa maneira, para auferir a mesma vantagem? Pelo que vos toca, amai os vossos inimigos, fazei bem a todos e auxiliai sem esperar coisa alguma. Então, muito grande será a vossa recompensa e sereis filhos do Altíssimo, que é bom para os ingratos e até para os maus. - Sede, pois, cheios de misericórdia, como cheio de misericórdia é o vosso Deus.” (S. LUCAS, cap. VI, vv. 32 a 36.)
 
-# 3.
-
-Se o amor do próximo constitui o princípio da caridade, amar os inimigos é a mais sublime aplicação desse princípio, porquanto a posse de tal virtude representa uma das maiores vitórias alcançadas contra o egoísmo e o orgulho.
+3. Se o amor do próximo constitui o princípio da caridade, amar os inimigos é a mais sublime aplicação desse princípio, porquanto a posse de tal virtude representa uma das maiores vitórias alcançadas contra o egoísmo e o orgulho.
 
 Entretanto, há geralmente equívoco no tocante ao sentido da palavra amar, neste passo. Não pretendeu Jesus, assim falando, que cada um de nós tenha para com o seu inimigo a ternura que dispensa a um irmão ou amigo. A ternura pressupõe confiança; ora, ninguém pode depositar confiança numa pessoa, sabendo que esta lhe quer mal; ninguém pode ter para com ela expansões de amizade, sabendo‑a capaz de abusar dessa atitude. Entre pessoas que desconfiam umas das outras, não pode haver essas manifestações de simpatia que existem entre as que comungam nas mesmas idéias. Enfim, ninguém pode sentir, em estar com um inimigo, prazer igual ao que sente na companhia de um amigo.
 
@@ -2912,7 +2792,7 @@ matizes diversos de um sentimento, à razão cabe estabelecer as diferenças, co
 
 Amar os inimigos não é, portanto, ter‑lhes uma afeição que não está na natureza, visto que o contacto de um inimigo nos faz bater o coração de modo muito diverso do seu bater, ao contacto de um amigo. Amar os Inimigos é não lhes guardar ódio, nem rancor, nem desejos de vingança; é perdoar‑lhes, sem pensamento oculto e sem condições, o mal que nos causem; é não opor nenhum obstáculo a reconciliação com eles; é desejar‑lhes o bem e não o mal; é experimentar júbilo, em vez de pesar, com o bem que lhes advenha; é socorrê‑los, em se apresentando ocasião; é abster‑se, quer por palavras, quer por atos, de tudo o que os possa prejudicar; é, finalmente, retribuir‑lhes sempre o mal com o bem, sem a intenção de os humilhar. Quem assim procede preenche as condições do mandamento: Amai os vossos inimigos.
 
-Amar os inimigos é, para o incrédulo, um contra‑senso. Aquele para quem a vida presente é tudo, vê no seu inimigo um ser nocivo, que lhe perturba o repouso e do qual unicamente a morte, pensa ele, o pode livrar. Daí, o desejo de vingar‑se. Nenhum interesse tem em perdoar, senão para satisfazer o seu orgulho perante o mundo. Em certos casos, perdoar‑lhe parece mesmo uma fraqueza indigna de si. Se não se vingar, nem por isso deixará de conservar rancor e secreto desejo de mal para o outro.
+4. Amar os inimigos é, para o incrédulo, um contra‑senso. Aquele para quem a vida presente é tudo, vê no seu inimigo um ser nocivo, que lhe perturba o repouso e do qual unicamente a morte, pensa ele, o pode livrar. Daí, o desejo de vingar‑se. Nenhum interesse tem em perdoar, senão para satisfazer o seu orgulho perante o mundo. Em certos casos, perdoar‑lhe parece mesmo uma fraqueza indigna de si. Se não se vingar, nem por isso deixará de conservar rancor e secreto desejo de mal para o outro.
 
 Para o crente e, sobretudo, para o espírita, muito diversa é a maneira de ver, porque suas vistas se lançam sobre o passado e sobre o futuro, entre os quais a vida atual não passa de um simples ponto. Sabe ele que, pela mesma destinação da Terra, deve esperar topar aí com homens maus e perversos; que as maldades com que se defronta fazem parte das provas que lhe cumpre suportar e o elevado ponto de vista em que se coloca lhe torna menos amargas as vicissitudes, quer advenham dos homens, quer das coisas. Se não se queixa das provas, tampouco deve queixar-se dos que lhe servem de instrumento.
 
@@ -2942,17 +2822,13 @@ Sabe também que a morte apenas o livra da presença material do seu inimigo, po
 
 pretexto às represálias, podendo‑se até fazer de um inimigo um amigo, antes e depois de sua morte. Com um mau proceder, o homem irrita o seu inimigo, que então se constitui instrumento de que a justiça de Deus se serve para punir aquele que não perdoou.
 
-# 6.
-
-Pode‑se, portanto, contar inimigos assim entre os encarnados, como entre os desencarnados. Os inimigos do mundo invisível manifestam sua malevolência pelas obsessões e subjugações com que tanta gente se vê a braços e que representam um gênero de provas, as quais, como as outras, concorrem para o adiantamento do ser, que, por isso; as deve receber com resignação e como conseqüência da natureza inferior do globo terrestre. Se não houvesse homens maus na Terra, não haveria Espíritos maus ao seu derredor. Se, consequente, se deve usar de benevolência com os inimigos encarnados, do mesmo modo se deve proceder com relação aos que se acham desencarnados.
+6. Pode‑se, portanto, contar inimigos assim entre os encarnados, como entre os desencarnados. Os inimigos do mundo invisível manifestam sua malevolência pelas obsessões e subjugações com que tanta gente se vê a braços e que representam um gênero de provas, as quais, como as outras, concorrem para o adiantamento do ser, que, por isso; as deve receber com resignação e como conseqüência da natureza inferior do globo terrestre. Se não houvesse homens maus na Terra, não haveria Espíritos maus ao seu derredor. Se, consequente, se deve usar de benevolência com os inimigos encarnados, do mesmo modo se deve proceder com relação aos que se acham desencarnados.
 
 Outrora, sacrificavam‑se vítimas sangrentas para aplacar os deuses infernais, que não eram senão os maus Espíritos. Aos deuses infernais sucederam os demônios, que são a mesma coisa. O Espiritismo demonstra que esses demônios mais não são do que as almas dos homens perversos, que ainda se não despojaram dos instintos materiais; que ninguém logra aplacá-los, senão mediante o sacrifício do ódio existente, isto é, pela caridade; que esta não tem por efeito, unicamente, impedi‑los de praticar o mal e, sim, também o de os reconduzir ao caminho do bem e de contribuir para a salvação deles. E assim que o mandamento: Amai os vossos inimigos não se circunscreve ao âmbito acanhado da Terra e da vida presente; antes, faz parte da grande lei da solidariedade e da fraternidade universais.
 
 # Se alguém vos bater na face direita, apresentai-lhe também a outra
 
-# 7.
-
-Aprendestes que foi dito: olho por olho e dente por dente. - Eu, porém, vos digo que não resistais ao mal que vos queiram
+7. Aprendestes que foi dito: olho por olho e dente por dente. - Eu, porém, vos digo que não resistais ao mal que vos queiram
 
 
 
@@ -3021,9 +2897,7 @@ Há crime no homicídio em duelo; a vossa própria legislação o reconhece. Nin
 
 planeta a animosidade, a discórdia, a guerra. Então, a palavra duelo somente existirá na vossa linguagem como longínqua e vaga recordação de um passado que se foi. Nenhum outro antagonismo existirá entre os homens, afora a nobre rivalidade do bem. ‑ Adolfo, bispo de Argel. (Marmande, 1861.)
 
-# 12.
-
-Em certos casos, sem dúvida, pode o duelo constituir uma prova de coragem física, de desprezo pela vida, mas também é, incontestavelmente, uma prova de covardia moral, como o suicídio. O suicida não tem coragem de enfrentar as vicissitudes da vida; o duelista não tem a de suportar as ofensas. Não vos disse o Cristo que há mais honra e valor em apresentar a face esquerda aquele que bateu na direita, do que em vingar uma injúria? Não disse ele a Pedro, no jardim das Oliveiras: "Mete a tua espada na bainha, porquanto aquele que matar com a espada perecerá pela espada?" Assim falando, não condenou, para sempre, o duelo?
+12. Em certos casos, sem dúvida, pode o duelo constituir uma prova de coragem física, de desprezo pela vida, mas também é, incontestavelmente, uma prova de covardia moral, como o suicídio. O suicida não tem coragem de enfrentar as vicissitudes da vida; o duelista não tem a de suportar as ofensas. Não vos disse o Cristo que há mais honra e valor em apresentar a face esquerda aquele que bateu na direita, do que em vingar uma injúria? Não disse ele a Pedro, no jardim das Oliveiras: "Mete a tua espada na bainha, porquanto aquele que matar com a espada perecerá pela espada?" Assim falando, não condenou, para sempre, o duelo?
 
 Efetivamente, meus filhos, que é essa coragem oriunda de um gênio violento, de um temperamento sangüíneo e colérico, que ruge à primeira ofensa? Onde a grandeza dalma daquele que, à menor injúria, entende que só com sangue a poderá lavar? Ah! que ele trema! No fundo da sua consciência, uma voz lhe bradará sempre: Caim! Caim! que fizeste de teu irmão? Foi‑me necessário derramar sangue para salvar a minha honra, responderá ele a essa voz, Ela, porém, retrucará: Procuraste salvá‑la perante os homens, por alguns instantes que te restavam de vida na Terra, e não pensaste em salvá‑la perante Deus! Pobre louco! Quanto sangue exigiria de vós o Cristo, por todos os ultrajes que recebeu! Não só o feristes com os espinhos e a lança, não só o pregastes num madeiro infamante, como também o fizestes ouvir, em meio de sua agonia atroz, as zombarias que lhe prodigalizastes. Que reparação a tantos insultos vos pediu ele? O último brado do cordeiro foi uma súplica em favor dos seus algozes! Oh! como ele, perdoai e orai pelos que vos ofendem.
 
@@ -3038,9 +2912,7 @@ Efetivamente, meus filhos, que é essa coragem oriunda de um gênio violento, de
 
 Amigos, lembrai‑vos deste preceito: "Amai‑vos uns aos outros" e, então, a um golpe desferido pelo ódio respondereis com um Sorriso, e ao ultraje com o perdão. O mundo, sem dúvida, se levantará furioso e vos tratará de covardes; erguei bem alto a fronte e mostrai que também ela se não temeria de cingir‑se de espinhos, a exemplo do Cristo, mas, que a vossa mão não quer ser cúmplice de um assassínio autorizado por falsos ares de honra, que, entretanto, não passa de orgulho e amor‑próprio. Dar‑se‑á que, ao criar‑vos, Deus vos outorgou o direito de vida e de morte, uns sobre os outros? Não, só à Natureza conferiu ele esse direito, para se reformar e reconstruir; quanto a vós, não permite, sequer, que disponhais de vós mesmos. Como o suicida, o duelista se achará marcado com sangue, quando comparecer perante Deus, e a um e outro o Soberano Juiz reserva rudes e longos castigos. Se ele ameaçou com a sua justiça aquele que disser raca a seu irmão, quão mais severa não será a pena que comine ao que chegar à sua presença com as mãos tintas do sangue de seu irmão! ‑ Santo Agostinho. (Paris, 1862.)
 
-# 13.
-
-O duelo, como o que outrora se denominava o juízo de Deus, é uma das instituições bárbaras que ainda regem a sociedade. Que diríeis, no entanto, se vísseis dois adversários mergulhados em água fervente ou submetidos ao contacto de um ferro em brasa, para ser dirimida a contenda entre eles, reconhecendo‑se estar a razão com aquele que melhor sofresse a prova? Qualificaríeis de insensatos esses costumes, não é exato? Pois o duelo é coisa pior do que tudo isso. Para o duelista destro, é um assassínio praticado a sangue frio, com toda a premeditação que possa haver, uma vez que ele está certo da eficácia do golpe que desfechará. Para o adversário, quase certo de sucumbir em virtude de sua fraqueza e inabilidade, é um suicídio cometido com a mais fria reflexão. Sei que muitas vezes se procura evitar essa alternativa igualmente criminosa, confiando ao acaso a questão: ‑ mas, não é isso voltar, sob outra forma, ao juízo de Deus, da Idade Média? E nessa época infinitamente menor era a culpa.
+13. O duelo, como o que outrora se denominava o juízo de Deus, é uma das instituições bárbaras que ainda regem a sociedade. Que diríeis, no entanto, se vísseis dois adversários mergulhados em água fervente ou submetidos ao contacto de um ferro em brasa, para ser dirimida a contenda entre eles, reconhecendo‑se estar a razão com aquele que melhor sofresse a prova? Qualificaríeis de insensatos esses costumes, não é exato? Pois o duelo é coisa pior do que tudo isso. Para o duelista destro, é um assassínio praticado a sangue frio, com toda a premeditação que possa haver, uma vez que ele está certo da eficácia do golpe que desfechará. Para o adversário, quase certo de sucumbir em virtude de sua fraqueza e inabilidade, é um suicídio cometido com a mais fria reflexão. Sei que muitas vezes se procura evitar essa alternativa igualmente criminosa, confiando ao acaso a questão: ‑ mas, não é isso voltar, sob outra forma, ao juízo de Deus, da Idade Média? E nessa época infinitamente menor era a culpa.
 
 
 
@@ -3058,7 +2930,6 @@ A própria denominação de juízo de Deus indica a fé, ingênua, é verdade, p
 Antes que chegue o momento decisivo, inquiris de vós mesmos se procedeis como cristãos? Que contas ficareis devendo à sociedade, por a privardes de um de seus membros? Pensastes no remorso que vos assaltará, por haverdes roubado a uma mulher o marido, a uma mãe o filho, ao filho o pai que lhes servia de amparo? Certamente, o autor da ofensa deve uma reparação; porém, não lhe será mais honroso dá‑la espontaneamente, reconhecendo suas faltas, do que expor a vida daquele que tem o direito de se queixar? Quanto ao ofendido, convenho em que, algumas vezes, por ele achar‑se gravemente ferido, ou em sua pessoa, ou nas dos que lhe são mais caros, não está em jogo somente o amor‑próprio: o coração se acha magoado, sofre.
 
 
-
 ---
 
 
@@ -3070,9 +2941,7 @@ Mas, além de ser estúpido arriscar a vida, lançando‑se contra um miserável
 
 Quando a caridade regular a conduta dos homens, eles conformarão seus atos e palavras a esta máxima: “Não façais aos outros o que não quiserdes que vos façam." Em se verificando isso, desaparecerão todas as causas de dissensões e, com elas, as dos duelos e das guerras, que são os duelos de povo a povo. ‑ Francisco Xavier, (Bordéus, 1861.)
 
-# 15.
-
-O homem do mundo, o homem venturoso, que por uma palavra chocante, uma coisa ligeira, joga a vida que lhe veio de Deus, joga a vida do seu semelhante, que só a Deus pertence, esse é cem vezes mais culpado do que o miserável que, impelido pela cupidez, algumas vezes pela necessidade, se introduz numa habitação para roubar e matar os que se lhe opõem aos desígnios. Trata‑se quase sempre de uma criatura sem educação, com imperfeitas noções do bem e do mal, ao passo que o duelista pertence, em regra, à classe mais culta. Um mata brutalmente, enquanto que o outro o faz com método e polidez, pelo que a sociedade o desculpa. Acrescentarei mesmo que o duelista é infinitamente mais culpado do que o desgraçado que, cedendo a um sentimento de vingança, mata num momento de exasperação.
+15. O homem do mundo, o homem venturoso, que por uma palavra chocante, uma coisa ligeira, joga a vida que lhe veio de Deus, joga a vida do seu semelhante, que só a Deus pertence, esse é cem vezes mais culpado do que o miserável que, impelido pela cupidez, algumas vezes pela necessidade, se introduz numa habitação para roubar e matar os que se lhe opõem aos desígnios. Trata‑se quase sempre de uma criatura sem educação, com imperfeitas noções do bem e do mal, ao passo que o duelista pertence, em regra, à classe mais culta. Um mata brutalmente, enquanto que o outro o faz com método e polidez, pelo que a sociedade o desculpa. Acrescentarei mesmo que o duelista é infinitamente mais culpado do que o desgraçado que, cedendo a um sentimento de vingança, mata num momento de exasperação.
 
 O duelista não tem por escusa o arrebatamento da paixão, pois que, entre o insulto e a reparação, dispõe ele sempre de tempo para refletir. Age, portanto, friamente e com premeditado desígnio; estuda e calcula tudo, para com mais segurança matar o seu adversário. E certo que também expõe a vida e é isso o que reabilita o duelo aos olhos do mundo, que
 
@@ -3085,9 +2954,7 @@ O duelista não tem por escusa o arrebatamento da paixão, pois que, entre o ins
 
 nele então só vê um ato de coragem e pouco caso da vida. Mas, haverá coragem da parte daquele que está seguro de si? O duelo, remanescente dos tempos de barbárie, em os quais o direito do mais forte constituía a lei, desaparecerá por efeito de uma melhor apreciação do verdadeiro ponto de honra e à medida que o homem for depositando fé mais viva na vida futura. -Agostinho. (Bordéus, 1861.)
 
-# 16. NOTA
-
-Os duelos se vão tornando cada vez mais raros e, se de tempos a tempos alguns de tão dolorosos exemplos se dão, o número deles não se pode comparar com o dos que ocorriam outrora. Antigamente, um homem não saía de casa sem prever um encontro, pelo que tomava sempre as necessárias precauções. Um sinal característico dos costumes do tempo e dos povos se nos depara no porte habitual, ostensivo ou oculto, de armas ofensivas ou defensivas. A abolição de semelhante uso demonstra o abrandamento dos costumes e é curioso acompanhar‑lhes a gradação, desde a época em que os cavaleiros só cavalgavam bardados de ferro e armados de lança, até a em que uma simples espada à cinta constituía mais um adorno e um acessório do brasão, do que uma arma de agressão. Outro indício da modificação dos costumes está em que, outrora, os combates singulares se empenhavam em plena rua, diante da turba, que se afastava para deixar livre o campo aos combatentes, ao passo que estes hoje se ocultam. Presentemente, a morte de um homem é acontecimento que causa emoção, enquanto que, noutros tempos, ninguém dava atenção a isso. O Espiritismo apagará esses últimos vestígios da barbárie, incutindo nos homens o espírito de caridade e de fraternidade.
+16. NOTA - Os duelos se vão tornando cada vez mais raros e, se de tempos a tempos alguns de tão dolorosos exemplos se dão, o número deles não se pode comparar com o dos que ocorriam outrora. Antigamente, um homem não saía de casa sem prever um encontro, pelo que tomava sempre as necessárias precauções. Um sinal característico dos costumes do tempo e dos povos se nos depara no porte habitual, ostensivo ou oculto, de armas ofensivas ou defensivas. A abolição de semelhante uso demonstra o abrandamento dos costumes e é curioso acompanhar‑lhes a gradação, desde a época em que os cavaleiros só cavalgavam bardados de ferro e armados de lança, até a em que uma simples espada à cinta constituía mais um adorno e um acessório do brasão, do que uma arma de agressão. Outro indício da modificação dos costumes está em que, outrora, os combates singulares se empenhavam em plena rua, diante da turba, que se afastava para deixar livre o campo aos combatentes, ao passo que estes hoje se ocultam. Presentemente, a morte de um homem é acontecimento que causa emoção, enquanto que, noutros tempos, ninguém dava atenção a isso. O Espiritismo apagará esses últimos vestígios da barbárie, incutindo nos homens o espírito de caridade e de fraternidade.
 
 
 
@@ -3124,7 +2991,7 @@ E qual poderá ser a recompensa do que faz pesar os seus benefícios sobre aquel
 
 ---
 
-NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 nem mesmo a recompensa terrestre existe, porquanto ele se vê privado da grata satisfação de ouvir bendizer‑lhe do nome e é esse o primeiro castigo do seu orgulho. As lágrimas que seca por vaidade, em vez de subirem ao Céu, recaíram sobre o coração do aflito e o ulceraram. Do bem que praticou nenhum proveito lhe resulta, pois que ele o deplora, e todo benefício deplorado é moeda falsa e sem valor.
 
@@ -3152,7 +3019,7 @@ Por que tão singelo traje? Para não insultar a miséria com o seu luxo. Por qu
 ---
 
 
-NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 realidade, serei eu quem faz a caridade; que merecimento terias nisso? Não é justo. Quando visitamos os doentes, tu me ajudas a tratá‑los. Ora, dispensar cuidados é dar alguma coisa. Não te parece bastante isso? Nada mais simples. Aprende a fazer obras úteis e confeccionarás roupas para essas criancinhas. Desse modo, darás alguma coisa que vem de ti.” É assim que aquela mãe verdadeiramente cristã prepara a filha para a prática das virtudes que o Cristo ensinou. E espírita ela? Que importa!
 
@@ -3182,7 +3049,7 @@ Aqueles cuja intenção está isenta de qualquer idéia pessoal, devem consolar�
 ---
 
 
-# NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 galizar um consolo, minorar um sofrimento físico ou moral, fazer um esforço útil. Não dispõem todos, à falta de dinheiro, do seu trabalho, do seu tempo, do seu repouso, para de tudo isso dar uma parte ao próximo? Também aí está a dádiva do pobre, o óbolo da viúva.
 
@@ -3218,7 +3085,7 @@ Amai, portanto, o vosso próximo; amai‑o como a vós mesmos, pois já sabeis, 
 ---
 
 
-# NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 desespero não vos sentireis presa, ao reconhecê‑lo no mundo dos Espíritos! Desejo compreendais bem o que seja a caridade moral, que todos podem praticar, que nada custa, materialmente falando, porém, que é a mais difícil de exercer‑se.
 
@@ -3228,9 +3095,9 @@ Essa caridade, no entanto, não deve obstar à outra. Tende, porém, cuidado, pr
 
 Lembrai‑vos de que Jesus disse que todos somos irmãos e pensai sempre nisso, antes de repelirdes o leproso ou o mendigo. Adeus: pensai nos que sofrem e orai. Irmã Rosália. (Paris, 1860.)
 
-# 10. Meus amigos, a muitos dentre vós tenho ouvido dizer:
+10. Meus amigos, a muitos dentre vós tenho ouvido dizer: Como hei de fazer caridade, se amiúde nem mesmo do necessário disponho? 
 
-Como hei de fazer caridade, se amiúde nem mesmo do necessário disponho? Amigos, de mil maneiras se faz a caridade. Podeis fazê‑la por pensamentos, por palavras e por ações. Por pensamentos, orando pelos pobres abandonados, que mor‑
+Amigos, de mil maneiras se faz a caridade. Podeis fazê‑la por pensamentos, por palavras e por ações. Por pensamentos, orando pelos pobres abandonados, que mor‑
 
 
 
@@ -3246,11 +3113,10 @@ Dizem, outros dentre vós: "Ora! somos tão numerosos na Terra, que Deus não no
 Meus amigos, a cada regimento novo o general entrega um estandarte. Eu vos dou por divisa esta máxima do Cristo: "Amai‑vos uns aos outros." Observai esse preceito, reuni‑vos todos em torno dessa bandeira e tereis ventura e consolação. ‑ Um Espírito protetor. (Lião, 1860.)
 
 
-
 ---
 
 
-# NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 # A beneficência
 
@@ -3278,7 +3144,7 @@ Notai que a vossa história guarda piedosa lembrança de uma multidão de homens
 
 # 223
 
-NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 esse resumo das leis divinas. Lede‑lhe as páginas cintilantes do devotamento de Jesus, e meditai‑as.
 
@@ -3299,9 +3165,7 @@ Não ouso falar do que fiz, porque também os Espíritos têm o pudor de suas ob
 
 vida presente. Sede unidos, amai‑vos uns aos outros, segundo os preceitos do Cristo. Assim seja. ‑ S. Vicente de Paulo. (Paris, 1858.)
 
-# 13.
-
-Chamo‑me Caridade; sigo o caminho principal que conduz a Deus. Acompanhai‑me, pois conheço a meta a que deveis todos visar.
+13. Chamo‑me Caridade; sigo o caminho principal que conduz a Deus. Acompanhai‑me, pois conheço a meta a que deveis todos visar.
 
 Dei esta manhã o meu giro habitual e, com o coração amargurado, venho dizer‑vos: Oh! meus amigos, que de misérias, que de lágrimas, quanto tendes de fazer para secá‑las todas! Em vão, procurei consolar algumas pobres mães, dizendo‑lhes ao ouvido: Coragem! há corações bons que velam por vós; não sereis abandonadas; paciência! Deus lá está; sois dele amadas, sois suas eleitas. Elas pareciam ouvir‑me e volviam para o meu lado os olhos arregalados de espanto; eu lhes lia no semblante que seus corpos, tiranos do Espírito, tinham fome e que, se é certo que minhas palavras lhes serenavam um pouco os corações, não lhes reconfortavam os estômagos. Repetia‑lhes: Coragem! Coragem! Então, uma pobre mãe, ainda muito moça, que amamentava uma criancinha, tomou‑a nos braços e a estendeu no espaço vazio, como a pedir‑me que protegesse aquele entezinho que só encontrava, num seio estéril, insuficiente alimentação.
 
@@ -3312,13 +3176,11 @@ Alhures vi, meus amigos, pobres velhos sem trabalho e, em conseqüência, sem ab
 ---
 
 
-NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 Mas, se peço, também dou e dou muito. Convido‑vos para um grande banquete e forneço a árvore onde todos vos saciareis! Vede quanto é bela, como está carregada de flores e de frutos! Ide, ide, colhei, apanhai todos os frutos dessa magnificente árvore que se chama a beneficência. No lugar dos ramos que lhe tirardes, atarei todas as boas ações que praticardes e levarei a árvore a Deus, que a carregará de novo, porquanto a beneficência é inexaurível. Acompanhai‑me, pois, meus amigos, a fim de que eu vos conte entre os que se arrolam sob a minha bandeira. Nada temais; eu vos conduzirei pelo caminho da salvação, porque sou ‑ a Caridade. - Cárita, martirizada em Roma. (Lião, 1861.)
 
-# 14.
-
-Várias maneiras há de fazer‑se a caridade, que muitos dentre vós confundem com a esmola. Diferença grande vai, no entanto, de uma para outra. A esmola, meus amigos, é algumas vezes útil, porque dá alívio aos pobres; mas é quase sempre humilhante, tanto para o que a dá, como para o que a recebe. A caridade, ao contrário, liga o benfeitor ao beneficiado e se disfarça de tantos modos! Pode‑se ser caridoso, mesmo com os parentes e com os amigos, sendo uns indulgentes para com os outros, perdoando‑se mutuamente as fraquezas, cuidando não ferir o amor‑próprio de ninguém. Vós, espíritas, podeis sê‑lo na vossa maneira de proceder para com os que não pensam como vós, induzindo os menos esclarecidos a crer, mas sem os chocar, sem investir contra as suas convicções e, sim, atraindo‑os amavelmente às nossas reuniões, onde poderão ouvir‑nos e onde saberemos descobrir nos seus corações a brecha para neles penetrarmos. Eis aí um dos aspectos da caridade.
+14. Várias maneiras há de fazer‑se a caridade, que muitos dentre vós confundem com a esmola. Diferença grande vai, no entanto, de uma para outra. A esmola, meus amigos, é algumas vezes útil, porque dá alívio aos pobres; mas é quase sempre humilhante, tanto para o que a dá, como para o que a recebe. A caridade, ao contrário, liga o benfeitor ao beneficiado e se disfarça de tantos modos! Pode‑se ser caridoso, mesmo com os parentes e com os amigos, sendo uns indulgentes para com os outros, perdoando‑se mutuamente as fraquezas, cuidando não ferir o amor‑próprio de ninguém. Vós, espíritas, podeis sê‑lo na vossa maneira de proceder para com os que não pensam como vós, induzindo os menos esclarecidos a crer, mas sem os chocar, sem investir contra as suas convicções e, sim, atraindo‑os amavelmente às nossas reuniões, onde poderão ouvir‑nos e onde saberemos descobrir nos seus corações a brecha para neles penetrarmos. Eis aí um dos aspectos da caridade.
 
 Escutai agora o que é a caridade para com os pobres, os deserdados deste mundo, mas recompensados de Deus, se aceitam sem queixumes as suas misérias, o que de vós depende. Far‑me‑ei compreender por um exemplo.
 
@@ -3335,20 +3197,17 @@ muito depressa; têm ágeis os dedos. Vede como trazem alegres os semblantes e c
 
 Como essas trabalhadoras precisam de encorajamento, vejo chegarem‑lhes de todos os lados as comunicações dos bons espíritos. Os homens que fazem parte dessa sociedade lhes trazem também seu concurso, fazendo‑les uma dessas leituras que agradam tanto. E nós, para recompensarmos o zelo de todos e de cada um em particular, prometemos às laboriosas obreiras boa clientela, que lhes pagará à vista, em bênçãos, única moeda que tem curso no Céu, garantindo‑lhes, além disso, sem receio de errar, que essa moeda não lhes faltará. ‑ Cárita. (Lião, 1861.)
 
-Meus caros amigos, todos os dias ouço entre vós dizerem: "Sou pobre, não posso fazer a caridade", e todos os dias vejo que faltais com a indulgência aos vossos semelhantes. Nada lhes perdoais e vos arvorais em juizes muitas vezes severos, sem quererdes saber se ficaríeis satisfeitos que do mesmo modo procedessem convosco. Não é também caridade a indulgência? Vós, que apenas podeis fazer a caridade praticando a indulgência, fazei‑a assim, mas fazei‑a largamente. Pelo que toca à
-
+15. Meus caros amigos, todos os dias ouço entre vós dizerem: "Sou pobre, não posso fazer a caridade", e todos os dias vejo que faltais com a indulgência aos vossos semelhantes. Nada lhes perdoais e vos arvorais em juizes muitas vezes severos, sem quererdes saber se ficaríeis satisfeitos que do mesmo modo procedessem convosco. Não é também caridade a indulgência? Vós, que apenas podeis fazer a caridade praticando a indulgência, fazei‑a assim, mas fazei‑a largamente. Pelo que toca à
 
 
 ---
 
 
-# NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 caridade material, vou contar‑vos uma história do outro mundo. Dois homens acabavam de morrer. Dissera Deus: Enquanto esses dois homens viverem, deitar‑se‑ão em sacos diferentes as boas ações de cada um deles, para que por ocasião de sua morte sejam pesadas. Quando ambos chegaram aos últimos momentos, mandou Deus que lhe trouxessem os dois sacos. Um estava cheio, volumoso, atochado, e nele ressoava o metal que o enchia; o outro era pequenino e tão vazio que se podiam contar as moedas que continha. Este o meu, disse um, reconheço‑o; fui rico e dei muito. Este o meu, disse o outro, sempre fui pobre, oh! quase nada tinha para repartir. Mas, oh! surpresa! postos na balança os dois sacos, o mais volumoso se revelou leve, mostrando‑se pesado o outro, tanto que fez se elevasse muito o primeiro no prato da balança. Deus, então, disse ao rico: deste muito, é certo, mas deste por ostentação e para que o teu nome figurasse em todos os templos do orgulho e, ao demais, dando, de nada te privaste. Vai para a esquerda e fica satisfeito com o te serem as tuas esmolas, contadas por qualquer coisa. Depois, disse ao pobre: Tu deste pouco, meu amigo; mas, cada uma das moedas que estão nesta balança representam uma privação que te impuseste; não deste esmolas, entretanto, praticaste a caridade, e, o que vale muito mais, fizeste a caridade naturalmente, sem cogitar de que te fosse levada em conta; foste indulgente; não te constituíste juiz do teu semelhante; ao contrário, todas as suas ações lhe relevaste: passa à direita e vai receber a tua recompensa. ‑ Um Espírito protetor. (Lião, 1861.)
 
-# 16.
-
-A mulher rica, venturosa, que não precisa empregar o tempo nos trabalhos de sua casa, não poderá consagrar algumas horas a trabalhos úteis aos seus semelhantes? Compre, com o que lhe sobre dos prazeres, agasalhos para o desgraçado que tirita de frio; confeccione, com suas mãos delicadas, roupas grosseiras, mas quentes; auxilie uma mãe a cobrir o filho que vai nascer. Se por isso seu filho ficar com algumas rendas de menos, o do pobre...
+16. A mulher rica, venturosa, que não precisa empregar o tempo nos trabalhos de sua casa, não poderá consagrar algumas horas a trabalhos úteis aos seus semelhantes? Compre, com o que lhe sobre dos prazeres, agasalhos para o desgraçado que tirita de frio; confeccione, com suas mãos delicadas, roupas grosseiras, mas quentes; auxilie uma mãe a cobrir o filho que vai nascer. Se por isso seu filho ficar com algumas rendas de menos, o do pobre...
 
 
 
@@ -3372,7 +3231,7 @@ Todos vós podeis dar. Qualquer que seja a classe a que pertençais, de alguma c
 ---
 
 
-NÃO SAIBA A VOSSA MÃO ESQUERDA...
+# NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
 do céu ficarão acrescidos. Lá colhereis pelo cêntuplo o que houverdes semeado em benefícios neste mundo. ‑ João. (Bordéus, 1861.)
 
@@ -3399,7 +3258,7 @@ Quão longe, no entanto, se acha a piedade de causar o distúrbio e o aborrecime
 
 # Os órfãos
 
-l8. Meus irmãos, amai os órfãos. Se soubésseis quanto é triste ser só e abandonado, sobretudo na infância! Deus permite que haja órfãos, para exortar‑nos a servir‑lhes de pais. Que divina caridade amparar uma pobre criaturinha abandonada, evitar que sofra fome e frio, dirigir‑lhe a alma, a fim de que não desgarre para o vício! Agrada a Deus quem estende a mão a uma criança abandonada, porque compreende e pratica a sua lei. Ponderai também que muitas vezes a criança que socorreis vos foi cara noutra encarnação, caso em que, se pudésseis lembrar‑vos, já não estaríeis praticando a caridade, mas cumprindo um dever. Assim, pois, meus amigos, todo sofredor é vosso irmão e tem direito à vossa caridade: não, porém, a essa caridade que magoa o coração, não a essa esmola que queima a mão em que cai, pois freqüentemente bem amargos são os vossos óbolos! Quantas vezes seriam eles recusados, se na choupana a enfermidade e a miséria não
+18. Meus irmãos, amai os órfãos. Se soubésseis quanto é triste ser só e abandonado, sobretudo na infância! Deus permite que haja órfãos, para exortar‑nos a servir‑lhes de pais. Que divina caridade amparar uma pobre criaturinha abandonada, evitar que sofra fome e frio, dirigir‑lhe a alma, a fim de que não desgarre para o vício! Agrada a Deus quem estende a mão a uma criança abandonada, porque compreende e pratica a sua lei. Ponderai também que muitas vezes a criança que socorreis vos foi cara noutra encarnação, caso em que, se pudésseis lembrar‑vos, já não estaríeis praticando a caridade, mas cumprindo um dever. Assim, pois, meus amigos, todo sofredor é vosso irmão e tem direito à vossa caridade: não, porém, a essa caridade que magoa o coração, não a essa esmola que queima a mão em que cai, pois freqüentemente bem amargos são os vossos óbolos! Quantas vezes seriam eles recusados, se na choupana a enfermidade e a miséria não
 
 
 
@@ -3453,7 +3312,7 @@ Piedade filial. ‑ Quem é minha mãe e quem são meus irmãos? ‑ Parentela c
 
 # Piedade filial
 
-O mandamento: "Honrai a vosso pai e a vossa mãe" é um corolário da lei geral de caridade e de amor ao próximo, visto que não pode amar o seu próximo aquele que não ama a seu pai e a sua mãe; mas, o termo honrai encerra um dever a mais para com eles: o da piedade filial. Quis Deus mostrar por essa forma que ao amor se devem juntar o respeito, as atenções, a submissão e a condescendência, o que envolve a obrigação de cumprir‑se para com eles, de modo ainda mais rigoroso, tudo.
+3. O mandamento: "Honrai a vosso pai e a vossa mãe" é um corolário da lei geral de caridade e de amor ao próximo, visto que não pode amar o seu próximo aquele que não ama a seu pai e a sua mãe; mas, o termo honrai encerra um dever a mais para com eles: o da piedade filial. Quis Deus mostrar por essa forma que ao amor se devem juntar o respeito, as atenções, a submissão e a condescendência, o que envolve a obrigação de cumprir‑se para com eles, de modo ainda mais rigoroso, tudo.
 
 
 
@@ -3607,12 +3466,6 @@ Acolhei‑os, portanto, como irmãos; auxiliai‑os, e depois, no mundo dos Esp�
 
 ‑ Santo Agostinho. (Paris, 1862.)
 
-
-
----
-
-# 244
-
 ---
 
 
@@ -3625,8 +3478,10 @@ O de que precisa o Espírito para se salvar. Parábola do bom samaritano. ‑ O 
 O de que precisa o Espírito para ser salvo. Parábola do bom samaritano.
 
 1. Ora, quando o filho do homem vier em sua majestade, acompanhado de todos os anjos, sentar-se-á no trono de sua glória; - reunidas diante dele todas as nações, separará uns dos outros, como o pastor separa dos bodes as ovelhas, - e colocará as ovelhas à sua direita e os bodes à sua esquerda.
-2. Então, dirá o Rei aos que estiverem à sua direita: vinde, benditos de meu Pai, tomai posse do reino que vos foi preparado desde o princípio do mundo; - porquanto, tive fome e me destes de comer; tive sede e me destes de beber; careci de teto e me hospedastes; - estive nu e me vestistes; achei-me doente e me visitastes; estive preso e me fostes ver.
-3. Então, responder-lhe-ão os justos: Senhor, quando foi que te vimos com fome e te demos de comer, ou com sede e te demos de beber? - Quando foi que te vimos sem teto e te hospedamos; ou despido e te vestimos? - E quando foi que te soubemos doente ou preso e fomos visitar-te? - O Rei lhes responderá: Em verdade vos digo, todas as vezes que isso fizestes a um destes mais pequeninos dos meus irmãos, foi a mim mesmo que o fizestes.
+
+Então, dirá o Rei aos que estiverem à sua direita: vinde, benditos de meu Pai, tomai posse do reino que vos foi preparado desde o princípio do mundo; - porquanto, tive fome e me destes de comer; tive sede e me destes de beber; careci de teto e me hospedastes; - estive nu e me vestistes; achei-me doente e me visitastes; estive preso e me fostes ver.
+
+Então, responder-lhe-ão os justos: Senhor, quando foi que te vimos com fome e te demos de comer, ou com sede e te demos de beber? - Quando foi que te vimos sem teto e te hospedamos; ou despido e te vestimos? - E quando foi que te soubemos doente ou preso e fomos visitar-te? - O Rei lhes responderá: Em verdade vos digo, todas as vezes que isso fizestes a um destes mais pequeninos dos meus irmãos, foi a mim mesmo que o fizestes.
 
 
 
@@ -3641,9 +3496,7 @@ Também eles replicarão: Senhor, quando foi que te vimos com fome e não te dem
 
 E esses irão para o suplício eterno, e os justos para a vida eterna. (S. MATEUS, cap. XXV, vv. 31 a 46.)
 
-# 2.
-
-Então, levantando-se, disse-lhe um doutor da lei, para o tentar: Mestre, que preciso fazer para possuir a vida eterna? - Respondeu-lhe Jesus: Que é o que está escrito na lei? Que é o que lês nela? - Ele respondeu: Amarás o Senhor teu Deus de todo o coração, de toda a tua alma, com todas as tuas forças e de todo o teu espírito, e a teu próximo como a ti mesmo. - Disse-lhe Jesus: Respondeste muito bem; faze isso e viverás.
+2. Então, levantando-se, disse-lhe um doutor da lei, para o tentar: Mestre, que preciso fazer para possuir a vida eterna? - Respondeu-lhe Jesus: Que é o que está escrito na lei? Que é o que lês nela? - Ele respondeu: Amarás o Senhor teu Deus de todo o coração, de toda a tua alma, com todas as tuas forças e de todo o teu espírito, e a teu próximo como a ti mesmo. - Disse-lhe Jesus: Respondeste muito bem; faze isso e viverás.
 
 Mas, o homem, querendo parecer que era um justo, diz a Jesus: Quem é o meu próximo? - Jesus, tomando a palavra, lhe diz:
 
@@ -3651,10 +3504,7 @@ Um homem, que descia de Jerusalém para Jericó, caiu em poder de ladrões, que 
 
 Qual desses três te parece ter sido o próximo daquele que caíra em poder dos ladrões? - O doutor respondeu: Aquele que usou de misericórdia para com ele. - Então, vai, diz Jesus, e faze o mesmo. (S. LUCAS, cap. X, vv. 25 a 37.)
 
-# 3.
-
-Toda a moral de Jesus se resume na caridade e na humildade, isto é, nas duas virtudes contrárias ao egoísmo.
-
+3. Toda a moral de Jesus se resume na caridade e na humildade, isto é, nas duas virtudes contrárias ao egoís-
 
 
 ---
@@ -3761,8 +3611,10 @@ Salvação dos ricos. ‑ Preservar‑se da avareza. ‑ Jesus em casa de Zaqueu
 
 1. Ninguém pode servir a dois senhores, porque ou odiará a um e amará a outro, ou se prenderá a um e desprezará o outro. Não podeis servir simultaneamente a Deus e a Mamon. (S. LUCAS, cap. XVI, v. 13.)
 2. Então, aproximou-se dele um mancebo e disse: Bom mestre, que bem devo fazer para adquirir a vida eterna? - Respondeu Jesus: Por que me chamas bom? Bom, só Deus o é. Se queres entrar na vida, guarda os mandamentos. - Que mandamentos? retrucou o mancebo. Disse Jesus: Não matarás; não cometerás adultério; não furtarás; não darás testemunho falso. - Honra a teu pai e a tua mãe e ama a teu próximo como a ti mesmo.
-3. O moço lhe replicou: Tenho guardado todos esses mandamentos desde que cheguei à mocidade. Que é o que ainda me falta? - Disse Jesus: Se queres ser perfeito, vai, vende tudo o que tens, dá-o aos pobres e terás um tesouro no céu. Depois, vem e segue-me.
-4. Ouvindo essas palavras, o moço se foi todo tristonho, porque possuía grandes haveres. - Jesus disse então a seus discípulos: Digo-vos
+
+O moço lhe replicou: Tenho guardado todos esses mandamentos desde que cheguei à mocidade. Que é o que ainda me falta? - Disse Jesus: Se queres ser perfeito, vai, vende tudo o que tens, dá-o aos pobres e terás um tesouro no céu. Depois, vem e segue-me.
+
+Ouvindo essas palavras, o moço se foi todo tristonho, porque possuía grandes haveres. - Jesus disse então a seus discípulos: Digo-vos
 
 
 
@@ -3813,7 +3665,6 @@ Ao demais, existe para sempre um grande abismo entre nós e vós, de sorte que o
 Disse o rico: Eu então te suplico, pai Abraão, que o mandes à casa de meu pai, - onde tenho cinco irmãos, a dar-lhes testemunho destas coisas, a fim de que não venham também eles para este lugar de tormento. - Abraão lhe retrucou: Eles têm Moisés e os profetas; que os escutem.
 
 - Não, meu pai Abraão, disse o rico: se algum dos mortos for ter com eles, farão penitência. - Respondeu-lhe Abraão: Se eles não ouvem a Moisés, nem aos profetas, também não acreditarão, ainda mesmo que algum dos mortos ressuscite. (S. LUCAS, cap. XVI, vv. 19 a 31.)
-
 
 
 ---
@@ -3882,7 +3733,7 @@ Deploram‑se, com razão, o péssimo uso que alguns fazem das suas riquezas, as
 
 # A verdadeira propriedade
 
-O homem só possui em plena propriedade aquilo que lhe é dado levar deste mundo. Do que encontra ao chegar e deixa ao partir goza ele enquanto aqui permanece. Forçado, porém, que é a abandonar tudo isso, não tem das suas riquezas a posse real, mas, simplesmente, o usufruto. Que é então o que ele possui? Nada do que é
+9. O homem só possui em plena propriedade aquilo que lhe é dado levar deste mundo. Do que encontra ao chegar e deixa ao partir goza ele enquanto aqui permanece. Forçado, porém, que é a abandonar tudo isso, não tem das suas riquezas a posse real, mas, simplesmente, o usufruto. Que é então o que ele possui? Nada do que é
 
 
 
@@ -3927,9 +3778,7 @@ Poderá o homem usar e abusar de seus haveres durante a vida, sem ter de prestar
 
 Deus, justo e severo, vos dirá: Que fizeste, ecônomo infiel, dos bens que te confiei? Esse poderoso móvel de boas obras exclusivamente o empregaste na tua satisfação pessoal. Qual, então, o melhor emprego que se pode dar à riqueza? Procurai ‑ nestas palavras: "Amai‑vos uns aos outros", a solução do problema. Elas guardam o segredo do bom emprego das riquezas. Aquele que se acha animado do amor do próximo tem aí toda traçada a sua linha de proceder. Na caridade está, para as riquezas, o emprego que mais apraz a Deus. Não nos referimos, é claro, a essa caridade fria e egoísta, que consiste em a criatura espalhar ao seu derredor o supérfluo de uma existência dourada. Referimo‑nos à caridade plena de amor, que procura a desgraça e a ergue, sem a humilhar. Rico!... dá do que te sobra; faze mais: dá um pouco do que te é necessário, porquanto o de que necessitas ainda é supérfluo. Mas, dá com sabedoria. Não repilas o que se queixa, com receio de que te engane; vai às origens do mal. Alivia, primeiro; em seguida, informa‑te, e vê se o trabalho, os conselhos, mesmo a afeição não serão mais eficazes do que a tua esmola. Difunde em torno de ti, como os socorros materiais, o amor de Deus, o amor do trabalho, o amor do próximo. Coloca tuas riquezas sobre uma base que nunca lhes faltará e que te trará grandes lucros: a das boas obras. A riqueza da inteligência deves utilizá‑la como a do ouro. Derrama em tomo de ti os tesouros da instrução; derrama sobre teus irmãos os tesouros do teu amor e eles frutificarão. ‑ Cheverus. (Bordéus, 1861.)
 
-# 12.
-
-Quando considero a brevidade da vida, dolorosamente me impressiona a incessante preocupação de que é para vós objeto o bem‑estar material, ao passo que tão pouca importância dais ao vosso aperfeiçoamento moral, a que pouco ou nenhum tempo consagrais e que, no entanto, é o que importa para a eternidade. Dir‑se‑ia, diante da atividade que desenvolveis, tratar‑se de uma questão do mais alto interesse para a humanidade, quando não se trata, na maioria dos casos, senão de vos pordes em
+12. Quando considero a brevidade da vida, dolorosamente me impressiona a incessante preocupação de que é para vós objeto o bem‑estar material, ao passo que tão pouca importância dais ao vosso aperfeiçoamento moral, a que pouco ou nenhum tempo consagrais e que, no entanto, é o que importa para a eternidade. Dir‑se‑ia, diante da atividade que desenvolveis, tratar‑se de uma questão do mais alto interesse para a humanidade, quando não se trata, na maioria dos casos, senão de vos pordes em
 
 
 
@@ -3951,35 +3800,13 @@ Insensatos! Credes, então, realmente, que vos serão levados em conta os cuidad
 
 # NÃO SE PODE SERVIR A DEUS E A MAMON
 
-desses trabalhos legítimo proveito os que assim as empregam, deixaria de existir o bem
-resultante delas, porquanto o trabalho desenvolve a inteligência e exalça a dignidade do
-homem, facultando‑lhe dizer, altivo, que ganha o pão que come, enquanto a esmola humilha e
-degrada. A riqueza concentrada em uma mão deve ser qual fonte de água viva que espalha a
-fecundidade e o bem‑estar ao seu derredor. O vós, ricos, que a empregardes segundo as vistas
-do Senhor! O vosso coração será o primeiro a dessedentar‑se nessa fonte benfazeja; já nesta
-existência fruireis os inefáveis gozos da alma, em vez dos gozos materiais do egoísta, que
-produzem no coração o vazio. Vossos nomes serão benditos na Terra e, quando a deixardes, o
-soberano Senhor vos dirá, como na parábola dos talentos: “Bom e fiel servo, entra na alegria
-do teu Senhor.” Nessa parábola, o servidor que enterrou o dinheiro que lhe fora confiado é a
-representação dos avarentos, em cujas mãos se conserva improdutiva a riqueza. Se,
-entretanto, Jesus fala principalmente das esmolas, é que naquele tempo e no país em que ele
-vivia não se conheciam os trabalhos que as artes e a indústria criaram depois e nas quais as
-riquezas podem ser aplicadas utilmente para o bem geral. A todos os que podem dar, pouco
-ou muito, direi, pois: dai esmola quando for preciso; mas, tanto quanto possível, convertei‑a
-em salário, a fim de que aquele que a receba não se envergonhe dela. ‑ Fénelon. (Argel,
-1860.)
+desses trabalhos legítimo proveito os que assim as empregam, deixaria de existir o bem resultante delas, porquanto o trabalho desenvolve a inteligência e exalça a dignidade do homem, facultando‑lhe dizer, altivo, que ganha o pão que come, enquanto a esmola humilha e degrada. A riqueza concentrada em uma mão deve ser qual fonte de água viva que espalha a fecundidade e o bem‑estar ao seu derredor. O vós, ricos, que a empregardes segundo as vistas do Senhor! O vosso coração será o primeiro a dessedentar‑se nessa fonte benfazeja; já nesta existência fruireis os inefáveis gozos da alma, em vez dos gozos materiais do egoísta, que produzem no coração o vazio. Vossos nomes serão benditos na Terra e, quando a deixardes, o soberano Senhor vos dirá, como na parábola dos talentos: “Bom e fiel servo, entra na alegria do teu Senhor.” Nessa parábola, o servidor que enterrou o dinheiro que lhe fora confiado é a representação dos avarentos, em cujas mãos se conserva improdutiva a riqueza. Se, entretanto, Jesus fala principalmente das esmolas, é que naquele tempo e no país em que ele vivia não se conheciam os trabalhos que as artes e a indústria criaram depois e nas quais as riquezas podem ser aplicadas utilmente para o bem geral. A todos os que podem dar, pouco ou muito, direi, pois: dai esmola quando for preciso; mas, tanto quanto possível, convertei‑a em salário, a fim de que aquele que a receba não se envergonhe dela. ‑ Fénelon. (Argel, 1860.)
 
 # Desprendimento dos bens terrenos
 
-14. Venho, meus irmãos, meus amigos, trazer‑vos o meu óbolo, a fim de vos ajudar a
-avançar, desassombradamente, pela senda do aperfeiçoamento em que entrastes. Nós nos
-devemos uns aos outros; somente pela união sincera e fraternal entre os Espíritos e os
-encarnados será possível a regeneração.
+14. Venho, meus irmãos, meus amigos, trazer‑vos o meu óbolo, a fim de vos ajudar a avançar, desassombradamente, pela senda do aperfeiçoamento em que entrastes. Nós nos devemos uns aos outros; somente pela união sincera e fraternal entre os Espíritos e os encarnados será possível a regeneração.
 
-O amor aos bens terrenos constitui um dos mais fortes óbices ao vosso adiantamento
-moral e espiritual. Pelo apego à posse de tais bens, destruís as vossas faculdades de amar,
-com as aplicardes todas às coisas materiais. Sede
-
+O amor aos bens terrenos constitui um dos mais fortes óbices ao vosso adiantamento moral e espiritual. Pelo apego à posse de tais bens, destruís as vossas faculdades de amar, com as aplicardes todas às coisas materiais. Sede
 
 
 ---
@@ -4036,7 +3863,7 @@ A ninguém ordena o Senhor que se despoje do que possua, condenando‑se a uma v
 
 Diga, pois, aquele a cujas mãos venha o que no mundo se chama uma boa fortuna: Meu Deus, tu me destinaste um novo encargo; dá‑me a força de desempenhá‑lo segundo a tua santa vontade.
 
-Aí tendes, meus amigos, o que eu vos queria ensinar acerca do desprendimento dos bens terrenos. Resumirei o que expus, dizendo: Sabei contentar‑vos com pouco. Se sois pobres, não invejeis os ricos, porquanto a riqueza não é necessária à felicidade. Se sois ricos, não esqueçais que os bens de que dispondes apenas vos estão confiados.
+Aí tendes, meus amigos, o que eu vos queria ensinar acerca do desprendimento dos bens terrenos. Resumirei o que expus, dizendo: Sabei contentar‑vos com pouco. Se sois pobres, não invejeis os ricos, porquanto a riqueza não é necessária à felicidade. Se sois ricos, não esqueçais que os bens de que dispondes apenas vos estão confiados 
 
 
 
@@ -4080,7 +3907,7 @@ Com efeito, se se observam os resultados de todos os vícios e, mesmo, dos simpl
 
 # O homem de bem
 
-O verdadeiro homem de bem é o que cumpre a lei de justiça, de amor e de caridade, na sua maior pureza. Se ele interroga a consciência sobre seus próprios atos, a si mesmo perguntará se violou essa lei, se não praticou o mal, se fez todo o bem que podia, se desprezou voluntariamente alguma ocasião de ser útil, se ninguém tem qualquer queixa dele; enfim, se fez a outrem tudo o que desejara lhe fizessem.
+3. O verdadeiro homem de bem é o que cumpre a lei de justiça, de amor e de caridade, na sua maior pureza. Se ele interroga a consciência sobre seus próprios atos, a si mesmo perguntará se violou essa lei, se não praticou o mal, se fez todo o bem que podia, se desprezou voluntariamente alguma ocasião de ser útil, se ninguém tem qualquer queixa dele; enfim, se fez a outrem tudo o que desejara lhe fizessem.
 
 Deposita fé em Deus, na Sua bondade, na Sua justiça e na Sua sabedoria. Sabe que sem a Sua permissão nada acontece e se Lhe submete à vontade em todas as coisas.
 
@@ -4134,7 +3961,7 @@ Não ficam assim enumeradas todas as qualidades que distinguem o homem de bem; m
 
 # Os bons espíritas
 
-Bem compreendido, mas sobretudo bem sentido, o Espiritismo leva aos resultados acima expostos, que caracterizam o verdadeiro espírita, como o cristão verdadeiro, pois que um o mesmo é que outro. O Espiritismo não institui nenhuma nova moral; apenas facilita aos ho‑
+4. Bem compreendido, mas sobretudo bem sentido, o Espiritismo leva aos resultados acima expostos, que caracterizam o verdadeiro espírita, como o cristão verdadeiro, pois que um o mesmo é que outro. O Espiritismo não institui nenhuma nova moral; apenas facilita aos ho‑
 
 
 
@@ -4153,8 +3980,6 @@ Será então necessária, para compreendê‑la, uma inteligência fora do comum
 
 Nalguns, ainda muito tenazes são os laços da matéria para permitirem que o Espírito se desprenda das coisas da Terra; a névoa que os envolve tira‑lhes a visão do infinito, donde resulta não romperem facilmente com os seus pendores nem com seus hábitos, não percebendo haja qualquer coisa melhor do que aquilo de que são dotados. Têm a crença nos Espíritos como um simples fato, mas que nada ou bem pouco lhes modifica as tendências instintivas. Numa palavra: não divisam mais do que um raio de luz, insuficiente a guiá‑los e a lhes facultar uma vigorosa aspiração, capaz de lhes sobrepujar as inclinações. Atêm‑se mais aos fenômenos do que a moral, que se lhes afigura cediça e monótona. Pedem aos Espíritos que incessantemente os iniciem em novos mistérios, sem procurar
 
-
-
 ---
 
 
@@ -4166,7 +3991,7 @@ Aquele que pode ser, com razão, qualificado de espírita verdadeiro e sincero, 
 
 # Parábola do semeador
 
-Naquele mesmo dia, tendo saído de casa, Jesus sentou-se à borda do mar; - em torno dele logo reuniu-se grande multidão de gente; pelo que entrou numa barca, onde sentou-se, permanecendo na margem todo o povo. - Disse então muitas coisas por parábolas, falando-lhes assim:
+5. Naquele mesmo dia, tendo saído de casa, Jesus sentou-se à borda do mar; - em torno dele logo reuniu-se grande multidão de gente; pelo que entrou numa barca, onde sentou-se, permanecendo na margem todo o povo. - Disse então muitas coisas por parábolas, falando-lhes assim:
 
 Aquele que semeia saiu a semear; - e, semeando, uma parte da semente caiu ao longo do caminho e os pássaros do céu vieram e a comeram. - Outra parte caiu em lugares pedregosos onde não havia muita terra; as sementes logo brotaram, porque carecia de profundidade a terra onde haviam caído. - Mas, levantando-se, o sol as queimou e, como não tinham raízes, secaram. - Outra parte
 
@@ -4181,9 +4006,7 @@ caiu entre espinheiros e estes, crescendo, as abafaram. Outra, finalmente, caiu 
 
 Escutai, pois, vós outros a parábola do semeador. - Quem quer que escuta a palavra do reino e não lhe dá atenção, vem o espírito maligno e tira o que lhe fora semeado no coração. Esse é o que recebeu a semente ao longo do caminho. - Aquele que recebe a semente em meio das pedras é o que escuta a palavra e que a recebe com alegria no primeiro momento. - Mas, não tendo nele raízes, dura apenas algum tempo. Em sobrevindo reveses e perseguições por causa da palavra, tira ele daí motivo de escândalo e de queda. - Aquele que recebe a semente entre espinheiros é o que ouve a palavra; mas, em quem, logo, os cuidados deste século e a ilusão das riquezas abafam aquela palavra e a tornam infrutífera. - Aquele, porém, que recebe a semente em boa terra é o que escuta a palavra, que lhe presta atenção e em quem ela produz frutos, dando cem ou sessenta, ou trinta por um. (S. MATEUS, cap. XIII. vv. 18 a 23.)
 
-# 6.
-
-A parábola do semeador exprime perfeitamente os matizes existentes na maneira de serem utilizados os ensinos do Evangelho. Quantas pessoas há, com efeito, para as quais não passa ele de letra morta e que, como a semente caída sobre pedregulhos, nenhum fruto dá! Não menos justa aplicação encontra ela nas diferentes categorias espíritas. Não se acham simbolizados nela os que apenas atentam nos fenômenos materiais e nenhuma conseqüência tiram deles, porque neles mais não vêem do que fatos curiosos? Os que apenas se preocupam com o lado brilhante das comunicações dos Espíritos, pelas quais só se interessam quando lhes satisfazem à imaginação, e que, depois de as terem ouvido, se conservam tão frios e indiferentes quanto eram? Aqueles, finalmente, para os quais essas instruções são como a semente que cai em terra boa e dá frutos?
+6. A parábola do semeador exprime perfeitamente os matizes existentes na maneira de serem utilizados os ensinos do Evangelho. Quantas pessoas há, com efeito, para as quais não passa ele de letra morta e que, como a semente caída sobre pedregulhos, nenhum fruto dá! Não menos justa aplicação encontra ela nas diferentes categorias espíritas. Não se acham simbolizados nela os que apenas atentam nos fenômenos materiais e nenhuma conseqüência tiram deles, porque neles mais não vêem do que fatos curiosos? Os que apenas se preocupam com o lado brilhante das comunicações dos Espíritos, pelas quais só se interessam quando lhes satisfazem à imaginação, e que, depois de as terem ouvido, se conservam tão frios e indiferentes quanto eram? Aqueles, finalmente, para os quais essas instruções são como a semente que cai em terra boa e dá frutos?
 
 
 
@@ -4266,7 +4089,7 @@ dade que tinha, cabendo‑lhe, portanto, experimentar a seu turno o que fizera s
 
 # O homem no mundo
 
-Um sentimento de piedade deve sempre animar o coração dos que se reúnem sob as vistas do Senhor e imploram a assistência dos bons Espíritos. Purificai, pois, os vossos corações; não consintais que neles demore qualquer pensamento mundano ou fútil. Elevai o vosso espírito àqueles por quem chamais, a fim de que, encontrando em vós as necessárias disposições, possam lançar em profusão a semente que é preciso germine em vossas almas e dê frutos de caridade e justiça.
+10. Um sentimento de piedade deve sempre animar o coração dos que se reúnem sob as vistas do Senhor e imploram a assistência dos bons Espíritos. Purificai, pois, os vossos corações; não consintais que neles demore qualquer pensamento mundano ou fútil. Elevai o vosso espírito àqueles por quem chamais, a fim de que, encontrando em vós as necessárias disposições, possam lançar em profusão a semente que é preciso germine em vossas almas e dê frutos de caridade e justiça.
 
 Não julgueis, todavia, que, exortando‑vos incessantemente à prece e à evocação mental, pretendamos vivais uma vida mística, que vos conserve fora das leis da sociedade onde estais condenados a viver. Não; vivei com os homens da vossa época, como devem viver os homens. Sacrificai às necessidades, mesmo às frivolidades do dia, mas sacrificai com um sentimento de pureza que as possa santificar.
 
@@ -4317,11 +4140,6 @@ Sereis, porventura, mais perfeitos se, martirizando o corpo, não vos tornardes 
 
 Jorge, Espírito Protetor. (Paris, l863.)
 
-
-
----
-
-286
 
 ---
 
@@ -4401,7 +4219,7 @@ Mas, de que delitos esta Humanidade se houvera feito culpada para merecer tão t
 
 # Nem todos os que dizem: Senhor! Senhor! entrarão no reino dos céus
 
-Nem todos os que me dizem: Senhor! Senhor! entrarão no reino dos céus; apenas entrará aquele que faz a vontade de meu Pai, que está nos céus. - Muitos, nesse dia, me dirão: Senhor! Senhor! não profetizamos em teu nome? Não expulsamos em teu nome o demônio? Não fizemos muitos milagres em teu nome? - Eu então lhes direi em altas vozes: Afastai-vos de mim, vós que fazeis obras de iniqüidade. (S. MATEUS, cap. VII, vv. 21 a 23.)
+6. Nem todos os que me dizem: Senhor! Senhor! entrarão no reino dos céus; apenas entrará aquele que faz a vontade de meu Pai, que está nos céus. - Muitos, nesse dia, me dirão: Senhor! Senhor! não profetizamos em teu nome? Não expulsamos em teu nome o demônio? Não fizemos muitos milagres em teu nome? - Eu então lhes direi em altas vozes: Afastai-vos de mim, vós que fazeis obras de iniqüidade. (S. MATEUS, cap. VII, vv. 21 a 23.)
 
 
 
@@ -4427,17 +4245,13 @@ Nem todos os que me dizem: Senhor! Senhor! entrarão no reino dos céus; apenas 
 
 São eternas as palavras de Jesus, porque são a verdade. Constituem não só a salvaguarda da vida celeste, mas também o penhor da paz, da tranqüilidade e da estabilidade nas coisas da vida terrestre. Eis por que todas as instituições humanas, políticas, sociais e religiosas, que se apoiarem nessas palavras, serão estáveis como a casa construída sobre a rocha. Os homens as conservarão, porque se sentirão felizes nelas. As que, porém, forem uma violação daquelas palavras, serão como a casa edificada na areia. o vento das renovações e o rio do progresso as arrastarão.
 
-# 10. Muito se pedirá àquele que muito recebeu
+# Muito se pedirá àquele que muito recebeu
 
-O servo que souber da vontade do seu amo e que, entretanto, não estiver pronto e não fizer o que dele queira o amo, será rudemente castigado. - Mas, aquele que não tenha sabido da sua vontade e fizer coisas dignas de castigo menos punido será. Muito se pedirá àquele a quem muito se houver dado e maiores contas serão tomadas àquele a quem mais coisas se haja confiado. (S. LUCAS, cap. XII, vv. 47 e 48.)
+10. O servo que souber da vontade do seu amo e que, entretanto, não estiver pronto e não fizer o que dele queira o amo, será rudemente castigado. - Mas, aquele que não tenha sabido da sua vontade e fizer coisas dignas de castigo menos punido será. Muito se pedirá àquele a quem muito se houver dado e maiores contas serão tomadas àquele a quem mais coisas se haja confiado. (S. LUCAS, cap. XII, vv. 47 e 48.)
 
-# 11. Vim a este mundo para exercer um juízo
+11. Vim a este mundo para exercer um juízo a fim de que os que não vêem vejam e os que vêem se tornem cegos. - Alguns fariseus que estavam, com ele, ouvindo essas palavras, lhe perguntaram: Também nós, então, somos cegos? - Respondeu-lhes Jesus: Se fôsseis cegos, não teríeis pecados; mas, agora, dizeis que vedes e é por isso que em vós permanece o vosso pecado. (S. JOÃO, cap. IX, vv. 39 a 41.)
 
-a fim de que os que não vêem vejam e os que vêem se tornem cegos. - Alguns fariseus que estavam, com ele, ouvindo essas palavras, lhe perguntaram: Também nós, então, somos cegos? - Respondeu-lhes Jesus: Se fôsseis cegos, não teríeis pecados; mas, agora, dizeis que vedes e é por isso que em vós permanece o vosso pecado. (S. JOÃO, cap. IX, vv. 39 a 41.)
-
-# 12. Principalmente ao ensino dos Espíritos é que estas máximas se aplicam
-
-Quem quer que conheça os preceitos do Cristo e não os pratique, é certamente culpado; contudo, além de o Evangelho, que os contém, achar‑se espalhado somente no seio das seitas cristãs, mesmo dentro destas quantos há que não o lêem, e, entre os que o lêem, quantos os que o não compreendem! Resulta daí que as próprias palavras de Jesus são perdidas para a maioria dos homens.
+12. Principalmente ao ensino dos Espíritos é que estas máximas se aplicam. Quem quer que conheça os preceitos do Cristo e não os pratique, é certamente culpado; contudo, além de o Evangelho, que os contém, achar‑se espalhado somente no seio das seitas cristãs, mesmo dentro destas quantos há que não o lêem, e, entre os que o lêem, quantos os que o não compreendem! Resulta daí que as próprias palavras de Jesus são perdidas para a maioria dos homens.
 
 
 
@@ -4469,19 +4283,13 @@ O Espiritismo vem multiplicar o número dos chamados. Pela fé que faculta, mult
 
 # INSTRUÇÕES DOS ESPÍRITOS
 
-Dar-se-á àquele que tem
+# Dar-se-á àquele que tem
 
-# 13.
+13. Aproximando-se dele, seus discípulos lhe disseram: Por que lhes falas por parábolas? Respondendo, disse-lhes ele: É porque, a vós outros, vos foi dado conhecer os mistérios do reino dos céus, ao passo que a eles isso não foi dado. - Porque, àquele que já tem, mais se lhe dará e ele ficará na abundância; àquele, entretanto, que não tem, mesmo o que tem se lhe tirará. - Por isso é que lhes falo por parábolas: porque, vendo, nada vêem e, ouvindo, nada entendem, nem compreendem. - Neles se cumpre a profecia de Isaías, quando diz: Ouvireis com os vossos ouvidos e nada entendereis, olhareis com os vossos olhos e nada vereis. (S. MATEUS, cap. XIII, vv. 10 a 14.)
 
-Aproximando-se dele, seus discípulos lhe disseram: Por que lhes falas por parábolas? Respondendo, disse-lhes ele: É porque, a vós outros, vos foi dado conhecer os mistérios do reino dos céus, ao passo que a eles isso não foi dado. - Porque, àquele que já tem, mais se lhe dará e ele ficará na abundância; àquele, entretanto, que não tem, mesmo o que tem se lhe tirará. - Por isso é que lhes falo por parábolas: porque, vendo, nada vêem e, ouvindo, nada entendem, nem compreendem. - Neles se cumpre a profecia de Isaías, quando diz: Ouvireis com os vossos ouvidos e nada entendereis, olhareis com os vossos olhos e nada vereis. (S. MATEUS, cap. XIII, vv. 10 a 14.)
+14.Tende muito cuidado com o que ouvis, porquanto usarão para convosco da mesma medida de que vos houverdes servido para medir os outros, e ainda se vos acrescentará; - pois, ao que já tem, dar-se-á, e, ao que não tem, até o que tem se lhe tirará. (S. MARCOS, cap. IV. vv. 24 e 25.)
 
-# 14.
-
-Tende muito cuidado com o que ouvis, porquanto usarão para convosco da mesma medida de que vos houverdes servido para medir os outros, e ainda se vos acrescentará; - pois, ao que já tem, dar-se-á, e, ao que não tem, até o que tem se lhe tirará. (S. MARCOS, cap. IV. vv. 24 e 25.)
-
-# 15.
-
-"Dá‑se ao que já tem e tira‑se ao que não tem." Meditai esses grandes ensinamentos que se vos hão por vezes afigurado paradoxais. Aquele que recebeu é o que possui o sentido da palavra divina; recebeu unicamente porque tentou tornar‑se digno dela e porque o Senhor, em seu amor misericordioso, anima os esforços que tendem para o bem. Aturados, perseverantes, esses esforços atraem as graças do Senhor; são um ímã que chama a si o que é progressivamente melhor, as graças copiosas que vos fazem fortes para galgar a montanha santa, em cujo cume está o repouso após o labor.
+15. "Dá‑se ao que já tem e tira‑se ao que não tem." Meditai esses grandes ensinamentos que se vos hão por vezes afigurado paradoxais. Aquele que recebeu é o que possui o sentido da palavra divina; recebeu unicamente porque tentou tornar‑se digno dela e porque o Senhor, em seu amor misericordioso, anima os esforços que tendem para o bem. Aturados, perseverantes, esses esforços atraem as graças do Senhor; são um ímã que chama a si o que é progressivamente melhor, as graças copiosas que vos fazem fortes para galgar a montanha santa, em cujo cume está o repouso após o labor.
 
 "Tira‑se ao que não tem, ou tem pouco." Tomai isso como uma antítese figurada. Deus não retira das suas criaturas o bem que se haja dignado de fazer‑lhes. Homens
 
@@ -4496,11 +4304,9 @@ cegos e surdos! abri as vossas inteligências e os vossos corações; vede pelo 
 
 Aquele que não cultiva o campo que o trabalho de seu pai lhe granjeou, e que lhe coube em herança, o vê cobrir‑se de ervas parasitas. E seu pai quem lhe tira as colheitas que ele não quis preparar? Se, â falta de cuidado, deixou fenecessem as sementes destinadas a produzir nesse campo, é a seu pai que lhe cabe acusar por nada produzirem elas? Não e não. Em vez de acusar aquele que tudo lhe preparara, de criticar as doações que recebera, queixe‑se do verdadeiro autor de suas misérias e, arrependido e operoso, meta, corajoso, mãos à obra; arroteie o solo ingrato com o esforço de sua vontade; lavre‑o fundo com auxílio do arrependimento e da esperança; lance nele, confiante, a semente que haja separado, por boa, dentre as más; regue‑o com o seu amor e a sua caridade, e Deus, o Deus de amor e de caridade, dará àquele que já recebera. Verá ele, então, coroados de êxito os seus esforços e um grão produzir cem e outro mil. Animo, trabalhadores! Tomai dos vossos arados e das vossas charruas; lavrai os vossos corações; arrancai deles a cizânia; semeai a boa semente que o Senhor vos confia e o orvalho do amor lhe fará produzir frutos de caridade. ‑ Um Espírito amigo. (Bordéus, 1862.)
 
-Pelas suas obras é que se reconhece o cristão
+# Pelas suas obras é que se reconhece o cristão
 
-# 16.
-
-"Nem todos os que me dizem: Senhor! Senhor! entrarão no reino dos céus, mas somente aqueles que fazem a vontade de meu Pai que está nos céus."
+16. "Nem todos os que me dizem: Senhor! Senhor! entrarão no reino dos céus, mas somente aqueles que fazem a vontade de meu Pai que está nos céus."
 
 Escutai essa palavra do Mestre, todos vós que repelis a Doutrina Espírita como obra do demônio. Abri os ouvidos, que é chegado o momento de ouvir.
 
@@ -4580,9 +4386,7 @@ A fé sincera e verdadeira é sempre calma; faculta a paciência que sabe espera
 
 lho, e o orgulho é sempre castigado, cedo ou tarde, pela decepção e pelos malogros que lhe são infligidos.
 
-# 5. O poder da fé se demonstra, de modo direto e especial, na ação magnética;
-
-por seu intermédio, o homem atua sobre o fluido, agente universal, modifica‑lhe as qualidades e lhe dá uma impulsão por assim dizer irresistível. Daí decorre que aquele que a um grande poder fluídico normal junta ardente fé, pode, só pela força da sua vontade dirigida para o bem, operar esses singulares fenômenos de cura e outros, tidos antigamente por prodígios, mas que não passam de efeito de uma lei natural. Tal o motivo por que Jesus disse a seus apóstolos: se não o curastes, foi porque não tínheis fé.
+5. O poder da fé se demonstra, de modo direto e especial, na ação magnética; por seu intermédio, o homem atua sobre o fluido, agente universal, modifica‑lhe as qualidades e lhe dá uma impulsão por assim dizer irresistível. Daí decorre que aquele que a um grande poder fluídico normal junta ardente fé, pode, só pela força da sua vontade dirigida para o bem, operar esses singulares fenômenos de cura e outros, tidos antigamente por prodígios, mas que não passam de efeito de uma lei natural. Tal o motivo por que Jesus disse a seus apóstolos: se não o curastes, foi porque não tínheis fé.
 
 # A fé religiosa. Condição da fé inabalável
 
@@ -4620,8 +4424,11 @@ dela é que se pode, com verdade, dizer que não se prescreve. Não admitindo pr
 
 8. Quando saiam de Betânia, ele teve fome; e, vendo ao longe uma figueira, para ela encaminhou-se, a ver se acharia alguma coisa; tendo-se, porém, aproximado, só achou folhas, visto não ser tempo de figos. Então, disse Jesus à figueira: Que ninguém coma de ti fruto algum, o que seus discípulos ouviram. - No dia seguinte, ao passarem pela figueira, viram que secara até á raiz. - Pedro, lembrando-se do que dissera Jesus, disse: Mestre, olha como secou a figueira que tu amaldiçoaste. - Jesus, tomando a palavra, lhes disse: Tende fé em Deus. - Digo-vos, em verdade, que aquele que disser a esta montanha: Tira-te daí e lança-te ao mar, mas sem hesitar no seu coração, crente, ao contrário, firmemente, de que tudo o que houver dito acontecerá, verá que, com efeito, acontece. (S. MARCOS, cap. Xl, vv. 12 a 14 e 20 a 23.)
 
-9. A figueira que secou é o símbolo dos que apenas aparentam propensão para o bem, mas que, em realidade, engendraram as mais exóticas doutrinas de ação e reação. Duas guerras mundiais assolaram o planeta, numa ânsia furiosa de predomínio econômico. Toda a esperança da Humanidade hoje se apóia no Espiritismo, na restauração do Cristianismo, baseada em fatos que demonstram os princípios básicos da Doutrina cristã: eternidade da vida, responsabilidade ilimitada de pensamentos, palavras e atos. Sem a Terceira Revelação o mundo estaria irremediavelmente perdido pelo choque das mais desencontradas ideologias materialistas e violentistas. - A Editora da FEB, em 1948.
+9. A figueira que secou é o símbolo dos que apenas aparentam propensão para o bem, mas que, em realidade, 
 
+_________
+
+engendraram as mais exóticas doutrinas de ação e reação. Duas guerras mundiais assolaram o planeta, numa ânsia furiosa de predomínio econômico. Toda a esperança da Humanidade hoje se apóia no Espiritismo, na restauração do Cristianismo, baseada em fatos que demonstram os princípios básicos da Doutrina cristã: eternidade da vida, responsabilidade ilimitada de pensamentos, palavras e atos. Sem a Terceira Revelação o mundo estaria irremediavelmente perdido pelo choque das mais desencontradas ideologias materialistas e violentistas. - A Editora da FEB, em 1948.
 
 
 ---
@@ -4632,7 +4439,7 @@ nada de bom produzem; dos oradores que mais brilho têm do que solidez, cujas pa
 
 Simboliza também todos aqueles que, tendo meios de ser úteis, não o são; todas as utopias, todos os sistemas ocos, todas as doutrinas carentes de base sólida. O que as mais das vezes falta é a verdadeira fé, a fé produtiva, a fé que abala as fibras do coração, a fé, numa palavra, que transporta montanhas. São árvores cobertas de folhas porém, baldas de frutos. Por isso é que Jesus as condena à esterilidade, porquanto dia virá em que se acharão secas até à raiz. Quer dizer que todos os sistemas, todas as doutrinas que nenhum bem para a Humanidade houverem produzido, cairão reduzidas a nada; que todos os homens deliberadamente inúteis, por não terem posto em ação os recursos que traziam consigo, serão tratados como a figueira que secou.
 
-Os médiuns são os intérpretes dos Espíritos; suprem, nestes últimos, a falta de órgãos materiais pelos quais transmitam suas instruções. Daí vem o serem dotados de faculdades para esse efeito. Nos tempos atuais, de renovação social, cabe‑lhes uma missão especialíssima; são árvores destinadas a fornecer alimento espiritual a seus irmãos; multiplicam‑se em número, para que abunde o alimento; há‑os por toda a parte, em todos os países em todas as classes da sociedade, entre os ricos e os pobres, entre os grandes e os pequenos, a fim de que em nenhum ponto faltem e a fim de ficar demonstrado aos homens que todos são chamados. Se porém, eles desviam do objetivo providencial a preciosa faculdade que lhes foi concedida, se a empregam em coisas fúteis ou prejudiciais, se a põem a serviço dos interesses mundanos, se em vez de frutos sazonados dão maus frutos se se recusam a utilizá‑la em beneficio dos outros, se nenhum proveito tiram dela para si mesmos, melhorando‑se, são
+10. Os médiuns são os intérpretes dos Espíritos; suprem, nestes últimos, a falta de órgãos materiais pelos quais transmitam suas instruções. Daí vem o serem dotados de faculdades para esse efeito. Nos tempos atuais, de renovação social, cabe‑lhes uma missão especialíssima; são árvores destinadas a fornecer alimento espiritual a seus irmãos; multiplicam‑se em número, para que abunde o alimento; há‑os por toda a parte, em todos os países em todas as classes da sociedade, entre os ricos e os pobres, entre os grandes e os pequenos, a fim de que em nenhum ponto faltem e a fim de ficar demonstrado aos homens que todos são chamados. Se porém, eles desviam do objetivo providencial a preciosa faculdade que lhes foi concedida, se a empregam em coisas fúteis ou prejudiciais, se a põem a serviço dos interesses mundanos, se em vez de frutos sazonados dão maus frutos se se recusam a utilizá‑la em beneficio dos outros, se nenhum proveito tiram dela para si mesmos, melhorando‑se, são
 
 ---
 
@@ -4649,13 +4456,9 @@ quais a figueira estéril. Deus lhes retirará um dom que se tornou inútil nele
 
 A esperança e a caridade são corolários da fé e formam com esta uma trindade inseparável. Não é a fé que faculta a esperança na realização das promessas do Senhor? Se não tiverdes fé, que esperareis? Não é a fé que dá o amor? Se não tendes fé, qual será o vosso reconhecimento e, portanto, o vosso amor?
 
-Inspiração divina, a fé desperta todos os instintos nobres que encaminham o homem para o bem. É a base da regeneração. Preciso é, pois, que essa base seja forte e durável, porquanto, se a mais ligeira dúvida a abalar que será do edifício que sobre ela construirdes?
+Inspiração divina, a fé desperta todos os instintos nobres que encaminham o homem para o bem. É a base da regeneração. Preciso é, pois, que essa base seja forte e durável, porquanto, se a mais ligeira dúvida a abalar que será do edifício que sobre ela construirdes? Levantai, conseguintemente, esse edifício sobre alicerces inamovíveis. Seja mais forte a vossa fé do que os sofismas e as zombarias dos incrédulos, visto que a fé que não afronta o ridículo dos homens não é fé verdadeira.
 
-Levantai, conseguintemente, esse edifício sobre alicerces inamovíveis. Seja mais forte a vossa fé do que os sofismas e as zombarias dos incrédulos, visto que a fé que não afronta o ridículo dos homens não é fé verdadeira.
-
-A fé sincera é empolgante e contagiosa; comunica‑se aos que não na tinham, ou, mesmo, não desejariam tê‑la. Encontra palavras persuasivas que vão à alma. ao passo que a fé aparente usa de palavras sonoras que deixam frio e indiferente quem as escuta.
-
-Pregai pelo exemplo da vossa fé, para a incutirdes nos homens. Pregai pelo exemplo das vossas obras para lhes demonstrardes o merecimento da fé. Pregai pela vossa esperança firme, para lhes dardes a ver a confiança que fortifica e põe a criatura em condições de enfrentar todas as vicissitudes da vida.
+A fé sincera é empolgante e contagiosa; comunica‑se aos que não na tinham, ou, mesmo, não desejariam tê‑la. Encontra palavras persuasivas que vão à alma. ao passo que a fé aparente usa de palavras sonoras que deixam frio e indiferente quem as escuta. Pregai pelo exemplo da vossa fé, para a incutirdes nos homens. Pregai pelo exemplo das vossas obras para lhes demonstrardes o merecimento da fé. Pregai pela vossa esperança firme, para lhes dardes a ver a confiança que fortifica e põe a criatura em condições de enfrentar todas as vicissitudes da vida.
 
 
 
@@ -4692,11 +4495,6 @@ Repito: a fé é humana e divina. Se todos os encarnados se achassem bem persuad
 Um Espírito Protetor. (Paris, l863.)
 
 
-
----
-
-308
-
 ---
 
 
@@ -4725,7 +4523,7 @@ Assim, os últimos serão os primeiros e os primeiros serão os últimos, porque
 
 # Os últimos serão os primeiros
 
-O obreiro da última hora tem direito ao salário, mas é preciso que a sua boa-vontade o haja conservado à disposição daquele que o tinha de empregar e que o seu retardamento não seja fruto da preguiça ou da má-vontade. Tem ele direito ao salário, porque desde a alvorada esperava com impaciência aquele que por fim o chamaria para o trabalho. Laborioso, apenas lhe faltava o labor.
+2. O obreiro da última hora tem direito ao salário, mas é preciso que a sua boa-vontade o haja conservado à disposição daquele que o tinha de empregar e que o seu retardamento não seja fruto da preguiça ou da má-vontade. Tem ele direito ao salário, porque desde a alvorada esperava com impaciência aquele que por fim o chamaria para o trabalho. Laborioso, apenas lhe faltava o labor.
 
 Se, porém, se houvesse negado ao trabalho a qualquer hora do dia; se houvesse dito: "tenhamos paciência, o repouso me é agradável; quando soar a última hora é que será tempo de pensar no salário do dia; que necessidade tenho de me incomodar por um patrão a quem não conheço e não estimo! quanto mais tarde, melhor"; esse tal, meus amigos, não teria tido o salário do obreiro, mas o da preguiça.
 
@@ -4742,9 +4540,7 @@ não; o Senhor lhe dirá: "Não tenho presentemente trabalho para te dar; malbar
 
 Bons espíritas, meus bem‑amados, sois todos obreiros da última hora. Bem orgulhoso seria aquele que dissesse: Comecei o trabalho ao alvorecer do dia e só o terminarei ao anoitecer. Todos viestes quando fostes chamados, um pouco mais cedo, um pouco mais tarde, para a encarnação cujos grilhões arrastais; mas há quantos séculos e séculos o Senhor vos chamava para a sua vinha, sem que quisésseis penetrar nela! Eis‑vos no momento de embolsar o salário; empregai bem a hora que vos resta e não esqueçais nunca que a vossa existência, por longa que vos pareça, mais não é do que um instante fugitivo na imensidade dos tempos que formam para vós a eternidade. ‑   Constantino, Espírito Protetor. (Bordéus, 1863.)
 
-# 3.
-
-Jesus gostava da simplicidade dos símbolos e, na sua linguagem máscula, os obreiros que chegaram na primeira hora são os profetas, Moisés e todos os iniciadores que marcaram as etapas do progresso, as quais continuaram a ser assinaladas através dos séculos pelos apóstolos, pelos mártires, pelos Pais da Igreja, pelos sábios, pelos filósofos e, finalmente, pelos espíritas. Estes, que por último vieram, foram anunciados e preditos desde a aurora do advento do Messias e receberão a mesma recompensa. Que digo? recompensa maior. Últimos chegados, eles aproveitam dos labores intelectuais dos seus predecessores, porque o homem tem de herdar do homem e porque coletivos são os trabalhos humanos: Deus abençoa a solidariedade. Aliás, muitos dentre aqueles revivem hoje, ou reviverão amanhã, para terminarem a obra que começaram outrora. Mais de um patriarca, mais de um profeta, mais de um discípulo do Cristo, mais de um propagador da fé cristã.
+3. Jesus gostava da simplicidade dos símbolos e, na sua linguagem máscula, os obreiros que chegaram na primeira hora são os profetas, Moisés e todos os iniciadores que marcaram as etapas do progresso, as quais continuaram a ser assinaladas através dos séculos pelos apóstolos, pelos mártires, pelos Pais da Igreja, pelos sábios, pelos filósofos e, finalmente, pelos espíritas. Estes, que por último vieram, foram anunciados e preditos desde a aurora do advento do Messias e receberão a mesma recompensa. Que digo? recompensa maior. Últimos chegados, eles aproveitam dos labores intelectuais dos seus predecessores, porque o homem tem de herdar do homem e porque coletivos são os trabalhos humanos: Deus abençoa a solidariedade. Aliás, muitos dentre aqueles revivem hoje, ou reviverão amanhã, para terminarem a obra que começaram outrora. Mais de um patriarca, mais de um profeta, mais de um discípulo do Cristo, mais de um propagador da fé cristã.
 
 
 
@@ -4821,11 +4617,6 @@ Mas, ai daqueles que, por efeito das suas dissensões, houverem retardado a hora
 Deus procede, neste momento, ao censo dos seus servidores fiéis e já marcou com o dedo aqueles cujo devotamento é apenas aparente, a fim de que não usurpem o salário dos servidores animosos, pois aos que não recuarem diante de suas tarefas é que ele vai confiar os postos mais difíceis na grande obra da regeneração pelo Espiritismo. Cumprir‑se‑ão estas palavras: "Os primeiros serão os últimos e os últimos serão os primeiros no reino dos céus." ‑ O Espírito de Verdade. (Paris, 1862.)
 
 
-
----
-
-316
-
 ---
 
 
@@ -4893,36 +4684,20 @@ O Espiritismo revela outra categoria bem mais perigosa de falsos Cristos e de fa
 
 # FALSOS CRISTOS E FALSOS PROFETAS
 
-pela mediunidade inconsciente, audiente ou falante. É considerável o número dos que, em
-diversas épocas, mas, sobretudo, nestes últimos tempos, se hão apresentado como alguns dos
-antigos profetas, como o Cristo, como Maria, sua mãe, e até como Deus. S. João adverte
-contra eles os homens, dizendo: “Meus bem‑amados, não acrediteis em todo Espírito; mas,
-experimentai se os Espíritos são de Deus, porquanto muitos falsos profetas se tem levantado
-no mundo." O Espiritismo nos faculta os meios de experimentá‑los, apontando os caracteres
-pelos quais se reconhecem os bons Espíritos, caracteres sempre morais, nunca materiais (1).
-É a maneira de se distinguirem dos maus os bons Espíritos que, principalmente, podem
-aplicar‑se estas palavras de Jesus: “Pelo fruto é que se reconhece a qualidade da árvore; uma
-árvore boa não pode produzir maus frutos, e uma árvore má não os pode produzir bons."
-Julgam‑se os Espíritos pela qualidade de suas obras, como uma árvore pela qualidade dos
-seus frutos.
+pela mediunidade inconsciente, audiente ou falante. É considerável o número dos que, em diversas épocas, mas, sobretudo, nestes últimos tempos, se hão apresentado como alguns dos
+antigos profetas, como o Cristo, como Maria, sua mãe, e até como Deus. S. João adverte contra eles os homens, dizendo: “Meus bem‑amados, não acrediteis em todo Espírito; mas, experimentai se os Espíritos são de Deus, porquanto muitos falsos profetas se tem levantado no mundo." O Espiritismo nos faculta os meios de experimentá‑los, apontando os caracteres pelos quais se reconhecem os bons Espíritos, caracteres sempre morais, nunca materiais (1). É a maneira de se distinguirem dos maus os bons Espíritos que, principalmente, podem aplicar‑se estas palavras de Jesus: “Pelo fruto é que se reconhece a qualidade da árvore; uma árvore boa não pode produzir maus frutos, e uma árvore má não os pode produzir bons." Julgam‑se os Espíritos pela qualidade de suas obras, como uma árvore pela qualidade dos seus frutos.
 
 # INSTRUÇÕES DOS ESPÍRITOS
 
 # Os falsos profetas
 
-8. Se vos disserem: "O Cristo está aqui", não vades; ao contrário, tende‑vos em
-guarda, porquanto numerosos serão os falsos profetas. Não vedes que as folhas da figueira
-começam a branquear; não vedes os seus múltiplos rebentos aguardando a época da floração;
-e não vos disse o Cristo: Conhece‑se a árvore pelo fruto? Se, pois, são amargos os frutos, já
-sabeis que má é a árvore; se, porém, são doces e saudáveis, direis: “Nada que seja puro pode
-provir de fonte má."
-É assim, meus irmãos, que deveis julgar; são as obras que deveis examinar. Se os que
-se dizem investidos de poder divino revelam sinais de uma missão de natureza
+8. Se vos disserem: "O Cristo está aqui", não vades; ao contrário, tende‑vos em guarda, porquanto numerosos serão os falsos profetas. Não vedes que as folhas da figueira começam a branquear; não vedes os seus múltiplos rebentos aguardando a época da floração; e não vos disse o Cristo: Conhece‑se a árvore pelo fruto? Se, pois, são amargos os frutos, já sabeis que má é a árvore; se, porém, são doces e saudáveis, direis: “Nada que seja puro pode provir de fonte má."
+
+É assim, meus irmãos, que deveis julgar; são as obras que deveis examinar. Se os que se dizem investidos de poder divino revelam sinais de uma missão de natureza
 
 _____________
 
-(1) Ver, sobre a maneira de se distinguirem os Espíritos: O Livro dos Médiuns, 2ª Parte, cap.
-XXIV e seguintes.
+(1) Ver, sobre a maneira de se distinguirem os Espíritos: O Livro dos Médiuns, 2ª Parte, cap. XXIV e seguintes.
 
 
 
@@ -5041,11 +4816,12 @@ Após as palavras do profeta, escutai os sábios conselhos do apóstolo S. João
 
 # NÃO SEPAREIS O QUE DEUS JUNTOU
 
-# Indissolubilidade do casamento. ‑ Divórcio.
+Indissolubilidade do casamento. ‑ Divórcio.
 
 # Indissolubilidade do casamento
 
 1. Também os fariseus vieram ter com ele para o tentarem e lhe disseram: Será permitido a um homem despedir sua mulher, por qualquer motivo? Ele respondeu: Não lestes que aquele que criou o homem desde o princípio os criou macho e fêmea e disse: - Por esta razão, o homem deixará seu pai e sua mãe e se ligará à sua mulher e não farão os dois senão uma só carne? - Assim, já não serão duas, mas uma só carne. Não separe, pois, o homem o que Deus juntou. Mas, por que então, retrucaram eles, ordenava Moisés que o marido desse à sua mulher um escrito de separação e a despedisse? - Jesus respondeu: Foi por causa da dureza do vosso coração que Moisés permitiu despedísseis vossas mulheres; mas, no começo, não foi assim. - Por isso eu vos declaro que aquele que despede sua mulher, a não ser em caso de adultério, e desposa outra, comete adultério; e que aquele que desposa a mulher que outro despediu também comete adultério. (S. MATEUS, cap. XIX, vv. 3 a 9.)
+
 2. Imutável só há o que vem de Deus. Tudo o que é obra dos homens está sujeito a mudança. As leis da Natureza são as mesmas em todos os tempos e em todos
 
 
@@ -5057,7 +4833,7 @@ Após as palavras do profeta, escutai os sábios conselhos do apóstolo S. João
 
 os países. As leis humanas mudam segundo os tempos, os lugares e o progresso da inteligência. No casamento, o que é de ordem divina é a união dos sexos, para que se opere a substituição dos seres que morrem; mas, as condições que regulam essa união são de tal modo humanas, que não há, no inundo inteiro, nem mesmo na cristandade, dois países onde elas sejam absolutamente idênticas, e nenhum onde não hajam, com o tempo, sofrido mudanças. Daí resulta que, em face da lei civil, o que é legítimo num país e em dada época, é adultério noutro país e noutra época, isso pela razão de que a lei civil tem por fim regular os interesses das famílias, interesses que variam segundo os costumes e as necessidades locais. Assim é, por exemplo, que, em certos países, o casamento religioso é o único legítimo; noutros é necessário, além desse, o casamento civil; noutros, finalmente, este último casamento basta.
 
-Mas, na união dos sexos, a par da lei divina material, comum a todos os seres vivos, há outra lei divina, imutável como todas as leis de Deus, exclusivamente moral: a lei de amor. Quis Deus que os seres se unissem não só pelos laços da carne, mas também pelos da alma, a fim de que a afeição mútua dos esposos se lhes transmitisse aos filhos e que fossem dois, e não um somente, a amá‑los, a cuidar deles e a fazê‑los progredir. Nas condições ordinárias do casamento, a lei de amor é tida em consideração? De modo nenhum. Não se leva em conta a afeição de dois seres que, por sentimentos recíprocos, se atraem um para o outro, visto que, as mais das vezes, essa afeição é rompida. O de que se cogita, não é da satisfação do coração e sim da do orgulho, da vaidade, da cupidez, numa palavra: de todos os interesses materiais. Quando tudo vai pelo melhor consoante esses interesses, diz‑se que o casamento é de conveniência e, quando as bolsas estão bem aquinhoadas, diz‑se que os esposos igualmente o são e muito felizes hão de ser.
+3. Mas, na união dos sexos, a par da lei divina material, comum a todos os seres vivos, há outra lei divina, imutável como todas as leis de Deus, exclusivamente moral: a lei de amor. Quis Deus que os seres se unissem não só pelos laços da carne, mas também pelos da alma, a fim de que a afeição mútua dos esposos se lhes transmitisse aos filhos e que fossem dois, e não um somente, a amá‑los, a cuidar deles e a fazê‑los progredir. Nas condições ordinárias do casamento, a lei de amor é tida em consideração? De modo nenhum. Não se leva em conta a afeição de dois seres que, por sentimentos recíprocos, se atraem um para o outro, visto que, as mais das vezes, essa afeição é rompida. O de que se cogita, não é da satisfação do coração e sim da do orgulho, da vaidade, da cupidez, numa palavra: de todos os interesses materiais. Quando tudo vai pelo melhor consoante esses interesses, diz‑se que o casamento é de conveniência e, quando as bolsas estão bem aquinhoadas, diz‑se que os esposos igualmente o são e muito felizes hão de ser.
 
 Nem a lei civil, porém, nem os compromissos que ela faz se contraiam podem suprir a lei do amor, se esta
 
@@ -5072,17 +4848,11 @@ Nem a lei civil, porém, nem os compromissos que ela faz se contraiam podem supr
 
 não preside à união, resultando, freqüentemente, separarem-se por si mesmos os que à força se uniram; torna‑se um perjúrio, se pronunciado como fórmula banal, o juramento feito ao pé do altar. Daí as uniões infelizes, que acabam tornando‑se criminosas, dupla desgraça que se evitariam se, ao estabelecerem‑se as condições do matrimônio, se não abstraísse da única que o sanciona aos olhos de Deus: a lei de amor. Ao dizer Deus: "Não sereis senão uma só carne", e quando Jesus disse: "Não separeis o que Deus uniu", essas palavras se devem entender com referência à união segundo a lei imutável de Deus e não segundo a lei mutável dos homens.
 
-# 4.
-
-Será então supérflua a lei civil e dever‑se‑á volver aos casamentos segundo a Natureza? Não, decerto. A lei civil tem por fim regular as relações sociais e os interesses das famílias, de acordo com as exigências da civilização; por isso, é útil, necessária, mas variável. Deve ser previdente, porque o homem civilizado não pode viver como selvagem; nada, entretanto, nada absolutamente se opõe a que ela seja um corolário da lei de Deus. Os obstáculos ao cumprimento da lei divina promanam dos prejuízos e não da lei civil. Esses prejuízos, se bem ainda vivazes, já perderam muito do seu predomínio no seio dos povos esclarecidos; desaparecerão com o progresso moral que, por fim, abrirá os olhos aos homens para os males sem conto, as faltas, mesmo os crimes que decorrem das uniões contraídas com vistas unicamente nos interesses materiais. Um dia perguntar‑se‑á o que é mais humano, mais caridoso, mais moral: se encadear um ao outro dois seres que não podem viver juntos, se restituir‑lhes a liberdade; se a perspectiva de uma cadeia indissolúvel não aumenta o número de uniões irregulares.
+4. Será então supérflua a lei civil e dever‑se‑á volver aos casamentos segundo a Natureza? Não, decerto. A lei civil tem por fim regular as relações sociais e os interesses das famílias, de acordo com as exigências da civilização; por isso, é útil, necessária, mas variável. Deve ser previdente, porque o homem civilizado não pode viver como selvagem; nada, entretanto, nada absolutamente se opõe a que ela seja um corolário da lei de Deus. Os obstáculos ao cumprimento da lei divina promanam dos prejuízos e não da lei civil. Esses prejuízos, se bem ainda vivazes, já perderam muito do seu predomínio no seio dos povos esclarecidos; desaparecerão com o progresso moral que, por fim, abrirá os olhos aos homens para os males sem conto, as faltas, mesmo os crimes que decorrem das uniões contraídas com vistas unicamente nos interesses materiais. Um dia perguntar‑se‑á o que é mais humano, mais caridoso, mais moral: se encadear um ao outro dois seres que não podem viver juntos, se restituir‑lhes a liberdade; se a perspectiva de uma cadeia indissolúvel não aumenta o número de uniões irregulares.
 
 # O divórcio
 
-# 5.
-
-O divórcio é lei humana que tem por objeto separar legalmente o que já, de fato, está separado. Não é contrário à lei de Deus, pois que apenas reforma o que os homens
-
-
+5. O divórcio é lei humana que tem por objeto separar legalmente o que já, de fato, está separado. Não é contrário à lei de Deus, pois que apenas reforma o que os homens
 
 ---
 
@@ -5123,9 +4893,7 @@ quer dano. Escritas depois de sua morte, pois que nenhum dos Evangelhos foi redi
 
 O termo odiar, nesta frase de S. Lucas: Se alguém vem a mim e não odeia a seu pai e a sua mãe, está compreendido nessa hipótese. A ninguém acudirá atribuí‑la a Jesus. Será então supérfluo discuti‑la e, ainda menos, tentar justificá‑la. Importaria, primeiro, saber se ele a pronunciou e, em caso afirmativo, se, na língua em que se exprimia, a palavra em questão tinha o mesmo valor que na nossa. Nesta passagem de S. João: "Aquele que odeia sua vida, neste mundo, a conserva para a vida eterna", é indubitável que ela não exprime a idéia que lhe atribuimos.
 
-A língua hebraica não era rica e continha muitas palavras com várias significações. Tal, por exemplo, a que no Gênese, designa as fases da criação: servia, simultaneamente, para exprimir um período qualquer de tempo e a revolução diurna. Daí, mais tarde, a sua tradução pelo termo dia e a crença de que o mundo foi obra de seis vezes vinte e quatro horas. Tal, também, a palavra com que se designava um camelo e um cabo, uma vez que os cabos eram feitos de pêlos de camelo. Daí o haverem‑na traduzido pelo termo camelo, na alegoria do buraco de uma agulha. (Ver capítulo XVI, nº 2.)
-
-(1)
+A língua hebraica não era rica e continha muitas palavras com várias significações. Tal, por exemplo, a que no Gênese, designa as fases da criação: servia, simultaneamente, para exprimir um período qualquer de tempo e a revolução diurna. Daí, mais tarde, a sua tradução pelo termo dia e a crença de que o mundo foi obra de seis vezes vinte e quatro horas. Tal, também, a palavra com que se designava um camelo e um cabo, uma vez que os cabos eram feitos de pêlos de camelo. Daí o haverem‑na traduzido pelo termo camelo, na alegoria do buraco de uma agulha. (Ver capítulo XVI, nº 2.)(1)
 
 __________
 
@@ -5216,13 +4984,9 @@ Julgais que eu tenha vindo trazer paz à Terra? Não, eu vos afirmo; ao contrár
 
 nessas palavras, pois foi mesmo ele quem as pronunciou, e elas dão testemunho da sua alta sabedoria. Apenas, um pouco equivoca, a forma não lhe exprime com exatidão o pensamento, o que deu lugar a que se enganassem relativamente ao verdadeiro sentido delas. Tomadas à letra, tenderiam a transformar a sua missão, toda de paz, noutra de perturbação e discórdia, conseqüência absurda, que o bom‑senso repele, porquanto Jesus não podia desmentir‑se. (Cap. XIV, nº 6.)
 
-# 12.
+12. Toda idéia nova forçosamente encontra oposição e nenhuma há que se implante sem lutas. Ora, nesses casos, a resistência é sempre proporcional à importância dos resultados previstos, porque, quanto maior ela é, tanto mais numerosos são os interesses que fere. Se for notoriamente falsa, se a julgam isenta de conseqüências, ninguém se alarma; deixam‑na todos passar, certos de que lhe falta vitalidade. Se, porém, é verdadeira, se assenta em sólida base, se lhe prevêem futuro, um secreto pressentimento adverte os seus antagonistas de que constitui um perigo para eles e para a ordem de coisas em cuja manutenção se empenham. Atiram‑se, então, contra ela e contra os seus adeptos. Assim, pois, a medida da importância e dos resultados de uma idéia nova se encontra na emoção que o seu aparecimento causa, na violência da oposição que provoca, bem como no grau e na persistência da ira de seus adversários.
 
-Toda idéia nova forçosamente encontra oposição e nenhuma há que se implante sem lutas. Ora, nesses casos, a resistência é sempre proporcional à importância dos resultados previstos, porque, quanto maior ela é, tanto mais numerosos são os interesses que fere. Se for notoriamente falsa, se a julgam isenta de conseqüências, ninguém se alarma; deixam‑na todos passar, certos de que lhe falta vitalidade. Se, porém, é verdadeira, se assenta em sólida base, se lhe prevêem futuro, um secreto pressentimento adverte os seus antagonistas de que constitui um perigo para eles e para a ordem de coisas em cuja manutenção se empenham. Atiram‑se, então, contra ela e contra os seus adeptos. Assim, pois, a medida da importância e dos resultados de uma idéia nova se encontra na emoção que o seu aparecimento causa, na violência da oposição que provoca, bem como no grau e na persistência da ira de seus adversários.
-
-# 13.
-
-Jesus vinha proclamar uma doutrina que solaparia pela base os abusos de que viviam os fariseus, os escribas e os sacerdotes do seu tempo. Imolaram‑no, portanto, certos de que, matando o homem, matariam a idéia. Esta, porém, sobreviveu, porque era verdadeira; engrandeceu‑se, porque correspondia aos desígnios de Deus e, nascida num pequeno e obscuro burgo da Judéia, foi plantar o seu estandarte na capital mesma do mundo pagão, à face dos seus mais encarniçados inimigos, daqueles que mais porfiavam em combatê‑la, porque subvertia crenças seculares.
+13. Jesus vinha proclamar uma doutrina que solaparia pela base os abusos de que viviam os fariseus, os escribas e os sacerdotes do seu tempo. Imolaram‑no, portanto, certos de que, matando o homem, matariam a idéia. Esta, porém, sobreviveu, porque era verdadeira; engrandeceu‑se, porque correspondia aos desígnios de Deus e, nascida num pequeno e obscuro burgo da Judéia, foi plantar o seu estandarte na capital mesma do mundo pagão, à face dos seus mais encarniçados inimigos, daqueles que mais porfiavam em combatê‑la, porque subvertia crenças seculares.
 
 
 
@@ -5233,11 +4997,11 @@ Jesus vinha proclamar uma doutrina que solaparia pela base os abusos de que vivi
 
 a que eles se apegavam muito mais por interesse do que por convicção. Lutas das mais terríveis esperavam aí pelos seus apóstolos; foram inumeráveis as vítimas; a idéia, no entanto, avolumou‑se sempre e triunfou, porque, como verdade, sobrelevava as que a precederam.
 
-É de notar‑se que o Cristianismo surgiu quando o Paganismo já entrara em declínio e se debatia contra as luzes da razão. Ainda era praticado pro forma; a crença, porém, desaparecera; apenas o interesse pessoal o sustentava. Ora, é tenaz o interesse; jamais cede à evidência; irrita‑se tanto mais quanto mais peremptórios e demonstrativos de seu erro são os argumentos que se lhe opõem. Sabe ele muito bem que está errado, mas isso não o abala, porquanto a verdadeira fé não lhe está na alma. O que mais teme é a luz, que dá vista aos cegos. É‑lhe proveitoso o erro; ele se lhe agarra e o defende.
+14. É de notar‑se que o Cristianismo surgiu quando o Paganismo já entrara em declínio e se debatia contra as luzes da razão. Ainda era praticado pro forma; a crença, porém, desaparecera; apenas o interesse pessoal o sustentava. Ora, é tenaz o interesse; jamais cede à evidência; irrita‑se tanto mais quanto mais peremptórios e demonstrativos de seu erro são os argumentos que se lhe opõem. Sabe ele muito bem que está errado, mas isso não o abala, porquanto a verdadeira fé não lhe está na alma. O que mais teme é a luz, que dá vista aos cegos. É‑lhe proveitoso o erro; ele se lhe agarra e o defende.
 
 Sócrates, também, não ensinara uma doutrina até certo ponto análoga à do Cristo? Por que não prevaleceu naquela época a sua doutrina, no seio de um dos povos mais inteligentes da Terra? É que ainda não chegara o tempo. Ele semeou numa terra não lavrada; o Paganismo ainda se não achava gasto. O Cristo recebeu em propício tempo a sua missão. Muito faltava, é certo, para que todos os homens da sua época estivessem à altura das idéias cristãs, mas havia entre eles uma aptidão mais geral para as assimilar, pois que já se começava a sentir o vazio que as crenças vulgares deixavam na alma. Sócrates e Platão haviam aberto o caminho e predisposto os espíritos. (Veja‑se, na "Introdução", o § IV: Sócrates e Platão, precursores da idéia cristã e do Espiritismo.)
 
-Infelizmente, os adeptos da nova doutrina não se entenderam quanto à interpretação das palavras do Mestre, veladas, as mais das vezes, pela alegoria e pelas figuras da linguagem. Daí o nascerem, sem demora, numerosas seitas, pretendendo todas possuir, exclusivamente, a verdade e o não bastarem dezoito séculos para pô‑las de
+15. Infelizmente, os adeptos da nova doutrina não se entenderam quanto à interpretação das palavras do Mestre, veladas, as mais das vezes, pela alegoria e pelas figuras da linguagem. Daí o nascerem, sem demora, numerosas seitas, pretendendo todas possuir, exclusivamente, a verdade e o não bastarem dezoito séculos para pô‑las de
 
 
 
@@ -5278,13 +5042,8 @@ Em sua profunda sabedoria, ele tinha a previdência do que aconteceria. Mas, ess
 
 Também ele, portanto, tem de combater; mas, o tempo das lutas e das perseguições sanguinolentas passou; são todas de ordem moral as que terá de sofrer e próximo lhes está o termo. As primeiras duraram séculos; estas durarão apenas alguns anos, porque a luz, em vez de partir de um único foco, irrompe de todos os pontos do Globo e abrirá mais de pronto os olhos aos cegos.
 
-Essas palavras de Jesus devem, pois, entender‑se com referência às cóleras que a sua doutrina provocaria, aos conflitos momentâneos a que ia dar causa, às lutas que teria de sustentar antes de se firmar, como aconteceu aos hebreus antes de entrarem na Terra Prometida, e não como decorrentes de um desígnio premeditado de sua parte de semear a desordem e a confusão. O mal viria dos homens e não dele, que era como o médico que se apresenta para curar, mas cujos remédios provocam uma crise salutar, atacando os maus humores do doente.
+18. Essas palavras de Jesus devem, pois, entender‑se com referência às cóleras que a sua doutrina provocaria, aos conflitos momentâneos a que ia dar causa, às lutas que teria de sustentar antes de se firmar, como aconteceu aos hebreus antes de entrarem na Terra Prometida, e não como decorrentes de um desígnio premeditado de sua parte de semear a desordem e a confusão. O mal viria dos homens e não dele, que era como o médico que se apresenta para curar, mas cujos remédios provocam uma crise salutar, atacando os maus humores do doente.
 
-
-
----
-
-# 344
 
 ---
 
@@ -5310,7 +5069,7 @@ Candeia sob o alqueire. Porque fala Jesus por parábolas. ‑ Não vades ter com
 
 não lhes foi dado (1). Porque, àquele que já tem, mais se lhe dará e ele ficará na abundância; àquele, entretanto, que não tem, mesmo o que tem se lhe tirará. - Falo-lhes por parábolas, porque, vendo, não vêem e, ouvindo, não escutam e não compreendem. - E neles se cumprirá a profecia de Isaías, que diz: Ouvireis com os vossos ouvidos e não escutareis; olhareis com os vossos olhos e não vereis. Porque, o coração deste povo se tornou pesado, e seus ouvidos se tornaram surdos e fecharam os olhos para que seus olhos não vejam e seus ouvidos não ouçam, para que seu coração não compreenda e para que, tendo-se convertido, eu não os cure. (S. MATEUS, cap. XIII, vv. 10 a 15.)
 
-É de causar admiração diga Jesus que a luz não deve ser colocada debaixo do alqueire, quando ele próprio constantemente oculta o sentido de suas palavras sob o véu da alegoria, que nem todos podem compreender. Ele se explica, dizendo a seus apóstolos: "Falo‑lhes por parábolas, porque não estão em condições de compreender certas coisas. Eles vêem, olham, ouvem, mas não entendem. Fora, pois, inútil tudo dizer‑lhes, por enquanto. Digo‑o, porém, a vós, porque dado vos foi compreender estes mistérios." Procedia, portanto, com o povo, como se faz com crianças cujas idéias ainda se não desenvolveram. Desse modo, indica o verdadeiro sentido da sentença: "Não se deve pôr a candeia debaixo do alqueire, mas sobre o candeeiro, a fim de que todos os que entrem a possam ver." Tal sentença não significa que se deva revelar inconsideradamente todas as coisas. Todo ensinamento deve ser proporcionado à inteligência daquele a quem se queira instruir, porquanto há pessoas a quem uma luz por demais viva deslumbraria, sem as esclarecer.
+4. É de causar admiração diga Jesus que a luz não deve ser colocada debaixo do alqueire, quando ele próprio constantemente oculta o sentido de suas palavras sob o véu da alegoria, que nem todos podem compreender. Ele se explica, dizendo a seus apóstolos: "Falo‑lhes por parábolas, porque não estão em condições de compreender certas coisas. Eles vêem, olham, ouvem, mas não entendem. Fora, pois, inútil tudo dizer‑lhes, por enquanto. Digo‑o, porém, a vós, porque dado vos foi compreender estes mistérios." Procedia, portanto, com o povo, como se faz com crianças cujas idéias ainda se não desenvolveram. Desse modo, indica o verdadeiro sentido da sentença: "Não se deve pôr a candeia debaixo do alqueire, mas sobre o candeeiro, a fim de que todos os que entrem a possam ver." Tal sentença não significa que se deva revelar inconsideradamente todas as coisas. Todo ensinamento deve ser proporcionado à inteligência daquele a quem se queira instruir, porquanto há pessoas a quem uma luz por demais viva deslumbraria, sem as esclarecer.
 
 Dá‑se com os homens, em geral, o que se dá em particular com os indivíduos. As gerações têm sua infância, sua juventude e sua maturidade. Cada coisa tem de vir na época própria; a semente lançada à terra, fora da estação, não germina. Mas, o que a prudência manda calar,
 
@@ -5344,7 +5103,7 @@ tudo o que disse a esse respeito é inteiramente claro, explícito e sem ambigü
 
 Entretanto, mesmo com os apóstolos, conservou‑se impreciso acerca de muitos pontos, cuja completa inteligência ficava reservada a ulteriores tempos. Foram esses pontos que deram ensejo a tão diversas interpretações, até que a Ciência, de um lado, e o Espiritismo, de outro, revelassem as novas leis da Natureza, que lhes tornaram perceptível o verdadeiro sentido.
 
-O Espiritismo, hoje, projeta luz sobre uma imensidade de pontos obscuros; não a lança, porém, inconsideradamente. Com admirável prudência se conduzem os Espíritos, ao darem suas instruções. Só gradual e sucessivamente consideraram as diversas partes já conhecidas da Doutrina, deixando as outras partes para serem reveladas à medida que se for tornando oportuno fazê‑las sair da obscuridade. Se a houvessem apresentado completa desde o primeiro momento, somente a reduzido número de pessoas se teria ela mostrado acessível; houvera mesmo assustado as que não se achassem preparadas para recebê‑la, do que resultaria ficar prejudicada a sua propagação. Se, pois, os Espíritos ainda não dizem tudo ostensivamente, não é porque haja na Doutrina mistérios em que só alguns privilegiados possam penetrar, nem porque eles coloquem a lâmpada debaixo do alqueire; é porque cada coisa tem de vir no momento oportuno. Eles dão a cada idéia tempo para amadurecer e propagar‑se, antes que apresentem outra, e aos acontecimentos o de preparar a aceitação dessa outra.
+7. O Espiritismo, hoje, projeta luz sobre uma imensidade de pontos obscuros; não a lança, porém, inconsideradamente. Com admirável prudência se conduzem os Espíritos, ao darem suas instruções. Só gradual e sucessivamente consideraram as diversas partes já conhecidas da Doutrina, deixando as outras partes para serem reveladas à medida que se for tornando oportuno fazê‑las sair da obscuridade. Se a houvessem apresentado completa desde o primeiro momento, somente a reduzido número de pessoas se teria ela mostrado acessível; houvera mesmo assustado as que não se achassem preparadas para recebê‑la, do que resultaria ficar prejudicada a sua propagação. Se, pois, os Espíritos ainda não dizem tudo ostensivamente, não é porque haja na Doutrina mistérios em que só alguns privilegiados possam penetrar, nem porque eles coloquem a lâmpada debaixo do alqueire; é porque cada coisa tem de vir no momento oportuno. Eles dão a cada idéia tempo para amadurecer e propagar‑se, antes que apresentem outra, e aos acontecimentos o de preparar a aceitação dessa outra.
 
 
 
@@ -5353,19 +5112,13 @@ O Espiritismo, hoje, projeta luz sobre uma imensidade de pontos obscuros; não a
 
 # A CANDEIA DEBAIXO DO ALQUEIRE
 
-Não vades ter com os gentios
+# Não vades ter com os gentios
 
-# 8.
+8. Jesus enviou seus doze apóstolos, depois de lhes haver dado as instruções seguintes: Não procureis os gentios e não entreis nas cidades dos samaritanos. - Ide, antes, em busca das ovelhas perdidas da casa de Israel; - e, nos lugares onde fordes, pregai, dizendo que o reino dos céus está próximo. (S. MATEUS, cap. X, vv. 5 a 7.)
 
-Jesus enviou seus doze apóstolos, depois de lhes haver dado as instruções seguintes: Não procureis os gentios e não entreis nas cidades dos samaritanos. - Ide, antes, em busca das ovelhas perdidas da casa de Israel; - e, nos lugares onde fordes, pregai, dizendo que o reino dos céus está próximo. (S. MATEUS, cap. X, vv. 5 a 7.)
+9. Em muitas circunstâncias, prova Jesus que suas vistas não se circunscrevem ao povo judeu, mas que abrangem a Humanidade toda. Se, portanto, diz a seus apóstolos que não vão ter com os pagãos, não é que desdenhe da conversão deles, o que nada teria de caridoso; é que os judeus, que já acreditavam no Deus uno e esperavam o Messias, estavam preparados, pela lei de Moisés e pelos profetas, a lhes acolherem a palavra. Com os pagãos, onde até mesmo a base faltava, estava tudo por fazer e os apóstolos não se achavam ainda bastante esclarecidos para tão pesada tarefa. Foi por isso que lhes disse: "Ide em busca das ovelhas transviadas de Israel", isto é, ide semear em terreno já arroteado. Sabia que a conversão dos gentios se daria a seu tempo. Mais tarde, com efeito, os apóstolos foram plantar a cruz no centro mesmo do Paganismo.
 
-# 9.
-
-Em muitas circunstâncias, prova Jesus que suas vistas não se circunscrevem ao povo judeu, mas que abrangem a Humanidade toda. Se, portanto, diz a seus apóstolos que não vão ter com os pagãos, não é que desdenhe da conversão deles, o que nada teria de caridoso; é que os judeus, que já acreditavam no Deus uno e esperavam o Messias, estavam preparados, pela lei de Moisés e pelos profetas, a lhes acolherem a palavra. Com os pagãos, onde até mesmo a base faltava, estava tudo por fazer e os apóstolos não se achavam ainda bastante esclarecidos para tão pesada tarefa. Foi por isso que lhes disse: "Ide em busca das ovelhas transviadas de Israel", isto é, ide semear em terreno já arroteado. Sabia que a conversão dos gentios se daria a seu tempo. Mais tarde, com efeito, os apóstolos foram plantar a cruz no centro mesmo do Paganismo.
-
-# 10.
-
-Essas palavras podem também aplicar‑se aos adeptos e aos disseminados do Espiritismo. Os incrédulos sistemáticos, os zombadores obstinados, os adversários interessados são para eles o que eram os gentios para os apóstolos. Que, pois, a exemplo destes, procurem, primeiramente, fazer prosélitos entre os de boa vontade, entre os que desejam luz, nos quais um gérmen fecundo se encontra e cujo número é grande, sem perderem tempo com os que não querem ver, nem ouvir e tanto mais resistem, por orgulho, quanto maior for a importância que se pareça ligar à sua conversão. Mais vale abrir os olhos a cem cegos que desejam ver claro, do que a um só que se compraza na treva, porque, assim procedendo, em maior proporção se aumentará o número dos sustentadores da causa. Deixar tranqüilos os outros não é dar mostra de
+10. Essas palavras podem também aplicar‑se aos adeptos e aos disseminados do Espiritismo. Os incrédulos sistemáticos, os zombadores obstinados, os adversários interessados são para eles o que eram os gentios para os apóstolos. Que, pois, a exemplo destes, procurem, primeiramente, fazer prosélitos entre os de boa vontade, entre os que desejam luz, nos quais um gérmen fecundo se encontra e cujo número é grande, sem perderem tempo com os que não querem ver, nem ouvir e tanto mais resistem, por orgulho, quanto maior for a importância que se pareça ligar à sua conversão. Mais vale abrir os olhos a cem cegos que desejam ver claro, do que a um só que se compraza na treva, porque, assim procedendo, em maior proporção se aumentará o número dos sustentadores da causa. Deixar tranqüilos os outros não é dar mostra de
 
 
 
@@ -5384,7 +5137,7 @@ Na época de Jesus e em conseqüência das idéias acanhadas e materiais então 
 
 11. Estando Jesus à mesa em casa desse homem (Mateus), vieram aí ter muitos publicanos e gente de má vida, que se puseram à mesa com Jesus e seus discípulos; - o que fez que os fariseus, notando-o, disseram aos discípulos: Como é que o vosso Mestre come com publicanos e pessoas de má vida? - Tendo-os ouvido, disse-lhes Jesus: Não são os que gozam saúde que precisam de médico. (S. MATEUS, cap. IX, vv. 10 a 12.)
 
-12. Jesus se acercava, principalmente, dos pobres e dos deserdados, porque são os que mais necessitam de consolações; dos cegos dóceis e de boa fé, porque pedem se lhes dê a vista, e não dos orgulhosos que julgam possuir.
+12. Jesus se acercava, principalmente, dos pobres e dos deserdados, porque são os que mais necessitam de consolações; dos cegos dóceis e de boa fé, porque pedem se lhes dê a vista, e não dos orgulhosos que julgam possuir 
 
 
 
@@ -5429,19 +5182,13 @@ A mediunidade não implica necessariamente relações habituais com os Espírito
 
 Jesus profliga essa covardia, do ponto de vista especial da sua doutrina, dizendo que, se alguém se envergonhar de suas palavras, desse também ele se envergonhará; que renegará aquele que o haja renegado; que reconhecerá, perante o Pai que está nos céus, aquele que o confessar diante dos homens. Por outras palavras: aqueles que se houverem arreceado de se confessarem discípulos da verdade não são dignos de se verem admitidos no reino da verdade. Perderão as vantagens da fé que alimentem, porque se trata de uma fé egoísta que eles guardam para si, ocultando-a para que não lhes traga prejuízo neste mundo, ao passo que aqueles que, pondo a verdade acima de seus interesses materiais, a proclamam abertamente, trabalham pelo seu próprio futuro e pelo dos outros.
 
-# 16. Assim será com os adeptos do Espiritismo.
-
-Pois que a doutrina que professam mais não é do que o desenvolvimento e a aplicação da do Evangelho, também a eles se dirigem as palavras do Cristo. Eles semeiam na Terra o que colherão na vida espiritual. Colherão lá os frutos da sua coragem ou da sua fraqueza.
+16. Assim será com os adeptos do Espiritismo. Pois que a doutrina que professam mais não é do que o desenvolvimento e a aplicação da do Evangelho, também a eles se dirigem as palavras do Cristo. Eles semeiam na Terra o que colherão na vida espiritual. Colherão lá os frutos da sua coragem ou da sua fraqueza.
 
 # Carregar sua cruz. Quem quiser salvar a vida, perdê-la-á
 
-# 17. Bem ditosos sereis
+17. Bem ditosos sereis, quando os homens vos odiarem e separarem, quando vos tratarem injuriosamente, quando repelirem como mau o vosso nome, por causa do Filho do Homem. - Rejubilai nesse dia e ficai em transportes de alegria, porque grande recompensa vos está reservada no céu, visto que era assim que os pais deles tratavam os profetas. (S. LUCAS, cap. VI, vv. 22 e 23.)
 
-Bem ditosos sereis, quando os homens vos odiarem e separarem, quando vos tratarem injuriosamente, quando repelirem como mau o vosso nome, por causa do Filho do Homem. - Rejubilai nesse dia e ficai em transportes de alegria, porque grande recompensa vos está reservada no céu, visto que era assim que os pais deles tratavam os profetas. (S. LUCAS, cap. VI, vv. 22 e 23.)
-
-# 18. Chamando para perto de si o povo e os discípulos
-
-Chamando para perto de si o povo e os discípulos, disse-lhes: Se alguém quiser vir nas minhas pegadas, renuncie a si mesmo, tome a sua cruz e siga-me; - porquanto, aquele que se quiser salvar a si mesmo, perder-se-á; e aquele que se perder por amor de mim e do Evangelho se salvará. - Com efeito, de que serviria a um homem ganhar o mundo todo e perder-se a si mesmo? (S. MARCOS, cap. VIII, vv. 34 a 36; - S. LUCAS, cap. IX, vv. 23 a 25; - S. MATEUS, cap. X, vv. 38 e 39; - S. JOÃO, cap. XII, vv. 25 e 26.)
+18. Chamando para perto de si o povo e os discípulos, disse-lhes: Se alguém quiser vir nas minhas pegadas, renuncie a si mesmo, tome a sua cruz e siga-me; - porquanto, aquele que se quiser salvar a si mesmo, perder-se-á; e aquele que se perder por amor de mim e do Evangelho se salvará. - Com efeito, de que serviria a um homem ganhar o mundo todo e perder-se a si mesmo? (S. MARCOS, cap. VIII, vv. 34 a 36; - S. LUCAS, cap. IX, vv. 23 a 25; - S. MATEUS, cap. X, vv. 38 e 39; - S. JOÃO, cap. XII, vv. 25 e 26.)
 
 
 
@@ -5496,16 +5243,11 @@ Mas, bem pouca coisa é, imperceptível mesmo, em grande número deles, o progre
 
 bertas e invenções, de modo a não ter ele mais do que tomar o que lhe ponham nas mãos, sem o incômodo, sequer, de abaixar‑se para apanhar, nem mesmo o de pensar. Se assim fosse, o mais preguiçoso poderia enriquecer‑se e o mais ignorante tornar‑se sábio à custa de nada e ambos se atribuírem o mérito do que não fizeram. Não, os Espíritos não vêm isentar o homem da lei do trabalho: vêm unicamente mostrar-lhe a meta que lhe cumpre atingir e o caminho que a ela conduz, dizendo-lhe: Anda e chegarás. Toparás com pedras; olha e afasta‑as tu mesmo. Nós te daremos a força necessária, se a quiseres empregar. (O Livro dos Médiuns, 2ª Parte, cap. XXVI, nº 291 e seguintes.)
 
-# 5.
-
-Do ponto de vista moral, essas palavras de Jesus significam: Pedi a luz que vos clareie o caminho e ela vos será dada; pedi forças para resistirdes ao mal e as tereis; pedi a assistência dos bons Espíritos e eles virão acompanhar‑vos e, como o anjo de Tobias, vos guiarão; pedi bons conselhos e eles não vos serão jamais recusados; batei à nossa porta e ela se vos abrirá; mas, pedi sinceramente, com fé, confiança e fervor; apresentai‑vos com humildade e não com arrogância, sem o que sereis abandonados às vossas próprias forças e as quedas que derdes serão o castigo do vosso orgulho. Tal o sentido das palavras: buscai e achareis; batei e abrir‑se‑vos‑á.
+5. Do ponto de vista moral, essas palavras de Jesus significam: Pedi a luz que vos clareie o caminho e ela vos será dada; pedi forças para resistirdes ao mal e as tereis; pedi a assistência dos bons Espíritos e eles virão acompanhar‑vos e, como o anjo de Tobias, vos guiarão; pedi bons conselhos e eles não vos serão jamais recusados; batei à nossa porta e ela se vos abrirá; mas, pedi sinceramente, com fé, confiança e fervor; apresentai‑vos com humildade e não com arrogância, sem o que sereis abandonados às vossas próprias forças e as quedas que derdes serão o castigo do vosso orgulho. Tal o sentido das palavras: buscai e achareis; batei e abrir‑se‑vos‑á.
 
 # Observai os pássaros do céu
 
-# 6.
-
-Não acumuleis tesouros na Terra, onde a ferrugem e os vermes os comem e onde os ladrões os desenterram e roubam; - acumulai tesouros no céu, onde nem a ferrugem, nem os vermes os comem; - porquanto, onde está o vosso tesouro aí está também o vosso coração. Eis por que vos digo: Não vos inquieteis por saber onde achareis o que comer para sustento da vossa vida, nem de onde tirareis vestes para cobrir o vosso corpo. Não é a vida mais do que o alimento e o corpo mais do que as vestes?
-
+6. Não acumuleis tesouros na Terra, onde a ferrugem e os vermes os comem e onde os ladrões os desenterram e roubam; - acumulai tesouros no céu, onde nem a ferrugem, nem os vermes os comem; - porquanto, onde está o vosso tesouro aí está também o vosso coração. Eis por que vos digo: Não vos inquieteis por saber onde achareis o que comer para sustento da vossa vida, nem de onde tirareis vestes para cobrir o vosso corpo. Não é a vida mais do que o alimento e o corpo mais do que as vestes?
 
 
 ---
@@ -5521,7 +5263,7 @@ Não vos inquieteis, pois, dizendo: Que comeremos? ou: que beberemos? ou: de que
 
 Buscai primeiramente o reino de Deus e a sua justiça, que todas essas coisas vos serão dadas de acréscimo. - Assim, pois, não vos ponhais inquietos pelo dia de amanhã, porquanto o amanhã cuidará de si. A cada dia basta o seu mal. (S. MATEUS, cap. VI, vv. 19 a 21 e 25 a 34.)
 
-Interpretadas à letra, essas palavras seriam a negação de toda previdência, de todo trabalho e, conseguintemente, de todo progresso. Com semelhante princípio, o homem limitar‑se‑ia a esperar passivamente. Suas forças físicas e intelectuais conservar‑se‑iam inativas. Se tal fora a sua condição normal na Terra, jamais houvera ele saído do estado primitivo e, se dessa condição fizesse ele a sua lei para a atualidade, só lhe caberia viver sem fazer coisa alguma. Não pode ter sido esse o pensamento de Jesus, pois estaria em contradição com o que disse de outras vezes, com as próprias leis da Natureza. Deus criou o homem sem vestes e sem abrigo, mas deu‑lhe a inteligência para fabricá‑los. (Cap. XIV, nº 6; cap. XXV, nº 2.)
+7. Interpretadas à letra, essas palavras seriam a negação de toda previdência, de todo trabalho e, conseguintemente, de todo progresso. Com semelhante princípio, o homem limitar‑se‑ia a esperar passivamente. Suas forças físicas e intelectuais conservar‑se‑iam inativas. Se tal fora a sua condição normal na Terra, jamais houvera ele saído do estado primitivo e, se dessa condição fizesse ele a sua lei para a atualidade, só lhe caberia viver sem fazer coisa alguma. Não pode ter sido esse o pensamento de Jesus, pois estaria em contradição com o que disse de outras vezes, com as próprias leis da Natureza. Deus criou o homem sem vestes e sem abrigo, mas deu‑lhe a inteligência para fabricá‑los. (Cap. XIV, nº 6; cap. XXV, nº 2.)
 
 Não se deve, portanto, ver, nessas palavras, mais do que uma poética alegoria da Providência, que nunca deixa ao abandono os que nela confiam, querendo, todavia, que esses, por seu lado, trabalhem. Se ela nem
 
@@ -5530,15 +5272,13 @@ Não se deve, portanto, ver, nessas palavras, mais do que uma poética alegoria 
 ---
 
 
-BUSCAI E ACHAREIS
+# BUSCAI E ACHAREIS
 
 sempre acode com um auxílio material, inspira as idéias com que se encontram os meios de sair da dificuldade. (Cap. XXVII, nº 8.)
 
 Deus conhece as nossas necessidades e a elas provê, como for necessário. O homem, porém, insaciável nos seus desejos, nem sempre sabe contentar‑se com o que tem: o necessário não lhe basta; reclama o supérfluo. A Providência, então, o deixa entregue a si mesmo. Freqüentemente, ele se torna infeliz por culpa sua e por haver desatendido à voz que por intermédio da consciência o advertia. Nesses casos, Deus fá‑lo sofrer as conseqüências, a fim de que lhe sirvam de lição para o futuro. (Cap. V, nº 4.)
 
-# 8.
-
-A Terra produzirá o suficiente para alimentar a todos os seus habitantes, quando os homens souberem administrar, segundo as leis de justiça, de caridade e de amor ao próximo, os bens que ela dá. Quando a fraternidade reinar entre os povos, como entre as províncias de um mesmo império, o momentâneo supérfluo de um suprirá a momentânea insuficiência do outro; e cada um terá o necessário. O rico, então, considerar‑se‑á como um que possui grande quantidade de sementes; se as espalhar, elas produzirão pelo cêntuplo para si e para os outros; se, entretanto, comer sozinho as sementes, se as desperdiçar e deixar se perca o excedente do que haja comido, nada produzirão, e não haverá o bastante para todos. Se as amontoar no seu celeiro, os vermes as devorarão. Daí o haver Jesus dito: "Não acumuleis tesouros na Terra, pois que são perecíveis; acumulai‑os no céu, onde são eternos." Em outros termos: não ligueis aos bens materiais mais importância do que aos espirituais e sabei sacrificar os primeiros aos segundos. (Cap. XVI, nº 7 e seguintes.)
+8. A Terra produzirá o suficiente para alimentar a todos os seus habitantes, quando os homens souberem administrar, segundo as leis de justiça, de caridade e de amor ao próximo, os bens que ela dá. Quando a fraternidade reinar entre os povos, como entre as províncias de um mesmo império, o momentâneo supérfluo de um suprirá a momentânea insuficiência do outro; e cada um terá o necessário. O rico, então, considerar‑se‑á como um que possui grande quantidade de sementes; se as espalhar, elas produzirão pelo cêntuplo para si e para os outros; se, entretanto, comer sozinho as sementes, se as desperdiçar e deixar se perca o excedente do que haja comido, nada produzirão, e não haverá o bastante para todos. Se as amontoar no seu celeiro, os vermes as devorarão. Daí o haver Jesus dito: "Não acumuleis tesouros na Terra, pois que são perecíveis; acumulai‑os no céu, onde são eternos." Em outros termos: não ligueis aos bens materiais mais importância do que aos espirituais e sabei sacrificar os primeiros aos segundos. (Cap. XVI, nº 7 e seguintes.)
 
 A caridade e a fraternidade não se decretam em leis. Se urna e outra não estiverem no coração, o egoísmo aí sempre imperará. Cabe ao Espiritismo fazê‑las penetrar nele.
 
@@ -5549,7 +5289,7 @@ A caridade e a fraternidade não se decretam em leis. Se urna e outra não estiv
 
 # CAPÍTULO XXV
 
-Não vos afadigueis pela posse do ouro
+# Não vos afadigueis pela posse do ouro
 
 9. Não vos afadigueis por possuir ouro, ou prata, ou qualquer outra moeda em vossos bolsos. - Não prepareis saco para a viagem, nem dois fatos, nem calçados, nem cajados, porquanto aquele que trabalha merece sustentado.
 
@@ -5573,11 +5313,6 @@ Quanto aos que não os quisessem receber, nem ouvir, recomendou ele porventura a
 O mesmo diz hoje o Espiritismo a seus adeptos: não violenteis nenhuma consciência; a ninguém forceis para que deixe a sua crença, a fim de adotar a vossa; não anatematizeis os que não pensem como vós; acolhei os que venham ter convosco e deixai tranqüilos os que vos repelem. Lembrai‑vos das palavras do Cristo. Outrora, o céu era tomado com violência; hoje o é pela brandura. (Cap. IV, nº 10 e 11.)
 
 
-
----
-
-362
-
 ---
 
 
@@ -5585,7 +5320,7 @@ O mesmo diz hoje o Espiritismo a seus adeptos: não violenteis nenhuma consciên
 
 # DAI GRATUITAMENTE O QUE GRATUITAMENTE RECEBESTES
 
-# Dom de curar. ‑Preces pagas. ‑ Mercadores expulsos do templo. ‑ Mediunidade gratuita.
+Dom de curar. ‑Preces pagas. ‑ Mercadores expulsos do templo. ‑ Mediunidade gratuita.
 
 # Dom de curar
 
@@ -5594,7 +5329,7 @@ O mesmo diz hoje o Espiritismo a seus adeptos: não violenteis nenhuma consciên
 
 # Preces pagas
 
-Disse em seguida a seus discípulos, diante de todo o povo que o escutava: - Precatai-vos dos escribas que se exibem a passear
+3. Disse em seguida a seus discípulos, diante de todo o povo que o escutava: - Precatai-vos dos escribas que se exibem a passear
 
 
 
@@ -5605,7 +5340,7 @@ Disse em seguida a seus discípulos, diante de todo o povo que o escutava: - Pre
 
 com longas túnicas, que gostam de ser saudados nas praças públicas e de ocupar os primeiros assentos nas sinagogas e os primeiros lugares nos festins - que, a pretexto de extensas preces, devoram as casas das viúvas. Essas pessoas receberão condenação mais rigorosa. (S. LUCAS, cap. XX, vv. 45 a 47; S. MARCOS, cap. XII, vv. 38 a 40; S. MATEUS, cap. XXIII, v. 14.)
 
-Disse também Jesus: não façais que vos paguem as vossas preces; não façais como os escribas que, “a pretexto de longas preces, devoram as casas das viúvas”, isto é, abocanham as fortunas. A prece é ato de caridade, é um arroubo do coração. Cobrar alguém que se dirija a Deus por outrem é transformar‑se em intermediário assalariado. A prece, então, fica sendo uma fórmula, cujo comprimento se proporciona à soma que custe. Ora, uma de duas: Deus ou mede ou não mede as suas graças pelo número das palavras. Se estas forem necessárias em grande número, por que dizê‑las poucas, ou quase nenhumas, por aquele que não pode pagar? E falta de caridade. Se uma só basta, é inútil dizê‑las em excesso. Por que então cobrá‑las? É prevaricação.
+4. Disse também Jesus: não façais que vos paguem as vossas preces; não façais como os escribas que, “a pretexto de longas preces, devoram as casas das viúvas”, isto é, abocanham as fortunas. A prece é ato de caridade, é um arroubo do coração. Cobrar alguém que se dirija a Deus por outrem é transformar‑se em intermediário assalariado. A prece, então, fica sendo uma fórmula, cujo comprimento se proporciona à soma que custe. Ora, uma de duas: Deus ou mede ou não mede as suas graças pelo número das palavras. Se estas forem necessárias em grande número, por que dizê‑las poucas, ou quase nenhumas, por aquele que não pode pagar? E falta de caridade. Se uma só basta, é inútil dizê‑las em excesso. Por que então cobrá‑las? É prevaricação.
 
 Deus não vende os benefícios que concede. Como, pois, um que não é, sequer, o distribuidor deles, que não pode garantir a sua obtenção, cobraria um pedido que talvez nenhum resultado produza? Não é possível que Deus subordine um ato de clemência, de bondade ou de justiça, que da sua misericórdia se solicite, a uma soma em dinheiro. Do contrário, se a soma não fosse paga, ou fosse insuficiente, a justiça, a bondade e a clemência de Deus ficariam em suspenso. A razão, o bom senso e a lógica dizem ser impossível que Deus, a perfeição absoluta, delegue a criaturas imperfeitas o direito de estabelecer preço para a sua justiça. A justiça de Deus é como o Sol: existe para todos, para o pobre como para o rico. Pois que se considera imoral traficar com as graças de um soberano da Terra, poder‑se‑á ter por lícito o comércio com as do soberano do Universo?
 
@@ -5615,6 +5350,7 @@ Ainda outro inconveniente apresentam as preces pagas: é que aquele que as compr
 
 ---
 
+# DAI GRATUITAMENTE O QUE GRATUITAMENTE RECEBESTES
 
 vezes, dispensado de orar ele próprio, porquanto se considera quite, desde que deu o seu dinheiro. Sabe‑se que os Espíritos se sentem tocados pelo fervor de quem por eles se interessa. Qual pode ser o fervor daquele que comete a terceiro o encargo de por ele orar, mediante paga? Qual o fervor desse terceiro, quando delega o seu mandato a outro, este a outro e assim por diante? Não será isso reduzir a eficácia da prece ao valor de uma moeda em curso?
 
@@ -5646,14 +5382,11 @@ e possa dizer: não tenho fé, porque não a pude pagar; não tive o consolo de 
 ---
 
 
-DAI GRATUITAMENTE
+# DAI GRATUITAMENTE O QUE GRATUITAMENTE RECEBESTES
 
 de natureza a poder faltar‑lhe no momento exato em que mais necessária lhe fosse. Coisa diversa é o talento adquirido pelo estudo, pelo trabalho e que, por essa razão mesma, representa uma propriedade da qual naturalmente lícito é, ao seu possuidor, tirar partido. A mediunidade, porém, não é uma arte, nem um talento, pelo que não pode tornar‑se uma profissão. Ela não existe sem o concurso dos Espíritos; faltando estes, já não há mediunidade. Pode subsistir a aptidão, mas o seu exercício se anula. Daí vem não haver no mundo um único médium capaz de garantir a obtenção de qualquer fenômeno espírita em dado instante. Explorar alguém a mediunidade é, conseguinte‑mente, dispor de uma coisa da qual não é realmente dono. Afirmar o contrário é enganar a quem paga. Há mais: não é de si próprio que o explorador dispõe; é do concurso dos Espíritos, das almas dos mortos, que ele põe a preço de moeda. Essa idéia causa instintiva repugnância. Foi esse tráfico, degenerado em abuso, explorado pelo charlatanismo, pela ignorância, pela credulidade e pela superstição que motivou a proibição de Moisés. O moderno Espiritismo, compreendendo o lado sério da questão, pelo descrédito a que lançou essa exploração, elevou a mediunidade à categoria de missão. (Veja‑se: O Livro dos Médiuns, 2ª Parte, cap. XXVIII. ‑ O Céu e o Inferno, 1ª Parte, cap. XI.)
 
-# 10.
-
-A mediunidade é coisa santa, que deve ser praticada santamente, religiosamente. Se há um gênero de mediunidade que requeira essa condição de modo ainda mais absoluto é a mediunidade curadora. O médico dá o fruto de seus estudos, feitos, muita vez, à custa de sacrifícios penosos. O magnetizador dá o seu próprio fluido, por vezes até a sua saúde. Podem pôr‑lhes preço. O médium curador transmite o fluido salutar dos bons Espíritos; não tem o direito de vendê‑lo. Jesus e os apóstolos, ainda que pobres, nada cobravam pelas curas que operavam. Procure, pois, aquele que carece do que viver, recursos em qualquer parte, menos na mediunidade; não lhe consagre, se assim for preciso, senão o tempo de que.
-
+10. A mediunidade é coisa santa, que deve ser praticada santamente, religiosamente. Se há um gênero de mediunidade que requeira essa condição de modo ainda mais absoluto é a mediunidade curadora. O médico dá o fruto de seus estudos, feitos, muita vez, à custa de sacrifícios penosos. O magnetizador dá o seu próprio fluido, por vezes até a sua saúde. Podem pôr‑lhes preço. O médium curador transmite o fluido salutar dos bons Espíritos; não tem o direito de vendê‑lo. Jesus e os apóstolos, ainda que pobres, nada cobravam pelas curas que operavam. Procure, pois, aquele que carece do que viver, recursos em qualquer parte, menos na mediunidade; não lhe consagre, se assim for preciso, senão o tempo de que 
 
 
 ---
@@ -5711,9 +5444,7 @@ Declaro-vos que este voltou para a sua casa, justificado, e o outro não; porqua
 
 Sem dúvida alguma, há leis naturais e imutáveis que não podem ser abrogadas ao capricho de cada um; mas, daí a crer-se que todas as circunstâncias da vida estão submetidas à fatalidade, vai grande distância. Se assim fosse, nada mais seria o homem do que instrumento passivo, sem livre-arbítrio e sem iniciativa. Nessa hipótese, só lhe caberia curvar a cabeça ao jugo dos acontecimentos, sem cogitar de evitá-los; não devera ter procurado desviar o raio. Deus não lhe outorgou a razão e a inteligência, para que ele as deixasse sem serventia; a vontade, para não querer; a atividade, para ficar inativo. Sendo livre o homem de agir num sentido ou noutro, seus atos lhe acarretam, e aos demais, consequências subordinadas ao que ele faz ou não. Há, pois, devidos à sua iniciativa, sucessos que forçosamente escapam à fatalidade e que não quebram a harmonia das leis universais, do mesmo modo que o avanço ou o atraso do ponteiro de um relógio não anula a lei do movimento sobre a qual se funda o mecanismo. Possível é, portanto, que Deus aceda a certos pedidos, sem perturbar a imutabilidade das leis que regem o conjunto, subordinada sempre essa anuência à sua vontade.
 
-# 7.
-
-Desta máxima: “Concedido vos será o que quer que pedirdes pela prece”, fora ilógico deduzir que basta pedir para obter e fora injusto acusar a Providência se não acede a toda súplica que se lhe faça, uma vez que ela sabe, melhor do que nós, o que é para nosso bem. É como procede um pai criterioso que recusa ao filho o que seja contrário aos seus interesses. Em geral, o homem apenas vê o presente; ora, se o sofrimento é de utilidade para a sua felicidade futura, Deus o deixará sofrer, como o cirurgião deixa que o doente sofra as dores de uma operação que lhe trará a cura.
+7. Desta máxima: “Concedido vos será o que quer que pedirdes pela prece”, fora ilógico deduzir que basta pedir para obter e fora injusto acusar a Providência se não acede a toda súplica que se lhe faça, uma vez que ela sabe, melhor do que nós, o que é para nosso bem. É como procede um pai criterioso que recusa ao filho o que seja contrário aos seus interesses. Em geral, o homem apenas vê o presente; ora, se o sofrimento é de utilidade para a sua felicidade futura, Deus o deixará sofrer, como o cirurgião deixa que o doente sofra as dores de uma operação que lhe trará a cura.
 
 O que Deus lhe concederá sempre, se ele o pedir com confiança, é a coragem, a paciência, a resignação. Também lhe concederá os meios de se tirar por si mesmo das dificuldades, mediante ideias que fará lhe sugiram os bons Espíritos, deixando-lhe dessa forma o mérito da ação.
 
@@ -5731,7 +5462,6 @@ Ele assiste os que se ajudam a si mesmos, de conformidade com esta máxima: "Aju
 Mas, dirão, por que o bom Espírito não lhe disse claramente: "Segue este caminho, que encontrarás o de que necessitas"? Por que não se lhe mostrou para o guiar e sustentar no seu desfalecimento? Dessa maneira tê‑lo‑ia convencido da intervenção da Providência. Primeiramente, para lhe ensinar que cada um deve ajudar‑se a si mesmo e fazer uso das suas forças. Depois, pela incerteza, Deus põe a prova a confiança que nele deposita a criatura e a submissão desta à sua vontade. Aquele homem estava na situação de uma criança que cai e que, dando com alguém, se põe a gritar e fica à espera de que a venham levantar; se não vê pessoa alguma, faz esforços e se ergue sozinha.
 
 Se o anjo que acompanhou a Tobias lhe houvera dito: "Sou enviado por Deus para te guiar na tua viagem e
-
 
 
 ---
@@ -5760,9 +5490,9 @@ a prece que lhes é dirigida, qualquer que seja o lugar onde se encontrem; é as
 
 Essa explicação vai, sobretudo, com vistas aos que não compreendem a utilidade da prece puramente mística. Não tem por fim materializar a prece, mas tornar‑lhe inteligíveis os efeitos, mostrando que pode exercer ação direta e efetiva. Nem por isso deixa essa ação de estar subordinada à vontade de Deus, juiz supremo em todas as coisas, único apto a torná‑la eficaz.
 
-Pela prece, obtém o homem o concurso dos bons Espíritos que acorrem a sustentá‑lo em suas boas resoluções e a inspirar‑lhe idéias sãs. Ele adquire, desse modo, a força moral necessária a vencer as dificuldades e a volver ao caminho reto, se deste se afastou. Por esse meio, pode também desviar de si os males que atrairia pelas suas próprias faltas. Um homem, por exemplo, vê arruinada a sua saúde, em consequência de excessos a que se entregou, e arrasta, até o termo de seus dias, uma vida de sofrimento: terá ele o direito de queixar‑se, se não obtiver a cura que deseja? Não, pois que houvera podido encontrar na prece a força de resistir às tentações.
+11. Pela prece, obtém o homem o concurso dos bons Espíritos que acorrem a sustentá‑lo em suas boas resoluções e a inspirar‑lhe idéias sãs. Ele adquire, desse modo, a força moral necessária a vencer as dificuldades e a volver ao caminho reto, se deste se afastou. Por esse meio, pode também desviar de si os males que atrairia pelas suas próprias faltas. Um homem, por exemplo, vê arruinada a sua saúde, em consequência de excessos a que se entregou, e arrasta, até o termo de seus dias, uma vida de sofrimento: terá ele o direito de queixar‑se, se não obtiver a cura que deseja? Não, pois que houvera podido encontrar na prece a força de resistir às tentações.
 
-Se em duas partes se dividirem os males da vida, uma constituída dos que o homem não pode evitar e a outra das tribulações de que ele se constituiu a causa primária, pela sua incúria ou por seus excessos (cap. V, n~ 4), ver‑se‑á que a segunda, em quantidade, excede de muito à primeira. Faz‑se, portanto, evidente que o homem é o autor da maior parte das suas aflições, às quais se pouparia, se sempre obrasse com sabedoria e prudência.
+12. Se em duas partes se dividirem os males da vida, uma constituída dos que o homem não pode evitar e a outra das tribulações de que ele se constituiu a causa primária, pela sua incúria ou por seus excessos (cap. V, n~ 4), ver‑se‑á que a segunda, em quantidade, excede de muito à primeira. Faz‑se, portanto, evidente que o homem é o autor da maior parte das suas aflições, às quais se pouparia, se sempre obrasse com sabedoria e prudência.
 
 Não menos certo é que todas essas misérias resultam das nossas infrações às leis de Deus e que, se as observássemos pontualmente, seríamos inteiramente ditosos. Se não ultrapassássemos o limite do necessário, na satisfação das
 
@@ -5770,6 +5500,7 @@ Não menos certo é que todas essas misérias resultam das nossas infrações à
 
 ---
 
+# PEDI E OBTEREIS
 
 nossas necessidades, não apanharíamos as enfermidades que resultam dos excessos, nem experimentaríamos as vicissitudes que as doenças acarretam. Se puséssemos freio à nossa ambição, não teríamos de temer a ruína; se não quiséssemos subir mais alto do que podemos, não teríamos de recear a queda; se fôssemos humildes, não sofreríamos as decepções do orgulho abatido; se praticássemos a lei de caridade, não seríamos maldizentes, nem invejosos, nem ciosos, e evitaríamos as disputas e dissensões; se mal a ninguém fizéssemos, não houvéramos de temer as vinganças, etc.
 
@@ -5799,20 +5530,13 @@ espiritual. Os efeitos da prece, porém, não se limitam aos que vimos de aponta
 
 em incentivar. Repelida só o é a prece do orgulhoso que deposita fé no seu poder e nos seus merecimentos e acredita ser-lhe possível sobrepor-se à vontade do Eterno.
 
-# 15.
-
-Está no pensamento o poder da prece, que por nada depende nem das palavras, nem do lugar, nem do momento em que seja feita. Pode‑se, portanto, orar em toda parte e a qualquer hora, a sós ou em comum. A influência do lugar ou do tempo só se faz sentir nas circunstâncias que favoreçam o recolhimento. A prece em comum tem ação mais poderosa, quando todos os que oram se associam de coração a um mesmo pensamento e colimam o mesmo objetivo, porquanto é como se muitos clamassem juntos e em uníssono. Mas, que importa seja grande o número de pessoas reunidas para orar, se cada uma atua isoladamente e por conta própria?! Cem pessoas juntas podem orar como egoístas, enquanto duas ou três, ligadas por uma mesma aspiração, orarão quais verdadeiros irmãos em Deus, e mais força terá a prece que lhe dirijam do que a das cem outras. (Cap. XXVIII, nº 4 e nº 5.)
+15. Está no pensamento o poder da prece, que por nada depende nem das palavras, nem do lugar, nem do momento em que seja feita. Pode‑se, portanto, orar em toda parte e a qualquer hora, a sós ou em comum. A influência do lugar ou do tempo só se faz sentir nas circunstâncias que favoreçam o recolhimento. A prece em comum tem ação mais poderosa, quando todos os que oram se associam de coração a um mesmo pensamento e colimam o mesmo objetivo, porquanto é como se muitos clamassem juntos e em uníssono. Mas, que importa seja grande o número de pessoas reunidas para orar, se cada uma atua isoladamente e por conta própria?! Cem pessoas juntas podem orar como egoístas, enquanto duas ou três, ligadas por uma mesma aspiração, orarão quais verdadeiros irmãos em Deus, e mais força terá a prece que lhe dirijam do que a das cem outras. (Cap. XXVIII, nº 4 e nº 5.)
 
 # Preces inteligíveis
 
-# 16.
+16. Se eu não entender o que significam as palavras, serei um bárbaro para aquele a quem falo e aquele que me fala será para mim um bárbaro. - Se oro numa língua que não entendo, meu coração ora, mas a minha inteligência não colhe fruto. - Se louvais a Deus apenas de coração, como é que um homem do número daqueles que só entendem a sua própria língua responderá amém no fim da vossa ação de graças, uma vez que ele não entende o que dizeis? - Não é que a vossa ação não seja boa, mas os outros não se edificam com ela. (S. PAULO, 1ª aos Coríntios, cap. XIV, vv. 11, 14, 16 e 17.)
 
-Se eu não entender o que significam as palavras, serei um bárbaro para aquele a quem falo e aquele que me fala será para mim um bárbaro. - Se oro numa língua que não entendo, meu coração ora, mas a minha inteligência não colhe fruto. - Se louvais a Deus apenas de coração, como é que um homem do número daqueles que só entendem a sua própria língua responderá amém no fim da vossa ação de graças, uma vez que ele não entende o que dizeis? - Não é que a vossa ação não seja boa, mas os outros não se edificam com ela. (S. PAULO, 1ª aos Coríntios, cap. XIV, vv. 11, 14, 16 e 17.)
-
-# 17.
-
-A prece só tem valor pelo pensamento que lhe está conjugado. Ora, é impossível conjugar um pensamento qualquer ao que se não compreende, porquanto o que não se compreende não pode tocar o coração. Para a imensa maioria das criaturas, as preces feitas numa língua que elas não entendem não passam de amálgamas de palavras.
-
+17. A prece só tem valor pelo pensamento que lhe está conjugado. Ora, é impossível conjugar um pensamento qualquer ao que se não compreende, porquanto o que não se compreende não pode tocar o coração. Para a imensa maioria das criaturas, as preces feitas numa língua que elas não entendem não passam de amálgamas de palavras.
 
 
 ---
@@ -5833,7 +5557,7 @@ que nada dizem ao espírito. Para que a prece toque, preciso se torna que cada p
 ---
 
 
-379
+# 379
 
 # PEDI E OBTEREIS
 
@@ -5841,9 +5565,7 @@ caridosa ir carregar‑lhe os grilhões, para aliviá‑lo do peso destes? Em se
 
 A não eternidade das penas não implica a negação de uma penalidade temporária, dado não ser possível que Deus, em sua justiça, confunda o bem e o mal. Ora, negar, neste caso, a eficácia da prece, fora negar a eficácia da consolação, dos encorajamentos, dos bons conselhos; fora negar a força que haurimos da assistência moral dos que nos querem bem.
 
-# 20.
-
-Outros se fundam numa razão mais especiosa: a imutabilidade dos decretos divinos. Deus, dizem esses, não pode mudar as suas decisões a pedido das criaturas; a não ser assim, careceria de estabilidade o mundo. O homem, pois, nada tem de pedir a Deus, só lhe cabendo submeter‑se e adorá‑lo.
+20. Outros se fundam numa razão mais especiosa: a imutabilidade dos decretos divinos. Deus, dizem esses, não pode mudar as suas decisões a pedido das criaturas; a não ser assim, careceria de estabilidade o mundo. O homem, pois, nada tem de pedir a Deus, só lhe cabendo submeter‑se e adorá‑lo.
 
 Há, nesse modo de raciocinar, uma aplicação falsa do princípio da imutabilidade da lei divina, ou melhor, ignorância da lei, no que concerne à penalidade futura. Essa lei revelam‑na hoje os Espíritos do Senhor, quando o homem se tornou suficientemente maduro para compreender o que, na fé, é conforme ou contrário aos atributos divinos.
 
@@ -5858,13 +5580,19 @@ Segundo o dogma da eternidade absoluta das penas, não se levam em conta ao culp
 
 está condenado a conservar‑se perpetuamente no mal. Se a sua condenação foi por determinado tempo, a pena cessará, uma vez expirado esse tempo. Mas, quem poderá afirmar que ele então possua melhores sentimentos? Quem poderá dizer que, a exemplo de muitos condenados da Terra, ao sair da prisão, ele não seja tão mau quanto antes? No primeiro caso, seria manter na dor do castigo um homem que volveu ao bem; no segundo, seria agraciar a um que continua culpado. A lei de Deus é mais previdente. Sempre justa, eqüitativa e misericordiosa, não estabelece para a pena, qualquer que esta seja, duração alguma. Ela se resume assim:
 
-1. "O homem sofre sempre a conseqüência de suas faltas; não há uma só infração à lei de Deus que fique sem a correspondente punição.
-2. "A severidade do castigo é proporcionada à gravidade da falta.
-3. “Indeterminada é a duração do castigo, para qualquer falta; fica subordinada ao arrependimento do culpado e ao seu retorno a senda do bem; a pena dura tanto quanto a obstinação no mal; seria perpétua, se perpétua fosse a obstinação; dura pouco, se pronto é o arrependimento.
-4. "Desde que o culpado clame por misericórdia, Deus o ouve e lhe concede a esperança. Mas, não basta o simples pesar do mal causado; é necessária a reparação, pelo que o culpado se vê submetido a novas provas em que pode, sempre por sua livre vontade, praticar o bem, reparando o mal que haja feito.
-5. "O homem é, assim, constantemente, o árbitro de sua própria sorte; pertence‑lhe abreviar ou prolongar indefinidamente o seu suplício; a sua felicidade ou a sua desgraça dependem da vontade que tenha de praticar o bem."
+21. "O homem sofre sempre a conseqüência de suas faltas; não há uma só infração à lei de Deus que fique sem a correspondente punição.
 
-Tal a lei, lei imutável e em conformidade com a bondade e a justiça de Deus. Assim, o Espírito culpado e infeliz pode sempre salvar‑se a si mesmo: a lei de Deus estabelece a condição em que se lhe toma possível fazê‑lo. O que as mais das
+"A severidade do castigo é proporcionada à gravidade da falta.
+
+“Indeterminada é a duração do castigo, para qualquer falta; fica subordinada ao arrependimento do culpado e ao seu retorno a senda do bem; a pena dura tanto quanto a obstinação no mal; seria perpétua, se perpétua fosse a obstinação; dura pouco, se pronto é o arrependimento.
+
+"Desde que o culpado clame por misericórdia, Deus o ouve e lhe concede a esperança. Mas, não basta o simples pesar do mal causado; é necessária a reparação, pelo que o culpado se vê submetido a novas provas em que pode, sempre por sua livre vontade, praticar o bem, reparando o mal que haja feito.
+
+"O homem é, assim, constantemente, o árbitro de sua própria sorte; pertence‑lhe abreviar ou prolongar indefinidamente o seu suplício; a sua felicidade ou a sua desgraça dependem da vontade que tenha de praticar o bem."
+
+Tal a lei, lei imutável e em conformidade com a bondade e a justiça de Deus. 
+
+Assim, o Espírito culpado e infeliz pode sempre salvar‑se a si mesmo: a lei de Deus estabelece a condição em que se lhe toma possível fazê‑lo. O que as mais das
 
 
 
@@ -5909,11 +5637,9 @@ pensamentos, se partir do coração, é mais ouvido pelo vosso Pai celestial do 
 
 # Felicidade que a prece proporciona
 
-Vinde, vós que desejais crer. Os Espíritos celestes acorrem a vos anunciar grandes coisas. Deus, meus filhos, abre os seus tesouros, para vos outorgar todos os beneficios. Homens incrédulos! Se soubésseis quão grande bem faz a fé ao coração e como induz a alma ao arrependimento e à prece! A prece! ah! como são tocantes as palavras que saem da boca daquele que ora! A prece é o orvalho divino que aplaca o calor excessivo das paixões. Filha primogênita da fé, ela nos encaminha para a senda que conduz a Deus. No recolhimento e na solidão, estais com Deus. Para vós, já não há mistérios; eles se vos desvendam. Apóstolos do pensamento, é para vós a vida. Vossa alma se desprende da matéria e rola por esses mundos infinitos e etéreos, que os pobres humanos desconhecem.
+23. Vinde, vós que desejais crer. Os Espíritos celestes acorrem a vos anunciar grandes coisas. Deus, meus filhos, abre os seus tesouros, para vos outorgar todos os beneficios. Homens incrédulos! Se soubésseis quão grande bem faz a fé ao coração e como induz a alma ao arrependimento e à prece! A prece! ah! como são tocantes as palavras que saem da boca daquele que ora! A prece é o orvalho divino que aplaca o calor excessivo das paixões. Filha primogênita da fé, ela nos encaminha para a senda que conduz a Deus. No recolhimento e na solidão, estais com Deus. Para vós, já não há mistérios; eles se vos desvendam. Apóstolos do pensamento, é para vós a vida. Vossa alma se desprende da matéria e rola por esses mundos infinitos e etéreos, que os pobres humanos desconhecem.
 
-Avançai, avançai pelas veredas da prece e ouvireis as vozes dos anjos. Que harmonia! Já não são o ruído confuso e os sons estrídulos da Terra; são as liras dos arcanjos; são as vozes brandas e suaves dos serafins, mais delicadas do que as brisas matinais, quando brincam na folhagem dos vossos bosques. Por entre que delícias não caminhareis! A vossa linguagem não poderá exprimir essa ventura, tão rápida entra ela por todos os vossos poros, tão vivo e refrigerante é o manancial em que, orando, se bebe. Dulçurosas vozes, inebriantes perfumes, que a alma ouve e aspira, quando se lança a essas esferas desconhecidas e habitadas pela prece! Sem mescla de desejos carnais, são divinas todas as aspirações.
-
-Também vós, orai como o Cristo, levando a sua cruz ao Gólgota, ao Calvário. Carregai a vossa cruz e sentireis as doces emo‑
+Avançai, avançai pelas veredas da prece e ouvireis as vozes dos anjos. Que harmonia! Já não são o ruído confuso e os sons estrídulos da Terra; são as liras dos arcanjos; são as vozes brandas e suaves dos serafins, mais delicadas do que as brisas matinais, quando brincam na folhagem dos vossos bosques. Por entre que delícias não caminhareis! A vossa linguagem não poderá exprimir essa ventura, tão rápida entra ela por todos os vossos poros, tão vivo e refrigerante é o manancial em que, orando, se bebe. Dulçurosas vozes, inebriantes perfumes, que a alma ouve e aspira, quando se lança a essas esferas desconhecidas e habitadas pela prece! Sem mescla de desejos carnais, são divinas todas as aspirações. Também vós, orai como o Cristo, levando a sua cruz ao Gólgota, ao Calvário. Carregai a vossa cruz e sentireis as doces emo‑
 
 
 
@@ -5975,9 +5701,7 @@ Com o propósito de chamar, de maneira especial, a atenção sobre o objeto de c
 
 # Oração dominical
 
-# 2. PREFÁCIO.
-
-Os Espíritos recomendaram que, encabeçando esta coletânea, puséssemos a Oração dominical, não somente como prece, mas também como símbolo. De todas as preces, é a que eles colocam em primeiro lugar, seja porque procede do próprio Jesus (S. Mateus, cap. VI, vv. 9 a 13), seja porque pode suprir a todas, conforme os pensamentos que se lhe conjugam; é o mais perfeito modelo de concisão, verdadeira obra‑prima de sublimidade na simplicidade. Com efeito, sob a mais singela forma, ela resume todos os deveres do homem para com Deus, para consigo mesmo e para com o próximo. Encerra uma profissão de fé, um ato de adoração e de submissão; o pedido das coisas necessárias à vida e o princípio da caridade. Quem a diga, em intenção de alguém, pede para este o que pediria para si.
+2. PREFÁCIO. Os Espíritos recomendaram que, encabeçando esta coletânea, puséssemos a Oração dominical, não somente como prece, mas também como símbolo. De todas as preces, é a que eles colocam em primeiro lugar, seja porque procede do próprio Jesus (S. Mateus, cap. VI, vv. 9 a 13), seja porque pode suprir a todas, conforme os pensamentos que se lhe conjugam; é o mais perfeito modelo de concisão, verdadeira obra‑prima de sublimidade na simplicidade. Com efeito, sob a mais singela forma, ela resume todos os deveres do homem para com Deus, para consigo mesmo e para com o próximo. Encerra uma profissão de fé, um ato de adoração e de submissão; o pedido das coisas necessárias à vida e o princípio da caridade. Quem a diga, em intenção de alguém, pede para este o que pediria para si.
 
 Contudo, em virtude mesmo da sua brevidade, o sentido profundo que encerram as poucas palavras de que ela se compõe escapa à maioria das pessoas. Daí vem o dizerem‑na, geralmente, sem que os pensamentos se detenham sobre as aplicações de cada uma de suas partes. Dizem‑na como uma fórmula cuja eficácia se ache condicionada ao número de vezes que seja repetida. Ora, quase sempre esse é um dos números cabalísticos: três, sete ou nove tomados à antiga crença supersticiosa na virtude dos números e de uso nas operações da magia.
 
@@ -5992,13 +5716,13 @@ Para preencher o que de vago a concisão desta prece deixa na mente, a cada uma 
 
 o sentido e mostra as aplicações. Conforme, pois, as circunstâncias e o tempo de que disponha, poderá, aquele que ore, dizer a oração dominical, ou na sua forma simples, ou na desenvolvida.
 
-# 3. PRECE.
+# 3. PRECE
 
 # I. Pai nosso, que estás no céu, santificado seja o teu nome!
 
 Cremos em ti, Senhor, porque tudo revela o teu poder e a tua bondade. A harmonia do Universo dá testemunho de uma sabedoria, de uma prudência e de uma previdência que ultrapassam todas as faculdades humanas. Em todas as obras da Criação, desde o raminho de erva minúscula e o pequenino inseto, até os astros que se movem no espaço, o nome se acha inscrito de um ser soberanamente grande e sábio. Por toda a parte se nos depara a prova de paternal solicitude. Cego, portanto, é aquele que te não reconhece nas tuas obras, orgulhoso aquele que te não glorifica e ingrato aquele que te não rende graças.
 
-# II. Venha o teu reino!
+# II. Venha o teu reino! 
 
 Senhor, deste aos homens leis plenas de sabedoria e que lhes dariam a felicidade, se eles as cumprissem. Com essas leis, fariam reinar entre si a paz e a justiça e mutuamente se auxiliariam, em vez de se maltratarem, como o fazem. O forte sustentaria o fraco, em vez de o esmagar. Evitados seriam os males, que se geram dos excessos e dos abusos. Todas as misérias deste mundo provêm da violação de tuas leis, porquanto nenhuma infração delas deixa de ocasionar fatais conseqüências.
 
@@ -6063,9 +5787,7 @@ se esquecem a lei de caridade e de amor do próximo, que lhes ensinaste. (Cap. X
 
 Afasta, igualmente, do nosso espírito a idéia de negar a tua justiça, ao notarmos a prosperidade do mau e a desgraça que cai por vezes sobre o homem de bem. Já sabemos, graças às novas luzes que te aprouve conceder‑nos, que a tua justiça se cumpre sempre e a ninguém excetua; que a prosperidade material do mau é efêmera, quanto a sua existência corpórea, e que experimentará terríveis reveses, ao passo que eterno será o júbilo daquele que sofre resignado. (Cap. V, nº 7, nº 9, nº 12 e nº 18.)
 
-# V.
-
-Perdoa as nossas dívidas, como perdoamos aos que nos devem. - Perdoa as nossas ofensas, como perdoamos aos que nos ofenderam.
+# V. Perdoa as nossas dívidas, como perdoamos aos que nos devem. - Perdoa as nossas ofensas, como perdoamos aos que nos ofenderam.
 
 Cada uma das nossas infrações às tuas leis, Senhor, é uma ofensa que te fazemos e uma dívida que contraímos e que cedo ou tarde teremos de saldar. Rogamos‑te que no‑las perdoes pela tua infinita misericórdia, sob a promessa, que te fazemos, de empregarmos os maiores esforços para não contrair outras.
 
@@ -6086,7 +5808,7 @@ o caminho da felicidade eterna, visto que nos disseste, por intermédio de Jesus
 
 Assim se explicam, afinal, todas as anomalias aparentes da vida. É a luz que se projeta sobre o nosso passado e o nosso futuro, sinal evidente da tua justiça soberana e da tua infinita bondade.
 
-VI. Não nos deixes entregues à tentação, mas livra-nos do mal. (1)
+# VI. Não nos deixes entregues à tentação, mas livra-nos do mal. (1)
 
 Dá‑nos, Senhor, a força de resistir às sugestões dos Espíritos maus, que tentem desviar‑nos da senda do bem, inspirando‑nos maus pensamentos.
 
@@ -6153,9 +5875,7 @@ concordância com o espírito de caridade que ele personifica. (Capítulo X, nº
 
 Tal o caráter de que devem revestir‑se as reuniões espíritas sérias, aquelas em que sinceramente se deseja o concurso dos bons Espíritos.
 
-# 6. Prece. (Para o começo da reunião.)
-
-‑ Ao Senhor Deus onipotente suplicamos que envie, para nos assistirem, Espíritos bons; que afaste os que nos possam induzir em erro e nos conceda a luz necessária para distinguirmos da impostura a verdade.
+6. Prece. (Para o começo da reunião.) ‑ Ao Senhor Deus onipotente suplicamos que envie, para nos assistirem, Espíritos bons; que afaste os que nos possam induzir em erro e nos conceda a luz necessária para distinguirmos da impostura a verdade.
 
 Afasta, igualmente, Senhor, os Espíritos malfazejos, encarnados e desencarnados, que tentem lançar entre nós a discórdia e desviar‑nos da caridade e do amor ao próximo. Se procurarem alguns deles introduzir‑se aqui, faze não achem acesso no coração de nenhum de nós.
 
@@ -6167,9 +5887,7 @@ Se, em nossa reunião, estiverem pessoas que tenham vindo impelidas por sentimen
 
 Pedimos, especialmente, ao Espírito N..., nosso guia espiritual, que nos assista e por nós vele.
 
-# 7. (Para o fim da reunião.)
-
-‑ Agradecemos aos bons Espíritos que se dignaram de comunicar‑se conosco e lhes rogamos que nos ajudem a pôr em prática as instruções que nos deram e façam que, ao sair daqui, cada um de nós se sinta fortalecido para a prática do bem e do amor ao próximo.
+7. (Para o fim da reunião.) - Agradecemos aos bons Espíritos que se dignaram de comunicar‑se conosco e lhes rogamos que nos ajudem a pôr em prática as instruções que nos deram e façam que, ao sair daqui, cada um de nós se sinta fortalecido para a prática do bem e do amor ao próximo.
 
 
 
@@ -6234,9 +5952,7 @@ de todos os médiuns sérios. Sem isso, a mediunidade se torna uma faculdade est
 
 O médium que compreende o seu dever, longe de se orgulhar de uma faculdade que não lhe pertence, visto que lhe pode ser retirada, atribui a Deus as boas coisas que obtém. Se as suas comunicações receberem elogios, não se envaidecerá com isso, porque as sabe independentes do seu mérito pessoal; agradece a Deus o haver consentido que por seu intermédio bons Espíritos se manifestassem. Se dão lugar à crítica, não se ofende, porque não obra do seu próprio Espírito. Ao contrário, reconhece no seu íntimo que não foi um instrumento bom e que não dispõe de todas as qualidades necessárias a obstar a imiscuência dos Espíritos maus. Cuida, então, de adquirir essas qualidades e suplica, por meio da prece, as forças que lhe faltam.
 
-# 10. Prece.
-
-Deus onipotente, permite que os bons Espíritos me assistam na comunicação que solicito. Preserva‑me da presunção de me julgar resguardado dos Espíritos maus; do orgulho que me induza em erro sobre o valor do que obtenha; de todo sentimento oposto à caridade para com outros médiuns. Se cair em erro, inspira a alguém a idéia de me advertir disso e a mim a humildade que me faça aceitar reconhecido a crítica e tomar como endereçados a mim mesmo, e não aos outros, os conselhos que os bons Espíritos me queiram ditar.
+10. Prece. Deus onipotente, permite que os bons Espíritos me assistam na comunicação que solicito. Preserva‑me da presunção de me julgar resguardado dos Espíritos maus; do orgulho que me induza em erro sobre o valor do que obtenha; de todo sentimento oposto à caridade para com outros médiuns. Se cair em erro, inspira a alguém a idéia de me advertir disso e a mim a humildade que me faça aceitar reconhecido a crítica e tomar como endereçados a mim mesmo, e não aos outros, os conselhos que os bons Espíritos me queiram ditar.
 
 Se for tentado a cometer abuso, no que quer que seja, ou a me envaidecer da faculdade que te aprouve conceder‑me, peço que ma retires, de preferência a consentires seja ela desviada do seu objetivo providencial, que é o bem de todos e o meu próprio avanço moral.
 
@@ -6244,9 +5960,7 @@ Se for tentado a cometer abuso, no que quer que seja, ou a me envaidecer da facu
 
 # Aos anjos guardiães e aos Espíritos protetores
 
-# 11. PREFÁCIO.
-
-Todos temos, ligado a nós, desde o nosso nascimento, um Espírito bom, que nos tomou sob a sua proteção. Desempenha, junto de nós, a missão de um pai para com seu filho: a de nos conduzir pelo caminho do bem e do progresso, através das provações da vida. Sente‑se feliz, quando correspondemos à sua solicitude; sofre, quando nos vê sucumbir.
+11. PREFÁCIO. Todos temos, ligado a nós, desde o nosso nascimento, um Espírito bom, que nos tomou sob a sua proteção. Desempenha, junto de nós, a missão de um pai para com seu filho: a de nos conduzir pelo caminho do bem e do progresso, através das provações da vida. Sente‑se feliz, quando correspondemos à sua solicitude; sofre, quando nos vê sucumbir.
 
 
 
@@ -6269,9 +5983,7 @@ Deus, em o nosso anjo guardião, nos deu um guia principal e superior e, nos Esp
 
 A prece aos anjos guardiães e aos Espíritos protetores deve ter por objeto solicitar‑lhes a intercessão junto de Deus, pedir‑lhes a força de resistir às más sugestões e que nos assistam nas contingências da vida.
 
-# 12. Prece.
-
-Espíritos esclarecidos e benevolentes, mensageiros de Deus, que tendes por missão assistir os homens e conduzi‑los pelo bom caminho, sustentai‑me nas provas desta vida; dai‑me a força de suportá‑la sem queixumes; livrai‑me dos maus pensamentos e fazei que eu não dê entrada a nenhum mau Espírito que queira induzir‑me ao mal. Esclarecei a minha consciência com relação aos
+12. Prece. Espíritos esclarecidos e benevolentes, mensageiros de Deus, que tendes por missão assistir os homens e conduzi‑los pelo bom caminho, sustentai‑me nas provas desta vida; dai‑me a força de suportá‑la sem queixumes; livrai‑me dos maus pensamentos e fazei que eu não dê entrada a nenhum mau Espírito que queira induzir‑me ao mal. Esclarecei a minha consciência com relação aos
 
 
 
@@ -6303,13 +6015,9 @@ A ti sobretudo, N..., meu anjo guardião, que mais particularmente velas por mim
 
 de vós, escribas e fariseus hipócritas, que vos assemelhais a sepulcros branqueados, que por fora parecem belos aos olhos dos homens, mas que, por dentro, estão cheios de toda espécie de podridões. - Assim, pelo exterior, pareceis justos aos olhos dos homens, mas, por dentro, estais cheios de hipocrisia e de iniquidades. (S. MATEUS, cap. XXIII, vv. 25 a 28.)
 
-# 16. PREFÁCIO.
+16. PREFÁCIO. Os maus Espíritos somente procuram os lugares onde encontrem possibilidades de dar expansão à sua perversidade. Para os afastar, não basta pedir‑lhes, nem mesmo ordenar‑lhes que se vão; é preciso que o homem elimine de si o que os atrai. Os Espíritos maus farejam as chagas da alma, como as moscas farejam as chagas do corpo. Assim como se limpa o corpo, para evitar a bicheira, também se deve limpar de suas impurezas a alma, para evitar os maus Espíritos. Vivendo num mundo onde estes pululam, nem sempre as boas qualidades do coração nos põem a salvo de suas tentativas; dão, entretanto, forças para que lhes resistamos.
 
-Os maus Espíritos somente procuram os lugares onde encontrem possibilidades de dar expansão à sua perversidade. Para os afastar, não basta pedir‑lhes, nem mesmo ordenar‑lhes que se vão; é preciso que o homem elimine de si o que os atrai. Os Espíritos maus farejam as chagas da alma, como as moscas farejam as chagas do corpo. Assim como se limpa o corpo, para evitar a bicheira, também se deve limpar de suas impurezas a alma, para evitar os maus Espíritos. Vivendo num mundo onde estes pululam, nem sempre as boas qualidades do coração nos põem a salvo de suas tentativas; dão, entretanto, forças para que lhes resistamos.
-
-# 17. Prece.
-
-Em nome de Deus Todo‑Poderoso, afastem‑se de mim os maus Espíritos, servindo‑me os bons de antemural contra eles.
+17. Prece. Em nome de Deus Todo‑Poderoso, afastem‑se de mim os maus Espíritos, servindo‑me os bons de antemural contra eles.
 
 Espíritos malfazejos, que inspirais maus pensamentos aos homens; Espíritos velhacos e mentirosos, que os enganais; Espíritos zombeteiros, que vos divertis com a credulidade deles, eu vos repilo com todas as forças de minha alma e fecho os ouvidos às vossas sugestões; mas, imploro para vós a misericórdia de Deus.
 
@@ -6317,9 +6025,7 @@ Bons Espíritos que vos dignais de assistir‑me, dai‑me a força de resistir 
 
 # Para pedir a corrigenda de um defeito
 
-# 18. PREFÁCIO.
-
-Os nossos maus instintos resultam da imperfeição do nosso próprio Espírito e não da nossa organização física; a não ser assim, o homem se acharia isento de toda espécie de responsabilidade.
+18. PREFÁCIO. Os nossos maus instintos resultam da imperfeição do nosso próprio Espírito e não da nossa organização física; a não ser assim, o homem se acharia isento de toda espécie de responsabilidade.
 
 
 
@@ -6330,9 +6036,7 @@ Os nossos maus instintos resultam da imperfeição do nosso próprio Espírito e
 
 De nós depende a nossa melhoria, pois todo aquele que se acha no gozo de suas faculdades tem, com relação a todas as coisas, a liberdade de fazer ou de não fazer. Para praticar o bem, de nada mais precisa senão do querer. (Cap. XV, nº 10; cap. XIX, nº 12.)
 
-# 19. Prece.
-
-Deste‑me, ó meu Deus, a inteligência necessária a distinguir o que é bem do que é mal. Ora, do momento em que reconheço que uma coisa é mal, torno‑me culpado, se não me esforçar por lhe resistir.
+19. Prece. Deste‑me, ó meu Deus, a inteligência necessária a distinguir o que é bem do que é mal. Ora, do momento em que reconheço que uma coisa é mal, torno‑me culpado, se não me esforçar por lhe resistir.
 
 Preserva‑me do orgulho que me poderia impedir de perceber os meus defeitos e dos maus Espíritos que me possam incitar a perseverar neles.
 
@@ -6352,35 +6056,25 @@ O Senhor, em sua infinita misericórdia, houve por bem conceder‑me a existênc
 
 ---
 
-
-
 # 403
 
 # PRECES ESPÍRITAS
 
 # Para pedir a força de resistir a uma tentação
 
-# 20. PREFÁCIO.
-
-Duas origens pede ter qualquer pensamento mau: a própria imperfeição de nossa alma, ou uma funesta influência que sobre ela se exerça. Neste último caso, há sempre indício de uma fraqueza que nos sujeita a receber essa influência; há, por conseguinte, indício de uma alma imperfeita. De sorte que aquele que venha a falir não poderá invocar por escusa a influência de um Espírito estranho, visto que esse Espírito não o teria arrastado ao mal, se o considerasse inacessível à sedução.
+20. PREFÁCIO. Duas origens pede ter qualquer pensamento mau: a própria imperfeição de nossa alma, ou uma funesta influência que sobre ela se exerça. Neste último caso, há sempre indício de uma fraqueza que nos sujeita a receber essa influência; há, por conseguinte, indício de uma alma imperfeita. De sorte que aquele que venha a falir não poderá invocar por escusa a influência de um Espírito estranho, visto que esse Espírito não o teria arrastado ao mal, se o considerasse inacessível à sedução.
 
 Quando surge em nós um mau pensamento, podemos, pois, imaginar um Espírito maléfico a nos atrair para o mal, mas a cuja atração podemos ceder ou resistir, como se se tratara das solicitações de uma pessoa viva. Devemos, ao mesmo tempo, imaginar que, por seu lado, o nosso anjo guardião, ou Espírito protetor, combate em nós a influência e espera com ansiedade a decisão que tomemos. A nossa hesitação em praticar o mal é a voz do Espírito bom, a se fazer ouvir pela nossa consciência.
 
 Reconhece‑se que um pensamento é mau, quando se afasta da caridade, que constitui a base da verdadeira moral, quando tem por princípio o orgulho, a vaidade, ou o egoísmo; quando a sua realização pode causar qualquer prejuízo a outrem; quando, enfim, nos induz a fazer aos outros o que não quereríamos que nos fizessem. (Cap. XXVIII, n° 15; cap. XV, nº 10.)
 
-# 21. Prece.
-
-Deus Todo‑Poderoso, não me deixes sucumbir à tentação que me impele a falir. Espíritos benfazejos, que me protegeis, afastai de mim este mau pensamento e dai‑me a força de resistir à sugestão do mal. Se eu sucumbir, merecerei expiar a minha falta nesta vida e na outra, porque tenho a liberdade de escolher.
+21. Prece. Deus Todo‑Poderoso, não me deixes sucumbir à tentação que me impele a falir. Espíritos benfazejos, que me protegeis, afastai de mim este mau pensamento e dai‑me a força de resistir à sugestão do mal. Se eu sucumbir, merecerei expiar a minha falta nesta vida e na outra, porque tenho a liberdade de escolher.
 
 # Ação de graças pela vitória alcançada sobre uma tentação
 
-# 22. PREFÁCIO.
+22. PREFÁCIO. Aquele que resistiu a uma tentação deve‑o à assistência dos bons Espíritos, a cuja voz atendeu. Cumpre‑lhe agradecê‑lo a Deus e ao seu anjo de guarda.
 
-Aquele que resistiu a uma tentação deve‑o à assistência dos bons Espíritos, a cuja voz atendeu. Cumpre‑lhe agradecê‑lo a Deus e ao seu anjo de guarda.
-
-# 23. Prece.
-
-Meu Deus, agradeço‑te o haveres permitido eu saísse vitorioso da luta que acabo de sustentar.
+23. Prece. Meu Deus, agradeço‑te o haveres permitido eu saísse vitorioso da luta que acabo de sustentar.
 
 
 
@@ -6395,9 +6089,9 @@ contra o mal. Faze que essa vitória me dê a força de resistir a novas tentaç
 
 24. PREFÁCIO. Quando estamos indecisos sobre o fazer ou não fazer uma coisa, devemos antes de tudo propor‑nos a nós mesmos as questões seguintes:
 
-1. Aquilo que eu hesito em fazer pode acarretar qualquer prejuízo a outrem?
-2. Pode ser proveitoso a alguém?
-3. Se agissem assim comigo, ficaria eu satisfeito?
+1.Aquilo que eu hesito em fazer pode acarretar qualquer prejuízo a outrem?
+2.Pode ser proveitoso a alguém?
+3.Se agissem assim comigo, ficaria eu satisfeito?
 
 Se o que pensamos fazer, somente a nós nos interessa, licito nos é pesar as vantagens e os inconvenientes pessoais que nos possam advir. Se interessa a outrem e se, resultando em bem para um, redundará em mal para outro, cumpre, igualmente, pesemos a soma de bem ou de mal que se produzirá, para nos decidirmos a agir, ou a abster‑nos. Enfim, mesmo em se tratando das melhores coisas, importa ainda consideremos a oportunidade e as circunstâncias concomitantes, porquanto uma coisa boa, em si mesma, pode dar maus resultados em mãos inábeis, se não for conduzida com prudência e circunspecção. Antes de empreendê‑la, convém consultemos as nossas forças e meios de execução. Em todos os casos, sempre podemos solicitar a assistência dos nossos Espíritos protetores, lembrados desta sábia advertência: Na dúvida, abstém-te. (Cap. XXVIII, nº 38.)
 
@@ -6406,7 +6100,6 @@ Se o que pensamos fazer, somente a nós nos interessa, licito nos é pesar as va
 # Nas aflições da vida.
 
 26. PREFÁCIO. Podemos pedir a Deus favores terrenos e Ele no‑los pode conceder, quando tenham um fim útil e sério. Mas, como
-
 
 
 ---
@@ -6418,9 +6111,7 @@ Se o que pensamos fazer, somente a nós nos interessa, licito nos é pesar as va
 
 A utilidade das coisas sempre a julgamos do nosso ponto de vista e como as nossas vistas se circunscrevem ao presente, nem sempre vemos o lado mau do que desejamos, Deus, que vê muito melhor do que nós e que só o nosso bem quer, pode recusar o que pecamos, como um pai nega ao filho o que lhe seja prejudicial. Se não nos é concedido o que pedimos, não devemos por isso entregar‑nos ao desânimo; devemos pensar, ao contrário, que a privação do que desejamos nos é imposta como prova, ou como expiação, e que a nossa recompensa será proporcionada à resignação com que a houvermos suportado. (Cap. XXVII, nº 6; cap. II, nº 5 a nº 7.)
 
-# 27. Prece.
-
-Deus Onipotente, que vês as nossas misérias, digna‑te de escutar, benevolente, a súplica que neste momento te dirijo. Se é desarrazoado o meu pedido, perdoa‑me; se é justo e conveniente segundo as tuas vistas, que os bons Espíritos, executores das tuas vontades, venham em meu auxílio para que ele seja satisfeito.
+27. Prece. Deus Onipotente, que vês as nossas misérias, digna‑te de escutar, benevolente, a súplica que neste momento te dirijo. Se é desarrazoado o meu pedido, perdoa‑me; se é justo e conveniente segundo as tuas vistas, que os bons Espíritos, executores das tuas vontades, venham em meu auxílio para que ele seja satisfeito.
 
 Como quer que seja, meu Deus, faça‑se a tua vontade. Se os meus desejos não forem atendidos, é que está nos teus desígnios experimentar‑me e eu me submeto sem me queixar. Faze que por isso nenhum desânimo me assalte e que nem a minha fé nem a minha resignação sofram qualquer abalo.
 
@@ -6428,9 +6119,7 @@ Como quer que seja, meu Deus, faça‑se a tua vontade. Se os meus desejos não 
 
 # Ação de graças por um favor obtido
 
-# 28. PREFÁCIO.
-
-Não se devem considerar como sucessos ditosos apenas o que seja de grande importância. Muitas vezes, coisas aparentemente insignificantes são as que mais influem em nosso destino. O homem facilmente esquece o bem, para, de preferência, lembrar‑se do que o aflige. Se registrássemos, dia a dia, os benéficos de que somos objeto, sem os havermos pedido, ficaríamos, com frequência, espantados de termos recebido tantos e tantos que se nos varreram da memória, e nos sentiríamos humilhados com a nossa ingratidão.
+28. PREFÁCIO. Não se devem considerar como sucessos ditosos apenas o que seja de grande importância. Muitas vezes, coisas aparentemente insignificantes são as que mais influem em nosso destino. O homem facilmente esquece o bem, para, de preferência, lembrar‑se do que o aflige. Se registrássemos, dia a dia, os benéficos de que somos objeto, sem os havermos pedido, ficaríamos, com frequência, espantados de termos recebido tantos e tantos que se nos varreram da memória, e nos sentiríamos humilhados com a nossa ingratidão.
 
 Todas as noites, ao elevarmos a Deus a nossa alma, devemos recordar em nosso íntimo os favores que Ele nos fez durante o dia e agradecer‑lhos. Sobretudo no momento mesmo em que experimentamos o efeito da sua bondade e da sua proteção, é que nos cumpre, por um movimento espontâneo, testemunhar‑lhe a nossa gratidão. Basta, para isso, que lhe dirijamos um pensamento, atribuindo‑lhe o benefício, sem que se faça mister interrompamos o nosso trabalho.
 
@@ -6443,15 +6132,11 @@ Todas as noites, ao elevarmos a Deus a nossa alma, devemos recordar em nosso ín
 
 Não consistem os benefícios de Deus unicamente em coisas materiais. Devemos também agradecer‑lhe as boas idéias, as felizes inspirações que recebemos. Ao passo que o egoísta atribui tudo isso aos seus méritos pessoais e o incrédulo ao acaso, aquele que tem fé rende graças a Deus e aos bons Espíritos. São desnecessárias, para esse efeito, longas frases. "Obrigado, meu Deus, pelo bom pensamento que me foi inspirado”, diz mais do que multas palavras. O impulso espontâneo, que nos faz atribuir a Deus o que de bom nos sucede, dá testemunho de um ato de reconhecimento e de humildade, que nos granjeia a simpatia dos bons Espíritos. (Cap. XXVII, nº 7 e nº 8.)
 
-# 29. Prece.
-
-Deus infinitamente bom, que o teu nome seja bendito pelos benéficos que me hás concedido. Indigno eu seria, se os atribuísse ao acaso dos acontecimentos, ou ao meu próprio mérito. Bons Espíritos, que fostes os executores das vontades de Deus, agradeço‑vos e especialmente a ti, meu Anjo Guardião. Afastai de mim a idéia de orgulhar‑me do que recebi e de não o aproveitar somente para o bem. Agradeço‑vos, em particular,...
+29. Prece. Deus infinitamente bom, que o teu nome seja bendito pelos benéficos que me hás concedido. Indigno eu seria, se os atribuísse ao acaso dos acontecimentos, ou ao meu próprio mérito. Bons Espíritos, que fostes os executores das vontades de Deus, agradeço‑vos e especialmente a ti, meu Anjo Guardião. Afastai de mim a idéia de orgulhar‑me do que recebi e de não o aproveitar somente para o bem. Agradeço‑vos, em particular,...
 
 # Ato de submissão e de resignação
 
-# 30. PREFÁCIO.
-
-Quando um motivo de aflição nos advém, se lhe procurarmos a causa, amiúde reconheceremos estar numa imprudência ou imprevidência nossa, ou, quando não, em um ato anterior. Em qualquer desses casos, só de nós mesmos nos devemos queixar. Se a causa de um infortúnio independe completamente de qualquer ação nossa, é ou uma prova para a existência atual, ou expiação de falta de uma existência anterior, caso, este último, em que, pela natureza da expiação, poderemos conhecer a natureza da falta, visto que somos sempre punidos por aquilo em que pecamos. (Cap. V, nº 4, nº 6 e seguintes.)
+30. PREFÁCIO. Quando um motivo de aflição nos advém, se lhe procurarmos a causa, amiúde reconheceremos estar numa imprudência ou imprevidência nossa, ou, quando não, em um ato anterior. Em qualquer desses casos, só de nós mesmos nos devemos queixar. Se a causa de um infortúnio independe completamente de qualquer ação nossa, é ou uma prova para a existência atual, ou expiação de falta de uma existência anterior, caso, este último, em que, pela natureza da expiação, poderemos conhecer a natureza da falta, visto que somos sempre punidos por aquilo em que pecamos. (Cap. V, nº 4, nº 6 e seguintes.)
 
 No que nos aflige, só vemos, em geral, o presente e não as ulteriores conseqüências favoráveis que possa ter a nossa aflição. Muitas vezes, o bem é a conseqüência de um mal passageiro, como a cura de uma enfermidade é o resultado dos meios dolorosos que se empregaram para combatê‑la. Em todos os casos devemos submeter‑nos à vontade de Deus, suportar com coragem as tribulações da vida, se queremos que elas nos sejam levadas em conta e que se nos possam aplicar estas palavras do Cristo: "Bem‑aventurados os que sofrem." (Cap. V, nº 18.)
 
@@ -6462,25 +6147,17 @@ No que nos aflige, só vemos, em geral, o presente e não as ulteriores conseqü
 
 # PRECES ESPÍRITAS
 
-# 31. Prece.
-
-Meu Deus, és soberanamente justo; todo sofrimento, neste mundo, há, pois, de ter a sua causa e a sua utilidade. Aceito a aflição que acabo de experimentar, como expiação de minhas faltas passadas e como prova para o futuro.
+31. Prece. Meu Deus, és soberanamente justo; todo sofrimento, neste mundo, há, pois, de ter a sua causa e a sua utilidade. Aceito a aflição que acabo de experimentar, como expiação de minhas faltas passadas e como prova para o futuro.
 
 Bons Espíritos que me protegeis, dai‑me forças para suportá‑la sem lamentos. Fazei que ela me seja um aviso salutar; que me acresça a experiência; que abata em mim o orgulho, a ambição, a tola vaidade e o egoísmo, e que contribua assim para o meu adiantamento.
 
-# 32. (Outra)
+32. (Outra) Sinto, ó meu Deus, necessidade de te pedir me dês forças para suportar as provações que te aprouve destinar‑me. Permite que a luz se faça bastante viva em meu espírito, para que eu aprecie toda a extensão de um amor que me aflige porque me quer salvar. Submeto‑me resignado, ó meu Deus; mas, a criatura é tão fraca, que temo sucumbir, se me não amparares. Não me abandones, Senhor, que sem ti nada posso.
 
-Sinto, ó meu Deus, necessidade de te pedir me dês forças para suportar as provações que te aprouve destinar‑me. Permite que a luz se faça bastante viva em meu espírito, para que eu aprecie toda a extensão de um amor que me aflige porque me quer salvar. Submeto‑me resignado, ó meu Deus; mas, a criatura é tão fraca, que temo sucumbir, se me não amparares. Não me abandones, Senhor, que sem ti nada posso.
-
-# 33. (Outra)
-
-A ti, dirigi o meu olhar, ó Eterno, e me senti fortalecido. Es a minha força, não me abandones. O meu Deus, sinto‑me esmagado sob o peso das minhas iniquidades. Ajuda‑me. Conheces a fraqueza da minha carne, não desvies de mim o teu olhar! Ardente sede me devora; faze brotar a fonte da água viva onde eu me dessedente. Que a minha boca só se abra para te entoar louvores e não para soltar queixas nas aflições da minha vida. Sou fraco, Senhor, mas o teu amor me sustentará. Ó Eterno, só tu és grande, só tu és o fim e o objetivo da minha vida! Bendito seja o teu nome, se me fazes sofrer, porquanto és o Senhor e eu o servo infiel. Curvarei a fronte sem me queixar, porquanto só tu és grande, só tu és a meta.
+33. (Outra) A ti, dirigi o meu olhar, ó Eterno, e me senti fortalecido. Es a minha força, não me abandones. O meu Deus, sinto‑me esmagado sob o peso das minhas iniquidades. Ajuda‑me. Conheces a fraqueza da minha carne, não desvies de mim o teu olhar! Ardente sede me devora; faze brotar a fonte da água viva onde eu me dessedente. Que a minha boca só se abra para te entoar louvores e não para soltar queixas nas aflições da minha vida. Sou fraco, Senhor, mas o teu amor me sustentará. Ó Eterno, só tu és grande, só tu és o fim e o objetivo da minha vida! Bendito seja o teu nome, se me fazes sofrer, porquanto és o Senhor e eu o servo infiel. Curvarei a fronte sem me queixar, porquanto só tu és grande, só tu és a meta.
 
 # Num perigo iminente
 
-# 34. PREFÁCIO.
-
-Pelos perigos que corremos, Deus nos adverte da nossa fraqueza e da fragilidade da nossa existência. Mostra‑nos que
+34. PREFÁCIO. Pelos perigos que corremos, Deus nos adverte da nossa fraqueza e da fragilidade da nossa existência. Mostra‑nos que
 
 
 
@@ -6493,27 +6170,19 @@ entre suas mãos está a nossa vida e que ela se acha presa por um fio que Se po
 
 Se examinarmos a natureza e as conseqüências do perigo, veremos que estas, as mais das vezes, se se verificassem, teriam sido a punição de uma falta cometida, ou da falta do cumprimento de um dever.
 
-# 35. Prece.
-
-Deus Todo‑Poderoso, e tu, meu anjo guardião, socorrei‑me! Se tenho de sucumbir, que a vontade de Deus se cumpra. Se devo ser salvo, que o restante da minha vida repare o mal que eu haja feito e do qual me arrependo.
+35. Prece. Deus Todo‑Poderoso, e tu, meu anjo guardião, socorrei‑me! Se tenho de sucumbir, que a vontade de Deus se cumpra. Se devo ser salvo, que o restante da minha vida repare o mal que eu haja feito e do qual me arrependo.
 
 # Ação de graças por haver escapado a um perigo
 
-# 36. PREFÁCIO.
+36. PREFÁCIO. Pelo perigo que tenhamos corrido, mostra‑nos Deus que, de um momento para outro, podemos ser chamados a prestar contas do modo por que utilizamos a vida. Avisa‑nos, assim, que devemos tomar tento e emendar‑nos.
 
-Pelo perigo que tenhamos corrido, mostra‑nos Deus que, de um momento para outro, podemos ser chamados a prestar contas do modo por que utilizamos a vida. Avisa‑nos, assim, que devemos tomar tento e emendar‑nos.
-
-# 37. Prece.
-
-Meu Deus, meu anjo de guarda, agradeço‑vos o socorro que me proporcionastes no perigo de que estive ameaçado. Seja para mim um aviso esse perigo e me esclareça sobre as faltas que me hajam colocado sob a sua ameaça. Compreendo, Senhor, que nas tuas mãos está a minha vida e que ma podes tirar, quando te apraza. Inspira‑me, por intermédio dos bons Espíritos que me assistem, o propósito de empregar utilmente o tempo que ainda me concederes de vida neste mundo.
+37. Prece. Meu Deus, meu anjo de guarda, agradeço‑vos o socorro que me proporcionastes no perigo de que estive ameaçado. Seja para mim um aviso esse perigo e me esclareça sobre as faltas que me hajam colocado sob a sua ameaça. Compreendo, Senhor, que nas tuas mãos está a minha vida e que ma podes tirar, quando te apraza. Inspira‑me, por intermédio dos bons Espíritos que me assistem, o propósito de empregar utilmente o tempo que ainda me concederes de vida neste mundo.
 
 Meu Anjo Guardião, firma‑me na resolução que tomo de reparar os meus erros e de fazer todo o bem que esteja ao meu alcance, a fim de chegar menos onerado de imperfeições ao mundo dos Espíritos, quando Deus determine o meu regresso para lá.
 
 # À hora de dormir
 
-# 38. PREFÁCIO.
-
-O sono tem por fim dar repouso ao corpo; o Espírito, porém, não precisa de repousar. Enquanto os sentidos físicos se acham entorpecidos, a alma se desprende, em parte, da matéria e
+38. PREFÁCIO. O sono tem por fim dar repouso ao corpo; o Espírito, porém, não precisa de repousar. Enquanto os sentidos físicos se acham entorpecidos, a alma se desprende, em parte, da matéria e
 
 
 
@@ -6529,18 +6198,11 @@ Mas, como se dá com o presidiário perverso, acontece que nem sempre o Espírit
 
 Eleve, pois, aquele que se ache compenetrado desta verdade, o seu pensamento a Deus, quando sinta aproximar‑se o sono, e peça o conselho dos bons Espíritos e de todos cuja memória lhe seja cara, a fim de que venham juntar‑se‑lhe, nos curtos instantes de liberdade que lhe são concedidos, e, ao despertar, sentir‑se‑á mais forte contra o mal, mais corajoso diante da adversidade.
 
-# 39. Prece.
+39. Prece. Minha alma vai estar por alguns instantes com os outros Espíritos. Venham os bons ajudar‑me com seus conselhos. Faze, meu anjo guardião, que, ao despertar, eu conserve durável e salutar impressão desse convívio.
 
-Minha alma vai estar por alguns instantes com os outros Espíritos. Venham os bons ajudar‑me com seus conselhos. Faze, meu anjo guardião, que, ao despertar, eu conserve durável e salutar impressão desse convívio.
+40. PREFÁCIO. A fé no futuro, a orientação do pensamento, durante a vida, para os destinos vindouros, favorecem e aceleram o desligamento do Espírito, por enfraquecerem os laços que o prendem ao corpo, tanto que, freqüentemente, a vida corpórea ainda se não extinguiu de todo, e a alma, impaciente, já alçou o vôo para a imensidade. Ao contrário, no homem que concentra nas coisas materiais todos os seus cuidados, aqueles laços são mais tenazes, penosa e dolorosa é a separação e cheio de perturbação e ansiedade o despertar no além‑túmulo.
 
-# 40. PREFÁCIO.
-
-A fé no futuro, a orientação do pensamento, durante a vida, para os destinos vindouros, favorecem e aceleram o desligamento do Espírito, por enfraquecerem os laços que o prendem ao corpo, tanto que, freqüentemente, a vida corpórea ainda se não extinguiu de todo, e a alma, impaciente, já alçou o vôo para a imensidade. Ao contrário, no homem que concentra nas coisas materiais todos os seus cuidados, aqueles laços são mais tenazes, penosa e dolorosa é a separação e cheio de perturbação e ansiedade o despertar no além‑túmulo.
-
-# 41. Prece.
-
-Meu Deus, creio em ti e na tua bondade infinita e, por isso mesmo, não posso crer hajas dado ao homem a inteligência, que lhe faculta conhecer‑te, e a aspiração pelo futuro, para o mergulhares no nada.
-
+41. Prece. Meu Deus, creio em ti e na tua bondade infinita e, por isso mesmo, não posso crer hajas dado ao homem a inteligência, que lhe faculta conhecer‑te, e a aspiração pelo futuro, para o mergulhares no nada.
 
 
 ---
@@ -6598,27 +6260,17 @@ Nota - Veja‑se, adiante, o parágrafo V: "Preces pelos doentes e obsidiados".
 
 A prece, neste caso, pode também ter efeito direto, dirigindo, sobre a pessoa por quem é feita, uma corrente fluídica com o intento de lhe fortalecer o moral. (Cap. V, nº 5 e nº 27; cap. XXVII, nº 6 e nº 10.)
 
-# 43. Prece.
-
-Deus de infinita bondade, digna‑te de suavizar o amargor da posição em que se encontra N..., se assim for a tua vontade. Bons Espíritos, em nome de Deus Todo‑Poderoso, eu vos suplico que o assistais nas suas aflições. Se, no seu interesse, elas lhe não puderem ser poupadas, fazei compreenda que são necessárias ao seu progresso. Dai‑lhe confiança em Deus e no futuro que lhas tornará menos acerbas. Dai‑lhe também forças para não sucumbir ao desespero, que lhe faria perder o fruto de seus sofrimentos e lhe tornaria ainda mais penosa no futuro a situação. Encaminhai para ele o meu pensamento, a fim de que o ajude a manter‑se corajoso.
+43. Prece.Deus de infinita bondade, digna‑te de suavizar o amargor da posição em que se encontra N..., se assim for a tua vontade. Bons Espíritos, em nome de Deus Todo‑Poderoso, eu vos suplico que o assistais nas suas aflições. Se, no seu interesse, elas lhe não puderem ser poupadas, fazei compreenda que são necessárias ao seu progresso. Dai‑lhe confiança em Deus e no futuro que lhas tornará menos acerbas. Dai‑lhe também forças para não sucumbir ao desespero, que lhe faria perder o fruto de seus sofrimentos e lhe tornaria ainda mais penosa no futuro a situação. Encaminhai para ele o meu pensamento, a fim de que o ajude a manter‑se corajoso.
 
 # Ação de graças por um benefício concedido a outrem
 
-# 44. PREFÁCIO.
+44. PREFÁCIO. Quem não se acha dominado pelo egoísmo rejubila‑se com o bem que acontece ao seu próximo, ainda mesmo que o não haja solicitado por meio da prece.
 
-Quem não se acha dominado pelo egoísmo rejubila‑se com o bem que acontece ao seu próximo, ainda mesmo que o não haja solicitado por meio da prece.
-
-# 45. Prece.
-
-Meu Deus, sê bendito pela felicidade que adveio a N... Bons Espíritos, fazei que nisso ele veja um efeito da bondade de Deus. Se o bem que lhe aconteceu é uma prova, inspirai‑lhe a lembrança de fazer bom uso dele e de se não envaidecer, a fim de que esse bem não redunde, de futuro, em prejuízo seu. A ti, bom gênio que me proteges e desejas a minha felicidade, peço afastes do meu coração todo sentimento de inveja ou de ciúme.
+45. Prece. Meu Deus, sê bendito pela felicidade que adveio a N... Bons Espíritos, fazei que nisso ele veja um efeito da bondade de Deus. Se o bem que lhe aconteceu é uma prova, inspirai‑lhe a lembrança de fazer bom uso dele e de se não envaidecer, a fim de que esse bem não redunde, de futuro, em prejuízo seu. A ti, bom gênio que me proteges e desejas a minha felicidade, peço afastes do meu coração todo sentimento de inveja ou de ciúme.
 
 # Pelos nossos inimigos e pelos que nos querem mal
 
-# 46. PREFÁCIO.
-
-Disse Jesus: Amai os vossos inimigos. Esta máxima é o sublime da caridade cristã; mas, enunciando‑a, não pretendeu Jesus
-
-
+46. PREFÁCIO. Disse Jesus: Amai os vossos inimigos. Esta máxima é o sublime da caridade cristã; mas, enunciando‑a, não pretendeu Jesus
 
 ---
 
@@ -6627,9 +6279,7 @@ Disse Jesus: Amai os vossos inimigos. Esta máxima é o sublime da caridade cris
 
 preceituar que devamos ter para com os nossos Inimigos o carinho que dispensamos aos amigos. Por aquelas palavras, ele nos recomenda que lhes esqueçamos as ofensas, que lhes perdoemos o mal que nos façam, que lhes paguemos com o bem esse mal. Além do merecimento que, aos olhos de Deus, resulta de semelhante proceder, ele eqüivale a mostrar aos homens o em que consiste a verdadeira superioridade. (Cap. XII, nº 3 e nº 4.)
 
-# 47. Prece
-
-Meu Deus, perdôo a N... o mal que me fez e o que me quis fazer, como desejo me perdoes e também ele me perdoe as faltas que eu haja cometido. Se o colocaste no meu caminho, como prova para mim, faça‑se a tua vontade.
+47. Prece. Meu Deus, perdôo a N... o mal que me fez e o que me quis fazer, como desejo me perdoes e também ele me perdoe as faltas que eu haja cometido. Se o colocaste no meu caminho, como prova para mim, faça‑se a tua vontade.
 
 Livra‑me, ó meu Deus, da idéia de o maldizer e de todo desejo malévolo contra ele. Faze que jamais me alegre com as desgraças que lhe cheguem, nem me desgoste com os bens que lhe poderão ser concedidos, a fim de não macular minha alma por pensamentos indignos de um cristão.
 
@@ -6692,9 +6342,7 @@ fazem mal e orai pelos que vos perseguem. Mostrai que sois seus verdadeiros disc
 
 A perseguição pouco durará. Aguardai com paciência o romper da aurora, pois que já rutila no horizonte a estrela d'alva. (Cap. XXIV, nº 13 e seguintes.)
 
-# 52. Prece
-
-Senhor, tu nos disseste pela boca de Jesus, o teu Messias: "Bem‑aventurados os que sofrem perseguição por amor da justiça; perdoai aos vossos inimigos; orai pelos que vos persigam." E ele próprio nos deu o exemplo, orando pelos seus algozes.
+52. Prece. Senhor, tu nos disseste pela boca de Jesus, o teu Messias: "Bem‑aventurados os que sofrem perseguição por amor da justiça; perdoai aos vossos inimigos; orai pelos que vos persigam." E ele próprio nos deu o exemplo, orando pelos seus algozes.
 
 Seguindo esse exemplo, meu Deus, imploramos a tua misericórdia para os que desprezam os teus sacratíssimos preceitos, únicos capazes de facultar a paz neste mundo e no outro. Como o Cristo, também nós te dizemos: "Perdoa‑lhes, Pai, que eles não sabem o que fazem."
 
@@ -6702,9 +6350,7 @@ Dá‑nos forças para suportar com paciência e resignação, como provas para 
 
 # Por uma criança que acaba de nascer
 
-# 53. PREFÁCIO
-
-Somente depois de terem passado pelas provas da vida corpórea, chegam à perfeição os Espíritos. Os que se encontram na erraticidade aguardam que Deus lhes permita volver a uma existência que lhes proporcione meios de progredir, quer pela expiação de suas faltas passadas, mediante as vicissitudes a que fiquem sujeitos, quer desempenhando uma missão proveitosa para a Humanidade.
+53. PREFÁCIO. Somente depois de terem passado pelas provas da vida corpórea, chegam à perfeição os Espíritos. Os que se encontram na erraticidade aguardam que Deus lhes permita volver a uma existência que lhes proporcione meios de progredir, quer pela expiação de suas faltas passadas, mediante as vicissitudes a que fiquem sujeitos, quer desempenhando uma missão proveitosa para a Humanidade.
 
 O seu adiantamento e a sua felicidade futura serão proporcionados à maneira por que empreguem o tempo que hajam de estar na Terra. O encargo de lhes guiar os primeiros passos e de os encaminhar para o bem cabe a seus pais, que responderão perante Deus pelo desempenho que derem a esse mandato. Para lhos facilitar, foi que Deus fez do amor paterno e do amor filial uma lei da Natureza, lei que jamais se transgride impunemente.
 
@@ -6715,19 +6361,13 @@ O seu adiantamento e a sua felicidade futura serão proporcionados à maneira po
 
 # PRECES ESPÍRITAS
 
-# 54. Prece. (Para ser dita pelos pais)
-
-Espírito que encarnaste no corpo do nosso filho, sê bem‑vindo. Sê bendito, ó Deus Onipotente, que no‑lo mandaste. É um depósito que nos foi confiado e do qual teremos um dia de prestar contas. Se ele pertence à nova geração de Espíritos bons que hão de povoar a Terra, obrigado, ó meu Deus, por essa graça! Se é uma alma imperfeita, corre‑nos o dever de ajudá‑lo a progredir na senda do bem, pelos nossos conselhos e bons exemplos. Se cair no mal, por culpa nossa, responderemos por isso, visto que, então, teremos falido em nossa missão junto dele. Senhor, ampara‑nos em nossa tarefa e dá‑nos a força e a vontade de cumpri‑la. Se este filho nos vem como provação para os nossos Espíritos, faça‑se a tua vontade!
+54. Prece. (Para ser dita pelos pais) Espírito que encarnaste no corpo do nosso filho, sê bem‑vindo. Sê bendito, ó Deus Onipotente, que no‑lo mandaste. É um depósito que nos foi confiado e do qual teremos um dia de prestar contas. Se ele pertence à nova geração de Espíritos bons que hão de povoar a Terra, obrigado, ó meu Deus, por essa graça! Se é uma alma imperfeita, corre‑nos o dever de ajudá‑lo a progredir na senda do bem, pelos nossos conselhos e bons exemplos. Se cair no mal, por culpa nossa, responderemos por isso, visto que, então, teremos falido em nossa missão junto dele. Senhor, ampara‑nos em nossa tarefa e dá‑nos a força e a vontade de cumpri‑la. Se este filho nos vem como provação para os nossos Espíritos, faça‑se a tua vontade!
 
 Bons Espíritos que presidistes ao seu nascimento e que tendes de acompanhá‑lo no curso de sua existência, não o abandoneis. Afastai dele os maus Espíritos que tentem orientá‑lo para o mal. Dai‑lhe forças para lhes resistir às sugestões e coragem para sofrer com paciência e resignação as provas que o esperam na Terra. (Cap. XIV, n° 9.)
 
-# 55. (Outra)
+55. (Outra) Meu Deus, confiaste‑me a sorte de um dos teus Espíritos; faze, Senhor, que eu seja digno do encargo que me impuseste. Concede‑me a tua proteção. Ilumina a minha inteligência, a fim de que eu possa perceber desde cedo as tendências daquele que me compete preparar para ascender à tua paz.
 
-Meu Deus, confiaste‑me a sorte de um dos teus Espíritos; faze, Senhor, que eu seja digno do encargo que me impuseste. Concede‑me a tua proteção. Ilumina a minha inteligência, a fim de que eu possa perceber desde cedo as tendências daquele que me compete preparar para ascender à tua paz.
-
-# 56. (Outra)
-
-Deus de bondade, pois que te aprouve permitir que o Espírito desta criança viesse de novo sofrer as provas terrenas, destinadas a fazê‑lo progredir, dá‑lhe luz, a fim de que aprenda a conhecer‑te, amar‑te e adorar‑te. Faze, pela tua onipotência, que esta alma se regenere na fonte das tuas sábias instruções; que, sob a égide do seu anjo guardião, a sua inteligência se desenvolva e amplie e o leve a ter por aspiração aproximar‑se cada vez mais de ti; que a ciência do Espiritismo seja a luz brilhante que o ilumine através dos escolhos da vida; que ele, enfim,
+56. (Outra) Deus de bondade, pois que te aprouve permitir que o Espírito desta criança viesse de novo sofrer as provas terrenas, destinadas a fazê‑lo progredir, dá‑lhe luz, a fim de que aprenda a conhecer‑te, amar‑te e adorar‑te. Faze, pela tua onipotência, que esta alma se regenere na fonte das tuas sábias instruções; que, sob a égide do seu anjo guardião, a sua inteligência se desenvolva e amplie e o leve a ter por aspiração aproximar‑se cada vez mais de ti; que a ciência do Espiritismo seja a luz brilhante que o ilumine através dos escolhos da vida; que ele, enfim,
 
 
 
@@ -6744,13 +6384,9 @@ Digna‑te, ó meu Deus, de atender a esta humilde prece, em nome e pelos mereci
 
 # Por um agonizante
 
-# 57. PREFÁCIO.
+57. PREFÁCIO. A agonia é o prelúdio da separação da alma e do corpo. Pode dizer‑se que, nesse momento, o homem tem um pé neste mundo e um no outro. É penosa às vezes essa passagem, para os que muito apegados se acham à matéria e viveram mais para os bens deste mundo do que para os do outro, ou cuja consciência se encontra agitada pelos pesares e remorsos. Para aqueles cujos pensamentos, ao contrário, buscaram o Infinito e se desprenderam da matéria, menos difíceis de romper‑se são os laços que o prendem à Terra e nada têm de dolorosos os seus últimos momentos. Apenas um fio liga, então, a alma ao corpo, enquanto que no outro caso profundas raízes a conservam presa a este. Em todos os casos, a prece exerce ação poderosa sobre o trabalho de separação. (Ver, adiante, "Preces pelos doentes"; também O Céu e o Inferno, 2ª Parte, cap. I ‑ "O Passamento".)
 
-A agonia é o prelúdio da separação da alma e do corpo. Pode dizer‑se que, nesse momento, o homem tem um pé neste mundo e um no outro. É penosa às vezes essa passagem, para os que muito apegados se acham à matéria e viveram mais para os bens deste mundo do que para os do outro, ou cuja consciência se encontra agitada pelos pesares e remorsos. Para aqueles cujos pensamentos, ao contrário, buscaram o Infinito e se desprenderam da matéria, menos difíceis de romper‑se são os laços que o prendem à Terra e nada têm de dolorosos os seus últimos momentos. Apenas um fio liga, então, a alma ao corpo, enquanto que no outro caso profundas raízes a conservam presa a este. Em todos os casos, a prece exerce ação poderosa sobre o trabalho de separação. (Ver, adiante, "Preces pelos doentes"; também O Céu e o Inferno, 2ª Parte, cap. I ‑ "O Passamento".)
-
-# 58. Prece.
-
-Deus onipotente e misericordioso, aqui está uma alma prestes a deixar o seu envoltório terreno para volver ao mundo dos Espíritos, sua verdadeira pátria. Dado lhe seja fazê‑lo em paz e que sobre ela se estenda a tua misericórdia.
+58. Prece. Deus onipotente e misericordioso, aqui está uma alma prestes a deixar o seu envoltório terreno para volver ao mundo dos Espíritos, sua verdadeira pátria. Dado lhe seja fazê‑lo em paz e que sobre ela se estenda a tua misericórdia.
 
 Bons Espíritos, que a acompanhastes na Terra, não a abandoneis neste momento supremo. Dai‑lhe forças para suportar os últimos sofrimentos por que lhe cumpre passar neste mundo, a bem do seu progresso futuro. Inspirai‑a, para que consagre ao arrependimento de suas faltas os últimos clarões de inteligência que lhe restem, ou que momentaneamente lhe advenham.
 
@@ -6772,7 +6408,6 @@ Dirigi o meu pensamento, a fim de que atue de modo a tomar menos penoso para ela
 59. PREFÁCIO. As preces pelos Espíritos que acabam de deixar a Terra não objetivam, unicamente, dar‑lhes um testemunho de simpatia: também têm por efeito auxiliar‑lhes o desprendimento e, desse modo, abreviar‑lhes a perturbação que sempre se segue à separação, tornando‑lhes mais calmo o despertar. Ainda aí, porém, como em qualquer outra circunstância, a eficácia está na sinceridade do pensamento e não na quantidade das palavras que se profiram mais ou menos pomposamente e em que, amiúde, nenhuma parte toma o coração. As preces que deste se elevam ressoam em torno do Espírito, cujas idéias ainda estão confusas, como as vozes amigas que nos fazem despertar do sono. (Cap. XXVII, n° l0.)
 
 60. Prece. - Onipotente Deus, que a tua misericórdia se derrame sobre a alma de N..., a quem acabaste de chamar da Terra. Possam ser‑lhe contadas as provas que aqui sofreu, bem como ter suavizadas e encurtadas as penas que ainda haja de suportar na Espiritualidade! Bons Espíritos que o viestes receber e tu, particularmente, seu anjo guardião, ajudai‑o a despojar‑se da matéria; dai‑lhe luz e a consciência de si mesmo, a fim de que saia presto da perturbação inerente à passagem da vida corpórea para a vida espiritual. inspirai‑lhe o arrependimento das faltas que haja cometido e o desejo de obter permissão pata as reparar, a fim de acelerar o seu avanço rumo à vida eterna bem‑aventurada. N..., acabas de entrar no mundo dos Espíritos e, no entanto, presente aqui te achas entre nós; tu nos vês e ouves, por isso que de menos do que havia, entre ti e nós, só há o corpo perecível que vens de abandonar e que em breve estará reduzido a pó.
-
 
 
 ---
@@ -6807,9 +6442,7 @@ Nota. - Podem acrescentar‑se a esta prece, que se aplica a todos, algumas pala
 
 família ou de relações, bem como a posição social que ocupava o defunto. Se se trata de uma criança, ensina‑nos o Espiritismo que não está ali um Espírito de criação recente, mas um que já viveu e que pode, mesmo, já ser muito adiantado. Se foi curta a sua última existência, é que não devia passar de uma completação de prova, ou constituir uma prova para os pais. (Cap.V, n° 21.)
 
-# 61. (Outra)
-
-(1). Senhor onipotente, que a tua misericórdia se estenda sobre os nossos irmãos que acabam de deixar a Terra! Que a tua luz brilhe para eles! Tira‑os das trevas; abre‑lhes os olhos e os ouvidos! Que os bons Espíritos os cerquem e lhes façam ouvir palavras de paz e de esperança!
+61. (Outra) (1). Senhor onipotente, que a tua misericórdia se estenda sobre os nossos irmãos que acabam de deixar a Terra! Que a tua luz brilhe para eles! Tira‑os das trevas; abre‑lhes os olhos e os ouvidos! Que os bons Espíritos os cerquem e lhes façam ouvir palavras de paz e de esperança!
 
 Senhor, ainda que muito indignos, ousamos implorar a tua misericordiosa indulgencia para este irmão nosso que acaba de ser chamado do exílio. Faze que o seu regresso seja o do filho pródigo. Esquece, ó meu Deus, as faltas que haja cometido, para te lembrares somente do bem que haja praticado. Imutável é a tua justiça, nós o sabemos; mas, imenso é o teu amor. Suplicamos‑te que abrandes aquela, na fonte de bondade que emana do teu seio.
 
@@ -6828,15 +6461,11 @@ _______________
 
 # Pelas pessoas a quem tivemos afeição
 
-# 62. PREFÁCIO.
-
-Que horrenda é a idéia do Nada! Quão de lastimar são os que acreditam que no vácuo se perde, sem encontrar eco que lhe responda, a voz do amigo que chora o seu amigo! Jamais conheceram as puras e santas afeições os que pensam que todo morre com o corpo; que o gênio, que com a sua vasta inteligência iluminou o mundo; é uma combinação de matéria, que, qual sopro, se extingue para sempre; que do mais querido ente, de um pai, de uma mãe, ou de um filho adorado não restará senão um pouco de pó que o vento irremediavelmente dispersará.
+62. PREFÁCIO. Que horrenda é a idéia do Nada! Quão de lastimar são os que acreditam que no vácuo se perde, sem encontrar eco que lhe responda, a voz do amigo que chora o seu amigo! Jamais conheceram as puras e santas afeições os que pensam que todo morre com o corpo; que o gênio, que com a sua vasta inteligência iluminou o mundo; é uma combinação de matéria, que, qual sopro, se extingue para sempre; que do mais querido ente, de um pai, de uma mãe, ou de um filho adorado não restará senão um pouco de pó que o vento irremediavelmente dispersará.
 
 Como pode um homem de coração conservar‑se frio a essa idéia? Como não o gela de terror a idéia de um aniquilamento absoluto e não lhe faz, ao menos, desejar que não seja assim? Se até hoje não lhe foi suficiente a razão para afastar de seu espírito quaisquer dúvidas, aí está o Espiritismo a dissipar toda incerteza com relação ao futuro, por meio das provas materiais que dá da sobrevivência da alma e da existência dos seres de além‑túmulo. Tanto assim é que por toda a parte essas provas são acolhidas com júbilo; a confiança renasce, pois que o homem doravante sabe que a vida terrestre é apenas uma breve passagem conducente a melhor vida; que seus trabalhos neste mundo não lhe ficam perdidos e que as mais santas afeições não se despedaçam sem mais esperanças. (Cap. IV, n° 18; Cap. V, n° 21.)
 
-# 63. Prece.
-
-Digna‑te, ó meu Deus, de acolher, benévolo, a prece que te dirijo pelo Espírito N... Faze‑lhe entrever as claridades divinas e torna‑lhe fácil o caminho da felicidade eterna. Permite que os bons Espíritos lhe levem as minhas palavras e o meu pensamento.
+63. Prece. Digna‑te, ó meu Deus, de acolher, benévolo, a prece que te dirijo pelo Espírito N... Faze‑lhe entrever as claridades divinas e torna‑lhe fácil o caminho da felicidade eterna. Permite que os bons Espíritos lhe levem as minhas palavras e o meu pensamento.
 
 Tu, que tão caro me eras neste mundo, escuta a minha voz, que te chama para te oferecer novo penhor da minha afeição. Permitiu Deus que te libertasses antes de mim e eu disso me não poderia queixar sem egoísmo, porquanto fora querer‑te sujeito ainda às penas e sofrimentos da vida. Espero, pois, resignado, o momento de nos reunirmos de novo no mundo mais venturoso no qual me precedeste.
 
@@ -6857,13 +6486,9 @@ Que a paz do Senhor seja contigo.
 
 Pelas almas sofredoras que pedem preces
 
-# 64. PREFÁCIO.
+64. PREFÁCIO. Para se compreender o alívio que a prece pode proporcionar aos Espíritos sofredores, faz‑se preciso saber de que maneira ela atua, conforme atrás ficou explicado. (Cap. XXVII, n° 9, n° 18 e seguintes.) Aquele que se ache compenetrado dessa verdade ora com mais fervor, pela certeza que tem de não orar em vão.
 
-Para se compreender o alívio que a prece pode proporcionar aos Espíritos sofredores, faz‑se preciso saber de que maneira ela atua, conforme atrás ficou explicado. (Cap. XXVII, n° 9, n° 18 e seguintes.) Aquele que se ache compenetrado dessa verdade ora com mais fervor, pela certeza que tem de não orar em vão.
-
-# 65. Prece.
-
-Deus clemente e misericordioso, que a tua bondade se estenda por sobre todos os Espíritos que se recomendam às nossas preces e particularmente sobre a alma de N...
+65. Prece. Deus clemente e misericordioso, que a tua bondade se estenda por sobre todos os Espíritos que se recomendam às nossas preces e particularmente sobre a alma de N...
 
 Bons Espíritos, que tendes por única ocupação fazer o bem, intercedei comigo pelo alívio deles. Fazei que lhes brilhe diante dos olhos um raio de esperança e que a luz divina os esclareça acerca das imperfeições que os conservam distantes da morada dos bem‑aventurados. Abri‑lhes o coração ao arrependimento e ao desejo de se depurarem, para que se lhes acelere o adiantamento. Fazei‑lhes compreender que, por seus esforços, podem eles encurtar a duração de suas provas.
 
@@ -6876,7 +6501,7 @@ Que Deus, em sua bondade, lhes dê a força de perseverarem nas boas resoluçõe
 
 # CAPÍTULO XXVIII
 
-66. (Outra) ‑ Nós te pedimos, Senhor, que espalhes as graças do teu amor e da tua misericórdia por todos Os que sofrem, quer no espaço como Espíritos errantes, quer entre nós como encarnados. Tem piedade das nossas fraquezas. Falíveis nos fizeste, mas dando‑nos capacidade para resistir ao mal e vencê‑lo. Que a tua misericórdia se estenda sobre todos os que não hão podido resistir aos seus maus pendores e que ainda se deixam arrastar por maus caminhos. Que os bons Espíritos os cerquem; que a tua luz lhes brilhe aos olhos e que, atraídos pelo calor vivificante dessa luz, eles venham prosternar‑se a teus pés, humildes, arrependidos e submissos.
+66. (Outra) Nós te pedimos, Senhor, que espalhes as graças do teu amor e da tua misericórdia por todos Os que sofrem, quer no espaço como Espíritos errantes, quer entre nós como encarnados. Tem piedade das nossas fraquezas. Falíveis nos fizeste, mas dando‑nos capacidade para resistir ao mal e vencê‑lo. Que a tua misericórdia se estenda sobre todos os que não hão podido resistir aos seus maus pendores e que ainda se deixam arrastar por maus caminhos. Que os bons Espíritos os cerquem; que a tua luz lhes brilhe aos olhos e que, atraídos pelo calor vivificante dessa luz, eles venham prosternar‑se a teus pés, humildes, arrependidos e submissos.
 
 Pedimos‑te, igualmente, Pai de misericórdia, por aqueles dos nossos irmãos que não tiveram forças para suportar suas provas terrenas. Tu, Senhor, nos deste um fardo a carregar e só aos teus pés temos de o depor. Grande, porém, é a nossa fraqueza e a coragem nos falta algumas vezes no curso da jornada. Compadece‑te desses servos indolentes que abandonaram antes da hora o trabalho. Que a tua justiça os poupe, e consente que os bons Espíritos lhes levem alivio, consolações e esperanças no futuro. A perspectiva do perdão fortalece a alma; mostra‑a, Senhor, aos culpados que desesperam e, sustentados por essa esperança, eles haurirão forças na grandeza mesma de suas faltas e de seus sofrimentos, a fim de resgatarem o passado e se prepararem a conquistar o futuro.
 
@@ -6899,13 +6524,9 @@ Que a tua misericórdia, meu Deus, desça sobre ele e afaste de mim a idéia de 
 
 # Por um criminoso
 
-# 69. PREFÁCIO.
+69. PREFÁCIO. Se a eficácia das preces fosse proporcional à extensão delas, as mais longas deveriam ficar reservadas para os mais culpados, porque mais lhes são elas necessárias do que àqueles que santamente viveram. Recusá‑las aos criminosos é faltar com a caridade e desconhecer a misericórdia de Deus; julgá‑las inúteis, quando um homem haja praticado tal ou tal erro, fora prejulgar a justiça do Altíssimo. (Cap. XI, n° 14.)
 
-Se a eficácia das preces fosse proporcional à extensão delas, as mais longas deveriam ficar reservadas para os mais culpados, porque mais lhes são elas necessárias do que àqueles que santamente viveram. Recusá‑las aos criminosos é faltar com a caridade e desconhecer a misericórdia de Deus; julgá‑las inúteis, quando um homem haja praticado tal ou tal erro, fora prejulgar a justiça do Altíssimo. (Cap. XI, n° 14.)
-
-# 70. Prece.
-
-Senhor, Deus de misericórdia, não repilas esse criminoso que acaba de deixar a Terra. A justiça dos homens o castigou, mas não o isentou da tua, se o remorso não lhe penetrou o coração.
+70. Prece. Senhor, Deus de misericórdia, não repilas esse criminoso que acaba de deixar a Terra. A justiça dos homens o castigou, mas não o isentou da tua, se o remorso não lhe penetrou o coração.
 
 Tira‑lhe dos olhos a venda que lhe oculta a gravidade de suas faltas. Possa o seu arrependimento merecer de ti acolhimento benévolo e abrandar os sofrimentos de sua alma!
 
@@ -6915,9 +6536,7 @@ Senhor, tem piedade dele!
 
 # Por um suicida
 
-# 71. PREFÁCIO.
-
-Jamais tem o homem o direito de dispor da sua vida, porquanto só a Deus cabe retirá‑lo do cativeiro da Terra, quando o julgue oportuno. Todavia, a justiça divina pode abrandar‑lhe os rigores, de acordo com as circunstâncias, reservando, porém, toda a severidade para com aquele que se quis subtrair às provas da vida. O suicida é qual prisioneiro que se evade da prisão, antes de cumprida.
+71. PREFÁCIO. Jamais tem o homem o direito de dispor da sua vida, porquanto só a Deus cabe retirá‑lo do cativeiro da Terra, quando o julgue oportuno. Todavia, a justiça divina pode abrandar‑lhe os rigores, de acordo com as circunstâncias, reservando, porém, toda a severidade para com aquele que se quis subtrair às provas da vida. O suicida é qual prisioneiro que se evade da prisão, antes de cumprida.
 
 
 
@@ -6928,9 +6547,7 @@ Jamais tem o homem o direito de dispor da sua vida, porquanto só a Deus cabe re
 
 a pena; quando preso de novo, é mais severamente tratado. O mesmo se dá com o suicida que julga escapar às misérias do presente e mergulha em desgraças maiores. (Cap. V, n° 14 e seguintes.)
 
-# 72. Prece.
-
-Sabemos, ó meu Deus, qual a sorte que espera os que violam a tua lei, abreviando voluntariamente seus dias; mas, também sabemos que infinita é a tua misericórdia. Digna‑te, pois, de estendê‑la sobre a alma de N... Possam as nossas preces e a tua comiseração abrandar a acerbidade dos sofrimentos que ele está experimentando, por não haver tido a coragem de aguardar o fim de suas provas.
+72. Prece. Sabemos, ó meu Deus, qual a sorte que espera os que violam a tua lei, abreviando voluntariamente seus dias; mas, também sabemos que infinita é a tua misericórdia. Digna‑te, pois, de estendê‑la sobre a alma de N... Possam as nossas preces e a tua comiseração abrandar a acerbidade dos sofrimentos que ele está experimentando, por não haver tido a coragem de aguardar o fim de suas provas.
 
 Bons Espíritos, que tendes por missão assistir os desgraçados, tomai‑o sob a vossa proteção; inspirai‑lhe o pesar da falta que cometeu. Que a vossa assistência lhe dê forças para suportar com mais resignação as novas provas por que haja de passar, a fim de repará‑la. Afastai dele os maus Espíritos, capazes de o impelirem novamente para o mal e prolongar‑lhe os sofrimentos, fazendo‑o perder o fruto de suas futuras provas.
 
@@ -6938,13 +6555,9 @@ A ti, cuja desgraça motiva as nossas preces, nos dirigimos também, para te exp
 
 Pelos Espíritos penitentes
 
-# 73. PREFÁCIO.
+73. PREFÁCIO. Fora injusto incluir na categoria dos Espíritos maus os sofredores e penitentes, que pedem preces. Podem eles ter sido maus, porém, já não o são, desde que reconhecem suas faltas e as deploram; são apenas infelizes. Já alguns começam mesmo a gozar de relativa felicidade.
 
-Fora injusto incluir na categoria dos Espíritos maus os sofredores e penitentes, que pedem preces. Podem eles ter sido maus, porém, já não o são, desde que reconhecem suas faltas e as deploram; são apenas infelizes. Já alguns começam mesmo a gozar de relativa felicidade.
-
-# 74. Prece.
-
-Deus de misericórdia, que aceitas o arrependimento sincero do pecador, encarnado ou desencarnado, aqui está um Espírito que se há comprazido no mal, porém, que reconhece seus erros e entra no bom
+74. Prece. Deus de misericórdia, que aceitas o arrependimento sincero do pecador, encarnado ou desencarnado, aqui está um Espírito que se há comprazido no mal, porém, que reconhece seus erros e entra no bom
 
 
 
@@ -6963,9 +6576,7 @@ Já está dado o primeiro passo; agora, quanto mais avançares no caminho, tanto
 
 # Pelos Espíritos endurecidos
 
-# 75. PREFÁCIO
-
-Os maus Espíritos são aqueles que ainda não foram tocados de arrependimento; que se deleitam no mal e nenhum pesar por isso sentem; que são insensíveis às reprimendas, repelem a prece e muitas vezes blasfemam do nome de Deus. São essas almas endurecidas que, após a morte, se vingam nos homens dos sofrimentos que suportam, e perseguem com o seu ódio aqueles a quem odiaram durante a vida, quer obsidiando‑os quer exercendo sobre eles qualquer influência funesta. (Cap. X, n° 6; Cap. XII, n° 5 e n° 6.)
+75. PREFÁCIO. Os maus Espíritos são aqueles que ainda não foram tocados de arrependimento; que se deleitam no mal e nenhum pesar por isso sentem; que são insensíveis às reprimendas, repelem a prece e muitas vezes blasfemam do nome de Deus. São essas almas endurecidas que, após a morte, se vingam nos homens dos sofrimentos que suportam, e perseguem com o seu ódio aqueles a quem odiaram durante a vida, quer obsidiando‑os quer exercendo sobre eles qualquer influência funesta. (Cap. X, n° 6; Cap. XII, n° 5 e n° 6.)
 
 
 
@@ -6985,7 +6596,6 @@ Bons Espíritos, ajudai‑nos a fazer‑lhe compreender que, induzindo os homens
 Espírito que ainda te comprazes no mal, vem ouvir a prece que por ti fazemos; ela te há de provar que desejamos o teu bem, conquanto faças o mal.
 
 És desgraçado, pois não se pode ser feliz fazendo o mal. Por que então te conservarás no sofrimento quando de ti depende evitá‑lo? Olha os bons Espíritos que te...
-
 
 
 ---
@@ -7033,23 +6643,17 @@ Dá, ó meu Deus, que esta enfermidade seja para mim um aviso salutar e me leve 
 
 # PRECES ESPÍRITAS
 
-# 79. Prece. (Pelo doente.)
-
-Meu Deus, são impenetráveis os teus desígnios e na tua sabedoria entendeste de afligir a N... pela enfermidade. Lança, eu te suplico, um olhar de compaixão sobre os seus sofrimentos e digna‑te de pôr‑lhes termo.
+79. Prece. (Pelo doente.) Meu Deus, são impenetráveis os teus desígnios e na tua sabedoria entendeste de afligir a N... pela enfermidade. Lança, eu te suplico, um olhar de compaixão sobre os seus sofrimentos e digna‑te de pôr‑lhes termo.
 
 Bons Espíritos, ministros do Onipotente, secundai, eu vos peço, o meu desejo de aliviá‑lo; encaminhai o meu pensamento, a fim de que vá derramar um bálsamo salutar em seu corpo e a consolação em sua alma.
 
 Inspirai‑lhe a paciência e a submissão à vontade de Deus; dai‑lhe a força de suportar suas dores com resignação cristã, a fim de que não perca o fruto desta prova. (Veja‑se a prece n° 57.)
 
-# 80. Prece. (Para ser dita pelo médium curador.)
-
-Meu Deus, se te dignas servir‑te de mim, indigno como sou, poderei curar esta enfermidade, se assim o quiseres, porque em ti deposito fé. Mas, sem ti, nada posso. Permite que os bons Espíritos me cumulem de seus fluidos benéficos, a fim de que eu os transmita a esse doente, e livra‑me de toda idéia de orgulho e de egoísmo que lhes pudesse alterar a pureza.
+80. Prece. (Para ser dita pelo médium curador.) Meu Deus, se te dignas servir‑te de mim, indigno como sou, poderei curar esta enfermidade, se assim o quiseres, porque em ti deposito fé. Mas, sem ti, nada posso. Permite que os bons Espíritos me cumulem de seus fluidos benéficos, a fim de que eu os transmita a esse doente, e livra‑me de toda idéia de orgulho e de egoísmo que lhes pudesse alterar a pureza.
 
 # Pelos obsidiados
 
-# 81. PREFÁCIO.
-
-A obsessão é a ação persistente que um Espírito mau exerce sobre um indivíduo. Apresenta caracteres muito diversos, desde a simples influência moral, sem perceptíveis sinais exteriores, até a perturbação completa do organismo e das faculdades mentais. Oblitera todas as faculdades mediúnicas; traduz‑se, na mediunidade escrevente, pela obstinação de um Espírito em se manifestar, com exclusão de todos os outros.
+81. PREFÁCIO. A obsessão é a ação persistente que um Espírito mau exerce sobre um indivíduo. Apresenta caracteres muito diversos, desde a simples influência moral, sem perceptíveis sinais exteriores, até a perturbação completa do organismo e das faculdades mentais. Oblitera todas as faculdades mediúnicas; traduz‑se, na mediunidade escrevente, pela obstinação de um Espírito em se manifestar, com exclusão de todos os outros.
 
 Os Espíritos maus pululam em torno da Terra, em virtude da inferioridade moral de seus habitantes. A ação malfazeja que eles desenvolvem faz parte dos flagelos com que a Humanidade se vê a braços neste mundo. A obsessão, como as enfermidades e todas as tribulações da vida, deve ser considerada prova ou expiação e como tal aceita.
 
@@ -7073,15 +6677,12 @@ A tarefa se apresenta mais fácil quando o obsidiado, compreendendo a sua situa�
 Em todos os casos de obsessão, a prece é o mais poderoso auxiliar de quem haja de atuar sobre o Espírito obsessor.
 
 
-
 ---
 
 
 # PRECES ESPÍRITAS
 
-# 82. Prece. (Para ser dita pelo obsidiado.)
-
-Meu Deus, permite que os bons Espíritos me livrem do Espírito malfazejo que se ligou a mim. Se é uma vingança que toma dos agravos que eu lhe haja feito outrora, tu a consentes, meu Deus, para minha punição e eu sofro a conseqüência da minha falta. Que o meu arrependimento me granjeie o teu perdão e a minha liberdade! Mas, seja qual for o motivo, imploro para o meu perseguidor a tua misericórdia. Digna‑te de lhe mostrar o caminho do progresso, que o desviará do pensamento de praticar o mal. Possa eu, de meu lado, retribuindo‑lhe com o bem o mal, induzi‑lo a melhores sentimentos.
+82. Prece. (Para ser dita pelo obsidiado.) Meu Deus, permite que os bons Espíritos me livrem do Espírito malfazejo que se ligou a mim. Se é uma vingança que toma dos agravos que eu lhe haja feito outrora, tu a consentes, meu Deus, para minha punição e eu sofro a conseqüência da minha falta. Que o meu arrependimento me granjeie o teu perdão e a minha liberdade! Mas, seja qual for o motivo, imploro para o meu perseguidor a tua misericórdia. Digna‑te de lhe mostrar o caminho do progresso, que o desviará do pensamento de praticar o mal. Possa eu, de meu lado, retribuindo‑lhe com o bem o mal, induzi‑lo a melhores sentimentos.
 
 Mas, também sei, ó meu Deus, que são as minhas imperfeições que me tornam passível das influências dos Espíritos imperfeitos. Dá‑me a luz de que necessito para as reconhecer; combate, sobretudo, em mim o orgulho que me cega com relação aos meus defeitos.
 
@@ -7089,9 +6690,7 @@ Qual não será a minha indignidade, pois que um ser malfazejo me pode subjugar!
 
 Senhor, dá‑me forças para suportar com paciência e resignação esta prova. Compreendo que, como todas as outras, há de ela concorrer para o meu adiantamento, se eu não lhe estragar o fruto com os meus queixumes, pois me proporciona ensejo de mostrar a minha submissão e de exercitar minha caridade para com um irmão infeliz, perdoando‑lhe o mal que me fez. (Cap. XII, nº 5 e nº 6; Cap. XXVIII, nº 15 e seguintes, 46 e 47.)
 
-# 83. Prece. (Pelo obsidiado.)
-
-Deus Onipotente, digna‑te de me dar o poder de libertar N... da influência do Espírito que o obsidia. Se está nos teus desígnios pôr termo a essa prova, concede‑me a graça de falar com autoridade a esse Espírito.
+83. Prece. (Pelo obsidiado.) Deus Onipotente, digna‑te de me dar o poder de libertar N... da influência do Espírito que o obsidia. Se está nos teus desígnios pôr termo a essa prova, concede‑me a graça de falar com autoridade a esse Espírito.
 
 
 
@@ -7104,9 +6703,7 @@ Bons Espíritos que me assistis e tu, seu anjo guardião, dai‑me o vosso concu
 
 Em nome de Deus Onipotente, adjuro o Espírito malfazejo que o atormenta a que se retire.
 
-# 84. Prece. (Pelo Espírito obsessor.)
-
-Deus infinitamente bom, a tua misericórdia imploro para o Espírito que obsidia N... Faze‑lhe entrever as divinas claridades, a fim de que reconheça falso o caminho por onde enveredou. Bons Espíritos, ajudai‑me a fazer‑lhe compreender que ele tudo tem a perder, praticando o mal, e tudo a ganhar, fazendo o bem.
+84. Prece. (Pelo Espírito obsessor.) Deus infinitamente bom, a tua misericórdia imploro para o Espírito que obsidia N... Faze‑lhe entrever as divinas claridades, a fim de que reconheça falso o caminho por onde enveredou. Bons Espíritos, ajudai‑me a fazer‑lhe compreender que ele tudo tem a perder, praticando o mal, e tudo a ganhar, fazendo o bem.
 
 Espírito que te comprazes em atormentar N..., escuta‑me, pois que te falo em nome de Deus.
 
@@ -7129,9 +6726,7 @@ A par disso, vê o que perdes; observa os bons Espíritos que te cercam e dize s
 
 (Veja‑se também, atrás, o nº 75: "Preces pelos Espíritos endurecidos".)
 
-# Observação
-
-A cura das obsessões graves requer muita paciência, perseverança e devotamento. Exige também tato e habilidade, a fim de encaminhar para o bem Espíritos muitas vezes perversos, endurecidos e astuciosos, porquanto há-os rebeldes ao extremo. Na maioria dos casos, temos de nos guiar pelas circunstâncias. Qualquer que seja, porém, o caráter do Espírito, nada se obtém, é isto um fato incontestável pelo constrangimento ou pela ameaça. Toda influência reside no ascendente moral. Outra verdade igualmente comprovada pela experiência tanto quanto pela lógica, é a completa ineficácia dos exorcismos, fórmulas, palavras sacramentais, amuletos, talismãs, práticas exteriores, ou quaisquer sinais materiais.
+Observação: A cura das obsessões graves requer muita paciência, perseverança e devotamento. Exige também tato e habilidade, a fim de encaminhar para o bem Espíritos muitas vezes perversos, endurecidos e astuciosos, porquanto há-os rebeldes ao extremo. Na maioria dos casos, temos de nos guiar pelas circunstâncias. Qualquer que seja, porém, o caráter do Espírito, nada se obtém, é isto um fato incontestável pelo constrangimento ou pela ameaça. Toda influência reside no ascendente moral. Outra verdade igualmente comprovada pela experiência tanto quanto pela lógica, é a completa ineficácia dos exorcismos, fórmulas, palavras sacramentais, amuletos, talismãs, práticas exteriores, ou quaisquer sinais materiais.
 
 A obsessão muito prolongada pode ocasionar desordens patológicas e reclama, por vezes, tratamento simultâneo ou consecutivo, quer magnético, quer médico, para restabelecer a saúde do organismo. Destruída a causa, resta combater os efeitos. (Veja-se: O Livro dos Médiuns, 2ª Parte, cap. XXIII - "Da obsessão". - Revue Spirite, fevereiro e março de 1864; abril de 1865: exemplos de curas de obsessões.)
 
