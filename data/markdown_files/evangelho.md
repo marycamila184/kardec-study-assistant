@@ -24,8 +24,6 @@ A EDITORA (FEB)
 
 ---
 
-# 23
-
 # PREFÁCIO
 
 
@@ -46,7 +44,7 @@ NOTA - A instrução acima, transmitida por via mediúnica, resume a um tempo o 
 
 ---
 
-# 25
+
 
 # I - OBJETIVO DESTA OBRA
 
@@ -56,7 +54,7 @@ Podem dividir-se em cinco partes as matérias contidas nos Evangelhos: os atos c
 
 ---
 
-# 26
+
 
 # INTRODUÇÃO
 
@@ -71,7 +69,7 @@ Para obviar a esses inconvenientes, reunimos, nesta obra, os artigos que podem c
 ---
 
 
-# 27
+
 
 # INTRODUÇÃO
 
@@ -93,7 +91,7 @@ Quanto aos médiuns, abstivemo-nos de nomeá-los. Na maioria dos casos, não os 
 
 ---
 
-# 28
+
 
 # INTRODUÇÃO
 
@@ -114,7 +112,7 @@ fazer exceções. Ao demais, os nomes dos médiuns nenhum valor teriam acrescent
 ---
 
 
-# 29
+
 
 # INTRODUÇÃO
 
@@ -129,7 +127,7 @@ Nessa universalidade do ensino dos Espíritos reside a força do Espiritismo e, 
 ---
 
 
-# 30
+
 
 # INTRODUÇÃO
 
@@ -180,7 +178,7 @@ Suponhamos praza a alguns Espíritos ditar, sob qualquer título, um livro em se
 ---
 
 
-# 34
+
 
 # INTRODUÇÃO
 
@@ -199,7 +197,7 @@ Com extrema sabedoria procedem os Espíritos superiores em suas revelações. N�
 ---
 
 
-# 35
+
 
 # INTRODUÇÃO
 
@@ -255,7 +253,7 @@ ______________
 
 
 
-# 38
+
 
 # INTRODUÇÃO
 
@@ -274,7 +272,7 @@ ____________
 ---
 
 
-# 39
+
 
 # INTRODUÇÃO
 
@@ -309,7 +307,7 @@ Os samaritanos estiveram quase constantemente em guerra com os reis de Judá. Av
 ---
 
 
-# 42
+
 
 # INTRODUÇÃO
 
@@ -432,7 +430,7 @@ XI. De duas uma: ou a morte é uma destruição absoluta, ou é passagem da alma
 ---
 
 
-# 49
+
 
 # INTRODUÇÃO
 
@@ -940,7 +938,7 @@ Contemplai, pois, à noite, à hora do repouso e da prece, a abóbada azulada e,
 
 
 
-# 81
+
 
 # HÁ MUITAS MORADAS
 
@@ -1284,7 +1282,7 @@ Assim se explicam pela pluralidade das existências e pela destinação da Terra
 ---
 
 
-# 103
+
 
 # BEM‑AVENTURADOS OS AFLITOS
 
@@ -1318,7 +1316,7 @@ Freqüentemente, o Espírito renasce no mesmo meio em que já viveu, estabelecen
 ---
 
 
-# 105
+
 
 # BEM‑AVENTURADOS OS AFLITOS
 
@@ -1352,7 +1350,7 @@ Tal o sentido das palavras: "Bem‑aventurados os aflitos, pois que serão conso
 ---
 
 
-# 107
+
 
 # BEM‑AVENTURADOS OS AFLITOS
 
@@ -1382,7 +1380,7 @@ Ao entrar no mundo dos Espíritos, o homem ainda está como o operário que comp
 ---
 
 
-# 109
+
 
 # BEM‑AVENTURADOS OS AFLITOS
 
@@ -1414,7 +1412,7 @@ O militar que não é mandado para as linhas de fogo fica descontente, porque o 
 ---
 
 
-# 111
+
 
 # BEM‑AVENTURADOS OS AFLITOS
 
@@ -1548,7 +1546,7 @@ Que de tormentos, ao contrário, se poupa aquele que sabe contentar‑se com o q
 ---
 
 
-# 119
+
 
 # BEM‑AVENTURADOS OS AFLITOS
 
@@ -1582,7 +1580,7 @@ Crede‑me, resisti com energia a essas impressões que vos enfraquecem a vontad
 ---
 
 
-# 121
+
 
 # BEM‑AVENTURADOS OS AFLITOS
 
@@ -2308,7 +2306,7 @@ Indubitavelmente, temperamentos há que se prestam mais que outros a atos violen
 ---
 
 
-# 167
+
 
 # OS QUE SÃO BRANDOS E PACÍFICOS
 
@@ -2354,7 +2352,7 @@ Há, porém, duas maneiras bem diferentes de perdoar: uma, grande, nobre, verdad
 ---
 
 
-# 171
+
 
 # OS QUE SÃO MISERICORDIOSOS
 
@@ -2607,7 +2605,7 @@ O Espiritismo a seu turno vem pronunciar uma segunda palavra do alfabeto divino.
 ---
 
 
-# 187
+
 
 # AMAR O PRÓXIMO COMO A SI MESMO
 
@@ -2784,7 +2782,7 @@ A diversidade na maneira de sentir, nessas duas circunstâncias diferentes, resu
 ---
 
 
-# 199
+
 
 # AMAI OS VOSSOS INIMIGOS
 
@@ -2906,7 +2904,7 @@ Efetivamente, meus filhos, que é essa coragem oriunda de um gênio violento, de
 ---
 
 
-# 207
+
 
 # AMAI OS VOSSOS INIMIGOS
 
@@ -2933,7 +2931,7 @@ Antes que chegue o momento decisivo, inquiris de vós mesmos se procedeis como c
 ---
 
 
-# 209
+
 
 # AMAI OS VOSSOS INIMIGOS
 
@@ -3142,7 +3140,7 @@ Notai que a vossa história guarda piedosa lembrança de uma multidão de homens
 ---
 
 
-# 223
+
 
 # NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA
 
@@ -3510,7 +3508,7 @@ Qual desses três te parece ter sido o próximo daquele que caíra em poder dos 
 ---
 
 
-# 247
+
 
 # FORA DA CARIDADE NÃO HÁ SALVAÇÃO
 
@@ -3827,7 +3825,7 @@ Ardente e desvairada cobiça despertam nos vossos corações os bens que Deus vo
 ---
 
 
-# 267
+
 
 # NÃO SE PODE SERVIR A DEUS E A MAMON
 
@@ -3968,7 +3966,7 @@ Não ficam assim enumeradas todas as qualidades que distinguem o homem de bem; m
 ---
 
 
-# 275
+
 
 # SEDE PERFEITOS
 
@@ -4275,7 +4273,7 @@ O primeiro cuidado de todo espírita sincero deve ser o de procurar saber se, no
 ---
 
 
-# 295
+
 
 # MUITOS OS CHAMADOS
 
@@ -4315,7 +4313,7 @@ Escutai essa palavra do Mestre, todos vós que repelis a Doutrina Espírita como
 ---
 
 
-# 297
+
 
 # MUITOS OS CHAMADOS
 
@@ -4380,7 +4378,7 @@ A fé sincera e verdadeira é sempre calma; faculta a paciência que sabe espera
 ---
 
 
-# 301
+
 
 # A FÉ TRANSPORTA MONTANHAS
 
@@ -4482,7 +4480,7 @@ A fé é humana ou divina, conforme o homem aplica suas faculdades à satisfaç�
 ---
 
 
-# 307
+
 
 # A FÉ TRANSPORTA MONTANHAS
 
@@ -4746,7 +4744,7 @@ Desconfiai, pois, dos falsos profetas, máxime numa época de renovação, qual 
 ---
 
 
-# 325
+
 
 # FALSOS CRISTOS E FALSOS PROFETAS
 
@@ -4842,7 +4840,7 @@ Nem a lei civil, porém, nem os compromissos que ela faz se contraiam podem supr
 ---
 
 
-# 331
+
 
 # NÃO SEPAREIS O QUE DEUS JUNTOU
 
@@ -5008,7 +5006,7 @@ Sócrates, também, não ensinara uma doutrina até certo ponto análoga à do C
 ---
 
 
-# 341
+
 
 # ESTRANHA MORAL
 
@@ -5036,7 +5034,7 @@ Em sua profunda sabedoria, ele tinha a previdência do que aconteceria. Mas, ess
 ---
 
 
-# 343
+
 
 # ESTRANHA MORAL
 
@@ -5237,7 +5235,7 @@ Mas, bem pouca coisa é, imperceptível mesmo, em grande número deles, o progre
 ---
 
 
-# 357
+
 
 # BUSCAI E ACHAREIS
 
@@ -5304,7 +5302,7 @@ A par do sentido próprio, essas palavras guardam um sentido moral muito profund
 ---
 
 
-# 361
+
 
 # BUSCAI E ACHAREIS
 
@@ -5467,7 +5465,7 @@ Se o anjo que acompanhou a Tobias lhe houvera dito: "Sou enviado por Deus para t
 ---
 
 
-# 373
+
 
 # PEDI E OBTEREIS
 
@@ -5557,7 +5555,7 @@ que nada dizem ao espírito. Para que a prece toque, preciso se torna que cada p
 ---
 
 
-# 379
+
 
 # PEDI E OBTEREIS
 
@@ -5599,7 +5597,7 @@ Assim, o Espírito culpado e infeliz pode sempre salvar‑se a si mesmo: a lei d
 ---
 
 
-# 381
+
 
 # PEDI E OBTEREIS
 
@@ -5867,7 +5865,7 @@ Isso não significa que ele se mostre surdo ao que lhe diga uma única pessoa; e
 ---
 
 
-# 395
+
 
 # PRECES ESPÍRITAS
 
@@ -5921,7 +5919,7 @@ Até os escravos e escravas (dos homens) receberão o Espírito, não somente os
 ---
 
 
-# 397
+
 
 # PRECES ESPÍRITAS
 
@@ -5967,7 +5965,7 @@ Se for tentado a cometer abuso, no que quer que seja, ou a me envaidecer da facu
 ---
 
 
-# 399
+
 
 # PRECES ESPÍRITAS
 
@@ -6009,7 +6007,7 @@ A ti sobretudo, N..., meu anjo guardião, que mais particularmente velas por mim
 ---
 
 
-# 401
+
 
 # PRECES ESPÍRITAS
 
@@ -6056,7 +6054,7 @@ O Senhor, em sua infinita misericórdia, houve por bem conceder‑me a existênc
 
 ---
 
-# 403
+
 
 # PRECES ESPÍRITAS
 
@@ -6105,7 +6103,7 @@ Se o que pensamos fazer, somente a nós nos interessa, licito nos é pesar as va
 ---
 
 
-# 405
+
 
 # PRECES ESPÍRITAS
 
@@ -6313,7 +6311,7 @@ Desejo, para experimentar a sinceridade do que digo, que ocasião se me apresent
 ---
 
 
-# 415
+
 
 # PRECES ESPÍRITAS
 
@@ -6395,7 +6393,7 @@ Bons Espíritos, que a acompanhastes na Terra, não a abandoneis neste momento s
 ---
 
 
-# 419
+
 
 # PRECES ESPÍRITAS
 
@@ -6436,7 +6434,7 @@ Nota. - Podem acrescentar‑se a esta prece, que se aplica a todos, algumas pala
 ---
 
 
-# 421
+
 
 # PRECES ESPÍRITAS
 
@@ -6601,7 +6599,7 @@ Espírito que ainda te comprazes no mal, vem ouvir a prece que por ti fazemos; e
 ---
 
 
-# 429
+
 
 # PRECES ESPÍRITAS
 

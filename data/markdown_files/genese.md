@@ -2151,9 +2151,6 @@ O calor, cujo aumento é progressivo à medida que se penetra no interior da Ter
 
 ---
 
-
-# 149
-
 # ESTADO PRIMITIVO DO GLOBO
 
 piradouros, ou pelas fendas que alguns tremores de terra abrem, não deixam dúvida sobre a existência de um fogo interior.

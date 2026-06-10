@@ -3246,11 +3246,7 @@ Uma senhora, viúva, cujo marido se comunica freqüentemente com ela, estava cer
 Por essa particularidade e outros detalhes descritos, a senhora reconheceu, sem haver possibilidade de engano, sua avó, em quem naquele instante absolutamente não pensava. Se o médium houvesse querido simular a faculdade-
 
 
-
 ---
-
-
-# 215
 
 # DOS MÉDIUNS
 
