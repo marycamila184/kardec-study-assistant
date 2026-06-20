@@ -49,6 +49,7 @@ EMBEDDING_MODEL: str = "paraphrase-multilingual-mpnet-base-v2"
 CHAT_MODEL: str = "claude-haiku-4-5"
 CONDENSER_MODEL: str = "claude-haiku-4-5"
 TOP_K: int = 5
+MAX_DISTANCE: float = 1.2     # cosine distance threshold — chunks above this are discarded
 MAX_HISTORY_TURNS: int = 10
 CHROMA_PATH: str = "data/embeddings/"
 CHROMA_COLLECTION: str = "kardec_docs"
@@ -115,11 +116,12 @@ Handles the full request cycle: query condensation → retrieval → prompt cons
 ```
 retrieve(query: str, top_k: int) -> list[dict]
   embed query with EmbeddingModel
-  query VectorStore
-  return top_k results with content + metadata
+  query VectorStore for top_k results
+  discard any result with distance > MAX_DISTANCE
+  return remaining chunks with content + metadata
 ```
 
-Returns raw retrieved chunks — no filtering or re-ranking at this stage.
+The distance filter is what triggers the out-of-doctrine path (see Section 5.4). ChromaDB uses cosine distance (range 0–2); `MAX_DISTANCE = 1.2` corresponds roughly to cosine similarity < 0.4, meaning the query has little semantic overlap with anything in the corpus.
 
 ### 5.2 `prompt.py`
 
@@ -180,6 +182,36 @@ generate(question: str, history: list[dict]) -> dict
 
 No streaming for the PoC. Streaming can be added later by changing the `create()` call.
 
+### 5.4 Out-of-Doctrine Handling
+
+When a user asks something with no grounding in Kardec's works (e.g., questions about other religions, general philosophy, or topics simply not covered), the system must not hallucinate doctrine. There are two layers of protection:
+
+**Layer 1 — Distance filter (hard gate, no Claude call):**
+
+If `retriever.retrieve()` returns an empty list after filtering, `generator.generate()` short-circuits immediately — Claude is never called. The response is a fixed Portuguese message:
+
+> *"Não encontrei nas obras de Kardec informações suficientes para responder a essa pergunta. Por favor, reformule sua dúvida ou consulte diretamente as obras."*
+
+The `ChatResponse` in this case has `sources: []` and `not_found: true`. This saves API cost and avoids any chance of Claude improvising.
+
+**Layer 2 — System prompt instruction (soft gate, Claude handles it):**
+
+When some chunks are retrieved but their content is only marginally relevant, the system prompt explicitly instructs Claude:
+
+> *"If the passages do not contain enough information to answer, say so explicitly — do not invent doctrine."*
+
+Claude will respond in Portuguese that it cannot find a sufficient answer, and may suggest rephrasing or pointing to a specific book.
+
+**What triggers the out-of-doctrine path:**
+
+| Scenario | Distance result | Path |
+|---|---|---|
+| Clear doctrine question (reencarnação, médiuns, etc.) | Low (< 0.8) | Normal generation |
+| Tangentially related question | Medium (0.8–1.2) | Generation with marginal chunks; Claude soft-gates if needed |
+| Completely off-topic question | High (> 1.2) | All chunks discarded → hard gate → fixed "not found" message |
+
+The `MAX_DISTANCE` threshold (default 1.2) is tunable in config and may need adjustment after testing on real queries.
+
 ---
 
 ## 6. API Layer (`src/api/`)
@@ -203,6 +235,7 @@ class Source(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     sources: list[Source]
+    not_found: bool = False   # True when no chunks passed the distance threshold
 ```
 
 No session_id — the client owns conversation history. The API is stateless.
@@ -232,36 +265,33 @@ Run via: `uv run uvicorn src.api.main:app --reload`
 
 ## 7. End-to-End Data Flow
 
-```
-Client
-  POST /chat {question, history}
-        ↓
-  routes.py → generator.generate()
-        ↓
-  [if history] condenser → claude-haiku-4-5 → condensed_query
-        ↓
-  retriever.retrieve(condensed_query)
-        ↓
-  EmbeddingModel.encode(condensed_query)
-        ↓
-  VectorStore.query() → top 5 chunks
-        ↓
-  prompt.build_messages(original_question, chunks, history)
-        ↓
-  claude-haiku-4-5 → answer text
-        ↓
-  ChatResponse {answer, sources}
-        ↓
-  Client
+```mermaid
+flowchart TD
+    A([Client\nPOST /chat]) --> B{Has history?}
+
+    B -- yes --> C[condenser\nclaude-haiku-4-5]
+    C --> D[condensed_query]
+    B -- no --> D[original question]
+
+    D --> E[EmbeddingModel.encode]
+    E --> F[VectorStore.query\ntop K results]
+    F --> G{All distances\n> MAX_DISTANCE?}
+
+    G -- yes --> H[/"Não encontrei nas obras\nde Kardec informações\nsuficientes…"/]
+    H --> I([ChatResponse\nanswer, sources=[], not_found=true])
+
+    G -- no --> J[prompt.build_messages\noriginal question + chunks + history]
+    J --> K[claude-haiku-4-5\ngenerate answer]
+    K --> L([ChatResponse\nanswer, sources, not_found=false])
 ```
 
 ---
 
 ## 8. Error Handling
 
-- **No chunks retrieved** (distance too large): generator passes empty chunks list; system prompt instructs Claude to say it couldn't find relevant content. No special error path.
+- **Out-of-doctrine question**: handled by the two-layer system in Section 5.4 — no special error path needed.
 - **Anthropic API error**: let FastAPI's default 500 propagate for the PoC. No retry logic.
-- **Missing JSON files** (ingestion not run): ingestion pipeline prints a warning and skips; ChromaDB collection will be empty, which triggers the "no chunks" path above.
+- **Missing JSON files** (ingestion not run): ingestion pipeline prints a warning and skips; ChromaDB collection will be empty, which triggers the out-of-doctrine hard gate for every query.
 
 ---
 
