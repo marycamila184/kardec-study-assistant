@@ -84,9 +84,11 @@ VectorStore
     returns: list of {"content": str, "metadata": dict, "distance": float}
 ```
 
-Metadata stored per chunk: `book`, `part`, `chapter`, `chapter_title`, `item_number`, `subchunk_index`, `total_subchunks`. Footnotes are omitted from metadata (too large) but included in the `content` field if non-empty.
+Metadata stored per chunk: `book`, `part`, `chapter`, `chapter_title`, `item_number`, `subchunk_index`, `total_subchunks`.
 
-Document ID format: `{book_slug}_{item_number}_{subchunk_index}` — stable across re-runs, allowing upsert to be idempotent.
+The **document string** stored in ChromaDB (and returned to the prompt) is `content` + footnote text concatenated, so Kardec's footnotes are searchable and visible to the model. Footnotes are serialised as `"\n[Nota N] <text>"` and appended at ingestion time.
+
+Document ID format: `{book_filename_stem}_{item_number}_{subchunk_index}` (e.g. `livro-espiritos_132_1`) — stable across re-runs, making upsert idempotent.
 
 ### 4.3 `pipeline.py`
 
