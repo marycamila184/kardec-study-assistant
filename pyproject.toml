@@ -8,20 +8,25 @@ authors = [
 requires-python = ">=3.12"
 
 dependencies = [
-    "openai>=1.0.0",
-    "tiktoken>=0.5.0",
-    "python-dotenv"
+    "anthropic>=0.20.0",
+    "sentence-transformers>=2.7.0",
+    "chromadb>=0.4.0",
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.27.0",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "black",
     "isort",
     "pytest",
+    "httpx",
 ]
 
-[tool.pdm]
-distribution = false
+[tool.uv]
+package = false
 
 [tool.black]
 line-length = 88
@@ -29,11 +34,4 @@ target-version = ["py312"]
 
 [tool.isort]
 profile = "black"
-
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
-[tool.pdm.scripts]
-parsing = "python -m src.parsing.parsing_pipeline"
 
