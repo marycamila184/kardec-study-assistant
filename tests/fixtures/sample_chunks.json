@@ -1,0 +1,24 @@
+[
+  {
+    "book": "O Livro dos Espíritos",
+    "part": "SEGUNDA PARTE",
+    "chapter": "CAPÍTULO I",
+    "chapter_title": "Da Encarnação dos Espíritos",
+    "item_number": "132",
+    "subchunk_index": 1,
+    "total_subchunks": 1,
+    "content": "A encarnação dos Espíritos tem por fim fazê-los progredir.",
+    "footnotes": [{"number": "1", "content": "Nota de rodapé de exemplo."}]
+  },
+  {
+    "book": "O Livro dos Espíritos",
+    "part": "SEGUNDA PARTE",
+    "chapter": "CAPÍTULO I",
+    "chapter_title": "Da Encarnação dos Espíritos",
+    "item_number": "133",
+    "subchunk_index": 1,
+    "total_subchunks": 1,
+    "content": "O Espírito encarnado habita o corpo do homem.",
+    "footnotes": []
+  }
+]
