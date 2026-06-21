@@ -4,4 +4,4 @@ import pytest
 
 @pytest.fixture(autouse=True, scope="session")
 def set_test_env():
-    os.environ.setdefault("ANTHROPIC_API_KEY", "test-api-key")
+    os.environ.setdefault("GROQ_API_KEY", "test-api-key")

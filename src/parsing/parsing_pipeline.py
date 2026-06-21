@@ -10,11 +10,11 @@ OUTPUT_DIRECTORY = "data/json_files"
 
 
 BOOK_NAME_MAP = {
-    "livro-espiritos": "O Livro dos Espíritos",
-    "livro-mediuns": "O Livro dos Médiuns",
+    #"livro-espiritos": "O Livro dos Espíritos",
+    #"livro-mediuns": "O Livro dos Médiuns",
     "evangelho": "O Evangelho Segundo o Espiritismo",
     "ceu-inferno": "O Céu e o Inferno",
-    "genese": "A Gênese" 
+    #"genese": "A Gênese" 
 }
 
 
@@ -30,12 +30,12 @@ def process_all_books():
         markdown_path = os.path.join(INPUT_DIRECTORY, filename)
         base_name = filename.replace(".md", "").strip()
 
-        if base_name not in BOOK_NAME_MAP:
-            print(f"Book not found in mapping dictionary: {base_name}")
-            continue
-
         output_filename = base_name + ".json"
         output_path = os.path.join(OUTPUT_DIRECTORY, output_filename)
+
+        if base_name not in BOOK_NAME_MAP:
+            print(f"Skipping: {base_name} (not in BOOK_NAME_MAP)")
+            continue
 
         print(f"Processing: {base_name}")
 

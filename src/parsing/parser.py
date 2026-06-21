@@ -12,6 +12,7 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
     part = None
     chapter = None
     chapter_title = None
+    subsection = None
 
     results = []
     current_section = None
@@ -35,6 +36,7 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
                     "part": part,
                     "chapter": chapter,
                     "chapter_title": chapter_title,
+                    "subsection": subsection,
                     "item_number": current_section if current_section else f"section-{section_counter}",
                     "subchunk_index": idx,
                     "total_subchunks": len(subchunks),
@@ -63,8 +65,8 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
                 note_buffer.append(match_note.group(2))
                 continue
 
-            # Stop footnote when a new header or section appears
-            if line.startswith("#") or re.match(r'^\d+\.\s-', line):
+            # Stop footnote when a new header or numbered item appears
+            if line.startswith("#") or re.match(r'^\d+\.\s+', line):
                 if note_number:
                     footnotes.append({
                         "number": note_number,
@@ -78,47 +80,52 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
                 note_buffer.append(line)
                 continue
 
-        # Detect Part
-        if line.startswith("#") and "PARTE" in line:
+        # Detect Part (excludes combined "Xª PARTE - CAPÍTULO Y" headings)
+        if line.startswith("#") and "PARTE" in line and "CAPÍTULO" not in line:
             save_section()
             part = line.replace("#", "").strip()
+            chapter_title = None
+            subsection = None
             current_section = None
             content_buffer = []
             footnotes = []
             continue
 
-        # Detect Chapter
+        # Detect Chapter (handles "CAPÍTULO Y" and "Xª PARTE - CAPÍTULO Y")
         if line.startswith("#") and "CAPÍTULO" in line:
             save_section()
-            chapter = line.replace("#", "").strip()
+            chapter_str = line.replace("#", "").strip()
+            if "PARTE" in chapter_str and " - " in chapter_str:
+                chapter_str = chapter_str.split(" - ", 1)[1]
+            chapter = chapter_str
+            chapter_title = None
+            subsection = None
             current_section = None
             content_buffer = []
             footnotes = []
             continue
 
-        # Detect Chapter Title
+        # Detect Chapter Title or Subsection:
+        # - first heading after a chapter → chapter_title
+        # - subsequent headings within the same chapter → subsection
         if line.startswith("#") and "PARTE" not in line and "CAPÍTULO" not in line:
             save_section()
-            chapter_title = line.replace("#", "").strip()
+            heading = line.replace("#", "").strip()
+            if chapter_title is None:
+                chapter_title = heading
+            else:
+                subsection = heading
             current_section = None
             content_buffer = []
             footnotes = []
             continue
 
-        # Numbered item
-        match_item = re.match(r'^(\d+)\.\s-', line)
+        # Numbered item (matches "N. text" with or without a leading dash)
+        match_item = re.match(r'^(\d+)\.\s+', line)
         if match_item:
             save_section()
             current_section = match_item.group(1)
             content_buffer = [line]
-            footnotes = []
-            continue
-
-        # New unnumbered header treated as section boundary
-        if line.startswith("#"):
-            save_section()
-            current_section = line.replace("#", "").strip()
-            content_buffer = []
             footnotes = []
             continue
 

@@ -25,9 +25,9 @@ def mock_retrieve(monkeypatch):
 @pytest.fixture
 def mock_client(monkeypatch):
     response = MagicMock()
-    response.content = [MagicMock(text="Resposta gerada.")]
+    response.choices = [MagicMock(message=MagicMock(content="Resposta gerada."))]
     client = MagicMock()
-    client.messages.create.return_value = response
+    client.chat.completions.create.return_value = response
     monkeypatch.setattr("src.rag.generator._get_client", lambda: client)
     return client
 
@@ -50,7 +50,7 @@ def test_generate_not_found_when_no_chunks(monkeypatch, mock_client):
     result = generate("Fale sobre budismo", [])
     assert result["not_found"] is True
     assert result["sources"] == []
-    mock_client.messages.create.assert_not_called()
+    mock_client.chat.completions.create.assert_not_called()
 
 
 def test_generate_calls_condenser_when_history_present(mock_retrieve, mock_client):

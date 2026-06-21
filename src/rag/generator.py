@@ -1,4 +1,4 @@
-import anthropic
+from openai import OpenAI
 
 from src.core.config import settings
 from src.rag.prompt import build_messages
@@ -9,13 +9,16 @@ NOT_FOUND_MESSAGE = (
     "a essa pergunta. Por favor, reformule sua dúvida ou consulte diretamente as obras."
 )
 
-_client: anthropic.Anthropic | None = None
+_client: OpenAI | None = None
 
 
-def _get_client() -> anthropic.Anthropic:
+def _get_client() -> OpenAI:
     global _client
     if _client is None:
-        _client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
+        _client = OpenAI(
+            api_key=settings.groq_api_key,
+            base_url="https://api.groq.com/openai/v1",
+        )
     return _client
 
 
@@ -29,12 +32,12 @@ def condense_query(question: str, history: list[dict]) -> str:
         f"Reescreva a seguinte pergunta como uma consulta de busca independente e completa. "
         f"Retorne apenas a consulta reescrita, sem explicações.\n\nPergunta: {question}"
     )
-    response = _get_client().messages.create(
+    response = _get_client().chat.completions.create(
         model=settings.condenser_model,
         max_tokens=256,
         messages=[{"role": "user", "content": prompt}],
     )
-    return response.content[0].text.strip()
+    return response.choices[0].message.content.strip()
 
 
 def generate(question: str, history: list[dict]) -> dict:
@@ -45,11 +48,10 @@ def generate(question: str, history: list[dict]) -> dict:
         return {"answer": NOT_FOUND_MESSAGE, "sources": [], "not_found": True}
 
     system, messages = build_messages(question, chunks, history, settings.max_history_turns)
-    response = _get_client().messages.create(
+    response = _get_client().chat.completions.create(
         model=settings.chat_model,
         max_tokens=1024,
-        system=system,
-        messages=messages,
+        messages=[{"role": "system", "content": system}] + messages,
     )
 
     seen: set[tuple] = set()
@@ -66,7 +68,7 @@ def generate(question: str, history: list[dict]) -> dict:
             })
 
     return {
-        "answer": response.content[0].text,
+        "answer": response.choices[0].message.content,
         "sources": sources,
         "not_found": False,
     }

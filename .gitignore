@@ -1,6 +1,17 @@
-# Ignore original PDFs and generated embeddings
+# Ignore original PDFs and generated/regenerable data
 data/books/
 data/embeddings/
+data/json_files/
+
+# Local tool state
+.claude/
+.agents/
+.superpowers/
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Python
 __pycache__/
