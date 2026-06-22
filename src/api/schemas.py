@@ -88,3 +88,17 @@ class ReflectResponse(BaseModel):
     sources: list[StudySource]
     not_found: bool = False
     generation_failed: bool = False
+
+
+class EvangelhoSource(BaseModel):
+    book: str
+    chapter_title: str | None = None
+    item_number: str | None = None
+    subchunk_index: int | None = None
+    total_subchunks: int | None = None
+
+
+class EvangelhoResponse(BaseModel):
+    date: str
+    content: str
+    source: EvangelhoSource

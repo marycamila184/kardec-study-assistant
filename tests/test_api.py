@@ -207,3 +207,42 @@ def test_reflect_passes_situation_to_reflect_fn():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
         client.post("/reflect", json={"situation": "me sinto vazio"})
     mock_fn.assert_called_once_with("me sinto vazio")
+
+
+_EVANGELHO_PASSAGE = {
+    "date": "2026-06-22",
+    "content": "Bem-aventurados os que têm puro o coração.",
+    "source": {
+        "book": "O Evangelho segundo o Espiritismo",
+        "chapter_title": "Bem-aventuranças",
+        "item_number": "section-4",
+        "subchunk_index": 1,
+        "total_subchunks": 1,
+    },
+}
+
+
+def test_evangelho_returns_200():
+    with patch("src.api.routes.get_daily_passage", return_value=_EVANGELHO_PASSAGE):
+        response = client.get("/evangelho")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["date"] == "2026-06-22"
+    assert data["content"] == "Bem-aventurados os que têm puro o coração."
+
+
+def test_evangelho_response_has_source_fields():
+    with patch("src.api.routes.get_daily_passage", return_value=_EVANGELHO_PASSAGE):
+        data = client.get("/evangelho").json()
+    assert data["source"]["book"] == "O Evangelho segundo o Espiritismo"
+    assert data["source"]["chapter_title"] == "Bem-aventuranças"
+    assert data["source"]["item_number"] == "section-4"
+    assert data["source"]["subchunk_index"] == 1
+    assert data["source"]["total_subchunks"] == 1
+
+
+def test_evangelho_returns_503_when_not_indexed():
+    with patch("src.api.routes.get_daily_passage", return_value=None):
+        response = client.get("/evangelho")
+    assert response.status_code == 503
+    assert response.json()["detail"]["error"] == "evangelho_not_indexed"

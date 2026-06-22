@@ -4,6 +4,8 @@ from src.api.paths import load_all_paths, load_path
 from src.api.schemas import (
     ChatRequest,
     ChatResponse,
+    EvangelhoResponse,
+    EvangelhoSource,
     PathDetail,
     PathSummary,
     ReflectRequest,
@@ -13,6 +15,7 @@ from src.api.schemas import (
     StudyResponse,
 )
 from src.core.config import settings
+from src.rag.evangelho import get_daily_passage
 from src.rag.generator import generate
 from src.rag.mode_detector import detect_suggested_mode
 from src.rag.reflect import reflect as reflect_fn
@@ -66,6 +69,21 @@ def study(request: StudyRequest) -> StudyResponse:
 def reflect_situation(request: ReflectRequest) -> ReflectResponse:
     result = reflect_fn(request.situation)
     return ReflectResponse(**result)
+
+
+@router.get("/evangelho", response_model=EvangelhoResponse)
+def evangelho() -> EvangelhoResponse:
+    passage = get_daily_passage()
+    if passage is None:
+        raise HTTPException(
+            status_code=503,
+            detail={"error": "evangelho_not_indexed"},
+        )
+    return EvangelhoResponse(
+        date=passage["date"],
+        content=passage["content"],
+        source=EvangelhoSource(**passage["source"]),
+    )
 
 
 @router.get("/health")
