@@ -6,14 +6,15 @@ from src.ingestion.embeddings import encode
 from src.ingestion.vectorstore import VectorStore
 
 BATCH_SIZE = 64
+MAX_DOCUMENT_CHARS = 2000
 
 
 def _build_document(chunk: dict) -> str:
     doc = chunk["content"]
-    for note in chunk.get("title_footnotes", []):
-        doc += f"\n[Nota {note['number']}] {note['content']}"
-    for note in chunk.get("footnotes", []):
-        doc += f"\n[Nota {note['number']}] {note['content']}"
+    for note in chunk.get("title_footnotes", []) + chunk.get("footnotes", []):
+        candidate = f"\n[Nota {note['number']}] {note['content']}"
+        if len(doc) + len(candidate) <= MAX_DOCUMENT_CHARS:
+            doc += candidate
     return doc
 
 

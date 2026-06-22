@@ -5,7 +5,6 @@ from src.rag.retriever import _get_store
 
 EVANGELHO_BOOK = "O Evangelho segundo o Espiritismo"
 
-
 def get_daily_passage() -> dict | None:
     chunks = _get_store().get_by_filter({"book": {"$eq": EVANGELHO_BOOK}})
     if not chunks:
