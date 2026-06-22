@@ -470,22 +470,26 @@ git commit -m "feat: add ChromaDB vector store wrapper"
     "part": "SEGUNDA PARTE",
     "chapter": "CAPÍTULO I",
     "chapter_title": "Da Encarnação dos Espíritos",
+    "subsection": null,
     "item_number": "132",
     "subchunk_index": 1,
     "total_subchunks": 1,
     "content": "A encarnação dos Espíritos tem por fim fazê-los progredir.",
-    "footnotes": [{"number": "1", "content": "Nota de rodapé de exemplo."}]
+    "footnotes": [{"number": "1", "content": "Nota de rodapé de exemplo."}],
+    "title_footnotes": []
   },
   {
     "book": "O Livro dos Espíritos",
     "part": "SEGUNDA PARTE",
     "chapter": "CAPÍTULO I",
     "chapter_title": "Da Encarnação dos Espíritos",
+    "subsection": null,
     "item_number": "133",
     "subchunk_index": 1,
     "total_subchunks": 1,
     "content": "O Espírito encarnado habita o corpo do homem.",
-    "footnotes": []
+    "footnotes": [],
+    "title_footnotes": []
   }
 ]
 ```
@@ -567,6 +571,8 @@ BATCH_SIZE = 64
 
 def _build_document(chunk: dict) -> str:
     doc = chunk["content"]
+    for note in chunk.get("title_footnotes", []):
+        doc += f"\n[Nota {note['number']}] {note['content']}"
     for note in chunk.get("footnotes", []):
         doc += f"\n[Nota {note['number']}] {note['content']}"
     return doc
@@ -601,6 +607,7 @@ def run_ingestion() -> None:
                     "part": c.get("part") or "",
                     "chapter": c.get("chapter") or "",
                     "chapter_title": c.get("chapter_title") or "",
+                    "subsection": c.get("subsection") or "",
                     "item_number": str(c["item_number"]),
                     "subchunk_index": c["subchunk_index"],
                     "total_subchunks": c["total_subchunks"],

@@ -1,7 +1,16 @@
 # Design: Ingestion, RAG, and API Layers
 
 **Date:** 2026-06-20
+**Status:** Implemented
 **Scope:** Implement `src/ingestion/`, `src/rag/`, and `src/api/` — the three empty scaffolds remaining after the parsing layer is complete.
+
+## Implementation Notes (deviations from original spec)
+
+- **LLM:** switched from Anthropic SDK (`claude-haiku-4-5`) to Groq API (OpenAI-compatible endpoint, `llama-3.1-8b-instant`). `.env` key is `GROQ_API_KEY`, not `ANTHROPIC_API_KEY`. The interface is otherwise identical.
+- **`VectorStore`:** gained a `get_by_filter(where: dict) -> list[dict]` method (uses ChromaDB `.get()` not `.query()`) for metadata-only lookups without embedding. Used by `/study` (item lookup) and `/evangelho` (book filter).
+- **`_build_document`:** footnotes are appended after content but capped at 2000 chars total. Very long footnotes (e.g. item 188 in Livro dos Espíritos, ~3600 chars combined) would otherwise exceed the embedding model's context window. Full footnote text remains in the JSON metadata.
+- **`ChatResponse`:** gained `suggested_mode: str | None` field populated by regex-based intent detection (no LLM cost) in `src/rag/mode_detector.py`.
+- **Additional endpoints beyond original scope:** `/study`, `/reflect`, `/evangelho`, `/paths`, `/paths/{path_id}` were added in subsequent feature sprints. See their own spec files.
 
 ---
 
@@ -15,13 +24,17 @@ The parsing pipeline (`src/parsing/`) is fully implemented and produces structur
   "part": "SEGUNDA PARTE — O MUNDO ESPÍRITA",
   "chapter": "CAPÍTULO I",
   "chapter_title": "Da Encarnação dos Espíritos",
+  "subsection": null,
   "item_number": "132",
   "subchunk_index": 1,
   "total_subchunks": 1,
   "content": "...",
-  "footnotes": [{ "number": "1", "content": "..." }]
+  "footnotes": [{ "number": "1", "content": "..." }],
+  "title_footnotes": []
 }
 ```
+
+`footnotes` contains only the footnotes whose `___…___` block appears immediately after this specific paragraph — footnotes are per-paragraph, not per-section. `title_footnotes` contains footnotes whose block appears immediately after the heading (`chapter_title` or `subsection`) under which this chunk lives; it is carried identically on every chunk under that heading.
 
 These JSON files are the input contract for this design. We do not touch the parsing layer.
 
@@ -85,9 +98,9 @@ VectorStore
     returns: list of {"content": str, "metadata": dict, "distance": float}
 ```
 
-Metadata stored per chunk: `book`, `part`, `chapter`, `chapter_title`, `item_number`, `subchunk_index`, `total_subchunks`.
+Metadata stored per chunk: `book`, `part`, `chapter`, `chapter_title`, `subsection`, `item_number`, `subchunk_index`, `total_subchunks`.
 
-The **document string** stored in ChromaDB (and returned to the prompt) is `content` + footnote text concatenated, so Kardec's footnotes are searchable and visible to the model. Footnotes are serialised as `"\n[Nota N] <text>"` and appended at ingestion time.
+The **document string** stored in ChromaDB (and returned to the prompt) is `content` + all footnote text concatenated — both `footnotes` (paragraph-level) and `title_footnotes` (heading-level) — so all of Kardec's notes are searchable and visible to the model. Both are serialised as `"\n[Nota N] <text>"` and appended at ingestion time.
 
 Document ID format: `{book_filename_stem}_{item_number}_{subchunk_index}` (e.g. `livro-espiritos_132_1`) — stable across re-runs, making upsert idempotent.
 
