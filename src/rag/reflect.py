@@ -1,7 +1,11 @@
 from openai import OpenAI
 
 from src.core.config import settings
-from src.rag.reflect_prompt import build_reflect_messages, needs_medical_caveat, parse_reflect_json
+from src.rag.reflect_prompt import (
+    build_reflect_messages,
+    needs_medical_caveat,
+    parse_reflect_json,
+)
 from src.rag.retriever import retrieve
 
 _NOT_FOUND_MESSAGE = (

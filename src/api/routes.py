@@ -12,10 +12,10 @@ from src.api.schemas import (
     StudyRequest,
     StudyResponse,
 )
-from src.rag.reflect import reflect as reflect_fn
 from src.core.config import settings
 from src.rag.generator import generate
 from src.rag.mode_detector import detect_suggested_mode
+from src.rag.reflect import reflect as reflect_fn
 from src.rag.study import study as study_item_fn
 
 router = APIRouter()

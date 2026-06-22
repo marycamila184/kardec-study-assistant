@@ -10,6 +10,8 @@ BATCH_SIZE = 64
 
 def _build_document(chunk: dict) -> str:
     doc = chunk["content"]
+    for note in chunk.get("title_footnotes", []):
+        doc += f"\n[Nota {note['number']}] {note['content']}"
     for note in chunk.get("footnotes", []):
         doc += f"\n[Nota {note['number']}] {note['content']}"
     return doc
@@ -44,6 +46,7 @@ def run_ingestion() -> None:
                     "part": c.get("part") or "",
                     "chapter": c.get("chapter") or "",
                     "chapter_title": c.get("chapter_title") or "",
+                    "subsection": c.get("subsection") or "",
                     "item_number": str(c["item_number"]),
                     "subchunk_index": c["subchunk_index"],
                     "total_subchunks": c["total_subchunks"],

@@ -1,9 +1,8 @@
-import os
 import json
+import os
 
 from src.parsing.cleaner import clean_markdown
 from src.parsing.parser import parse_md_to_json
-
 
 INPUT_DIRECTORY = "data/markdown_files"
 OUTPUT_DIRECTORY = "data/json_files"
