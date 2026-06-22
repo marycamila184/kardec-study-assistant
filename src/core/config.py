@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     chroma_path: str = "data/embeddings/"
     chroma_collection: str = "kardec_docs"
     json_dir: str = "data/json_files"
+    paths_dir: str = "data/paths"
 
 
 settings = Settings()

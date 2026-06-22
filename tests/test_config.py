@@ -11,6 +11,7 @@ def test_settings_has_correct_defaults(monkeypatch):
     assert s.chroma_collection == "kardec_docs"
     assert s.chat_model == "llama-3.1-8b-instant"
     assert s.condenser_model == "llama-3.1-8b-instant"
+    assert s.paths_dir == "data/paths"
 
 
 def test_settings_requires_api_key(monkeypatch):
