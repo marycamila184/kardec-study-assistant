@@ -46,3 +46,31 @@ def test_pipeline_appends_footnotes_to_document(tmp_json_dir, tmp_path, monkeypa
     results = store.query(encode(["encarnação"])[0], n_results=5)
     chunk_132 = next(r for r in results if r["metadata"]["item_number"] == "132")
     assert "[Nota 1]" in chunk_132["content"]
+
+
+def test_pipeline_appends_title_footnotes_to_document(tmp_json_dir, tmp_path, monkeypatch):
+    chroma_dir = str(tmp_path / "embeddings3")
+    monkeypatch.setattr("src.ingestion.pipeline.settings.json_dir", tmp_json_dir)
+    monkeypatch.setattr("src.ingestion.pipeline.settings.chroma_path", chroma_dir)
+    monkeypatch.setattr("src.ingestion.pipeline.settings.chroma_collection", "col3")
+
+    run_ingestion()
+
+    store = VectorStore(chroma_dir, "col3")
+    results = store.query(encode(["encarnação"])[0], n_results=5)
+    chunk_132 = next(r for r in results if r["metadata"]["item_number"] == "132")
+    assert "[Nota 2]" in chunk_132["content"]  # title_footnote number 2 from fixture
+
+
+def test_pipeline_stores_subsection_in_metadata(tmp_json_dir, tmp_path, monkeypatch):
+    chroma_dir = str(tmp_path / "embeddings4")
+    monkeypatch.setattr("src.ingestion.pipeline.settings.json_dir", tmp_json_dir)
+    monkeypatch.setattr("src.ingestion.pipeline.settings.chroma_path", chroma_dir)
+    monkeypatch.setattr("src.ingestion.pipeline.settings.chroma_collection", "col4")
+
+    run_ingestion()
+
+    store = VectorStore(chroma_dir, "col4")
+    results = store.query(encode(["encarnação"])[0], n_results=5)
+    chunk_133 = next(r for r in results if r["metadata"]["item_number"] == "133")
+    assert chunk_133["metadata"]["subsection"] == "Uma subseção"

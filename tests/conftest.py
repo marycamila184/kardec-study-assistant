@@ -1,7 +1,5 @@
 import os
 import pytest
 
-
-@pytest.fixture(autouse=True, scope="session")
-def set_test_env():
-    os.environ.setdefault("GROQ_API_KEY", "test-api-key")
+# Set before any module-level Settings() instantiation during collection.
+os.environ.setdefault("GROQ_API_KEY", "test-api-key")

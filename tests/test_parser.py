@@ -165,3 +165,170 @@ def test_subsection_field_present_in_all_chunks():
 """
     chunks = parse_md_to_json(md, CEU_INFERNO)
     assert all("subsection" in c for c in chunks)
+
+
+# ── Footnote tests ────────────────────────────────────────────────────────────
+
+def test_paragraph_footnote_attached_only_to_its_chunk():
+    """A footnote following a paragraph must appear in that chunk's footnotes only."""
+    md = """\
+# CAPÍTULO I
+
+# O TÍTULO
+
+1. Primeiro parágrafo. (1)
+
+__________
+
+(1) Nota do primeiro parágrafo.
+
+__________
+
+2. Segundo parágrafo.
+"""
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    item1 = next(c for c in chunks if c["item_number"] == "1")
+    item2 = next(c for c in chunks if c["item_number"] == "2")
+    assert item1["footnotes"] == [{"number": "1", "content": "Nota do primeiro parágrafo."}]
+    assert item2["footnotes"] == []
+
+
+def test_title_footnote_stored_in_title_footnotes_not_content_footnotes():
+    """A footnote immediately after a heading must go into title_footnotes, not footnotes."""
+    md = """\
+# CAPÍTULO I
+
+# O TÍTULO (1)
+
+__________
+
+(1) Nota explicativa do título.
+
+__________
+
+1. Conteúdo do item.
+"""
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    assert len(chunks) == 1
+    assert chunks[0]["title_footnotes"] == [{"number": "1", "content": "Nota explicativa do título."}]
+    assert chunks[0]["footnotes"] == []
+
+
+def test_multiple_footnotes_in_one_block_all_attached_to_same_chunk():
+    """Two footnotes in one ___…___ block must both be on the same paragraph chunk."""
+    md = """\
+# CAPÍTULO I
+
+# O TÍTULO
+
+1. Parágrafo com duas notas. (1) e (2)
+
+__________
+
+(1) Primeira nota.
+
+(2) Segunda nota.
+
+__________
+
+2. Próximo item.
+"""
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    item1 = next(c for c in chunks if c["item_number"] == "1")
+    assert {"number": "1", "content": "Primeira nota."} in item1["footnotes"]
+    assert {"number": "2", "content": "Segunda nota."} in item1["footnotes"]
+
+
+def test_two_inline_footnote_blocks_within_one_item():
+    """Two separate footnote blocks inside one numbered item produce independent chunks."""
+    md = """\
+# CAPÍTULO I
+
+# O TÍTULO
+
+1. Parágrafo A. (1)
+
+__________
+
+(1) Nota A.
+
+__________
+
+Parágrafo B. (2)
+
+__________
+
+(2) Nota B.
+
+__________
+
+2. Próximo item.
+"""
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    item1_chunks = [c for c in chunks if c["item_number"] == "1"]
+    assert len(item1_chunks) == 2
+    footnotes_by_chunk = [c["footnotes"] for c in item1_chunks]
+    assert [{"number": "1", "content": "Nota A."}] in footnotes_by_chunk
+    assert [{"number": "2", "content": "Nota B."}] in footnotes_by_chunk
+
+
+def test_title_footnotes_carried_into_all_chunks_under_that_title():
+    """title_footnotes must appear on every chunk that lives under the footnoted title."""
+    md = """\
+# CAPÍTULO I
+
+# O TÍTULO (1)
+
+__________
+
+(1) Nota do título.
+
+__________
+
+1. Primeiro item.
+
+2. Segundo item.
+"""
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    assert len(chunks) == 2
+    expected = [{"number": "1", "content": "Nota do título."}]
+    assert all(c["title_footnotes"] == expected for c in chunks)
+
+
+def test_footnote_on_subsection_stored_in_title_footnotes():
+    """A footnote after a subsection heading must go into title_footnotes."""
+    md = """\
+# CAPÍTULO I
+
+# O TÍTULO
+
+1. Item antes da subseção.
+
+# Uma subseção (1)
+
+__________
+
+(1) Nota da subseção.
+
+__________
+
+2. Item dentro da subseção.
+"""
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    item2 = next(c for c in chunks if c["item_number"] == "2")
+    assert item2["title_footnotes"] == [{"number": "1", "content": "Nota da subseção."}]
+    assert item2["footnotes"] == []
+
+
+def test_chunk_without_footnote_has_empty_lists():
+    """Chunks with no footnotes must have footnotes=[] and title_footnotes=[]."""
+    md = """\
+# CAPÍTULO I
+
+# O TÍTULO
+
+1. Conteúdo simples.
+"""
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    assert chunks[0]["footnotes"] == []
+    assert chunks[0]["title_footnotes"] == []
