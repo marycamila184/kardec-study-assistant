@@ -6,10 +6,13 @@ from src.api.schemas import (
     ChatResponse,
     PathDetail,
     PathSummary,
+    ReflectRequest,
+    ReflectResponse,
     Source,
     StudyRequest,
     StudyResponse,
 )
+from src.rag.reflect import reflect as reflect_fn
 from src.core.config import settings
 from src.rag.generator import generate
 from src.rag.mode_detector import detect_suggested_mode
@@ -57,6 +60,12 @@ def study(request: StudyRequest) -> StudyResponse:
             detail={"error": "item_not_found", "item_number": request.item_number},
         )
     return StudyResponse(**result)
+
+
+@router.post("/reflect", response_model=ReflectResponse)
+def reflect_situation(request: ReflectRequest) -> ReflectResponse:
+    result = reflect_fn(request.situation)
+    return ReflectResponse(**result)
 
 
 @router.get("/health")

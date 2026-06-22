@@ -150,3 +150,60 @@ def test_chat_suggested_mode_is_none_for_generic_question():
             "/chat", json={"question": "o que é amor?", "history": []}
         ).json()
     assert data["suggested_mode"] is None
+
+
+_REFLECT_RESULT = {
+    "opening": "Compreendemos profundamente sua dor.",
+    "doctrine_connection": "A doutrina espírita ensina que a morte não é o fim.",
+    "reflection_questions": [
+        "O que essa situação revela sobre minha jornada espiritual?",
+        "Como a perspectiva da continuidade da vida muda meu sentimento?",
+        "Que mensagem meu pai poderia me transmitir agora?",
+    ],
+    "complementary_items": [],
+    "sources": [
+        {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}
+    ],
+    "not_found": False,
+    "generation_failed": False,
+}
+
+_REFLECT_NOT_FOUND = {
+    "opening": "",
+    "doctrine_connection": "Não encontrei passagens relacionadas.",
+    "reflection_questions": [],
+    "complementary_items": [],
+    "sources": [],
+    "not_found": True,
+    "generation_failed": False,
+}
+
+
+def test_reflect_returns_200():
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
+        response = client.post("/reflect", json={"situation": "meu pai faleceu"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["opening"] == "Compreendemos profundamente sua dor."
+    assert len(data["reflection_questions"]) == 3
+    assert data["not_found"] is False
+
+
+def test_reflect_returns_200_with_not_found_flag_when_no_doctrine():
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_NOT_FOUND):
+        response = client.post("/reflect", json={"situation": "assunto sem doutrina"})
+    assert response.status_code == 200
+    assert response.json()["not_found"] is True
+
+
+def test_reflect_response_has_all_required_fields():
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
+        data = client.post("/reflect", json={"situation": "meu casamento está difícil"}).json()
+    for field in ("opening", "doctrine_connection", "reflection_questions", "complementary_items", "sources", "not_found", "generation_failed"):
+        assert field in data
+
+
+def test_reflect_passes_situation_to_reflect_fn():
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
+        client.post("/reflect", json={"situation": "me sinto vazio"})
+    mock_fn.assert_called_once_with("me sinto vazio")

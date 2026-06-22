@@ -73,3 +73,18 @@ class StudyResponse(BaseModel):
     related_items: list[RelatedItem]
     sources: list[StudySource]
     generation_failed: bool = False
+
+
+class ReflectRequest(BaseModel):
+    situation: str
+    conversation_history: list[Message] = []
+
+
+class ReflectResponse(BaseModel):
+    opening: str
+    doctrine_connection: str
+    reflection_questions: list[str]
+    complementary_items: list[RelatedItem]
+    sources: list[StudySource]
+    not_found: bool = False
+    generation_failed: bool = False
