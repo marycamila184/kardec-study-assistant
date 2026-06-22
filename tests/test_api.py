@@ -53,3 +53,100 @@ def test_health_returns_ok():
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
+
+
+_STUDY_RESULT = {
+    "original_text": "A alma é imortal.",
+    "explanation": "A alma continua existindo após a morte do corpo físico.",
+    "practical_example": "Como quando acordamos de um sonho muito vívido.",
+    "related_items": [],
+    "sources": [
+        {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}
+    ],
+    "generation_failed": False,
+}
+
+_PATH_SUMMARY = {
+    "id": "fundamentos",
+    "title": "Fundamentos",
+    "description": "Para iniciantes.",
+    "level": "iniciante",
+    "step_count": 2,
+}
+
+_PATH_DETAIL = {
+    "id": "fundamentos",
+    "title": "Fundamentos",
+    "description": "Para iniciantes.",
+    "level": "iniciante",
+    "steps": [
+        {"book": "O Livro dos Espíritos", "item_number": "1", "label": "O que é Deus?"}
+    ],
+}
+
+
+def test_study_returns_200():
+    with patch("src.api.routes.study_item_fn", return_value=_STUDY_RESULT):
+        response = client.post(
+            "/study", json={"book": "O Livro dos Espíritos", "item_number": "150"}
+        )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["original_text"] == "A alma é imortal."
+    assert data["generation_failed"] is False
+
+
+def test_study_returns_404_when_item_not_found():
+    with patch("src.api.routes.study_item_fn", return_value=None):
+        response = client.post(
+            "/study", json={"book": "O Livro dos Espíritos", "item_number": "999"}
+        )
+    assert response.status_code == 404
+    assert response.json()["detail"]["error"] == "item_not_found"
+
+
+def test_list_paths_returns_200_with_summaries():
+    with patch("src.api.routes.load_all_paths", return_value=[_PATH_SUMMARY]):
+        response = client.get("/paths")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data) == 1
+    assert data[0]["id"] == "fundamentos"
+    assert "steps" not in data[0]
+
+
+def test_get_path_returns_full_detail():
+    with patch("src.api.routes.load_path", return_value=_PATH_DETAIL):
+        response = client.get("/paths/fundamentos")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["steps"]) == 1
+
+
+def test_get_path_returns_404_when_not_found():
+    with patch("src.api.routes.load_path", return_value=None):
+        response = client.get("/paths/nonexistent")
+    assert response.status_code == 404
+    assert response.json()["detail"]["error"] == "path_not_found"
+
+
+def test_chat_includes_suggested_mode_when_detected():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch("src.api.routes.detect_suggested_mode", return_value="estudar_obra"),
+    ):
+        data = client.post(
+            "/chat", json={"question": "explique a questão 132", "history": []}
+        ).json()
+    assert data["suggested_mode"] == "estudar_obra"
+
+
+def test_chat_suggested_mode_is_none_for_generic_question():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch("src.api.routes.detect_suggested_mode", return_value=None),
+    ):
+        data = client.post(
+            "/chat", json={"question": "o que é amor?", "history": []}
+        ).json()
+    assert data["suggested_mode"] is None
