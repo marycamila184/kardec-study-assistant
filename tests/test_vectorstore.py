@@ -6,6 +6,7 @@ _META = {
     "part": "",
     "chapter": "",
     "chapter_title": "Da Encarnação",
+    "subsection": "",
     "item_number": "132",
     "subchunk_index": 1,
     "total_subchunks": 1,
@@ -62,3 +63,24 @@ def test_upsert_is_idempotent(store):
         )
     results = store.query([1.0, 0.0, 0.0], n_results=5)
     assert len(results) == 1  # not duplicated
+
+
+def test_get_by_filter_returns_matching_chunk(store):
+    store.upsert(
+        ids=["doc1", "doc2"],
+        embeddings=[[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
+        documents=["encarnação", "outro texto"],
+        metadatas=[
+            {**_META, "item_number": "132"},
+            {**_META, "item_number": "133"},
+        ],
+    )
+    results = store.get_by_filter({"item_number": {"$eq": "132"}})
+    assert len(results) == 1
+    assert results[0]["content"] == "encarnação"
+    assert results[0]["distance"] == 0.0
+
+
+def test_get_by_filter_returns_empty_when_no_match(store):
+    results = store.get_by_filter({"item_number": {"$eq": "999"}})
+    assert results == []

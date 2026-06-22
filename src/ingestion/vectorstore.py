@@ -37,3 +37,13 @@ class VectorStore:
                 result["distances"][0],
             )
         ]
+
+    def get_by_filter(self, where: dict) -> list[dict]:
+        result = self._collection.get(
+            where=where,
+            include=["documents", "metadatas"],
+        )
+        return [
+            {"content": doc, "metadata": meta, "distance": 0.0}
+            for doc, meta in zip(result["documents"], result["metadatas"])
+        ]

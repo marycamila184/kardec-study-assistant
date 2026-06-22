@@ -18,3 +18,8 @@ def retrieve(query: str, top_k: int | None = None) -> list[dict]:
     embedding = encode([query])[0]
     results = _get_store().query(embedding, n_results=top_k)
     return [r for r in results if r["distance"] <= settings.max_distance]
+
+
+def retrieve_by_item(book: str, item_number: str) -> list[dict]:
+    where = {"$and": [{"book": {"$eq": book}}, {"item_number": {"$eq": item_number}}]}
+    return _get_store().get_by_filter(where)
