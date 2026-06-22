@@ -1,0 +1,16 @@
+{
+  "id": "fundamentos-espirita-curioso",
+  "title": "Fundamentos da Doutrina Espírita",
+  "description": "Para quem está começando. Os oito pilares do espiritismo em ordem natural.",
+  "level": "curioso",
+  "steps": [
+    {"book": "O Livro dos Espíritos", "item_number": "1",   "label": "O que é Deus?"},
+    {"book": "O Livro dos Espíritos", "item_number": "13",  "label": "Atributos da Divindade"},
+    {"book": "O Livro dos Espíritos", "item_number": "76",  "label": "O que são os Espíritos?"},
+    {"book": "O Livro dos Espíritos", "item_number": "134", "label": "O que é a alma?"},
+    {"book": "O Livro dos Espíritos", "item_number": "132", "label": "Por que os Espíritos se encarnaram?"},
+    {"book": "O Livro dos Espíritos", "item_number": "166", "label": "Como a alma se depura?"},
+    {"book": "O Livro dos Espíritos", "item_number": "149", "label": "O que acontece após a morte?"},
+    {"book": "O Livro dos Espíritos", "item_number": "614", "label": "O que é a lei de Deus?"}
+  ]
+}

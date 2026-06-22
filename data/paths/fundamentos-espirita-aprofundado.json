@@ -1,0 +1,28 @@
+{
+  "id": "fundamentos-espirita-aprofundado",
+  "title": "Fundamentos da Doutrina Espírita",
+  "description": "Para o espírita praticante. Cobertura completa das quatro partes do Livro dos Espíritos.",
+  "level": "aprofundado",
+  "steps": [
+    {"book": "O Livro dos Espíritos", "item_number": "1",   "label": "O que é Deus?"},
+    {"book": "O Livro dos Espíritos", "item_number": "13",  "label": "Atributos da Divindade"},
+    {"book": "O Livro dos Espíritos", "item_number": "27",  "label": "A trindade universal — Deus, Espírito e matéria"},
+    {"book": "O Livro dos Espíritos", "item_number": "37",  "label": "Como se formam os mundos?"},
+    {"book": "O Livro dos Espíritos", "item_number": "63",  "label": "O princípio vital"},
+    {"book": "O Livro dos Espíritos", "item_number": "76",  "label": "O que são os Espíritos?"},
+    {"book": "O Livro dos Espíritos", "item_number": "93",  "label": "O invólucro semimaterial do Espírito"},
+    {"book": "O Livro dos Espíritos", "item_number": "100", "label": "A escala espírita — classificação dos Espíritos"},
+    {"book": "O Livro dos Espíritos", "item_number": "132", "label": "Por que os Espíritos se encarnaram?"},
+    {"book": "O Livro dos Espíritos", "item_number": "134", "label": "O que é a alma?"},
+    {"book": "O Livro dos Espíritos", "item_number": "141", "label": "Os dois invólucros da alma — o perispírito"},
+    {"book": "O Livro dos Espíritos", "item_number": "149", "label": "O que acontece após a morte?"},
+    {"book": "O Livro dos Espíritos", "item_number": "150", "label": "A alma conserva sua individualidade após a morte?"},
+    {"book": "O Livro dos Espíritos", "item_number": "163", "label": "A perturbação espiritual após a morte"},
+    {"book": "O Livro dos Espíritos", "item_number": "166", "label": "Como a alma se depura?"},
+    {"book": "O Livro dos Espíritos", "item_number": "167", "label": "A justiça da reencarnação"},
+    {"book": "O Livro dos Espíritos", "item_number": "218", "label": "As idéias inatas — vestígios de vidas anteriores"},
+    {"book": "O Livro dos Espíritos", "item_number": "614", "label": "O que é a lei de Deus?"},
+    {"book": "O Livro dos Espíritos", "item_number": "843", "label": "O livre-arbítrio"},
+    {"book": "O Livro dos Espíritos", "item_number": "886", "label": "O verdadeiro sentido da caridade"}
+  ]
+}
