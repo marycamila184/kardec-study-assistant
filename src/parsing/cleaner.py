@@ -8,7 +8,7 @@ def clean_markdown(text: str) -> str:
     - Removes page separators
     - Fixes hyphenated line breaks
     """
-    text = re.sub(r'#\s*\d+\s*\n', '', text)
-    text = re.sub(r'\n---\n', '\n', text)
-    text = re.sub(r'-\n(\w+)', r'\1', text)
+    text = re.sub(r"#\s*\d+\s*\n", "", text)
+    text = re.sub(r"\n---\n", "\n", text)
+    text = re.sub(r"-\n(\w+)", r"\1", text)
     return text

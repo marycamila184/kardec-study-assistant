@@ -78,7 +78,12 @@ def build_reflect_messages(
         situation=situation,
         passages=_format_passages(chunks),
     )
-    messages = [{"role": "user", "content": "Veja essa situação pela lente da doutrina espírita."}]
+    messages = [
+        {
+            "role": "user",
+            "content": "Veja essa situação pela lente da doutrina espírita.",
+        }
+    ]
     return system, messages
 
 

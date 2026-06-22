@@ -47,7 +47,9 @@ def generate(question: str, history: list[dict]) -> dict:
     if not chunks:
         return {"answer": NOT_FOUND_MESSAGE, "sources": [], "not_found": True}
 
-    system, messages = build_messages(question, chunks, history, settings.max_history_turns)
+    system, messages = build_messages(
+        question, chunks, history, settings.max_history_turns
+    )
     response = _get_client().chat.completions.create(
         model=settings.chat_model,
         max_tokens=1024,
@@ -61,11 +63,13 @@ def generate(question: str, history: list[dict]) -> dict:
         key = (m["book"], m.get("chapter_title", ""), m.get("item_number", ""))
         if key not in seen:
             seen.add(key)
-            sources.append({
-                "book": m["book"],
-                "chapter": m.get("chapter_title") or None,
-                "item_number": m.get("item_number") or None,
-            })
+            sources.append(
+                {
+                    "book": m["book"],
+                    "chapter": m.get("chapter_title") or None,
+                    "item_number": m.get("item_number") or None,
+                }
+            )
 
     return {
         "answer": response.choices[0].message.content,

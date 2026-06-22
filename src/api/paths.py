@@ -12,13 +12,15 @@ def load_all_paths(paths_dir: str) -> list[dict]:
         filepath = os.path.join(paths_dir, filename)
         with open(filepath, encoding="utf-8") as f:
             data = json.load(f)
-        summaries.append({
-            "id": data["id"],
-            "title": data["title"],
-            "description": data["description"],
-            "level": data["level"],
-            "step_count": len(data["steps"]),
-        })
+        summaries.append(
+            {
+                "id": data["id"],
+                "title": data["title"],
+                "description": data["description"],
+                "level": data["level"],
+                "step_count": len(data["steps"]),
+            }
+        )
     return summaries
 
 

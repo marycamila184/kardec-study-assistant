@@ -26,18 +26,18 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
 
     results = []
     current_section = None  # current numbered item string, e.g. "3"
-    section_counter = 1     # fallback counter for unnumbered sections
+    section_counter = 1  # fallback counter for unnumbered sections
 
     # Segments: ordered list of (content_lines, footnotes) pairs for the current section.
     # Each footnote block closes a segment; the footnote(s) travel with that segment only.
     completed_segments = []
-    current_lines = []      # content lines of the currently open segment
+    current_lines = []  # content lines of the currently open segment
 
     # Footnote parsing state
     note_mode = False
     note_number = None
     note_buffer = []
-    current_block_footnotes = []    # all footnotes accumulated within one ___…___ block
+    current_block_footnotes = []  # all footnotes accumulated within one ___…___ block
     footnote_belongs_to_title = False
 
     last_was_title = False  # True immediately after processing a heading line
@@ -68,19 +68,21 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
         total = len(all_chunks)
 
         for idx, (chunk_text, chunk_footnotes) in enumerate(all_chunks, start=1):
-            results.append({
-                "book": book_name,
-                "part": part,
-                "chapter": chapter,
-                "chapter_title": chapter_title,
-                "title_footnotes": list(title_footnotes),
-                "subsection": subsection,
-                "item_number": item_num,
-                "subchunk_index": idx,
-                "total_subchunks": total,
-                "content": chunk_text,
-                "footnotes": chunk_footnotes,
-            })
+            results.append(
+                {
+                    "book": book_name,
+                    "part": part,
+                    "chapter": chapter,
+                    "chapter_title": chapter_title,
+                    "title_footnotes": list(title_footnotes),
+                    "subsection": subsection,
+                    "item_number": item_num,
+                    "subchunk_index": idx,
+                    "total_subchunks": total,
+                    "content": chunk_text,
+                    "footnotes": chunk_footnotes,
+                }
+            )
 
         section_counter += 1
 
@@ -99,7 +101,9 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
             if footnote_belongs_to_title:
                 title_footnotes = title_footnotes + current_block_footnotes
             else:
-                completed_segments.append((current_lines[:], current_block_footnotes[:]))
+                completed_segments.append(
+                    (current_lines[:], current_block_footnotes[:])
+                )
                 current_lines.clear()
 
     for line in lines:
@@ -108,7 +112,7 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
             continue
 
         # Footnote separator — toggles open/close
-        if re.match(r'^_{3,}', line):
+        if re.match(r"^_{3,}", line):
             if not note_mode:
                 note_mode = True
                 note_number = None
@@ -126,7 +130,7 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
 
         # Inside a footnote block
         if note_mode:
-            match_note = re.match(r'^\((\d+)\)\s+(.*)', line)
+            match_note = re.match(r"^\((\d+)\)\s+(.*)", line)
             if match_note:
                 # New footnote number: save previous one into the block first
                 note = flush_note()
@@ -136,7 +140,7 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
                 note_buffer = [match_note.group(2)]
                 continue
             # Malformed: structural line without a closing separator
-            if line.startswith("#") or re.match(r'^\d+\.\s+', line):
+            if line.startswith("#") or re.match(r"^\d+\.\s+", line):
                 close_footnote_block()
                 note_mode = False
                 note_number = None
@@ -189,7 +193,7 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
             continue
 
         # Numbered item
-        match_item = re.match(r'^(\d+)\.\s+', line)
+        match_item = re.match(r"^(\d+)\.\s+", line)
         if match_item:
             save_section()
             reset_section()

@@ -29,7 +29,9 @@ def _format_related(chunks: list[dict]) -> str:
     return "\n\n".join(parts)
 
 
-def build_study_messages(main_text: str, related_chunks: list[dict]) -> tuple[str, list[dict]]:
+def build_study_messages(
+    main_text: str, related_chunks: list[dict]
+) -> tuple[str, list[dict]]:
     system = _SYSTEM_TEMPLATE.format(
         main_passage=main_text,
         related_passages=_format_related(related_chunks),
