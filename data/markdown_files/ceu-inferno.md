@@ -46,7 +46,19 @@ E se as consequências não são desastrosas tanto quanto poderiam ser, é, em p
 
 Torne-se, não obstante, absoluta a incredulidade da maioria, e a sociedade entrará em dissolução.
 
-Eis ao que tende a propagação da doutrina niilista. 1
+Eis ao que tende a propagação da doutrina niilista. (1)
+
+__________
+
+(1) Um moço de dezoito anos, afetado de uma enfermidade do coração, foi declarado incurável. A Ciência havia dito: Pode morrer dentro de oito dias ou de dois anos, mas não irá além. Sabendo-o, o moço para logo abandonou os estudos e entregou-se a excessos de todo o gênero.
+
+Quando se lhe ponderava o perigo de uma vida desregrada, respondia: Que me importa, se não tenho mais de dois anos de vida? De que me serviria fatigar o espírito? Gozo o pouco que me resta e quero divertir-me até ao fim. Eis a consequência lógica do niilismo.
+
+Se este moço fora espírita, teria dito: A morte só destruirá o corpo, que deixarei como fato usado, mas o meu Espírito viverá. Serei na vida futura aquilo que eu próprio houver feito de mim nesta vida; do que nela puder adquirir em qualidades morais e intelectuais nada perderei, porque será outro tanto de ganho para o meu adiantamento; toda a imperfeição de que me livrar será um passo a mais para a felicidade. A minha felicidade ou infelicidade depende da utilidade ou inutilidade da presente existência. É portanto de meu interesse aproveitar o pouco tempo que me resta, e evitar tudo que possa diminuir-me as forças.
+
+Qual destas doutrinas é preferível?
+
+__________
 
 Fossem, porém, quais fossem as suas consequências, uma vez que se impusesse como verdadeira, seria preciso aceitá-la, e nem sistemas contrários, nem a idéia dos males resultantes poderiam obstar-lhe a existência. Forçoso é dizer que, a despeito dos melhores esforços da religião, o cepticismo, a dúvida, a indiferença ganham terreno dia a dia.
 
@@ -65,19 +77,6 @@ Incontestavelmente esta doutrina é um passo adiantado sobre o puro materialismo
 O que lhe é essencial é a conservação do seu eu; sem este, que lhe importa ou não subsistir? O futuro afigura-se-lhe sempre nulo, e a vida presente é a única coisa que o interessa e preocupa.
 
 Sob o ponto de vista das conseqüências morais, esta doutrina é, pois, tão insensata, tão desesperadora, tão subversiva como o materialismo propriamente dito.
-
-__________
-
-(1) Um moço de dezoito anos, afetado de uma enfermidade do coração, foi declarado incurável. A Ciência havia dito: Pode morrer dentro de oito dias ou de dois anos, mas não irá além. Sabendo-o, o moço para logo abandonou os estudos e entregou-se a excessos de todo o gênero.
-
-Quando se lhe ponderava o perigo de uma vida desregrada, respondia: Que me importa, se não tenho mais de dois anos de vida? De que me serviria fatigar o espírito? Gozo o pouco que me resta e quero divertir-me até ao fim. Eis a consequência lógica do niilismo.
-
-Se este moço fora espírita, teria dito: A morte só destruirá o corpo, que deixarei como fato usado, mas o meu Espírito viverá. Serei na vida futura aquilo que eu próprio houver feito de mim nesta vida; do que nela puder adquirir em qualidades morais e intelectuais nada perderei, porque será outro tanto de ganho para o meu adiantamento; toda a imperfeição de que me livrar será um passo a mais para a felicidade. A minha felicidade ou infelicidade depende da utilidade ou inutilidade da presente existência. É portanto de meu interesse aproveitar o pouco tempo que me resta, e evitar tudo que possa diminuir-me as forças.
-
-Qual destas doutrinas é preferível?
-
-__________
-
 
 6. Pode-se, além disso, fazer esta objeção: todas as gotas dágua tomadas ao oceano se assemelham e possuem idênticas propriedades como partes de um mesmo todo; por que, pois, as almas tomadas ao grande oceano da inteligência universal tão pouco se assemelham? Por que o gênio e a estupidez, as mais sublimes virtudes e os vícios mais ignóbeis? Por que a bondade, a doçura, a mansuetude ao lado da maldade, da crueldade, da barbaria? Como podem ser tão diferentes entre si as partes de um mesmo todo homogêneo? Dir-se-á que é a educação que a modifica? Neste caso donde vêm as qualidades inatas, as inteligências precoces, os bons e maus instintos independentes de toda a educação e tantas vezes em desarmonia com o meio no qual se desenvolvem?
 
@@ -160,7 +159,6 @@ Estas duas categorias compõem a maioria imensa da população de além-túmulo.
 Este estado não satisfaz nem as aspirações nem a instintiva idéia de progresso, única que se afigura compatível com a felicidade absoluta. Custa crer que, só por haver recebido o batismo, o selvagem ignorante - de senso moral obtuso -, esteja ao mesmo nível do homem que atingiu, após longos anos de trabalho, o mais alto grau de ciência e moralidade práticas. Menos concebível ainda é que a criança falecida em tenra idade, antes de ter consciência de seus atos, goze dos mesmos privilégios somente por força de uma cerimônia na qual a sua vontade não teve parte alguma.
 
 Estes raciocínios não deixam de preocupar os mais fervorosos crentes, por pouco que meditem.
-
 
 7. Não dependendo a felicidade futura do trabalho progressivo na Terra, a facilidade com que se acredita adquirir essa felicidade, por meio de algumas práticas exteriores, e a possibilidade até de a comprar a dinheiro, sem regeneração de caráter e costumes, dão aos gozos do mundo o melhor valor.
 
@@ -248,15 +246,17 @@ O simples bom-senso repele tal suposição, que seria não somente a negação d
 
 Para cada nova existência de permeio à matéria, entra o Espírito com o cabedal adquirido nas anteriores, em aptidões, conhecimentos intuitivos, inteligência e moralidade. Cada existência é assim um passo avante no caminho do progresso. (1)
 
-A encarnação é inerente à inferioridade dos Espíritos, deixando de ser necessária desde que estes, transpondo-lhe os limites, ficam aptos para progredir no estado espiritual, ou nas existências corporais de mundos superiores, que nada têm da materialidade terrestre. Da parte destes a encarnação é voluntária, tendo por fim exercer sobre os encarnados uma ação mais direta e tendente ao cumprimento da missão que lhes compete junto dos mesmos. Desse modo aceitam abnegadamente as vicissitudes e sofrimentos da encarnação.
-
-10. No intervalo das existências corporais o Espírito torna a entrar no mundo espiritual, onde é feliz ou desgraçado segundo o bem ou o mal que fez. Uma vez que o estado espiritual é o estado definitivo do Espírito e o corpo espiritual não morre, deve ser esse também o seu estado normal. O estado corporal é transitório e passageiro. É no estado espiritual sobretudo que o Espírito colhe os frutos do progresso realizado pelo trabalho da encarnação; é também nesse estado que se prepara para novas lutas e toma as resoluções que há de pôr em prática na sua volta à Humanidade.
-
 __________
 
 (1) Vede 1ª. Parte, cap. I, n° 3, nota 1.
 
 __________
+
+
+A encarnação é inerente à inferioridade dos Espíritos, deixando de ser necessária desde que estes, transpondo-lhe os limites, ficam aptos para progredir no estado espiritual, ou nas existências corporais de mundos superiores, que nada têm da materialidade terrestre. Da parte destes a encarnação é voluntária, tendo por fim exercer sobre os encarnados uma ação mais direta e tendente ao cumprimento da missão que lhes compete junto dos mesmos. Desse modo aceitam abnegadamente as vicissitudes e sofrimentos da encarnação.
+
+10. No intervalo das existências corporais o Espírito torna a entrar no mundo espiritual, onde é feliz ou desgraçado segundo o bem ou o mal que fez. Uma vez que o estado espiritual é o estado definitivo do Espírito e o corpo espiritual não morre, deve ser esse também o seu estado normal. O estado corporal é transitório e passageiro. É no estado espiritual sobretudo que o Espírito colhe os frutos do progresso realizado pelo trabalho da encarnação; é também nesse estado que se prepara para novas lutas e toma as resoluções que há de pôr em prática na sua volta à Humanidade.
+
 
 O Espírito progride igualmente na erraticidade, adquirindo conhecimentos especiais que não poderia obter na Terra, e modificando as suas idéias. O estado corporal e o espiritual constituem a fonte de dois gêneros de progresso, pelos quais o Espírito tem de passar alternadamente, nas existências peculiares a cada um dos dois mundos.
 
@@ -326,31 +326,42 @@ Intuição das penas futuras. O inferno cristão imitado do inferno pagão. Os l
 
 As penas e recompensas são o reflexo dos instintos predominantes. Os povos guerreiros fazem consistir a suprema felicidade nas honras conferidas à bravura; os caçadores, na abundância da caça; os sensuais, nas delícias da voluptuosidade. Dominado pela matéria, o homem não pode compreender senão imperfeitamente a espiritualidade, imaginando para as penas e gozos futuros um quadro mais material que espiritual; afigura-se-lhe que deve comer e beber no outro mundo, porém melhor que na Terra. (1)
 
-Mais tarde já se encontra nas crenças sobre a vida futura um misto de espiritualismo e materialismo: a beatitude contemplativa concorrendo com o inferno das torturas físicas.
-
 __________
 
 (1) Um pequeno saboiano, a quem o seu cura fazia a descrição da vida futura, perguntou-lhe se todo o mundo lá comia pão branco, como em Paris.
 
 __________
 
+Mais tarde já se encontra nas crenças sobre a vida futura um misto de espiritualismo e materialismo: a beatitude contemplativa concorrendo com o inferno das torturas físicas.
 
 2. Não podendo compreender senão o que vê, o homem primitivo naturalmente moldou o seu futuro pelo presente; para compreender outros tipos, além dos que tinha à vista, ser-lhe-ia preciso um desenvolvimento intelectual que só o tempo deveria completar. Também o quadro por ele ideado sobre as penas futuras não é senão o reflexo dos males da Humanidade, em mais vasta proporção, reunindo-lhe todas as torturas, suplícios e aflições que achou na Terra. Nos climas abrasadores imaginou um inferno de fogo, e nas regiões boreais um inferno de gelo. Não estando ainda desenvolvido o sentido que mais tarde o levaria a compreender o mundo espiritual, não podia conceber senão penas materiais; e assim, com pequenas diferenças de forma, os infernos de todas as religiões se assemelham.
 
 # O inferno cristão imitado do inferno pagão
 
-3. O inferno pagão, descrito e dramatizado pelos poetas, foi o modelo mais grandioso do gênero, e perpetuou-se no seio dos cristãos, onde, por sua vez, houve poetas e cantores. Comparando-os, encontram-se neles - salvo os nomes e variantes de detalhe - numerosas analogias; ambos têm o fogo material por base de tormentos, como símbolo dos sofrimentos mais atrozes. Mas, coisa singular! os cristãos exageraram em muitos pontos o inferno dos pagãos. Se estes tinham o tonel das Danaides, a roda de Íxion, o rochedo de Sísifo, eram estes suplícios individuais; os cristãos, ao contrário, têm para todos, sem distinção, as caldeiras ferventes cujos tampos os anjos levantam para ver as contorções dos supliciados (1); e Deus, sem piedade, ouve-lhes os gemidos por toda a eternidade. Jamais os pagãos descreveram os habitantes dos
-
+3. O inferno pagão, descrito e dramatizado pelos poetas, foi o modelo mais grandioso do gênero, e perpetuou-se no seio dos cristãos, onde, por sua vez, houve poetas e cantores. Comparando-os, encontram-se neles - salvo os nomes e variantes de detalhe - numerosas analogias; ambos têm o fogo material por base de tormentos, como símbolo dos sofrimentos mais atrozes. Mas, coisa singular! os cristãos exageraram em muitos pontos o inferno dos pagãos. Se estes tinham o tonel das Danaides, a roda de Íxion, o rochedo de Sísifo, eram estes suplícios individuais; os cristãos, ao contrário, têm para todos, sem distinção, as caldeiras ferventes cujos tampos os anjos levantam para ver as contorções dos supliciados (1); e Deus, sem piedade, ouve-lhes os gemidos por toda a eternidade. 
 __________
 
 (1) Sermão pregado em Montpellier em 1860.
 __________
 
-Campos Elíseos deleitando a vista nos suplícios do Tártaro. (1)
+Jamais os pagãos descreveram os habitantes dos Campos Elíseos deleitando a vista nos suplícios do Tártaro. (1)
+
+__________
+
+(1) "Os bem-aventurados, sem deixarem o lugar que ocupam, poderão afastar-se de certo modo em razão do seu dom de inteligência e da vista distinta, a fim de considerarem as torturas dos condenados, e, vendo-os, não somente serão insensíveis à dor, mas até ficarão repletos de alegria e renderão graças a Deus por sua própria felicidade, assistindo à inefável calamidade dos ímpios." (S. Tomás de Aquino.)
+
+__________
 
 4. Os cristãos têm, como os pagãos, o seu rei dos infernos - Satã - com a diferença, porém, de que Plutão se limitava a governar o sombrio império, que lhe coubera em partilha, sem ser mau; retinha em seus domínios os que haviam praticado o mal, porque essa era a sua missão, mas não induzia os homens ao pecado para desfrutar, tripudiar dos seus sofrimentos. Satã, no entanto, recruta vítimas por toda parte e regozija-se ao atormentá-las com uma legião de demônios armados de forcados a revolvê-las no fogo.
 
 Já se tem discutido seriamente sobre a natureza desse fogo que queima mas não consome as vítimas. Tem-se mesmo perguntado se seria um fogo de betume. (2)
+
+__________
+
+(2) Sermão pregado em Paris em 1861.
+
+__________
+
 
 O inferno cristão nada cede, pois, ao inferno pagão.
 
@@ -358,13 +369,6 @@ O inferno cristão nada cede, pois, ao inferno pagão.
 
 A este respeito, frisemos ainda outra analogia: - O inferno dos pagãos continha de um lado os Campos Elíseos e do outro o Tártaro; o Olimpo, moradia dos deuses e dos homens divinizados, ficava nas regiões superiores.
 
-__________
-
-(1) "Os bem-aventurados, sem deixarem o lugar que ocupam, poderão afastar-se de certo modo em razão do seu dom de inteligência e da vista distinta, a fim de considerarem as torturas dos condenados, e, vendo-os, não somente serão insensíveis à dor, mas até ficarão repletos de alegria e renderão graças a Deus por sua própria felicidade, assistindo à inefável calamidade dos ímpios." (S. Tomás de Aquino.)
-
-(2) Sermão pregado em Paris em 1861.
-
-__________
 
 Segundo a letra do Evangelho, Jesus desceu aos infernos, isto é, aos lugares baixos para deles tirar as almas dos justos que lhe aguardavam a vinda. Os infernos não eram, portanto, um lugar unicamente de suplício: estavam, tal como para os pagãos, nos lugares baixos.
 
@@ -380,15 +384,16 @@ Como, porém, nada de positivo houvesse substituído as idéias recebidas, ao lo
 
 Outra não pode ser a hipótese, dada a crença na sorte definitiva da alma após a morte. Se não há mais de duas habitações, a dos eleitos e a dos condenados, não se podem admitir muitos graus em cada uma sem admitir a possibilidade de os franquear e, conseguintemente, o progresso. Ora, se há progresso, não há sorte definitiva, e se há sorte definitiva, não há progresso. Jesus resolveu a questão quando disse: - "Há muitas moradas na casa de meu Pai." (1)
 
-# Os limbos
-
-8. É verdade que a Igreja admite uma posição especial em casos particulares. As crianças falecidas em tenra idade, sem fazer mal algum, não podem ser condenadas ao fogo eterno. Mas, também, não tendo feito bem, não lhes assiste direito à felicidade suprema. Ficam nos limbos, diz-nos a Igreja, nessa situação jamais definida, na qual, se não sofrem, também não gozam da bem-aventurança. Esta, sendo tal sorte irrevogavelmente fixada, fica-lhes defesa para sempre. Tal privação importa, assim, um suplício eterno e tanto mais imerecido, quanto é certo não ter dependido dessas almas que as coisas assim sucedessem. O mesmo se dá quanto ao selvagem que, não tendo recebido a graça do batismo e as luzes da religião, peca por ignorância, entregue aos instintos naturais. Certo, este não tem a responsabilidade e o mérito cabíveis ao que procede com conhecimento de causa. A simples lógica repele uma tal doutrina em nome da justiça de Deus, que se contém integralmente nestas palavras do Cristo: "A cada um, segundo as suas obras." Obras, sim, boas ou más, porém praticadas voluntária e livremente, únicas que comportam responsabilidade. Neste caso não podem estar a criança, o selvagem e tampouco aquele que não foi esclarecido.
-
 __________
 
 (1) O Evangelho segundo o Espiritismo, cap. III.
 
 __________
+
+
+# Os limbos
+
+8. É verdade que a Igreja admite uma posição especial em casos particulares. As crianças falecidas em tenra idade, sem fazer mal algum, não podem ser condenadas ao fogo eterno. Mas, também, não tendo feito bem, não lhes assiste direito à felicidade suprema. Ficam nos limbos, diz-nos a Igreja, nessa situação jamais definida, na qual, se não sofrem, também não gozam da bem-aventurança. Esta, sendo tal sorte irrevogavelmente fixada, fica-lhes defesa para sempre. Tal privação importa, assim, um suplício eterno e tanto mais imerecido, quanto é certo não ter dependido dessas almas que as coisas assim sucedessem. O mesmo se dá quanto ao selvagem que, não tendo recebido a graça do batismo e as luzes da religião, peca por ignorância, entregue aos instintos naturais. Certo, este não tem a responsabilidade e o mérito cabíveis ao que procede com conhecimento de causa. A simples lógica repele uma tal doutrina em nome da justiça de Deus, que se contém integralmente nestas palavras do Cristo: "A cada um, segundo as suas obras." Obras, sim, boas ou más, porém praticadas voluntária e livremente, únicas que comportam responsabilidade. Neste caso não podem estar a criança, o selvagem e tampouco aquele que não foi esclarecido.
 
 
 # Quadro do inferno pagão
@@ -471,15 +476,16 @@ Desse número é Santa Teresa. Dir-se-ia, pela narrativa da santa, que há uma c
 
 "Sem esperança de socorro, tudo era trevas em torno de si, posto que através dessas trevas percebesse, não sem pavor, a hedionda viela em que se achava, com a sua imunda vizinhança. Este espetáculo era-lhe tão intolerável quanto os apertos mesmos da prisão. (1)
 
-"Esse não era, sem dúvida, mais que um pequeno recanto do inferno. Outros viajantes espirituais foram mais favorecidos, pois viram grandes cidades no inferno, quais enormes braseiros: Babilônia e Nínive, a própria Roma, com seus palácios e templos abrasados, acorrentados todos os habitantes.
-
-"Traficantes em seus balcões, sacerdotes reunidos a cortesãos em salas de festim, chumbados às cadeiras ululantes, levando aos lábios rubras taças chamejantes. Criados genuflexos em ferventes cloacas, braços distendidos, e príncipes de cujas mãos escorria em lava devoradora o ouro derretido. Outros viram no inferno planícies sem-fim, cultivadas por camponeses famintos, que, nada colhendo desses campos fumegantes, dessas sementes estéreis, se entredevoravam, dispersando-se em seguida, tão numerosos como dantes, magros, vorazes e em bando, indo procurar ao longe, em vão, terras mais felizes. Outras colônias errantes de condenados os substituíam imediatamente. Ainda outros relatam que viram no inferno montanhas inçadas de precipícios, florestas gemebundas, poços secos, fontes alimentadas de lágrimas, ribeiros de sangue, turbilhões de neve em desertos de gelo, barcas tripuladas por desesperados, singrando mares sem praia. Viram, em uma palavra, tudo o que viam os pagãos: um lúgubre revérbero da Terra com os respectivos sofrimentos naturais eternizados, e até calabouços, patíbulos e instrumentos de tortura forjados por nossas próprias mãos.
-
 __________
 
 (1) Nesta visão se reconhecem todos os caracteres dos pesadelos, sendo provável que fosse deste gênero de fenômenos o acontecido a Santa Teresa.
 
 __________
+
+
+"Esse não era, sem dúvida, mais que um pequeno recanto do inferno. Outros viajantes espirituais foram mais favorecidos, pois viram grandes cidades no inferno, quais enormes braseiros: Babilônia e Nínive, a própria Roma, com seus palácios e templos abrasados, acorrentados todos os habitantes.
+
+"Traficantes em seus balcões, sacerdotes reunidos a cortesãos em salas de festim, chumbados às cadeiras ululantes, levando aos lábios rubras taças chamejantes. Criados genuflexos em ferventes cloacas, braços distendidos, e príncipes de cujas mãos escorria em lava devoradora o ouro derretido. Outros viram no inferno planícies sem-fim, cultivadas por camponeses famintos, que, nada colhendo desses campos fumegantes, dessas sementes estéreis, se entredevoravam, dispersando-se em seguida, tão numerosos como dantes, magros, vorazes e em bando, indo procurar ao longe, em vão, terras mais felizes. Outras colônias errantes de condenados os substituíam imediatamente. Ainda outros relatam que viram no inferno montanhas inçadas de precipícios, florestas gemebundas, poços secos, fontes alimentadas de lágrimas, ribeiros de sangue, turbilhões de neve em desertos de gelo, barcas tripuladas por desesperados, singrando mares sem praia. Viram, em uma palavra, tudo o que viam os pagãos: um lúgubre revérbero da Terra com os respectivos sofrimentos naturais eternizados, e até calabouços, patíbulos e instrumentos de tortura forjados por nossas próprias mãos.
 
 Há, com efeito, demônios que, para melhor atormentarem os homens em seus corpos, tomam corpos. Uns têm asas de morcegos, cornos, couraças de escama, patas armadas de garras, dentes agudos, apresentando-se-nos armados de espadas, tenazes, pinças, serras, grelhas, foles, tudo ardente, não exercendo outro ofício por toda a eternidade, em relação à carne humana, que não o de carniceiros e cozinheiros; outros, transformados em leões ou víboras enormes, arrastam suas presas para cavernas solitárias; estes se transformam em corvos para arrancar os olhos a certos culpados, e aqueles em dragões volantes, prontos a se lançarem sobre o dorso das vítimas, arrebatando-as assustadiças, ensangüentadas, aos gritos, através de espaços tenebrosos, para arremessá-las alfim em tanques de enxofre. Aqui, nuvens de gafanhotos, de escorpiões gigantescos, cuja vista produz náuseas e calafrios, e o contacto, convulsões; além, monstros policéfalos, escancarando goelas vorazes, a sacudirem sobre as disformes cabeças as suas crinas de áspides, a triturarem condenados com sangrentas mandíbulas para vomitá-los mastigados, porém vivos, porque são imortais.
 
@@ -492,13 +498,14 @@ __________
 
 "Demônio algum se furta, nem se furtará jamais ao desempenho sinistro da sua tarefa, perfeitamente disciplinados e fiéis, quanto à execução das vingativas ordens que receberam. Aliás, sem isso que seria o inferno? Repousariam os pacientes se os algozes altercassem ou se enfadassem. Mas, nada de repouso nem disputas para quaisquer deles, pois apesar de maus e inumeráveis que são, estendendo-se de um a outro extremo do abismo, nunca se viu sobre a Terra súditos mais dóceis a seus príncipes, exércitos mais obedientes aos chefes ou comunidades monásticas mais humildes e submissas aos seus superiores. (1)
 
-"Quase nada se conhece da ralé demoníaca, desses vis Espíritos que compõem as legiões de vampiros, sapos, escorpiões, corvos, hidras, salamandras e outros animais sem-nome; conhecem-se, porem, os nomes de muitos dos príncipes que comandam tais legiões, entre os quais Belfegor, o demônio da luxúria; Abadon ou Apolion, do homicídio; Belzebu, dos desejos impuros, ou senhor das moscas que engendram a corrupção; Mamon, da avareza; Moloc, Belial, Baalgad, Astarot e muitos outros, sem falar do seu chefe supremo, o sombrio arcanjo que no céu se chamava Lúcifer e no inferno se chama Satanás.
-
 __________
 
 (1) Esses mesmos demônios rebeldes a Deus quanto ao bem, são de uma docilidade exemplar quanto à pratica do mal. Nenhum se esquiva ou afrouxa durante a eternidade. Que singular metamorfose em quem fora criado puro e perfeito como os anjos! Não é de pasmar vê-los dar exemplos de harmonia, de concórdia inalterável quando os homens sequer não sabem viver em paz na Terra, antes se laceram mutuamente? Vendo-se o requinte dos castigos reservados aos condenados e comparando sua situação à dos demônios, é caso de perguntar quais os mais dignos de lástima - se as vítimas ou os algozes.
 
 __________
+
+
+"Quase nada se conhece da ralé demoníaca, desses vis Espíritos que compõem as legiões de vampiros, sapos, escorpiões, corvos, hidras, salamandras e outros animais sem-nome; conhecem-se, porem, os nomes de muitos dos príncipes que comandam tais legiões, entre os quais Belfegor, o demônio da luxúria; Abadon ou Apolion, do homicídio; Belzebu, dos desejos impuros, ou senhor das moscas que engendram a corrupção; Mamon, da avareza; Moloc, Belial, Baalgad, Astarot e muitos outros, sem falar do seu chefe supremo, o sombrio arcanjo que no céu se chamava Lúcifer e no inferno se chama Satanás.
 
 "Eis aí resumida a idéia que nos dão do inferno, sob o ponto de vista da sua natureza física e também das penas físicas que aí sofrem. Compulsai os escritos dos padres e dos antigos doutores; interrogai as pias legendas; observai as esculturas e painéis das nossas igrejas; atentai no que dizem dos púlpitos e sabereis ainda mais."
 
@@ -537,17 +544,16 @@ O princípio do purgatório é, pois, fundado na eqüidade, porque, comparado à
 
 2. Mas, necessariamente, a noção do purgatório deveria ser incompleta, porque apenas conhecendo a penalidade do fogo fizeram dele um inferno menos tenebroso, visto que as almas aí também ardem, embora em fogo mais brando. Sendo o dogma das penas eternas incompatível com o progresso, as almas do purgatório não se livram dele por efeito do seu adiantamento, mas em virtude das preces que se dizem ou que se mandam dizer em sua intenção. E se foi bom o primeiro pensamento, outro tanto não acontece quanto às conseqüências dele decorrentes, pelos abusos que originaram. As preces pagas transformaram o purgatório em mina mais rendosa que o inferno. (1)
 
-3. Jamais foram determinados e definidos claramente o lugar do purgatório e a natureza das penas aí sofridas. A Nova Revelação estava reservado o preenchimento dessa lacuna, explicando-nos a causa das terrenas misérias da vida, das quais só a pluralidade das existências poderia mostrar-nos a justiça.
-
-Essas misérias decorrem necessariamente das imperfeições da alma, pois se esta fosse perfeita não cometeria faltas nem teria de sofrer-lhe as conseqüências. O homem que na Terra fosse em absoluto sóbrio e moderado, por exemplo, não padeceria enfermidades oriundas de excessos.
-
-O mais das vezes ele é desgraçado por sua própria culpa, porém, se é imperfeito, é porque já o era antes de vir à Terra, expiando não somente faltas atuais, mas faltas anteriores não resgatadas. Repara em uma vida de provações o que a outrem fez sofrer em anterior existência. As vicissitudes que experimenta são, por sua vez, uma correção temporária e uma advertência quanto às imperfeições que lhe cumpre eliminar de si, a fim de evitar males e progredir para o bem. São para a alma lições da experiência, rudes às vezes, mas tanto mais proveitosas para o futuro, quanto profundas as impressões que deixam. Essas vicissitudes ocasionam incessantes lutas que lhe desenvolvem as forças e as faculdades intelectivas e morais. Por essas lutas a alma se retempera no bem, triunfando sempre que tiver denodo para mantê-las até ao fim.
-
 __________
 
 (1) O purgatório originou o comércio escandaloso das indulgências, por intermédio das quais se vende a entrada no céu. Este abuso foi a causa primaria da Reforma, levando Lutero a rejeitar o purgatório.
 __________
 
+3. Jamais foram determinados e definidos claramente o lugar do purgatório e a natureza das penas aí sofridas. A Nova Revelação estava reservado o preenchimento dessa lacuna, explicando-nos a causa das terrenas misérias da vida, das quais só a pluralidade das existências poderia mostrar-nos a justiça.
+
+Essas misérias decorrem necessariamente das imperfeições da alma, pois se esta fosse perfeita não cometeria faltas nem teria de sofrer-lhe as conseqüências. O homem que na Terra fosse em absoluto sóbrio e moderado, por exemplo, não padeceria enfermidades oriundas de excessos.
+
+O mais das vezes ele é desgraçado por sua própria culpa, porém, se é imperfeito, é porque já o era antes de vir à Terra, expiando não somente faltas atuais, mas faltas anteriores não resgatadas. Repara em uma vida de provações o que a outrem fez sofrer em anterior existência. As vicissitudes que experimenta são, por sua vez, uma correção temporária e uma advertência quanto às imperfeições que lhe cumpre eliminar de si, a fim de evitar males e progredir para o bem. São para a alma lições da experiência, rudes às vezes, mas tanto mais proveitosas para o futuro, quanto profundas as impressões que deixam. Essas vicissitudes ocasionam incessantes lutas que lhe desenvolvem as forças e as faculdades intelectivas e morais. Por essas lutas a alma se retempera no bem, triunfando sempre que tiver denodo para mantê-las até ao fim.
 
 O prêmio da vitória está na vida espiritual, onde a alma entra radiante e triunfadora como soldado que se destaca da refrega para receber a palma gloriosa.
 
@@ -563,6 +569,11 @@ A expiação no mundo dos Espíritos e na Terra não constitui duplo castigo par
 
 8. O Espiritismo não nega, pois, antes confirma, a penalidade futura. O que ele destrói é o inferno localizado com suas fornalhas e penas irremissíveis. Não nega, outrossim, o purgatório, pois prova que nele nos achamos, e definindo-o precisamente, e explicando a causa das misérias terrestres, conduz à crença aqueles mesmos que o negam. Repele as preces pelos mortos? Ao contrário, visto que os Espíritos sofredores as solicitam; eleva-as a um dever de caridade e demonstra a sua eficácia para os conduzir ao bem e, por esse meio, abreviar-lhes os tormentos (1). Falando à inteligência, tem levado a fé a muito incrédulo, incutindo a prece no ânimo dos que a escarneciam. O que o Espiritismo afirma é que o valor da prece está no pensamento e não nas palavras, que as melhores preces são as do coração e não dos lábios, e, finalmente, as que cada qual murmura de si mesmo e não as que se mandam dizer por dinheiro. Quem, pois, ousaria censurá-lo?
 
+__________
+
+(1) Vede O Evangelho segundo o Espiritismo, cap. XXVII - "Ação da prece".
+__________
+
 9. Seja qual for a duração do castigo, na vida espiritual ou na Terra, onde quer que se verifique, tem sempre um termo, próximo ou remoto. Na realidade não há para o Espírito mais que duas alternativas, a saber: - punição temporária e proporcional à culpa, e recompensa graduada segundo o mérito. Repele o Espiritismo a terceira alternativa, da eterna condenação. O inferno reduz-se a figura simbólica dos maiores sofrimentos cujo termo é desconhecido. O purgatório, sim, é a realidade.
 
 A palavra purgatório sugere a idéia de um lugar circunscrito: eis por que mais naturalmente se aplica à Terra do que ao Espaço infinito onde erram os Espíritos sofredores, e tanto mais quanto a natureza da expiação terrena tem os caracteres da verdadeira expiação.
@@ -571,14 +582,12 @@ Melhorados os homens, não fornecerão ao mundo invisível senão bons Espírito
 
 Aliás, por esta transformação, que neste momento se opera, a Terra se elevará na hierarquia dos mundos. (2)
 
-10. Mas, por que não teria o Cristo falado do purgatório? É que, não existindo a idéia, não havia palavra que a representasse.
-
 __________
-
-(1) Vede O Evangelho segundo o Espiritismo, cap. XXVII - "Ação da prece".
 
 (2) Idem, cap. III - "Progressão dos mundos".
 __________
+
+10. Mas, por que não teria o Cristo falado do purgatório? É que, não existindo a idéia, não havia palavra que a representasse.
 
 O Cristo serviu-se da palavra inferno, a única usada, como termo genérico, para designar as penas futuras, sem distinção. Colocasse ele, ao lado da palavra inferno, uma equivalente a purgatório e não poderia precisar-lhe o verdadeiro sentido sem ferir uma questão reservada ao futuro; teria, enfim, de consagrar a existência de dois lugares especiais de castigo. O inferno em sua concepção genérica, revelando a idéia de punição, encerrava, implicitamente, a do purgatório, que não é senão um modo de penalidade.
 
@@ -798,16 +807,14 @@ Desta forma a perfeição corporal das raças adiantadas deixa de ser produto de
 Por uma consequência natural deste principio, as disposições morais do Espírito devem modificar as qualidades do sangue, dar-lhe maior ou menor atividade, provocar uma secreção mais ou menos abundante de bílis ou de quaisquer outros fluidos. É assim, por exemplo, que ao glutão enche-se-lhe a boca de saliva diante dum prato apetitoso.
 
 Certo é que a iguaria não pode excitar o órgão do paladar, uma vez que com ele não tem contacto; é, pois, o Espírito, cuja sensibilidade é despertada, que atua sobre aquele órgão pelo pensamento, enquanto que outra pessoa permanecerá indiferente à vista do mesmo acepipe. É ainda por este motivo que a pessoa sensível facilmente verte lágrimas. Não é, porém, a abundância destas que dá sensibilidade ao Espírito, mas precisamente a sensibilidade deste que provoca a secreção abundante das lágrimas. Sob o império da sensibilidade, o organismo condiciona-se (1) à disposição normal do Espírito, do mesmo modo por que se condiciona à disposição do Espírito glutão.
-
-Seguindo esta ordem de idéias, compreende-se que um Espírito irascível deve encaminhar-se para estimular um temperamento bilioso, do que resulta não ser um homem colérico por bilioso, mas bilioso por colérico. O mesmo se dá em relação a todas as outras disposições instintivas: um Espírito indolente e fraco deixará o organismo em estado de atonia relativo ao seu caráter, ao passo que, ativo e enérgico, dará ao sangue como aos nervos qualidades perfeitamente opostas. A ação do Espírito sobre o físico é tão evidente que não raro vemos graves desordens orgânicas sobrevirem a violentas comoções morais.
-
-A expressão vulgar: - A emoção transtornou-lhe o sangue - não é tão destituída de sentido quanto se poderia supor. Ora, que poderia transtornar o sangue senão as disposições morais do Espírito?
-
 __________
 
 (1) O autor escreveu s'est approprié (p. 93, 4ª edição, Paris, 1869), à falta, na época, de verbo mais específico à perfeita tradução da idéia. Nota da Editora (FEB), em 1973.
 __________
 
+Seguindo esta ordem de idéias, compreende-se que um Espírito irascível deve encaminhar-se para estimular um temperamento bilioso, do que resulta não ser um homem colérico por bilioso, mas bilioso por colérico. O mesmo se dá em relação a todas as outras disposições instintivas: um Espírito indolente e fraco deixará o organismo em estado de atonia relativo ao seu caráter, ao passo que, ativo e enérgico, dará ao sangue como aos nervos qualidades perfeitamente opostas. A ação do Espírito sobre o físico é tão evidente que não raro vemos graves desordens orgânicas sobrevirem a violentas comoções morais.
+
+A expressão vulgar: - A emoção transtornou-lhe o sangue - não é tão destituída de sentido quanto se poderia supor. Ora, que poderia transtornar o sangue senão as disposições morais do Espírito?
 
 Pode admitir-se por conseguinte, ao menos em parte, que o temperamento é determinado pela natureza do Espírito, que é causa e não efeito.
 
@@ -833,13 +840,13 @@ A Doutrina Espírita, no que respeita às penas futuras, não se baseia numa teo
 
 Preciso é afirmar que se não trata neste caso das revelações de um só Espírito, o qual poderia ver as coisas do seu ponto de vista, sob um só aspecto, ainda dominado por terrenos prejuízos. Tampouco se trata de uma revelação feita exclusivamente a um indivíduo que pudesse deixar-se levar pelas aparências, ou de uma visão extática suscetível de ilusões, e não passando muitas vezes de reflexo de uma imaginação exaltada. (1)
 
-Trata-se, sim, de inúmeros exemplos fornecidos por Espíritos de todas as categorias, desde os mais elevados aos mais inferiores da escala, por intermédio de outros tantos auxiliares (médiuns) disseminados pelo mundo, de sorte que a revelação deixa de ser privilégio de alguém, pois todos podem prová-la, observando-a, sem obrigar-se à crença pela crença de outrem.
-
 __________
 
 (1) Vede cap. VI, nº 7, e O Livro dos Espíritos nºs 443 e 444.
 
 __________
+
+Trata-se, sim, de inúmeros exemplos fornecidos por Espíritos de todas as categorias, desde os mais elevados aos mais inferiores da escala, por intermédio de outros tantos auxiliares (médiuns) disseminados pelo mundo, de sorte que a revelação deixa de ser privilégio de alguém, pois todos podem prová-la, observando-a, sem obrigar-se à crença pela crença de outrem.
 
 
 # Código penal da vida futura
@@ -878,9 +885,21 @@ Deste modo o Espírito é sempre o árbitro da própria sorte, podendo prolongar
 
 Uma condenação por tempo predeterminado teria o duplo inconveniente de continuar o martírio do Espírito renegado, ou de libertá-lo do sofrimento quando ainda permanecesse no mal. Ora, Deus, que é justo, só pune o mal enquanto existe, e deixa de o punir quando não existe mais (1); por outra, o mal moral, sendo por si mesmo causa de sofrimento, fará este durar enquanto subsistir aquele, ou diminuirá de intensidade à medida que ele decresça.
 
+__________
+
+(1) Vede cap. VI, nº 25, citação de Ezequiel.
+
+__________
+
 14º - Dependendo da melhoria do Espírito a duração do castigo, o culpado que jamais melhorasse sofreria sempre, e, para ele, a pena seria eterna.
 
 15º - Uma condição inerente à inferioridade dos Espíritos é não lobrigarem o termo da provação, acreditando-a eterna, como eterno lhes parece deva ser um tal castigo. (2)
+
+__________
+
+(2) Perpétuo é sinônimo de eterno. Diz-se o limite das neves perpétuas; o eterno gelo dos pólos; também se diz o secretário perpétuo da Academia, o que não significa que o seja ad perpetuam, mas unicamente por tempo ilimitado. Eterno e perpétuo se empregam, pois, no sentido de indeterminado. Nesta acepção pode dizer-se que as penas são eternas, para exprimir que não têm duração limitada; eternas, portanto, para o Espírito que lhes não vê o termo.
+
+__________
 
 16º - O arrependimento, conquanto seja o primeiro passo para a regeneração, não basta por si só; são precisas a expiação e a reparação.
 
@@ -890,17 +909,7 @@ Arrependimento, expiação e reparação constituem, portanto, as três condiç�
 
 Até que os últimos vestígios da falta desapareçam, a expiação consiste nos sofrimentos físicos e morais que lhe são conseqüentes, seja na vida atual, seja na vida espiritual após a morte, ou ainda em nova existência corporal.
 
-__________
-
-(1) Vede cap. VI, nº 25, citação de Ezequiel.
-
-(2) Perpétuo é sinônimo de eterno. Diz-se o limite das neves perpétuas; o eterno gelo dos pólos; também se diz o secretário perpétuo da Academia, o que não significa que o seja ad perpetuam, mas unicamente por tempo ilimitado. Eterno e perpétuo se empregam, pois, no sentido de indeterminado. Nesta acepção pode dizer-se que as penas são eternas, para exprimir que não têm duração limitada; eternas, portanto, para o Espírito que lhes não vê o termo.
-
-__________
-
 A reparação consiste em fazer o bem àqueles a quem se havia feito o mal. Quem não repara os seus erros numa existência, por fraqueza ou má-vontade, achar-se-á numa existência ulterior em contacto com as mesmas pessoas que de si tiverem queixas, e em condições voluntariamente escolhidas, de modo a demonstrar-lhes reconhecimento e fazer-lhes tanto bem quanto mal lhes tenha feito. Nem todas as faltas acarretam prejuízo direto e efetivo; em tais casos a reparação se opera, fazendo-se o que se deveria fazer e foi descurado; cumprindo os deveres desprezados, as missões não preenchidas; praticando o bem em compensação ao mal praticado, isto é, tornando-se humilde se se tem sido orgulhoso, amável se se foi austero, caridoso se se tem sido egoísta, benigno se se tem sido perverso, laborioso se se tem sido ocioso, útil se se tem sido inútil, frugal se se tem sido intemperante, trocando em suma por bons os maus exemplos perpetrados. E desse modo progride o Espírito, aproveitando-se do próprio passado.(1)
-
-18º - Os Espíritos imperfeitos são excluídos dos mundos felizes, cuja harmonia perturbariam. Ficam nos mundos inferiores a expiarem as suas faltas pelas tribulações da vida, e purificando-se das suas imperfeições até que mereçam a encarnação em mundos mais elevados, mais adiantados moral e fisicamente. Se se pode conceber um lugar circunscrito de castigo, tal lugar é, sem dúvida, nesses mundos de expiação, em torno dos quais pululam Espíritos imperfeitos, desencarnados à espera de novas existências que lhes permitam reparar o mal, auxiliando-os no progresso.
 
 __________
 
@@ -911,6 +920,7 @@ Por que hão de vacilar tais pessoas perante uma obrigação que todo homem hone
 Quando esta perspectiva de reparação for inculcada na crença das massas, será um outro freio aos seus desmandos, e bem mais poderoso que o inferno e respectivas penas eternas, visto como interessa a vida em sua plena atualidade, podendo o homem compreender a procedência das circunstâncias que a tornam penosa, ou a sua verdadeira situação.
 __________
 
+18º - Os Espíritos imperfeitos são excluídos dos mundos felizes, cuja harmonia perturbariam. Ficam nos mundos inferiores a expiarem as suas faltas pelas tribulações da vida, e purificando-se das suas imperfeições até que mereçam a encarnação em mundos mais elevados, mais adiantados moral e fisicamente. Se se pode conceber um lugar circunscrito de castigo, tal lugar é, sem dúvida, nesses mundos de expiação, em torno dos quais pululam Espíritos imperfeitos, desencarnados à espera de novas existências que lhes permitam reparar o mal, auxiliando-os no progresso.
 
 19º - Como o Espírito tem sempre o livre-arbítrio, o progresso por vezes se lhe torna lento, e tenaz a sua obstinação no mal. Nesse estado pode persistir anos e séculos, vindo por fim um momento em que a sua contumácia se modifica pelo sofrimento, e, a despeito da sua jactância, reconhece o poder superior que o domina.
 
@@ -954,13 +964,13 @@ Alguns são privados de ver os seres queridos, e todos, geralmente, passam com i
 
 31º - As penas que o Espírito experimenta na vida espiritual ajuntam-se as da vida corpórea, que são conseqüentes às imperfeições do homem, às suas paixões, ao mau uso das suas faculdades e à expiação de presentes e passadas faltas. É na vida corpórea que o Espírito repara o mal de anteriores existências, pondo em prática resoluções tomadas na vida espiritual. Assim se explicam as misérias e vicissitudes mundanas que, à primeira vista, parecem não ter razão de ser. Justas são elas, no entanto, como espólio do passado - herança que serve à nossa romagem para a perfectibilidade. (1)
 
-32º - Deus, diz-se, não daria prova maior de amor às suas criaturas, criando-as infalíveis e, por conseguinte, isentas dos vícios inerentes à imperfeição? Para tanto fora preciso que Ele criasse seres perfeitos, nada mais tendo a adquirir, quer em conhecimentos, quer em moralidade. Certo, porém, Deus poderia fazê-lo, e se o não fez é que em sua sabedoria quis que o progresso constituísse lei geral. Os homens são imperfeitos, e, como tais, sujeitos a vicissitudes mais ou menos penosas. E pois que o fato existe, devemos aceitá-lo.
-
 __________
 
 (1) Vede 1ª Parte, cap. V, "O purgatório", nº 3 e seguintes; e, após, 2ª Parte, cap. VIII, "Expiações terrestres". Vede, também, O Evangelho segundo o Espiritismo, cap. V, "Bem-aventurados os aflitos".
 
 __________
+
+32º - Deus, diz-se, não daria prova maior de amor às suas criaturas, criando-as infalíveis e, por conseguinte, isentas dos vícios inerentes à imperfeição? Para tanto fora preciso que Ele criasse seres perfeitos, nada mais tendo a adquirir, quer em conhecimentos, quer em moralidade. Certo, porém, Deus poderia fazê-lo, e se o não fez é que em sua sabedoria quis que o progresso constituísse lei geral. Os homens são imperfeitos, e, como tais, sujeitos a vicissitudes mais ou menos penosas. E pois que o fato existe, devemos aceitá-lo.
 
 Inferir dele que Deus não é bom nem justo, fora insensata revolta contra a lei. injustiça haveria, sim, na criação de seres privilegiados, mais ou menos favorecidos, fruindo gozos que outros porventura não atingem senão pelo trabalho, ou que jamais pudessem atingir. Ao contrário, a justiça divina patenteia-se na igualdade absoluta que preside à criação dos Espíritos; todos têm o mesmo ponto de partida e nenhum se distingue em sua formação por melhor aquinhoado; nenhum cuja marcha progressiva se facilite por exceção: os que chegam ao fim, têm passado, como quaisquer outros, pelas fases de inferioridade e respectivas provas.
 
@@ -988,12 +998,15 @@ A cada um segundo as suas obras, no Céu como na Terra: - tal é a lei da Justi�
 # Os anjos segundo a Igreja
 
 1. Todas as religiões têm tido anjos sob vários nomes, isto é, seres superiores à Humanidade, intermediários entre Deus e os homens. Negando toda a existência espiritual fora da vida orgânica, o materialismo naturalmente classificou os anjos entre as ficções e alegorias. A crença nos anjos é parte essencial dos dogmas da Igreja, que assim os define (1):
+__________
+
+(1) Extraímos este resumo da pastoral do Monsenhor Gousset, cardeal-arcebispo de Reims, para a quaresma de 1864. Por ele podemos, pois, considerar os anjos, assim como os demônios, cujo resumo tiramos da mesma origem e citamos no capítulo seguinte, como última expressão do dogma da Igreja neste sentido.
+
+__________
 
 2. "Acreditamos firmemente, diz um concílio geral e ecumênico (2), que só há um Deus verdadeiro, eterno e infinito, que no começo dos tempos tirou conjuntamente do nada as duas criaturas - espiritual e corpórea, angélica e mundana - tendo formado depois, como elo entre as duas, a natureza humana, composta de corpo e Espírito."
 
 __________
-
-(1) Extraímos este resumo da pastoral do Monsenhor Gousset, cardeal-arcebispo de Reims, para a quaresma de 1864. Por ele podemos, pois, considerar os anjos, assim como os demônios, cujo resumo tiramos da mesma origem e citamos no capítulo seguinte, como última expressão do dogma da Igreja neste sentido.
 
 (2) Concílio de Latrão.
 
@@ -1073,7 +1086,7 @@ E não será rebaixar a Divindade confrontá-la com o fausto dos soberanos da Te
 
 As almas ou Espíritos são criados simples e ignorantes, isto é, sem conhecimentos nem consciência do bem e do mal, porém, aptos para adquirir o que lhes falta. O trabalho é o meio de aquisição, e o fim - que é a perfeição - é para todos o mesmo. Conseguem-no mais ou menos prontamente em virtude do livre-arbítrio e na razão direta dos seus esforços; todos têm os mesmos degraus a franquear, o mesmo trabalho a concluir. Deus não aquinhoa melhor a uns do que a outros, porquanto é justo, e, visto serem todos seus filhos, não tem predileções. Ele lhes diz: Eis a lei que deve constituir a vossa norma de conduta; ela só pode levar-vos ao fim; tudo que lhe for conforme é o bem; tudo que lhe for contrário é o mal. Tendes inteira liberdade de observar ou infringir esta lei, e assim sereis os árbitros da vossa própria sorte. Conseguintemente, Deus não criou o mal; todas as suas leis são para o bem, e foi o homem que criou esse mal, divorciando-se dessas leis; se ele as observasse escrupulosamente, jamais se desviaria do bom caminho.
 
-Entretanto, a alma, qual criança, é inexperiente nas primeiras fases da existência, e daí o ser falível. Não lhe dá Deus essa experiência, mas dá-lhe meios de adquiri-la. Assim, um passo em falso na senda do mal é um atraso para a alma, que, sofrendo-lhe as conseqüências, aprende à sua custa o que importa evitar. Deste modo, pouco a pouco, se desenvolve, aperfeiçoa e adianta na hierarquia espiritual até ao estado de puro Espírito ou anjo. Os anjos são, pois, as almas dos homens chegados ao grau de perfeição que a criatura comporta, fruindo em sua plenitude a prometida felicidade. Antes, porém, de atingir o grau supremo, gozam de felicidade relativa ao seu adiantamento, felicidade que consiste, não na ociosidade, mas nas funções que a Deus apraz confiar-lhes, e por cujo desempenho se sentem ditosas, tendo ainda nele um meio de progresso. (Vede 1ª Parte, cap. III, "O céu".)
+13. Entretanto, a alma, qual criança, é inexperiente nas primeiras fases da existência, e daí o ser falível. Não lhe dá Deus essa experiência, mas dá-lhe meios de adquiri-la. Assim, um passo em falso na senda do mal é um atraso para a alma, que, sofrendo-lhe as conseqüências, aprende à sua custa o que importa evitar. Deste modo, pouco a pouco, se desenvolve, aperfeiçoa e adianta na hierarquia espiritual até ao estado de puro Espírito ou anjo. Os anjos são, pois, as almas dos homens chegados ao grau de perfeição que a criatura comporta, fruindo em sua plenitude a prometida felicidade. Antes, porém, de atingir o grau supremo, gozam de felicidade relativa ao seu adiantamento, felicidade que consiste, não na ociosidade, mas nas funções que a Deus apraz confiar-lhes, e por cujo desempenho se sentem ditosas, tendo ainda nele um meio de progresso. (Vede 1ª Parte, cap. III, "O céu".)
 
 14. A Humanidade não se limita à Terra; habita inúmeros mundos que no Espaço circulam; já habitou os desaparecidos, e habitará os que se formarem. Tendo-a criado de toda a eternidade, Deus jamais cessa de criá-la. Muito antes que a Terra existisse e por mais remota que a suponhamos, outros mundos havia, nos quais Espíritos encarnados percorreram as mesmas fases que ora percorrem os de mais recente formação, atingindo seu fim antes mesmo que houvéramos saído das mãos do Criador.
 
@@ -1156,19 +1169,22 @@ O Verbo Divino, criador de todas as coisas, é também o mediador e salvador ún
 
 A conclusão é esta: - Deus quis criar seres perfeitos, porquanto os favorecera com todos os dons, mas enganou-se: logo, segundo a Igreja, Deus não é infalível! (1)
 
-2ª Pois que nem a Igreja e nem os sagrados anais explicam a causa da rebelião dos anjos para com Deus e apenas dão como problemática (quase certa) a relutância no reconhecimento da futura missão do Cristo, que valor - perguntamos - que valor pode ter o quadro tão preciso e detalhado da cena então ocorrente? A que fonte recorreram, para inferir se de fato foram pronunciadas palavras tão claras e até simples colóquios? De duas uma: ou a cena é verdadeira ou não é. No primeiro caso, não havendo dúvida alguma, por que a Igreja não resolve a questão? Mas se a Igreja e a História se calam se a coisa apenas parece certa, claro, não passa de hipótese, e a cena descritiva é mero fruto da imaginação. (2)
-
-3ª As palavras atribuídas a Lúcifer revelam uma ignorância admirável num arcanjo que, por sua natureza e grau atingido, não deve participar, quanto à organização do Universo, dos erros e dos prejuízos que os homens têm professado, até serem pela Ciência esclareci
-cidos. Como poderia, então, dizer que fixaria residência acima dos astros, dominando as mais elevadas nuvens?! É sempre a velha crença da Terra como centro do Universo, do céu como que formado de nuvens estendendo-se às estrelas, e da limitada região destas, que a Astronomia nos mostra disseminadas ao infinito no infinito espaço! Sabendo-se, como hoje se sabe, que as nuvens não se elevam a mais de duas léguas da superfície terráquea, e falando-se em dominá-las por mais alto, referindo-se a montanhas, preciso fora que a observação partisse da Terra, sendo ela, de fato, a morada dos anjos. Dado, porém, ser esta em região superior, inútil fora alçar-se acima das nuvens. Emprestar aos anjos uma linguagem tisnada de ignorância, é confessar que os homens contemporâneos são mais sábios que os anjos. A Igreja tem caminhado sempre erradamente, não levando em conta os progressos da Ciência.
-
 __________
 
 (1) Esta doutrina monstruosa é corroborada por Moisés, quando diz (Gênese, cap. VI, vv. 6 e 7): "Ele se arrependeu de haver criado o homem na Terra e, penetrado da mais intima dor, disse: Exterminarei a criação da face da Terra; exterminarei tudo, desde o homem aos animais, desde os que rastejam sobre a terra até os pássaros do céu, porque me arrependo de os ter criado." Ora, um Deus que se arrepende do que fez não é perfeito nem infalível; portanto, não é Deus. E são estas as palavras que a Igreja proclama! Tampouco se percebe o que poderia haver de comum entre os animais e a perversidade dos homens, para que merecessem tal extermínio.
+
+__________
+
+2ª Pois que nem a Igreja e nem os sagrados anais explicam a causa da rebelião dos anjos para com Deus e apenas dão como problemática (quase certa) a relutância no reconhecimento da futura missão do Cristo, que valor - perguntamos - que valor pode ter o quadro tão preciso e detalhado da cena então ocorrente? A que fonte recorreram, para inferir se de fato foram pronunciadas palavras tão claras e até simples colóquios? De duas uma: ou a cena é verdadeira ou não é. No primeiro caso, não havendo dúvida alguma, por que a Igreja não resolve a questão? Mas se a Igreja e a História se calam se a coisa apenas parece certa, claro, não passa de hipótese, e a cena descritiva é mero fruto da imaginação. (2)
+
+__________
 
 (2) Encontra-se em Isaías, cap. XIV, Vv. 11 e seguintes: "Teu orgulho foi precipitado nos infernos; teu corpo morto baqueou par terra; tua cama verterá podridão, e vermes tua vestimenta. Como caíste do Céu, Lúcifer, tu que parecias tão brilhante ao romper do dia? Como foste arrojado sobre a Terra, tu que ferias as nações com teus golpes; que dizias de coração: Subirei aos céus, estabelecerei meu trono acima dos astros de Deus, sentar-me-ei acima das nuvens mais altas e serei igual ao Altíssimo! E todavia foste precipitado dessa glória no inferno, até o mais fundo dos abismos. Os que te virem, aproximando-se, encarar-te-ão, dizendo: "Será este o homem que turbou a Terra, que aterrou seus remos, que fez do mundo um deserto, que destruiu cidades e reteve acorrentados os que se lhe entregaram prisioneiros?" Estas palavras do profeta não se relerem à revolta dos anjos, são, sim, uma alusão ao orgulho e à queda do rei de Babilônia, que retinha os judeus em cativeiro, como atestam os últimos versículos. O rei de Babilônia é alegoricamente designado por Lúcifer, mas não se faz aí qualquer menção da cena supra descrita. Essas palavras são do rei que as tinha no coração e se colocava por orgulho acima de Deus, cujo povo escravizara. A profecia da libertação do povo judeu, da rainha de Babilônia e do destroço dos assírios é, ao demais, o assunto exclusivo desse capítulo.
 
 __________
 
+3ª As palavras atribuídas a Lúcifer revelam uma ignorância admirável num arcanjo que, por sua natureza e grau atingido, não deve participar, quanto à organização do Universo, dos erros e dos prejuízos que os homens têm professado, até serem pela Ciência esclareci
+cidos. Como poderia, então, dizer que fixaria residência acima dos astros, dominando as mais elevadas nuvens?! É sempre a velha crença da Terra como centro do Universo, do céu como que formado de nuvens estendendo-se às estrelas, e da limitada região destas, que a Astronomia nos mostra disseminadas ao infinito no infinito espaço! Sabendo-se, como hoje se sabe, que as nuvens não se elevam a mais de duas léguas da superfície terráquea, e falando-se em dominá-las por mais alto, referindo-se a montanhas, preciso fora que a observação partisse da Terra, sendo ela, de fato, a morada dos anjos. Dado, porém, ser esta em região superior, inútil fora alçar-se acima das nuvens. Emprestar aos anjos uma linguagem tisnada de ignorância, é confessar que os homens contemporâneos são mais sábios que os anjos. A Igreja tem caminhado sempre erradamente, não levando em conta os progressos da Ciência.
 
 10. A resposta à primeira objeção acha-se na seguinte passagem: "A escritura e a tradição denominam céu o lugar no qual se haviam colocado os anjos, no momento da sua criação. Mas esse não era o céu dos céus, o céu da visão beatifica, onde Deus se mostra de face aos seus eleitos, que o contemplam claramente e sem esforço, porque aí não há mais possibilidade nem perigo de pecado; a tentação e a dúvida são aí desconhecidas; a justiça, a paz e a alegria reinam imutáveis, a santidade e a glória imperecíveis. Era, portanto, outra região celeste, uma esfera luminosa e afortunada, essa em que permaneciam tão nobres criaturas favorecidas pelas divinas comunicações, que deveriam receber com fé e humildade até serem admitidas no conhecimento da sua realidade essência do próprio Deus.
 
@@ -1177,6 +1193,12 @@ Do que precede se infere que os anjos decaídos pertenciam a uma categoria menos
 11. E ainda há uma outra que é, certamente, a mais séria e a mais grave. Dizem: - "Este plano (a intervenção do Cristo), concebido desde toda a eternidade, foi manifestado aos anjos muito antes da sua execução." Deus sabia, portanto, e de toda a eternidade, que os anjos, tanto quanto os homens, teriam necessidade dessa intervenção. Ainda mais: - o Deus onisciente sabia que alguns dentre esses anjos viriam a falir, arcando com a eterna condenação e arrastando a igual sorte uma parte da Humanidade. E assim, de caso pensado, previamente condenava o gênero humano, a sua própria criação. Deste raciocínio não há fugir, porquanto de outro modo teríamos que admitir a inconsciência divina, apregoando a não presciência de Deus. Para nós é impossível identificar uma tal criação com a soberana bondade. Em ambos os casos vemos a negação de atributos, sem a plenitude absoluta dos quais Deus não seria Deus.
 
 12. Admitindo a falibilidade dos anjos como a dos homens, a punição é conseqüência, aliás justa e natural, da falta; mas se admitirmos concomitantemente a possibilidade do resgate, a regeneração, a graça, após o arrependimento e a expiação, tudo se esclarece e se conforma com a bondade de Deus. Ele sabia que errariam, que seriam punidos, mas sabia igualmente que tal castigo temporário seria um meio de lhes fazer compreender o erro, revertendo alfim em benefício deles. Eis como se explicam as palavras do profeta Ezequiel: - "Deus não quer a morte, porém a salvação do pecador." (1)
+
+__________
+
+(1)  Vede 1ª' Parte, cap. VI, nº 25, citação de Ezequiel.
+
+__________
 
 A inutilidade do arrependimento e a impossibilidade de regeneração, isso sim, importaria a negação da divina bondade. Admitida tal hipótese, poder-se-ia mesmo dizer, rigorosa e exatamente, que estes anjos desde a sua criação, visto Deus não poder ignorá-lo, foram votados à perpetuidade do mal, e predestinados a demônios para arrastarem os homens ao mal.
 
@@ -1268,8 +1290,6 @@ A questão reduz-se, portanto, a saber de que ordem são essas inteligências. E
 __________
 
 (1) As citações deste capítulo são extraídas da mesma pastoral indicada no precedente, e da qual são corolários. É a mesma fonte e, por conseguinte, a mesma autoridade.
-
-
 __________
 
 "Nas suas intervenções exteriores os demônios procuram dissimular a sua presença, a fim de afastar suspeitas. Sempre astutos e pérfidos, seduzem o homem com ciladas antes de algemá-lo na opressão e no servilismo.
@@ -1324,7 +1344,7 @@ Houve tempo em que tais operações faziam fé e acreditava-se na sua eficácia,
 
 A troco da própria alma, ninguém os evocava que não fosse para obter favores da sorte e da fortuna, achar tesouros, revelar o futuro ou obter filtros. A magia com seus sinais, fórmulas e práticas cabalísticas era increpada de fornecer segredos para operar prodígios, constranger Espíritos a ficarem às ordens dos homens e satisfazerem-lhes os desejos. Hoje sabemos que os Espíritos são as almas dos mortos e não os evocamos senão para receber conselhos dos bons, moralizar os maus e continuar relações com seres que nos são caros. Eis o que diz o Espiritismo a tal respeito:
 
--Não podereis obrigar nunca a presença de um Espírito vosso igual ou superior em moralidade, por vos faltar autoridade sobre ele; mas, do vosso inferior, e sendo para seu beneficio, conseguí-lo-eis, visto como outros Espíritos vos secundam. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
+10. Não podereis obrigar nunca a presença de um Espírito vosso igual ou superior em moralidade, por vos faltar autoridade sobre ele; mas, do vosso inferior, e sendo para seu beneficio, conseguí-lo-eis, visto como outros Espíritos vos secundam. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
 -A mais essencial de todas as disposições para evocar é o recolhimento, quando desejarmos tratar com Espíritos sérios. Com a fé e o desejo do bem, mais aptos nos tornamos para evocar Espíritos superiores. Elevando nossa alma por alguns instantes de concentração no momento de evocá-los, identificamo-nos com os bons Espíritos, predispondo a sua vinda. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
 -Nenhum objeto, medalha ou talismã tem a propriedade de atrair ou repelir Espíritos, pois a matéria ação alguma exerce sobre eles. Nunca um bom Espírito aconselha tais absurdos. A virtude dos talismãs só pode existir na imaginação de pessoas simplórias. (O Livro dos Médiuns, 2ª Parte, cap. XXV.)
 -Não há fórmulas sacramentais para evocar Espíritos. Quem quer que pretendesse estabelecer uma fórmula, poderia ser tachado de usar de charlatanismo, visto que para os Espíritos puros a fórmula nada vale. A evocação deve, porém, ser feita sempre em nome de Deus. (O Livro dos Médiuns, 2ª Parte, cap. XVII.)
@@ -1352,14 +1372,14 @@ O Espiritismo, que nunca fez milagres, também não faz esse, pois que jamais fe
 
 Quanto às curas, reconhecidas como reais na pastoral precitada, o exemplo está mal selecionado como meio de evitar relações com os Espíritos. Efetivamente, essas curas são outros tantos benefícios que levam à gratidão e que todos podem experimentar. Pouca gente estará disposta a renunciar a elas, mormente depois de haver esgotado outros recursos antes de recorrer ao diabo. Depois, se o diabo cura, força é confessar que faz uma boa e meritória ação. (1)
 
-12. "Quais são os agentes secretos de tais fenômenos, os verdadeiros autores dessas cenas inexplicáveis? Os anjos, esses não aceitariam papéis indignos, como também não se prestariam aos caprichos todos da curiosidade."
-
-O autor quer falar das manifestações físicas dos Espíritos, no número das quais algumas há evidentemente pouco dignas de Espíritos superiores. Nós lhe pediremos, contudo, que substitua o vocábulo anjo pelo de espíritos puros ou espíritos superiores, pois que assim teremos exatamente o que diz o Espiritismo. Indignas, porém, dos bons Espíritos, não se pode considerar uma multidão de comunicações dadas pela escrita, pela palavra, pela audição, etc., pois que tais comunicações seriam e são dignas dos homens mais eminentes da Terra. O mesmo poderemos dizer quanto às curas, aparições e um sem-número de fatos que os livros santos citam em profusão como obra de anjos ou de santos. Se, pois, os anjos e os santos produziram outrora fenômenos semelhantes, por que não os produzirão hoje? Por que serem idênticos fatos julgados bruxaria nas mãos de uns, enquanto nas mãos de outros se reputam santos milagres?
-
 _________
 
 (1) Querendo persuadir as pessoas curadas pelo Espiritismo que o foram pelo diabo, grande número delas se há separado da Igreja, sem que jamais pensassem fazê-lo.
 _________
+
+12. "Quais são os agentes secretos de tais fenômenos, os verdadeiros autores dessas cenas inexplicáveis? Os anjos, esses não aceitariam papéis indignos, como também não se prestariam aos caprichos todos da curiosidade."
+
+O autor quer falar das manifestações físicas dos Espíritos, no número das quais algumas há evidentemente pouco dignas de Espíritos superiores. Nós lhe pediremos, contudo, que substitua o vocábulo anjo pelo de espíritos puros ou espíritos superiores, pois que assim teremos exatamente o que diz o Espiritismo. Indignas, porém, dos bons Espíritos, não se pode considerar uma multidão de comunicações dadas pela escrita, pela palavra, pela audição, etc., pois que tais comunicações seriam e são dignas dos homens mais eminentes da Terra. O mesmo poderemos dizer quanto às curas, aparições e um sem-número de fatos que os livros santos citam em profusão como obra de anjos ou de santos. Se, pois, os anjos e os santos produziram outrora fenômenos semelhantes, por que não os produzirão hoje? Por que serem idênticos fatos julgados bruxaria nas mãos de uns, enquanto nas mãos de outros se reputam santos milagres?
 
 Sustentar semelhante tese é abdicar toda a lógica. O autor da Pastoral labora em erro quando afirma que tais fenômenos são inexplicáveis. O que se dá é justamente o contrário, isto é, hoje esses fenômenos são perfeitamente explicados, tanto que se não consideram mais como maravilhosos e sobrenaturais. Dado, porém, de barato que assim não fora, tão lógico seria atribuí-los ao diabo, quanto era lógico noutros tempos dar a este as honras de todos os fenômenos naturais, cuja causa então se desconhecia.
 
@@ -1500,7 +1520,6 @@ O próprio vocábulo interrogação, junto aos de adivinho e agoureiro, prova qu
 
 10. A evocação, dizem, é uma falta de consideração para com os mortos, cujas cinzas devem ser respeitadas. Mas quem é que diz tal? São os antagonistas de dois campos opostos, isto é, os incrédulos que nas almas não crêem, e os crédulos que pretendem que só os demônios, e não as almas, podem vir. Quando a evocação é feita com recolhimento e religiosamente; quando os Espíritos são chamados, não por curiosidade, mas por um sentimento de afeição e simpatia, com desejo sincero de instrução e progresso, não vemos nada de irreverente em apelar-se para as pessoas mortas, como se fizera com os vivos. Há, contudo, uma outra resposta peremptória a essa objeção, e é que os Espíritos se apresentam espontaneamente, sem constrangimento, muitas vezes mesmo sem que sejam chamados. Eles também dão testemunho da satisfação que experimentam por comunicar-se com os homens, e queixam-se às vezes do esquecimento em que os deixam. Se os Espíritos se perturbassem ou se agastassem com os nossos chamados, certo o diriam e não retornariam; porém, nessas evocações, livres como são, se se manifestam, é porque lhes convém.
 
-
 11. Ainda uma outra razão é alegada: - As almas permanecem na morada que a justiça divina lhes designa - o que eqüivale dizer no céu ou no inferno. Assim, as que estão no inferno, de lá não podem sair, posto que para tanto a mais ampla liberdade seja outorgada aos demônios. As do céu, inteiramente entregues à sua beatitude, estão muito superiores aos mortais para deles se ocuparem, e são bastantemente felizes para não voltarem a esta terra de misérias, no interesse de parentes e amigos que aqui deixassem. Então essas almas podem ser comparadas aos nababos que dos pobres desviam a vista com receio de perturbar a digestão? Mas se assim fora essas almas se mostrariam pouco dignas da suprema bem-aventurança, transformando-se em padrão de egoísmo!
 
 Restam ainda as almas do purgatório, porém, estas, sofredoras como devem ser, antes que doutra coisa, devem cuidar da sua salvação. Deste modo, não podendo nem umas nem outras almas corresponder ao nosso apelo, somente o demônio se apresenta em seu lugar.
@@ -1510,7 +1529,6 @@ Então é o caso de dizer: se as almas não podem vir, não há de que recear pe
 12. Mas aqui reponta uma outra dificuldade. Se as almas bem-aventuradas não podem deixar a mansão gloriosa para socorrer os mortais, por que invoca a Igreja a assistência dos santos que devem fruir ainda maior soma de beatitude? Por que aconselha invocá-los em casos de moléstia, de aflição, de flagelos? Por que razão e segundo essa mesma Igreja os santos e a própria Virgem aparecem aos homens e fazem milagres? Estes deixam o céu para baixar à Terra; entretanto os que estão menos elevados não o podem fazer!
 
 13. Que os cépticos neguem a manifestação das almas, vá, visto que nelas não acreditam; mas o que se torna estranhável é ver encarniçar-se contra os meios de provar a sua existência, esforçando-se por demonstrar a impossibilidade desses meios, aqueles mesmos cujas crenças repousam na existência e no futuro das almas! Parece que seria mais natural acolherem como benefício da Providência os meios de confundir os cépticos com provas irrecusáveis, pois que são os negadores da própria religião. Os que têm interesse na existência da alma deploram constantemente a avalancha da incredulidade que invade, dizimando-o, o rebanho de fiéis: entretanto, quando se lhes apresenta o meio mais poderoso de combatê-la, recusam-no com tanta ou mais obstinação que os próprios incrédulos. Depois, quando as provas avultam de modo a não deixar dúvidas, eis que procuram como recurso de supremo argumento a interdição do assunto, buscando, para justificá-la, um artigo da lei moisaica do qual ninguém cogitara, emprestando-lhe, à força, um sentido e aplicação inexistentes. E tão felizes se julgam com a descoberta, que não percebem que esse artigo é ainda uma justificativa da Doutrina Espírita.
-
 
 14. Todas as razões alegadas para condenar as relações com os Espíritos não resistem a um exame sério. Pelo ardor com que se combate nesse sentido é fácil deduzir o grande interesse ligado ao assunto. Daí a insistência. Em vendo esta cruzada de todos os cultos contra as manifestações, dir-se-ia que delas se atemorizam. O verdadeiro motivo poderia bem ser o receio de que os Espíritos muito esclarecidos viessem instruir os homens sobre pontos que se pretende obscurecer, dando-lhes conhecimento, ao mesmo tempo, da certeza de um outro mundo, a par das verdadeiras condições para nele serem felizes ou desgraçados. A razão deve ser a mesma por que se diz à criança: - "Não vá lá, que há lobisomens." Ao homem dizem: - "Não chameis os Espíritos: - São o diabo." - Não importa, porém: - impedem os homens de os evocar, mas não poderão impedi-los de vir aos homens para levantar a lâmpada de sob o alqueire.
 
@@ -1606,9 +1624,7 @@ Para satisfazer-lhe o desejo, evocando-o o mais breve possível, dirigimo-nos co
 
 # I
 
-(Câmara mortuária, 23 de abril de 1862.)
-
-1.Evocação. Atendo ao vosso chamado para cumprir a minha promessa.
+(Câmara mortuária, 23 de abril de 1862.) 1.Evocação. Atendo ao vosso chamado para cumprir a minha promessa.
 
 2.Meu caro Sr. Sanson, cumprindo um dever, com satisfação vos evocamos o mais cedo possível depois da vossa morte, como era do vosso desejo. R. É uma graça especial que Deus me concede para que possa manifestar-me; agradeço a vossa boa-vontade, porém, sou tão fraco que tremo.
 
@@ -1628,17 +1644,13 @@ Para satisfazer-lhe o desejo, evocando-o o mais breve possível, dirigimo-nos co
 
 Nota - Apenas pronunciadas as primeiras palavras sobre o assunto, o Espírito respondeu sem que eu terminasse. Também respondeu, sem interrogação alguma, a certa controvérsia suscitada entre os assistentes, sobre se seria oportuno ler esta comunicação no cemitério, achando-se presentes pessoas que poderiam não compartilhar das nossas opiniões.
 
--R. Ah! sei, meu amigo, e sei, por que tanto vos via ontem como hoje... que grande é a minha alegria! Obrigado! Obrigado! Falai... falai para que me compreendam e vos estimem; nada tendes que temer, pois que se respeita a morte... falai pois, para que os incrédulos tenham fé. Adeus; falai; coragem, confiança, e oxalá meus filhos possam converter-se a uma crença sacrossanta.
-
-J. Sanson.
+-R. Ah! sei, meu amigo, e sei, por que tanto vos via ontem como hoje... que grande é a minha alegria! Obrigado! Obrigado! Falai... falai para que me compreendam e vos estimem; nada tendes que temer, pois que se respeita a morte... falai pois, para que os incrédulos tenham fé. Adeus; falai; coragem, confiança, e oxalá meus filhos possam converter-se a uma crença sacrossanta. J. Sanson.
 
 Durante a cerimônia do cemitério, ele ditou as palavras seguintes: "Não vos atemorize a morte, meus amigos: ela é um estádio da vida, se bem souberdes viver;é uma felicidade, se bem a merecerdes e melhor cumprirdes as vossas provações. Repito: coragem e boa-vontade! Não deis mais que medíocre valor aos bens terrenos, e sereis recompensados. Não se pode muito gozar, sem tirar de outrem o bem-estar e sem fazer moralmente um grande, um imenso mal. A terra me seja leve.
 
 # II
 
-(Sociedade Espírita de Paris, 25 de abril de 1862.)
-
-1.Evocação. R. Estou perto de vós, meus amigos.
+(Sociedade Espírita de Paris, 25 de abril de 1862.) 1.Evocação. R. Estou perto de vós, meus amigos.
 
 2.Consideramo-nos felizes pela entrevista que tivemos no dia do vosso enterro, e, visto que o permitis, mais felizes seremos em completá-la para nossa instrução. R. Estou pronto, e sinto-me feliz por pensardes em mim.
 
@@ -1685,19 +1697,19 @@ Em seguida à primeira evocação do Sr. Sanson, feita na Sociedade de Paris, um
 
 Como o dia sucede naturalmente à aurora, a vida espiritual se lhe sucedeu à vida terrestre, sem rompimento nem abalo. O seu último suspiro foi tanto como um hino de reconhecimento e amor. E quão poucos os que atravessam assim a rude transição! Quão poucos os que após a confusão e desespero da vida concebem o ritmo harmonioso das esferas! Como o homem de saúde perfeita, de chofre mutilado, sofre nos membros separados ao corpo, assim, a alma do céptico, separada do corpo, se despedaça e, lancinante, se precipita no Espaço, inconsciente de si mesma.
 
-"Orai por essas almas perturbadas; orai por todos os sofredores, que a caridade não se restringe à Humanidade visível, mas deve socorrer e consolar os habitantes do Espaço. Disso tivestes a prova evidente na súbita conversão desse Espírito (1) tocado pelas preces espíritas sobre o túmulo do homem de bem que vindes interrogar e que deseja fazer-vos progredir no bom caminho. O amor não tem limites; enche o Espaço e dá e recebe mutuamente as suas divinas consolações. Também o mar se desenrola numa perspectiva infinita, cujo espetáculo deslumbra o espírito, parecendo confundir-se no seu limite com os céus. São duas grandezas que se extremam. Pois bem; assim é o amor; mais profundo que as ondas, mais infinito que o Espaço, a todos vós, encarnados e desencarnados, deve unir na santa comunhão da caridade, fusão sublime do finito e do eterno.
-
-Georges."
-
-# JOBARD
-
-Diretor do Museu da Indústria de Bruxelas, nascido em Baissey (Alto Mame) e falecido em Bruxelas, de apoplexia fulminante, a 27 de outubro de 1861, com sessenta e nove anos de idade.
+"Orai por essas almas perturbadas; orai por todos os sofredores, que a caridade não se restringe à Humanidade visível, mas deve socorrer e consolar os habitantes do Espaço. Disso tivestes a prova evidente na súbita conversão desse Espírito (1) tocado pelas preces espíritas sobre o túmulo do homem de bem que vindes interrogar e que deseja fazer-vos progredir no bom caminho. O amor não tem limites; enche o Espaço e dá e recebe mutuamente as suas divinas consolações. Também o mar se desenrola numa perspectiva infinita, cujo espetáculo deslumbra o espírito, parecendo confundir-se no seu limite com os céus. São duas grandezas que se extremam. Pois bem; assim é o amor; mais profundo que as ondas, mais infinito que o Espaço, a todos vós, encarnados e desencarnados, deve unir na santa comunhão da caridade, fusão sublime do finito e do eterno. Georges."
 
 __________
 
 (1) Alusão ao Espírito Bernard, que se manifestou espontaneamente no dia das exéquias do Sr. Sanson. (Ver a Revue de maio de 1862, pág. 132.)
 
 __________
+
+
+# JOBARD
+
+Diretor do Museu da Indústria de Bruxelas, nascido em Baissey (Alto Mame) e falecido em Bruxelas, de apoplexia fulminante, a 27 de outubro de 1861, com sessenta e nove anos de idade.
+
 
 # 2ª PARTE - CAPÍTULO II
 
@@ -1707,9 +1719,7 @@ O Sr. Jobard era presidente honorário da Sociedade Espírita de Paris e tratava
 
 "Aqui estou eu a quem íeis evocar, manifestando-me por este médium que até agora tenho solicitado baldamente. Antes de tudo desejo descrever as minhas impressões por ocasião do meu desprendimento: senti um abalo indizível; lembrei-me instantaneamente do meu nascimento, da minha juventude, da minha velhice; toda a minha vida se me retratou nitidamente na memória. Eu sentia apenas um como piedoso desejo de me achar enfim nas regiões reveladas pela nossa crença. Depois, o tumulto serenou: eu estava livre e o meu corpo jazia inerte. Ah! meus caros amigos, que prazer se experimenta sem o peso do corpo! quanta alegria no abranger o Espaço! Não julgueis, no entanto, que me tenha tornado repentinamente um eleito do Senhor; não, eu estou entre os Espíritos que, tendo aprendido um pouco, muito devem aprender ainda. Não tardou muito que de vós me lembrasse, irmãos de exílio, e asseguro-vos toda a minha simpatia, todos os meus votos vos cercam.
 
-“Quereis saber que Espíritos me receberam? quais as minhas impressões? pois bem, amigos, foram todos os que evocamos, todos os irmãos que compartilharam dos nossos trabalhos. Eu vi o esplendor, mas não posso descrevê-lo. Apliquei-me a discernir o que era verdadeiro nas comunicações, pronto a contraditar tudo que fosse errôneo, pronto a ser o cavaleiro andante da verdade neste mundo, tal como o fui no vosso.
-
-Jobard."
+“Quereis saber que Espíritos me receberam? quais as minhas impressões? pois bem, amigos, foram todos os que evocamos, todos os irmãos que compartilharam dos nossos trabalhos. Eu vi o esplendor, mas não posso descrevê-lo. Apliquei-me a discernir o que era verdadeiro nas comunicações, pronto a contraditar tudo que fosse errôneo, pronto a ser o cavaleiro andante da verdade neste mundo, tal como o fui no vosso. Jobard."
 
 1.Quando estáveis na Terra, recomendastes-nos para vos evocarmos, e ora o fazemos, não só para satisfazer aquele desejo, como para testemunhar-vos ainda uma vez a nossa sincera simpatia, instruindo-nos ao mesmo tempo, visto que ninguém melhor que vós pode dar-nos esclarecimentos precisos sobre esse mundo em que hoje habitais. Dar-nos-emos por felizes se houverdes por bem responder às nossas perguntas. R. Presentemente o que mais se impõe é a vossa instrução. Quanto à vossa simpatia, entrevejo-a e tenho a prova dela tão-só pelo que ouço, o que é já um enorme progresso.
 
@@ -1741,7 +1751,6 @@ Nota - Quando a Sociedade abriu uma subscrição em favor dos operários de Liã
 
 Pois bem: praza a Deus sejais ditosos na jornada, e os Espíritos amigos que vos sustentem para que triunfeis afinal. Eu começo a viver espiritualmente, mais calmo, menos perturbado pelas evocações constantes que sobre mim choviam. A moda também atua sobre os Espíritos, e quando Jobard, em moda, passar da moda, então, pedirá aos seus amigos sérios que o evoquem."
 
-
 Aprofundaremos então questões superficialmente tratadas, e o vosso Jobard, completamente transfigurado, poderá ser útil, como deseja de todo o coração. Jobard.
 
 Passados os primeiros tempos consagrados ao alento dos seus amigos, o Sr. Jobard colocou-se entre os Espíritos que ativamente propugnam pela renovação social, esperando uma nova encarnação terrena para tomar parte ainda mais ativa e direta nesse movimento. Depois dessa época, ele deu à Sociedade de Paris, onde continua como cooperador, comunicações de incontestável superioridade, sem se desviar da originalidade e repentes que constituíam o fundo do seu caráter, a ponto de se fazer reconhecido antes de assinar.
@@ -1772,16 +1781,13 @@ E ainda bem não se desvaneciam tais impressões, já eu interrogava a mim mesmo
 
 É bem verdade, dizia, que estou isento desses cuidados que fazem o tormento da vida! Graças a Deus! Também o pobre, repentinamente enriquecido, duvida da realidade da sua fortuna e alimenta por algum tempo as apreensões da pobreza. Assim era eu.
 
-
 Ah! pudessem os homens compreender a vida futura, e que força, que coragem esta convicção não lhes daria na adversidade. Quem deixaria então, na Terra, de prover e assegurar-se da felicidade que Deus reserva aos filhos dóceis e submissos? Gozos ambicionados, invejados, tornar-se-iam mesquinhos em relação aos que eles desprezam!
 
 -P. Esse mundo tão novo e comparado ao qual nada vale o nosso, bem como os numerosos amigos que nele reencontrastes, fizeram-vos esquecer a família e amigos encarnados?
 
 -R. Se os tivesse esquecido seria indigno da felicidade de que gozo. Deus não recompensa o egoísmo, pune-o. O mundo em que me vejo pode fazer com que desdenhe a Terra, mas não os Espíritos nela encarnados. Somente entre os homens é que a prosperidade faz esquecer os companheiros de infortúnio. Muitas vezes venho visitar os que me são caros, exultando com a recordação que de mim guardaram; assisto às suas diversões, e, atraído por seus pensamentos, gozo se gozam ou sofro se sofrem.
 
-O meu sofrimento é, porém, relativo e não se pode comparar ao sofrimento humano, uma vez que compreendo o alcance, a necessidade e o caráter transitório das provações. Esse sofrimento é, ao demais, suavizado pela convicção de que aqueles a quem amo virão também por sua vez a esta mansão afortunada onde a dor não existe. Para torná-los dignos dela, dessa mansão, é que me esforço por sugerir-lhes bons pensamentos e sobretudo a resignação que tive, consoante a vontade de Deus. A minha desolação avulta quando os vejo retardar o advento por falta de coragem, murmúrios, vacilações e sobretudo por qualquer ato reprovável. Trato então de os desviar do mau caminho, e, se o consigo, é isso uma felicidade não só para mim, como para outros Espíritos; quando, ao contrário, a intervenção é improfícua, exclamo com pesar: Mais um momento de atraso; mas consola-me a idéia de que nada se perde irremissivelmente.
-
-Samuel Filipe."
+O meu sofrimento é, porém, relativo e não se pode comparar ao sofrimento humano, uma vez que compreendo o alcance, a necessidade e o caráter transitório das provações. Esse sofrimento é, ao demais, suavizado pela convicção de que aqueles a quem amo virão também por sua vez a esta mansão afortunada onde a dor não existe. Para torná-los dignos dela, dessa mansão, é que me esforço por sugerir-lhes bons pensamentos e sobretudo a resignação que tive, consoante a vontade de Deus. A minha desolação avulta quando os vejo retardar o advento por falta de coragem, murmúrios, vacilações e sobretudo por qualquer ato reprovável. Trato então de os desviar do mau caminho, e, se o consigo, é isso uma felicidade não só para mim, como para outros Espíritos; quando, ao contrário, a intervenção é improfícua, exclamo com pesar: Mais um momento de atraso; mas consola-me a idéia de que nada se perde irremissivelmente. Samuel Filipe."
 
 # VAN DURST
 
@@ -1797,9 +1803,7 @@ De fato, ela foi grande; viver e não viver, estar rudemente preso ao corpo sem 
 
 Perturbação profunda! Depois, transcorrido um tempo incalculável de angústias contidas, sem forças para senti-las, depois, digo, desse tempo que parece interminável - o renascimento gradual da vida, o despertar de uma nova aurora em outro mundo! Nada de corpo material nem de vida terrestre! Vida, sim, mas imortal! Não mais homens carnais, porém formas diáfanas, Espíritos que deslizam, que surgem de todos os lados, que vos cercam e que não podeis abranger com a vista, porque é no infinito que flutuam! Ter ante si o Espaço e poder franqueá-lo à vontade! Comunicar-se pelo pensamento com tudo que vos envolve! Que vida nova, meu amigo, nova, brilhante e cheia de ventura! Salve, oh! salve, eternidade que me conténs em teu seio!... Adeus, Terra que por tanto tempo me retiveste afastado do elemento natural da minha alma! Não... eu nada mais de ti dependia, porque és a terra do exílio, e a maior das felicidades que dispensas nada vale! Soubesse eu o que sabeis, e quão fácil e agradável me seria a iniciação na vida espiritual! Sim, porque saberia, antes de morrer, o que mais tarde somente deveria conhecer, no momento da separação, de forma a desprender-me facilmente. Estais vós outros no caminho, porém, certificai-vos de que todo o adiantamento é pouco. Dizei-o a meu filho tantas vezes quantas bastem para que se instrua e creia, porque, do contrário, a nossa separação continuará aqui.
 
-Amigos, adeus a todos vós; espero-vos, e, enquanto estiverdes na Terra, virei muitas vezes instruir-me convosco, visto como sei menos ainda que muitos dentre vós. Notai que aqui onde estou, sem velhice que me enfraqueça nem entraves de qualquer espécie, aprenderei mais depressa e facilmente. Aqui se vive às claras, caminhando com desassombro, tendo ante os olhos horizontes tão belos que a gente se torna impaciente por abrangê-los. Adeus, deixo-vos, adeus.
-
-Van Durst."
+Amigos, adeus a todos vós; espero-vos, e, enquanto estiverdes na Terra, virei muitas vezes instruir-me convosco, visto como sei menos ainda que muitos dentre vós. Notai que aqui onde estou, sem velhice que me enfraqueça nem entraves de qualquer espécie, aprenderei mais depressa e facilmente. Aqui se vive às claras, caminhando com desassombro, tendo ante os olhos horizontes tão belos que a gente se torna impaciente por abrangê-los. Adeus, deixo-vos, adeus. Van Durst."
 
 
 ---
@@ -1811,9 +1815,7 @@ Van Durst."
 
 Homem de bem, morto por acidente e conhecido do médium, quando encarnado.
 
-(Bordéus, 11 de fevereiro de 1861.)
-
--P. Podeis dar-nos quaisquer detalhes sobre a vossa morte? - R. Depois de afogar-me, sim.
+(Bordéus, 11 de fevereiro de 1861.) -P. Podeis dar-nos quaisquer detalhes sobre a vossa morte? - R. Depois de afogar-me, sim.
 
 -P. E por que não antes? - R. Porque já os conheceis. (O médium conhecia-os, efetivamente.)
 
@@ -1871,21 +1873,13 @@ Nota - Era um médico homeopata e distintíssimo. Seu caráter, tanto quanto o s
 
 "A morte emprestara à minha alma esse pesado sono a que se chama letargia, porém, o meu pensamento velava. Sacudi o torpor funesto da perturbação consequente à morte, levantei-me e de um salto fiz a viagem. Como sou feliz! Não mais velho nem enfermo. O corpo, esse, era apenas um disfarce. Jovem e belo, dessa beleza eternamente juvenil dos Espíritos, cujos cabelos não encanecem sob a ação do tempo.
 
-"Ágil como o pássaro que cruza célere os horizontes do vosso céu nebuloso, admiro, contemplo, bendigo, amo e curvo-me, átomo que sou, ante a grandeza e sabedoria do Criador, sintetizadas nas maravilhas que me cercam. Feliz! feliz na glória! Oh! quem poderá jamais traduzir a esplêndida beleza da mansão dos eleitos; os céus, os mundos, os sóis e seu concurso na harmonia do Universo? Pois bem: eu ensaiarei fazê-lo, ó meu mestre; vou estudar, e virei trazer-vos o resultado dos meus trabalhos de Espírito e que de antemão, como homenagem, eu vos dedico. Até breve."
-
-Demeure.
+"Ágil como o pássaro que cruza célere os horizontes do vosso céu nebuloso, admiro, contemplo, bendigo, amo e curvo-me, átomo que sou, ante a grandeza e sabedoria do Criador, sintetizadas nas maravilhas que me cercam. Feliz! feliz na glória! Oh! quem poderá jamais traduzir a esplêndida beleza da mansão dos eleitos; os céus, os mundos, os sóis e seu concurso na harmonia do Universo? Pois bem: eu ensaiarei fazê-lo, ó meu mestre; vou estudar, e virei trazer-vos o resultado dos meus trabalhos de Espírito e que de antemão, como homenagem, eu vos dedico. Até breve." Demeure.
 
 Nota - As duas comunicações seguintes, dadas em data de 1° e 2 de fevereiro, dizem respeito à enfermidade de que fomos acometidos na ocasião. Posto que de caráter pessoal, reproduzimo-las como provas de que o Dr. Demeure se mostrava tão bom como Espírito, quanto o fora como homem.
 
-"Meu bom amigo: tende coragem e confiança em nós, porquanto essa crise, apesar de ser fatigante e dolorosa, não será longa, e, com os conselhos prescritos, podereis, conforme desejais, completar a obra que vos propusestes como fito da vossa existência. Sou eu quem aqui está, perto de vós, e com o Espírito de Verdade que me permite falar em seu nome, por ser eu dos vossos amigos o mais recentemente desencarnado. É como se me fizessem as honras da recepção. Caro mestre: quanto me sinto feliz por ter desencarnado a tempo de estar com esses amigos neste momento! mais cedo livre, eu poderia talvez ter-vos poupado essa crise que não previa. Era muito recente o meu desprendimento para ocupar-me de outras coisas que não as espirituais; mas agora velarei por vós, caro mestre. Aqui estou para, feliz como Espírito, ao vosso lado, prestar os meus serviços. Conheceis o provérbio: "ajuda-te, o céu te ajudará". Pois bem, ajudai os bons Espíritos que vos assistem, conformando-vos com as suas prescrições. Está muito quente aqui: esta fumaça é irritante. Enquanto estiverdes doente, convém não fazer lume, a fim de não aumentar a vossa opressão. Os gases que aí se desprendem são deletérios.
+"Meu bom amigo: tende coragem e confiança em nós, porquanto essa crise, apesar de ser fatigante e dolorosa, não será longa, e, com os conselhos prescritos, podereis, conforme desejais, completar a obra que vos propusestes como fito da vossa existência. Sou eu quem aqui está, perto de vós, e com o Espírito de Verdade que me permite falar em seu nome, por ser eu dos vossos amigos o mais recentemente desencarnado. É como se me fizessem as honras da recepção. Caro mestre: quanto me sinto feliz por ter desencarnado a tempo de estar com esses amigos neste momento! mais cedo livre, eu poderia talvez ter-vos poupado essa crise que não previa. Era muito recente o meu desprendimento para ocupar-me de outras coisas que não as espirituais; mas agora velarei por vós, caro mestre. Aqui estou para, feliz como Espírito, ao vosso lado, prestar os meus serviços. Conheceis o provérbio: "ajuda-te, o céu te ajudará". Pois bem, ajudai os bons Espíritos que vos assistem, conformando-vos com as suas prescrições. Está muito quente aqui: esta fumaça é irritante. Enquanto estiverdes doente, convém não fazer lume, a fim de não aumentar a vossa opressão. Os gases que aí se desprendem são deletérios. Vosso amigo, Demeure.
 
-Vosso amigo
-
-Demeure.
-
-"Sou eu, Demeure, o amigo do Sr. Kardec. Venho dizer-lhe que o acompanhava quando lhe sobreveio o acidente. Este seria certamente funesto sem a intervenção eficaz para a qual me ufano de haver concorrido. De acordo com as minhas observações e com os informes colhidos em boa fonte, é evidente para mim que, quanto mais cedo se der a sua desencarnação, tanto mais breve reencarnará para completar a sua obra. É preciso, contudo, antes de partir, dar a última demão às obras complementares da teoria doutrinal de que é o iniciador. Se, portanto, por excesso de trabalho, não atendendo à imperfeição do seu organismo, antecipar a partida para cá, será passível da pena de homicídio voluntário. É mister dizer-lhe toda a verdade, para que se previna e siga estritamente as nossas prescrições.
-
-Demeure."
+"Sou eu, Demeure, o amigo do Sr. Kardec. Venho dizer-lhe que o acompanhava quando lhe sobreveio o acidente. Este seria certamente funesto sem a intervenção eficaz para a qual me ufano de haver concorrido. De acordo com as minhas observações e com os informes colhidos em boa fonte, é evidente para mim que, quanto mais cedo se der a sua desencarnação, tanto mais breve reencarnará para completar a sua obra. É preciso, contudo, antes de partir, dar a última demão às obras complementares da teoria doutrinal de que é o iniciador. Se, portanto, por excesso de trabalho, não atendendo à imperfeição do seu organismo, antecipar a partida para cá, será passível da pena de homicídio voluntário. É mister dizer-lhe toda a verdade, para que se previna e siga estritamente as nossas prescrições. Demeure."
 
 Nota - A seguinte comunicação foi obtida em Montauban, aos 26 de janeiro, dia seguinte ao da sua desencarnação, num Centro de amigos espíritas que havia nessa cidade.
 
@@ -1895,9 +1889,7 @@ Nota - A seguinte comunicação foi obtida em Montauban, aos 26 de janeiro, dia 
 
 "Hoje não me prolongarei, dizendo-vos somente que me não sinto de todo estranho neste mundo dos invisíveis, parecendo-me até que sempre o habitei. Aqui sou feliz em vendo os meus amigos, comunicando-me com eles sempre que o desejo.
 
-"Não choreis, meus amigos, porque me faríeis lamentar o haver-vos conhecido. Deixai correr o tempo, e Deus vos encaminhará para esta mansão, onde nos devemos todos reunir finalmente. Boa-noite, amigos; que Deus vos conforte, ficando eu ao vosso lado.
-
-Demeure."
+"Não choreis, meus amigos, porque me faríeis lamentar o haver-vos conhecido. Deixai correr o tempo, e Deus vos encaminhará para esta mansão, onde nos devemos todos reunir finalmente. Boa-noite, amigos; que Deus vos conforte, ficando eu ao vosso lado. Demeure."
 
 Nota - Ainda de uma carta de Montauban extraímos a narrativa seguinte: "Tínhamos ocultado à Sra. G..., médium sonambúlico e vidente muito lúcido - a morte do Dr. Demeure, em atenção à sua extrema sensibilidade. Sem dúvida, secundando o nosso intuito, o bom médico também evitou manifestar-se-lhe. A 10 de fevereiro reunimo-nos a convite dos guias, que diziam querer aliviar a Sra. G... de uma luxação, em conseqüência da qual muito sofria desde a véspera. Nada mais sabíamos, e longe estávamos de pensar na surpresa que nos aguardava. Logo que essa senhora se mediunizou, começou a soltar gritos lancinantes, mostrando o pé. Eis o que se passava: "A Sra. G... via um Espírito curvado a seus pés com a fisionomia oculta, a fazer-lhe fricções e massagens, exercendo de vez em quando uma tração longitudinal sobre a parte luxada, exatamente como faria qualquer médico. A operação era tão dolorosa, que a paciente vociferava empregando movimentos desordenados.
 
@@ -1907,13 +1899,11 @@ Por fim, reapareceu a lucidez sonambúlica e ela conversou com muitos desses Esp
 
 Não é uma tal cena surpreendentemente dramática, considerando-se as personagens como que representando papéis da vida humana? Não será uma prova, entre mil outras, de que os Espíritos são seres efetivamente reais agindo como se estivessem na Terra? Somos felizes por ver, no amigo Espírito, o mesmo coração bondoso do médico solícito e abnegado que foi neste mundo. Ele fora durante a vida o médico do médium, e, conhecendo a sua extrema sensibilidade, poupou-o tanto quanto se fora seu próprio filho. Esta prova de identidade, conferida aos que o Espírito prezava, é admirável e de molde a fazer encarar a vida futura por um prisma mais consolador.
 
-
 NOTA - A situação espiritual do Dr. Demeure é justamente a que se podia antever na sua vida tão digna quão utilmente empregada. Mas, dessas comunicações, resulta ainda um outro fato não menos instrutivo - o da atividade que ele emprega quase imediatamente após a morte, no sentido de tornar-se prestimoso. Por sua alta inteligência e qualidades morais, ele - pertence à categoria dos Espíritos muito adiantados. A sua felicidade não é, porém, a da inação. Ainda há poucos dias tratava doentes como médico, e mal apenas se desprende da matéria, ei-lo a tratá-los como Espírito. Dirão certas pessoas que nada se adianta, então, com a permanência no outro mundo, uma vez que se não goza ali de repouso. É o caso de lhes perguntarmos se é nada o não termos mais cuidados, necessidades, moléstias; podermos livre e sem fadigas percorrer o Espaço com a rapidez do pensamento, ver os que nos são sempre caros e a toda hora, por mais distantes que de nós se achem! E acrescentaremos: Quando no outro mundo, nada vos forçará a vontade; poderíeis ficar em beatifica ociosidade e pelo tempo que vos aprouvesse, mas ficai certos de que esse repouso egoísta depressa vos enfadaria, e seríeis os primeiros a solicitar qualquer ocupação. Então se vos diria que se a ociosidade vos enfada, deveis vós mesmos procurar algo fazer, visto não escassearem ocasiões de ser útil, quer no mundo dos Espíritos, quer no dos homens. E assim é que a atividade espiritual deixa de ser uma obrigação para tornar-se uma necessidade, um prazer relativo às tendências e aptidões, escolhidos de preferência os misteres mais propícios ao adiantamento de cada um.
 
 # A VIÚVA FOULON, NASCIDA WOLLIS
 
 A Sra. Foulon, falecida em Antibes a 3 de fevereiro de 1865, residiu por muito tempo no Havre, onde granjeou a reputação de miniaturista habilíssima. De notável talento, aproveitou-o primeiro como simples amadora, mas, quando lhe sobrevieram necessidades, fez da sua arte proveitosa fonte de receita. O que a tornava admirada e estimada, conquistando-lhe depois, da parte dos que a conheceram, uma recordação memorável, era sobretudo a amenidade do caráter, as qualidades pessoais, que só os íntimos podiam conhecer em toda a sua extensão. É que a Sra. Foulon, como todos os que têm inato o sentimento do bem, não o alardeava, antes o considerava predicado natural. Se houve pessoa sobre a qual o egoísmo não tenha tido ascendente, tal, sem dúvida, foi ela. Nunca, talvez, o sentimento da abnegação pessoal foi tão ampliado, pronta como estava sempre a sacrificar-lhe o repouso, a saúde e os interesses em proveito dos necessitados. Pode dizer-se que a sua vida foi uma longa série de sacrifícios, como também de rudes provações desde a mocidade, sem que a coragem e a resignação, a despeito delas, jamais lhe faltassem. Mas eis que a sua vista, cansada por meticuloso trabalho, extinguia-se dia a dia, a ponto de, com algum tempo mais, resultar em completa cegueira! Foi então que o conhecimento da Doutrina Espírita se lhe tornou em oceano de luz, rasgando-lhe como que espesso véu para deixar-lhe entrever alguma coisa não totalmente desconhecida, mas da qual possuía apenas uma vaga intuição. Estudou-a com afinco, mas ao mesmo tempo com o critério de apreciação própria das pessoas, tal qual ela, dotadas de alta inteligência.
-
 
 Fora preciso avaliar todas as incertezas, todas as dúvidas da sua existência, provenientes não dela, mas dos parentes, para julgar das consolações que hauriu na sublime revelação, e que lhe deram a fé inquebrantável do futuro, a consciência da nulidade das coisas terrenas.
 
@@ -1923,17 +1913,13 @@ Logo que soubemos do trespasse da Sra. Foulon, tivemos por primeiro cuidado o de
 
 # I
 
-(Paris, 6 de fevereiro de 1865, três dias após o decesso.)
-
-Tendo como certo que havíeis de evocar-me logo após o desprendimento, prontificava-me para corresponder-vos, visto não ter experimentado qualquer perturbação. Esta só existe para os seres envoltos e submersos nas trevas do seu próprio Espírito.
+(Paris, 6 de fevereiro de 1865, três dias após o decesso.) Tendo como certo que havíeis de evocar-me logo após o desprendimento, prontificava-me para corresponder-vos, visto não ter experimentado qualquer perturbação. Esta só existe para os seres envoltos e submersos nas trevas do seu próprio Espírito.
 
 Pois bem! meu amigo, considero-me feliz agora; estes míseros olhos que se enfraqueceram a ponto de me não deixarem mais que a recordação de coloridos prismas da juventude, de esplendor cintilante; estes olhos, digo, abriram-se aqui para rever horizontes esplêndidos, idealizados em vagas reproduções por alguns dos vossos geniais artistas, mas cuja exuberância majestática, severa e conseguintemente grandiosa, tem o cunho da mais completa realidade.
 
 Não há mais de três dias que desencarnei e sinto que sou artista: as minhas aspirações, atinentes ao ideal do belo artístico, mais não eram que a intuição de faculdades adquiridas em anteriores existências e na última encarnação desenvolvidas.
 
-Mas, quanto trabalho para reproduzir uma obra-prima e digna da grandiosa cena que se antolha ao Espírito chegado às regiões da luz! Pincéis! pincéis e eu provarei ao mundo que a arte espírita é o complemento da arte pagã da arte cristã que periclita, cabendo somente ao Espiritismo a glória de revivê-la com todo o esplendor sobre vosso mundo deserdado.
-
-Isto é o bastante para a artista; e agora, à amiga:
+Mas, quanto trabalho para reproduzir uma obra-prima e digna da grandiosa cena que se antolha ao Espírito chegado às regiões da luz! Pincéis! pincéis e eu provarei ao mundo que a arte espírita é o complemento da arte pagã da arte cristã que periclita, cabendo somente ao Espiritismo a glória de revivê-la com todo o esplendor sobre vosso mundo deserdado. Isto é o bastante para a artista; e agora, à amiga:
 
 "Por que vos incomodar assim, minha boa amiga (refere-se à Sra. Allan Kardec), com o motivo da minha morte? Vós, principalmente, vós que conheceis as decepções e amarguras da minha existência devereis antes regozijar-vos em sabendo que não mais bebo na taça amarga das dores terrenas, taça esgotada até às fezes. Crede-me: os mortos são mais felizes que os vivos e pranteá-los é duvidar das verdades espíritas. Tomareis a ver-me, ficai certa. Se parti primeiro é porque finda estava a tarefa, que aliás cada qual tem na Terra. Assim, quando a vossa for completada, vireis repousar um pouco junto de mim para recomeçar mais tarde, atento ao principio de que nada é inativo em a Natureza. Todos temos más tendências, às quais obedecemos, o que é uma lei suprema e comprobatória da faculdade do livre-arbítrio. Portanto, tende indulgência e caridade, minha amiga, sentimentos esses de que mutuamente carecemos, quer no mundo visível, quer no invisível. Com tal divisa, tudo vai bem. Não me direis para cessar de falar. Sabei, contudo, que, para a primeira vez, bem longa já vai a conversação, motivo pelo qual vos deixo, para dar a vez ao meu excelente amigo Sr. Kardec.
 
@@ -1942,15 +1928,11 @@ Isto é o bastante para a artista; e agora, à amiga:
 "É uma amiga que vo-lo diz - acautelai-vos.
 
 "Agora parto para junto dos meus queridos filhos, depois do que irei ver, além-mar, se a minha ovelha viajora aportou à terra ou permanece à mercê das tempestades. (Refere-se a uma das filhas que residia na América.) Oxalá a protejam os bons Espíritos, aos quais para o mesmo fim vou reunir-me. Voltarei a conversar convosco, pois não vos esqueçais de que sou uma conversadora infatigável.
-"Até breve, bons e caros amigos; até logo.
-
-Viúva Foulon."
+"Até breve, bons e caros amigos; até logo. Viúva Foulon."
 
 # II
 
-(8 de fevereiro de 1865.)
-
--P. Cara Sra. Foulon, considero-me satisfeito com a comunicação de há dias, na qual prometestes continuar a nossa conversação. Crede que vos reconheci logo, por falardes de coisas desconhecidas do médium e muito próprias do vosso Espírito. A linguagem afetuosa para conosco é, seguramente, de uma alma amorosa como a vossa, conquanto notássemos nas palavras uma firmeza, uma segurança, uma pronúncia até então desconhecida em vós. Lembrai-vos certamente que neste sentido eu me permiti fazer-vos mais de uma advertência, em certas e determinadas circunstâncias.
+(8 de fevereiro de 1865.) -P. Cara Sra. Foulon, considero-me satisfeito com a comunicação de há dias, na qual prometestes continuar a nossa conversação. Crede que vos reconheci logo, por falardes de coisas desconhecidas do médium e muito próprias do vosso Espírito. A linguagem afetuosa para conosco é, seguramente, de uma alma amorosa como a vossa, conquanto notássemos nas palavras uma firmeza, uma segurança, uma pronúncia até então desconhecida em vós. Lembrai-vos certamente que neste sentido eu me permiti fazer-vos mais de uma advertência, em certas e determinadas circunstâncias.
 
 -R. É verdade, sim, porém, desde que enfermei gravemente, tratei de readquirir a firmeza de espírito, abalada pelos desgostos e vicissitudes que tantas vezes me fizeram tímida na Terra. Eu disse para comigo: - Pois que és espírita, esquece a Terra; prepara-te para a transformação do teu ser e vê, pelo pensamento, a trilha luminosa que espera a tua alma após o desenlace, e pela qual deverás libertar-te, desembaraçada e feliz, às esferas celestes, onde, de futuro, irás habitar.
 
@@ -1984,9 +1966,7 @@ Demeure, o vosso amigo, unido ao Espírito de Verdade, vos será mais útil aind
 
 R. Enganais-vos. O fato é que vejo tantos outros Espíritos mais capazes do que eu de tratar deste assunto, aliás tão importante, que uma timidez invencível me impede de vos responder conforme desejais. Provavelmente assim acontecerá, e eu me animarei com denodo desde que melhor conheça esses Espíritos. Há quatro dias apenas que deixei a Terra e, conseguintemente, ainda estou sob a influência deslumbrada de tudo que me cerca. Dar-se-á o caso de não me compreenderdes? Não encontro meios de exprimir as sensações novas que experimento. Esforço-me a todo o transe para fugir à fascinação que sobre o meu ser exercem as maravilhas por ele admiradas. A única coisa que posso fazer é adorar e render graças a Deus nas suas obras. Mas essa impressão se desvanecerá e os Espíritos asseguram-me que dentro em breve estarei acostumada a todas estas magnificências, de modo a poder tratar com lucidez espiritual de todas as questões concernentes à renovação da Terra. A tal circunstância deveis juntar mais a de ter eu uma família a consolar.
 
-Adeus e até breve, caro mestre. A vossa boa amiga ama-vos e amará sempre, visto como a vós exclusivamente deve a única consolação duradoura e verdadeira que teve na Terra.
-
-Viúva Foulon."
+Adeus e até breve, caro mestre. A vossa boa amiga ama-vos e amará sempre, visto como a vós exclusivamente deve a única consolação duradoura e verdadeira que teve na Terra. Viúva Foulon."
 
 # III
 
@@ -1998,9 +1978,7 @@ A Ele deveis agradecer os benefícios de que vos cumula. Abençoai-o, meus filho
 
 Caros filhos, cultivai carinhosamente esta crença sublime. A vós que a tendes, belos dias vos aguardam. Isso mesmo já vos disseram, porém a mim não estava fadado o ver esses dias aí na Terra. Será do alto, pois, que julgarei os belos tempos prometidos pelo Deus de bondade, de justiça e misericórdia. Não choreis, meus filhos. Possam estas comunicações fortalecer-vos na fé, no amor de Deus, esse Deus que tantos benefícios nos prodigalizou, que tantas e tantas vezes socorreu vossa mãe. Orai sempre, que a prece revigora. Conformai-vos com as prescrições por mim tão ardentemente seguidas, quando como vós encarnada.
 
-Voltarei, meus filhos, mas é preciso consolar a filha que de mim tanto precisa agora. Adeus, até breve. Eu vo-lo suplico por vós: crede na bondade divina. Até sempre.
-
-Viúva Foulon."
+Voltarei, meus filhos, mas é preciso consolar a filha que de mim tanto precisa agora. Adeus, até breve. Eu vo-lo suplico por vós: crede na bondade divina. Até sempre. Viúva Foulon."
 
 Nota - Todo Espírito esclarecido e sério tirará com facilidade, destas comunicações, os ensinamentos que delas ressaltam. Nós apenas lhe chamaremos a atenção para os dois pontos seguintes: Primeiro - a possibilidade, por este exemplo demonstrada, de não mais ser preciso encarnar na Terra e passar a um mundo superior, sem ficar separado dos seres afeiçoados que aqui deixamos. Assim, os que temem a reencarnação, em virtude das misérias terrenas, podem conjurá-la, trabalhando para o seu adiantamento. E assim procederá aquele que não quiser vegetar nas camadas inferiores, fazendo o possível por instruir-se, por trabalhar e graduar-se.
 
@@ -2042,11 +2020,9 @@ Na vossa missão podeis ver uma prova eloqüente do amor de Deus para convosco. 
 
 -P. Não me julgo digno de tão grande favor. R. Mas por certo que bem longe estais da perfeição. Não obstante o vosso ardor na prática das sãs doutrinas; o cuidado em manter a fé dos que vos ouvem; em aconselhar a caridade, a bondade e a benevolência, mesmo para os que convosco mal se conduzem; a resistência aos instintos de cólera, que aliás facilmente poderíeis descarregar nos que vos afligem, por ignorantes das vossas intenções; tudo isso atenua a maldade que ainda possuís. Convém que o diga: o perdão das ofensas é, de tantas, uma das mais poderosas atenuantes do mal. Deus vos cumula de graças pela faculdade que vos concedeu, e que deveis desenvolver pelo esforço próprio, a fim de cooperardes na salvação do próximo. Vou deixar-vos, porém contai sempre comigo. Preciso se faz modereis as idéias terrenas, vivendo o mais possível com os amigos do Espaço.
 
-BERNARDIN
+# BERNARDIN
 
-(Bordéus, abril de 1862.)
-
-Sou, de há muitos séculos, um Espírito esquecido. Aí na Terra vivi no opróbrio e na miséria, trabalhando incessantemente e dia por dia para dar à família escasso pão. Amava, porém, o verdadeiro Senhor, e quando o que me oprimia na Terra sobrecarregava o fardo das minhas dores, dizia eu: "Meu Deus, dai-me a força de suportar-lhe o peso sem queixumes." Expiava, meus amigos. No entanto, ao sair da rude provação, o Senhor recebeu-me na sua santa paz e o meu mais caro voto foi reunir-vos a todos, irmãos e filhos, dizendo-vos: "Por mais cara que a julgueis, a felicidade que vos espera há de sobrelevar o preço. Filho de numerosa família, jamais tive posição e servi a quem melhor podia auxiliar-me a suportar a existência. Nascido em época de servidão cruel, provei de todas as injustiças, fadigas e dissabores que os subalternos do Senhor haviam por bem impor-me.
+(Bordéus, abril de 1862.) Sou, de há muitos séculos, um Espírito esquecido. Aí na Terra vivi no opróbrio e na miséria, trabalhando incessantemente e dia por dia para dar à família escasso pão. Amava, porém, o verdadeiro Senhor, e quando o que me oprimia na Terra sobrecarregava o fardo das minhas dores, dizia eu: "Meu Deus, dai-me a força de suportar-lhe o peso sem queixumes." Expiava, meus amigos. No entanto, ao sair da rude provação, o Senhor recebeu-me na sua santa paz e o meu mais caro voto foi reunir-vos a todos, irmãos e filhos, dizendo-vos: "Por mais cara que a julgueis, a felicidade que vos espera há de sobrelevar o preço. Filho de numerosa família, jamais tive posição e servi a quem melhor podia auxiliar-me a suportar a existência. Nascido em época de servidão cruel, provei de todas as injustiças, fadigas e dissabores que os subalternos do Senhor haviam por bem impor-me.
 
 Mulher ultrajada, filhas raptadas e repudiadas em seguida, tudo sem poder queixar-me. Meus filhos, esses, levavam-nos às guerras de pilhagens e de crimes, para os enforcarem depois por faltas não cometidas. Ah! se o soubésseis, pobres amigos, o que padeci na minha longa existência... Eu esperava, contudo, e o Senhor concedeu-ma - essa felicidade que não existe na Terra. A todos vós, portanto, coragem, paciência e resignação. Tu, meu filho, guarda o que te dei e que é um ensinamento prático. Quem aconselha é sempre mais acatado quando pode dizer: - Suportei mais que vós, e suportei sem me queixar.
 
@@ -2060,9 +2036,7 @@ Mulher ultrajada, filhas raptadas e repudiadas em seguida, tudo sem poder queixa
 
 -P. E como Espírito, agora, tendes ainda ocupações?
 
--R. Acreditaríeis então que os Espíritos ficassem inativos? A inação, a inutilidade ser-nos-ia um suplício. A minha missão é guiar centros espíritas aos quais inspiro bons pensamentos, ao mesmo tempo que me esforço por neutralizar os sugeridos por maus Espíritos.
-
-Bernardin.
+-R. Acreditaríeis então que os Espíritos ficassem inativos? A inação, a inutilidade ser-nos-ia um suplício. A minha missão é guiar centros espíritas aos quais inspiro bons pensamentos, ao mesmo tempo que me esforço por neutralizar os sugeridos por maus Espíritos. Bernardin.
 
 # A CONDESSA PAULA
 
@@ -2074,10 +2048,6 @@ Da sua estirpe e das altas funções do marido decorriam-lhe onerosos encargos d
 
 E desse modo se permitia facultar da sua fortuna maior quinhão aos necessitados. Destinando a renda de uma parte dessa fortuna exclusivamente a tal fim, considerava-a sagrada e como de menos a despender no serviço da sua casa. E assim encontrara meios de conciliar os seus deveres para com a sociedade e para com os infortúnios (1). Um dos seus parentes, iniciado no Espiritismo, evocou-a doze anos depois de falecida, e obteve, em resposta a diversas perguntas, a seguinte comunicação (2):
 
-"Tendes razão, amigo, em pensar que sou feliz. Assim é, efetivamente, e mais ainda do que a linguagem pode exprimir, conquanto longe do seu último grau. Mas eu estive na Terra entre os felizes, pois não me lembro de haver aí experimentado um só desgosto real. Juventude, homenagens, saúde, fortuna, tudo o que entre vós outros constitui felicidade eu possuía! O que é, no entanto, essa felicidade comparada à que desfruto aqui? Esplêndidas festas terrenas em que se ostentam os mais ricos paramentos, o que são elas comparadas a estas assembléias de Espíritos resplendentes de brilho que as vossas vistas não suportariam, brilho que é o apanágio da sua pureza? Os vossos palácios de dourados salões, que são eles comparados a estas moradas aéreas, vastas regiões do Espaço matizadas de cores que obumbrariam o arco-íris? Os vossos passeios, a contados passos nos parques, a que se reduzem, comparados aos percursos da imensidade, mais céleres que o raio?"
-
-"Horizontes nebulosos e limitados, que são, comparados ao espetáculo de mundos a moverem-se no Universo infinito ao influxo do Altíssimo? E como são monótonos os vossos concertos mais harmoniosos em relação à suave melodia que faz vibrar os fluidos do éter e todas as fibras dalma! E como são tristes e insípidas as vossas maiores alegrias comparadas à sensação inefável de felicidade que nos satura todo o ser como um eflúvio benéfico, sem mescla de inquietação, de apreensão, de sofrimento?! Aqui, tudo ressumbra amor, confiança, sinceridade: por toda parte corações amantes, amigos por toda parte!"
-
 __________
 
 (1) Pode dizer-se que essa senhora era a encarnação viva da mulher caridosa, ideada em O Evangelho Segundo o Espiritismo, cap. XIII.
@@ -2085,6 +2055,10 @@ __________
 (2) Desta comunicação, cujo original é em alemão, extraímos os tópicos que interessam ao assunto de que nos ocupamos, suprimindo os de natureza exclusivamente familiar.
 
 __________
+
+"Tendes razão, amigo, em pensar que sou feliz. Assim é, efetivamente, e mais ainda do que a linguagem pode exprimir, conquanto longe do seu último grau. Mas eu estive na Terra entre os felizes, pois não me lembro de haver aí experimentado um só desgosto real. Juventude, homenagens, saúde, fortuna, tudo o que entre vós outros constitui felicidade eu possuía! O que é, no entanto, essa felicidade comparada à que desfruto aqui? Esplêndidas festas terrenas em que se ostentam os mais ricos paramentos, o que são elas comparadas a estas assembléias de Espíritos resplendentes de brilho que as vossas vistas não suportariam, brilho que é o apanágio da sua pureza? Os vossos palácios de dourados salões, que são eles comparados a estas moradas aéreas, vastas regiões do Espaço matizadas de cores que obumbrariam o arco-íris? Os vossos passeios, a contados passos nos parques, a que se reduzem, comparados aos percursos da imensidade, mais céleres que o raio?"
+
+"Horizontes nebulosos e limitados, que são, comparados ao espetáculo de mundos a moverem-se no Universo infinito ao influxo do Altíssimo? E como são monótonos os vossos concertos mais harmoniosos em relação à suave melodia que faz vibrar os fluidos do éter e todas as fibras dalma! E como são tristes e insípidas as vossas maiores alegrias comparadas à sensação inefável de felicidade que nos satura todo o ser como um eflúvio benéfico, sem mescla de inquietação, de apreensão, de sofrimento?! Aqui, tudo ressumbra amor, confiança, sinceridade: por toda parte corações amantes, amigos por toda parte!"
 
 "Nem invejosos, nem ciumentos! É este o mundo em que me encontro, meu amigo, e ao qual chegareis infalivelmente, se seguirdes o reto caminho da vida."
 
@@ -2094,23 +2068,15 @@ __________
 
 "Trabalhadores! estou nas vossas fileiras: eu, a dama nobre, ganhei como vós o pão com o suor do meu rosto; saturei-me de privações, sofri reveses e foi isso que me retemperou as forças da alma; do contrário eu teria falido na última prova, o que me teria deixado para trás, na minha carreira."
 
-"Como eu, também vós tereis a vossa prova da riqueza, mas não vos apresseis em pedi-la muito cedo. E vós outros, ricos, tende sempre em mente que a verdadeira fortuna, a fortuna imorredoura, não existe na Terra; procurai antes saber o preço pelo qual podeis alcançar os benefícios do Todo-Poderoso."
+"Como eu, também vós tereis a vossa prova da riqueza, mas não vos apresseis em pedi-la muito cedo. E vós outros, ricos, tende sempre em mente que a verdadeira fortuna, a fortuna imorredoura, não existe na Terra; procurai antes saber o preço pelo qual podeis alcançar os benefícios do Todo-Poderoso." Paula, na Terra Condessa de ***.
 
-Paula, na Terra Condessa de ***.
+# JEAN REYNAUD
 
-JEAN REYNAUD
+(Sociedade Espírita de Paris. Comunicação espontânea.) Meus amigos: como é esplêndida esta nova vida! Semelhante a luminosa torrente, ela arrasta em seu curso imenso os Espíritos inebriados pelo infinito! Passei das sombras da matéria à aurora brilhante que faz antever o Onipotente. Após a ruptura dos laços materiais, abrangeram meus olhos novos horizontes, e eu vivo e desfruto as maravilhas suntuosas do infinito. Salvei-me, não pelo mérito dos meus serviços, mas pelo conhecimento do princípio eterno que me fez evitar as nódoas produzidas pela ignorância na pobre Humanidade. A minha morte foi abençoada, apesar de os meus biógrafos, os cegos, a julgarem prematura! Lamentaram alguns escritos nascidos da poeira, e não compreenderam nem compreenderão o quanto o silêncio em torno do recém-fechado túmulo é útil à causa do Espiritismo.
 
-(Sociedade Espírita de Paris. Comunicação espontânea.)
+A minha tarefa estava terminada; os meus predecessores seguiam na rota; eu atingira o apogeu no qual o homem, depois de dar o que de melhor possuía, não faria mais que recomeçar. A minha morte reaviva a atenção dos letrados, encaminhando-a para a minha obra capital, atinente à grande questão espírita que eles fingem desconhecer, mas que muito breve os empolgará. Glória a Deus! Ajudado por Espíritos superiores, que protegem a nova doutrina, serei um dos exploradores que balizam o vosso roteiro. Jean Reynaud.
 
-Meus amigos: como é esplêndida esta nova vida! Semelhante a luminosa torrente, ela arrasta em seu curso imenso os Espíritos inebriados pelo infinito! Passei das sombras da matéria à aurora brilhante que faz antever o Onipotente. Após a ruptura dos laços materiais, abrangeram meus olhos novos horizontes, e eu vivo e desfruto as maravilhas suntuosas do infinito. Salvei-me, não pelo mérito dos meus serviços, mas pelo conhecimento do princípio eterno que me fez evitar as nódoas produzidas pela ignorância na pobre Humanidade. A minha morte foi abençoada, apesar de os meus biógrafos, os cegos, a julgarem prematura! Lamentaram alguns escritos nascidos da poeira, e não compreenderam nem compreenderão o quanto o silêncio em torno do recém-fechado túmulo é útil à causa do Espiritismo.
-
-A minha tarefa estava terminada; os meus predecessores seguiam na rota; eu atingira o apogeu no qual o homem, depois de dar o que de melhor possuía, não faria mais que recomeçar. A minha morte reaviva a atenção dos letrados, encaminhando-a para a minha obra capital, atinente à grande questão espírita que eles fingem desconhecer, mas que muito breve os empolgará. Glória a Deus! Ajudado por Espíritos superiores, que protegem a nova doutrina, serei um dos exploradores que balizam o vosso roteiro.
-
-Jean Reynaud.
-
-(Paris; reunião familiar. Outra comunicação espontânea.)
-
-Nota - O Espírito responde a uma reflexão sobre sua morte inesperada, em idade pouco avançada, o que a muita gente surpreendeu.
+(Paris; reunião familiar. Outra comunicação espontânea.) Nota - O Espírito responde a uma reflexão sobre sua morte inesperada, em idade pouco avançada, o que a muita gente surpreendeu.
 
 "Quem vos disse que a minha morte não seja, de futuro e por suas conseqüências, um benefício para o Espiritismo?"
 
@@ -2120,9 +2086,7 @@ Nota - O Espírito responde a uma reflexão sobre sua morte inesperada, em idade
 
 Vão todos grupar-se em torno de vós e, fazendo abstração do diploma do gênio, tornarem-se humildes e pequenos para aprender e para crer. Depois, mais tarde, quando estiverem instruídos e convencidos, servir-se-ão da sua autoridade e notoriedade para levar mais longe ainda, aos seus últimos limites, o fim que vos propusestes - a regeneração da espécie humana pelo conhecimento racional e profundo das passadas e futuras existências. Eis aí a minha opinião sincera sobre o estado atual do Espiritismo."
 
-(Bordéus)
-
-Evocação: - Acudo com prazer ao vosso chamado, senhora. Tendes razão; a perturbação espiritual não existe para mim (isso correspondia ao pensamento do médium); exilado voluntário, na Terra, onde devia lançar a primeira semente sólida das grandes verdades que neste momento envolvem o mundo, eu tive sempre a consciência da pátria espiritual e depressa me reconheci entre irmãos.
+(Bordéus) Evocação: - Acudo com prazer ao vosso chamado, senhora. Tendes razão; a perturbação espiritual não existe para mim (isso correspondia ao pensamento do médium); exilado voluntário, na Terra, onde devia lançar a primeira semente sólida das grandes verdades que neste momento envolvem o mundo, eu tive sempre a consciência da pátria espiritual e depressa me reconheci entre irmãos.
 
 -P. Agradeço a vossa presença, embora não creia que o simples desejo de conversar convosco determinasse a vossa vinda; deve haver necessariamente uma tão grande diferença entre nós, que só em considerá-la sinto-me possuído de respeito.
 
@@ -2193,20 +2157,18 @@ Daí por diante o Sr. Costeau manifestou-se constantemente, na Sociedade e em ou
 
 # A Srta. EMMA (1)
 
-Em conseqüência de acidentes causados por fogo, faleceu esta donzela após cruéis sofrimentos. Alguém se propusera solicitar a sua evocação na Sociedade Espírita de Paris, quando ela se apresentou espontaneamente a 31 de julho de 1863, pouco tempo depois da morte.
-
-“Eis-me aqui ainda no cenário do mundo, eu que me julgava sepultada para sempre no meu véu de inocência e juventude. Salvar-me-ia o fogo da Terra, do fogo do inferno assim pensava eu na minha fé católica, e, se não ousava entrever os esplendores do paraíso, minhalma tímida se apegava à expiação do purgatório, enquanto pedia, sofria e chorava. Mas, quem dava ao ânimo abatido a força de suportar as angústias? Quem, nas longas noites de insônia e febre dolorosa se inclinava sobre o leito de martírios? Quem me refrescava os lábios sedentos, escaldantes? Éreis vós, meu Guia, cuja auréola branca me cercava; e éreis vós outros, Espíritos caros e amigos, que vínheis murmurar-me ao ouvido palavras de esperança e de amor."
-
 __________
 
 (1) Srta. Emma Livry.
 __________
 
+Em conseqüência de acidentes causados por fogo, faleceu esta donzela após cruéis sofrimentos. Alguém se propusera solicitar a sua evocação na Sociedade Espírita de Paris, quando ela se apresentou espontaneamente a 31 de julho de 1863, pouco tempo depois da morte.
+
+“Eis-me aqui ainda no cenário do mundo, eu que me julgava sepultada para sempre no meu véu de inocência e juventude. Salvar-me-ia o fogo da Terra, do fogo do inferno assim pensava eu na minha fé católica, e, se não ousava entrever os esplendores do paraíso, minhalma tímida se apegava à expiação do purgatório, enquanto pedia, sofria e chorava. Mas, quem dava ao ânimo abatido a força de suportar as angústias? Quem, nas longas noites de insônia e febre dolorosa se inclinava sobre o leito de martírios? Quem me refrescava os lábios sedentos, escaldantes? Éreis vós, meu Guia, cuja auréola branca me cercava; e éreis vós outros, Espíritos caros e amigos, que vínheis murmurar-me ao ouvido palavras de esperança e de amor."
+
 "A chama que me consumia o corpo débil também me despojou das suas cadeias, e, assim, morri vivendo já a verdadeira vida. Não experimentei a perturbação; entrei serena e recolhida no dia radiante que envolve aqueles que, depois de muito terem sofrido, souberam esperar um pouco. Minha mãe, minha querida mãe foi a última vibração terrestre que me repercutiu na alma. Como eu desejo que ela se torne espírita! Desprendi-me da Terra qual fruto maduro que se destacasse da árvore antes do tempo. Eu não tinha sido tocada pelo demônio do orgulho que estimula as almas desditosas, arrastadas pelos sucessos embriagadores e brilhantes da juventude."
 
-"Bendigo, pois, o fogo, o sofrimento, a prova, que não passavam de expiação. Semelhante a esses brancos e leves fios do outono, flutuo na torrente luminosa, e não são mais as estrelas de diamante que me rebrilham na fronte, mas as áureas estrelas do bom Deus."
-
-Emma.
+"Bendigo, pois, o fogo, o sofrimento, a prova, que não passavam de expiação. Semelhante a esses brancos e leves fios do outono, flutuo na torrente luminosa, e não são mais as estrelas de diamante que me rebrilham na fronte, mas as áureas estrelas do bom Deus." Emma.
 
 # O DOUTOR VIGNAL
 
@@ -2230,14 +2192,15 @@ R. Sim; já o disse; a vossa assistência auxiliou-me grandemente, e voltei a v�
 
 P. Recordai-vos que a vosso pedido, há 5 anos, em fevereiro de 1860, fizemos um estudo a vosso respeito (1). Nessa ocasião quando estáveis ainda entre nós - o vosso Espírito desprendeu-se para vir falar conosco. Podereis descrever-nos da melhor forma a diferença entre o vosso atual desprendimento e aquele de então?
 
-R. Sim, lembro-me. E que grande diferença entre um e outro! Naquele estado, a matéria me oprimia ainda na sua trama inflexível, isto é, queria mas não podia desembaraçar-me radicalmente. Hoje sou livre; um vasto campo desconhecido se me depara, e eu espero com o vosso auxílio e o dos bons Espíritos, aos quais me recomendo, progredir e compenetrar-me o mais rapidamente possível dos sentimentos que é mister possuir, e dos atos que me cumpre empreender para suportar as provações e merecer a recompensa. Que majestade! que grandeza! É quase um sentimento de temor que predomina, quando, fracos quais somos, queremos fixar as paragens luminosas.
-
-P. Com prazer continuaremos a entreter-nos no assunto, sempre que o quiserdes.
-
 __________
 
 (1) Ver a Revue Spirite de março de 1860.
 __________
+
+
+R. Sim, lembro-me. E que grande diferença entre um e outro! Naquele estado, a matéria me oprimia ainda na sua trama inflexível, isto é, queria mas não podia desembaraçar-me radicalmente. Hoje sou livre; um vasto campo desconhecido se me depara, e eu espero com o vosso auxílio e o dos bons Espíritos, aos quais me recomendo, progredir e compenetrar-me o mais rapidamente possível dos sentimentos que é mister possuir, e dos atos que me cumpre empreender para suportar as provações e merecer a recompensa. Que majestade! que grandeza! É quase um sentimento de temor que predomina, quando, fracos quais somos, queremos fixar as paragens luminosas.
+
+P. Com prazer continuaremos a entreter-nos no assunto, sempre que o quiserdes.
 
 R. Respondi sucintamente e desordenadamente às diversas perguntas. Não exijais mais, agora, do vosso fiel discípulo, porquanto não estou ainda inteiramente livre. Continuar a conversar seria o meu prazer, mas o meu guia modera-me o entusiasmo, e já pude apreciar-lhe bastante a bondade e a justiça para submeter-me inteiramente à sua decisão, por maior que seja o meu pesar em ser interrompido. Consola-me, pensando que poderei vir assistir algumas vezes, incógnito, às vossas reuniões.
 
@@ -2245,9 +2208,7 @@ Falar-vos-ei sempre que possa, pois estimo-vos e desejo prová-lo. Outros Espír
 
 Deixo-vos, amigos, e devo agradecer duplamente não só a vós espíritas que me evocastes, como também a este Espírito que houve por bem ceder-me o seu lugar, Espírito que na Terra tinha o ilustre nome de Pascal.
 
-Daquele que foi e será sempre o mais devotado dos vossos adeptos.
-
-Dr. Vignal.
+Daquele que foi e será sempre o mais devotado dos vossos adeptos. Dr. Vignal.
 
 # VICTOR LEBUFLE
 
@@ -2260,7 +2221,6 @@ Uma família espírita, conhecedora da sua bela conduta, interessando-se por sua
 "Desejais saber como estou agora; feliz, felicíssimo! Devem ser levados em conta os sofrimentos e angústias, que são a origem das bênçãos e da felicidade de além-túmulo. A felicidade! Ah! não compreendeis o que significa essa palavra. As aventuras terrenas quão longe estão das que experimentamos ao regressar para Jesus, com a consciência pura, com a confiança do servo cumpridor do seu dever, que espera cheio de alegria a aprovação dAquele que é tudo."
 
 "Ah! meus amigos, a vida é penosa e difícil, quando se não tem em vista o seu fim; mas eu vos digo, em verdade, que quando vierdes para junto de nós, se seguirdes a lei de Deus, sereis recompensados além, mas muito além dos sofrimentos e dos méritos que porventura julgardes ter adquirido para a outra vida. Sede bons e caritativos, dessa caridade tão desconhecida entre os homens, e que se chama benevolência. Socorrei os vossos semelhantes, fazendo por outrem mais que por vós mesmos, uma vez que ignorais a miséria alheia e conheceis a vossa."
-
 
 "Socorrei minha mãe, pobre mãe, único pesar que me vem da Terra. Ela deve passar por outras provas e preciso é que chegue ao céu. Adeus, vou vê-la.
 Victor."
@@ -2339,13 +2299,9 @@ R. Oh! não, desenganai-vos. Contado estava o tempo que eu deveria passar na Ter
 
 Os sérios estudos feitos fortificaram-me a alma, aumentando-lhe os conhecimentos, e se em virtude da minha curta existência não pude dar-lhes aplicação, nem por isso deixarei de o fazer mais tarde e com maior utilidade.
 
-Adeus, caro amigo: eu parto para junto de meus pais, a fim de predíspô-los ao recebimento desta comunicação.
-
-Maurice.
-
+Adeus, caro amigo: eu parto para junto de meus pais, a fim de predíspô-los ao recebimento desta comunicação. Maurice.
 
 ---
-
 
 # CAPÍTULO III
 
@@ -2353,11 +2309,9 @@ Maurice.
 
 # JOSEPH BRÊ
 
-(Falecido em 1840 e evocado em Bordéus, por sua neta, em 1862)
-
 # O homem honesto segundo Deus ou segundo os homens
 
-1.Caro avô, podeis dizer-me como vos encontrais no mundo dos Espíritos, dando-me quaisquer pormenores úteis ao nosso progresso?
+(Falecido em 1840 e evocado em Bordéus, por sua neta, em 1862) 1.Caro avô, podeis dizer-me como vos encontrais no mundo dos Espíritos, dando-me quaisquer pormenores úteis ao nosso progresso?
 
 R. Tudo que quiseres, querida filha. Eu expio a minha descrença; porém, grande é a bondade de Deus, que atende às circunstâncias. Sofro, mas não como poderias imaginar: é o desgosto de não ter melhor aproveitado o tempo aí na Terra.
 2.Como? Pois não vivestes sempre honestamente?
@@ -2388,15 +2342,11 @@ Nota - O sentimento da dualidade que não está ainda destruído por uma complet
 P. Levastes muito tempo a reconhecer-vos?
 R. Compreendi a morte no mesmo dia que por mim orastes.
 P. Era doloroso o estado de perturbação?
-R. Não, eu não sofria, acreditava sonhar e aguardava o despertar. Minha vida não foi isenta de dores, mas todo ser encarnado nesse mundo deve sofrer. Resignando-me à vontade de Deus, a minha resignação foi por Ele levada em conta. Grata vos sou pelas preces que me auxiliaram no reconhecimento de mim mesma. Obrigada; voltarei sempre com prazer. Adeus.
-
-Hélène.
+R. Não, eu não sofria, acreditava sonhar e aguardava o despertar. Minha vida não foi isenta de dores, mas todo ser encarnado nesse mundo deve sofrer. Resignando-me à vontade de Deus, a minha resignação foi por Ele levada em conta. Grata vos sou pelas preces que me auxiliaram no reconhecimento de mim mesma. Obrigada; voltarei sempre com prazer. Adeus. Hélène.
 
 # O MARQUÊS DE SAINT-PAUL
 
-(Falecido em 1860 e evocado, a pedido de uma sua irmã, consóror da Sociedade de Paris, em 16 de maio de 1861)
-
-1.Evocação: - R. Eis-me aqui.
+(Falecido em 1860 e evocado, a pedido de uma sua irmã, consóror da Sociedade de Paris, em 16 de maio de 1861) 1.Evocação: - R. Eis-me aqui.
 
 2.Vossa irmã pediu-nos para evocar-vos, pois, conquanto seja médium, não está ainda bastante desenvolvida. R. Responderei da melhor forma possível.
 
@@ -2467,9 +2417,7 @@ Deus concedera-me uma graça, em razão do que vos vou explicar: A minha primiti
 
 "Tereis rudes provações, querida, amada família; aceitai-as, porém, corajosamente, lembrando-vos de que Deus as vê. Repeti amiúde esta prece: - "Deus de amor e bondade, que tudo faculta e sempre, dá-nos força superior a todas as vicissitudes, torna-nos bons, humildes e caridosos, pequenos pela fortuna e grandes de coração. Permite seja espírita o nosso Espírito na Terra, a fim de melhor te compreendermos e te amarmos.
 
-"Seja teu nome emblema de liberdade, oh! meu Deus! - O consolador de todos os oprimidos, de todos os que necessitam amar, perdoar e crer.
-
-Cardon.
+"Seja teu nome emblema de liberdade, oh! meu Deus! - O consolador de todos os oprimidos, de todos os que necessitam amar, perdoar e crer. Cardon.
 
 
 ---
@@ -2479,9 +2427,7 @@ Cardon.
 
 # ERIC STANISLAS
 
-(Comunicação espontânea. Sociedade de Paris; agosto de 1863.)
-
-"Que ventura nos proporcionam as emoções vivamente sentidas por valorosos corações! Ó suaves pensamentos que vindes abrir o caminho da salvação a tudo que vive, que respira material e espiritualmente. Não deixe jamais o bálsamo consolador de derramar-se profusamente sobre vós e sobre nós! De que expressões nos servirmos, que traduzam a felicidade dos irmãos, desencarnados, ao perscrutarem o amor que une a todos?
+(Comunicação espontânea. Sociedade de Paris; agosto de 1863.) "Que ventura nos proporcionam as emoções vivamente sentidas por valorosos corações! Ó suaves pensamentos que vindes abrir o caminho da salvação a tudo que vive, que respira material e espiritualmente. Não deixe jamais o bálsamo consolador de derramar-se profusamente sobre vós e sobre nós! De que expressões nos servirmos, que traduzam a felicidade dos irmãos, desencarnados, ao perscrutarem o amor que une a todos?
 
 "Ah! irmãos, quanto bem por toda parte, que de sentimentos suaves, elevados e simples como vós, como a vossa Doutrina, sois chamados a implantar ao longo da estrada a percorrer; mas, também, quanto vos será outorgado antes mesmo de terdes adquirido direitos!
 
@@ -2493,16 +2439,13 @@ Cardon.
 
 "Com grande satisfação me constituo intérprete das almas sofredoras, porquanto é a homens de coração que me dirijo, na certeza de não ser repelido."
 
-"Ainda uma vez aceitai, pois, homens generosos, a expressão do meu reconhecimento em particular, e em geral de todos a quem tanto bem tendes feito, talvez sem o saberdes."
-
-Eric Stanislas.
+"Ainda uma vez aceitai, pois, homens generosos, a expressão do meu reconhecimento em particular, e em geral de todos a quem tanto bem tendes feito, talvez sem o saberdes." Eric Stanislas.
 
 O guia do médium: - Meus filhos, este é um Espírito que sofreu por muito tempo, transviado do bom caminho. Agora compreendeu os seus erros, arrependeu-se e volveu os olhos para o Deus que negara. A sua posição não é a de um feliz, porém ele aspira à felicidade e não mais sofre. Deus permitiu-lhe esta audição para que desça depois a uma esfera inferior, a fim de instruir e estimular o progresso de Espíritos que, como ele, transgrediram a lei. É a reparação que lhe compete. Afinal, ele conquistará a felicidade, porque tem força de vontade.
 
 # Sra. ANNA BELLEVILLE
 
 Jovem mulher falecida aos trinta e cinco anos de idade, após cruel enfermidade. Vivaz, espirituosa, dotada de inteligência rara, de meticuloso critério e eminentes qualidades morais; esposa e mãe de família devotada, ela possuía, ao demais, uma integridade de caráter pouco comum e uma fecundidade de recursos que a trazia sempre a coberto das mais críticas eventualidades da existência. Sem guardar ressentimento das pessoas de quem poderia queixar-se, estava sempre pronta a prestar-lhes oportuno serviço. Intimamente ligados à sua pessoa desde longos anos, pudemos acompanhar todas as fases da sua existência, bem como todas as peripécias do seu fim. Proveio de um acidente a moléstia que havia de levá-la, depois de a reter três anos de cama, presa dos mais cruéis sofrimentos, aliás suportados até ao fim com uma coragem heróica, e a despeito dos quais a graça natural do seu Espírito jamais a abandonou. Ela acreditava firmemente na existência da alma e na vida futura, mas pouco se preocupava com isso; todos os seus pensamentos se relacionavam com o presente, que muito lhe importava, posto não tivesse medo da morte e fosse indiferente aos gozos materiais. A sua vida era simples e sem sacrifício abria mão do que não podia obter; mas possuía inato o sentimento do bem e do belo, que apreciava até nas coisas mínimas.
-
 
 Queria viver menos para si que para os filhos, avaliando a falta que lhes faria, e era isso que a prendia à vida. Conhecia o Espiritismo sem o ter estudado a fundo; interessava-se por ele, mas nunca pôde fixar as idéias sobre o futuro: este era para ela uma realidade, mas não lhe deixava no Espírito uma impressão profunda.
 
@@ -2552,17 +2495,13 @@ Seis meses depois da morte: - P. Agora que um tempo assaz longo se passou desde 
 
 R. Na vida terrestre, eu era o que vulgarmente se chama uma boa pessoa; antes de tudo, porém, prezava o meu bem-estar; compassiva por índole, talvez não fosse capaz de penoso sacrifício para minorar um infortúnio. Hoje, tudo mudou, e posto seja sempre a mesma, o eu de outrora modificou-se.
 
-Ganhei com a modificação e vejo que não há nem categorias nem condições além do mérito pessoal, no mundo dos invisíveis, onde um pobre caridoso e bom se sobreleva ao rico que humilhava com a sua esmola. Velo especialmente pelos que se afligem com tormentos familiares, com a perda de parentes ou de fortuna. A minha missão é reanimá-los e consolá-los, e com isso me sinto feliz.
-
-Anna.
+Ganhei com a modificação e vejo que não há nem categorias nem condições além do mérito pessoal, no mundo dos invisíveis, onde um pobre caridoso e bom se sobreleva ao rico que humilhava com a sua esmola. Velo especialmente pelos que se afligem com tormentos familiares, com a perda de parentes ou de fortuna. A minha missão é reanimá-los e consolá-los, e com isso me sinto feliz. Anna.
 
 Importante questão decorre dos fatos supramencionados. Ei-la: Poderá uma pessoa, por esforço da própria vontade, retardar o momento de separação da alma do corpo?
 
 Resposta do Espírito S. Luís: - Resolvida afirmativamente, sem restrições, esta questão poderia dar lugar a conseqüências falsas.
 
-Certamente, em dadas condições, pode um Espírito encarnado prolongar a existência corporal a fim de terminar instruções indispensáveis, ou, ao menos, por ele como tais julgadas - é uma concessão que se lhe pode fazer, como no caso vertente, além de muitos outros exemplos. Esta dilação de vida não pode, porém, deixar de ser breve, visto como é defeso ao homem inverter a ordem das leis naturais, bem como retornar de moto próprio à vida, desde que ela tenha atingido o seu termo. E uma sustação momentânea apenas. Preciso é no entanto que da possibilidade do fato não se conclua a sua generalidade, tampouco que dependa de cada qual prolongar por este modo a sua existência. Como provação para o Espírito ou no interesse de missão a concluir, os órgãos depauperados podem receber um suplemento de fluido vital que lhes permita prolongar de alguns instantes a manifestação material do pensamento. Estes casos são excepcionais e não fazem regra. Tampouco se deve ver nesse fato uma derrogação de Deus à imutabilidade das suas leis, mas apenas uma consequência do livre-arbítrio da alma que, no momento extremo, tem consciência de sua missão e quer, a despeito da morte, concluir o que não pôde até então. As vezes pode ser também uma espécie de castigo infligido ao Espírito duvidoso do futuro, esse prolongamento de vitalidade com o qual tem necessariamente de sofrer.
-
-S. Luís.
+Certamente, em dadas condições, pode um Espírito encarnado prolongar a existência corporal a fim de terminar instruções indispensáveis, ou, ao menos, por ele como tais julgadas - é uma concessão que se lhe pode fazer, como no caso vertente, além de muitos outros exemplos. Esta dilação de vida não pode, porém, deixar de ser breve, visto como é defeso ao homem inverter a ordem das leis naturais, bem como retornar de moto próprio à vida, desde que ela tenha atingido o seu termo. E uma sustação momentânea apenas. Preciso é no entanto que da possibilidade do fato não se conclua a sua generalidade, tampouco que dependa de cada qual prolongar por este modo a sua existência. Como provação para o Espírito ou no interesse de missão a concluir, os órgãos depauperados podem receber um suplemento de fluido vital que lhes permita prolongar de alguns instantes a manifestação material do pensamento. Estes casos são excepcionais e não fazem regra. Tampouco se deve ver nesse fato uma derrogação de Deus à imutabilidade das suas leis, mas apenas uma consequência do livre-arbítrio da alma que, no momento extremo, tem consciência de sua missão e quer, a despeito da morte, concluir o que não pôde até então. As vezes pode ser também uma espécie de castigo infligido ao Espírito duvidoso do futuro, esse prolongamento de vitalidade com o qual tem necessariamente de sofrer. S. Luís.
 
 Nota - Poder-se-ia ainda admirar a rapidez relativa com que se desprendeu este Espírito, dado o seu apego à vida corporal; cumpre, porém, considerar que tal apego nada tinha de material nem sensual, antes possuindo mesmo a sua face moral, motivada como era pelas necessidades dos filhos ainda tenros. Enfim, era um Espírito adiantado em inteligência e moralidade. Por mais um grau, e poder-se-ia considerá-lo um dos Espíritos dos mais felizes. Não havia, portanto, nos laços perispiríticos a tenacidade resultante da identificação material; pode dizer-se que a vida, debilitada por longa enfermidade, apenas se prendia por tênues fios, que ele desejava impedir se rompessem. Contudo, a sua resistência foi punida com a dilação dos sofrimentos concernentes à própria moléstia e não com a dificuldade do desprendimento. Assim, realizado este, eis por que a perturbação foi breve. Um outro fato igualmente importante decorre desta, como da maior parte das evocações feitas em épocas diversas, mais ou menos distantes da morte: é a transformação gradual das idéias do Espírito, cujo progresso se traduz, não por melhores sentimentos, mas por uma apreciação mais justa das coisas. O progresso da alma na vida espiritual é, portanto, um fato demonstrado pela experiência. A vida corporal é a praticagem desse progresso, a demonstração das suas resoluções, o cadinho em que ele se depura. Desde que a alma progride depois da morte, a sua sorte não pode ser irrevogavelmente fixada, porquanto a fixação definitiva da sorte é, como já o dissemos, a negação do progresso.
 
@@ -2593,9 +2532,7 @@ o homem culpado sente, sob aparente imobilidade, revolver-se e viver dentro de s
 
 E contudo ele ouve, flutuando em torno do corpo que não deseja abandonar. Uma força misteriosa o atrai; vê, e reconhece finalmente o que já vira. Espavorido, ei-lo que se lança no Espaço onde desejaria ocultar-se, e nada de abrigo, nada de repouso.
 
-Retribuem-lhe outros Espíritos o mal que fez; castigado, confuso e escarnecido, por sua vez vagueia e vagueará até que a divina luz o penetre e esclareça, mostrando-lhe o Deus vingador, o Deus triunfante de todo o mal, e ao qual não poderá apaziguar senão à força de expiação e gemidos.
-
-Georges."
+Retribuem-lhe outros Espíritos o mal que fez; castigado, confuso e escarnecido, por sua vez vagueia e vagueará até que a divina luz o penetre e esclareça, mostrando-lhe o Deus vingador, o Deus triunfante de todo o mal, e ao qual não poderá apaziguar senão à força de expiação e gemidos. Georges."
 
 Nota - Nunca se traçou quadro mais terrível e verdadeiro à sorte do mau; será ainda necessária a fantasmagoria das chamas e das torturas físicas?
 
@@ -2611,9 +2548,7 @@ Procurava fugir a essa influência interessando-me pelos objetos que me cercavam
 
 Eu via agitarem-se os humanos cuja ignorância invejava; toda uma ordem de sensações desconhecidas, ou antes reencontradas, invadiram-me simultaneamente. Como que arrastado por força irresistível, procurando fugir à dor encarniçada, franqueava as distâncias, os elementos, os obstáculos materiais, sem que as belezas naturais nem os esplendores celestes pudessem calmar um instante a dor acerba da consciência, nem o pavor causado pela revelação da eternidade. Pode um mortal prejulgar as torturas materiais pelos arrepios da carne; mas as vossas frágeis dores, amenizadas pela esperança, atenuadas por distrações ou mortas pelo esquecimento, não vos darão nunca a idéia das angústias de uma alma que sofre sem tréguas, sem esperança, sem arrependimento. Decorrido um tempo cuja duração não posso precisar, invejando os eleitos cujos esplendores entrevia, detestando os maus Espíritos que me perseguiam com remoques, desprezando os humanos cujas torpezas eu via, passei de profundo abatimento a uma revolta insensata.
 
-Chamaste-me finalmente, e pela primeira vez um sentimento suave e terno me acalmou; escutei os ensinos que te dão os teus guias, a verdade impôs-se-me, orei; Deus ouviu-me, revelou-se-me por sua Clemência, como já se me havia revelado por sua Justiça.
-
-Novel."
+Chamaste-me finalmente, e pela primeira vez um sentimento suave e terno me acalmou; escutei os ensinos que te dão os teus guias, a verdade impôs-se-me, orei; Deus ouviu-me, revelou-se-me por sua Clemência, como já se me havia revelado por sua Justiça. Novel."
 
 # AUGUSTE MICHEL
 
@@ -2645,9 +2580,7 @@ Nota - O médium, não dando importância ao pedido que lhe faziam de orar sobre
 
 "Fui no mundo um ser inútil; não fiz uso algum proveitoso das minhas faculdades; a fortuna serviu apenas à satisfação das minhas paixões, aos meus caprichos de luxo e à minha vaidade; não pensei senão nos gozos do corpo, desprezando os da alma e a própria alma. Descerá a misericórdia de Deus até mim, pobre Espírito que sofre as conseqüências das suas faltas terrenas? Orai para que Ele me perdoe, libertando-me das dores que ainda me pungem. Agradeço-vos o terdes vindo aqui orar por mim."
 
-8 de junho. "Posso falar e agradeço a Deus que mo faculta."
-
-"Compreendi as minhas faltas e espero que Deus me perdoe."
+8 de junho. "Posso falar e agradeço a Deus que mo faculta. Compreendi as minhas faltas e espero que Deus me perdoe."
 
 "Trilhai sempre na vida de conformidade com a crença que vos alenta, porque ela vos reserva de futuro um repouso que eu ainda não tenho. Obrigado pelas vossas preces. Até outra vista."
 
@@ -2655,9 +2588,7 @@ Nota - A insistência do Espírito, para que se orasse sobre o seu túmulo, é u
 
 # EXPROBRAÇÕES DE UM BOÊMIO
 
-(Bordéus, 19 de abril de 1862)
-
-30 de julho. "Presentemente sou menos infeliz, visto não mais sentir a pesada cadeia que me jungia ao corpo. Estou livre, enfim, mas ainda não expiei e preciso é que repare o tempo perdido se eu não quiser prolongar os sofrimentos. Espero que Deus, tendo em conta a sinceridade do arrependimento, me concede a graça do seu perdão. Pedi ainda por mim, eu vo-lo suplico. Homens, meus irmãos, eu vivi só para mim e agora expio e sofro! Conceda-vos Deus a graça de evitardes os espinhos que ora me laceram. Prossegui na senda larga do Senhor e orai por mim, pois abusei dos favores que Deus faculta às suas criaturas!"
+(Bordéus, 19 de abril de 1862) 30 de julho. "Presentemente sou menos infeliz, visto não mais sentir a pesada cadeia que me jungia ao corpo. Estou livre, enfim, mas ainda não expiei e preciso é que repare o tempo perdido se eu não quiser prolongar os sofrimentos. Espero que Deus, tendo em conta a sinceridade do arrependimento, me concede a graça do seu perdão. Pedi ainda por mim, eu vo-lo suplico. Homens, meus irmãos, eu vivi só para mim e agora expio e sofro! Conceda-vos Deus a graça de evitardes os espinhos que ora me laceram. Prossegui na senda larga do Senhor e orai por mim, pois abusei dos favores que Deus faculta às suas criaturas!"
 
 "Quem sacrifica aos instintos brutos a inteligência e os bons sentimentos que Deus lhe dá, assemelha-se ao animal que muitas vezes se maltrata. O homem deve utilizar-se sobriamente dos bens de que é depositário, habituando-se a visar a eternidade que o espera, abrindo mão, por conseqüência, dos gozos materiais. A sua alimentação deve ter por exclusivo fim a vitalidade; o luxo deve apenas restringir-se às necessidades da sua posição; os gostos, os pendores, mesmo os mais naturais, devem obedecer ao mais são raciocínio; sem o que, ele se materializa em vez de se purificar. As paixões humanas são estreitos grilhões que se enroscam na carne e, assim, não lhes deis abrigo. Vós não sabeis o seu preço, quando regressamos à pátria! As paixões humanas vos despem antes mesmo de vos deixarem, de modo a chegardes nus, completamente nus, ante o Senhor. Ah! cobri-vos de boas obras que vos ajudem a franquear o Espaço entre vós e a eternidade. Manto brilhante, elas escondem as vossas torpezas humanas. Envolvei-vos na caridade e no amor - vestes divinas que duram eternamente."
 
@@ -2669,9 +2600,7 @@ Daí, um tédio mortal cujo termo não prevêem e ao qual prefeririam o nada. Ma
 
 # LISBETH
 
-(Bordéus, 13 de fevereiro de 1862)
-
-Um Espírito sofredor inscreve-se com o nome de Lisbeth.
+(Bordéus, 13 de fevereiro de 1862) Um Espírito sofredor inscreve-se com o nome de Lisbeth.
 
 1.Quereis dar-nos algumas informações a respeito da vossa posição, assim como da causa dos vossos sofrimentos? - R. Sede humilde de coração, submisso à vontade de Deus, paciente na provação, caridoso para com o pobre, consolador do fraco, sensível a todos os sofrimentos e não sofrereis as torturas que amargo.
 
@@ -2711,15 +2640,11 @@ Ide a ela, meus amigos, e bebei com fé. Mergulhai nela as vossas vasilhas, que 
 
 Está em vossas mãos a tarefa, porquanto, dizendo aos vossos irmãos - aí estão os perigos, lá os escolhos; vinde conosco a fim de os evitar; imitai-nos a nós que damos o exemplo - assim difundíreis as bênçãos do Senhor sobre os que vos ouvirem.
 
-Abençoados sejam os vossos esforços. O Senhor ama os corações puros: fazei por merecer-lhe o amor.
-
-Saint Paulin.
+Abençoados sejam os vossos esforços. O Senhor ama os corações puros: fazei por merecer-lhe o amor. Saint Paulin.
 
 # PRÍNCIPE OURAN
 
-(Bordéus, 1862)
-
-Um Espírito sofredor apresentou-se dando o nome de Ouran, príncipe russo de outros tempos.
+(Bordéus, 1862) Um Espírito sofredor apresentou-se dando o nome de Ouran, príncipe russo de outros tempos.
 
 P. Quereis dar-nos algumas minudências sobre a vossa situação?
 
@@ -2759,9 +2684,7 @@ O orgulho está incorporado no homem; pois bem! aproveita-o na força e na corag
 
 # PASCAL LAVIC
 
-(Havre, 9 de agosto de 1863)
-
-Nota - Este Espírito, sem que o médium o conhecesse em vida, mesmo de nome, comunicou-se espontaneamente.
+(Havre, 9 de agosto de 1863) Nota - Este Espírito, sem que o médium o conhecesse em vida, mesmo de nome, comunicou-se espontaneamente.
 
 "Creio na bondade de Deus, que, na sua misericórdia, se compadecerá do meu Espírito. Tenho sofrido muito, muito; pereci no mar. Meu Espírito, ligado ao corpo, vagou por muito tempo sobre as ondas. Deus...
 
@@ -2769,9 +2692,7 @@ Nota - Este Espírito, sem que o médium o conhecesse em vida, mesmo de nome, co
 
 ...houve por bem permitir que as preces dos que ficaram na Terra me tirassem do estado de perturbação e incerteza em que me achava imerso. Esperaram-me por muito tempo e puderam enfim achar meu corpo. Este repousa atualmente, ao passo que o Espírito, libertado com dificuldade, vê as faltas cometidas. Consumada a provação, Deus julga com justiça, a sua bondade estende-se aos arrependidos.
 
-"Por muito tempo, juntos erraram o corpo e o Espírito, sendo essa a minha expiação. Segui o caminho reto, se quiserdes que Deus facilite o desprendimento de vosso Espírito. Vivei no seu amor, orai, e a morte, para tantos temerosa, vos será suavizada pelo conhecimento da vida que vos espera. Sucumbi no mar, e por muito tempo me esperaram. Não poder desligar-me do corpo era para mim uma terrível provação, eis por que necessito das preces de quem, como vós, possui a crença salvadora e pode pedir por mim ao Deus de justiça. Arrependo-me e espero ser perdoado. A 6 de agosto foi meu corpo encontrado. Eu era um pobre marinheiro e há muito tempo que morri. Orai por mim.
-
-Pascal Lavic.
+"Por muito tempo, juntos erraram o corpo e o Espírito, sendo essa a minha expiação. Segui o caminho reto, se quiserdes que Deus facilite o desprendimento de vosso Espírito. Vivei no seu amor, orai, e a morte, para tantos temerosa, vos será suavizada pelo conhecimento da vida que vos espera. Sucumbi no mar, e por muito tempo me esperaram. Não poder desligar-me do corpo era para mim uma terrível provação, eis por que necessito das preces de quem, como vós, possui a crença salvadora e pode pedir por mim ao Deus de justiça. Arrependo-me e espero ser perdoado. A 6 de agosto foi meu corpo encontrado. Eu era um pobre marinheiro e há muito tempo que morri. Orai por mim. Pascal Lavic.
 
 P. Onde foi achado o vosso corpo?
 
@@ -2783,9 +2704,7 @@ Nota - O Journal du Havre, de 11 de agosto de 1863, continha o seguinte tópico,
 
 Nota - A 12 de agosto, como se tratasse desse acontecimento no Centro em que o Espírito se manifestara pela primeira vez, deu este de novo, e espontaneamente, a seguinte comunicação:
 
-"Sou efetivamente Pascal Lavic, que tem necessidade das vossas preces. Podeis beneficiar-me, pois terrível foi a provação por mim experimentada. A separação do meu Espírito do corpo só se deu depois que reconheci as minhas faltas; e depois disso, ainda não totalmente destacado, acompanhava-o no oceano que o tragara. Orai, pois, para que Deus me perdoe e me conceda repouso. Orai, eu vo-lo suplico. Oxalá este desastrado fim de uma infeliz vida terrena vos sirva de grande ensinamento! Deveis ter sempre em vista a vida futura, não deixando jamais de implorar a Deus a sua divina misericórdia. Orai por mim; tenho necessidade que Deus de mim se compadeça.
-
-Pascal Lavic.
+"Sou efetivamente Pascal Lavic, que tem necessidade das vossas preces. Podeis beneficiar-me, pois terrível foi a provação por mim experimentada. A separação do meu Espírito do corpo só se deu depois que reconheci as minhas faltas; e depois disso, ainda não totalmente destacado, acompanhava-o no oceano que o tragara. Orai, pois, para que Deus me perdoe e me conceda repouso. Orai, eu vo-lo suplico. Oxalá este desastrado fim de uma infeliz vida terrena vos sirva de grande ensinamento! Deveis ter sempre em vista a vida futura, não deixando jamais de implorar a Deus a sua divina misericórdia. Orai por mim; tenho necessidade que Deus de mim se compadeça. Pascal Lavic.
 
 # FERDINAND BERTIN
 
@@ -2849,17 +2768,13 @@ Passados alguns dias, uma vez que se manifestara espontaneamente confirmando aqu
 
 -P. Oraremos por vós.
 
--R. Obrigado! Orai para que eu esqueça os meus bens terrenos, sem o que não poderei arrepender-me. Adeus e obrigado.
-
-François Riquier, Rue de la Charité nº 14.
+-R. Obrigado! Orai para que eu esqueça os meus bens terrenos, sem o que não poderei arrepender-me. Adeus e obrigado. François Riquier, Rue de la Charité nº 14.
 
 É curioso ver-se este Espírito indicar a moradia como se estivesse vivo. A senhora deu-se pressa em verificá-la e ficou muito surpreendida por ver que era justamente a última casa que Riquier habitara. Eis como, após cinco anos, ainda ele não se considerava morto, antes experimentava a ansiedade, bem cruel para um usurário, de ver os bens partilhados pelos herdeiros. A evocação, provocada indubitavelmente por qualquer Espírito bom, teve por fim fazer-lhe compreender o seu estado e predispô-lo ao arrependimento.
 
 # CLAIRE
 
-(Sociedade de Paris, 1861)
-
-O Espírito que forneceu os ditados seguintes pertenceu a uma senhora que o médium conhecera quando na Terra. A sua conduta, como o seu caráter, justificam plenamente os tormentos que lhe sobrevieram. Além do mais, ela era dominada por um sentimento exagerado de orgulho e egoísmo pessoais, sentimento que se patenteia na terceira das mensagens, quando pretende que o médium apenas se ocupe com ela. As comunicações foram obtidas em diferentes épocas, sendo que as três últimas já denotam sensível progresso nas disposições do Espírito, graças ao cuidado do médium, que empreendera a sua educação moral.
+(Sociedade de Paris, 1861) O Espírito que forneceu os ditados seguintes pertenceu a uma senhora que o médium conhecera quando na Terra. A sua conduta, como o seu caráter, justificam plenamente os tormentos que lhe sobrevieram. Além do mais, ela era dominada por um sentimento exagerado de orgulho e egoísmo pessoais, sentimento que se patenteia na terceira das mensagens, quando pretende que o médium apenas se ocupe com ela. As comunicações foram obtidas em diferentes épocas, sendo que as três últimas já denotam sensível progresso nas disposições do Espírito, graças ao cuidado do médium, que empreendera a sua educação moral.
 
 1.Eis-me aqui, eu, a desgraçada Claire. Que queres tu que te diga? A resignação, a esperança não passam de palavras, para os que sabem que, inumeráveis como as pedras da saraivada, os sofrimentos lhe perdurarão na sucessão interminável dos séculos. Posso suavizá-los, dizes tu... Que vaga palavra! Onde encontrar coragem e esperança para tanto? Procura, pois, inteligência obtusa, compreender o que seja um dia eterno. Um dia, um ano, um século... que sei eu? se as horas o não dividem, as estações não variam; eterno e lento como a água que o rochedo roreja, este dia execrando, maldito, pesa sobre mim como avalancha de chumbo... Eu sofro!... Em torno de mim, apenas sombras silenciosas e indiferentes... Eu sofro!
 
@@ -2873,9 +2788,7 @@ Contudo, sei que acima desta miséria reina o Deus Pai, para o qual tudo se enca
 
 Foi egoísta; possuía tudo, exceto um bom coração. Não violou a lei dos homens, mas a de Deus, visto como esqueceu a primeira das virtudes - a caridade. Não tendo amado senão a si mesma, agora não encontra ninguém que a ame e vê-se insulada, abandonada, ao desamparo no Espaço, onde ninguém pensa nela nem dela se ocupa.
 
-Eis o que constitui o seu tormento. Tendo apenas procurado os gozos mundanos que hoje não mais existem, o vácuo se lhe fez em torno, e como vê apenas o nada, este lhe parece eterno. Ela não sofre torturas físicas; não vêm atormentá-la os demônios, o que é aliás desnecessário, uma vez que se atormenta a si mesma, e isso lhe é mais doloroso, porquanto, se tal acontecesse, os demônios seriam seres a ocuparem-se dela. O egoísmo foi a sua alegria na Terra; pois bem, é ainda ele que a persegue - verme a corroer-lhe o coração, seu verdadeiro demônio.
-
-S. Luís.
+Eis o que constitui o seu tormento. Tendo apenas procurado os gozos mundanos que hoje não mais existem, o vácuo se lhe fez em torno, e como vê apenas o nada, este lhe parece eterno. Ela não sofre torturas físicas; não vêm atormentá-la os demônios, o que é aliás desnecessário, uma vez que se atormenta a si mesma, e isso lhe é mais doloroso, porquanto, se tal acontecesse, os demônios seriam seres a ocuparem-se dela. O egoísmo foi a sua alegria na Terra; pois bem, é ainda ele que a persegue - verme a corroer-lhe o coração, seu verdadeiro demônio. S. Luís.
 
 5.Falar-vos-ei da importante diferença existente entre a moral divina e a moral humana. A primeira assiste a mulher adúltera no seu abandono e diz aos pecadores: "Arrependei-vos, e aberto vos será o reino dos céus."
 
@@ -2891,9 +2804,7 @@ Nota - Na comunicação a seguir, Claire fala de seu marido, que muito a martiri
 
 8.O guia do médium. Vou falar por Claire, visto que ela não pode continuar a análise dos sofrimentos do marido, sem compartilhá-los:
 
-"Félix - superficial nas idéias como nos sentimentos; violento por fraqueza; devasso por frivolidade - entrou no mundo espiritual tão nu quanto ao moral como quanto ao físico. Em reencarnar nada adquiriu e, conseqüentemente, tem de recomeçar toda a obra. Qual homem ao despertar de prolongado sonho, reconhecendo a profunda agitação dos seus nervos, esse pobre ser, saindo da perturbação, reconhecerá que viveu de quimeras, que lhe desvirtuaram a existência. Então, maldirá do materialismo que lhe dera o vácuo pela realidade; apostrofará o positivismo que lhe fizera ter por desvarios as idéias sobre a vida futura, como por loucura a sua aspiração, como por fraqueza a crença em Deus. O desgraçado, ao despertar, verá que esses nomes por ele escarnecidos são a fórmula da verdade, e que, ao contrário da fábula, a caça da presa foi menos proveitosa que a da sombra."
-
-Georges.
+"Félix - superficial nas idéias como nos sentimentos; violento por fraqueza; devasso por frivolidade - entrou no mundo espiritual tão nu quanto ao moral como quanto ao físico. Em reencarnar nada adquiriu e, conseqüentemente, tem de recomeçar toda a obra. Qual homem ao despertar de prolongado sonho, reconhecendo a profunda agitação dos seus nervos, esse pobre ser, saindo da perturbação, reconhecerá que viveu de quimeras, que lhe desvirtuaram a existência. Então, maldirá do materialismo que lhe dera o vácuo pela realidade; apostrofará o positivismo que lhe fizera ter por desvarios as idéias sobre a vida futura, como por loucura a sua aspiração, como por fraqueza a crença em Deus. O desgraçado, ao despertar, verá que esses nomes por ele escarnecidos são a fórmula da verdade, e que, ao contrário da fábula, a caça da presa foi menos proveitosa que a da sombra." Georges.
 
 # Estudo sobre as comunicações de Claire
 
@@ -2915,13 +2826,9 @@ Uma vez nesse caminho, a marcha é rápida, visto como compreenderam um bem supe
 
 P. (a S. Luís). Que devemos entender por trevas em que se acham mergulhadas certas almas sofredoras? Serão as referidas tantas vezes na Escritura?
 
-R. Sim, efetivamente, as designadas por Jesus e pelos profetas em referências ao castigo dos maus. Mas isso não passava de alegoria destinada a ferir os sentidos materializados dos seus contemporâneos, os quais jamais poderiam compreender a punição de maneira espiritual. Certos Espíritos estão imersos em trevas, mas deve-se depreender dai uma verdadeira noite da alma comparável à obscuridade intelectual do idiota. Não é uma loucura da alma, porém uma inconsciência daquele e do que o rodeia, a qual se produz quer na presença, quer na ausência da luz material. É, principalmente, a punição dos que duvidaram do seu destino. Pois que acreditaram em o nada, as aparências desse nada os supliciam, até que a alma, caindo em si, quebra as malhas de enervamento que a prostrava e envolvia, tal qual o homem oprimido por penoso sonhar luta em dado momento, com todo o vigor das suas faculdades, contra os terrores que de começo o dominaram. Esta momentânea redução da alma a um nada fictício e consciente de sua existência é sentimento mais cruel do que se pode imaginar, em razão da aparência de repouso que a acomete: - é esse repouso forçado, essa nulidade de ser, essa incerteza que lhe fazem o suplício. O aborrecimento que a invade é o mais terrível dos castigos, visto como coisa alguma percebe em torno nem coisas, nem seres; somente trevas, em verdade, representa isso tudo para ela.
+R. Sim, efetivamente, as designadas por Jesus e pelos profetas em referências ao castigo dos maus. Mas isso não passava de alegoria destinada a ferir os sentidos materializados dos seus contemporâneos, os quais jamais poderiam compreender a punição de maneira espiritual. Certos Espíritos estão imersos em trevas, mas deve-se depreender dai uma verdadeira noite da alma comparável à obscuridade intelectual do idiota. Não é uma loucura da alma, porém uma inconsciência daquele e do que o rodeia, a qual se produz quer na presença, quer na ausência da luz material. É, principalmente, a punição dos que duvidaram do seu destino. Pois que acreditaram em o nada, as aparências desse nada os supliciam, até que a alma, caindo em si, quebra as malhas de enervamento que a prostrava e envolvia, tal qual o homem oprimido por penoso sonhar luta em dado momento, com todo o vigor das suas faculdades, contra os terrores que de começo o dominaram. Esta momentânea redução da alma a um nada fictício e consciente de sua existência é sentimento mais cruel do que se pode imaginar, em razão da aparência de repouso que a acomete: - é esse repouso forçado, essa nulidade de ser, essa incerteza que lhe fazem o suplício. O aborrecimento que a invade é o mais terrível dos castigos, visto como coisa alguma percebe em torno nem coisas, nem seres; somente trevas, em verdade, representa isso tudo para ela. S. Luís.
 
-S. Luís.
-
-(Claire) : Eis-me aqui. Também eu posso responder à pergunta relativa às trevas, pois vaguei e sofri por muito tempo nesses limbos onde tudo é soluço e misérias. Sim, existem as trevas visíveis de que fala a Escritura, e os desgraçados que deixam a vida, ignorantes ou culpados, depois das provações terrenas são impelidos a fria região, inconscientes de si mesmos e do seu destino. Acreditando na perenidade dessa situação, a sua linguagem é ainda a da vida que os seduziu, e admiram-se e espantam-se da profunda solidão: trevas são, pois, esses lugares povoados e ao mesmo tempo desertos, espaços em que erram obscuros Espíritos lastimosos, sem consolo, sem afeições, sem socorro de espécie alguma. A quem se dirigirem... se sentem a eternidade, esmagadora, sobre eles?... Tremem e lamentam os interesses mesquinhos que lhes mediam as horas; deploram a ausência das noites que, muitas vezes, lhes traziam, num sonho feliz, o esquecimento dos pesares. As trevas para o Espírito são: a ignorância, o vácuo, o horror ao desconhecido... Não posso continuar...
-
-Claire.
+(Claire) : Eis-me aqui. Também eu posso responder à pergunta relativa às trevas, pois vaguei e sofri por muito tempo nesses limbos onde tudo é soluço e misérias. Sim, existem as trevas visíveis de que fala a Escritura, e os desgraçados que deixam a vida, ignorantes ou culpados, depois das provações terrenas são impelidos a fria região, inconscientes de si mesmos e do seu destino. Acreditando na perenidade dessa situação, a sua linguagem é ainda a da vida que os seduziu, e admiram-se e espantam-se da profunda solidão: trevas são, pois, esses lugares povoados e ao mesmo tempo desertos, espaços em que erram obscuros Espíritos lastimosos, sem consolo, sem afeições, sem socorro de espécie alguma. A quem se dirigirem... se sentem a eternidade, esmagadora, sobre eles?... Tremem e lamentam os interesses mesquinhos que lhes mediam as horas; deploram a ausência das noites que, muitas vezes, lhes traziam, num sonho feliz, o esquecimento dos pesares. As trevas para o Espírito são: a ignorância, o vácuo, o horror ao desconhecido... Não posso continuar... Claire.
 
 Ainda sobre este ponto obtivemos a seguinte explicação:
 
@@ -2941,10 +2848,7 @@ Ele pode lutar, e o faz mesmo geralmente com mais violência do que o encarnado,
 
 Um Espírito inteiramente primitivo seria pouco acessível ao raciocínio, o que aliás não se dá com o que já tem experiência da vida. Demais, no encarnado como no desencarnado, é sobre a alma, é sobre o sentimento que se faz mister atuar.
 
-Toda ação material pode sustar momentaneamente os sofrimentos do homem vicioso, mas o que ela não pode é destruir o princípio mórbido residente na alma. Todo e qualquer ato que não vise aperfeiçoar a alma, não poderá desviá-la do mal.
-
-S. Luís.
-
+Toda ação material pode sustar momentaneamente os sofrimentos do homem vicioso, mas o que ela não pode é destruir o princípio mórbido residente na alma. Todo e qualquer ato que não vise aperfeiçoar a alma, não poderá desviá-la do mal. S. Luís.
 
 ---
 
@@ -3032,15 +2936,11 @@ Em regra, o homem não tem o direito de dispor da vida, por isso que esta lhe fo
 
 # FRANÇOIS-SIMON LOUVET
 
-(Do Havre)
-
-A seguinte comunicação foi dada espontaneamente, em uma reunião espírita no Havre, a 12 de fevereiro de 1863:
+(Do Havre) A seguinte comunicação foi dada espontaneamente, em uma reunião espírita no Havre, a 12 de fevereiro de 1863:
 
 "Tereis piedade de um pobre miserável que passa de há muito por cruéis torturas?! Oh! o vácuo... o Espaço..... despenho-me... caio... morro... Acudam-me! Deus, eu tive uma existência tão miserável... Pobre diabo, sofri fome muitas vezes na velhice; e foi por isso que me habituei a beber, a ter vergonha e desgosto de tudo."
 
-"Quis morrer, e atirei-me... Oh! meu Deus! Que momento! E para que tal desejo, quando o termo estava tão próximo? Orai, para que eu não veja incessantemente este vácuo debaixo de mim.... Vou despedaçar-me de encontro a essas pedras! Eu vo-lo suplico, a vós que conheceis as misérias dos que não mais pertencem a esse mundo. Não me conheceis, mas eu sofro tanto... Para que mais provas? Sofro! Não será isso o bastante? Se eu tivera fome, em vez deste sofrimento mais terrível e aliás imperceptível para vós, não vacilaríeis em aliviar-me com uma migalha de pão. Pois eu vos peço que oreis por mim... Não posso permanecer por mais tempo neste estado... Perguntai a qualquer desses felizes que aqui estão, e sabereis quem fui. Orai por mim."
-
-François-Simon Louvet.
+"Quis morrer, e atirei-me... Oh! meu Deus! Que momento! E para que tal desejo, quando o termo estava tão próximo? Orai, para que eu não veja incessantemente este vácuo debaixo de mim.... Vou despedaçar-me de encontro a essas pedras! Eu vo-lo suplico, a vós que conheceis as misérias dos que não mais pertencem a esse mundo. Não me conheceis, mas eu sofro tanto... Para que mais provas? Sofro! Não será isso o bastante? Se eu tivera fome, em vez deste sofrimento mais terrível e aliás imperceptível para vós, não vacilaríeis em aliviar-me com uma migalha de pão. Pois eu vos peço que oreis por mim... Não posso permanecer por mais tempo neste estado... Perguntai a qualquer desses felizes que aqui estão, e sabereis quem fui. Orai por mim." François-Simon Louvet.
 
 O guia do médium. "Esse que acaba de se dirigir a vós foi um pobre infeliz que teve na Terra a prova da miséria; vencido pelo desgosto, faltou-lhe a coragem, e, em vez de olhar para o céu como devia, entregou-se à embriaguez; desceu aos extremos últimos do desespero, pondo termo à sua triste provação: atirou-se da Torre Francisco I, no dia 22 de julho de 1857. Tende piedade de sua pobre alma, que não é adiantada, mas que lobriga da vida futura o bastante para sofrer e desejar uma reparação. Rogai a Deus lhe conceda essa graça, e com isso tereis feito obra meritória.
 
@@ -3056,12 +2956,9 @@ Em março de 1865, o Sr. M. C..., negociante em pequena cidade dos arredores de 
 
 As pessoas presentes a essa cena desoladora consideravam simples explosão de dor as palavras da Sra. C... dor que o tempo acalmaria. Morto o doente, procuraram-na por toda a casa e foram encontrados enforcada num celeiro. O enterro da suicida foi juntamente feito com o do filho.
 
-Evocação deste, muitos dias depois do fato. P. Sabeis do suicídio de vossa mãe, em conseqüência do desespero que lhe causou a vossa perda? - R. Sim, e, sem o pesar causado por essa fatal resolução da parte dela, julgar-me-ia completamente feliz. Pobre, excelente mãe! Não pôde suportar a prova dessa separação momentânea, e tomou, para se unir ao filho, o caminho que dele mais deveria afastá-la. E por quanto tempo! Assim, retardou indefinidamente uma reunião que tão pronta teria sido se sua alma se conformasse submissa às vontades do Senhor; se fosse resignada, humilde, arrependida diante da provação que se lhe impunha, da expiação que deveria purificá-la! Orai, oh! orai por ela!. .. e sobretudo não a imiteis, vós outras, mães que vos comoveis com a narrativa da sua morte. Não acrediteis que ela amasse mais que as outras mães, a esse filho que era o seu orgulho, não; é que lhe faltaram a coragem e a resignação. Mães, que me ouvis, quando a agonia empanar o olhar dos vossos filhos, lembrai-vos de que, como o Cristo, eles sobem ao cimo do Calvário, donde deverão alçar-se à glória eterna.
-
-Benjamin C...
+Evocação deste, muitos dias depois do fato. P. Sabeis do suicídio de vossa mãe, em conseqüência do desespero que lhe causou a vossa perda? - R. Sim, e, sem o pesar causado por essa fatal resolução da parte dela, julgar-me-ia completamente feliz. Pobre, excelente mãe! Não pôde suportar a prova dessa separação momentânea, e tomou, para se unir ao filho, o caminho que dele mais deveria afastá-la. E por quanto tempo! Assim, retardou indefinidamente uma reunião que tão pronta teria sido se sua alma se conformasse submissa às vontades do Senhor; se fosse resignada, humilde, arrependida diante da provação que se lhe impunha, da expiação que deveria purificá-la! Orai, oh! orai por ela!. .. e sobretudo não a imiteis, vós outras, mães que vos comoveis com a narrativa da sua morte. Não acrediteis que ela amasse mais que as outras mães, a esse filho que era o seu orgulho, não; é que lhe faltaram a coragem e a resignação. Mães, que me ouvis, quando a agonia empanar o olhar dos vossos filhos, lembrai-vos de que, como o Cristo, eles sobem ao cimo do Calvário, donde deverão alçar-se à glória eterna. Benjamin C...
 
 Evocação da mãe. R. Quero ver meu filho. Tendes o poder de dar-mo? Cruéis!... Tomaram-mo para levá-lo à luz, e a mim me deixaram em trevas. Quero-o... quero-o porque me pertence!... Nada vale então o amor materno? Pois quê! tê-lo carregado no ventre por nove meses; tê-lo amamentado; nutrido a carne da sua carne, sangue do seu sangue; guiado os seus primeiros passos; ensinado a balbuciar o sagrado nome de Deus e o doce nome de mãe; ter feito dele um homem cheio de atividade, de inteligência, de probidade, de amor filial, para perdê-lo quando realizava as esperanças concebidas a seu...respeito, quando brilhante futuro se lhe antolhava! Não, Deus não é justo; não é o Deus das mães, não lhes compreende as dores e desesperos ... E quando me dava a morte para me não separar de meu filho, eis que novamente mo roubam!... Meu filho! meu filho, onde estás?
-
 
 Evocador. Pobre mãe, compartilhamos da vossa dor. Buscastes, no entanto, um triste recurso para vos reunirdes ao vosso filho: - O suicídio é um crime aos olhos de Deus, e deveis saber que Deus pune toda infração das suas leis. A ausência do vosso filho é a vossa punição.
 
@@ -3142,7 +3039,6 @@ Neste pé as coisas, consideravam-se quase definitivamente ligados e, como medid
 Um dia, ao jantar, sobreveio uma controvérsia a propósito de qualquer futilidade, e, obstinando-se os dois nas opiniões, foram as coisas ao ponto de Luís abandonar a mesa, protestando não mais voltar.
 
 Apesar disso, no dia seguinte velo pedir perdão. A noite é boa conselheira, como se sabe, mas a moça, prejulgando talvez pela cena da véspera o que poderia acontecer quando não mais a tempo de remediar o mal, recusou-se à reconciliação. Nem protestos, nem lágrimas, nem desesperos puderam demovê-la. Muitos dias ainda se passaram, esperando Luís que a sua amada fosse mais razoável, até que resolveu fazer uma última tentativa: - Chegando a casa da moça, bateu de modo a ser reconhecido, mas a porta permaneceu fechada, recusaram abrir-lhe. Novas súplicas do repelido, novos protestos, não ecoaram no coração da sua pretendida. "Adeus, pois, cruel! - exclamou o pobre moço - adeus para sempre. Trata de procurar um marido que te estime tanto como eu." Ao mesmo tempo a moça ouvia um gemido abafado e logo após o baque como que de um corpo escorregando pela porta. Pelo silêncio que se seguiu, a moça julgou que Luís se assentara à soleira da porta, e protestou a si mesma não sair enquanto ele ali se conservasse.
-
 
 Decorrido um quarto de hora é que um locatário, passando pela calçada e levando luz, soltou um grito de espanto e pediu socorro.
 
@@ -3294,9 +3190,7 @@ Longe de acusar a sorte, que é a vossa própria obra, admirai a bondade de Deus
 
 Assim, sofrereis, não eternamente, mas por tanto tempo quanto reincidirdes no erro. De vós depende, no estado espiritual, tomar a resolução bastante enérgica de manifestar a Deus um sincero arrependimento, solicitando instantaneamente o apoio dos bons Espíritos. Voltareis então à Terra, blindado na resistência a todas as tentações. Uma vez alcançada essa vitória, caminhareis na via da felicidade com mais rapidez, visto que sob outros aspectos o vosso progresso é já considerável. Como vedes, há ainda um passo a franquear, para o qual vos auxiliaremos com as nossas preces. Estas só serão improfícuas se nos não secundardes com os vossos esforços.
 
-R. Oh! obrigado! Oh! obrigado por tão boas exortações. Delas tenho tanto maior necessidade, quanto sou mais desgraçado do que demonstrava. Vou aproveitá-las, garanto, no preparo da próxima encarnação, durante a qual farei todo o possível por não sucumbir. Já me custa suportar o meio ignóbil do meu exílio.
-
-Félicien.
+R. Oh! obrigado! Oh! obrigado por tão boas exortações. Delas tenho tanto maior necessidade, quanto sou mais desgraçado do que demonstrava. Vou aproveitá-las, garanto, no preparo da próxima encarnação, durante a qual farei todo o possível por não sucumbir. Já me custa suportar o meio ignóbil do meu exílio. Félicien.
 
 # ANTOINE BELL
 
@@ -3351,9 +3245,7 @@ Vemos ainda por aí que todas as existências são solidárias entre si; que a j
 
 # VERGER
 
-(Assassino do arcebispo de Paris)
-
-A 3 de janeiro de 1857, Mons. Sibour, arcebispo de Paris, ao sair da Igreja de Saint-Étienne-du-Mont, foi mortalmente ferido por um jovem padre chamado Verger. O criminoso foi condenado à morte e executado a 30 de janeiro. Até o último instante não manifestou qualquer sentimento de pesar, de arrependimento, ou de sensibilidade. Evocado no mesmo dia da execução, deu as seguintes respostas:
+(Assassino do arcebispo de Paris) A 3 de janeiro de 1857, Mons. Sibour, arcebispo de Paris, ao sair da Igreja de Saint-Étienne-du-Mont, foi mortalmente ferido por um jovem padre chamado Verger. O criminoso foi condenado à morte e executado a 30 de janeiro. Até o último instante não manifestou qualquer sentimento de pesar, de arrependimento, ou de sensibilidade. Evocado no mesmo dia da execução, deu as seguintes respostas:
 
 1.Evocação. R. Ainda estou preso ao corpo.
 2.Então a vossa alma não está inteiramente liberta? - R. Não... tenho medo... não sei... Esperai que torne a mim. Não estou morto, não é assim?
@@ -3447,11 +3339,7 @@ P. Podereis aparecer-nos? - R. Não; deixai-me.
 
 # BENOIST
 
-(Bordéus, março de 1862)
-
-Nota - Um Espírito apresenta-se espontaneamente ao médium, sob o nome de Benoist, dizendo ter morrido em 1704 e padecer horríveis sofrimentos.
-
-1.Que fostes na Terra? - R. Frade sem fé.
+(Bordéus, março de 1862) Nota - Um Espírito apresenta-se espontaneamente ao médium, sob o nome de Benoist, dizendo ter morrido em 1704 e padecer horríveis sofrimentos. 1.Que fostes na Terra? - R. Frade sem fé.
 
 2.Foi a descrença a vossa única falta? - R. Só ela é bastante para acarretar outras.
 
@@ -3489,9 +3377,7 @@ Nota - Um Espírito apresenta-se espontaneamente ao médium, sob o nome de Benoi
 
 23.Não posso demorar-me por mais tempo. Voltai diariamente para orarmos juntos e os bons Espíritos vos auxiliarão. R. Sim, desejo o perdão. Orai por mim, que não posso fazê-lo.
 
-(O guia do médium.) - Coragem, meu filho, porque ser-lhe-á concedido o que pedes, posto longe esteja ainda o termo da expiação. As atrocidades por ele cometidas não têm número nem conta, e maior é a sua culpa porque possuía inteligência, instrução e luzes para guiar-se. Tendo falido com conhecimento de causa, mais terríveis lhe são os sofrimentos, os quais, não obstante, se suavizarão com o auxílio e o exemplo da prece, de modo a que lhes veja o termo, confortado pela esperança. Deus o vê no caminho do arrependimento, e já lhe concedeu a graça de poder comunicar-se a fim de ser encorajado e confortado. Pensa nele muitas vezes, pois nós to entregamos para fortalecer-se nas boas resoluções que lhe poderão advir dos teus conselhos. Ao seu arrependimento sucederá o desejo da reparação, e pedirá então uma nova existência para praticar o bem como compensação do mal que fez. Quando Deus estiver satisfeito a seu respeito e o vir resoluto e firme, far-lhe-á entrever as divinas luzes que o hão de conduzir à salvação, recebendo-o no seu seio qual pai ao filho pródigo. Tem fé, e nós te ajudaremos a completar o teu trabalho.
-
-Paulin.
+(O guia do médium.) - Coragem, meu filho, porque ser-lhe-á concedido o que pedes, posto longe esteja ainda o termo da expiação. As atrocidades por ele cometidas não têm número nem conta, e maior é a sua culpa porque possuía inteligência, instrução e luzes para guiar-se. Tendo falido com conhecimento de causa, mais terríveis lhe são os sofrimentos, os quais, não obstante, se suavizarão com o auxílio e o exemplo da prece, de modo a que lhes veja o termo, confortado pela esperança. Deus o vê no caminho do arrependimento, e já lhe concedeu a graça de poder comunicar-se a fim de ser encorajado e confortado. Pensa nele muitas vezes, pois nós to entregamos para fortalecer-se nas boas resoluções que lhe poderão advir dos teus conselhos. Ao seu arrependimento sucederá o desejo da reparação, e pedirá então uma nova existência para praticar o bem como compensação do mal que fez. Quando Deus estiver satisfeito a seu respeito e o vir resoluto e firme, far-lhe-á entrever as divinas luzes que o hão de conduzir à salvação, recebendo-o no seu seio qual pai ao filho pródigo. Tem fé, e nós te ajudaremos a completar o teu trabalho. Paulin.
 
 Nota - Colocamos este Espírito entre os criminosos, posto que não atingido pela justiça humana, porque o crime se contém nos atos, que não no castigo infligido pelos homens. O mesmo se dá com o que se segue.
 
@@ -3561,9 +3447,7 @@ Aos sofredores jamais faltaram socorros em qualquer época e, se as evocações 
 
 # JACQUES LATOUR
 
-(Assassino condenado pelo júri de Foix e executado em setembro de 1864)
-
-Em reunião intima de sete a oito pessoas, havida em Bruxelas a 13 de setembro de 1864 e à qual assistíamos, foi pedido a um médium que tomasse do lápis, sem que aliás houvéssemos feito qualquer evocação especial.
+(Assassino condenado pelo júri de Foix e executado em setembro de 1864) Em reunião intima de sete a oito pessoas, havida em Bruxelas a 13 de setembro de 1864 e à qual assistíamos, foi pedido a um médium que tomasse do lápis, sem que aliás houvéssemos feito qualquer evocação especial.
 
 Possuído de extraordinária agitação, ei-lo a traçar caracteres muito grossos, e depois, rasgando o papel, exclama:
 
@@ -3578,9 +3462,7 @@ Responde o médium de viva voz:
 "Vi que, almas compassivas, teríeis piedade de mim, ao passo que outros ou me evocavam mais por curiosidade que por caridade, ou de mim se afastavam horrorizados."
 Depois começou por uma cena indescritível que não durou mais de meia hora. O médium, juntando os gestos e a expressão da fisionomia à palavra, deixava patente a identificação do Espírito com a sua pessoa; às vezes, esses gestos de cruel desespero desenhavam vivamente o seu sofrimento; o tom da sua voz era tão compungido, as súplicas tão veementes, que ficávamos profundamente comovidos. Alguns estavam mesmo aterrorizados com a superexcitação do médium, mas nós sabíamos que a manifestação de um ente arrependido, que implora piedade, nenhum perigo poderia oferecer. Se ele buscou os órgãos do médium, é que melhor desejava patentear a sua situação, a fim de que mais nos interessássemos pela sua sorte, e não como os Espíritos obsessores e possessores, que visam apoderar-se dos médiuns para os dominarem. Tal manifestação lhe fora talvez permitida não só em benefício próprio, como também para edificação dos circunstantes.
 
-Ei-lo a exclamar:
-
-"Oh! sim, piedade... muito necessito dela... Não sabeis o que sofro... Não o sabeis, e não podereis compreendê-lo. É horrível! A guilhotina!... Que vale a guilhotina comparada a este sofrimento de agora? Nada! - é um instante. Este fogo que me devora, sim, é pior, porque é uma morte contínua, sem tréguas nem repouso... sem-fim!... E as minhas vítimas, ali estão ao redor, a mostrar-me os ferimentos, a perseguir-me com seus olhares...
+Ei-lo a exclamar: "Oh! sim, piedade... muito necessito dela... Não sabeis o que sofro... Não o sabeis, e não podereis compreendê-lo. É horrível! A guilhotina!... Que vale a guilhotina comparada a este sofrimento de agora? Nada! - é um instante. Este fogo que me devora, sim, é pior, porque é uma morte contínua, sem tréguas nem repouso... sem-fim!... E as minhas vítimas, ali estão ao redor, a mostrar-me os ferimentos, a perseguir-me com seus olhares...
 
 "Aí estão, e vejo-as todas... todas... sem poder fugir-lhes! E este mar de sangue?! E este ouro manchado de sangue?! Tudo aí está... tudo... e sempre ante meus olhos! E o cheiro de sangue... Não o sentis? Oh! Sangue e sempre sangue! Ei-las que imploram, as pobres vítimas, e eu a feri-las sempre... sempre... impiedosamente!... O sangue inebria-me... Acreditava que depois da morte tudo estaria terminado, e assim foi que afrontei o suplício e afrontei o próprio Deus, renegando-O!... Entretanto, quando me julgava aniquilado para sempre, que terrível despertar... oh! sim, terrível, cercado de cadáveres, de espectros ameaçadores, os pés atolados em sangue!!... Acreditava-me morto, e estou vivo! Horrendo! horrendo! mais horrendo que todos os suplícios da Terra! Ah! se todos os homens pudessem saber o que há para além da vida, saberiam também quanto custam as conseqüências do mal! Certo não haveria mais assassínios, nem criminosos, nem malfeitores! Eu só quisera que todos os assassinos pudessem ver o que eu vejo e sofro...
 
@@ -3604,9 +3486,7 @@ No dia seguinte, em nova reunião, o Espírito tornou a manifestar-se, reencetan
 
 "Obrigado! obrigado! que já sinto algum alívio, posto não tenha atingido o fim das provações. As minhas vítimas voltarão dentro em breve. Eis a punição a que fiz jus, mas, Deus meu, sede indulgente.
 
-"Orai todos vós por mim, tende piedade.
-
-Latour."
+"Orai todos vós por mim, tende piedade. Latour."
 
 Um membro da Sociedade Espírita de Paris, que tinha orado por este infeliz, evocando-o, obteve intervaladamente as seguintes comunicações:
 
@@ -3666,10 +3546,7 @@ Mais tarde, o médium de Bruxelas, o mesmo que recebera o primeiro ditado, obtev
 
 "Obrigado, meu Deus! na próxima existência empregarei toda a minha inteligência no socorro aos desgraçados que sucumbiram, a fim de os preservar da queda. Obrigado a vós que não desdenhais de comunicar comigo; nada receeis, pois bem o vedes, eu não sou mau. Quando pensardes em mim, não vos figureis o meu retrato pelo que de mim vistes, mas o de uma alma angustiada que agradece a vossa indulgência.
 
-"Adeus; evocai-me ainda e orai a Deus por mim.
-Latour."
-
-(Estudo sobre o Espírito de Jacques Latour)
+"Adeus; evocai-me ainda e orai a Deus por mim. Latour." (Estudo sobre o Espírito de Jacques Latour)
 
 Não se pode desconhecer a profundeza e a alta significação de algumas das frases encerradas nessa comunicação. Além disso, ela oferece um dos aspectos do mundo dos Espíritos em castigo, pairando ainda assim sobre ele a misericórdia divina. A alegoria mitológica das Eumênides não é tão ridícula como parece, e os demônios, carrascos oficiais do mundo invisível, que as substituem perante as modernas crenças, são menos racionais com seus cornos e forcados, do que estas vítimas que servem elas próprias ao castigo do culpado.
 
@@ -3749,7 +3626,6 @@ Esta frase, simbólica por excelência, é o sinal do sofredor abatido, porém i
 
 O infinito moral existe! E miserável e mesquinho é quem, a pretexto de continuar as lutas e imposturas abjetas da Terra, não vê mais longe no outro mundo, do que neste.
 
-
 Para esse a cegueira, o desprezo alheio, o egoístico sentimento da personalidade, são empecilhos ao seu progresso. Homem! é bem verdade que existe um acordo secreto entre a imortalidade de um nome puro, legado à Terra, e a imortalidade realmente conservada pelos Espíritos nas suas sucessivas provações. Lamennais.
 
 # II
@@ -3760,9 +3636,7 @@ Arrancada que lhe seja a máscara da impassibilidade, todos os pensamentos se lh
 
 Quanto tempo durará esse estado? Até o momento em que a vontade, por fim vencida, se curve constrangida pelo remorso, humilhada a fronte altiva ante os Espíritos de justiça e ante as suas vítimas apaziguadas.
 
-Notai a lógica profunda das leis imutáveis; com isso o Espírito realizará o que escrevia nessa altaneira comunicação tão clara, tão lúcida, tão desconsoladoramente egoística, comunicação que vos deu na sexta-feira passada, redigindo-a por um ato da sua própria vontade.
-
-Éraste.
+Notai a lógica profunda das leis imutáveis; com isso o Espírito realizará o que escrevia nessa altaneira comunicação tão clara, tão lúcida, tão desconsoladoramente egoística, comunicação que vos deu na sexta-feira passada, redigindo-a por um ato da sua própria vontade. Éraste.
 
 # III
 
@@ -3778,15 +3652,11 @@ Além de se completarem reciprocamente, estas três comunicações, obtidas simu
 
 Ao lado deste quadro vivo, baseado sobre um fato, eis, para estabelecer um paralelo, este que um pregador de Montreuil-sur-Mer, em 1864, por ocasião da quaresma, traçou do inferno:
 
-"O fogo do inferno é milhões de vezes mais intenso que o da Terra, e se acaso um dos corpos que lá se queimam, sem se consumirem, fosse lançado ao planeta, empestá-lo-ia de um a outro extremo! O inferno é vasta e sombria caverna, eriçada de agudas pontas de lâminas de espadas aceradas, de lâminas de navalhas afiadíssimas, nas quais são precipitadas as almas dos condenados."
-
-(Ver a Revue Spirite, julho de 1864, pág. 199.)
+"O fogo do inferno é milhões de vezes mais intenso que o da Terra, e se acaso um dos corpos que lá se queimam, sem se consumirem, fosse lançado ao planeta, empestá-lo-ia de um a outro extremo! O inferno é vasta e sombria caverna, eriçada de agudas pontas de lâminas de espadas aceradas, de lâminas de navalhas afiadíssimas, nas quais são precipitadas as almas dos condenados." (Ver a Revue Spirite, julho de 1864, pág. 199.)
 
 # ANGÈLE, nulidade sobre a Terra
 
-(Bordéus, 1862)
-
-Com este nome, um Espírito se apresentou espontaneamente ao médium.
+(Bordéus, 1862) Com este nome, um Espírito se apresentou espontaneamente ao médium.
 
 1.Arrependei-vos das vossas faltas? - R. Não. P. Então por que me procurais? - R. Para experimentar. P. Acaso não sois feliz? - R. Não. P. Sofreis? - R. Não. P. Que vos falta, pois? - R. A paz.
 
@@ -3820,15 +3690,11 @@ Trabalhai, trabalhai incessantemente; cumpri todos os deveres sem exceção, ist
 
 A fé vos alentará. Todo aquele que desempenha conscientemente o papel mais ingrato e vil da vossa sociedade, é cem vezes mais elevado aos olhos do Onipotente do que aquele que, impondo esse papel aos outros, despreza o seu.
 
-Tudo é degrau que dá acesso ao céu: não quebreis a lápide sob os pés e contai com o concurso de amigos que vos estendem a mão, sustentáculos que são dos que vão haurir suas forças na crença do Senhor.
-
-Monod.
+Tudo é degrau que dá acesso ao céu: não quebreis a lápide sob os pés e contai com o concurso de amigos que vos estendem a mão, sustentáculos que são dos que vão haurir suas forças na crença do Senhor. Monod.
 
 # UM ESPÍRITO ABORRECIDO
 
-(Bordéus, 1862)
-
-Este Espírito apresenta-se espontaneamente ao médium, reclamando preces.
+(Bordéus, 1862) Este Espírito apresenta-se espontaneamente ao médium, reclamando preces.
 
 1.Que vos leva a pedir preces? - R. Estou farto de vagar sem objetivo. Estais há muito em tal situação? - R. Faz cento e oitenta anos mais ou menos. Que fizestes na Terra? - R. Nada de bom.
 2.Qual a vossa posição entre os Espíritos? - R. Estou entre os entediados - Mas isso não forma categoria... R. Entre nós, tudo forma categoria. Cada sensação encontra suas semelhantes, ou suas simpatias que se reúnem.
@@ -3853,9 +3719,7 @@ Imagina a perspectiva de um tédio sem-fim. A maior parte das vezes são os Esp�
 
 # A RAINHA DE OUDE
 
-(Falecida em França, em 1858)
-
-1.Quais as vossas sensações ao deixardes o mundo terrestre? - R. Ainda perturbada, torna-se-me impossível explicá-las. P. Sois feliz? - R. Tenho saudades da vida... não sei... experimento acerba dor da qual a vida me libertaria... quisera que o corpo se levantasse do túmulo...
+(Falecida em França, em 1858) 1.Quais as vossas sensações ao deixardes o mundo terrestre? - R. Ainda perturbada, torna-se-me impossível explicá-las. P. Sois feliz? - R. Tenho saudades da vida... não sei... experimento acerba dor da qual a vida me libertaria... quisera que o corpo se levantasse do túmulo...
 
 2.Lamentais o ter sido sepultada entre cristãos, que não no vosso país? - R. Sim, a terra indiana menos me pesaria sobre o corpo.
 
@@ -3888,9 +3752,7 @@ Nota - Evocando esta grandeza decaída ao túmulo, não esperávamos respostas d
 
 # XUMÈNE
 
-(Bordéus, 1862)
-
-Nota - Sob este nome, um Espírito se apresenta espontaneamente ao médium, habituado a este gênero de manifestações, pois sua missão parece ser a de assistir os Espíritos inferiores que o seu guia espiritual lhe conduz, no duplo propósito da sua própria instrução e do progresso deles.
+(Bordéus, 1862) Nota - Sob este nome, um Espírito se apresenta espontaneamente ao médium, habituado a este gênero de manifestações, pois sua missão parece ser a de assistir os Espíritos inferiores que o seu guia espiritual lhe conduz, no duplo propósito da sua própria instrução e do progresso deles.
 
 P. Quem sois? Este nome é de homem ou de mulher? - R. De homem, e tão infeliz quanto possível. Sofro todos os tormentos do inferno.
 
@@ -3928,7 +3790,6 @@ Em regra, tais Espíritos são menos passíveis de imediata regeneração, do qu
 
 Aos outros, muitas encarnações se fazem precisas para que progridam, e isto pouco a pouco, domados pelo tédio, procurando, para se distraírem, qualquer ocupação que mais tarde venha transformar-se em necessidade.
 
-
 ---
 
 
@@ -3965,9 +3826,7 @@ __________
 
 P. Pelo que afirmais, parece que os vossos sofrimentos não eram expiação de faltas anteriores...
 
-R. Não seriam uma expiação direta, mas asseguro-vos que todo sofrimento tem uma causa justa. Aquele a quem conhecestes tão mísero foi belo, grande, rico e adulado. Eu tivera turiferários e cortesãos, fora fútil e orgulhoso. Anteriormente fui bem culpado; reneguei Deus, prejudiquei meu semelhante, mas expiei cruelmente, primeiro no mundo espiritual e depois na Terra. Os meus sofrimentos de alguns anos apenas, nesta última encarnação, suportei-os eu anteriormente por toda uma existência que ralou pela extrema velhice. Por meu arrependimento reconquistei a graça do Senhor, o qual me confiou muitas missões, inclusive a última, que bem conheceis. E fui eu quem as solicitou, para terminar a minha depuração. Adeus, amigos; tornarei algumas vezes. A minha missão é de consolar, e não de instruir. Há, porém, aqui muitas pessoas cujas feridas jazem ocultas, e essas terão prazer com a minha presença.
-
-Marcel..
+R. Não seriam uma expiação direta, mas asseguro-vos que todo sofrimento tem uma causa justa. Aquele a quem conhecestes tão mísero foi belo, grande, rico e adulado. Eu tivera turiferários e cortesãos, fora fútil e orgulhoso. Anteriormente fui bem culpado; reneguei Deus, prejudiquei meu semelhante, mas expiei cruelmente, primeiro no mundo espiritual e depois na Terra. Os meus sofrimentos de alguns anos apenas, nesta última encarnação, suportei-os eu anteriormente por toda uma existência que ralou pela extrema velhice. Por meu arrependimento reconquistei a graça do Senhor, o qual me confiou muitas missões, inclusive a última, que bem conheceis. E fui eu quem as solicitou, para terminar a minha depuração. Adeus, amigos; tornarei algumas vezes. A minha missão é de consolar, e não de instruir. Há, porém, aqui muitas pessoas cujas feridas jazem ocultas, e essas terão prazer com a minha presença. Marcel..
 
 # Instruções do guia do médium
 
@@ -3975,9 +3834,7 @@ Pobrezinho sofredor, definhado, ulceroso e disforme! Nesse asilo de misérias e 
 
 Foi-lhe lenta a agonia, mas terrível não lhe foi a hora do trespasse; certo, os membros convulsos contorciam-se, oferecendo aos assistentes o espetáculo de um corpo disforme a revoltar-se contra a sorte, nessa lei da carne que a todo o custo quer viver; mas, um anjo bom lhe pairava por sobre o leito mortuário e cicatrizava-lhe o coração. Depois, esse anjo arrebatou nas asas brancas essa alma tão bela a escapar-se de tão horripilante corpo, e foram estas as palavras pronunciadas: "Glória a vós, Senhor, meu Deus!" E a alma subiu ao Todo-Poderoso, feliz, e exclamou: "Eis-me aqui, Senhor; destes-me por missão exemplificar o sofrimento... terei suportado dignamente a provação?"
 
-Hoje, o Espírito da pobre criança avulta, paira no Espaço, vai do fraco ao humilde, e a todos diz: - Esperança e coragem. Livre de todas as impurezas da matéria, ele aí está junto de vós a falar-vos, a dizer-vos não mais com essa voz fraca e lastimosa, porém agora firme: "Todos que me observaram, viram que a criança não murmurava; hauriram nesse exemplo a calma para os seus males e seus corações se tonificaram na suave confiança em Deus, que outro não era o fim da minha curta passagem pela Terra."
-
-Santo Agostinho.
+Hoje, o Espírito da pobre criança avulta, paira no Espaço, vai do fraco ao humilde, e a todos diz: - Esperança e coragem. Livre de todas as impurezas da matéria, ele aí está junto de vós a falar-vos, a dizer-vos não mais com essa voz fraca e lastimosa, porém agora firme: "Todos que me observaram, viram que a criança não murmurava; hauriram nesse exemplo a calma para os seus males e seus corações se tonificaram na suave confiança em Deus, que outro não era o fim da minha curta passagem pela Terra." Santo Agostinho.
 
 # SZYMEL SLIZGOL
 
@@ -3985,9 +3842,7 @@ Este não passou de um pobre israelita de Vilna, falecido em maio de 1865. Duran
 
 A noite, destinava-a ele ao preparo do rapé, que vendia a fim de prover às suas necessidades, e o que lhe sobrava era dos pobres. Foi só no mundo, e no entanto o seu enterro teve o acompanhamento de grande parte da população de Vilna, cujos armazéns cerraram as portas.
 
-Sociedade de Paris, 15 de junho de 1865
-
-Evocação: Excessivamente feliz, chegado, enfim, à plenitude do que mais ambicionava e bem caro paguei, aqui estou, entre vós, desde o cair da noite. Agradecido, pelo interesse que vos desperta o Espírito do pobre mendigo, que, com satisfação, vai procurar responder às vossas perguntas.
+Sociedade de Paris, 15 de junho de 1865 Evocação: Excessivamente feliz, chegado, enfim, à plenitude do que mais ambicionava e bem caro paguei, aqui estou, entre vós, desde o cair da noite. Agradecido, pelo interesse que vos desperta o Espírito do pobre mendigo, que, com satisfação, vai procurar responder às vossas perguntas.
 
 P. Uma carta de Vilna nos deu conhecimento das particularidades mais notáveis da vossa existência, e da simpatia que tais particularidades nos inspiram nasceu o desejo de nos comunicar convosco. Agradecemos a vossa presença, e, uma vez que quereis responder-nos, principiaremos por vos assegurar que mui felizes seremos se, para nossa orientação, pudermos conhecer a vossa posição espiritual, bem como as causas que determinaram o gênero de vida que tivestes na última encarnação.
 
@@ -4037,9 +3892,7 @@ Surpreendido pelos princípios gerais de moralidade contidos nessas poucas palav
 
 Vou terminar esta longa comunicação, dizendo: - Obrigado!
 
-Imperfeito ainda, sei, contudo, que o mal só acarreta o mal, e de novo, como já o fiz, dedicar-me-ei ao bem para alcançar a felicidade.
-
-Szymel Slizgol.
+Imperfeito ainda, sei, contudo, que o mal só acarreta o mal, e de novo, como já o fiz, dedicar-me-ei ao bem para alcançar a felicidade. Szymel Slizgol.
 
 # JULIENNE-MARIE, a mendiga
 
@@ -4069,19 +3922,13 @@ Desencarnei subitamente à borda do poço, quando a Deus enviara da Terra a minh
 
 Não sofri ao dar-se o meu trespasse, e sou feliz por ter cumprido a minha missão sem vacilações, resignadamente. Tornei-me útil na medida das minhas forças, evitando sempre prejudicar os meus semelhantes. Hoje recebo o prêmio e dou graças a Deus, ao nosso Divino Mestre, que mitiga o travo das provações, fazendo-nos esquecer, quando encarnados, as faltas do passado, ao mesmo tempo que nos põe sobre o caminho almas caridosas, outros tantos auxiliares que atenuam o peso, o fardo das nossas culpas anteriores.
 
-Persevera tu também, que, como eu, serás recompensado. Agradeço-te as boas preces e o serviço que me prestaste. Jamais o esquecerei. Um dia nos tornaremos a ver e muitas coisas te serão explicadas, coisas cuja explicação hoje seria extemporânea. Fica certo somente da minha dedicação, de que estarei ao teu lado sempre que de mim precisares para aliviar os que sofrem.
-
-A mendiga velhinha.
-
-Julienne-Marie.
+Persevera tu também, que, como eu, serás recompensado. Agradeço-te as boas preces e o serviço que me prestaste. Jamais o esquecerei. Um dia nos tornaremos a ver e muitas coisas te serão explicadas, coisas cuja explicação hoje seria extemporânea. Fica certo somente da minha dedicação, de que estarei ao teu lado sempre que de mim precisares para aliviar os que sofrem. A mendiga velhinha. Julienne-Marie.
 
 Nota - Evocado a 10 de junho de 1864, na Sociedade de Paris, o Espírito Julienne ditou a mensagem seguinte:
 
 "Caro presidente: obrigada por quererdes admitir-me ao vosso centro. Previstes, sob o ponto de vista social, a superioridade das minhas antecedentes encarnações, pois, se voltei à Terra com a prova da pobreza, foi para punir-me do vão orgulho com o qual repelia os pobres, os miseráveis. Assim, passei pela pena de talião, fazendo-me a mais horrenda mendiga deste país; mas, ainda assim, como que para certificar-me da bondade de Deus, nem por todos fui repelida: e esse era todo o meu temor. Também foi sem queixumes que suportei a provação, pressentindo uma vida melhor, da qual não mais tornaria ao mundo do exílio e da calamidade. Que ventura a desse dia em que a nossa alma rejuvenescida pode franquear a vida espiritual para aí rever os seres amados! Sim, porque também amei e considero-me feliz pelo encontro dos que me precederam.
 
-"Obrigada a A..., esse bom amigo que me facultou a expressão do reconhecimento. Sem a sua mediunidade eu não lhe poderia provar, agradecida, que minha alma não se esquece das benéficas influências de um coração bondoso, qual o seu, recomendando-lhe que procure progredir em sua divina crença. Já que ele tem por missão regenerar as almas transviadas, que fique bem certo do meu auxílio. E eu posso retribuir-lhe pelo cêntuplo o que por mim fez, instruindo-o na senda que percorreis. Agradecei ao Senhor o permitir que os bons Espíritos vos orientem, a fim de animardes o pobre nas suas mágoas, e deterdes o rico em seu orgulho. Capacitai-vos de quanto é vergonhosa a repulsa para com os infelizes, servindo-vos o meu exemplo, a fim de evitardes o retorno à Terra, em expiação de faltas, nas dolorosas posições sociais que vos coloquem tão baixo a ponto de serdes considerado escória da sociedade.
-
-Julienne-Marie.
+"Obrigada a A..., esse bom amigo que me facultou a expressão do reconhecimento. Sem a sua mediunidade eu não lhe poderia provar, agradecida, que minha alma não se esquece das benéficas influências de um coração bondoso, qual o seu, recomendando-lhe que procure progredir em sua divina crença. Já que ele tem por missão regenerar as almas transviadas, que fique bem certo do meu auxílio. E eu posso retribuir-lhe pelo cêntuplo o que por mim fez, instruindo-o na senda que percorreis. Agradecei ao Senhor o permitir que os bons Espíritos vos orientem, a fim de animardes o pobre nas suas mágoas, e deterdes o rico em seu orgulho. Capacitai-vos de quanto é vergonhosa a repulsa para com os infelizes, servindo-vos o meu exemplo, a fim de evitardes o retorno à Terra, em expiação de faltas, nas dolorosas posições sociais que vos coloquem tão baixo a ponto de serdes considerado escória da sociedade. Julienne-Marie.
 
 Transmitida a A... esta comunicação, ele por sua vez obteve a que se segue, o que é aliás uma confirmação:
 
@@ -4091,9 +3938,7 @@ R. Lembra-te da recomendação que vou fazer e não te afastes dela jamais. Proc
 
 Não te iludas com as missões a cumprir; pequenos e grandes, cada qual tem a sua missão. Penosa foi a minha, porém, eu fazia jus a tal punição, em conseqüência das precedentes existências, como confessei ao bom presidente da Sociedade-máter, de Paris, que um dia vos há de congregar a todos. Esse dia vem menos longe do que supões, pois o Espiritismo caminha a passos largos, apesar de todos os óbices que se lhe antepõem. Segui, pois, sem temores, fervorosos adeptos; segui, que os vossos esforços serão coroados por outros tantos êxitos. Que vos importa o que de vós possam dizer? Colocai-vos acima da critica irrisória, a qual recairá sobre os próprios adversários do Espiritismo.
 
-Ah! os orgulhosos! julgam-se fortes pensando poder aniquilar-vos, mas... bons amigos, tranqüilizai-vos e não receeis enfrentá-los, porque são menos invencíveis do que porventura possais supor. Dentre eles, há muitos receosos de que a verdade lhes venha deslumbrar os olhos. Esperai, que acabarão por vir auxiliar a coroação da obra.
-
-Julienne-Marie.
+Ah! os orgulhosos! julgam-se fortes pensando poder aniquilar-vos, mas... bons amigos, tranqüilizai-vos e não receeis enfrentá-los, porque são menos invencíveis do que porventura possais supor. Dentre eles, há muitos receosos de que a verdade lhes venha deslumbrar os olhos. Esperai, que acabarão por vir auxiliar a coroação da obra. Julienne-Marie.
 
 Nota - Aqui está um fato repleto de ensinamentos. Quem se dignar meditar sobre estas três comunicações, nelas encontrara condensados todos os grandes princípios do Espiritismo.
 
@@ -4163,9 +4008,7 @@ Nota - Nada melhor do que este exemplo para evidenciar o benefício do esquecime
 
 # ANTÔNIO B...
 
-Enterrado vivo. A pena de talião
-
-Antônio B..., escritor de estimadíssimo merecimento, que exercera com distinção e integridade muitos cargos públicos na Lombardia, pelo ano de 1850 caiu aparentemente morto, de um ataque apoplético.
+Enterrado vivo. A pena de talião Antônio B..., escritor de estimadíssimo merecimento, que exercera com distinção e integridade muitos cargos públicos na Lombardia, pelo ano de 1850 caiu aparentemente morto, de um ataque apoplético.
 
 Como algumas vezes sucede em casos tais, a sua morte foi considerada real, concorrendo ainda mais para o engano os vestígios da decomposição assinalados no corpo.
 
@@ -4180,19 +4023,17 @@ Evocado na Sociedade de Paris, em agosto de 1861, a pedido de parentes, deu as s
 3.Lembrai-vos dos incidentes da vossa morte? - R. Ah! Certamente que me lembro: - Mas por que avivar essa lembrança do castigo?
 4.Efetivamente fostes enterrado por descuido? - R. Assim deveria ser, visto revestir-se a morte aparente de todos os caracteres da morte real: eu estava quase exangue. (1)
 
+__________
+
+(1) Privado de circulação do sangue. Descoloração da pele pela privação do sangue.
+__________
+
 "Não se deve, porém, imputar a ninguém um acontecimento que me estava predestinado desde que nasci.
 
 5.Incomodam-vos estas perguntas? Será mister lhes demos fim? - R. Não. Podeis continuar.
 6.Porque deixastes a reputação de um homem de bem, esperamos fosseis feliz. R. Eu vos agradeço, pois sei que haveis de interceder por mim. Vou fazer o possível para vos responder, e, se não puder fazê-lo, fá-lo-á um dos vossos guias por mim.
 7.Podeis descrever-nos as vossas sensações daquele momento? - R. Que dolorosa provação sentir-me encerrado entre quatro tábuas, tolhido, absolutamente tolhido! Gritar! Impossível! A voz, por falta de ar, não tinha eco! Ah! que tortura a do infeliz que em vão se esforça para respirar num ambiente limitado! Eu era qual condenado à boca de um forno, abstração feita do calor. A ninguém desejo um fim rematado por semelhantes torturas. Não, não desejo a ninguém um tal fim! Oh! cruel punição de cruel e feroz existência! Não saberia dizer no que então pensava; apenas revendo o passado, vagamente entrevia o futuro.
 8.Dissestes: - cruel punição de feroz existência... Como se pode conciliar esta afirmativa com a vossa reputação ilibada? - R. Que vale uma existência diante da eternidade?! Certo, procurei ser honesto e bom na minha última encarnação, mas eu aceitara um tal epílogo previamente, isto é, antes de encarnar. Ah!... Por que interrogar-me sobre esse passado doloroso que só eu e os bons Espíritos enviados do Senhor conhecíamos? Mas, visto que assim é preciso, dir-vos-ei que numa existência anterior eu enterrara viva uma mulher - a minha mulher, e por sinal que num fosso! A pena de talião devia ser-me aplicada. Olho por olho, dente por dente.
-
-__________
-
-(1) Privado de circulação do sangue. Descoloração da pele pela privação do sangue.
-__________
-
-
 9.Agradecemos essas respostas e pedimos a Deus vos perdoe o passado, em atenção ao mérito da vossa última encarnação. R. Voltarei mais tarde, mas, não obstante, o Espírito de Éraste completará esta minha comunicação.
 
 # Instruções do guia do médium
@@ -4253,11 +4094,9 @@ Posto nunca tivesse provado as cruciantes angústias da miséria, a Sra. B..., d
 
 Nota - Depois de haver desencarnado, a Sra. B... veio dar, tanto por sua filha como na Sociedade de Paris, muitas comunicações, nas quais se refletem as qualidades mais elevadas, confirmando os seus antecedentes.
 
-CHARLES DE SAINT-G..., idiota
+# CHARLES DE SAINT-G..., idiota
 
-(Sociedade Espírita de Paris, 1860)
-
-Este era um rapas de 13 anos, ainda encarnado, cujas faculdades intelectuais eram nulas a ponto de não reconhecer os próprios pais, mal podendo tomar por si mesmo o alimento. Dava-se nele a completa suspensão de desenvolvimento em todo o sistema orgânico.
+(Sociedade Espírita de Paris, 1860) Este era um rapas de 13 anos, ainda encarnado, cujas faculdades intelectuais eram nulas a ponto de não reconhecer os próprios pais, mal podendo tomar por si mesmo o alimento. Dava-se nele a completa suspensão de desenvolvimento em todo o sistema orgânico.
 
 1.(A S. Luís.) Poderemos evocar o Espírito deste menino? - R. Sim, é como se o fizésseis ao de um desencarnado.
 2.Essa resposta faz-nos supor que a evocação se pode fazer a qualquer hora... R. Sim, visto como presa ao corpo por laços materiais, que não espirituais, a sua alma pode desligar-se a qualquer hora.
@@ -4292,9 +4131,7 @@ Quanto aos idiotas, a vida contemplativa, isolada, da sua alma sem os prazeres e
 
 Os atos de fúria, como de imbecilidade a que se entregam, são no íntimo julgados pelo seu ser, que deles sofre e se vexa. Eis que, escarnecê-los, injuriá-los, mesmo maltratá-los, como por vezes se faz, é aumentar-lhes o sofrimento, fazendo-lhes sentir mais crua a sua fraqueza e abjeção. Pudessem eles, e acusariam de cobardia os que assim procedem, sabendo que a vítima não pode defender-se.
 
-A loucura não é das leis divinas, pois resultando materialmente da ignorância, da sordidez e da miséria, pode o homem debelá-la. Os modernos recursos da higiene, que a Ciência hoje executa e a todos faculta, tende a destruí-la. Sendo o progresso condição expressa da Humanidade, as provações tendem a modificar-se, acompanhando a evolução dos séculos. Dia virá em que as provações devam ser todas morais; e quando a Terra, nova ainda, houver preenchido todas as fases da sua existência, então se transformará em morada de felicidade, como se dá com os planetas mais adiantados.
-
-Pierre Jouty, pai do médium.
+A loucura não é das leis divinas, pois resultando materialmente da ignorância, da sordidez e da miséria, pode o homem debelá-la. Os modernos recursos da higiene, que a Ciência hoje executa e a todos faculta, tende a destruí-la. Sendo o progresso condição expressa da Humanidade, as provações tendem a modificar-se, acompanhando a evolução dos séculos. Dia virá em que as provações devam ser todas morais; e quando a Terra, nova ainda, houver preenchido todas as fases da sua existência, então se transformará em morada de felicidade, como se dá com os planetas mais adiantados. Pierre Jouty, pai do médium.
 
 Nota - Houve tempo em que se punha em dúvida a existência da alma dos idiotas, chegando-se a perguntar se realmente eles pertenciam ã espécie humana. O modo pelo qual o Espiritismo encara os fatos não é realmente muito moralizador e instrutivo? Considerando que esses corpos encerram almas que já teriam brilhado na Terra; almas tão presentes e lúcidas como as nossas a despeito do pesado invólucro que lhes abafa as manifestações; considerando que o mesmo pode acontecer conosco se abusarmos das faculdades que a Providência nos concedeu; considerando tudo isso, não teremos assunto para sérias reflexões? Sem admitirmos a pluralidade de existências, como poderemos conciliar a imbecilidade com a justiça e a bondade de Deus? Se a alma não viveu anteriormente, então é que foi criada ao mesmo tempo que o corpo, e, nesse caso, como explicar a criação de almas tão precárias da parte de um Deus justo e bom? É bem de ver que aqui não se trata da loucura, por exemplo, que se pode prevenir ou curar. Os idiotas nascem e morrem como tais, sem a noção do bem e do mal. Qual, portanto, a sua sorte na vida eterna? Serão felizes ao lado dos homens inteligentes e laboriosos? Mas, por que tal favoritismo se nada fizeram de bom? Ficarão no que chamam limbo, isto é, um estado misto que não é feliz nem infeliz? Mas, por que essa eterna inferioridade? Terão eles a culpa de serem por Deus criados idiotas? Desafiamos a todos quantos negam a reencarnação, para que saiam deste embaraço.
 
@@ -4312,9 +4149,7 @@ Era uma humilde e pobre criada, de Harfleur, Normandia. Aos 11 anos entrou para 
 
 Finalmente, a administração local também se interessou por ela, delicadamente, de modo a não lhe ferir a suscetibilidade. Este anjo de bondade foi arrebatado da Terra, instantânea e suavemente, em conseqüência de um ataque de paralisia. Singelas, porém decentes, foram as últimas homenagens prestadas à sua memória. O secretário da municipalidade foi à frente do cortejo fúnebre.
 
-(Sociedade de Paris - 27 de dezembro de 1861)
-
-Evocação. Ao Deus Onipotente rogamos nos permita a comunicação do Espírito de Marguerite Gosse. P. Felizes nos consideramos em poder testemunhar-vos a nossa admiração pela vossa conduta na Terra, e esperamos que tanta abnegação tenha recebido a sua recompensa. R. Sim, Deus foi bom e misericordioso para com a sua serva. Tudo quanto fiz, e louvável vos parece, era natural.
+(Sociedade de Paris - 27 de dezembro de 1861) Evocação. Ao Deus Onipotente rogamos nos permita a comunicação do Espírito de Marguerite Gosse. P. Felizes nos consideramos em poder testemunhar-vos a nossa admiração pela vossa conduta na Terra, e esperamos que tanta abnegação tenha recebido a sua recompensa. R. Sim, Deus foi bom e misericordioso para com a sua serva. Tudo quanto fiz, e louvável vos parece, era natural.
 
 -P. Podereis dizer-nos, para edificação nossa, qual a causa da humildade de vossa condição terrena? - R. Em duas encarnações sucessivas ocupei posição assaz elevada, sendo-me fácil a prática do bem, que fazia sem sacrifício, sendo, como era, rica. Pareceu-me, porém, que me adiantava lentamente, e por isso pedi para voltar em condições mesquinhas, nas quais houvesse mesmo de lutar com as privações. Para isso me preparei durante longo tempo, e Deus manteve-me a coragem, de modo a poder atingir o fim a que me propusera.
 
@@ -4356,9 +4191,7 @@ Segundo afirma essa criança, a irmã lhe aparece frequentemente, e tais apariç
 
 9.Quereis que digamos algo aos vossos pais? - R. A pedido de um médium, eles já tiveram ensejo de praticar a caridade, de não orarem só com os lábios, e fizeram bem, porque cumpre fazê-lo também na prática, pelo coração. Socorrer os que sofrem é orar, é ser espírita. A todas as almas Deus concedeu livre-arbítrio, isto é, faculdade de progresso, como lhes deu a todas a mesma aspiração, e, por isso, mais do que geralmente se pensa, o avental roça pela toga bordada. Aproximai as distâncias pela caridade, dai guarida ao pobre em vossa casa, reanimai-o, não o humilheis. Se esta grande lei da consciência fosse geralmente praticada, o mundo não assistiria periodicamente a essas grandes penúrias que desonram a civilização dos povos, e que por Deus são enviadas para castigá-los e abrir-lhes os olhos. Queridos pais, orai. Amai-vos, praticai a lei do Cristo: - Não façais a outrem o que não quiserdes que vos façam. Apelai para o Deus que vos experimenta, mostrando que a sua bondade é santa e infinita como Ele. Como previsão do futuro, armai-vos de coragem e perseverança, visto que sois chamados a sofrer ainda. Cumpre fazer jus à boa posição em mundo melhor, onde a compreensão da justiça divina se torna a punição dos maus Espíritos.
 
-Queridos pais, estarei sempre perto de vós. Adeus, ou, antes, até à vista. Tende resignação, caridade, amor por vossos semelhantes, e um dia sereis felizes.
-
-Clara.
+Queridos pais, estarei sempre perto de vós. Adeus, ou, antes, até à vista. Tende resignação, caridade, amor por vossos semelhantes, e um dia sereis felizes. Clara.
 
 Nota - "Mais do que geralmente se pensa, o avental roça pela toga bordada..." Esta imagem belíssima é alusão aos Espíritos que, de uma a outra existência, passam de brilhantes a humílimas condições, expiando muitas vezes o abuso em relação aos dons que Deus lhes concedeu.
 
@@ -4369,9 +4202,7 @@ Nota - "Mais do que geralmente se pensa, o avental roça pela toga bordada..." E
 
 Esta era cega de nascimento e filha de um rendeiro das cercanias de Tolosa. Faleceu em 1855, aos 45 anos. Ocupava-se constantemente com o ensino do catecismo aos meninos, preparando-os para a primeira comunhão. Mudado o catecismo, nenhuma dificuldade lhe sobreveio em ensinar o novo, por conhecê-los ambos de cor. De regresso de longa excursão em tarde invernosa, na companhia de uma tia, era-lhe preciso atravessar sombria floresta por caminhos lamacentos. Fazia-se mister a maior precaução para que as duas mulheres se não despenhassem nos fossos. Nesta contingência, querendo a tia dar-lhe a mão, ela disse: "Não vos incomodeis comigo, não corro risco algum, visto como tenho aos ombros uma luz que me guia. Segui-me, pois, que serei eu a conduzir-vos." Assim terminaram a jornada sem acidente, conduzindo a cega a tia que tinha bons olhos.
 
-# Evocação em Paris, em maio de 1865:
-
-P. Quereis dizer-nos que luz seria essa a guiar-vos naquela noite trevosa e só vista por vós? - R. Quê! Pois as pessoas como vós, em contínuas relações com os Espíritos, têm necessidade de explicação sobre tal fato? Era o meu anjo de guarda quem me guiava.
+Evocação em Paris, em maio de 1865: P. Quereis dizer-nos que luz seria essa a guiar-vos naquela noite trevosa e só vista por vós? - R. Quê! Pois as pessoas como vós, em contínuas relações com os Espíritos, têm necessidade de explicação sobre tal fato? Era o meu anjo de guarda quem me guiava.
 
 P. Essa era também a nossa opinião, mas desejávamos vê-la confirmada. Mas sabíeis naquela ocasião que era o vosso anjo de guarda quem vos conduzia? - R. Confesso que não, posto acreditasse numa intervenção do céu. Eu orara por tanto tempo para que o Pai celestial se apiedasse de mim... É tão cruel a cegueira... Sim, ela é bem cruel, mas também reconheço ser justa.
 
@@ -4387,9 +4218,7 @@ P. Pela vossa conduta terrena, tivemos uma prova do vosso adiantamento morai, e 
 
 "Todos os que possuírem coração acessível à lisonja, demasiado confiante na sua ciência, estão no mau caminho; em geral são hipócritas e, portanto, desconfiai deles.
 
-"Sede humildes qual o foi o Cristo e, como ele, com amor carregai a vossa cruz, a fim de subirdes ao reino dos céus.
-
-Françoise Vernhes.
+"Sede humildes qual o foi o Cristo e, como ele, com amor carregai a vossa cruz, a fim de subirdes ao reino dos céus. Françoise Vernhes.
 
 # ANNA BITTER
 
@@ -4419,9 +4248,7 @@ O guia do médium. Este homem não era ateu nem materialista, mas daqueles que c
 
 Pertencia à classe mediana da sociedade e gozava de modesta abastança, ao abrigo de quaisquer privações. Os pais o destinavam à indústria e deram-lhe boa educação, porém, aos 20 anos, ele perdia a visão. Com perto de 50, veio finalmente a falecer, isto em 1845. Dez anos antes, fora acometido por outra enfermidade que o deixou surdo, de modo que só pelo tato mantinha relações com o mundo dos encarnados. Ora, não ver, já é um suplício; não ver e não ouvir é duplicado suplício, principalmente para quem depois de fruir as faculdades de tais sentidos tiver de suportar essa dupla privação. Qual a causa de sorte tão cruel? Certo não era a sua última existência, sempre moldada numa conduta exemplar. Assim é que sempre foi bom filho, possuidor de caráter meigo e benévolo, e, quando por cúmulo de infelicidade se viu privado da audição, aceitou resignado, sem um queixume, esta prova. Pela sua conversação, pressentia-se na lucidez do seu Espírito uma inteligência pouco comum. Pessoa que o conhecera, na presunção de que poderia receber instruções úteis, evocou-lhe o Espírito e obteve a seguinte mensagem, em resposta às perguntas que lhe dirigira:
 
-(Paris - 1863)
-
-"Agradeço, meus amigos, o terdes lembrado de mim. Pode ser que tal se não desse independente da suposição de proveito da minha comunicação, mas, ainda assim, estou certo de que motivos sérios vos animam e eis porque com prazer atendo ao chamado, uma vez que, por feliz, me é permitido orientar-vos. Assim possa o meu exemplo avolumar as provas assaz numerosas que os Espíritos vos dão da justiça de Deus. Cego e surdo me conhecestes, e para logo vos propusestes saber a causa de tal destino.
+(Paris - 1863) "Agradeço, meus amigos, o terdes lembrado de mim. Pode ser que tal se não desse independente da suposição de proveito da minha comunicação, mas, ainda assim, estou certo de que motivos sérios vos animam e eis porque com prazer atendo ao chamado, uma vez que, por feliz, me é permitido orientar-vos. Assim possa o meu exemplo avolumar as provas assaz numerosas que os Espíritos vos dão da justiça de Deus. Cego e surdo me conhecestes, e para logo vos propusestes saber a causa de tal destino.
 
 "Eu vo-lo digo: Antes de tudo, importa dizer que era a segunda vez que eu expiava a privação da vista. Na minha precedente existência, em princípios do último século, fiquei cego aos 30 anos, em decorrência de excessos de todo o gênero que, arruinando-me a saúde, me enfraqueceram o organismo. Note-se que era já isso uma punição por abuso dos dons providenciais de que fora largamente cumulado. Ao invés, porém, de me atribuir a causa original dessa enfermidade, entendi de acusar a Providência, na qual, aliás, pouco cria. Anatematizei Deus, reneguei-o, acusei-o, acrescentando que, se acaso existisse, devia ser injusto e mau, por deixar assim penar as criaturas. Entretanto, eu deveria dar-me ainda por feliz, isento como estava de mendigar o pão, à feição de tantos outros míseros cegos como eu. Mas é que eu só pensava em mim, na privação de gozos que me impunham. Influenciado por idéias tais, que o cepticismo mais exaltava, tornei-me frenético, exigente, numa palavra, insuportável aos que comigo privavam. Além disso, a vida era-me um moto-contínuo, pois que eu não pensava no futuro - uma quimera. Depois de esgotar baldamente os recursos da Ciência e reputada impossível a cura, resolvi antecipar a morte: suicidei-me. Que despertar, então, que foi o meu, imerso nas mesmas trevas da vida! Contudo, não tardou muito o reconhecimento da minha situação, da minha transferência para, o mundo espiritual. Era um Espírito, sim, porém, cego. A vida de além-túmulo tornava-se-me, pois, a realidade!"
 
@@ -4431,6 +4258,4 @@ Pertencia à classe mediana da sociedade e gozava de modesta abastança, ao abri
 
 Tendo já expiado, ainda me faltava reparar. A última encarnação só a mim aproveitou, pelo que espero recomeçar brevemente por existência que me permita ser útil ao próximo, reparando por esse meio a inutilidade anterior. E só assim me adiantarei na boa senda, sempre franqueada aos Espíritos possuídos de boa-vontade.
 
-Amigos, eis aí a minha história; e se o meu exemplo puder esclarecer quaisquer dos meus irmãos encarnados, de modo a evitarem a má ação que pratiquei, terei por principiado o resgate da minha dívida.
-
-Joseph.
+Amigos, eis aí a minha história; e se o meu exemplo puder esclarecer quaisquer dos meus irmãos encarnados, de modo a evitarem a má ação que pratiquei, terei por principiado o resgate da minha dívida. Joseph.
