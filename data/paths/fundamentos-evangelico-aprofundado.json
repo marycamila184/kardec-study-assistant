@@ -1,0 +1,28 @@
+{
+  "id": "fundamentos-evangelico-aprofundado",
+  "title": "Fundamentos do Evangelho Espírita",
+  "description": "Para o espírita praticante. Percurso completo pelas grandes lições morais do Evangelho.",
+  "level": "aprofundado",
+  "steps": [
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO I",     "item_number": "1", "label": "As três revelações: Moisés, Cristo, Espiritismo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO II",    "item_number": "1", "label": "A vida futura e o reino de Jesus"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO III",   "item_number": "1", "label": "Há muitas moradas na casa de meu pai"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO IV",    "item_number": "1", "label": "A reencarnação — nascer de novo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO V",     "item_number": "1", "label": "O sentido do sofrimento"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VI",    "item_number": "1", "label": "O Cristo consolador"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VII",   "item_number": "1", "label": "Humildade — os pobres de espírito"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VIII",  "item_number": "1", "label": "Pureza do coração"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO IX",    "item_number": "1", "label": "Mansidão e paz"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO X",     "item_number": "1", "label": "Misericórdia e perdão"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XI",    "item_number": "1", "label": "Amar o próximo como a si mesmo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XII",   "item_number": "1", "label": "Amai os vossos inimigos"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIII",  "item_number": "1", "label": "Caridade sem ostentação"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XV",    "item_number": "1", "label": "Fora da caridade não há salvação"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XVI",   "item_number": "1", "label": "Não se pode servir a Deus e a Mamon"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XVII",  "item_number": "1", "label": "Sede perfeitos"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIX",   "item_number": "1", "label": "A fé"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XXV",   "item_number": "1", "label": "Buscai e achareis"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XXVI",  "item_number": "1", "label": "Dai gratuitamente o que gratuitamente recebestes"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XXVII", "item_number": "1", "label": "Pedi e obtereis — a prece"}
+  ]
+}

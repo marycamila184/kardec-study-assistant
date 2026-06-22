@@ -1,0 +1,16 @@
+{
+  "id": "fundamentos-evangelico-curioso",
+  "title": "Fundamentos do Evangelho Espírita",
+  "description": "Para quem está começando. Uma leitura filosófica das grandes verdades morais do Espiritismo.",
+  "level": "curioso",
+  "steps": [
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO I",    "item_number": "1", "label": "As três revelações: Moisés, Cristo, Espiritismo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO II",   "item_number": "1", "label": "A vida futura e o reino de Jesus"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO IV",   "item_number": "1", "label": "A reencarnação — nascer de novo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO V",    "item_number": "1", "label": "O sentido do sofrimento"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VII",  "item_number": "1", "label": "Humildade — os pobres de espírito"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XI",   "item_number": "1", "label": "Amar o próximo como a si mesmo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XV",   "item_number": "1", "label": "Fora da caridade não há salvação"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIX",  "item_number": "1", "label": "A fé"}
+  ]
+}
