@@ -91,3 +91,12 @@ def test_study_sources_include_chunk_metadata():
     assert result["sources"][0]["item_number"] == "150"
     assert result["sources"][0]["book"] == "O Livro dos Espíritos"
     assert result["sources"][0]["chapter_title"] == "Da Alma"
+
+
+def test_study_forwards_chapter_to_retrieve_by_item():
+    with patch("src.rag.study.retrieve_by_item") as mock_retrieve:
+        mock_retrieve.return_value = []
+        study("O Evangelho Segundo o Espiritismo", "1", chapter="CAPÍTULO IV")
+    mock_retrieve.assert_called_once_with(
+        "O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO IV"
+    )

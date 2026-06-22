@@ -17,8 +17,8 @@ def _get_client() -> OpenAI:
     return _client
 
 
-def study(book: str, item_number: str) -> dict | None:
-    chunks = retrieve_by_item(book, item_number)
+def study(book: str, item_number: str, chapter: str | None = None) -> dict | None:
+    chunks = retrieve_by_item(book, item_number, chapter)
     if not chunks:
         return None
 
@@ -26,7 +26,8 @@ def study(book: str, item_number: str) -> dict | None:
 
     all_related = retrieve(original_text, top_k=6)
     related = [
-        r for r in all_related
+        r
+        for r in all_related
         if not (
             r["metadata"]["item_number"] == item_number
             and r["metadata"]["book"] == book
@@ -44,7 +45,9 @@ def study(book: str, item_number: str) -> dict | None:
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,
         )
-        explanation, practical_example = parse_llm_json(response.choices[0].message.content)
+        explanation, practical_example = parse_llm_json(
+            response.choices[0].message.content
+        )
     except Exception:
         generation_failed = True
 

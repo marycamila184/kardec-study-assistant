@@ -56,7 +56,7 @@ def get_path(path_id: str) -> PathDetail:
 
 @router.post("/study", response_model=StudyResponse)
 def study(request: StudyRequest) -> StudyResponse:
-    result = study_item_fn(request.book, request.item_number)
+    result = study_item_fn(request.book, request.item_number, request.chapter)
     if result is None:
         raise HTTPException(
             status_code=404,

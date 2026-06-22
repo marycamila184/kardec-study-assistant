@@ -56,3 +56,17 @@ def test_retrieve_by_item_returns_empty_list_when_not_found(monkeypatch):
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     results = retrieve_by_item("O Livro dos Espíritos", "999")
     assert results == []
+
+
+def test_retrieve_by_item_with_chapter_adds_chapter_to_filter(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.get_by_filter.return_value = [_MOCK_RESULTS[0]]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    retrieve_by_item("O Evangelho Segundo o Espiritismo", "1", chapter="CAPÍTULO IV")
+    mock_store.get_by_filter.assert_called_once_with(
+        {"$and": [
+            {"book": {"$eq": "O Evangelho Segundo o Espiritismo"}},
+            {"item_number": {"$eq": "1"}},
+            {"chapter": {"$eq": "CAPÍTULO IV"}},
+        ]}
+    )

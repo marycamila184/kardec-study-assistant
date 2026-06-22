@@ -28,6 +28,7 @@ class ChatResponse(BaseModel):
 
 class PathStep(BaseModel):
     book: str
+    chapter: str | None = None
     item_number: str
     label: str
 
@@ -62,6 +63,7 @@ class StudySource(BaseModel):
 
 class StudyRequest(BaseModel):
     book: str
+    chapter: str | None = None
     item_number: str
     conversation_history: list[Message] = []
 

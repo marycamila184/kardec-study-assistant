@@ -246,3 +246,18 @@ def test_evangelho_returns_503_when_not_indexed():
         response = client.get("/evangelho")
     assert response.status_code == 503
     assert response.json()["detail"]["error"] == "evangelho_not_indexed"
+
+
+def test_study_with_chapter_passes_chapter_to_study_fn():
+    with patch("src.api.routes.study_item_fn", return_value=_STUDY_RESULT) as mock_fn:
+        client.post(
+            "/study",
+            json={
+                "book": "O Evangelho Segundo o Espiritismo",
+                "item_number": "1",
+                "chapter": "CAPÍTULO IV",
+            },
+        )
+    mock_fn.assert_called_once_with(
+        "O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO IV"
+    )
