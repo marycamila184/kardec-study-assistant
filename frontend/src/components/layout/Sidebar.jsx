@@ -30,14 +30,14 @@ const navModes = [
 export default function Sidebar({
   mode, onModeChange,
   onStudyTrecho, onTutorial,
-  conversations = [], onLoadConvo,
+  conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   favorites = [],
   evangelhoData = null,
 }) {
   const navBase = {
     display: 'flex', alignItems: 'center', gap: 8,
     padding: '7px 8px', borderRadius: 6, cursor: 'pointer',
-    fontSize: 11.5, marginBottom: 2, transition: 'background .15s',
+    fontSize: 13, marginBottom: 2, transition: 'background .15s',
   };
 
   return (
@@ -61,7 +61,7 @@ export default function Sidebar({
           }}>Dialogando com a Doutrina</div>
         </div>
         <div style={{
-          fontSize: 8.5, letterSpacing: '.18em', textTransform: 'uppercase',
+          fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
           color: 'rgba(255,255,255,.45)', paddingLeft: 44, marginTop: 2,
         }}>Estude · Reflita · Compreenda</div>
       </div>
@@ -70,7 +70,7 @@ export default function Sidebar({
       <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '0 8px 12px' }}>
         <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 4px 10px' }} />
         <div style={{
-          fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
+          fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 8px',
         }}>Modos de estudo</div>
 
@@ -90,61 +90,75 @@ export default function Sidebar({
         {/* Daily trecho */}
         <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
         <div style={{
-          fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
+          fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
         }}>Trecho do dia</div>
-        <div style={{
-          background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
-        }}>
+        <div
+          onClick={evangelhoData ? onStudyTrecho : undefined}
+          style={{
+            background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
+            cursor: evangelhoData ? 'pointer' : 'default',
+            transition: 'background .15s',
+          }}
+          onMouseEnter={e => { if (evangelhoData) e.currentTarget.style.background = 'rgba(0,0,0,.25)'; }}
+          onMouseLeave={e => { if (evangelhoData) e.currentTarget.style.background = 'rgba(0,0,0,.15)'; }}
+        >
           {evangelhoData ? (
             <>
               <div style={{
-                fontFamily: "'Crimson Pro', serif", fontSize: 12.5, fontStyle: 'italic',
+                fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
                 color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
-              }}>"{evangelhoData.content.slice(0, 180)}…"</div>
-              <div style={{ fontSize: 9, color: 'rgba(255,255,255,.4)', marginBottom: 8 }}>
-                {evangelhoData.source.book}
-                {evangelhoData.source.chapter_title ? ` · ${evangelhoData.source.chapter_title}` : ''}
+              }}>"{evangelhoData.content.slice(0, 320)}…"</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
+                {evangelhoData.source.chapter_title && (
+                  <div>{evangelhoData.source.chapter_title}</div>
+                )}
+                <div>{evangelhoData.source.book}</div>
               </div>
-              <button onClick={onStudyTrecho} style={{
-                background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.2)',
-                color: 'rgba(255,255,255,.78)', fontSize: 10, padding: '4px 10px',
-                borderRadius: 12, cursor: 'pointer',
-              }}>Estudar este trecho →</button>
             </>
           ) : (
-            <div style={{ fontSize: 10.5, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
               Carregando trecho do dia…
             </div>
           )}
         </div>
 
-        {/* Recent convos */}
-        {conversations.length > 0 && (
+        {/* Favorited convos */}
+        {conversations.some(c => c.favorited) && (
           <>
             <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
             <div style={{
-              fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
+              fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
               textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
-            }}>Conversas recentes</div>
-            {conversations.slice(0, 8).map(c => (
-              <div key={c.id} onClick={() => onLoadConvo(c)} style={{
-                padding: '6px 8px', borderRadius: 5, cursor: 'pointer',
-                color: 'rgba(255,255,255,.6)', fontSize: 11, lineHeight: 1.35,
-                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-              }}>{c.title}</div>
+            }}>Conversas favoritas</div>
+            {conversations.filter(c => c.favorited).map(c => (
+              <ConvoItem key={c.id} c={c} onLoad={onLoadConvo} onDelete={onDeleteConvo} onToggleFav={onToggleConvoFavorite} />
             ))}
           </>
         )}
 
-        {/* Favorites */}
+        {/* Recent convos */}
+        {conversations.some(c => !c.favorited) && (
+          <>
+            <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
+            <div style={{
+              fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
+            }}>Conversas recentes</div>
+            {conversations.filter(c => !c.favorited).slice(0, 8).map(c => (
+              <ConvoItem key={c.id} c={c} onLoad={onLoadConvo} onDelete={onDeleteConvo} onToggleFav={onToggleConvoFavorite} />
+            ))}
+          </>
+        )}
+
+        {/* Message favorites */}
         {favorites.length > 0 && (
           <>
             <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
             <div style={{
-              fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
+              fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
               textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
-            }}>Favoritos</div>
+            }}>Respostas salvas</div>
             {favorites.slice(0, 5).map(f => (
               <div key={f.id} style={{
                 padding: '6px 8px', borderRadius: 5, cursor: 'pointer',
@@ -173,6 +187,32 @@ export default function Sidebar({
           Ver tutorial
         </button>
       </div>
+    </div>
+  );
+}
+
+function ConvoItem({ c, onLoad, onDelete, onToggleFav }) {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 4,
+      padding: '3px 4px 3px 8px', borderRadius: 5,
+      color: 'rgba(255,255,255,.6)', fontSize: 11,
+    }}>
+      <div onClick={() => onLoad(c)} style={{
+        flex: 1, minWidth: 0, cursor: 'pointer', lineHeight: 1.35, fontSize: 12.5,
+        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+        padding: '3px 0',
+      }}>{c.title}</div>
+      <button onClick={() => onToggleFav(c.id)} title={c.favorited ? 'Remover dos favoritos' : 'Favoritar'} style={{
+        background: 'transparent', border: 'none', cursor: 'pointer',
+        fontSize: 12, padding: '2px 3px', flexShrink: 0, lineHeight: 1,
+        color: c.favorited ? '#F5C842' : 'rgba(255,255,255,.35)',
+      }}>{c.favorited ? '★' : '☆'}</button>
+      <button onClick={() => onDelete(c.id)} title="Apagar conversa" style={{
+        background: 'transparent', border: 'none', cursor: 'pointer',
+        padding: '2px 4px', flexShrink: 0, lineHeight: 1,
+        color: 'rgba(255,255,255,.4)', fontSize: 14, fontWeight: 400,
+      }}>×</button>
     </div>
   );
 }

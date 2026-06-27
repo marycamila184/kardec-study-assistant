@@ -31,7 +31,7 @@ export default function IABlock({
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
           <span style={{
             background: '#6B9BB8', color: 'white',
-            fontSize: 7.5, fontWeight: 700, letterSpacing: '.1em',
+            fontSize: 9, fontWeight: 700, letterSpacing: '.1em',
             padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
           }}>Da IA</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -72,7 +72,7 @@ export default function IABlock({
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>
-          <span style={{ fontSize: 9.5, color: theme.subtext }}>{msg.obra.context}</span>
+          <span style={{ fontSize: 11, color: theme.subtext }}>{msg.obra.context}</span>
         </div>
       )}
 
@@ -82,7 +82,7 @@ export default function IABlock({
             <button key={qa.label} style={{
               background: 'transparent',
               border: `1px solid ${theme.qasBorder}`,
-              color: theme.qasText, fontSize: 11,
+              color: theme.qasText, fontSize: 12.5,
               padding: '3px 10px', borderRadius: 14,
               cursor: 'pointer', fontWeight: 500,
             }}>

@@ -38,6 +38,7 @@ def get_daily_passage() -> dict | None:
         "content": chunk["content"],
         "source": {
             "book": EVANGELHO_BOOK,
+            "chapter": meta.get("chapter"),
             "chapter_title": meta.get("chapter_title"),
             "item_number": meta.get("item_number"),
             "subchunk_index": meta.get("subchunk_index"),

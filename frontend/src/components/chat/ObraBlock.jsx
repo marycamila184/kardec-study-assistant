@@ -18,22 +18,22 @@ export default function ObraBlock({ obra, theme }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
           <span style={{
             background: '#C8856A', color: 'white',
-            fontSize: 7.5, fontWeight: 700, letterSpacing: '.1em',
+            fontSize: 9, fontWeight: 700, letterSpacing: '.1em',
             padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase', flexShrink: 0,
           }}>Da Obra</span>
           <span style={{
-            fontSize: 10, color: '#907060',
+            fontSize: 12, color: '#907060',
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>{obra.title}</span>
         </div>
         <div style={{
           fontFamily: "'Crimson Pro', serif",
-          fontSize: 17, fontStyle: 'italic',
+          fontSize: 19, fontStyle: 'italic',
           color: theme.obraText, lineHeight: 1.75,
           whiteSpace: 'pre-wrap', marginBottom: 10,
         }}>{obra.quote}</div>
         <div style={{
-          fontSize: 10, color: theme.subtext,
+          fontSize: 12, color: theme.subtext,
           fontFamily: "'Crimson Pro', serif", fontStyle: 'italic',
         }}>— {obra.citation}</div>
       </div>

@@ -36,6 +36,13 @@ const MODE_PLACEHOLDER = {
   refletir: 'Ex: Estou passando por um conflito familiar…',
 };
 
+const SUGGESTIONS = [
+  { icon: '📖', label: 'O que é o perispírito?' },
+  { icon: '💬', label: 'Q.132 — Visibilidade dos Espíritos' },
+  { icon: '🪞', label: 'Estou enfrentando uma perda difícil' },
+  { icon: '☀️', label: 'Trecho do dia', action: 'trecho' },
+];
+
 const ERROR_MSG = {
   hasDaObra: false, obra: null,
   ia: 'Não foi possível obter uma resposta. Verifique sua conexão e tente novamente.',
@@ -51,7 +58,7 @@ export default function App() {
   const [reminderOn,   setReminderOn]   = useStorage('dialogando_reminder_on', false);
   const [reminderTime, setReminderTime] = useStorage('dialogando_reminder_time', '08:00');
   const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
-  const { conversations, saveConvo } = useConversations();
+  const { conversations, saveConvo, deleteConvo, toggleConvoFavorite } = useConversations();
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
   useReminder({ enabled: reminderOn, time: reminderTime, permission: notifPerm });
 
@@ -100,7 +107,7 @@ export default function App() {
   };
 
   // ── Font size helper ─────────────────────────────────────────────────────
-  const msgFontSize = { small: '12px', medium: '13px', large: '15.5px' }[fontSize] || '13px';
+  const msgFontSize = { small: '14px', medium: '15px', large: '17px' }[fontSize] || '15px';
 
   // ── Mode switching ───────────────────────────────────────────────────────
   const switchMode = (m) => {
@@ -109,8 +116,7 @@ export default function App() {
   };
 
   // ── Main chat send (dúvida + refletir) ───────────────────────────────────
-  const handleSend = async () => {
-    const txt = input.trim();
+  const sendText = async (txt) => {
     if (!txt) return;
     const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: txt };
     const newMsgs = [...msgs, userMsg];
@@ -142,6 +148,8 @@ export default function App() {
       scrollToBottom();
     }
   };
+
+  const handleSend = () => sendText(input.trim());
 
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
@@ -237,7 +245,7 @@ export default function App() {
     let reply;
     try {
       if (source.item_number) {
-        reply = await studyItem(source.book, source.item_number);
+        reply = await studyItem(source.book, source.item_number, source.chapter || null);
       } else {
         reply = await chatMessage(`Explique este trecho do Evangelho: "${content.slice(0, 300)}"`);
       }
@@ -281,6 +289,8 @@ export default function App() {
             onTutorial={() => setOnboarded(false)}
             conversations={conversations}
             onLoadConvo={(c) => { setMode(c.mode); setMsgs(c.msgs); setConvoId(c.id); }}
+            onDeleteConvo={deleteConvo}
+            onToggleConvoFavorite={toggleConvoFavorite}
             favorites={favorites}
             evangelhoData={evangelhoData}
           />
@@ -362,21 +372,19 @@ export default function App() {
                     <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 22, fontWeight: 600, color: theme.text, marginBottom: 8 }}>
                       Como posso ajudar seus estudos?
                     </div>
-                    <div style={{ fontSize: 12.5, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 22 }}>
+                    <div style={{ fontSize: 14, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 22 }}>
                       Faça uma pergunta ou experimente uma das sugestões abaixo.
                     </div>
-                    <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap', justifyContent: 'center' }}>
-                      {[
-                        'O que é o perispírito?',
-                        'Q.132 — Visibilidade dos Espíritos',
-                        'Estou enfrentando uma perda difícil',
-                        'Trecho do dia',
-                      ].map(s => (
-                        <button key={s} onClick={() => { setInput(s); setTimeout(handleSend, 10); }} style={{
-                          background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.26)',
-                          color: '#4A7A98', fontSize: 12, padding: '6px 13px',
-                          borderRadius: 16, cursor: 'pointer', fontWeight: 500,
-                        }}>{s}</button>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, maxWidth: 360 }}>
+                      {SUGGESTIONS.map(s => (
+                        <button key={s.label} onClick={s.action === 'trecho' ? handleStudyTrecho : () => sendText(s.label)} style={{
+                          background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
+                          borderRadius: 10, padding: '12px 14px', cursor: 'pointer',
+                          textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 5,
+                        }}>
+                          <span style={{ fontSize: 16, lineHeight: 1 }}>{s.icon}</span>
+                          <span style={{ fontSize: 13, color: theme.text, fontWeight: 500, lineHeight: 1.45 }}>{s.label}</span>
+                        </button>
                       ))}
                     </div>
                   </div>

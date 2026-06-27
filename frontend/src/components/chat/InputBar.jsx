@@ -37,7 +37,7 @@ export default function InputBar({ value, onChange, onSend, placeholder, footerH
             flex: 1, background: theme.inputBg,
             border: `1px solid ${theme.inputBorder}`,
             borderRadius: 10, padding: '9px 13px',
-            fontSize: 13, color: theme.text, lineHeight: 1.55,
+            fontSize: 15, color: theme.text, lineHeight: 1.55,
             resize: 'none', fontFamily: 'inherit', overflowY: 'hidden',
             outline: 'none',
           }}
@@ -55,7 +55,7 @@ export default function InputBar({ value, onChange, onSend, placeholder, footerH
         </button>
       </div>
       {footerHint && (
-        <div style={{ fontSize: 10, color: theme.subtext, marginTop: 5 }}>{footerHint}</div>
+        <div style={{ fontSize: 11, color: theme.subtext, marginTop: 5 }}>{footerHint}</div>
       )}
     </div>
   );

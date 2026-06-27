@@ -14,7 +14,7 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
         <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 22, fontWeight: 600, color: theme.text, marginBottom: 6 }}>
           Estudar uma Obra
         </div>
-        <div style={{ fontSize: 12.5, color: theme.subtext, lineHeight: 1.65 }}>
+        <div style={{ fontSize: 14, color: theme.subtext, lineHeight: 1.65 }}>
           Escolha entre o estudo guiado — com tutor socrático — ou a exploração livre.
         </div>
       </div>
@@ -43,7 +43,7 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
             <div style={{ fontSize: 10, color: theme.subtext }}>Lyon, 1804 — Paris, 1869</div>
           </div>
         </div>
-        <p style={{ fontSize: 12.5, color: theme.text, lineHeight: 1.75, margin: '0 0 10px' }}>
+        <p style={{ fontSize: 14, color: theme.text, lineHeight: 1.75, margin: '0 0 10px' }}>
           Hippolyte Léon Denizard Rivail foi um pedagogo e escritor francês que, sob o pseudônimo{' '}
           <strong>Allan Kardec</strong>, codificou o Espiritismo. Entre 1857 e 1868, publicou as cinco obras
           que formam o <strong>Pentateuco Espírita</strong>.
@@ -53,7 +53,7 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
           borderLeft: '3px solid #6B9BB8', borderRadius: '0 6px 6px 0',
         }}>
           <div style={{
-            fontFamily: "'Crimson Pro', serif", fontSize: 13.5, fontStyle: 'italic',
+            fontFamily: "'Crimson Pro', serif", fontSize: 15, fontStyle: 'italic',
             color: theme.obraText, lineHeight: 1.65,
           }}>"O Espiritismo não é uma religião, nem uma seita: é uma ciência."</div>
           <div style={{ fontSize: 10, color: theme.subtext, marginTop: 5 }}>— Allan Kardec, A Gênese, cap. I</div>
@@ -63,7 +63,7 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
       {/* O Pentateuco */}
       <div style={{ marginBottom: 20 }}>
         <div style={{
-          fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
+          fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: theme.subtext, marginBottom: 12,
         }}>O Pentateuco Espírita</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -79,9 +79,9 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
                 flexShrink: 0, fontFamily: "'Crimson Pro', serif", fontSize: 13, fontWeight: 600, color: '#6B9BB8',
               }}>{o.abbr}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 12.5, fontWeight: 600, color: theme.text, marginBottom: 3 }}>{o.label}</div>
-                <div style={{ fontSize: 10.5, color: theme.subtext, lineHeight: 1.55 }}>{o.summary}</div>
-                <div style={{ fontSize: 9.5, color: 'rgba(107,155,184,.7)', marginTop: 4, fontStyle: 'italic' }}>{o.year}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: theme.text, marginBottom: 3 }}>{o.label}</div>
+                <div style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.55 }}>{o.summary}</div>
+                <div style={{ fontSize: 11, color: 'rgba(107,155,184,.7)', marginTop: 4, fontStyle: 'italic' }}>{o.year}</div>
               </div>
             </div>
           ))}
@@ -91,7 +91,7 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
       {/* Trilhas guiadas */}
       <div style={{ marginBottom: 14 }}>
         <div style={{
-          fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
+          fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: theme.subtext, marginBottom: 10,
         }}>Trilhas guiadas</div>
         {pathsLoading && (
@@ -114,13 +114,13 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 5 }}>
                   <span style={{
                     background: 'rgba(107,155,184,.12)', color: '#4A7A98',
-                    fontSize: 9, fontWeight: 700, letterSpacing: '.1em',
+                    fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
                     padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
                   }}>{LEVEL_LABEL[tr.level] || tr.level}</span>
                   <span style={{ fontSize: 10, color: theme.subtext }}>{tr.step_count} trechos</span>
                 </div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: theme.text, marginBottom: 4 }}>{tr.title}</div>
-                <div style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.55 }}>{tr.description}</div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 4 }}>{tr.title}</div>
+                <div style={{ fontSize: 13.5, color: theme.subtext, lineHeight: 1.55 }}>{tr.description}</div>
               </div>
               <button onClick={() => onStartTrilha(tr)} style={{
                 background: '#6B9BB8', color: 'white', border: 'none',
@@ -135,7 +135,7 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
       {/* Explorar Obras */}
       <div style={{ borderTop: `1px solid ${theme.cardBorder}`, paddingTop: 14 }}>
         <div style={{
-          fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
+          fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: theme.subtext, marginBottom: 10,
         }}>Consulta livre</div>
         <div style={{
@@ -144,8 +144,8 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, paths 
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
         }}>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: theme.text, marginBottom: 3 }}>Explorar Obras</div>
-            <div style={{ fontSize: 12, color: theme.subtext }}>Navegue pelos tópicos de cada obra e consulte temas específicos.</div>
+            <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 3 }}>Explorar Obras</div>
+            <div style={{ fontSize: 13.5, color: theme.subtext }}>Navegue pelos tópicos de cada obra e consulte temas específicos.</div>
           </div>
           <button onClick={onExplorar} style={{
             background: 'transparent', color: '#4A7A98',

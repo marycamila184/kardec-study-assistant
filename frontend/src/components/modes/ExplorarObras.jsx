@@ -39,7 +39,7 @@ export default function ExplorarObras({
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
           <button onClick={onBack} style={{
             background: 'transparent', border: 'none', cursor: 'pointer',
-            color: theme.subtext, fontSize: 11, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
+            color: theme.subtext, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
           }}>
             <svg width={10} height={10} viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
@@ -47,8 +47,8 @@ export default function ExplorarObras({
             </svg>
             Estudar uma Obra
           </button>
-          <span style={{ color: theme.subtext, fontSize: 11 }}>·</span>
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#6B9BB8' }}>Explorar Obras</span>
+          <span style={{ color: theme.subtext, fontSize: 12.5 }}>·</span>
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: '#6B9BB8' }}>Explorar Obras</span>
         </div>
 
         {/* Obra card selector */}
@@ -63,8 +63,8 @@ export default function ExplorarObras({
                 background: active ? 'rgba(107,155,184,.15)' : 'transparent',
                 transition: 'all .15s',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: active ? '#6B9BB8' : theme.subtext }}>{o.abbr}</div>
-                <div style={{ fontSize: 9.5, lineHeight: 1.3, textAlign: 'center', color: active ? '#4A7A98' : theme.subtext }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: active ? '#6B9BB8' : theme.subtext }}>{o.abbr}</div>
+                <div style={{ fontSize: 11, lineHeight: 1.3, textAlign: 'center', color: active ? '#4A7A98' : theme.subtext }}>
                   {o.shortLabel}
                 </div>
               </button>
@@ -77,7 +77,7 @@ export default function ExplorarObras({
       {!hasMessages ? (
         <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '16px 18px' }}>
           <div style={{
-            fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
+            fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
             textTransform: 'uppercase', color: theme.subtext, marginBottom: 12,
           }}>Tópicos de {obra.label}</div>
 
@@ -94,8 +94,8 @@ export default function ExplorarObras({
                   justifyContent: 'space-between', cursor: 'pointer',
                 }}>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: theme.text }}>{part.title}</div>
-                    <div style={{ fontSize: 10.5, color: theme.subtext, marginTop: 2 }}>{part.subtitle}</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: theme.text }}>{part.title}</div>
+                    <div style={{ fontSize: 12, color: theme.subtext, marginTop: 2 }}>{part.subtitle}</div>
                   </div>
                   <svg width={13} height={13} viewBox="0 0 24 24" fill="none"
                     stroke={theme.subtext} strokeWidth="2" strokeLinecap="round"
@@ -105,14 +105,14 @@ export default function ExplorarObras({
                 </div>
                 {open && (
                   <div style={{ borderTop: `1px solid ${theme.cardBorder}`, padding: '10px 14px' }}>
-                    <div style={{ fontSize: 11.5, color: theme.subtext, lineHeight: 1.65, marginBottom: 10, fontStyle: 'italic' }}>
+                    <div style={{ fontSize: 13, color: theme.subtext, lineHeight: 1.65, marginBottom: 10, fontStyle: 'italic' }}>
                       {part.context}
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                       {part.items.map(item => (
                         <button key={item} onClick={() => onAskTopic(item, obra.id)} style={{
                           background: 'rgba(107,155,184,.07)', border: '1px solid rgba(107,155,184,.22)',
-                          color: '#4A7A98', fontSize: 11.5, padding: '5px 12px',
+                          color: '#4A7A98', fontSize: 13, padding: '5px 12px',
                           borderRadius: 14, cursor: 'pointer', fontWeight: 500,
                         }}>{item}</button>
                       ))}
@@ -128,7 +128,7 @@ export default function ExplorarObras({
             <button onClick={() => onRedirectDuvida(obra.label)} style={{
               background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
               color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-              fontSize: 12, fontWeight: 500, cursor: 'pointer',
+              fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
             }}>Tenho uma dúvida</button>
           </div>
         </div>

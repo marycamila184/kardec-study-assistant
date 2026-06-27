@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     groq_api_key: str
+    hf_token: str | None = None
     embedding_model: str = "paraphrase-multilingual-mpnet-base-v2"
     chat_model: str = "llama-3.1-8b-instant"
     condenser_model: str = "llama-3.1-8b-instant"

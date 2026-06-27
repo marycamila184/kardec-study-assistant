@@ -94,6 +94,7 @@ class ReflectResponse(BaseModel):
 
 class EvangelhoSource(BaseModel):
     book: str
+    chapter: str | None = None
     chapter_title: str | None = None
     item_number: str | None = None
     subchunk_index: int | None = None

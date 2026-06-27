@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { OBRAS } from '../../constants/obras';
 
 /**
- * 3-step onboarding overlay.
+ * 2-step onboarding overlay.
  * Props:
- *   onFinish(selectedObraId) — called when user completes onboarding
+ *   onFinish() — called when user completes onboarding
  */
 export default function Onboarding({ onFinish }) {
   const [step, setStep] = useState(0);
-  const [selectedObra, setSelectedObra] = useState('le');
 
   return (
     <div style={{
@@ -37,8 +35,8 @@ export default function Onboarding({ onFinish }) {
             Estude · Reflita · Compreenda
           </div>
           <p style={{ fontSize: 14, color: '#6A5E50', lineHeight: 1.78, margin: '0 0 16px' }}>
-            Um companheiro de estudos da doutrina espírita, fundamentado nas obras de Allan Kardec.
-            Respostas transparentes, acessíveis e sempre com referências.
+            Aqui você estuda, tira dúvidas e reflete sobre as obras de Allan Kardec —
+            com respostas sempre fundamentadas e referenciadas nos próprios textos.
           </p>
           <div style={{
             background: 'rgba(107,155,184,.1)', border: '1px solid rgba(107,155,184,.25)',
@@ -51,15 +49,15 @@ export default function Onboarding({ onFinish }) {
               <line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
             <div style={{ fontSize: 12.5, color: '#5A6E7A', lineHeight: 1.65 }}>
-              Esta IA foi refinada para trabalhar <strong>exclusivamente com o Pentateuco Espírita</strong> —
-              as cinco obras de Allan Kardec. Toda resposta é fundamentada e referenciada nessas fontes.
+              Funciona exclusivamente com o <strong>Pentateuco Espírita</strong> —
+              as cinco obras de Kardec. O objetivo não é substituir a leitura, mas torná-la mais acessível.
             </div>
           </div>
           <button onClick={() => setStep(1)} style={{
             background: '#6B9BB8', color: 'white', border: 'none',
             padding: '13px 36px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer',
           }}>Começar →</button>
-          <Dots total={3} active={0} />
+          <Dots total={2} active={0} />
         </div>
       )}
 
@@ -69,9 +67,9 @@ export default function Onboarding({ onFinish }) {
             <div style={{
               fontFamily: "'Crimson Pro', serif", fontSize: 28, fontWeight: 600,
               color: '#2A2318', marginBottom: 7,
-            }}>Quatro formas de estudar</div>
+            }}>Como você quer estudar hoje?</div>
             <div style={{ fontSize: 13, color: '#9A8878' }}>
-              Mude de modo a qualquer momento conforme sua necessidade
+              Escolha o modo que combina com o seu momento — você pode mudar a qualquer hora
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 28 }}>
@@ -88,40 +86,18 @@ export default function Onboarding({ onFinish }) {
               </div>
             ))}
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <button onClick={() => setStep(2)} style={{
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+            <button onClick={() => setStep(0)} style={{
+              background: 'transparent', color: '#9A8878',
+              border: '1px solid #D8D0C4',
+              padding: '13px 24px', borderRadius: 8, fontSize: 14, fontWeight: 500, cursor: 'pointer',
+            }}>← Voltar</button>
+            <button onClick={() => onFinish()} style={{
               background: '#6B9BB8', color: 'white', border: 'none',
               padding: '13px 36px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer',
-            }}>Entendi →</button>
-            <Dots total={3} active={1} />
+            }}>Começar a estudar →</button>
           </div>
-        </div>
-      )}
-
-      {step === 2 && (
-        <div style={{ textAlign: 'center', maxWidth: 500, animation: 'fade-up .5s ease' }}>
-          <div style={{
-            fontFamily: "'Crimson Pro', serif", fontSize: 28, fontWeight: 600,
-            color: '#2A2318', marginBottom: 8,
-          }}>Por onde começar?</div>
-          <div style={{ fontSize: 13, color: '#9A8878', marginBottom: 28 }}>
-            Escolha a obra em foco — você pode mudar a qualquer momento
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, justifyContent: 'center', marginBottom: 32 }}>
-            {OBRAS.map(o => (
-              <button key={o.id} onClick={() => setSelectedObra(o.id)} style={{
-                background: selectedObra === o.id ? '#6B9BB8' : 'white',
-                color: selectedObra === o.id ? 'white' : '#4A6070',
-                border: `1px solid ${selectedObra === o.id ? '#6B9BB8' : '#D8D0C4'}`,
-                fontSize: 12, padding: '7px 15px', borderRadius: 20, cursor: 'pointer',
-              }}>{o.label}</button>
-            ))}
-          </div>
-          <button onClick={() => onFinish(selectedObra)} style={{
-            background: '#6B9BB8', color: 'white', border: 'none',
-            padding: '13px 36px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer',
-          }}>Começar a estudar →</button>
-          <Dots total={3} active={2} />
+          <Dots total={2} active={1} />
         </div>
       )}
     </div>
@@ -142,8 +118,8 @@ function Dots({ total, active }) {
 }
 
 const STEP1_MODES = [
-  { title: 'Estudar uma Obra', desc: 'Consulte questões, capítulos e temas específicos das obras de Kardec.', icon: '📚' },
-  { title: 'Tirar uma Dúvida', desc: 'Perguntas abertas com respostas fundamentadas e referências claras.', icon: '💬' },
-  { title: 'Refletir',           desc: 'Relacione situações da sua vida aos ensinamentos da doutrina espírita.', icon: '⭐' },
-  { title: 'Estudo Diário',      desc: 'Trecho do dia, reflexão e pergunta para meditação. 3 a 5 minutos.', icon: '☀️' },
+  { title: 'Estudar uma Obra', desc: 'Siga uma trilha guiada com tutor, ou explore livremente questões e capítulos de cada obra.', icon: '📚' },
+  { title: 'Tirar uma Dúvida', desc: 'Faça qualquer pergunta sobre a doutrina e receba uma resposta com a referência exata de onde ela veio.', icon: '💬' },
+  { title: 'Refletir',          desc: 'Traga uma situação da sua vida e encontre conexões com os ensinamentos espíritas — sem julgamentos, só reflexão.', icon: '⭐' },
+  { title: 'Trecho do dia',     desc: 'Um trecho do Evangelho por dia, disponível na barra lateral. Poucos minutos que ficam com você.', icon: '☀️' },
 ];

@@ -46,7 +46,7 @@ export default function GuidedStudy({
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <button onClick={onBack} style={{
                 background: 'transparent', border: 'none', cursor: 'pointer',
-                color: theme.subtext, fontSize: 11, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
+                color: theme.subtext, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
               }}>
                 <svg width={10} height={10} viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
@@ -54,10 +54,10 @@ export default function GuidedStudy({
                 </svg>
                 Trilhas
               </button>
-              <span style={{ color: theme.subtext, fontSize: 11 }}>·</span>
-              <span style={{ fontSize: 11, fontWeight: 500, color: theme.text }}>{stepTitle}</span>
+              <span style={{ color: theme.subtext, fontSize: 12.5 }}>·</span>
+              <span style={{ fontSize: 12.5, fontWeight: 500, color: theme.text }}>{stepTitle}</span>
             </div>
-            <span style={{ fontSize: 10, color: theme.subtext }}>
+            <span style={{ fontSize: 12, color: theme.subtext }}>
               {currentStep + 1} de {trilha?.steps.length}
             </span>
           </div>
@@ -87,10 +87,10 @@ export default function GuidedStudy({
             fontFamily: "'Crimson Pro', serif", fontSize: 26, fontWeight: 600,
             color: theme.text, marginBottom: 8,
           }}>Trilha concluída!</div>
-          <div style={{ fontSize: 13, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 8 }}>
+          <div style={{ fontSize: 14.5, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 8 }}>
             {trilha?.title}
           </div>
-          <div style={{ fontSize: 12, color: theme.subtext, maxWidth: 320, lineHeight: 1.72, marginBottom: 28 }}>
+          <div style={{ fontSize: 13.5, color: theme.subtext, maxWidth: 320, lineHeight: 1.72, marginBottom: 28 }}>
             Você estudou os fundamentos da doutrina espírita. Continue explorando com as outras trilhas.
           </div>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -123,16 +123,16 @@ export default function GuidedStudy({
                       <button onClick={() => onRedirectDuvida(msg)} style={{
                         background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
                         color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-                        fontSize: 12, fontWeight: 500, cursor: 'pointer',
+                        fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
                       }}>Tenho uma dúvida</button>
                       {isLast
                         ? <button onClick={onNext} style={{
                             background: '#C8856A', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer',
+                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600, cursor: 'pointer',
                           }}>Concluir trilha ✨</button>
                         : <button onClick={onNext} style={{
                             background: '#6B9BB8', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer',
+                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600, cursor: 'pointer',
                           }}>Entendi, próximo →</button>
                       }
                     </div>

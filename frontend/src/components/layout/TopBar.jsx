@@ -35,9 +35,9 @@ export default function TopBar({ mode, theme, onOpenSettings }) {
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
-          fontFamily: "'Crimson Pro', serif", fontSize: 15, fontWeight: 600, color: theme.text,
+          fontFamily: "'Crimson Pro', serif", fontSize: 17, fontWeight: 600, color: theme.text,
         }}>{meta.title}</div>
-        <div style={{ fontSize: 10.5, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
+        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
       </div>
       <button onClick={onOpenSettings} title="Configurações" style={{
         width: 34, height: 34, borderRadius: 8,
