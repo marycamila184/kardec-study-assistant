@@ -3431,7 +3431,7 @@ O voto de silêncio absoluto, do mesmo modo que o voto de insulamento, priva o h
 
 
 
-# CAPÍTULO VI
+# CAPÍTULO VIII
 
 # DA LEI DO PROGRESSO
 

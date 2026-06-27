@@ -1,0 +1,67 @@
+export const TRILHAS = [
+  {
+    id: 'fundamentos-espirita-curioso',
+    title: 'Fundamentos da Doutrina Espírita',
+    description: 'Para quem está começando. Os oito pilares do espiritismo em ordem natural.',
+    level: 'curioso',
+    levelLabel: 'Iniciante',
+    steps: [
+      {
+        book: 'O Livro dos Espíritos', item_number: '1', label: 'O que é Deus?',
+        trecho: '"Deus é a inteligência suprema, causa primária de todas as coisas."',
+        citation: 'O Livro dos Espíritos, Q.1 — Allan Kardec',
+        context: 'Primeira questão da codificação · Paris, 1857',
+        pergunta: 'Kardec abre toda a doutrina com essa definição. O que mais chama sua atenção — Deus ser chamado de *inteligência* ou de *causa primária*? Por quê?',
+      },
+      {
+        book: 'O Livro dos Espíritos', item_number: '13', label: 'Atributos da Divindade',
+        trecho: '"Deus é eterno, imutável, imaterial, único, todo-poderoso, soberanamente justo e bom."',
+        citation: 'O Livro dos Espíritos, Q.13 — Allan Kardec',
+        context: 'O Livro dos Espíritos · Parte I: Das Causas Primárias',
+        pergunta: 'Entre os atributos listados, qual você considera mais difícil de compreender no dia a dia?',
+      },
+      {
+        book: 'O Livro dos Espíritos', item_number: '76', label: 'O que são os Espíritos?',
+        trecho: '"Os Espíritos são os seres inteligentes da criação. Eles constituem o mundo espiritual, assim como os homens constituem o mundo corporal."',
+        citation: 'O Livro dos Espíritos, Q.76 — Allan Kardec',
+        context: 'O Livro dos Espíritos · Parte II: Do Mundo Espiritual',
+        pergunta: 'Kardec coloca o mundo espiritual e o mundo corporal em paralelo. Como essa ideia poderia mudar a forma como você enxerga a vida cotidiana?',
+      },
+      {
+        book: 'O Livro dos Espíritos', item_number: '134', label: 'O que é a alma?',
+        trecho: '"A alma é um Espírito encarnado. O corpo é apenas o invólucro material que ela utiliza para a sua evolução na Terra."',
+        citation: 'O Livro dos Espíritos, Q.134 — Allan Kardec',
+        context: 'O Livro dos Espíritos · Parte II: Da Alma',
+        pergunta: 'Se a alma é o verdadeiro "eu" e o corpo apenas um invólucro temporário, o que isso implica sobre a morte?',
+      },
+      {
+        book: 'O Livro dos Espíritos', item_number: '132', label: 'Por que os Espíritos se encarnaram?',
+        trecho: '"Os Espíritos se encarnaram para se aperfeiçoarem. A vida corporal lhes oferece as provas e os meios de se elevarem pela prática do bem."',
+        citation: 'O Livro dos Espíritos, Q.132 — Allan Kardec',
+        context: 'O Livro dos Espíritos · Parte II: Da Reencarnação',
+        pergunta: 'A doutrina apresenta a vida terrena como uma escola. Consegue identificar alguma "prova" que te fez crescer?',
+      },
+      {
+        book: 'O Livro dos Espíritos', item_number: '166', label: 'Como a alma se depura?',
+        trecho: '"A reencarnação é necessária para o progresso moral e intelectual do Espírito. Ela lhe dá os meios de reparar o mal e de elevar-se pela prática do bem."',
+        citation: 'O Livro dos Espíritos, Q.166 — Allan Kardec',
+        context: 'O Livro dos Espíritos · Parte II: Da Pluralidade das Existências',
+        pergunta: 'A reencarnação aqui não é punição, mas oportunidade. Como essa perspectiva muda a forma de encarar erros do passado?',
+      },
+      {
+        book: 'O Livro dos Espíritos', item_number: '149', label: 'O que acontece após a morte?',
+        trecho: '"A morte do corpo liberta a alma das ligações materiais que a prendiam à Terra. O Espírito retoma sua liberdade e retorna ao mundo espiritual, de onde veio."',
+        citation: 'O Livro dos Espíritos, Q.149 — Allan Kardec',
+        context: 'O Livro dos Espíritos · Parte II: Da Vida Futura',
+        pergunta: 'Kardec descreve a morte como uma libertação, não um fim. O que muda na forma de lidar com o luto a partir dessa visão?',
+      },
+      {
+        book: 'O Livro dos Espíritos', item_number: '614', label: 'O que é a lei de Deus?',
+        trecho: '"A lei natural é a lei de Deus. Ela está inscrita na consciência de todos os homens e se resume em uma só palavra: amor."',
+        citation: 'O Livro dos Espíritos, Q.614 — Allan Kardec',
+        context: 'O Livro dos Espíritos · Parte III: Das Leis Morais',
+        pergunta: 'Kardec fecha os fundamentos com uma ideia simples e profunda: a lei de Deus é o amor. Como você conecta esse conceito final aos sete anteriores?',
+      },
+    ],
+  },
+];

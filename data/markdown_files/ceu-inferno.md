@@ -18,7 +18,7 @@ Exame comparado das doutrinas sobre a passagem da vida corporal à vida espiritu
 
 # DOUTRINA
 
-# CAPÍTULO 1
+# CAPÍTULO I
 
 # O PORVIR E O NADA
 
@@ -1548,7 +1548,7 @@ As seguintes palavras de um Espírito resumem admiravelmente as conseqüências 
 
 # EXEMPLOS
 
-# CAPÍTULO 1
+# CAPÍTULO I
 
 # O PASSAMENTO
 
@@ -1674,9 +1674,6 @@ Nota - Trata-se do instante que precede a morte, ou antes, daquele em que se per
 
 Nota - Os contos de fadas estão cheios de coisas absurdas, mas quem sabe se não contêm, de alguma sorte e em parte, algo do que se passa no mundo dos Espíritos? A descrição do Sr. Sanson lembra como que um homem adormecido numa choupana, despertando em palácio esplêndido e rodeado de uma corte brilhante.
 
-
----
-
 # III
 
 9.Debaixo de que aspecto se vos apresentaram os Espíritos? sob a forma humana? - R. Sim, meu caro amigo; os Espíritos nos ensinam, aí na Terra, que conservam no outro mundo a mesma forma que lhes serviu de envoltório, e é a verdade. Mas, que diferença entre a máquina informe, que penosamente aí se arrasta com seu cortejo de misérias, e a fluidez maravilhosa do corpo espiritual! A fealdade não mais existe, porque os traços perderam a dureza de expressão que forma o caráter distintivo da raça humana. Deus beatificou esses corpos graciosos que se movem com todas as elegâncias; a linguagem tem modulações intraduzíveis para vós e o olhar o alcance de uma estrela! Conjeturai sobre o que Deus pode produzir na sua Onipotência, Ele, o arquiteto dos arquitetos, e tereis feito uma fraca idéia da forma dos Espíritos.
@@ -1710,8 +1707,6 @@ __________
 
 Diretor do Museu da Indústria de Bruxelas, nascido em Baissey (Alto Mame) e falecido em Bruxelas, de apoplexia fulminante, a 27 de outubro de 1861, com sessenta e nove anos de idade.
 
-
-# 2ª PARTE - CAPÍTULO II
 
 # I
 
@@ -1804,12 +1799,6 @@ De fato, ela foi grande; viver e não viver, estar rudemente preso ao corpo sem 
 Perturbação profunda! Depois, transcorrido um tempo incalculável de angústias contidas, sem forças para senti-las, depois, digo, desse tempo que parece interminável - o renascimento gradual da vida, o despertar de uma nova aurora em outro mundo! Nada de corpo material nem de vida terrestre! Vida, sim, mas imortal! Não mais homens carnais, porém formas diáfanas, Espíritos que deslizam, que surgem de todos os lados, que vos cercam e que não podeis abranger com a vista, porque é no infinito que flutuam! Ter ante si o Espaço e poder franqueá-lo à vontade! Comunicar-se pelo pensamento com tudo que vos envolve! Que vida nova, meu amigo, nova, brilhante e cheia de ventura! Salve, oh! salve, eternidade que me conténs em teu seio!... Adeus, Terra que por tanto tempo me retiveste afastado do elemento natural da minha alma! Não... eu nada mais de ti dependia, porque és a terra do exílio, e a maior das felicidades que dispensas nada vale! Soubesse eu o que sabeis, e quão fácil e agradável me seria a iniciação na vida espiritual! Sim, porque saberia, antes de morrer, o que mais tarde somente deveria conhecer, no momento da separação, de forma a desprender-me facilmente. Estais vós outros no caminho, porém, certificai-vos de que todo o adiantamento é pouco. Dizei-o a meu filho tantas vezes quantas bastem para que se instrua e creia, porque, do contrário, a nossa separação continuará aqui.
 
 Amigos, adeus a todos vós; espero-vos, e, enquanto estiverdes na Terra, virei muitas vezes instruir-me convosco, visto como sei menos ainda que muitos dentre vós. Notai que aqui onde estou, sem velhice que me enfraqueça nem entraves de qualquer espécie, aprenderei mais depressa e facilmente. Aqui se vive às claras, caminhando com desassombro, tendo ante os olhos horizontes tão belos que a gente se torna impaciente por abrangê-los. Adeus, deixo-vos, adeus. Van Durst."
-
-
----
-
-
-# 2ª PARTE - CAPÍTULO II
 
 # SIXDENIERS
 

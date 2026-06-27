@@ -19,7 +19,8 @@ def _build_document(chunk: dict) -> str:
 
 
 def _build_id(stem: str, chunk: dict) -> str:
-    return f"{stem}_{chunk['item_number']}_{chunk['subchunk_index']}"
+    chapter = (chunk.get("chapter") or "").replace(" ", "_").lower()
+    return f"{stem}_{chapter}_{chunk['item_number']}_{chunk['subchunk_index']}"
 
 
 def run_ingestion() -> None:

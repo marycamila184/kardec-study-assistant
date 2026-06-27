@@ -7,6 +7,11 @@ data/json_files/
 .claude/
 .agents/
 .superpowers/
+docs/superpowers/
+
+# Frontend
+frontend/reference/
+frontend/node_modules/
 
 # Test artifacts
 .pytest_cache/
