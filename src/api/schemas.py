@@ -53,6 +53,7 @@ class RelatedItem(BaseModel):
     book: str
     item_number: str
     preview: str
+    conexao: str | None = None
 
 
 class StudySource(BaseModel):
@@ -70,8 +71,9 @@ class StudyRequest(BaseModel):
 
 class StudyResponse(BaseModel):
     original_text: str
-    explanation: str
-    practical_example: str
+    contexto: str
+    conceitos_chave: list[str]
+    perguntas: list[str]
     related_items: list[RelatedItem]
     sources: list[StudySource]
     generation_failed: bool = False

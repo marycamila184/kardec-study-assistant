@@ -12,8 +12,12 @@ export default function ShareModal({ msg, theme, onClose }) {
 
   if (!msg) return null;
 
+  const quote    = msg.obra?.quote    || msg.ia?.slice(0, 500) || '';
+  const citation = msg.obra?.citation || 'Dialogando com a Doutrina';
+  const context  = msg.obra?.context  || '';
+
   const handleCopy = async () => {
-    const text = `${msg.obra.quote}\n\n— ${msg.obra.citation}\n\nDialogando com a Doutrina`;
+    const text = `${quote}\n\n— ${citation}\n\nDialogando com a Doutrina`;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -31,20 +35,21 @@ export default function ShareModal({ msg, theme, onClose }) {
     ctx.fillText('DIALOGANDO COM A DOUTRINA', 52, 58);
     ctx.fillStyle = 'white';
     ctx.font = 'italic 300 28px Crimson Pro, Georgia, serif';
-    const words = (msg.obra.quote || '').replace(/"/g, '').split(' ');
+    const words = quote.replace(/"/g, '').split(' ');
     let line = '', y = 110;
     for (const w of words) {
       const test = line + w + ' ';
       if (ctx.measureText(test).width > 856 && line) {
         ctx.fillText(line.trim(), 52, y); line = w + ' '; y += 44;
+        if (y > 460) { ctx.fillText('…', 52, y); break; }
       } else { line = test; }
     }
-    ctx.fillText(line.trim(), 52, y);
+    if (y <= 460) ctx.fillText(line.trim(), 52, y);
     ctx.strokeStyle = 'rgba(255,255,255,.2)'; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(52, y + 24); ctx.lineTo(908, y + 24); ctx.stroke();
     ctx.fillStyle = 'rgba(255,255,255,.6)';
     ctx.font = '13px DM Sans, sans-serif';
-    ctx.fillText(msg.obra.citation, 52, y + 50);
+    ctx.fillText(citation, 52, y + 50);
     const link = document.createElement('a');
     link.download = 'trecho-espirita.png';
     link.href = canvas.toDataURL('image/png');
@@ -84,11 +89,11 @@ export default function ShareModal({ msg, theme, onClose }) {
           <div style={{
             fontFamily: "'Crimson Pro', serif", fontSize: 20, fontStyle: 'italic',
             color: 'white', lineHeight: 1.7, marginBottom: 16,
-          }}>{msg.obra.quote}</div>
+          }}>{quote}</div>
           <div style={{ height: 1, background: 'rgba(255,255,255,.2)', marginBottom: 14 }} />
-          <div style={{ fontSize: 10, color: 'rgba(255,255,255,.65)' }}>{msg.obra.citation}</div>
-          {msg.obra.context && (
-            <div style={{ fontSize: 8, color: 'rgba(255,255,255,.35)', marginTop: 6 }}>{msg.obra.context}</div>
+          <div style={{ fontSize: 10, color: 'rgba(255,255,255,.65)' }}>{citation}</div>
+          {context && (
+            <div style={{ fontSize: 8, color: 'rgba(255,255,255,.35)', marginTop: 6 }}>{context}</div>
           )}
         </div>
 

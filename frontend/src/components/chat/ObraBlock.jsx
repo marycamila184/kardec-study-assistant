@@ -32,10 +32,6 @@ export default function ObraBlock({ obra, theme }) {
           color: theme.obraText, lineHeight: 1.75,
           whiteSpace: 'pre-wrap', marginBottom: 10,
         }}>{obra.quote}</div>
-        <div style={{
-          fontSize: 12, color: theme.subtext,
-          fontFamily: "'Crimson Pro', serif", fontStyle: 'italic',
-        }}>— {obra.citation}</div>
       </div>
       <div style={{ height: 1, background: theme.obraBorder }} />
     </>

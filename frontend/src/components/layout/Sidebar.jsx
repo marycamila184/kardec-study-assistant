@@ -33,6 +33,7 @@ export default function Sidebar({
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   favorites = [],
   evangelhoData = null,
+  onClose,
 }) {
   const navBase = {
     display: 'flex', alignItems: 'center', gap: 8,
@@ -57,8 +58,15 @@ export default function Sidebar({
           </div>
           <div style={{
             fontFamily: "'Crimson Pro', serif", fontSize: 18, fontWeight: 600,
-            color: 'white', lineHeight: 1.25,
+            color: 'white', lineHeight: 1.25, flex: 1,
           }}>Dialogando com a Doutrina</div>
+          {onClose && (
+            <button onClick={onClose} style={{
+              background: 'transparent', border: 'none', cursor: 'pointer',
+              color: 'rgba(255,255,255,.7)', fontSize: 22, lineHeight: 1,
+              padding: '0 2px', flexShrink: 0,
+            }}>×</button>
+          )}
         </div>
         <div style={{
           fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',

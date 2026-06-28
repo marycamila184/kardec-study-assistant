@@ -72,7 +72,7 @@ export default function Onboarding({ onFinish }) {
               Escolha o modo que combina com o seu momento — você pode mudar a qualquer hora
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 28 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 12 }}>
             {STEP1_MODES.map(m => (
               <div key={m.title} style={{
                 background: 'white', border: '1px solid #E8E2D8', borderRadius: 10, padding: 16,
@@ -85,6 +85,24 @@ export default function Onboarding({ onFinish }) {
                 <div style={{ fontSize: 12, color: '#9A8878', lineHeight: 1.6 }}>{m.desc}</div>
               </div>
             ))}
+          </div>
+          <div style={{
+            background: 'rgba(200,133,106,.07)', border: '1px solid rgba(200,133,106,.25)',
+            borderRadius: 10, padding: '12px 16px', marginBottom: 16,
+            display: 'flex', alignItems: 'center', gap: 12,
+          }}>
+            <div style={{
+              width: 34, height: 34, borderRadius: 8, background: 'rgba(200,133,106,.12)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}>{STEP1_FEATURE.icon}</div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#2A2318', marginBottom: 2 }}>{STEP1_FEATURE.title}</div>
+              <div style={{ fontSize: 12, color: '#9A8878', lineHeight: 1.6 }}>{STEP1_FEATURE.desc}</div>
+            </div>
+            <div style={{
+              marginLeft: 'auto', fontSize: 10, fontWeight: 700, letterSpacing: '.1em',
+              textTransform: 'uppercase', color: '#C8856A', flexShrink: 0,
+            }}>Sidebar</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
             <button onClick={() => setStep(0)} style={{
@@ -120,6 +138,11 @@ function Dots({ total, active }) {
 const STEP1_MODES = [
   { title: 'Estudar uma Obra', desc: 'Siga uma trilha guiada com tutor, ou explore livremente questões e capítulos de cada obra.', icon: '📚' },
   { title: 'Tirar uma Dúvida', desc: 'Faça qualquer pergunta sobre a doutrina e receba uma resposta com a referência exata de onde ela veio.', icon: '💬' },
-  { title: 'Refletir',          desc: 'Traga uma situação da sua vida e encontre conexões com os ensinamentos espíritas — sem julgamentos, só reflexão.', icon: '⭐' },
-  { title: 'Trecho do dia',     desc: 'Um trecho do Evangelho por dia, disponível na barra lateral. Poucos minutos que ficam com você.', icon: '☀️' },
+  { title: 'Refletir',         desc: 'Traga uma situação da sua vida e encontre conexões com os ensinamentos espíritas — sem julgamentos, só reflexão.', icon: '⭐' },
 ];
+
+const STEP1_FEATURE = {
+  title: 'Trecho do dia',
+  desc: 'Um trecho do Evangelho por dia, sempre disponível na barra lateral.',
+  icon: '☀️',
+};

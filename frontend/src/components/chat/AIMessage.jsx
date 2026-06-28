@@ -10,16 +10,13 @@ const BookIcon = ({ size = 11, color = 'white' }) => (
   </svg>
 );
 
-/**
- * Full AI response: avatar + ObraBlock (if hasDaObra) + IABlock.
- * Pass showQuickActions=false in guided/free study modes.
- */
 export default function AIMessage({
   msg, theme, fontSize,
   onShare, onToggleFav, isFavorite,
   showQuickActions = true,
   quickActions = [],
-  children, // optional slot for buttons below (e.g. "Entendi, próximo →")
+  onQuickAction,
+  children,
 }) {
   return (
     <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', animation: 'fade-up .3s ease' }}>
@@ -36,6 +33,7 @@ export default function AIMessage({
           msg={msg} theme={theme} fontSize={fontSize}
           onShare={onShare} onToggleFav={onToggleFav} isFavorite={isFavorite}
           showQuickActions={showQuickActions} quickActions={quickActions}
+          onQuickAction={onQuickAction}
         />
         {children}
       </div>

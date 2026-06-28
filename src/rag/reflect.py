@@ -7,6 +7,7 @@ from src.rag.reflect_prompt import (
     parse_reflect_json,
 )
 from src.rag.retriever import retrieve
+from src.rag.curador import curar
 
 _NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec passagens suficientemente relacionadas "
@@ -71,14 +72,7 @@ def reflect(situation: str) -> dict:
         for c in primary
     ]
 
-    complementary_items = [
-        {
-            "book": c["metadata"]["book"],
-            "item_number": c["metadata"]["item_number"],
-            "preview": c["content"][:200],
-        }
-        for c in complementary_raw
-    ]
+    complementary_items = curar(situation, complementary_raw)
 
     return {
         "opening": opening,

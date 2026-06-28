@@ -8,6 +8,7 @@ import ShareModal from './components/modals/ShareModal';
 import EstudarPicker from './components/modes/EstudarPicker';
 import GuidedStudy from './components/modes/GuidedStudy';
 import ExplorarObras from './components/modes/ExplorarObras';
+import IntroObras from './components/modes/IntroObras';
 import UserBubble from './components/chat/UserBubble';
 import AIMessage from './components/chat/AIMessage';
 import LoadingDots from './components/chat/LoadingDots';
@@ -25,9 +26,10 @@ import {
 } from './services/api';
 
 const QUICK_ACTIONS = [
-  { label: '📄 Ler original' }, { label: '💡 Explicar simples' },
-  { label: '🪞 Reflexão' },     { label: '🏛 Contexto histórico' },
-  { label: '📚 Relacionados' },  { label: '🔖 Salvar' },
+  { label: '📄 Ler original' },
+  { label: '💡 Explicar simples' },
+  { label: '🪞 Reflexão' },
+  { label: '📚 Relacionados' },
 ];
 
 const MODE_PLACEHOLDER = {
@@ -55,8 +57,9 @@ export default function App() {
   // ── Persistence ─────────────────────────────────────────────────────────
   const [onboarded,    setOnboarded]    = useStorage('dialogando_onboarded', false);
   const [fontSize,     setFontSize]     = useStorage('dialogando_fontsize', 'medium');
-  const [reminderOn,   setReminderOn]   = useStorage('dialogando_reminder_on', false);
-  const [reminderTime, setReminderTime] = useStorage('dialogando_reminder_time', '08:00');
+  const [reminderOn,       setReminderOn]       = useStorage('dialogando_reminder_on', false);
+  const [reminderTime,     setReminderTime]     = useStorage('dialogando_reminder_time', '08:00');
+  const [completedTrilhas, setCompletedTrilhas] = useStorage('dialogando_completed_trilhas', []);
   const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
   const { conversations, saveConvo, deleteConvo, toggleConvoFavorite } = useConversations();
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
@@ -151,6 +154,68 @@ export default function App() {
 
   const handleSend = () => sendText(input.trim());
 
+  // ── Quick action executor (shared across chat / guided / explorar) ────────
+  const runQuickAction = async (label, msg, appendMsg, setLoad) => {
+    const quote = msg.obra?.quote || msg.ia || '';
+    const snippet = quote.slice(0, 400);
+
+    if (label === '📄 Ler original') {
+      if (msg.obra?.quote) {
+        appendMsg({
+          id: 'a' + Date.now(), isUser: false, isAI: true,
+          hasDaObra: true, obra: { ...msg.obra, title: 'Texto original' }, ia: '',
+        });
+      }
+      scrollToBottom();
+      return;
+    }
+
+    if (label === '📚 Relacionados') {
+      const related = msg.relatedItems || [];
+      if (related.length > 0) {
+        const text = related
+          .map(r => {
+            let line = `• ${r.book} — Q.${r.item_number}`;
+            if (r.conexao) line += `\n  ${r.conexao}`;
+            line += `\n"${r.preview}…"`;
+            return line;
+          })
+          .join('\n\n');
+        appendMsg({
+          id: 'a' + Date.now(), isUser: false, isAI: true,
+          hasDaObra: false, obra: null, ia: '📚 Leituras relacionadas:\n\n' + text,
+        });
+      }
+      scrollToBottom();
+      return;
+    }
+
+    const userText = label === '💡 Explicar simples'
+      ? `Explique de forma mais simples: "${snippet}"`
+      : '🪞 Reflexão sobre este trecho';
+    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text: userText });
+    setLoad(true);
+    scrollToBottom();
+    try {
+      const reply = label === '🪞 Reflexão'
+        ? await reflectSituation(snippet)
+        : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
+      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+    } catch {
+      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+    } finally {
+      setLoad(false);
+      scrollToBottom();
+    }
+  };
+
+  const handleQuickAction       = (label, msg) =>
+    runQuickAction(label, msg, m => setMsgs(prev => [...prev, m]), setLoading);
+  const handleGuidedQuickAction = (label, msg) =>
+    runQuickAction(label, msg, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
+  const handleExplorarQuickAction = (label, msg) =>
+    runQuickAction(label, msg, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
+
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
     setEstudarSub('guided');
@@ -184,14 +249,20 @@ export default function App() {
         ia: `Não foi possível carregar "${step.label}". Tente novamente.`,
       };
     }
-    setGuidedMsgs([...existingMsgs, tutorMsg]);
+    const updatedMsgs = [...existingMsgs, tutorMsg];
+    setGuidedMsgs(updatedMsgs);
+    saveConvo('trilha_' + trilha.id, trilha.title, 'estudar', updatedMsgs);
     setGuidedLoading(false);
     scrollToBottom();
   };
 
   const handleGuidedNext = async () => {
     const next = guidedStep + 1;
-    if (next >= activeTrilha.steps.length) { setGuidedDone(true); return; }
+    if (next >= activeTrilha.steps.length) {
+      setGuidedDone(true);
+      setCompletedTrilhas(prev => prev.includes(activeTrilha.id) ? prev : [...prev, activeTrilha.id]);
+      return;
+    }
     setGuidedStep(next);
     await presentGuidedStep(activeTrilha, next, guidedMsgs);
   };
@@ -280,7 +351,7 @@ export default function App() {
 
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden', minHeight: 0 }}>
 
-        {/* Sidebar (desktop only) */}
+        {/* Sidebar (desktop) */}
         {!isMobile && (
           <Sidebar
             mode={mode}
@@ -296,11 +367,40 @@ export default function App() {
           />
         )}
 
+        {/* Mobile drawer */}
+        {isMobile && drawerOpen && (
+          <>
+            <div
+              style={{ position: 'fixed', inset: 0, zIndex: 80, background: 'rgba(0,0,0,.5)' }}
+              onClick={() => setDrawerOpen(false)}
+            />
+            <div style={{ position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 81, width: 300 }}>
+              <Sidebar
+                mode={mode}
+                onModeChange={(m) => { switchMode(m); setDrawerOpen(false); }}
+                onStudyTrecho={() => { handleStudyTrecho(); setDrawerOpen(false); }}
+                onTutorial={() => { setOnboarded(false); setDrawerOpen(false); }}
+                conversations={conversations}
+                onLoadConvo={(c) => { setMode(c.mode); setMsgs(c.msgs); setConvoId(c.id); setDrawerOpen(false); }}
+                onDeleteConvo={deleteConvo}
+                onToggleConvoFavorite={toggleConvoFavorite}
+                favorites={favorites}
+                evangelhoData={evangelhoData}
+                onClose={() => setDrawerOpen(false)}
+              />
+            </div>
+          </>
+        )}
+
         {/* Main area */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, background: theme.chatBg }}>
 
           {/* Top bar */}
-          <TopBar mode={mode} theme={theme} onOpenSettings={() => setShowSettings(true)} />
+          <TopBar
+            mode={mode} theme={theme}
+            onOpenSettings={() => setShowSettings(true)}
+            onOpenDrawer={isMobile ? () => setDrawerOpen(true) : undefined}
+          />
 
           {/* Content */}
           {isEstudar && estudarSub === 'picker' && (
@@ -308,8 +408,17 @@ export default function App() {
               theme={theme}
               onStartTrilha={startTrilha}
               onExplorar={() => { setEstudarSub('explorar'); setExplorarMsgs([]); }}
+              onVerIntro={() => setEstudarSub('intro')}
               paths={paths}
               pathsLoading={pathsLoading}
+              completedTrilhas={completedTrilhas}
+            />
+          )}
+
+          {isEstudar && estudarSub === 'intro' && (
+            <IntroObras
+              theme={theme}
+              onBack={() => setEstudarSub('picker')}
             />
           )}
 
@@ -328,6 +437,8 @@ export default function App() {
               onShare={setShareMsg}
               onToggleFav={toggleFavorite}
               isFavorite={isFavorite}
+              quickActions={QUICK_ACTIONS}
+              onQuickAction={handleGuidedQuickAction}
             />
           )}
 
@@ -343,6 +454,8 @@ export default function App() {
               onToggleFav={toggleFavorite}
               isFavorite={isFavorite}
               fontSize={msgFontSize}
+              quickActions={QUICK_ACTIONS}
+              onQuickAction={handleExplorarQuickAction}
             />
           )}
 
@@ -399,6 +512,7 @@ export default function App() {
                         isFavorite={isFavorite(msg.id)}
                         showQuickActions={true}
                         quickActions={QUICK_ACTIONS}
+                        onQuickAction={(label) => handleQuickAction(label, msg)}
                       />
                 ))}
                 {loading && <LoadingDots theme={theme} />}

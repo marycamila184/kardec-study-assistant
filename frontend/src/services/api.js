@@ -51,20 +51,37 @@ function mapChat(data) {
 
 function mapStudy(data, bookLabel, itemNumber) {
   const note = data.generation_failed
-    ? '\n\n⚠️ A explicação não pôde ser gerada completamente.'
+    ? '\n\n⚠️ A análise não pôde ser gerada completamente.'
     : '';
-  const ia = data.explanation
-    + (data.practical_example ? '\n\nExemplo prático:\n' + data.practical_example : '')
-    + note;
+  const chapterTitle = data.sources[0]?.chapter_title;
+
+  const partes = [];
+  if (data.contexto) partes.push(data.contexto);
+  if (data.conceitos_chave?.length) {
+    partes.push('Conceitos-chave:\n' + data.conceitos_chave.map(c => `• ${c}`).join('\n'));
+  }
+  if (data.perguntas?.length) {
+    partes.push('Perguntas para reflexão:\n' + data.perguntas.map((p, i) => `${i + 1}. ${p}`).join('\n'));
+  }
+  const ia = partes.join('\n\n') + note;
+
+  const titleParts = [bookLabel, chapterTitle, itemNumber ? 'Q.' + itemNumber : null]
+    .filter(Boolean);
   return {
     hasDaObra: true,
     obra: {
-      title: bookLabel + (itemNumber ? ' — Q.' + itemNumber : ''),
+      title: titleParts.join(' — '),
       quote: data.original_text,
       citation: bookLabel + ' — Allan Kardec',
-      context: data.sources[0]?.chapter_title || bookLabel,
+      context: chapterTitle || bookLabel,
     },
     ia,
+    relatedItems: (data.related_items || []).map(r => ({
+      book: r.book,
+      item_number: r.item_number,
+      preview: r.preview,
+      conexao: r.conexao || null,
+    })),
   };
 }
 
@@ -84,7 +101,13 @@ function mapReflect(data) {
   ]
     .filter(Boolean)
     .join('\n\n') + footer;
-  return { hasDaObra: false, obra: null, ia };
+  const relatedItems = (data.complementary_items || []).map(r => ({
+    book: r.book,
+    item_number: r.item_number,
+    preview: r.preview,
+    conexao: r.conexao || null,
+  }));
+  return { hasDaObra: false, obra: null, ia, relatedItems };
 }
 
 // ── Exported API functions ────────────────────────────────────────────────────

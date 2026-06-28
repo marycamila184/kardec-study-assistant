@@ -23,9 +23,10 @@ import LoadingDots from '../chat/LoadingDots';
 export default function GuidedStudy({
   trilha, currentStep, messages, loading, completed,
   theme, onNext, onBack, onRedirectDuvida, onShare, onToggleFav, isFavorite, fontSize,
+  quickActions = [], onQuickAction,
 }) {
   const scrollRef = useRef(null);
-  const progress = trilha ? Math.round((currentStep / trilha.steps.length) * 100) : 0;
+  const progress = trilha ? Math.round(((currentStep + 1) / trilha.steps.length) * 100) : 0;
   const stepTitle = trilha?.steps[currentStep]?.label || '';
   const isLast = trilha && currentStep === trilha.steps.length - 1;
   const hasNext = trilha && currentStep < trilha.steps.length - 1;
@@ -115,24 +116,32 @@ export default function GuidedStudy({
                   onShare={() => onShare(msg)}
                   onToggleFav={() => onToggleFav(msg)}
                   isFavorite={isFavorite(msg.id)}
-                  showQuickActions={false}
+                  showQuickActions={quickActions.length > 0}
+                  quickActions={quickActions}
+                  onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
                   {/* Show next/duvida buttons only on last tutor message */}
                   {i === lastTutorIdx && (
                     <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
-                      <button onClick={() => onRedirectDuvida(msg)} style={{
+                      <button onClick={() => onRedirectDuvida(msg)} disabled={loading} style={{
                         background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
                         color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-                        fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
+                        fontSize: 13.5, fontWeight: 500,
+                        cursor: loading ? 'not-allowed' : 'pointer',
+                        opacity: loading ? 0.45 : 1,
                       }}>Tenho uma dúvida</button>
                       {isLast
-                        ? <button onClick={onNext} style={{
+                        ? <button onClick={onNext} disabled={loading} style={{
                             background: '#C8856A', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600, cursor: 'pointer',
+                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.45 : 1,
                           }}>Concluir trilha ✨</button>
-                        : <button onClick={onNext} style={{
+                        : <button onClick={onNext} disabled={loading} style={{
                             background: '#6B9BB8', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600, cursor: 'pointer',
+                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.45 : 1,
                           }}>Entendi, próximo →</button>
                       }
                     </div>

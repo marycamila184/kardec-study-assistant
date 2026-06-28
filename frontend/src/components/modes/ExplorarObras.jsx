@@ -20,6 +20,7 @@ export default function ExplorarObras({
   theme, onBack, onRedirectDuvida,
   onAskTopic, messages = [], loading,
   onShare, onToggleFav, isFavorite, fontSize,
+  quickActions = [], onQuickAction,
 }) {
   const [selectedObra, setSelectedObra] = useState('le');
   const [openParts, setOpenParts] = useState({});
@@ -144,7 +145,9 @@ export default function ExplorarObras({
                   onShare={() => onShare(msg)}
                   onToggleFav={() => onToggleFav(msg)}
                   isFavorite={isFavorite(msg.id)}
-                  showQuickActions={false}
+                  showQuickActions={quickActions.length > 0}
+                  quickActions={quickActions}
+                  onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
                   <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
                     <button onClick={() => onRedirectDuvida(obra.label)} style={{
