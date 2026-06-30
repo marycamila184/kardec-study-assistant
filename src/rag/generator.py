@@ -68,6 +68,7 @@ def generate(question: str, history: list[dict]) -> dict:
                     "book": m["book"],
                     "chapter": m.get("chapter_title") or None,
                     "item_number": m.get("item_number") or None,
+                    "excerpt": chunk["content"],
                 }
             )
 

@@ -67,3 +67,8 @@ def test_generate_skips_condenser_without_history(mock_retrieve, mock_client):
     with patch("src.rag.generator.condense_query") as mock_cond:
         generate("O que é reencarnação?", [])
     mock_cond.assert_not_called()
+
+
+def test_generate_sources_include_excerpt(mock_retrieve, mock_client):
+    result = generate("O que é reencarnação?", [])
+    assert result["sources"][0]["excerpt"] == "A encarnação tem por fim fazê-los progredir."

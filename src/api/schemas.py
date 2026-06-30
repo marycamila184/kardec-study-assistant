@@ -12,6 +12,7 @@ class Source(BaseModel):
     book: str
     chapter: str | None = None
     item_number: str | None = None
+    excerpt: str | None = None
 
 
 class ChatRequest(BaseModel):
