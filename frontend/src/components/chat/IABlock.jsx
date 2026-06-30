@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SourceModal from '../modals/SourceModal';
 
 const ShareIcon = () => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="none"
@@ -20,6 +21,8 @@ export default function IABlock({
   quickActions = [],
   onQuickAction,
 }) {
+  const [openSource, setOpenSource] = useState(null);
+
   return (
     <div style={{
       background: theme.cardBg,
@@ -62,6 +65,21 @@ export default function IABlock({
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
       }}>{msg.ia}</div>
 
+      {msg.sources?.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>
+          {msg.sources.map((s, i) => (
+            <button key={i} onClick={() => setOpenSource(s)} style={{
+              background: 'transparent',
+              border: `1px solid ${theme.cardBorder}`,
+              color: theme.subtext, fontSize: 11,
+              padding: '3px 10px', borderRadius: 12,
+              cursor: 'pointer', fontWeight: 500,
+            }}>
+              📖 {s.item_number ? `${s.book}, Q.${s.item_number}` : s.book}
+            </button>
+          ))}
+        </div>
+      )}
 
       {showQuickActions && quickActions.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 10 }}>
@@ -78,6 +96,8 @@ export default function IABlock({
           ))}
         </div>
       )}
+
+      <SourceModal source={openSource} theme={theme} onClose={() => setOpenSource(null)} />
     </div>
   );
 }
