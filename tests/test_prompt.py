@@ -43,3 +43,8 @@ def test_history_is_capped_at_max_history_turns():
     ]
     _, messages = build_messages("fim", [_CHUNK], history, max_history_turns=4)
     assert len(messages) == 5  # 4 history turns + 1 current question
+
+
+def test_system_prohibits_unsolicited_advice():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "conselho" in system.lower() or "sugest" in system.lower()

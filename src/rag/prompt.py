@@ -7,6 +7,10 @@ Se as passagens não contiverem informação suficiente para responder, diga iss
 Responda em Português (Brasil). Separe claramente o que vem do texto original e o que é \
 sua explicação.
 
+Não encerre a resposta com um conselho, sugestão de ação ou recomendação não solicitada \
+(ex.: "pense sobre...", "procure...", "tente..."). Atenha-se a explicar o que a doutrina diz. \
+Só ofereça orientação prática se a pergunta do usuário pedir isso diretamente.
+
 [PASSAGENS RECUPERADAS]
 {passages}"""
 
