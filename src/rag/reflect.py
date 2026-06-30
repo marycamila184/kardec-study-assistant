@@ -68,6 +68,7 @@ def reflect(situation: str) -> dict:
             "book": c["metadata"]["book"],
             "chapter_title": c["metadata"].get("chapter_title") or None,
             "item_number": c["metadata"]["item_number"],
+            "excerpt": c["content"],
         }
         for c in primary
     ]

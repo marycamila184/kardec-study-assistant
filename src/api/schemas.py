@@ -61,6 +61,7 @@ class StudySource(BaseModel):
     book: str
     chapter_title: str | None = None
     item_number: str
+    excerpt: str | None = None
 
 
 class StudyRequest(BaseModel):

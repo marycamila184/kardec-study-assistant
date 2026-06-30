@@ -136,3 +136,14 @@ def test_reflect_passes_add_caveat_false_for_normal_situation():
         reflect("meu pai faleceu")
     _, _, add_caveat = mock_build.call_args[0]
     assert add_caveat is False
+
+
+def test_reflect_sources_include_excerpt():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]),
+        patch("src.rag.reflect._get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        result = reflect("situação")
+    excerpts = [s["excerpt"] for s in result["sources"]]
+    assert "Os espíritos sobrevivem à morte do corpo." in excerpts
