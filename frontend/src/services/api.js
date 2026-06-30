@@ -41,12 +41,16 @@ export function parseItemRef(itemString) {
 // ── Response mapping functions ────────────────────────────────────────────────
 
 function mapChat(data) {
-  const footer = data.sources.length > 0
-    ? '\n\n📚 ' + data.sources
-        .map(s => s.item_number ? `${s.book}, Q.${s.item_number}` : s.book)
-        .join(' · ')
-    : '';
-  return { hasDaObra: false, obra: null, ia: data.answer + footer };
+  return {
+    hasDaObra: false,
+    obra: null,
+    ia: data.answer,
+    sources: data.sources.map(s => ({
+      book: s.book,
+      item_number: s.item_number,
+      excerpt: s.excerpt || null,
+    })),
+  };
 }
 
 function mapStudy(data, bookLabel, itemNumber) {
@@ -89,25 +93,25 @@ function mapReflect(data) {
   const questions = data.reflection_questions
     .map((q, i) => `${i + 1}. ${q}`)
     .join('\n');
-  const footer = data.sources.length > 0
-    ? '\n\n📚 ' + data.sources
-        .map(s => s.item_number ? `${s.book}, Q.${s.item_number}` : s.book)
-        .join(' · ')
-    : '';
   const ia = [
     data.opening,
     data.doctrine_connection,
     questions ? 'Perguntas para reflexão:\n' + questions : '',
   ]
     .filter(Boolean)
-    .join('\n\n') + footer;
+    .join('\n\n');
   const relatedItems = (data.complementary_items || []).map(r => ({
     book: r.book,
     item_number: r.item_number,
     preview: r.preview,
     conexao: r.conexao || null,
   }));
-  return { hasDaObra: false, obra: null, ia, relatedItems };
+  const sources = data.sources.map(s => ({
+    book: s.book,
+    item_number: s.item_number,
+    excerpt: s.excerpt || null,
+  }));
+  return { hasDaObra: false, obra: null, ia, relatedItems, sources };
 }
 
 // ── Exported API functions ────────────────────────────────────────────────────
