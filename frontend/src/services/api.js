@@ -82,6 +82,7 @@ function mapStudy(data, bookLabel, itemNumber) {
     ia,
     relatedItems: (data.related_items || []).map(r => ({
       book: r.book,
+      chapter: r.chapter || null,
       item_number: r.item_number,
       preview: r.preview,
       conexao: r.conexao || null,
@@ -102,6 +103,7 @@ function mapReflect(data) {
     .join('\n\n');
   const relatedItems = (data.complementary_items || []).map(r => ({
     book: r.book,
+    chapter: r.chapter || null,
     item_number: r.item_number,
     preview: r.preview,
     conexao: r.conexao || null,

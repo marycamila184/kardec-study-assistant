@@ -42,6 +42,7 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
         return [
             {
                 "book": c["metadata"]["book"],
+                "chapter": c["metadata"].get("chapter"),
                 "item_number": c["metadata"]["item_number"],
                 "preview": c["content"][:200],
                 "conexao": None,
@@ -56,6 +57,7 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
             c = candidates[idx]
             result.append({
                 "book": c["metadata"]["book"],
+                "chapter": c["metadata"].get("chapter"),
                 "item_number": c["metadata"]["item_number"],
                 "preview": c["content"][:200],
                 "conexao": sel["conexao"] or None,

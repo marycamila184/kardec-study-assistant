@@ -549,7 +549,7 @@ export default function App() {
             setLoad(true);
             scrollToBottom();
             try {
-              const reply = await studyItem(item.book, item.item_number);
+              const reply = await studyItem(item.book, item.item_number, item.chapter || null);
               appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
             } catch {
               appendMsg({

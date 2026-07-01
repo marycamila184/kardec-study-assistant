@@ -52,6 +52,7 @@ class PathDetail(BaseModel):
 
 class RelatedItem(BaseModel):
     book: str
+    chapter: str | None = None
     item_number: str
     preview: str
     conexao: str | None = None
