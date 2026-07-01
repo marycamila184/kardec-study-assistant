@@ -130,14 +130,15 @@ export default function Sidebar({
                 fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
                 color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
               }}>"{evangelhoData.content.slice(0, 320)}…"</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5, marginBottom: 8 }}>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
                 {evangelhoData.source.chapter_title && (
                   <div>{evangelhoData.source.chapter_title}</div>
                 )}
                 <div>{evangelhoData.source.book}</div>
               </div>
+              <div style={{ height: 1, background: 'rgba(255,255,255,.14)', margin: '9px 0' }} />
               <div style={{
-                display: 'flex', alignItems: 'center', gap: 5,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
                 fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,.85)',
               }}>
                 Ler e refletir
