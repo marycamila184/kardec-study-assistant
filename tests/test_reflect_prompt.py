@@ -43,6 +43,11 @@ def test_situation_text_appears_in_system():
     assert "meu casamento está difícil" in system
 
 
+def test_system_prohibits_personifying_espiritismo():
+    system, _ = build_reflect_messages("qualquer situação", [], add_caveat=False)
+    assert "espiritismo" in system.lower()
+
+
 def test_chunk_content_appears_in_system():
     system, _ = build_reflect_messages("situação", [_CHUNK], add_caveat=False)
     assert "Os espíritos sobrevivem" in system

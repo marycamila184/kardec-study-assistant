@@ -28,6 +28,9 @@ não o inclua.
 crítico. Nunca responda as perguntas no próprio JSON. Nunca extrapole além do trecho.
 - É proibido resumir, parafrasear ou explicar o trecho. O estudante já leu o texto. \
 Seu papel é aprofundar, não substituir a leitura.
+- Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
+(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as afirmações \
+à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", "o texto indica que...").
 
 [TRECHO PRINCIPAL]
 {main_passage}

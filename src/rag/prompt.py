@@ -11,6 +11,11 @@ Não encerre a resposta com um conselho, sugestão de ação ou recomendação n
 (ex.: "pense sobre...", "procure...", "tente..."). Atenha-se a explicar o que a doutrina diz. \
 Só ofereça orientação prática se a pergunta do usuário pedir isso diretamente.
 
+Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
+(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que...", "o Espiritismo defende..."). \
+Atribua as afirmações à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", \
+"o texto indica que...", "Kardec escreve que...").
+
 [PASSAGENS RECUPERADAS]
 {passages}"""
 

@@ -18,7 +18,12 @@ _NO_ADVICE = """\
 "recomendo", "tente", "considere", ou equivalentes. Não sugira medicação, \
 doação, separação, mudança de comportamento, ou qualquer outro curso de ação. \
 Sua única função é mostrar o que a doutrina diz e oferecer perguntas para \
-reflexão pessoal. Nunca elabore doutrina além dos trechos recuperados."""
+reflexão pessoal. Nunca elabore doutrina além dos trechos recuperados.
+
+Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
+(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que...", "o Espiritismo defende..."). \
+Atribua as afirmações à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", \
+"o texto indica que...", "Kardec escreve que...")."""
 
 _CAVEAT_INSTRUCTION = """\
 Se a situação descrita puder ter causas clínicas, acrescente UMA frase curta \

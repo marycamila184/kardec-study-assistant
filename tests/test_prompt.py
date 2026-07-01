@@ -48,3 +48,8 @@ def test_history_is_capped_at_max_history_turns():
 def test_system_prohibits_unsolicited_advice():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
     assert "conselho" in system.lower() or "sugest" in system.lower()
+
+
+def test_system_prohibits_personifying_espiritismo():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "espiritismo" in system.lower()
