@@ -129,7 +129,7 @@ Fully implemented. Run once (or re-run to rebuild the vector store).
 
 - `embeddings.py` — wraps `SentenceTransformer` (`BAAI/bge-m3`); module-level singleton. Calls `huggingface_hub.login()` on startup if `HF_TOKEN` is set in env.
 - `vectorstore.py` — wraps ChromaDB. Methods: `upsert`, `query` (semantic), `get_by_filter` (metadata-only lookup)
-- `pipeline.py` — loads JSON → batches of 64 → embeds → upserts. `_build_document` appends footnotes after content, capped at 2000 chars total so the embedding model is never truncated. Full footnote text is always available in the JSON metadata.
+- `pipeline.py` — loads JSON → batches of 64 → embeds → upserts. `_build_document` appends footnotes after content, capped at 3000 chars total so the embedding model is never truncated. Full footnote text is always available in the JSON metadata.
 
 Document ID format: `{book_filename_stem}_{item_number}_{subchunk_index}` — stable across re-runs (upsert is idempotent).
 
