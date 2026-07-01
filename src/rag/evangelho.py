@@ -1,47 +1,59 @@
 import datetime
 import random
 
-from src.rag.retriever import _get_store
+from src.parsing.cleaner import clean_markdown
+from src.parsing.parser import parse_md_to_json
 
 EVANGELHO_BOOK = "O Evangelho Segundo o Espiritismo"
+TRECHO_DIARIO_PATH = "data/markdown_files/trecho_diario.md"
+
+_chunks: list[dict] | None = None
+
+
+def _get_chunks() -> list[dict]:
+    global _chunks
+    if _chunks is None:
+        with open(TRECHO_DIARIO_PATH, "r", encoding="utf-8") as f:
+            raw_text = f.read()
+        _chunks = parse_md_to_json(clean_markdown(raw_text), EVANGELHO_BOOK)
+    return _chunks
+
+
+def _select_passage(chunks: list[dict], seed: str) -> dict:
+    rng = random.Random(seed)
+
+    chapters: dict[str, list[dict]] = {}
+    for c in chunks:
+        chapter = c.get("chapter_title") or "__no_chapter__"
+        chapters.setdefault(chapter, []).append(c)
+    chapter_chunks = chapters[rng.choice(sorted(chapters))]
+
+    items: dict[str, list[dict]] = {}
+    for c in chapter_chunks:
+        item = c.get("item_number") or "__no_item__"
+        items.setdefault(item, []).append(c)
+    item_chunks = sorted(
+        items[rng.choice(sorted(items))], key=lambda c: c.get("subchunk_index", 0)
+    )
+
+    first = item_chunks[0]
+    return {
+        "content": " ".join(c["content"] for c in item_chunks),
+        "source": {
+            "book": EVANGELHO_BOOK,
+            "chapter": first.get("chapter"),
+            "chapter_title": first.get("chapter_title"),
+            "item_number": first.get("item_number"),
+            "total_subchunks": first.get("total_subchunks", len(item_chunks)),
+        },
+    }
 
 
 def get_daily_passage() -> dict | None:
-    chunks = _get_store().get_by_filter({"book": {"$eq": EVANGELHO_BOOK}})
+    chunks = _get_chunks()
     if not chunks:
         return None
-
     today = datetime.date.today().isoformat()
-    rng = random.Random(today)
-
-    # Group chunks by chapter
-    chapters: dict[str, list] = {}
-    for c in chunks:
-        chapter = c["metadata"].get("chapter_title") or "__no_chapter__"
-        chapters.setdefault(chapter, []).append(c)
-
-    # Pick a random chapter, then a random item within it, then subchunk_index 0
-    chapter_key = rng.choice(sorted(chapters))
-    chapter_chunks = chapters[chapter_key]
-
-    items: dict[str, list] = {}
-    for c in chapter_chunks:
-        item = c["metadata"].get("item_number") or "__no_item__"
-        items.setdefault(item, []).append(c)
-
-    item_key = rng.choice(sorted(items))
-    item_chunks = sorted(items[item_key], key=lambda c: c["metadata"].get("subchunk_index", 0))
-    chunk = item_chunks[0]
-    meta = chunk["metadata"]
-    return {
-        "date": today,
-        "content": chunk["content"],
-        "source": {
-            "book": EVANGELHO_BOOK,
-            "chapter": meta.get("chapter"),
-            "chapter_title": meta.get("chapter_title"),
-            "item_number": meta.get("item_number"),
-            "subchunk_index": meta.get("subchunk_index"),
-            "total_subchunks": meta.get("total_subchunks"),
-        },
-    }
+    result = _select_passage(chunks, today)
+    result["date"] = today
+    return result
