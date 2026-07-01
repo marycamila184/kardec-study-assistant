@@ -9,7 +9,7 @@ def test_settings_has_correct_defaults(monkeypatch):
     assert s.max_distance == 1.2
     assert s.max_history_turns == 10
     assert s.chroma_collection == "kardec_docs"
-    assert s.chat_model == "llama-3.1-8b-instant"
+    assert s.chat_model == "llama-3.3-70b-versatile"
     assert s.condenser_model == "llama-3.1-8b-instant"
     assert s.paths_dir == "data/paths"
 
