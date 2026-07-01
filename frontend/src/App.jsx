@@ -501,7 +501,9 @@ export default function App() {
                         onToggleFav={() => toggleFavorite(msg)}
                         isFavorite={isFavorite(msg.id)}
                         showQuickActions={!msg.hideQuickActions}
-                        quickActions={QUICK_ACTIONS}
+                        quickActions={QUICK_ACTIONS.filter(
+                          qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
+                        )}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
                       />
                 ))}

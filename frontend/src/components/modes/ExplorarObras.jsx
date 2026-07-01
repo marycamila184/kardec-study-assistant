@@ -145,8 +145,10 @@ export default function ExplorarObras({
                   onShare={() => onShare(msg)}
                   onToggleFav={() => onToggleFav(msg)}
                   isFavorite={isFavorite(msg.id)}
-                  showQuickActions={quickActions.length > 0}
-                  quickActions={quickActions}
+                  showQuickActions={quickActions.length > 0 && !msg.hideQuickActions}
+                  quickActions={quickActions.filter(
+                    qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
+                  )}
                   onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
                   <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
