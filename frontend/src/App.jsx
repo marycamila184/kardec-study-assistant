@@ -41,10 +41,10 @@ const MODE_PLACEHOLDER = {
 };
 
 const SUGGESTIONS = [
-  { icon: '📖', label: 'O que é o perispírito?' },
-  { icon: '💬', label: 'Q.132 — Visibilidade dos Espíritos' },
-  { icon: '🪞', label: 'Estou enfrentando uma perda difícil' },
-  { icon: '☀️', label: 'Trecho do dia', action: 'trecho' },
+  { icon: '📖', label: 'O que é o Espiritismo?' },
+  { icon: '💬', label: 'Qual a diferença entre alma, perispírito e espírito?' },
+  { icon: '🔄', label: 'O que é a reencarnação?' },
+  { icon: '🪞', label: 'Como posso ter mais paz no dia a dia?' },
 ];
 
 const ERROR_MSG = {
@@ -481,14 +481,26 @@ export default function App() {
                       </svg>
                     </div>
                     <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 22, fontWeight: 600, color: theme.text, marginBottom: 8 }}>
-                      Como posso ajudar seus estudos?
+                      Em que posso ajudar?
                     </div>
                     <div style={{ fontSize: 14, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 22 }}>
-                      Faça uma pergunta ou experimente uma das sugestões abaixo.
+                      Escolha uma sugestão ou digite sua pergunta.
                     </div>
+                    <button onClick={() => switchMode('estudar')} style={{
+                      background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.3)',
+                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
+                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
+                      maxWidth: 360, width: '100%', marginBottom: 14,
+                    }}>
+                      <span style={{ fontSize: 20 }}>📚</span>
+                      <div>
+                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Estudar uma Obra</div>
+                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Trilhas guiadas e livre exploração pelas 5 obras</div>
+                      </div>
+                    </button>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, maxWidth: 360 }}>
                       {SUGGESTIONS.map(s => (
-                        <button key={s.label} onClick={s.action === 'trecho' ? handleStudyTrecho : () => sendText(s.label)} style={{
+                        <button key={s.label} onClick={() => sendText(s.label)} style={{
                           background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
                           borderRadius: 10, padding: '12px 14px', cursor: 'pointer',
                           textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 5,
