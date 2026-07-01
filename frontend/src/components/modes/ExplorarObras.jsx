@@ -9,7 +9,8 @@ import LoadingDots from '../chat/LoadingDots';
  * Props:
  *   theme
  *   onBack               — () => void
- *   onRedirectDuvida     — (obraLabel) => void
+ *   onRedirectDuvida     — (obraLabel) => void (unused by "Tenho uma dúvida"; see onAskDuvida)
+ *   onAskDuvida          — (text) => void — submit inline follow-up question
  *   onAskTopic           — (query, obraId) => void  (triggers API call)
  *   messages             — array
  *   loading              — boolean
@@ -21,12 +22,53 @@ export default function ExplorarObras({
   onAskTopic, messages = [], loading,
   onShare, onToggleFav, isFavorite, fontSize,
   quickActions = [], onQuickAction,
-  onBookChange,
+  onBookChange, onAskDuvida,
 }) {
   const [selectedObra, setSelectedObra] = useState('le');
   const [openParts, setOpenParts] = useState({});
   const obra = OBRAS.find(o => o.id === selectedObra) || OBRAS[0];
   const hasMessages = messages.length > 0;
+
+  const [askingDuvida, setAskingDuvida] = useState(false);
+  const [duvidaText, setDuvidaText] = useState('');
+
+  const submitDuvida = () => {
+    if (!duvidaText.trim()) return;
+    onAskDuvida(duvidaText.trim());
+    setDuvidaText('');
+    setAskingDuvida(false);
+  };
+
+  const DuvidaComposer = () => (
+    <>
+      <button onClick={() => setAskingDuvida(v => !v)} style={{
+        background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
+        color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
+        fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
+      }}>Tenho uma dúvida</button>
+      {askingDuvida && (
+        <div style={{ display: 'flex', gap: 6, width: '100%', maxWidth: 420, marginTop: 8 }}>
+          <input
+            value={duvidaText}
+            onChange={e => setDuvidaText(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); submitDuvida(); } }}
+            placeholder="Digite sua dúvida…"
+            autoFocus
+            style={{
+              flex: 1, background: theme.inputBg, border: `1px solid ${theme.inputBorder}`,
+              borderRadius: 8, padding: '8px 12px', fontSize: 13.5, color: theme.text, outline: 'none',
+            }}
+          />
+          <button onClick={submitDuvida} disabled={!duvidaText.trim()} style={{
+            background: '#6B9BB8', color: 'white', border: 'none',
+            padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
+            cursor: duvidaText.trim() ? 'pointer' : 'not-allowed',
+            opacity: duvidaText.trim() ? 1 : 0.5,
+          }}>Perguntar</button>
+        </div>
+      )}
+    </>
+  );
 
   const togglePart = (key) => setOpenParts(p => ({ ...p, [key]: !p[key] }));
 
@@ -129,13 +171,9 @@ export default function ExplorarObras({
             );
           })}
 
-          {/* Redirect prompt */}
-          <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
-            <button onClick={() => onRedirectDuvida(obra.label)} style={{
-              background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-              color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-              fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
-            }}>Tenho uma dúvida</button>
+          {/* Dúvida composer */}
+          <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <DuvidaComposer />
           </div>
         </div>
       ) : (
@@ -153,12 +191,8 @@ export default function ExplorarObras({
                   )}
                   onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
-                    <button onClick={() => onRedirectDuvida(obra.label)} style={{
-                      background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-                      color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-                      fontSize: 12, fontWeight: 500, cursor: 'pointer',
-                    }}>Tenho uma dúvida</button>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
+                    <DuvidaComposer />
                   </div>
                 </AIMessage>
           ))}

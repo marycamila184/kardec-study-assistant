@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
@@ -13,7 +13,7 @@ import LoadingDots from '../chat/LoadingDots';
  *   theme
  *   onNext         — () => void — advance to next step, or complete the trilha and navigate back
  *   onBack         — () => void — back to picker
- *   onRedirectDuvida — (msg) => void
+ *   onAskDuvida    — (text) => void — submit inline follow-up question
  *   onShare        — (msg) => void
  *   onToggleFav    — (msg) => void
  *   isFavorite     — (id) => boolean
@@ -21,13 +21,23 @@ import LoadingDots from '../chat/LoadingDots';
  */
 export default function GuidedStudy({
   trilha, currentStep, messages, loading,
-  theme, onNext, onBack, onRedirectDuvida, onShare, onToggleFav, isFavorite, fontSize,
+  theme, onNext, onBack, onAskDuvida, onShare, onToggleFav, isFavorite, fontSize,
   quickActions = [], onQuickAction,
 }) {
   const scrollRef = useRef(null);
   const progress = trilha ? Math.round(((currentStep + 1) / trilha.steps.length) * 100) : 0;
   const stepTitle = trilha?.steps[currentStep]?.label || '';
   const isLast = trilha && currentStep === trilha.steps.length - 1;
+
+  const [askingDuvida, setAskingDuvida] = useState(false);
+  const [duvidaText, setDuvidaText] = useState('');
+
+  const submitDuvida = () => {
+    if (!duvidaText.trim()) return;
+    onAskDuvida(duvidaText.trim());
+    setDuvidaText('');
+    setAskingDuvida(false);
+  };
 
   useEffect(() => {
     let ticks = 0;
@@ -90,28 +100,51 @@ export default function GuidedStudy({
               >
                 {/* Show next/duvida buttons only on last tutor message */}
                 {i === lastTutorIdx && (
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
-                    <button onClick={() => onRedirectDuvida(msg)} disabled={loading} style={{
-                      background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-                      color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-                      fontSize: 13.5, fontWeight: 500,
-                      cursor: loading ? 'not-allowed' : 'pointer',
-                      opacity: loading ? 0.45 : 1,
-                    }}>Tenho uma dúvida</button>
-                    {isLast
-                      ? <button onClick={onNext} disabled={loading} style={{
-                          background: '#C8856A', color: 'white', border: 'none',
-                          padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
-                          cursor: loading ? 'not-allowed' : 'pointer',
-                          opacity: loading ? 0.45 : 1,
-                        }}>Concluir trilha ✨</button>
-                      : <button onClick={onNext} disabled={loading} style={{
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, marginTop: 12 }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
+                      <button onClick={() => setAskingDuvida(v => !v)} disabled={loading} style={{
+                        background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
+                        color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
+                        fontSize: 13.5, fontWeight: 500,
+                        cursor: loading ? 'not-allowed' : 'pointer',
+                        opacity: loading ? 0.45 : 1,
+                      }}>Tenho uma dúvida</button>
+                      {isLast
+                        ? <button onClick={onNext} disabled={loading} style={{
+                            background: '#C8856A', color: 'white', border: 'none',
+                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.45 : 1,
+                          }}>Concluir trilha ✨</button>
+                        : <button onClick={onNext} disabled={loading} style={{
+                            background: '#6B9BB8', color: 'white', border: 'none',
+                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.45 : 1,
+                          }}>Entendi, próximo →</button>
+                      }
+                    </div>
+                    {askingDuvida && (
+                      <div style={{ display: 'flex', gap: 6, width: '100%', maxWidth: 420 }}>
+                        <input
+                          value={duvidaText}
+                          onChange={e => setDuvidaText(e.target.value)}
+                          onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); submitDuvida(); } }}
+                          placeholder="Digite sua dúvida…"
+                          autoFocus
+                          style={{
+                            flex: 1, background: theme.inputBg, border: `1px solid ${theme.inputBorder}`,
+                            borderRadius: 8, padding: '8px 12px', fontSize: 13.5, color: theme.text, outline: 'none',
+                          }}
+                        />
+                        <button onClick={submitDuvida} disabled={!duvidaText.trim()} style={{
                           background: '#6B9BB8', color: 'white', border: 'none',
-                          padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
-                          cursor: loading ? 'not-allowed' : 'pointer',
-                          opacity: loading ? 0.45 : 1,
-                        }}>Entendi, próximo →</button>
-                    }
+                          padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
+                          cursor: duvidaText.trim() ? 'pointer' : 'not-allowed',
+                          opacity: duvidaText.trim() ? 1 : 0.5,
+                        }}>Perguntar</button>
+                      </div>
+                    )}
                   </div>
                 )}
               </AIMessage>

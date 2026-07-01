@@ -211,6 +211,25 @@ export default function App() {
   const handleExplorarQuickAction = (label, msg) =>
     runQuickAction(label, msg, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
 
+  // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
+  const askDuvida = async (text, appendMsg, setLoad) => {
+    if (!text.trim()) return;
+    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text });
+    setLoad(true);
+    scrollToBottom();
+    try {
+      const reply = await chatMessage(text);
+      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+    } catch {
+      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+    } finally {
+      setLoad(false);
+      scrollToBottom();
+    }
+  };
+  const handleGuidedDuvida = (text) => askDuvida(text, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
+  const handleExplorarDuvida = (text) => askDuvida(text, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
+
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
     setEstudarSub('guided');
@@ -441,7 +460,7 @@ export default function App() {
               fontSize={msgFontSize}
               onNext={handleGuidedNext}
               onBack={() => setEstudarSub('picker')}
-              onRedirectDuvida={(msg) => redirectToDuvida(msg?.obra?.title || 'Kardec')}
+              onAskDuvida={handleGuidedDuvida}
               onShare={setShareMsg}
               onToggleFav={toggleFavorite}
               isFavorite={isFavorite}
@@ -465,6 +484,7 @@ export default function App() {
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
               onBookChange={() => setExplorarMsgs([])}
+              onAskDuvida={handleExplorarDuvida}
             />
           )}
 
