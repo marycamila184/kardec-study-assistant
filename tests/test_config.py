@@ -12,6 +12,7 @@ def test_settings_has_correct_defaults(monkeypatch):
     assert s.chat_model == "llama-3.3-70b-versatile"
     assert s.condenser_model == "llama-3.1-8b-instant"
     assert s.paths_dir == "data/paths"
+    assert s.embedding_model == "BAAI/bge-m3"
 
 
 def test_settings_requires_api_key(monkeypatch):

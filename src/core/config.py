@@ -6,7 +6,7 @@ class Settings(BaseSettings):
 
     groq_api_key: str
     hf_token: str | None = None
-    embedding_model: str = "paraphrase-multilingual-mpnet-base-v2"
+    embedding_model: str = "BAAI/bge-m3"
     chat_model: str = "llama-3.3-70b-versatile"
     condenser_model: str = "llama-3.1-8b-instant"
     top_k: int = 5
