@@ -110,3 +110,4 @@ class EvangelhoResponse(BaseModel):
     date: str
     content: str
     source: EvangelhoSource
+    chapter_summary: str | None = None

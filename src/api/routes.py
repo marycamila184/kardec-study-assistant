@@ -83,6 +83,7 @@ def evangelho() -> EvangelhoResponse:
         date=passage["date"],
         content=passage["content"],
         source=EvangelhoSource(**passage["source"]),
+        chapter_summary=passage.get("chapter_summary"),
     )
 
 

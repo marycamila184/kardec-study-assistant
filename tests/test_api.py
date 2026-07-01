@@ -261,3 +261,17 @@ def test_study_with_chapter_passes_chapter_to_study_fn():
     mock_fn.assert_called_once_with(
         "O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO IV"
     )
+
+
+def test_evangelho_response_includes_chapter_summary():
+    passage = dict(_EVANGELHO_PASSAGE, chapter_summary="Resumo do capítulo.")
+    with patch("src.api.routes.get_daily_passage", return_value=passage):
+        data = client.get("/evangelho").json()
+    assert data["chapter_summary"] == "Resumo do capítulo."
+
+
+def test_evangelho_response_chapter_summary_defaults_to_none():
+    passage = dict(_EVANGELHO_PASSAGE, chapter_summary=None)
+    with patch("src.api.routes.get_daily_passage", return_value=passage):
+        data = client.get("/evangelho").json()
+    assert data["chapter_summary"] is None
