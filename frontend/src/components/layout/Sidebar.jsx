@@ -126,6 +126,12 @@ export default function Sidebar({
                 )}
                 <div>{evangelhoData.source.book}</div>
               </div>
+              {evangelhoData.chapter_summary && (
+                <div style={{
+                  fontSize: 11, fontStyle: 'italic', color: 'rgba(255,255,255,.5)',
+                  lineHeight: 1.5, marginTop: 6,
+                }}>{evangelhoData.chapter_summary}</div>
+              )}
             </>
           ) : (
             <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
