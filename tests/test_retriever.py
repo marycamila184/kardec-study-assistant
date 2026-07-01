@@ -70,3 +70,50 @@ def test_retrieve_by_item_with_chapter_adds_chapter_to_filter(monkeypatch):
             {"chapter": {"$eq": "CAPÍTULO IV"}},
         ]}
     )
+
+
+def test_split_footnotes_separates_clean_content_from_notes():
+    from src.rag.retriever import _split_footnotes
+    content = "Texto principal.\n[Nota 1] Primeira nota.\n[Nota 2] Segunda nota."
+    clean, footnotes = _split_footnotes(content)
+    assert clean == "Texto principal."
+    assert footnotes == "[Nota 1] Primeira nota.\n[Nota 2] Segunda nota."
+
+
+def test_split_footnotes_returns_unchanged_when_no_marker():
+    from src.rag.retriever import _split_footnotes
+    clean, footnotes = _split_footnotes("Texto sem notas.")
+    assert clean == "Texto sem notas."
+    assert footnotes == ""
+
+
+def test_retrieve_strips_footnote_suffix_from_content(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.query.return_value = [
+        {"content": "Texto principal.\n[Nota 1] Nota explicativa.", "metadata": {}, "distance": 0.5},
+    ]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    results = retrieve("alma")
+    assert results[0]["content"] == "Texto principal."
+    assert results[0]["footnote_context"] == "[Nota 1] Nota explicativa."
+
+
+def test_retrieve_footnote_context_empty_when_no_footnote(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.query.return_value = [
+        {"content": "Texto sem notas.", "metadata": {}, "distance": 0.5},
+    ]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    results = retrieve("alma")
+    assert results[0]["footnote_context"] == ""
+
+
+def test_retrieve_by_item_strips_footnote_suffix(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.get_by_filter.return_value = [
+        {"content": "Item principal.\n[Nota 1] Explicação.", "metadata": {}, "distance": 0.0},
+    ]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    results = retrieve_by_item("O Livro dos Espíritos", "1")
+    assert results[0]["content"] == "Item principal."
+    assert results[0]["footnote_context"] == "[Nota 1] Explicação."
