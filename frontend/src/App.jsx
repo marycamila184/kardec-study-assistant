@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
 import MobileBottomNav from './components/layout/MobileBottomNav';
@@ -65,10 +65,6 @@ export default function App() {
   const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
   const { conversations, saveConvo, deleteConvo, toggleConvoFavorite } = useConversations();
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
-  useReminder({
-    enabled: reminderOn, time: reminderTime, permission: notifPerm,
-    onNotificationClick: () => { switchMode('duvida'); handleStudyTrecho(); },
-  });
 
   // ── API state ────────────────────────────────────────────────────────────
   const [evangelhoData, setEvangelhoData] = useState(null);
@@ -331,6 +327,17 @@ export default function App() {
     setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply }]);
     scrollToBottom();
   };
+
+  // ── Reminder notification click ───────────────────────────────────────────
+  const handleNotificationClick = useCallback(() => {
+    switchMode('duvida');
+    handleStudyTrecho();
+  }, [switchMode, handleStudyTrecho]);
+
+  useReminder({
+    enabled: reminderOn, time: reminderTime, permission: notifPerm,
+    onNotificationClick: handleNotificationClick,
+  });
 
   // ── Notification permission ───────────────────────────────────────────────
   const requestNotif = async () => {
