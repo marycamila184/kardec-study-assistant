@@ -42,7 +42,7 @@ def _split_oversized_paragraph(paragraph: str, max_chars: int) -> list[str]:
     return pieces
 
 
-def split_into_subchunks(text: str, max_chars: int = 400):
+def split_into_subchunks(text: str, max_chars: int = 800):
     """
     Splits long text into subchunks of at most max_chars, preserving
     paragraph structure and, for paragraphs too long on their own,

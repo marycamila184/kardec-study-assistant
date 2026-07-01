@@ -335,8 +335,9 @@ def test_chunk_without_footnote_has_empty_lists():
 
 
 def test_default_max_chars_matches_embedding_safe_ceiling():
-    """The embedding model truncates at ~128 tokens, so the default subchunk
-    ceiling must be 400 chars, not the old 2000-char default."""
+    """BAAI/bge-m3 supports up to 8192 tokens of context, but the subchunk
+    ceiling is calibrated to typical item length (not the model's technical
+    limit) to keep retrieval chunks topically focused. Default is 800 chars."""
     md = "# CAPÍTULO I\n\n# O TÍTULO\n\n1. " + "Frase de exemplo. " * 60 + "\n"
     chunks = parse_md_to_json(md, CEU_INFERNO)
-    assert all(len(c["content"]) <= 400 for c in chunks)
+    assert all(len(c["content"]) <= 800 for c in chunks)
