@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
+import { useTypewriter } from '../../hooks/useTypewriter';
 
 const ShareIcon = () => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="none"
@@ -22,6 +23,7 @@ export default function IABlock({
   onQuickAction,
 }) {
   const [openSource, setOpenSource] = useState(null);
+  const revealedText = useTypewriter(msg.ia, { key: msg.id });
 
   return (
     <div style={{
@@ -63,7 +65,7 @@ export default function IABlock({
 
       <div style={{
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
-      }}>{msg.ia}</div>
+      }}>{revealedText}</div>
 
       {msg.sources?.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>

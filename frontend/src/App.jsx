@@ -107,7 +107,12 @@ export default function App() {
   }, []);
 
   const scrollToBottom = () => {
-    setTimeout(() => { if (msgsRef.current) msgsRef.current.scrollTop = msgsRef.current.scrollHeight; }, 60);
+    let ticks = 0;
+    const interval = setInterval(() => {
+      if (msgsRef.current) msgsRef.current.scrollTop = msgsRef.current.scrollHeight;
+      ticks += 1;
+      if (ticks >= 20) clearInterval(interval); // ~2s at 100ms
+    }, 100);
   };
 
   // ── Font size helper ─────────────────────────────────────────────────────

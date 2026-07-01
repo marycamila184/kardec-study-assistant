@@ -30,7 +30,13 @@ export default function GuidedStudy({
   const isLast = trilha && currentStep === trilha.steps.length - 1;
 
   useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    let ticks = 0;
+    const interval = setInterval(() => {
+      if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      ticks += 1;
+      if (ticks >= 20) clearInterval(interval); // ~2s at 100ms
+    }, 100);
+    return () => clearInterval(interval);
   }, [messages, loading]);
 
   // Find the last tutor message index (hasDaObra) for showing the next button
