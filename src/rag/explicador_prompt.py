@@ -9,10 +9,10 @@ nenhum texto depois, nenhuma observação, nenhum markdown. Qualquer caractere f
 do JSON quebrará o sistema.
 
 {{
-  "contexto": "<3 a 6 frases indicando onde este item se encaixa na estrutura da \
+  "contexto": "<4 a 8 frases indicando onde este item se encaixa na estrutura da \
 doutrina e, quando relevante, o contexto histórico/cultural em que foi dito, \
-baseando-se no trecho, nas notas de rodapé e, se necessário, em conhecimento \
-histórico geral>",
+baseando-se no trecho, nas notas de rodapé, nas referências relacionadas e, se \
+necessário, em conhecimento histórico geral>",
   "conceitos_chave": [
     "<Termo exato do texto>: <definição baseada no trecho, podendo incluir uma \
 breve explicação esclarecedora>"
@@ -24,12 +24,16 @@ breve explicação esclarecedora>"
 
 Regras estritas:
 - "contexto": baseie-se no trecho e nas notas de rodapé para explicar onde este item \
-se encaixa na doutrina. Você PODE incluir contexto histórico ou cultural geral (ex.: \
-quem eram os fariseus, publicanos, samaritanos; costumes da época) para ajudar a \
-entender a passagem, usando conhecimento histórico amplamente estabelecido. Deixe \
-claro na resposta o que é contexto histórico geral e o que vem do texto/doutrina \
-(ex.: "Historicamente, os fariseus eram... O texto, por sua vez, mostra que..."). \
-Nunca invente ou altere doutrina espírita — isso continua restrito ao trecho.
+se encaixa na doutrina. Use também as REFERÊNCIAS RELACIONADAS abaixo para mostrar \
+como este trecho se conecta com outras passagens da doutrina espírita — cite ou \
+parafraseie a conexão de forma específica (ex.: "Esta ideia aparece também em..."), \
+em vez de mencionar as referências apenas de passagem. Você PODE incluir contexto \
+histórico ou cultural geral (ex.: quem eram os fariseus, publicanos, samaritanos; \
+costumes da época) para ajudar a entender a passagem, usando conhecimento histórico \
+amplamente estabelecido. Deixe claro na resposta o que é contexto histórico geral e \
+o que vem do texto/doutrina (ex.: "Historicamente, os fariseus eram... O texto, por \
+sua vez, mostra que..."). Nunca invente ou altere doutrina espírita — isso continua \
+restrito ao trecho e às referências relacionadas fornecidas.
 - "conceitos_chave": extraia os termos centrais com suas definições baseadas no \
 texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
 da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \

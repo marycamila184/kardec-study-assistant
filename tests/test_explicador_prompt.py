@@ -24,3 +24,8 @@ def test_footnote_context_appears_in_system_when_provided():
 def test_footnote_context_defaults_to_placeholder_when_empty():
     system, _ = build_explicador_messages("Trecho.", [])
     assert "(nenhuma)" in system
+
+
+def test_system_instructs_using_related_references_for_contexto_depth():
+    system, _ = build_explicador_messages("Trecho de exemplo.", [])
+    assert "use também as referências relacionadas" in system.lower()
