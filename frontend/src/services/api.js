@@ -88,16 +88,6 @@ function mapStudy(data, bookLabel, itemNumber) {
 }
 
 function mapReflect(data) {
-  const questions = data.reflection_questions
-    .map((q, i) => `${i + 1}. ${q}`)
-    .join('\n');
-  const ia = [
-    data.opening,
-    data.doctrine_connection,
-    questions ? 'Perguntas para reflexão:\n' + questions : '',
-  ]
-    .filter(Boolean)
-    .join('\n\n');
   const relatedItems = (data.complementary_items || []).map(r => ({
     book: r.book,
     chapter: r.chapter || null,
@@ -110,7 +100,16 @@ function mapReflect(data) {
     item_number: s.item_number,
     excerpt: s.excerpt || null,
   }));
-  return { hasDaObra: false, obra: null, ia, relatedItems, sources };
+  return {
+    hasDaObra: false,
+    obra: null,
+    isReflection: true,
+    opening: data.opening,
+    ia: data.doctrine_connection,
+    reflectionQuestions: data.reflection_questions || [],
+    relatedItems,
+    sources,
+  };
 }
 
 // ── Exported API functions ────────────────────────────────────────────────────

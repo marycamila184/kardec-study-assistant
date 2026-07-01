@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
+import { BRAND_TERRACOTTA } from '../../constants/theme';
 
 const ShareIcon = () => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="none"
@@ -34,13 +35,13 @@ export default function IABlock({
       borderRadius: '0 0 10px 10px',
       padding: '13px 16px',
     }}>
-      {msg.hasDaObra && (
+      {(msg.hasDaObra || msg.isReflection) && (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
           <span style={{
-            background: '#6B9BB8', color: 'white',
+            background: msg.isReflection ? BRAND_TERRACOTTA : '#6B9BB8', color: 'white',
             fontSize: 9, fontWeight: 700, letterSpacing: '.1em',
             padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
-          }}>Da IA</span>
+          }}>{msg.isReflection ? '🪞 Reflexão' : 'Da IA'}</span>
           {!isRevealing && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
               {onShare && (
@@ -66,9 +67,27 @@ export default function IABlock({
         </div>
       )}
 
+      {msg.isReflection && msg.opening && (
+        <div style={{
+          fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', fontSize: 15,
+          color: BRAND_TERRACOTTA, lineHeight: 1.6, marginBottom: 10,
+        }}>{msg.opening}</div>
+      )}
+
       <div style={{
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
       }}>{revealedText}</div>
+
+      {!isRevealing && msg.isReflection && msg.reflectionQuestions?.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
+          {msg.reflectionQuestions.map((q, i) => (
+            <div key={i} style={{
+              background: 'rgba(200,133,106,.08)', border: `1px solid rgba(200,133,106,.25)`,
+              borderRadius: 8, padding: '8px 12px', fontSize: 13, color: theme.text, lineHeight: 1.5,
+            }}>{q}</div>
+          ))}
+        </div>
+      )}
 
       {!isRevealing && msg.sources?.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>
