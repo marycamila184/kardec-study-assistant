@@ -52,7 +52,10 @@ def generate_summaries(
         if not force and title in existing:
             result[title] = existing[title]
         else:
-            result[title] = _summarize(title, text)
+            try:
+                result[title] = _summarize(title, text)
+            except Exception as e:
+                print(f"Warning: Failed to summarize chapter '{title}': {e}")
     return result
 
 
