@@ -5,6 +5,7 @@ import MobileBottomNav from './components/layout/MobileBottomNav';
 import Onboarding from './components/modals/Onboarding';
 import SettingsPanel from './components/modals/SettingsPanel';
 import ShareModal from './components/modals/ShareModal';
+import RelatedItemsModal from './components/modals/RelatedItemsModal';
 import EstudarPicker from './components/modes/EstudarPicker';
 import GuidedStudy from './components/modes/GuidedStudy';
 import ExplorarObras from './components/modes/ExplorarObras';
@@ -85,6 +86,7 @@ export default function App() {
   const [explorarLoad,  setExplorarLoad] = useState(false);
   const [showSettings,  setShowSettings] = useState(false);
   const [shareMsg,      setShareMsg]     = useState(null);
+  const [relatedModal,  setRelatedModal] = useState(null);
   const [convoId,       setConvoId]      = useState(null);
   const [isMobile,      setIsMobile]     = useState(() => window.innerWidth < 768);
   const [drawerOpen,    setDrawerOpen]   = useState(false);
@@ -173,20 +175,8 @@ export default function App() {
     if (label === '📚 Relacionados') {
       const related = msg.relatedItems || [];
       if (related.length > 0) {
-        const text = related
-          .map(r => {
-            let line = `• ${r.book} — Q.${r.item_number}`;
-            if (r.conexao) line += `\n  ${r.conexao}`;
-            line += `\n"${r.preview}…"`;
-            return line;
-          })
-          .join('\n\n');
-        appendMsg({
-          id: 'a' + Date.now(), isUser: false, isAI: true,
-          hasDaObra: false, obra: null, ia: '📚 Leituras relacionadas:\n\n' + text,
-        });
+        setRelatedModal({ items: related, appendMsg, setLoad });
       }
-      scrollToBottom();
       return;
     }
 
@@ -510,7 +500,7 @@ export default function App() {
                         onShare={() => setShareMsg(msg)}
                         onToggleFav={() => toggleFavorite(msg)}
                         isFavorite={isFavorite(msg.id)}
-                        showQuickActions={true}
+                        showQuickActions={!msg.hideQuickActions}
                         quickActions={QUICK_ACTIONS}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
                       />
@@ -546,6 +536,31 @@ export default function App() {
         theme={theme}
       />
       {shareMsg && <ShareModal msg={shareMsg} theme={theme} onClose={() => setShareMsg(null)} />}
+      {relatedModal && (
+        <RelatedItemsModal
+          modal={relatedModal}
+          theme={theme}
+          onClose={() => setRelatedModal(null)}
+          onSelectItem={async (item) => {
+            const { appendMsg, setLoad } = relatedModal;
+            setRelatedModal(null);
+            setLoad(true);
+            scrollToBottom();
+            try {
+              const reply = await studyItem(item.book, item.item_number);
+              appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+            } catch {
+              appendMsg({
+                id: 'a' + Date.now(), isUser: false, isAI: true,
+                hasDaObra: false, obra: null, ia: 'Não foi possível carregar este item.',
+              });
+            } finally {
+              setLoad(false);
+              scrollToBottom();
+            }
+          }}
+        />
+      )}
     </div>
   );
 }
