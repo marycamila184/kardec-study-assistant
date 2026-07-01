@@ -6,7 +6,7 @@ from src.ingestion.embeddings import encode
 from src.ingestion.vectorstore import VectorStore
 
 BATCH_SIZE = 64
-MAX_DOCUMENT_CHARS = 2000
+MAX_DOCUMENT_CHARS = 3000
 
 
 def _build_document(chunk: dict) -> str:
