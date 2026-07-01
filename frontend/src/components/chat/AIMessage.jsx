@@ -1,6 +1,7 @@
 import React from 'react';
 import ObraBlock from './ObraBlock';
 import IABlock from './IABlock';
+import { useTypewriter } from '../../hooks/useTypewriter';
 
 const BookIcon = ({ size = 11, color = 'white' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -18,6 +19,9 @@ export default function AIMessage({
   onQuickAction,
   children,
 }) {
+  const revealedText = useTypewriter(msg.ia, { key: msg.id });
+  const isRevealing = revealedText.length < (msg.ia || '').length;
+
   return (
     <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', animation: 'fade-up .3s ease' }}>
       <div style={{
@@ -31,11 +35,12 @@ export default function AIMessage({
         {msg.hasDaObra && <ObraBlock obra={msg.obra} theme={theme} />}
         <IABlock
           msg={msg} theme={theme} fontSize={fontSize}
+          revealedText={revealedText} isRevealing={isRevealing}
           onShare={onShare} onToggleFav={onToggleFav} isFavorite={isFavorite}
           showQuickActions={showQuickActions} quickActions={quickActions}
           onQuickAction={onQuickAction}
         />
-        {children}
+        {!isRevealing && children}
       </div>
     </div>
   );

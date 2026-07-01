@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
-import { useTypewriter } from '../../hooks/useTypewriter';
 
 const ShareIcon = () => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="none"
@@ -13,17 +12,19 @@ const ShareIcon = () => (
 
 /**
  * The "Da IA" block containing the explanation text, historical context,
- * share/fav buttons, and optional quick action pills.
+ * share/fav buttons, and optional quick action pills. Reveal state
+ * (`revealedText`/`isRevealing`) is owned by AIMessage and passed down so
+ * follow-up buttons (rendered as AIMessage's `children`) can gate on it too.
  */
 export default function IABlock({
   msg, theme, fontSize = '13px',
+  revealedText, isRevealing,
   onShare, onToggleFav, isFavorite,
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
 }) {
   const [openSource, setOpenSource] = useState(null);
-  const revealedText = useTypewriter(msg.ia, { key: msg.id });
 
   return (
     <div style={{
@@ -40,26 +41,28 @@ export default function IABlock({
             fontSize: 9, fontWeight: 700, letterSpacing: '.1em',
             padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
           }}>Da IA</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            {onShare && (
-              <button onClick={() => onShare(msg)} style={{
-                background: 'transparent', border: 'none', cursor: 'pointer',
-                padding: '2px 4px', display: 'flex', alignItems: 'center',
-                color: theme.subtext, borderRadius: 4,
-              }}>
-                <ShareIcon />
-              </button>
-            )}
-            {onToggleFav && (
-              <button onClick={() => onToggleFav(msg)} style={{
-                background: 'transparent', border: 'none', cursor: 'pointer',
-                padding: '2px 4px', fontSize: 20, lineHeight: 1,
-                opacity: isFavorite ? 1 : 0.38,
-              }}>
-                {isFavorite ? '⭐' : '☆'}
-              </button>
-            )}
-          </div>
+          {!isRevealing && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              {onShare && (
+                <button onClick={() => onShare(msg)} style={{
+                  background: 'transparent', border: 'none', cursor: 'pointer',
+                  padding: '2px 4px', display: 'flex', alignItems: 'center',
+                  color: theme.subtext, borderRadius: 4,
+                }}>
+                  <ShareIcon />
+                </button>
+              )}
+              {onToggleFav && (
+                <button onClick={() => onToggleFav(msg)} style={{
+                  background: 'transparent', border: 'none', cursor: 'pointer',
+                  padding: '2px 4px', fontSize: 20, lineHeight: 1,
+                  opacity: isFavorite ? 1 : 0.38,
+                }}>
+                  {isFavorite ? '⭐' : '☆'}
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -67,7 +70,7 @@ export default function IABlock({
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
       }}>{revealedText}</div>
 
-      {msg.sources?.length > 0 && (
+      {!isRevealing && msg.sources?.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>
           {msg.sources.map((s, i) => (
             <button key={i} onClick={() => setOpenSource(s)} style={{
@@ -83,7 +86,7 @@ export default function IABlock({
         </div>
       )}
 
-      {showQuickActions && quickActions.length > 0 && (
+      {!isRevealing && showQuickActions && quickActions.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 10 }}>
           {quickActions.map((qa) => (
             <button key={qa.label} onClick={() => onQuickAction?.(qa.label)} style={{
