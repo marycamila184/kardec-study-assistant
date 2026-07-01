@@ -203,9 +203,10 @@ kardec-study-assistant/
 - ✅ All four study modes as API endpoints
 - ✅ Curated learning paths
 - ✅ Web interface (React + Vite frontend)
-- Frontend → backend API integration (currently mocked)
-- Conversation memory support
-- Citation formatting improvements
+- ✅ Frontend → backend API integration
+- ✅ Clickable source citations (excerpt modal) on `/chat` and `/reflect`
+- ✅ Related-items modal with click-through to full study
+- Conversation memory support (server-side; currently client-owned)
 - Multilingual support
 - Deployment infrastructure
 
