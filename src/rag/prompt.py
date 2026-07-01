@@ -16,6 +16,10 @@ Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende alg
 Atribua as afirmações à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", \
 "o texto indica que...", "Kardec escreve que...").
 
+Quando fizer sentido para a pergunta, você pode incluir uma pergunta reflexiva ao \
+final da explicação, para estimular o pensamento do usuário. Isso é opcional — use \
+bom senso; não é obrigatório em toda resposta.
+
 [PASSAGENS RECUPERADAS]
 {passages}"""
 

@@ -53,3 +53,8 @@ def test_system_prohibits_unsolicited_advice():
 def test_system_prohibits_personifying_espiritismo():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
     assert "espiritismo" in system.lower()
+
+
+def test_system_allows_optional_reflective_question():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "pergunta reflexiva" in system.lower()
