@@ -47,7 +47,10 @@ export default function Sidebar({
       display: 'flex', flexDirection: 'column', flexShrink: 0,
     }}>
       {/* Brand */}
-      <div style={{ padding: '18px 14px 8px' }}>
+      <div
+        onClick={onTutorial}
+        style={{ padding: '18px 14px 8px', cursor: onTutorial ? 'pointer' : 'default' }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 3 }}>
           <div style={{
             width: 36, height: 36, borderRadius: 9,
@@ -61,7 +64,7 @@ export default function Sidebar({
             color: 'white', lineHeight: 1.25, flex: 1,
           }}>Dialogando com a Doutrina</div>
           {onClose && (
-            <button onClick={onClose} style={{
+            <button onClick={(e) => { e.stopPropagation(); onClose(); }} style={{
               background: 'transparent', border: 'none', cursor: 'pointer',
               color: 'rgba(255,255,255,.7)', fontSize: 22, lineHeight: 1,
               padding: '0 2px', flexShrink: 0,
