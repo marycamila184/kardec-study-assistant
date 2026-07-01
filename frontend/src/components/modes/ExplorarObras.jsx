@@ -21,6 +21,7 @@ export default function ExplorarObras({
   onAskTopic, messages = [], loading,
   onShare, onToggleFav, isFavorite, fontSize,
   quickActions = [], onQuickAction,
+  onBookChange,
 }) {
   const [selectedObra, setSelectedObra] = useState('le');
   const [openParts, setOpenParts] = useState({});
@@ -57,7 +58,11 @@ export default function ExplorarObras({
           {OBRAS.map(o => {
             const active = o.id === selectedObra;
             return (
-              <button key={o.id} onClick={() => { setSelectedObra(o.id); setOpenParts({}); }} style={{
+              <button key={o.id} onClick={() => {
+                if (o.id !== selectedObra) onBookChange?.();
+                setSelectedObra(o.id);
+                setOpenParts({});
+              }} style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5,
                 padding: '8px 4px', borderRadius: 8, cursor: 'pointer',
                 border: `1px solid ${active ? '#6B9BB8' : 'rgba(107,155,184,.22)'}`,

@@ -464,6 +464,7 @@ export default function App() {
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
+              onBookChange={() => setExplorarMsgs([])}
             />
           )}
 
