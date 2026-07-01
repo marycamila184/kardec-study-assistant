@@ -111,8 +111,18 @@ export default function Sidebar({
             cursor: evangelhoData ? 'pointer' : 'default',
             transition: 'background .15s',
           }}
-          onMouseEnter={e => { if (evangelhoData) e.currentTarget.style.background = 'rgba(0,0,0,.25)'; }}
-          onMouseLeave={e => { if (evangelhoData) e.currentTarget.style.background = 'rgba(0,0,0,.15)'; }}
+          onMouseEnter={e => {
+            if (!evangelhoData) return;
+            e.currentTarget.style.background = 'rgba(0,0,0,.25)';
+            const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
+            if (arrow) arrow.style.transform = 'translateX(3px)';
+          }}
+          onMouseLeave={e => {
+            if (!evangelhoData) return;
+            e.currentTarget.style.background = 'rgba(0,0,0,.15)';
+            const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
+            if (arrow) arrow.style.transform = 'translateX(0)';
+          }}
         >
           {evangelhoData ? (
             <>
@@ -120,22 +130,19 @@ export default function Sidebar({
                 fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
                 color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
               }}>"{evangelhoData.content.slice(0, 320)}…"</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5, marginBottom: 8 }}>
                 {evangelhoData.source.chapter_title && (
                   <div>{evangelhoData.source.chapter_title}</div>
                 )}
                 <div>{evangelhoData.source.book}</div>
               </div>
-              {evangelhoData.chapter_summary && (
-                <div style={{
-                  fontSize: 11, fontStyle: 'italic', color: 'rgba(255,255,255,.5)',
-                  lineHeight: 1.5, marginTop: 6,
-                }}>
-                  {evangelhoData.chapter_summary.length > 140
-                    ? evangelhoData.chapter_summary.slice(0, 140) + '…'
-                    : evangelhoData.chapter_summary}
-                </div>
-              )}
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,.85)',
+              }}>
+                Ler e refletir
+                <span data-trecho-arrow style={{ display: 'inline-flex', transition: 'transform .15s' }}>→</span>
+              </div>
             </>
           ) : (
             <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
