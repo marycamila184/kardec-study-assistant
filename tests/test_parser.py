@@ -332,3 +332,11 @@ def test_chunk_without_footnote_has_empty_lists():
     chunks = parse_md_to_json(md, CEU_INFERNO)
     assert chunks[0]["footnotes"] == []
     assert chunks[0]["title_footnotes"] == []
+
+
+def test_default_max_chars_matches_embedding_safe_ceiling():
+    """The embedding model truncates at ~128 tokens, so the default subchunk
+    ceiling must be 400 chars, not the old 2000-char default."""
+    md = "# CAPÍTULO I\n\n# O TÍTULO\n\n1. " + "Frase de exemplo. " * 60 + "\n"
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    assert all(len(c["content"]) <= 400 for c in chunks)

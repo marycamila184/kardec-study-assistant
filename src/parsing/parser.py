@@ -3,7 +3,7 @@ import re
 from .chunking import split_into_subchunks
 
 
-def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 2000):
+def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 400):
     """
     Parses Spiritism Markdown into JSON chunks.
 
