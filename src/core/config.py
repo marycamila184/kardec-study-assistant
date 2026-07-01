@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     chat_model: str = "llama-3.3-70b-versatile"
     condenser_model: str = "llama-3.1-8b-instant"
     top_k: int = 5
-    max_distance: float = 1.2
+    max_distance: float = 0.55
     max_history_turns: int = 10
     chroma_path: str = "data/embeddings/"
     chroma_collection: str = "kardec_docs"
