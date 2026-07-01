@@ -8,6 +8,7 @@ import ShareModal from './components/modals/ShareModal';
 import RelatedItemsModal from './components/modals/RelatedItemsModal';
 import TrilhaCompleteModal from './components/modals/TrilhaCompleteModal';
 import EstudarPicker from './components/modes/EstudarPicker';
+import RefletirPicker from './components/modes/RefletirPicker';
 import GuidedStudy from './components/modes/GuidedStudy';
 import ExplorarObras from './components/modes/ExplorarObras';
 import IntroObras from './components/modes/IntroObras';
@@ -77,6 +78,7 @@ export default function App() {
   const [msgs,          setMsgs]         = useState([]);
   const [loading,       setLoading]      = useState(false);
   const [estudarSub,    setEstudarSub]   = useState('picker');
+  const [refletirSub,   setRefletirSub] = useState('picker');
   const [activeTrilha,  setActiveTrilha] = useState(null);
   const [guidedStep,    setGuidedStep]   = useState(0);
   const [guidedMsgs,    setGuidedMsgs]   = useState([]);
@@ -123,6 +125,7 @@ export default function App() {
   const switchMode = (m) => {
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
     if (m === 'estudar') setEstudarSub('picker');
+    if (m === 'refletir') setRefletirSub('picker');
   };
 
   // ── Main chat send (dúvida + refletir) ───────────────────────────────────
@@ -322,6 +325,12 @@ export default function App() {
     setTimeout(() => setInput(ctx), 50);
   };
 
+  // ── Refletir submit ──────────────────────────────────────────────────────
+  const handleReflectSubmit = (text) => {
+    setRefletirSub('chat');
+    sendText(text);
+  };
+
   // ── Daily trecho (evangelho) ──────────────────────────────────────────────
   const handleStudyTrecho = async () => {
     if (!evangelhoData) return;
@@ -367,6 +376,7 @@ export default function App() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   const isEstudar = mode === 'estudar';
+  const isRefletir = mode === 'refletir';
   const isEmpty = msgs.length === 0 && !loading && !isEstudar;
 
   return (
@@ -488,7 +498,11 @@ export default function App() {
             />
           )}
 
-          {!isEstudar && (
+          {isRefletir && refletirSub === 'picker' && (
+            <RefletirPicker theme={theme} onSubmit={handleReflectSubmit} />
+          )}
+
+          {!isEstudar && !(isRefletir && refletirSub === 'picker') && (
             <>
               {/* Chat messages */}
               <div ref={msgsRef} style={{
@@ -527,6 +541,18 @@ export default function App() {
                       <div>
                         <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Estudar uma Obra</div>
                         <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Trilhas guiadas e livre exploração pelas 5 obras</div>
+                      </div>
+                    </button>
+                    <button onClick={() => switchMode('refletir')} style={{
+                      background: 'rgba(200,133,106,.08)', border: '1px solid rgba(200,133,106,.3)',
+                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
+                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
+                      maxWidth: 360, width: '100%', marginBottom: 14,
+                    }}>
+                      <span style={{ fontSize: 20 }}>🪞</span>
+                      <div>
+                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Refletir sobre uma Situação</div>
+                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Veja momentos da sua vida pela lente da doutrina espírita</div>
                       </div>
                     </button>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, maxWidth: 360 }}>
