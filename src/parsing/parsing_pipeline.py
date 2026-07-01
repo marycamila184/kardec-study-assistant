@@ -13,7 +13,7 @@ BOOK_NAME_MAP = {
     "livro-mediuns": "O Livro dos Médiuns",
     "evangelho": "O Evangelho Segundo o Espiritismo",
     "ceu-inferno": "O Céu e o Inferno",
-    # "genese": "A Gênese"
+    "genese": "A Gênese"
 }
 
 

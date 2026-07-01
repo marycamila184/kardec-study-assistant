@@ -55,7 +55,6 @@ Respondeu-lhe Nicodemos: "Como pode isso fazer-se?" - Jesus lhe observou: "Pois 
 
 10. Ora, desde o tempo de João Batista até o presente, o reino dos céus é tomado pela violência e são os violentos que o arrebatam; - pois que assim o profetizaram todos os profetas até João, e também a lei. - Se quiserdes compreender o que vos digo, ele mesmo é o EIias que há de vir. - Ouça-o aquele que tiver ouvidos de ouvir. (S. MATEUS, cap. XI, vv. 12 a 15.)
 
-
 12. Aqueles do vosso povo a quem a morte foi dada viverão de novo; aqueles que estavam mortos em meio a mim ressuscitarão. Despertai do vosso sono e entoai louvores a Deus, vós que habitais no pó; porque o orvalho que cai sobre vós é um orvalho de luz e porque arruinareis a Terra e o reino dos gigantes. (ISAÍAS, cap. XXVI, v. 19.)
 
 14. Mas, quando o homem há morrido uma vez, quando seu corpo, separado de seu espírito, foi consumido, que é feito dele? -Tendo morrido uma vez, poderia o homem reviver de novo? Nesta guerra em que me acho todos os dias da minha vida, espero que chegue a minha mutação. (JOB, cap. XIV, v. 10,14. Tradução de Le Maistre de Sacy.)
