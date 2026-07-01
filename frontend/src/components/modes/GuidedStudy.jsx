@@ -10,9 +10,8 @@ import LoadingDots from '../chat/LoadingDots';
  *   currentStep    — number (0-indexed)
  *   messages       — array of {id, isUser, isAI, text?, hasDaObra?, obra?, ia?}
  *   loading        — boolean
- *   completed      — boolean
  *   theme
- *   onNext         — () => void — advance to next step or complete
+ *   onNext         — () => void — advance to next step, or complete the trilha and navigate back
  *   onBack         — () => void — back to picker
  *   onRedirectDuvida — (msg) => void
  *   onShare        — (msg) => void
@@ -21,7 +20,7 @@ import LoadingDots from '../chat/LoadingDots';
  *   fontSize       — string CSS value
  */
 export default function GuidedStudy({
-  trilha, currentStep, messages, loading, completed,
+  trilha, currentStep, messages, loading,
   theme, onNext, onBack, onRedirectDuvida, onShare, onToggleFav, isFavorite, fontSize,
   quickActions = [], onQuickAction,
 }) {
@@ -29,7 +28,6 @@ export default function GuidedStudy({
   const progress = trilha ? Math.round(((currentStep + 1) / trilha.steps.length) * 100) : 0;
   const stepTitle = trilha?.steps[currentStep]?.label || '';
   const isLast = trilha && currentStep === trilha.steps.length - 1;
-  const hasNext = trilha && currentStep < trilha.steps.length - 1;
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -41,118 +39,82 @@ export default function GuidedStudy({
   return (
     <>
       {/* Progress bar */}
-      {!completed && (
-        <div style={{ padding: '10px 18px 0', flexShrink: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <button onClick={onBack} style={{
-                background: 'transparent', border: 'none', cursor: 'pointer',
-                color: theme.subtext, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
-              }}>
-                <svg width={10} height={10} viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                  <polyline points="15 18 9 12 15 6"/>
-                </svg>
-                Trilhas
-              </button>
-              <span style={{ color: theme.subtext, fontSize: 12.5 }}>·</span>
-              <span style={{ fontSize: 12.5, fontWeight: 500, color: theme.text }}>{stepTitle}</span>
-            </div>
-            <span style={{ fontSize: 12, color: theme.subtext }}>
-              {currentStep + 1} de {trilha?.steps.length}
-            </span>
-          </div>
-          <div style={{ height: 4, background: theme.cardBorder, borderRadius: 2, overflow: 'hidden' }}>
-            <div style={{
-              height: '100%', background: '#6B9BB8', borderRadius: 2,
-              width: `${progress}%`, transition: 'width .4s ease',
-            }} />
-          </div>
-        </div>
-      )}
-
-      {/* Completion */}
-      {completed && (
-        <div style={{
-          flex: 1, display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center', textAlign: 'center',
-          padding: '40px 24px', animation: 'fade-up .4s ease',
-        }}>
-          <div style={{
-            width: 64, height: 64, borderRadius: '50%',
-            background: 'rgba(107,155,184,.15)', border: '2px solid #6B9BB8',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            marginBottom: 18, fontSize: 28,
-          }}>✨</div>
-          <div style={{
-            fontFamily: "'Crimson Pro', serif", fontSize: 26, fontWeight: 600,
-            color: theme.text, marginBottom: 8,
-          }}>Trilha concluída!</div>
-          <div style={{ fontSize: 14.5, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 8 }}>
-            {trilha?.title}
-          </div>
-          <div style={{ fontSize: 13.5, color: theme.subtext, maxWidth: 320, lineHeight: 1.72, marginBottom: 28 }}>
-            Você estudou os fundamentos da doutrina espírita. Continue explorando com as outras trilhas.
-          </div>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div style={{ padding: '10px 18px 0', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <button onClick={onBack} style={{
-              background: '#6B9BB8', color: 'white', border: 'none',
-              padding: '10px 22px', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer',
-            }}>Ver outras trilhas</button>
+              background: 'transparent', border: 'none', cursor: 'pointer',
+              color: theme.subtext, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
+            }}>
+              <svg width={10} height={10} viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+              Trilhas
+            </button>
+            <span style={{ color: theme.subtext, fontSize: 12.5 }}>·</span>
+            <span style={{ fontSize: 12.5, fontWeight: 500, color: theme.text }}>{stepTitle}</span>
           </div>
+          <span style={{ fontSize: 12, color: theme.subtext }}>
+            {currentStep + 1} de {trilha?.steps.length}
+          </span>
         </div>
-      )}
+        <div style={{ height: 4, background: theme.cardBorder, borderRadius: 2, overflow: 'hidden' }}>
+          <div style={{
+            height: '100%', background: progress >= 100 ? '#4CAF50' : '#6B9BB8', borderRadius: 2,
+            width: `${progress}%`, transition: 'width .4s ease, background .3s ease',
+          }} />
+        </div>
+      </div>
 
       {/* Messages */}
-      {!completed && (
-        <div ref={scrollRef} style={{
-          flex: 1, overflowY: 'auto', minHeight: 0,
-          padding: '14px 20px', display: 'flex', flexDirection: 'column', gap: 12,
-        }}>
-          {messages.map((msg, i) => (
-            msg.isUser
-              ? <UserBubble key={msg.id} text={msg.text} />
-              : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={fontSize}
-                  onShare={() => onShare(msg)}
-                  onToggleFav={() => onToggleFav(msg)}
-                  isFavorite={isFavorite(msg.id)}
-                  showQuickActions={quickActions.length > 0 && !msg.hideQuickActions}
-                  quickActions={quickActions.filter(
-                    qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
-                  )}
-                  onQuickAction={(label) => onQuickAction?.(label, msg)}
-                >
-                  {/* Show next/duvida buttons only on last tutor message */}
-                  {i === lastTutorIdx && (
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
-                      <button onClick={() => onRedirectDuvida(msg)} disabled={loading} style={{
-                        background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-                        color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-                        fontSize: 13.5, fontWeight: 500,
-                        cursor: loading ? 'not-allowed' : 'pointer',
-                        opacity: loading ? 0.45 : 1,
-                      }}>Tenho uma dúvida</button>
-                      {isLast
-                        ? <button onClick={onNext} disabled={loading} style={{
-                            background: '#C8856A', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.45 : 1,
-                          }}>Concluir trilha ✨</button>
-                        : <button onClick={onNext} disabled={loading} style={{
-                            background: '#6B9BB8', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.45 : 1,
-                          }}>Entendi, próximo →</button>
-                      }
-                    </div>
-                  )}
-                </AIMessage>
-          ))}
-          {loading && <LoadingDots theme={theme} />}
-        </div>
-      )}
+      <div ref={scrollRef} style={{
+        flex: 1, overflowY: 'auto', minHeight: 0,
+        padding: '14px 20px', display: 'flex', flexDirection: 'column', gap: 12,
+      }}>
+        {messages.map((msg, i) => (
+          msg.isUser
+            ? <UserBubble key={msg.id} text={msg.text} />
+            : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={fontSize}
+                onShare={() => onShare(msg)}
+                onToggleFav={() => onToggleFav(msg)}
+                isFavorite={isFavorite(msg.id)}
+                showQuickActions={false}
+                quickActions={quickActions.filter(
+                  qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
+                )}
+                onQuickAction={(label) => onQuickAction?.(label, msg)}
+              >
+                {/* Show next/duvida buttons only on last tutor message */}
+                {i === lastTutorIdx && (
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
+                    <button onClick={() => onRedirectDuvida(msg)} disabled={loading} style={{
+                      background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
+                      color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
+                      fontSize: 13.5, fontWeight: 500,
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      opacity: loading ? 0.45 : 1,
+                    }}>Tenho uma dúvida</button>
+                    {isLast
+                      ? <button onClick={onNext} disabled={loading} style={{
+                          background: '#C8856A', color: 'white', border: 'none',
+                          padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
+                          cursor: loading ? 'not-allowed' : 'pointer',
+                          opacity: loading ? 0.45 : 1,
+                        }}>Concluir trilha ✨</button>
+                      : <button onClick={onNext} disabled={loading} style={{
+                          background: '#6B9BB8', color: 'white', border: 'none',
+                          padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
+                          cursor: loading ? 'not-allowed' : 'pointer',
+                          opacity: loading ? 0.45 : 1,
+                        }}>Entendi, próximo →</button>
+                    }
+                  </div>
+                )}
+              </AIMessage>
+        ))}
+        {loading && <LoadingDots theme={theme} />}
+      </div>
     </>
   );
 }

@@ -81,7 +81,6 @@ export default function App() {
   const [guidedStep,    setGuidedStep]   = useState(0);
   const [guidedMsgs,    setGuidedMsgs]   = useState([]);
   const [guidedLoading, setGuidedLoading]= useState(false);
-  const [guidedDone,    setGuidedDone]   = useState(false);
   const [explorarMsgs,  setExplorarMsgs] = useState([]);
   const [explorarLoad,  setExplorarLoad] = useState(false);
   const [showSettings,  setShowSettings] = useState(false);
@@ -209,7 +208,7 @@ export default function App() {
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
     setEstudarSub('guided');
-    setGuidedStep(0); setGuidedMsgs([]); setGuidedDone(false); setGuidedLoading(true);
+    setGuidedStep(0); setGuidedMsgs([]); setGuidedLoading(true);
     let pathDetail;
     try {
       pathDetail = await getPath(pathSummary.id);
@@ -249,8 +248,8 @@ export default function App() {
   const handleGuidedNext = async () => {
     const next = guidedStep + 1;
     if (next >= activeTrilha.steps.length) {
-      setGuidedDone(true);
       setCompletedTrilhas(prev => prev.includes(activeTrilha.id) ? prev : [...prev, activeTrilha.id]);
+      setEstudarSub('picker');
       return;
     }
     setGuidedStep(next);
@@ -418,11 +417,10 @@ export default function App() {
               currentStep={guidedStep}
               messages={guidedMsgs}
               loading={guidedLoading}
-              completed={guidedDone}
               theme={theme}
               fontSize={msgFontSize}
               onNext={handleGuidedNext}
-              onBack={() => { setEstudarSub('picker'); setGuidedDone(false); }}
+              onBack={() => setEstudarSub('picker')}
               onRedirectDuvida={(msg) => redirectToDuvida(msg?.obra?.title || 'Kardec')}
               onShare={setShareMsg}
               onToggleFav={toggleFavorite}
@@ -500,7 +498,7 @@ export default function App() {
                         onShare={() => setShareMsg(msg)}
                         onToggleFav={() => toggleFavorite(msg)}
                         isFavorite={isFavorite(msg.id)}
-                        showQuickActions={!msg.hideQuickActions}
+                        showQuickActions={false}
                         quickActions={QUICK_ACTIONS.filter(
                           qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                         )}
