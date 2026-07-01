@@ -61,7 +61,8 @@ def split_into_subchunks(text: str, max_chars: int = 800):
         elif len(buffer) + len(paragraph) < max_chars:
             buffer += paragraph + "\n"
         else:
-            subchunks.append(buffer.strip())
+            if buffer.strip():
+                subchunks.append(buffer.strip())
             buffer = paragraph + "\n"
 
     if buffer.strip():
