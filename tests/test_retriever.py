@@ -15,7 +15,7 @@ def mock_deps(monkeypatch):
     mock_store = MagicMock()
     mock_store.query.return_value = _MOCK_RESULTS
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
-    monkeypatch.setattr("src.rag.retriever.encode", lambda texts: [[0.1] * 768])
+    monkeypatch.setattr("src.rag.retriever.encode", lambda texts: [[0.1] * 1024])
 
 
 def test_retrieve_filters_chunks_above_max_distance():
