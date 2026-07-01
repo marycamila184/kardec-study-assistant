@@ -9,10 +9,13 @@ nenhum texto depois, nenhuma observação, nenhum markdown. Qualquer caractere f
 do JSON quebrará o sistema.
 
 {{
-  "contexto": "<1 a 2 frases indicando onde este item se encaixa na estrutura da \
-doutrina, baseando-se apenas no trecho>",
+  "contexto": "<3 a 6 frases indicando onde este item se encaixa na estrutura da \
+doutrina e, quando relevante, o contexto histórico/cultural em que foi dito, \
+baseando-se no trecho, nas notas de rodapé e, se necessário, em conhecimento \
+histórico geral>",
   "conceitos_chave": [
-    "<Termo exato do texto>: <definição extraída literalmente do trecho, sem paráfrase>"
+    "<Termo exato do texto>: <definição baseada no trecho, podendo incluir uma \
+breve explicação esclarecedora>"
   ],
   "perguntas": [
     "<pergunta aberta que leva o estudante a refletir sobre o trecho, sem revelar a resposta>"
@@ -20,20 +23,31 @@ doutrina, baseando-se apenas no trecho>",
 }}
 
 Regras estritas:
-- "contexto": use SOMENTE o que está no trecho. Máximo 2 frases.
-- "conceitos_chave": extraia os termos centrais com suas definições literais do texto. \
-Entre 1 e 3 conceitos. Nunca invente definições. Se o trecho não definir o termo, \
+- "contexto": baseie-se no trecho e nas notas de rodapé para explicar onde este item \
+se encaixa na doutrina. Você PODE incluir contexto histórico ou cultural geral (ex.: \
+quem eram os fariseus, publicanos, samaritanos; costumes da época) para ajudar a \
+entender a passagem, usando conhecimento histórico amplamente estabelecido. Deixe \
+claro na resposta o que é contexto histórico geral e o que vem do texto/doutrina \
+(ex.: "Historicamente, os fariseus eram... O texto, por sua vez, mostra que..."). \
+Nunca invente ou altere doutrina espírita — isso continua restrito ao trecho.
+- "conceitos_chave": extraia os termos centrais com suas definições baseadas no \
+texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
+da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \
 não o inclua.
 - "perguntas": formule entre 2 e 3 perguntas abertas que estimulem o pensamento \
 crítico. Nunca responda as perguntas no próprio JSON. Nunca extrapole além do trecho.
-- É proibido resumir, parafrasear ou explicar o trecho. O estudante já leu o texto. \
-Seu papel é aprofundar, não substituir a leitura.
+- É proibido resumir ou parafrasear o trecho no lugar do "contexto" — o estudante já \
+leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
 - Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
-(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as afirmações \
-à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", "o texto indica que...").
+(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as \
+afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passagem \
+mostra que...", "o texto indica que...").
 
 [TRECHO PRINCIPAL]
 {main_passage}
+
+[NOTAS DE RODAPÉ]
+{footnote_passages}
 
 [REFERÊNCIAS RELACIONADAS]
 {related_passages}"""
@@ -50,10 +64,11 @@ def _format_related(chunks: list[dict]) -> str:
 
 
 def build_explicador_messages(
-    main_text: str, related_chunks: list[dict]
+    main_text: str, related_chunks: list[dict], footnote_context: str = ""
 ) -> tuple[str, list[dict]]:
     system = _SYSTEM_TEMPLATE.format(
         main_passage=main_text,
+        footnote_passages=footnote_context or "(nenhuma)",
         related_passages=_format_related(related_chunks),
     )
     messages = [{"role": "user", "content": "Analise o trecho acima de forma socrática."}]

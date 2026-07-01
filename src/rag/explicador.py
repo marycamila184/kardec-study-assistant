@@ -24,6 +24,9 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         return None
 
     original_text = "\n\n".join(c["content"] for c in chunks)
+    footnote_context = "\n\n".join(
+        c["footnote_context"] for c in chunks if c.get("footnote_context")
+    )
 
     all_related = retrieve(original_text, top_k=6)
     related = [
@@ -35,7 +38,9 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         )
     ][:3]
 
-    system, messages = build_explicador_messages(original_text, related)
+    system, messages = build_explicador_messages(
+        original_text, related, footnote_context=footnote_context
+    )
 
     contexto = ""
     conceitos_chave: list[str] = []
