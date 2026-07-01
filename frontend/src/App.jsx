@@ -229,7 +229,9 @@ export default function App() {
         id: 'tutor_' + stepIdx,
         isUser: false, isAI: true,
         ...reply,
-        obra: reply.obra ? { ...reply.obra, title: `${step.book} — ${step.label}` } : null,
+        obra: reply.obra
+          ? { ...reply.obra, title: `${step.book} — ${step.label} · Passo ${stepIdx + 1} de ${trilha.steps.length}` }
+          : null,
       };
     } catch {
       tutorMsg = {
