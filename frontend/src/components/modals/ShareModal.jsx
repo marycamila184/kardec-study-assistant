@@ -12,7 +12,7 @@ export default function ShareModal({ msg, theme, onClose }) {
 
   if (!msg) return null;
 
-  const quote    = msg.obra?.quote    || msg.ia?.slice(0, 500) || '';
+  const quote    = msg.obra?.quote    || msg.fullText || msg.ia?.slice(0, 500) || '';
   const citation = msg.obra?.citation || 'Dialogando com a Doutrina';
   const context  = msg.obra?.context  || '';
 

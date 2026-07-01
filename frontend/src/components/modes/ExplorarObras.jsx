@@ -4,6 +4,39 @@ import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
 
+function DuvidaComposer({ theme, askingDuvida, setAskingDuvida, duvidaText, setDuvidaText, submitDuvida }) {
+  return (
+    <>
+      <button onClick={() => setAskingDuvida(v => !v)} style={{
+        background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
+        color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
+        fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
+      }}>Tenho uma dúvida</button>
+      {askingDuvida && (
+        <div style={{ display: 'flex', gap: 6, width: '100%', maxWidth: 420, marginTop: 8 }}>
+          <input
+            value={duvidaText}
+            onChange={e => setDuvidaText(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); submitDuvida(); } }}
+            placeholder="Digite sua dúvida…"
+            autoFocus
+            style={{
+              flex: 1, background: theme.inputBg, border: `1px solid ${theme.inputBorder}`,
+              borderRadius: 8, padding: '8px 12px', fontSize: 13.5, color: theme.text, outline: 'none',
+            }}
+          />
+          <button onClick={submitDuvida} disabled={!duvidaText.trim()} style={{
+            background: '#6B9BB8', color: 'white', border: 'none',
+            padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
+            cursor: duvidaText.trim() ? 'pointer' : 'not-allowed',
+            opacity: duvidaText.trim() ? 1 : 0.5,
+          }}>Perguntar</button>
+        </div>
+      )}
+    </>
+  );
+}
+
 /**
  * "Explorar Obras" free consultation mode.
  * Props:
@@ -38,37 +71,6 @@ export default function ExplorarObras({
     setDuvidaText('');
     setAskingDuvida(false);
   };
-
-  const DuvidaComposer = () => (
-    <>
-      <button onClick={() => setAskingDuvida(v => !v)} style={{
-        background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-        color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-        fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
-      }}>Tenho uma dúvida</button>
-      {askingDuvida && (
-        <div style={{ display: 'flex', gap: 6, width: '100%', maxWidth: 420, marginTop: 8 }}>
-          <input
-            value={duvidaText}
-            onChange={e => setDuvidaText(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); submitDuvida(); } }}
-            placeholder="Digite sua dúvida…"
-            autoFocus
-            style={{
-              flex: 1, background: theme.inputBg, border: `1px solid ${theme.inputBorder}`,
-              borderRadius: 8, padding: '8px 12px', fontSize: 13.5, color: theme.text, outline: 'none',
-            }}
-          />
-          <button onClick={submitDuvida} disabled={!duvidaText.trim()} style={{
-            background: '#6B9BB8', color: 'white', border: 'none',
-            padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
-            cursor: duvidaText.trim() ? 'pointer' : 'not-allowed',
-            opacity: duvidaText.trim() ? 1 : 0.5,
-          }}>Perguntar</button>
-        </div>
-      )}
-    </>
-  );
 
   const togglePart = (key) => setOpenParts(p => ({ ...p, [key]: !p[key] }));
 
@@ -173,7 +175,8 @@ export default function ExplorarObras({
 
           {/* Dúvida composer */}
           <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <DuvidaComposer />
+            <DuvidaComposer theme={theme} askingDuvida={askingDuvida} setAskingDuvida={setAskingDuvida}
+              duvidaText={duvidaText} setDuvidaText={setDuvidaText} submitDuvida={submitDuvida} />
           </div>
         </div>
       ) : (
@@ -192,7 +195,8 @@ export default function ExplorarObras({
                   onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
-                    <DuvidaComposer />
+                    <DuvidaComposer theme={theme} askingDuvida={askingDuvida} setAskingDuvida={setAskingDuvida}
+                      duvidaText={duvidaText} setDuvidaText={setDuvidaText} submitDuvida={submitDuvida} />
                   </div>
                 </AIMessage>
           ))}

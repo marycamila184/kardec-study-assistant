@@ -100,12 +100,23 @@ function mapReflect(data) {
     item_number: s.item_number,
     excerpt: s.excerpt || null,
   }));
+  const questions = (data.reflection_questions || [])
+    .map((q, i) => `${i + 1}. ${q}`)
+    .join('\n');
+  const fullText = [
+    data.opening,
+    data.doctrine_connection,
+    questions ? 'Perguntas para reflexão:\n' + questions : '',
+  ]
+    .filter(Boolean)
+    .join('\n\n');
   return {
     hasDaObra: false,
     obra: null,
     isReflection: true,
     opening: data.opening,
     ia: data.doctrine_connection,
+    fullText,
     reflectionQuestions: data.reflection_questions || [],
     relatedItems,
     sources,
