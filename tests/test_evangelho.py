@@ -152,3 +152,39 @@ def test_items_across_subsections_grouped_under_same_chapter():
         result = _select_passage(_TWO_SUBSECTIONS_SAME_CHAPTER, seed=str(seed))
         seen_items.add(result["source"]["item_number"])
     assert seen_items == {"1", "5"}
+
+
+def test_chapter_summary_is_none_when_file_missing(monkeypatch):
+    monkeypatch.setattr("src.rag.evangelho._chunks", _SINGLE_CHUNK)
+    monkeypatch.setattr("src.rag.evangelho._summaries", None)
+    monkeypatch.setattr(
+        "src.rag.evangelho.CHAPTER_SUMMARIES_PATH", "data/chapter_summaries/__does_not_exist__.json"
+    )
+    result = get_daily_passage()
+    assert result["chapter_summary"] is None
+
+
+def test_chapter_summary_is_populated_when_present(monkeypatch, tmp_path):
+    summaries_file = tmp_path / "evangelho.json"
+    summaries_file.write_text(
+        '{"Bem-aventuranças": "Resumo do capítulo."}', encoding="utf-8"
+    )
+    monkeypatch.setattr("src.rag.evangelho._chunks", _SINGLE_CHUNK)
+    monkeypatch.setattr("src.rag.evangelho._summaries", None)
+    monkeypatch.setattr(
+        "src.rag.evangelho.CHAPTER_SUMMARIES_PATH", str(summaries_file)
+    )
+    result = get_daily_passage()
+    assert result["chapter_summary"] == "Resumo do capítulo."
+
+
+def test_chapter_summary_is_none_when_chapter_not_in_summaries(monkeypatch, tmp_path):
+    summaries_file = tmp_path / "evangelho.json"
+    summaries_file.write_text('{"Outro Capítulo": "..."}', encoding="utf-8")
+    monkeypatch.setattr("src.rag.evangelho._chunks", _SINGLE_CHUNK)
+    monkeypatch.setattr("src.rag.evangelho._summaries", None)
+    monkeypatch.setattr(
+        "src.rag.evangelho.CHAPTER_SUMMARIES_PATH", str(summaries_file)
+    )
+    result = get_daily_passage()
+    assert result["chapter_summary"] is None

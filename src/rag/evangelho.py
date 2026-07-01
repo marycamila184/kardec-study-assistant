@@ -1,4 +1,6 @@
 import datetime
+import json
+import os
 import random
 
 from src.parsing.cleaner import clean_markdown
@@ -6,8 +8,10 @@ from src.parsing.parser import parse_md_to_json
 
 EVANGELHO_BOOK = "O Evangelho Segundo o Espiritismo"
 TRECHO_DIARIO_PATH = "data/markdown_files/trecho_diario.md"
+CHAPTER_SUMMARIES_PATH = "data/chapter_summaries/evangelho.json"
 
 _chunks: list[dict] | None = None
+_summaries: dict[str, str] | None = None
 
 
 def _get_chunks() -> list[dict]:
@@ -17,6 +21,17 @@ def _get_chunks() -> list[dict]:
             raw_text = f.read()
         _chunks = parse_md_to_json(clean_markdown(raw_text), EVANGELHO_BOOK)
     return _chunks
+
+
+def _chapter_summaries() -> dict[str, str]:
+    global _summaries
+    if _summaries is None:
+        if os.path.exists(CHAPTER_SUMMARIES_PATH):
+            with open(CHAPTER_SUMMARIES_PATH, "r", encoding="utf-8") as f:
+                _summaries = json.load(f)
+        else:
+            _summaries = {}
+    return _summaries
 
 
 def _select_passage(chunks: list[dict], seed: str) -> dict:
@@ -56,4 +71,7 @@ def get_daily_passage() -> dict | None:
     today = datetime.date.today().isoformat()
     result = _select_passage(chunks, today)
     result["date"] = today
+    result["chapter_summary"] = _chapter_summaries().get(
+        result["source"]["chapter_title"]
+    )
     return result
