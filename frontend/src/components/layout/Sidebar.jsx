@@ -130,7 +130,11 @@ export default function Sidebar({
                 <div style={{
                   fontSize: 11, fontStyle: 'italic', color: 'rgba(255,255,255,.5)',
                   lineHeight: 1.5, marginTop: 6,
-                }}>{evangelhoData.chapter_summary}</div>
+                }}>
+                  {evangelhoData.chapter_summary.length > 140
+                    ? evangelhoData.chapter_summary.slice(0, 140) + '…'
+                    : evangelhoData.chapter_summary}
+                </div>
               )}
             </>
           ) : (
