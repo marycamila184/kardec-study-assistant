@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function useReminder({ enabled, time, permission }) {
+export function useReminder({ enabled, time, permission, onNotificationClick }) {
   useEffect(() => {
     if (!enabled || permission !== 'granted') return;
     let lastMinuteFired = null;
@@ -10,12 +10,17 @@ export function useReminder({ enabled, time, permission }) {
       const [h, m] = time.split(':').map(Number);
       if (now.getHours() === h && now.getMinutes() === m && lastMinuteFired !== m) {
         lastMinuteFired = m;
-        new Notification('Dialogando com a Doutrina 📖', {
+        const notification = new Notification('Dialogando com a Doutrina 📖', {
           body: 'É hora do seu estudo diário! Que tal começar com o trecho de hoje?',
         });
+        notification.onclick = () => {
+          window.focus();
+          onNotificationClick?.();
+          notification.close();
+        };
       }
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [enabled, time, permission]);
+  }, [enabled, time, permission, onNotificationClick]);
 }

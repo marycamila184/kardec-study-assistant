@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /**
  * Slide-in settings panel from the right (300px wide).
@@ -25,6 +25,8 @@ export default function SettingsPanel({
   theme,
 }) {
   if (!open) return null;
+
+  const [justSaved, setJustSaved] = useState(false);
 
   const Toggle = ({ on, onToggle }) => (
     <div onClick={onToggle} style={{
@@ -125,12 +127,19 @@ export default function SettingsPanel({
             </Row>
             {reminderOn && (
               <>
-                <input type="time" value={reminderTime} onChange={e => onReminderTime(e.target.value)} style={{
+                <input type="time" value={reminderTime} onChange={e => {
+                  onReminderTime(e.target.value);
+                  setJustSaved(true);
+                  setTimeout(() => setJustSaved(false), 1500);
+                }} style={{
                   width: '100%', background: theme.inputBg,
                   border: `1px solid ${theme.headerBorder}`,
                   borderRadius: 7, padding: '8px 10px', fontSize: 13, color: theme.text,
-                  marginBottom: 10,
+                  marginBottom: 4,
                 }} />
+                <div style={{ fontSize: 11, color: '#6B9BB8', minHeight: 14, marginBottom: 6 }}>
+                  {justSaved ? 'Salvo ✓' : ''}
+                </div>
                 <button onClick={onRequestNotif} style={{
                   width: '100%', padding: 8, borderRadius: 7, fontSize: 12, fontWeight: 500, cursor: 'pointer',
                   border: `1px solid ${notifPermission === 'granted' ? '#6B9BB8' : theme.headerBorder}`,
