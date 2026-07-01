@@ -31,7 +31,7 @@ This is **not** a chatbot trained on Spiritism. It is a **retrieval-grounded sys
 | Language | Python 3.12+ |
 | API framework | FastAPI |
 | Package manager | uv |
-| Embeddings | SentenceTransformers (`paraphrase-multilingual-mpnet-base-v2`) |
+| Embeddings | SentenceTransformers (`BAAI/bge-m3`) |
 | Vector store | ChromaDB |
 | LLM provider | Groq (OpenAI-compatible endpoint) |
 | PDF → Markdown | LlamaCloud (run once, output committed) |

@@ -114,7 +114,7 @@ Fully implemented. The pipeline is:
    ```
    The separator pair acts as open/close delimiters. If the opening separator appears right after a heading with no content yet, the footnote is a title footnote; otherwise it belongs to the preceding content paragraph.
 
-3. `chunking.py` — splits long segment content into ≤400-char subchunks at line boundaries. Each line in the Markdown is a complete paragraph, so the split never cuts a paragraph mid-way. Blank lines are ignored by the parser. **400 chars is the ceiling** — the embedding model (`paraphrase-multilingual-mpnet-base-v2`) truncates at ~128 tokens, and 400 chars fits safely within that limit.
+3. `chunking.py` — splits long segment content into ≤800-char subchunks at line boundaries. Each line in the Markdown is a complete paragraph, so the split never cuts a paragraph mid-way. Blank lines are ignored by the parser. **800 chars is the ceiling** — calibrated to typical item length across the 4 books (median 440-1600 chars, p90 up to ~6600 chars), not to the embedding model's technical limit (`BAAI/bge-m3` supports up to 8192 tokens); larger chunks would dilute retrieval precision by mixing multiple ideas into one embedding.
 4. `parsing_pipeline.py` — orchestrates all books; maps filenames to canonical book names via `BOOK_NAME_MAP`. `trecho_diario.md` is intentionally absent from `BOOK_NAME_MAP` and silently skipped here — it's consumed separately by `src/rag/evangelho.py`, not through this pipeline (see Daily passage under RAG Layer).
 
 **Numbered items** (`123. text`) are the primary structural unit in all books:
@@ -127,7 +127,7 @@ The Markdown source files (`data/markdown_files/`) are hand-reviewed and correct
 
 Fully implemented. Run once (or re-run to rebuild the vector store).
 
-- `embeddings.py` — wraps `SentenceTransformer` (`paraphrase-multilingual-mpnet-base-v2`); module-level singleton. Calls `huggingface_hub.login()` on startup if `HF_TOKEN` is set in env.
+- `embeddings.py` — wraps `SentenceTransformer` (`BAAI/bge-m3`); module-level singleton. Calls `huggingface_hub.login()` on startup if `HF_TOKEN` is set in env.
 - `vectorstore.py` — wraps ChromaDB. Methods: `upsert`, `query` (semantic), `get_by_filter` (metadata-only lookup)
 - `pipeline.py` — loads JSON → batches of 64 → embeds → upserts. `_build_document` appends footnotes after content, capped at 2000 chars total so the embedding model is never truncated. Full footnote text is always available in the JSON metadata.
 
