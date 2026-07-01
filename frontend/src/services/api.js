@@ -64,9 +64,6 @@ function mapStudy(data, bookLabel, itemNumber) {
   if (data.conceitos_chave?.length) {
     partes.push('Conceitos-chave:\n' + data.conceitos_chave.map(c => `• ${c}`).join('\n'));
   }
-  if (data.perguntas?.length) {
-    partes.push('Perguntas para reflexão:\n' + data.perguntas.map((p, i) => `${i + 1}. ${p}`).join('\n'));
-  }
   const ia = partes.join('\n\n') + note;
 
   const titleParts = [bookLabel, chapterTitle, itemNumber ? 'Q.' + itemNumber : null]
