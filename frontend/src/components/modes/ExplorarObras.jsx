@@ -142,10 +142,7 @@ export default function ExplorarObras({
             msg.isUser
               ? <UserBubble key={msg.id} text={msg.text} />
               : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={fontSize}
-                  onShare={() => onShare(msg)}
-                  onToggleFav={() => onToggleFav(msg)}
-                  isFavorite={isFavorite(msg.id)}
-                  showQuickActions={quickActions.length > 0 && !msg.hideQuickActions}
+                  showQuickActions={false}
                   quickActions={quickActions.filter(
                     qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                   )}

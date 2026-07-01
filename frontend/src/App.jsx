@@ -6,6 +6,7 @@ import Onboarding from './components/modals/Onboarding';
 import SettingsPanel from './components/modals/SettingsPanel';
 import ShareModal from './components/modals/ShareModal';
 import RelatedItemsModal from './components/modals/RelatedItemsModal';
+import TrilhaCompleteModal from './components/modals/TrilhaCompleteModal';
 import EstudarPicker from './components/modes/EstudarPicker';
 import GuidedStudy from './components/modes/GuidedStudy';
 import ExplorarObras from './components/modes/ExplorarObras';
@@ -86,6 +87,7 @@ export default function App() {
   const [showSettings,  setShowSettings] = useState(false);
   const [shareMsg,      setShareMsg]     = useState(null);
   const [relatedModal,  setRelatedModal] = useState(null);
+  const [trilhaCompleteModal, setTrilhaCompleteModal] = useState(null);
   const [convoId,       setConvoId]      = useState(null);
   const [isMobile,      setIsMobile]     = useState(() => window.innerWidth < 768);
   const [drawerOpen,    setDrawerOpen]   = useState(false);
@@ -256,7 +258,8 @@ export default function App() {
     const next = guidedStep + 1;
     if (next >= activeTrilha.steps.length) {
       setCompletedTrilhas(prev => prev.includes(activeTrilha.id) ? prev : [...prev, activeTrilha.id]);
-      setEstudarSub('picker');
+      const lastMsg = guidedMsgs.reduce((last, m) => (m.isAI && m.hasDaObra) ? m : last, null);
+      setTrilhaCompleteModal({ trilha: activeTrilha, lastMsg });
       return;
     }
     setGuidedStep(next);
@@ -568,6 +571,19 @@ export default function App() {
           }}
         />
       )}
+      <TrilhaCompleteModal
+        modal={trilhaCompleteModal}
+        theme={theme}
+        onShare={() => {
+          setShareMsg(trilhaCompleteModal.lastMsg);
+          setTrilhaCompleteModal(null);
+          setEstudarSub('picker');
+        }}
+        onClose={() => {
+          setTrilhaCompleteModal(null);
+          setEstudarSub('picker');
+        }}
+      />
     </div>
   );
 }
