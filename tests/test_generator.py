@@ -72,3 +72,50 @@ def test_generate_skips_condenser_without_history(mock_retrieve, mock_client):
 def test_generate_sources_include_excerpt(mock_retrieve, mock_client):
     result = generate("O que é reencarnação?", [])
     assert result["sources"][0]["excerpt"] == "A encarnação tem por fim fazê-los progredir."
+
+
+def test_generate_sets_generation_failed_on_llm_error(mock_retrieve, monkeypatch):
+    client = MagicMock()
+    client.chat.completions.create.side_effect = RuntimeError("API error")
+    monkeypatch.setattr("src.rag.generator._get_client", lambda: client)
+
+    result = generate("O que é reencarnação?", [])
+
+    assert result["generation_failed"] is True
+    assert result["not_found"] is False
+    assert result["sources"] == []
+
+
+def test_generate_sets_generation_failed_on_retrieval_error(monkeypatch, mock_client):
+    def _raise(*args, **kwargs):
+        raise RuntimeError("db error")
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _raise)
+
+    result = generate("O que é reencarnação?", [])
+
+    assert result["generation_failed"] is True
+    assert result["not_found"] is False
+    assert result["sources"] == []
+    mock_client.chat.completions.create.assert_not_called()
+
+
+def test_generate_falls_back_to_raw_question_when_condenser_fails(mock_retrieve, mock_client):
+    history = [{"role": "user", "content": "pergunta anterior"}]
+    with patch("src.rag.generator.condense_query", side_effect=RuntimeError("condenser down")):
+        result = generate("O que é reencarnação?", history)
+
+    assert result["generation_failed"] is False
+    assert result["answer"] == "Resposta gerada."
+
+
+def test_generate_adds_caveat_for_clinical_keywords(mock_retrieve, mock_client):
+    generate("escuto vozes à noite", [])
+    system_arg = mock_client.chat.completions.create.call_args.kwargs["messages"][0]["content"]
+    assert "profissional de saúde" in system_arg
+
+
+def test_generate_no_caveat_for_normal_question(mock_retrieve, mock_client):
+    generate("O que é reencarnação?", [])
+    system_arg = mock_client.chat.completions.create.call_args.kwargs["messages"][0]["content"]
+    assert "profissional de saúde" not in system_arg

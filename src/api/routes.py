@@ -16,10 +16,10 @@ from src.api.schemas import (
 )
 from src.core.config import settings
 from src.rag.evangelho import get_daily_passage
+from src.rag.explicador import explicar as study_item_fn
 from src.rag.generator import generate
 from src.rag.mode_detector import detect_suggested_mode
 from src.rag.reflect import reflect as reflect_fn
-from src.rag.explicador import explicar as study_item_fn
 
 router = APIRouter()
 
@@ -34,6 +34,7 @@ def chat(request: ChatRequest) -> ChatResponse:
         sources=[Source(**s) for s in result["sources"]],
         not_found=result["not_found"],
         suggested_mode=suggested_mode,
+        generation_failed=result.get("generation_failed", False),
     )
 
 

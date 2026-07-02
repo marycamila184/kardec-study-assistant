@@ -21,13 +21,18 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
     Given a main passage and candidate related chunks, returns the candidates
     annotated with a doctrinal connection phrase ("conexao").
 
-    Falls back to unannotated candidates if the LLM call fails.
+    Falls back to unannotated candidates if the LLM call itself fails. If the
+    call succeeds but the model legitimately finds no relevant candidate, an
+    empty list is returned instead — the two cases are not the same, and
+    showing all raw candidates when the model said "none of these fit" would
+    misrepresent its judgment.
     """
     if not candidates:
         return []
 
     system, messages = build_curador_messages(main_text, candidates)
 
+    call_failed = False
     try:
         response = _get_client().chat.completions.create(
             model=settings.chat_model,
@@ -36,9 +41,10 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
         )
         selections = parse_curador_json(response.choices[0].message.content)
     except Exception:
+        call_failed = True
         selections = []
 
-    if not selections:
+    if call_failed:
         return [
             {
                 "book": c["metadata"]["book"],
@@ -50,17 +56,22 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
             for c in candidates
         ]
 
+    if not selections:
+        return []
+
     result = []
     for sel in selections:
         idx = sel["index"]
         if 0 <= idx < len(candidates):
             c = candidates[idx]
-            result.append({
-                "book": c["metadata"]["book"],
-                "chapter": c["metadata"].get("chapter"),
-                "item_number": c["metadata"]["item_number"],
-                "preview": c["content"][:200],
-                "conexao": sel["conexao"] or None,
-            })
+            result.append(
+                {
+                    "book": c["metadata"]["book"],
+                    "chapter": c["metadata"].get("chapter"),
+                    "item_number": c["metadata"]["item_number"],
+                    "preview": c["content"][:200],
+                    "conexao": sel["conexao"] or None,
+                }
+            )
 
     return result

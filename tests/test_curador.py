@@ -49,8 +49,8 @@ def test_curar_includes_chapter_in_fallback_when_llm_fails():
     assert result[1]["chapter"] == "CAPÍTULO II"
 
 
-def test_curar_includes_chapter_in_fallback_when_llm_returns_no_selections():
+def test_curar_returns_empty_when_llm_legitimately_selects_nothing():
     with patch("src.rag.curador._get_client") as mock_client:
         mock_client.return_value.chat.completions.create.return_value = _make_llm_response("[]")
         result = curar("trecho principal", [_CANDIDATE_1])
-    assert result[0]["chapter"] == "CAPÍTULO I"
+    assert result == []

@@ -16,6 +16,11 @@ class Settings(BaseSettings):
     chroma_collection: str = "kardec_docs"
     json_dir: str = "data/json_files"
     paths_dir: str = "data/paths"
+    cors_allowed_origins: str = "http://localhost:5173"
+
+    @property
+    def cors_allowed_origins_list(self) -> list[str]:
+        return [o.strip() for o in self.cors_allowed_origins.split(",") if o.strip()]
 
 
 settings = Settings()

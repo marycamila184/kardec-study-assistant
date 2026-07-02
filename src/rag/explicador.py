@@ -1,9 +1,9 @@
 from openai import OpenAI
 
 from src.core.config import settings
-from src.rag.retriever import retrieve, retrieve_by_item
-from src.rag.explicador_prompt import build_explicador_messages, parse_explicador_json
 from src.rag.curador import curar
+from src.rag.explicador_prompt import build_explicador_messages, parse_explicador_json
+from src.rag.retriever import retrieve, retrieve_by_item
 
 _client: OpenAI | None = None
 
@@ -19,6 +19,10 @@ def _get_client() -> OpenAI:
 
 
 def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | None:
+    # Note: retrieve_by_item failures are left unhandled here (surface as a
+    # 500), rather than mapped to the 404 "item not found" response — a DB
+    # failure and a real not-found are different situations and shouldn't
+    # look the same to the client.
     chunks = retrieve_by_item(book, item_number, chapter)
     if not chunks:
         return None
@@ -28,7 +32,10 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         c["footnote_context"] for c in chunks if c.get("footnote_context")
     )
 
-    all_related = retrieve(original_text, top_k=6)
+    try:
+        all_related = retrieve(original_text, top_k=6)
+    except Exception:
+        all_related = []
     related = [
         r
         for r in all_related

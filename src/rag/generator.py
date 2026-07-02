@@ -2,12 +2,15 @@ from openai import OpenAI
 
 from src.core.config import settings
 from src.rag.prompt import build_messages
+from src.rag.reflect_prompt import needs_medical_caveat
 from src.rag.retriever import retrieve
 
 NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec informações suficientes para responder "
     "a essa pergunta. Por favor, reformule sua dúvida ou consulte diretamente as obras."
 )
+
+GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
 _client: OpenAI | None = None
 
@@ -41,20 +44,46 @@ def condense_query(question: str, history: list[dict]) -> str:
 
 
 def generate(question: str, history: list[dict]) -> dict:
-    search_query = condense_query(question, history) if history else question
-    chunks = retrieve(search_query)
+    search_query = question
+    if history:
+        try:
+            search_query = condense_query(question, history)
+        except Exception:
+            search_query = question
+
+    try:
+        chunks = retrieve(search_query)
+    except Exception:
+        return {
+            "answer": GENERATION_FAILED_MESSAGE,
+            "sources": [],
+            "not_found": False,
+            "generation_failed": True,
+        }
 
     if not chunks:
-        return {"answer": NOT_FOUND_MESSAGE, "sources": [], "not_found": True}
+        return {
+            "answer": NOT_FOUND_MESSAGE,
+            "sources": [],
+            "not_found": True,
+            "generation_failed": False,
+        }
 
+    add_caveat = needs_medical_caveat(question)
     system, messages = build_messages(
-        question, chunks, history, settings.max_history_turns
+        question, chunks, history, settings.max_history_turns, add_caveat=add_caveat
     )
-    response = _get_client().chat.completions.create(
-        model=settings.chat_model,
-        max_tokens=1024,
-        messages=[{"role": "system", "content": system}] + messages,
-    )
+    try:
+        response = _get_client().chat.completions.create(
+            model=settings.chat_model,
+            max_tokens=1024,
+            messages=[{"role": "system", "content": system}] + messages,
+        )
+        answer = response.choices[0].message.content
+        generation_failed = False
+    except Exception:
+        answer = GENERATION_FAILED_MESSAGE
+        generation_failed = True
 
     seen: set[tuple] = set()
     sources = []
@@ -73,7 +102,8 @@ def generate(question: str, history: list[dict]) -> dict:
             )
 
     return {
-        "answer": response.choices[0].message.content,
-        "sources": sources,
+        "answer": answer,
+        "sources": [] if generation_failed else sources,
         "not_found": False,
+        "generation_failed": generation_failed,
     }

@@ -94,6 +94,15 @@ def test_returns_none_when_no_chunks(monkeypatch):
     assert result is None
 
 
+def test_returns_none_when_markdown_file_missing(monkeypatch):
+    monkeypatch.setattr("src.rag.evangelho._chunks", None)
+    monkeypatch.setattr(
+        "src.rag.evangelho.TRECHO_DIARIO_PATH", "data/markdown_files/__does_not_exist__.md"
+    )
+    result = get_daily_passage()
+    assert result is None
+
+
 def test_returns_passage_with_correct_shape(monkeypatch):
     monkeypatch.setattr("src.rag.evangelho._chunks", _SINGLE_CHUNK)
     result = get_daily_passage()

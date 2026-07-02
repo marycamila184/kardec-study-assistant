@@ -75,9 +75,22 @@ def test_parse_reflect_json_strips_markdown_fences():
     assert questions == ["C?"]
 
 
-def test_parse_reflect_json_falls_back_on_invalid_json():
+def test_parse_reflect_json_raises_on_invalid_json():
     text = "não é JSON válido"
+    try:
+        parse_reflect_json(text)
+        assert False, "expected ValueError"
+    except ValueError:
+        pass
+
+
+def test_parse_reflect_json_extracts_object_wrapped_in_prose():
+    text = (
+        'Aqui está o JSON solicitado:\n'
+        '{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"]}\n'
+        'Espero que ajude!'
+    )
     opening, conn, questions = parse_reflect_json(text)
-    assert opening == "não é JSON válido"
-    assert conn == ""
-    assert questions == []
+    assert opening == "A."
+    assert conn == "B."
+    assert questions == ["C?"]

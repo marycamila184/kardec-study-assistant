@@ -92,18 +92,57 @@ def build_reflect_messages(
     return system, messages
 
 
+def _extract_json_object(text: str) -> dict | None:
+    """Find and parse the outermost {...} block in text, if any."""
+    start = text.find("{")
+    if start == -1:
+        return None
+    depth, end = 0, -1
+    for i, ch in enumerate(text[start:], start):
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                end = i
+                break
+    if end == -1:
+        return None
+    try:
+        data = json.loads(text[start : end + 1])
+    except json.JSONDecodeError:
+        return None
+    return data if isinstance(data, dict) else None
+
+
 def parse_reflect_json(text: str) -> tuple[str, str, list[str]]:
+    """Returns (opening, doctrine_connection, reflection_questions).
+
+    Raises ValueError if the model output can't be parsed as the expected
+    JSON shape, so the caller can treat it as a generation failure instead
+    of leaking unparsed model text to the user.
+    """
     text = text.strip()
     if text.startswith("```"):
         text = re.sub(r"^```[a-z]*\n?", "", text)
         text = re.sub(r"```$", "", text.strip())
         text = text.strip()
+
+    data = None
     try:
-        data = json.loads(text)
-        return (
-            data.get("opening", ""),
-            data.get("doctrine_connection", ""),
-            data.get("reflection_questions", []),
-        )
-    except (json.JSONDecodeError, AttributeError):
-        return text, "", []
+        parsed = json.loads(text)
+        if isinstance(parsed, dict):
+            data = parsed
+    except json.JSONDecodeError:
+        pass
+    if data is None:
+        data = _extract_json_object(text)
+
+    if data is None:
+        raise ValueError("could not parse reflect JSON response")
+
+    return (
+        data.get("opening", ""),
+        data.get("doctrine_connection", ""),
+        data.get("reflection_questions", []),
+    )

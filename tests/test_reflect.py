@@ -80,6 +80,33 @@ def test_reflect_sets_generation_failed_on_llm_error():
     assert result["not_found"] is False
 
 
+def test_reflect_sets_generation_failed_on_retrieval_error():
+    def _raise(*args, **kwargs):
+        raise RuntimeError("db error")
+
+    with patch("src.rag.reflect.retrieve", side_effect=_raise):
+        result = reflect("situação")
+    assert result["generation_failed"] is True
+    assert result["not_found"] is False
+    assert result["sources"] == []
+    assert result["complementary_items"] == []
+
+
+def test_reflect_sets_generation_failed_on_unparseable_llm_output():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect._get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(
+            "isso não é JSON de forma alguma"
+        )
+        result = reflect("situação")
+    assert result["generation_failed"] is True
+    assert result["opening"] == ""
+    assert result["doctrine_connection"] == ""
+    assert result["not_found"] is False
+
+
 def test_reflect_sources_come_from_first_two_chunks():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2, _CHUNK_3]),

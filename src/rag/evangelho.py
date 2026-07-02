@@ -65,7 +65,10 @@ def _select_passage(chunks: list[dict], seed: str) -> dict:
 
 
 def get_daily_passage() -> dict | None:
-    chunks = _get_chunks()
+    try:
+        chunks = _get_chunks()
+    except OSError:
+        return None
     if not chunks:
         return None
     today = datetime.date.today().isoformat()

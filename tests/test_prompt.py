@@ -58,3 +58,13 @@ def test_system_prohibits_personifying_espiritismo():
 def test_system_allows_optional_reflective_question():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
     assert "pergunta reflexiva" in system.lower()
+
+
+def test_caveat_instruction_in_system_when_requested():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [], add_caveat=True)
+    assert "profissional de saúde" in system
+
+
+def test_no_caveat_in_system_by_default():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "profissional de saúde" not in system

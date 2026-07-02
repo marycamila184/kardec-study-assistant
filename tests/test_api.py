@@ -57,8 +57,9 @@ def test_health_returns_ok():
 
 _STUDY_RESULT = {
     "original_text": "A alma é imortal.",
-    "explanation": "A alma continua existindo após a morte do corpo físico.",
-    "practical_example": "Como quando acordamos de um sonho muito vívido.",
+    "contexto": "A alma continua existindo após a morte do corpo físico.",
+    "conceitos_chave": ["alma: princípio inteligente do ser"],
+    "perguntas": ["O que isso significa para a nossa existência?"],
     "related_items": [],
     "sources": [
         {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}

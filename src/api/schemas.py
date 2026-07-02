@@ -25,6 +25,7 @@ class ChatResponse(BaseModel):
     sources: list[Source]
     not_found: bool = False
     suggested_mode: str | None = None
+    generation_failed: bool = False
 
 
 class PathStep(BaseModel):

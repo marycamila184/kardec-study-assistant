@@ -20,8 +20,15 @@ Quando fizer sentido para a pergunta, você pode incluir uma pergunta reflexiva 
 final da explicação, para estimular o pensamento do usuário. Isso é opcional — use \
 bom senso; não é obrigatório em toda resposta.
 
+{caveat}
+
 [PASSAGENS RECUPERADAS]
 {passages}"""
+
+_CAVEAT_INSTRUCTION = """\
+Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
+clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \
+de saúde é também valioso — sem substituir a visão espírita e sem fazer diagnósticos."""
 
 
 def _format_passage(index: int, chunk: dict) -> str:
@@ -39,9 +46,12 @@ def build_messages(
     chunks: list[dict],
     history: list[dict],
     max_history_turns: int = 10,
+    add_caveat: bool = False,
 ) -> tuple[str, list[dict]]:
     passages = "\n\n".join(_format_passage(i + 1, c) for i, c in enumerate(chunks))
-    system = _SYSTEM_TEMPLATE.format(passages=passages)
+    system = _SYSTEM_TEMPLATE.format(
+        passages=passages, caveat=_CAVEAT_INSTRUCTION if add_caveat else ""
+    )
 
     messages = [
         {"role": t["role"], "content": t["content"]}

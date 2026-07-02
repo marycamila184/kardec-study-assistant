@@ -1,18 +1,20 @@
 from openai import OpenAI
 
 from src.core.config import settings
+from src.rag.curador import curar
 from src.rag.reflect_prompt import (
     build_reflect_messages,
     needs_medical_caveat,
     parse_reflect_json,
 )
 from src.rag.retriever import retrieve
-from src.rag.curador import curar
 
 _NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec passagens suficientemente relacionadas "
     "à situação descrita."
 )
+
+GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
 _client: OpenAI | None = None
 
@@ -28,7 +30,18 @@ def _get_client() -> OpenAI:
 
 
 def reflect(situation: str) -> dict:
-    chunks = retrieve(situation, top_k=5)
+    try:
+        chunks = retrieve(situation, top_k=5)
+    except Exception:
+        return {
+            "opening": "",
+            "doctrine_connection": GENERATION_FAILED_MESSAGE,
+            "reflection_questions": [],
+            "complementary_items": [],
+            "sources": [],
+            "not_found": False,
+            "generation_failed": True,
+        }
 
     if not chunks:
         return {
