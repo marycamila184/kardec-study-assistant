@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const SITUATIONS = [
   { icon: '😢', label: 'Perda de alguém querido', text: 'Perdi alguém que eu amava e estou sofrendo muito com essa perda.' },
@@ -9,14 +9,14 @@ const SITUATIONS = [
 
 /**
  * "Refletir sobre uma Situação" entry screen — architecturally parallel to
- * EstudarPicker for the Estudar uma Obra flow.
+ * EstudarPicker for the Estudar uma Obra flow. Button-only: the user picks a
+ * starting situation, then continues the reflection via clicking AI-suggested
+ * follow-up question buttons (see IABlock).
  * Props:
  *   theme
  *   onSubmit — (situationText: string) => void
  */
 export default function RefletirPicker({ theme, onSubmit }) {
-  const [text, setText] = useState('');
-
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }}>
       <div style={{ marginBottom: 22 }}>
@@ -24,11 +24,11 @@ export default function RefletirPicker({ theme, onSubmit }) {
           Refletir sobre uma Situação
         </div>
         <div style={{ fontSize: 14, color: theme.subtext, lineHeight: 1.65 }}>
-          Descreva o que está vivendo e veja essa situação pela lente da doutrina espírita — sem conselhos, só reflexão.
+          Escolha o que mais se aproxima do que está vivendo e veja essa situação pela lente da doutrina espírita — sem conselhos, só reflexão.
         </div>
       </div>
 
-      <div style={{ marginBottom: 20 }}>
+      <div>
         <div style={{
           fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: theme.subtext, marginBottom: 10,
@@ -45,35 +45,6 @@ export default function RefletirPicker({ theme, onSubmit }) {
             </button>
           ))}
         </div>
-      </div>
-
-      <div style={{ borderTop: `1px solid ${theme.cardBorder}`, paddingTop: 14 }}>
-        <div style={{
-          fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
-          textTransform: 'uppercase', color: theme.subtext, marginBottom: 10,
-        }}>Ou descreva com suas palavras</div>
-        <textarea
-          value={text}
-          onChange={e => setText(e.target.value)}
-          placeholder="Ex: Estou passando por um conflito familiar…"
-          rows={3}
-          style={{
-            width: '100%', background: theme.inputBg, border: `1px solid ${theme.inputBorder}`,
-            borderRadius: 10, padding: '10px 13px', fontSize: 14, color: theme.text,
-            lineHeight: 1.55, resize: 'none', fontFamily: 'inherit', outline: 'none',
-            boxSizing: 'border-box', marginBottom: 10,
-          }}
-        />
-        <button
-          onClick={() => { if (text.trim()) onSubmit(text.trim()); }}
-          disabled={!text.trim()}
-          style={{
-            background: '#C8856A', color: 'white', border: 'none',
-            padding: '9px 22px', borderRadius: 8, fontSize: 13.5, fontWeight: 600,
-            cursor: text.trim() ? 'pointer' : 'not-allowed',
-            opacity: text.trim() ? 1 : 0.5,
-          }}
-        >Refletir →</button>
       </div>
     </div>
   );
