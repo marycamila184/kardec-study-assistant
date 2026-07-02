@@ -200,14 +200,31 @@ def test_reflect_returns_200_with_not_found_flag_when_no_doctrine():
 def test_reflect_response_has_all_required_fields():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
         data = client.post("/reflect", json={"situation": "meu casamento está difícil"}).json()
-    for field in ("opening", "doctrine_connection", "reflection_questions", "complementary_items", "sources", "not_found", "generation_failed"):
+    for field in ("opening", "doctrine_connection", "reflection_questions", "complementary_items", "sources", "not_found", "generation_failed", "is_closing"):
         assert field in data
 
 
 def test_reflect_passes_situation_to_reflect_fn():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
         client.post("/reflect", json={"situation": "me sinto vazio"})
-    mock_fn.assert_called_once_with("me sinto vazio")
+    mock_fn.assert_called_once_with("me sinto vazio", [])
+
+
+def test_reflect_passes_conversation_history_to_reflect_fn():
+    history_payload = [
+        {"role": "user", "content": "pergunta anterior"},
+        {"role": "assistant", "content": "resposta anterior"},
+    ]
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
+        client.post("/reflect", json={"situation": "nova pergunta", "conversation_history": history_payload})
+    mock_fn.assert_called_once_with("nova pergunta", history_payload)
+
+
+def test_reflect_response_includes_is_closing_field():
+    result_with_closing = dict(_REFLECT_RESULT, is_closing=True)
+    with patch("src.api.routes.reflect_fn", return_value=result_with_closing):
+        data = client.post("/reflect", json={"situation": "situação"}).json()
+    assert data["is_closing"] is True
 
 
 _EVANGELHO_PASSAGE = {

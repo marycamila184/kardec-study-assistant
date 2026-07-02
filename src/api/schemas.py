@@ -92,6 +92,7 @@ class ReflectResponse(BaseModel):
     opening: str
     doctrine_connection: str
     reflection_questions: list[str]
+    is_closing: bool = False
     complementary_items: list[RelatedItem]
     sources: list[StudySource]
     not_found: bool = False

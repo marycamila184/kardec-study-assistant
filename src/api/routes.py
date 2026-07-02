@@ -68,7 +68,8 @@ def study(request: StudyRequest) -> StudyResponse:
 
 @router.post("/reflect", response_model=ReflectResponse)
 def reflect_situation(request: ReflectRequest) -> ReflectResponse:
-    result = reflect_fn(request.situation)
+    history = [m.model_dump() for m in request.conversation_history]
+    result = reflect_fn(request.situation, history)
     return ReflectResponse(**result)
 
 
