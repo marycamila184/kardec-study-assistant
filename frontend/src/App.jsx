@@ -171,6 +171,43 @@ export default function App() {
     }
   };
 
+  // ── Build {role, content} history for a Refletir thread from current msgs ──
+  const buildReflectHistory = (msgs) => msgs.map(m => ({
+    role: m.isUser ? 'user' : 'assistant',
+    content: m.isUser ? m.text : `${m.opening || ''}\n\n${m.ia || ''}`.trim(),
+  }));
+
+  // ── Continue a Refletir thread via a clicked reflection-question button ───
+  const handleReflectionQuestionClick = async (question) => {
+    const history = buildReflectHistory(msgs);
+    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: question };
+    const newMsgs = [...msgs, userMsg];
+    setMsgs(newMsgs); setLoading(true);
+    const id = convoId || ('c' + Date.now());
+    setConvoId(id);
+    saveConvo(id, question.slice(0, 48), mode, newMsgs);
+    scrollToBottom();
+    const requestId = ++requestIdRef.current;
+
+    try {
+      const reply = await reflectSituation(question, history);
+      if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
+      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const finalMsgs = [...newMsgs, aiMsg];
+      setMsgs(finalMsgs);
+      saveConvo(id, question.slice(0, 48), mode, finalMsgs);
+    } catch (err) {
+      console.error('handleReflectionQuestionClick failed:', err);
+      if (requestId !== requestIdRef.current) return;
+      setMsgs([...newMsgs, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+    } finally {
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+        scrollToBottom();
+      }
+    }
+  };
+
   const handleSend = () => sendText(input.trim());
 
   // ── Quick action executor (shared across chat / guided / explorar) ────────
@@ -610,6 +647,7 @@ export default function App() {
                           qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                         )}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
+                        onReflectionQuestionClick={handleReflectionQuestionClick}
                       />
                 ))}
                 {loading && <LoadingDots theme={theme} />}
