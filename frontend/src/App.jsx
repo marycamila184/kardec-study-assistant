@@ -653,16 +653,18 @@ export default function App() {
                 {loading && <LoadingDots theme={theme} />}
               </div>
 
-              {/* Input */}
-              <InputBar
-                value={input}
-                onChange={setInput}
-                onSend={handleSend}
-                placeholder={MODE_PLACEHOLDER[mode] || ''}
-                footerHint="IA treinada no Pentateuco Espírita · Respostas sempre referenciadas em Kardec · Enter para enviar"
-                theme={theme}
-                loading={loading}
-              />
+              {/* Input — hidden in Refletir mode: that flow is fully button-driven */}
+              {!isRefletir && (
+                <InputBar
+                  value={input}
+                  onChange={setInput}
+                  onSend={handleSend}
+                  placeholder={MODE_PLACEHOLDER[mode] || ''}
+                  footerHint="IA treinada no Pentateuco Espírita · Respostas sempre referenciadas em Kardec · Enter para enviar"
+                  theme={theme}
+                  loading={loading}
+                />
+              )}
             </>
           )}
         </div>
