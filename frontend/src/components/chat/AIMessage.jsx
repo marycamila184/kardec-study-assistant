@@ -17,6 +17,7 @@ export default function AIMessage({
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
+  onReflectionQuestionClick,
   children,
 }) {
   const revealedText = useTypewriter(msg.ia, { key: msg.id });
@@ -39,6 +40,7 @@ export default function AIMessage({
           onShare={onShare} onToggleFav={onToggleFav} isFavorite={isFavorite}
           showQuickActions={showQuickActions} quickActions={quickActions}
           onQuickAction={onQuickAction}
+          onReflectionQuestionClick={onReflectionQuestionClick}
         />
         {!isRevealing && children}
       </div>
