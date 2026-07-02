@@ -114,6 +114,7 @@ function mapReflect(data) {
     hasDaObra: false,
     obra: null,
     isReflection: true,
+    isClosing: !!data.is_closing,
     opening: data.opening,
     ia: data.doctrine_connection,
     fullText,
@@ -141,10 +142,10 @@ export async function studyItem(book, item_number, chapter = null) {
   return mapStudy(data, book, item_number);
 }
 
-export async function reflectSituation(situation) {
+export async function reflectSituation(situation, history = []) {
   const data = await request('/reflect', {
     method: 'POST',
-    body: JSON.stringify({ situation }),
+    body: JSON.stringify({ situation, conversation_history: history }),
   });
   return mapReflect(data);
 }
