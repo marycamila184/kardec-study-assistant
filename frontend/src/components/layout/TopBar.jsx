@@ -24,7 +24,7 @@ export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer }) {
       background: theme.headerBg,
     }}>
       {onOpenDrawer ? (
-        <button onClick={onOpenDrawer} title="Menu" style={{
+        <button onClick={onOpenDrawer} title="Menu" aria-label="Abrir menu" style={{
           width: 34, height: 34, borderRadius: 8, flexShrink: 0,
           background: 'transparent', border: `1px solid ${theme.headerBorder}`,
           cursor: 'pointer', display: 'flex', flexDirection: 'column',
@@ -55,7 +55,7 @@ export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer }) {
         }}>{meta.title}</div>
         <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
       </div>
-      <button onClick={onOpenSettings} title="Configurações" style={{
+      <button onClick={onOpenSettings} title="Configurações" aria-label="Abrir configurações" style={{
         width: 34, height: 34, borderRadius: 8,
         background: 'transparent', border: `1px solid ${theme.headerBorder}`,
         cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,

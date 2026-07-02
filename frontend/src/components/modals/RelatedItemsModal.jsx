@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 /**
  * Related items modal — lists items connected to the current passage.
@@ -11,6 +12,7 @@ import React, { useState } from 'react';
 export default function RelatedItemsModal({ modal, theme, onClose, onSelectItem }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
+  useEscapeKey(onClose, !!modal);
   if (!modal) return null;
 
   return (
@@ -30,7 +32,7 @@ export default function RelatedItemsModal({ modal, theme, onClose, onSelectItem 
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: theme.text }}>Leituras relacionadas</div>
-          <button onClick={onClose} style={{
+          <button onClick={onClose} aria-label="Fechar" style={{
             background: 'transparent', border: 'none', cursor: 'pointer',
             fontSize: 20, color: theme.subtext, padding: '0 4px', lineHeight: 1,
           }}>×</button>
@@ -38,12 +40,13 @@ export default function RelatedItemsModal({ modal, theme, onClose, onSelectItem 
 
         <div style={{ overflowY: 'auto', padding: '8px 10px' }}>
           {modal.items.map((item, i) => (
-            <div
+            <button
               key={i}
               onClick={() => onSelectItem(item)}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
+                display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
                 cursor: 'pointer', borderRadius: 10, padding: '12px 10px',
                 background: hoveredIndex === i ? theme.cardBg : 'transparent',
                 transition: 'background .15s',
@@ -61,7 +64,7 @@ export default function RelatedItemsModal({ modal, theme, onClose, onSelectItem 
                 fontFamily: "'Crimson Pro', serif", fontSize: 13, fontStyle: 'italic',
                 color: theme.subtext, lineHeight: 1.6,
               }}>"{item.preview}…"</div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

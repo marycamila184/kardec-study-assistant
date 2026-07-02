@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 /**
  * Share quote modal — shows preview card + copy/download actions.
@@ -10,6 +11,7 @@ import React, { useState } from 'react';
 export default function ShareModal({ msg, theme, onClose }) {
   const [copied, setCopied] = useState(false);
 
+  useEscapeKey(onClose, !!msg);
   if (!msg) return null;
 
   const quote    = msg.obra?.quote    || msg.fullText || msg.ia?.slice(0, 500) || '';
@@ -71,7 +73,7 @@ export default function ShareModal({ msg, theme, onClose }) {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: theme.text }}>Compartilhar trecho</div>
-          <button onClick={onClose} style={{
+          <button onClick={onClose} aria-label="Fechar" style={{
             background: 'transparent', border: 'none', cursor: 'pointer',
             fontSize: 20, color: theme.subtext, padding: '0 4px', lineHeight: 1,
           }}>×</button>

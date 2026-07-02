@@ -93,6 +93,7 @@ export default function App() {
   const [isMobile,      setIsMobile]     = useState(() => window.innerWidth < 768);
   const [drawerOpen,    setDrawerOpen]   = useState(false);
   const msgsRef = useRef(null);
+  const requestIdRef = useRef(0);
 
   // ── On-mount: fetch evangelho + paths ────────────────────────────────────
   useEffect(() => {
@@ -123,6 +124,7 @@ export default function App() {
 
   // ── Mode switching ───────────────────────────────────────────────────────
   const switchMode = (m) => {
+    requestIdRef.current += 1; // invalidate any in-flight sendText for the old mode
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
     if (m === 'estudar') setEstudarSub('picker');
     if (m === 'refletir') setRefletirSub('picker');
@@ -138,10 +140,12 @@ export default function App() {
     setConvoId(id);
     saveConvo(id, txt.slice(0, 48), mode, newMsgs);
     scrollToBottom();
+    const requestId = ++requestIdRef.current;
+    const requestMode = mode;
 
     try {
       let reply;
-      if (mode === 'refletir') {
+      if (requestMode === 'refletir') {
         reply = await reflectSituation(txt);
       } else {
         const history = msgs.map(m => ({
@@ -150,15 +154,20 @@ export default function App() {
         }));
         reply = await chatMessage(txt, history);
       }
+      if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
       const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, txt.slice(0, 48), mode, finalMsgs);
-    } catch {
+    } catch (err) {
+      console.error('sendText failed:', err);
+      if (requestId !== requestIdRef.current) return;
       setMsgs([...newMsgs, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
-      setLoading(false);
-      scrollToBottom();
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+        scrollToBottom();
+      }
     }
   };
 
@@ -199,7 +208,8 @@ export default function App() {
         ? await reflectSituation(snippet)
         : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
       appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
-    } catch {
+    } catch (err) {
+      console.error('runQuickAction failed:', err);
       appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
@@ -223,7 +233,8 @@ export default function App() {
     try {
       const reply = await chatMessage(text);
       appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
-    } catch {
+    } catch (err) {
+      console.error('askDuvida failed:', err);
       appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
@@ -240,7 +251,8 @@ export default function App() {
     let pathDetail;
     try {
       pathDetail = await getPath(pathSummary.id);
-    } catch {
+    } catch (err) {
+      console.error('startTrilha failed:', err);
       setGuidedLoading(false); setEstudarSub('picker'); return;
     }
     setActiveTrilha(pathDetail);
@@ -261,7 +273,8 @@ export default function App() {
           ? { ...reply.obra, title: `${step.book} — ${step.label} · Passo ${stepIdx + 1} de ${trilha.steps.length}` }
           : null,
       };
-    } catch {
+    } catch (err) {
+      console.error('presentGuidedStep failed:', err);
       tutorMsg = {
         id: 'tutor_' + stepIdx,
         isUser: false, isAI: true, hasDaObra: false, obra: null,
@@ -303,9 +316,13 @@ export default function App() {
         reply = await chatMessage(bookName ? `Contexto: ${bookName}. ${query}` : query);
       }
     } catch (err) {
+      console.error('handleAskTopic failed:', err);
       if (err.status === 404) {
         try { reply = await chatMessage(query); }
-        catch { reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' }; }
+        catch (err2) {
+          console.error('handleAskTopic fallback failed:', err2);
+          reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
+        }
       } else {
         reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
       }
@@ -315,6 +332,14 @@ export default function App() {
 
     const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
     setExplorarMsgs([userMsg, aiMsg]);
+    scrollToBottom();
+  };
+
+  // ── Open a saved favorite back into the dúvida thread ─────────────────────
+  const handleOpenFavorite = (fav) => {
+    requestIdRef.current += 1; // invalidate any in-flight sendText
+    setMode('duvida'); setInput(''); setConvoId(null);
+    setMsgs([{ id: 'fav_' + fav.id, isUser: false, isAI: true, hasDaObra: !!fav.obra, obra: fav.obra, ia: fav.ia }]);
     scrollToBottom();
   };
 
@@ -346,7 +371,8 @@ export default function App() {
       } else {
         reply = await chatMessage(`Explique este trecho do Evangelho: "${content.slice(0, 300)}"`);
       }
-    } catch {
+    } catch (err) {
+      console.error('handleStudyTrecho failed:', err);
       reply = { hasDaObra: false, obra: null, ia: 'Não foi possível carregar o estudo diário.' };
     } finally {
       setLoading(false);
@@ -401,6 +427,7 @@ export default function App() {
             onDeleteConvo={deleteConvo}
             onToggleConvoFavorite={toggleConvoFavorite}
             favorites={favorites}
+            onOpenFavorite={handleOpenFavorite}
             evangelhoData={evangelhoData}
           />
         )}
@@ -423,6 +450,7 @@ export default function App() {
                 onDeleteConvo={deleteConvo}
                 onToggleConvoFavorite={toggleConvoFavorite}
                 favorites={favorites}
+                onOpenFavorite={(fav) => { handleOpenFavorite(fav); setDrawerOpen(false); }}
                 evangelhoData={evangelhoData}
                 onClose={() => setDrawerOpen(false)}
               />
@@ -595,6 +623,7 @@ export default function App() {
                 placeholder={MODE_PLACEHOLDER[mode] || ''}
                 footerHint="IA treinada no Pentateuco Espírita · Respostas sempre referenciadas em Kardec · Enter para enviar"
                 theme={theme}
+                loading={loading}
               />
             </>
           )}
@@ -628,7 +657,8 @@ export default function App() {
             try {
               const reply = await studyItem(item.book, item.item_number, item.chapter || null);
               appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
-            } catch {
+            } catch (err) {
+              console.error('RelatedItemsModal onSelectItem failed:', err);
               appendMsg({
                 id: 'a' + Date.now(), isUser: false, isAI: true,
                 hasDaObra: false, obra: null, ia: 'Não foi possível carregar este item.',

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 /**
  * Slide-in settings panel from the right (300px wide).
@@ -24,9 +25,10 @@ export default function SettingsPanel({
   notifPermission, onRequestNotif,
   theme,
 }) {
-  if (!open) return null;
-
   const [justSaved, setJustSaved] = useState(false);
+  useEscapeKey(onClose, open);
+
+  if (!open) return null;
 
   const Toggle = ({ on, onToggle }) => (
     <div onClick={onToggle} style={{
@@ -61,7 +63,7 @@ export default function SettingsPanel({
           <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 17, fontWeight: 600, color: theme.text }}>
             Configurações
           </div>
-          <button onClick={onClose} style={{
+          <button onClick={onClose} aria-label="Fechar configurações" style={{
             width: 28, height: 28, borderRadius: 6,
             background: 'transparent', border: `1px solid ${theme.headerBorder}`,
             cursor: 'pointer', fontSize: 18, color: theme.subtext,

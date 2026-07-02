@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 /**
  * Citation excerpt modal — shows the retrieved passage behind a source chip.
@@ -8,6 +9,7 @@ import React from 'react';
  *   onClose — () => void
  */
 export default function SourceModal({ source, theme, onClose }) {
+  useEscapeKey(onClose, !!source);
   if (!source) return null;
 
   const reference = source.item_number
@@ -29,7 +31,7 @@ export default function SourceModal({ source, theme, onClose }) {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: theme.text }}>Fonte citada</div>
-          <button onClick={onClose} style={{
+          <button onClick={onClose} aria-label="Fechar" style={{
             background: 'transparent', border: 'none', cursor: 'pointer',
             fontSize: 20, color: theme.subtext, padding: '0 4px', lineHeight: 1,
           }}>×</button>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
 import { BRAND_TERRACOTTA } from '../../constants/theme';
+import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
 
 const ShareIcon = () => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="none"
@@ -45,7 +46,7 @@ export default function IABlock({
           {!isRevealing && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
               {onShare && (
-                <button onClick={() => onShare(msg)} style={{
+                <button onClick={() => onShare(msg)} aria-label="Compartilhar" style={{
                   background: 'transparent', border: 'none', cursor: 'pointer',
                   padding: '2px 4px', display: 'flex', alignItems: 'center',
                   color: theme.subtext, borderRadius: 4,
@@ -54,7 +55,7 @@ export default function IABlock({
                 </button>
               )}
               {onToggleFav && (
-                <button onClick={() => onToggleFav(msg)} style={{
+                <button onClick={() => onToggleFav(msg)} aria-label={isFavorite ? 'Remover dos favoritos' : 'Favoritar'} style={{
                   background: 'transparent', border: 'none', cursor: 'pointer',
                   padding: '2px 4px', fontSize: 20, lineHeight: 1,
                   opacity: isFavorite ? 1 : 0.38,
@@ -71,12 +72,12 @@ export default function IABlock({
         <div style={{
           fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', fontSize: 15,
           color: BRAND_TERRACOTTA, lineHeight: 1.6, marginBottom: 10,
-        }}>{msg.opening}</div>
+        }}>{renderInlineMarkdown(msg.opening)}</div>
       )}
 
       <div style={{
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
-      }}>{revealedText}</div>
+      }}>{renderInlineMarkdown(revealedText)}</div>
 
       {!isRevealing && msg.isReflection && msg.reflectionQuestions?.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
@@ -84,7 +85,7 @@ export default function IABlock({
             <div key={i} style={{
               background: 'rgba(200,133,106,.08)', border: `1px solid rgba(200,133,106,.25)`,
               borderRadius: 8, padding: '8px 12px', fontSize: 13, color: theme.text, lineHeight: 1.5,
-            }}>{q}</div>
+            }}>{renderInlineMarkdown(q)}</div>
           ))}
         </div>
       )}

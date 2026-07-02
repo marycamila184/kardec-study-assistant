@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 /**
  * Shown once, right when a guided trilha is completed — before navigating
@@ -10,6 +11,7 @@ import React from 'react';
  *   onClose — () => void, dismisses this modal and navigates to the picker
  */
 export default function TrilhaCompleteModal({ modal, theme, onShare, onClose }) {
+  useEscapeKey(onClose, !!modal);
   if (!modal) return null;
 
   return (

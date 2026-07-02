@@ -32,6 +32,7 @@ export default function Sidebar({
   onStudyTrecho, onTutorial,
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   favorites = [],
+  onOpenFavorite,
   evangelhoData = null,
   onClose,
 }) {
@@ -64,7 +65,7 @@ export default function Sidebar({
             color: 'white', lineHeight: 1.25, flex: 1,
           }}>Dialogando com a Doutrina</div>
           {onClose && (
-            <button onClick={(e) => { e.stopPropagation(); onClose(); }} style={{
+            <button onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Fechar menu" style={{
               background: 'transparent', border: 'none', cursor: 'pointer',
               color: 'rgba(255,255,255,.7)', fontSize: 22, lineHeight: 1,
               padding: '0 2px', flexShrink: 0,
@@ -86,16 +87,18 @@ export default function Sidebar({
         }}>Modos de estudo</div>
 
         {navModes.map(m => (
-          <div key={m.id}
+          <button key={m.id}
             onClick={() => onModeChange(m.id)}
+            aria-current={mode === m.id ? 'true' : undefined}
             style={{
               ...navBase,
+              width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
               fontWeight: mode === m.id ? 600 : 400,
               color: mode === m.id ? 'white' : 'rgba(255,255,255,.7)',
               background: mode === m.id ? 'rgba(255,255,255,.22)' : 'transparent',
             }}>
             {m.label}
-          </div>
+          </button>
         ))}
 
         {/* Daily trecho */}
@@ -104,9 +107,12 @@ export default function Sidebar({
           fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
         }}>Trecho do dia</div>
-        <div
+        <button
           onClick={evangelhoData ? onStudyTrecho : undefined}
+          disabled={!evangelhoData}
+          aria-label="Ler e refletir sobre o trecho do dia"
           style={{
+            display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
             background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
             cursor: evangelhoData ? 'pointer' : 'default',
             transition: 'background .15s',
@@ -150,7 +156,7 @@ export default function Sidebar({
               Carregando trecho do dia…
             </div>
           )}
-        </div>
+        </button>
 
         {/* Favorited convos */}
         {conversations.some(c => c.favorited) && (
@@ -189,11 +195,17 @@ export default function Sidebar({
               textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
             }}>Respostas salvas</div>
             {favorites.slice(0, 5).map(f => (
-              <div key={f.id} style={{
-                padding: '6px 8px', borderRadius: 5, cursor: 'pointer',
-                color: 'rgba(255,255,255,.6)', fontSize: 11, lineHeight: 1.35,
-                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-              }}>⭐ {(f.ia || '').slice(0, 42)}…</div>
+              <button
+                key={f.id}
+                onClick={() => onOpenFavorite?.(f)}
+                style={{
+                  display: 'block', width: '100%', textAlign: 'left',
+                  padding: '6px 8px', borderRadius: 5, cursor: onOpenFavorite ? 'pointer' : 'default',
+                  background: 'transparent', border: 'none',
+                  color: 'rgba(255,255,255,.6)', fontSize: 11, lineHeight: 1.35,
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                }}
+              >⭐ {(f.ia || '').slice(0, 42)}…</button>
             ))}
           </>
         )}
@@ -227,17 +239,18 @@ function ConvoItem({ c, onLoad, onDelete, onToggleFav }) {
       padding: '3px 4px 3px 8px', borderRadius: 5,
       color: 'rgba(255,255,255,.6)', fontSize: 11,
     }}>
-      <div onClick={() => onLoad(c)} style={{
+      <button onClick={() => onLoad(c)} style={{
         flex: 1, minWidth: 0, cursor: 'pointer', lineHeight: 1.35, fontSize: 12.5,
         overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-        padding: '3px 0',
-      }}>{c.title}</div>
-      <button onClick={() => onToggleFav(c.id)} title={c.favorited ? 'Remover dos favoritos' : 'Favoritar'} style={{
+        padding: '3px 0', textAlign: 'left', background: 'transparent', border: 'none',
+        color: 'inherit', font: 'inherit',
+      }}>{c.title}</button>
+      <button onClick={() => onToggleFav(c.id)} aria-label={c.favorited ? 'Remover dos favoritos' : 'Favoritar'} title={c.favorited ? 'Remover dos favoritos' : 'Favoritar'} style={{
         background: 'transparent', border: 'none', cursor: 'pointer',
         fontSize: 12, padding: '2px 3px', flexShrink: 0, lineHeight: 1,
         color: c.favorited ? '#F5C842' : 'rgba(255,255,255,.35)',
       }}>{c.favorited ? '★' : '☆'}</button>
-      <button onClick={() => onDelete(c.id)} title="Apagar conversa" style={{
+      <button onClick={() => onDelete(c.id)} aria-label="Apagar conversa" title="Apagar conversa" style={{
         background: 'transparent', border: 'none', cursor: 'pointer',
         padding: '2px 4px', flexShrink: 0, lineHeight: 1,
         color: 'rgba(255,255,255,.4)', fontSize: 14, fontWeight: 400,

@@ -18,13 +18,12 @@ export default function MobileBottomNav({ mode, onChange }) {
       padding: '0 4px', flexShrink: 0, borderTop: '1px solid rgba(255,255,255,.12)',
     }}>
       {TABS.map(t => (
-        <div key={t.id} onClick={() => onChange(t.id)} style={{
-          ...base,
-          background: mode === t.id ? 'rgba(255,255,255,.2)' : 'transparent',
+        <button key={t.id} onClick={() => onChange(t.id)} aria-current={mode === t.id ? 'true' : undefined} style={{
+          ...base, border: 'none', background: mode === t.id ? 'rgba(255,255,255,.2)' : 'transparent',
           opacity: mode === t.id ? 1 : 0.55,
         }}>
           <span style={{ fontSize: 9, color: 'white', fontWeight: 500 }}>{t.label}</span>
-        </div>
+        </button>
       ))}
     </div>
   );

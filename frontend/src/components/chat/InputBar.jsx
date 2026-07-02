@@ -8,16 +8,22 @@ import React, { useRef, useEffect } from 'react';
  * @prop {string}   placeholder
  * @prop {string}   footerHint   Small text below input
  * @prop {object}   theme
+ * @prop {boolean}  loading      Disables input/send while a request is in flight
  */
-export default function InputBar({ value, onChange, onSend, placeholder, footerHint, theme }) {
+export default function InputBar({ value, onChange, onSend, placeholder, footerHint, theme, loading = false }) {
   const ref = useRef(null);
 
   // Auto-focus & auto-resize
-  useEffect(() => { if (ref.current) ref.current.focus(); }, [placeholder]);
+  useEffect(() => { if (ref.current && !loading) ref.current.focus(); }, [placeholder, loading]);
 
   const handleKey = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSend(); }
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!loading) onSend();
+    }
   };
+
+  const canSend = !loading && value.trim().length > 0;
 
   return (
     <div style={{
@@ -33,20 +39,28 @@ export default function InputBar({ value, onChange, onSend, placeholder, footerH
           onKeyDown={handleKey}
           placeholder={placeholder}
           rows={1}
+          disabled={loading}
+          aria-label="Digite sua mensagem"
+          aria-busy={loading}
           style={{
             flex: 1, background: theme.inputBg,
             border: `1px solid ${theme.inputBorder}`,
             borderRadius: 10, padding: '9px 13px',
             fontSize: 15, color: theme.text, lineHeight: 1.55,
             resize: 'none', fontFamily: 'inherit', overflowY: 'hidden',
-            outline: 'none',
+            outline: 'none', opacity: loading ? 0.6 : 1,
           }}
         />
-        <button onClick={onSend} style={{
-          width: 36, height: 36, background: '#6B9BB8', border: 'none',
-          borderRadius: 10, cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-        }}>
+        <button
+          onClick={onSend}
+          disabled={!canSend}
+          aria-label="Enviar mensagem"
+          style={{
+            width: 36, height: 36, background: '#6B9BB8', border: 'none',
+            borderRadius: 10, cursor: canSend ? 'pointer' : 'not-allowed',
+            opacity: canSend ? 1 : 0.5,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+          }}>
           <svg width={14} height={14} viewBox="0 0 24 24" fill="none"
             stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"/>
