@@ -107,6 +107,83 @@ def test_reflect_sets_generation_failed_on_unparseable_llm_output():
     assert result["not_found"] is False
 
 
+def test_reflect_returns_is_closing_from_llm():
+    llm_json_closing = '{"opening": "Encerrando.", "doctrine_connection": "Conclusão.", "reflection_questions": [], "is_closing": true}'
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect._get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(llm_json_closing)
+        result = reflect("situação")
+    assert result["is_closing"] is True
+    assert result["reflection_questions"] == []
+
+
+def test_reflect_passes_history_to_build_reflect_messages():
+    history = [
+        {"role": "user", "content": "pergunta anterior"},
+        {"role": "assistant", "content": "resposta anterior"},
+    ]
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.build_reflect_messages") as mock_build,
+    ):
+        mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
+        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        reflect("nova pergunta", conversation_history=history)
+    assert mock_build.call_args.kwargs["history"] == history
+
+
+def test_reflect_caveat_persists_from_history():
+    history = [
+        {"role": "user", "content": "escuto vozes à noite"},
+        {"role": "assistant", "content": "Resposta anterior."},
+    ]
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.build_reflect_messages") as mock_build,
+    ):
+        mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
+        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        reflect("situação neutra agora", conversation_history=history)
+    _, _, add_caveat = mock_build.call_args[0]
+    assert add_caveat is True
+
+
+def test_reflect_forces_closing_after_round_cap():
+    history = []
+    for i in range(5):
+        history.append({"role": "user", "content": f"pergunta {i}"})
+        history.append({"role": "assistant", "content": f"resposta {i}"})
+    llm_json_not_closing = '{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"], "is_closing": false}'
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect._get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(llm_json_not_closing)
+        result = reflect("pergunta final", conversation_history=history)
+    assert result["is_closing"] is True
+    assert result["reflection_questions"] == []
+
+
+def test_reflect_does_not_force_closing_below_round_cap():
+    history = []
+    for i in range(4):
+        history.append({"role": "user", "content": f"pergunta {i}"})
+        history.append({"role": "assistant", "content": f"resposta {i}"})
+    llm_json_not_closing = '{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"], "is_closing": false}'
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect._get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(llm_json_not_closing)
+        result = reflect("pergunta", conversation_history=history)
+    assert result["is_closing"] is False
+    assert result["reflection_questions"] == ["C?"]
+
+
 def test_reflect_sources_come_from_first_two_chunks():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2, _CHUNK_3]),
