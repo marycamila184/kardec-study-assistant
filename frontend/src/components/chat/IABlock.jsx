@@ -25,6 +25,7 @@ export default function IABlock({
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
+  onReflectionQuestionClick,
 }) {
   const [openSource, setOpenSource] = useState(null);
 
@@ -79,13 +80,18 @@ export default function IABlock({
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
       }}>{renderInlineMarkdown(revealedText)}</div>
 
-      {!isRevealing && msg.isReflection && msg.reflectionQuestions?.length > 0 && (
+      {!isRevealing && msg.isReflection && !msg.isClosing && msg.reflectionQuestions?.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
           {msg.reflectionQuestions.map((q, i) => (
-            <div key={i} style={{
-              background: 'rgba(200,133,106,.08)', border: `1px solid rgba(200,133,106,.25)`,
-              borderRadius: 8, padding: '8px 12px', fontSize: 13, color: theme.text, lineHeight: 1.5,
-            }}>{renderInlineMarkdown(q)}</div>
+            <button
+              key={i}
+              onClick={() => onReflectionQuestionClick?.(q)}
+              style={{
+                background: 'rgba(200,133,106,.08)', border: `1px solid rgba(200,133,106,.25)`,
+                borderRadius: 8, padding: '8px 12px', fontSize: 13, color: theme.text, lineHeight: 1.5,
+                textAlign: 'left', cursor: 'pointer', font: 'inherit', width: '100%',
+              }}
+            >{renderInlineMarkdown(q)}</button>
           ))}
         </div>
       )}
