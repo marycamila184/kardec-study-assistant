@@ -63,6 +63,7 @@ def reflect(situation: str) -> dict:
     opening = ""
     doctrine_connection = ""
     reflection_questions = []
+    is_closing = False
     generation_failed = False
     try:
         response = _get_client().chat.completions.create(
@@ -70,7 +71,7 @@ def reflect(situation: str) -> dict:
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,
         )
-        opening, doctrine_connection, reflection_questions = parse_reflect_json(
+        opening, doctrine_connection, reflection_questions, is_closing = parse_reflect_json(
             response.choices[0].message.content
         )
     except Exception:

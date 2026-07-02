@@ -30,7 +30,7 @@ _CHUNK_3 = {
     "distance": 0.7,
 }
 
-_LLM_JSON = '{"opening": "Compreendemos sua dor.", "doctrine_connection": "A doutrina ensina...", "reflection_questions": ["Q1?", "Q2?", "Q3?"]}'
+_LLM_JSON = '{"opening": "Compreendemos sua dor.", "doctrine_connection": "A doutrina ensina...", "reflection_questions": ["Q1?", "Q2?", "Q3?"], "is_closing": false}'
 
 
 def _make_llm_response(content: str) -> MagicMock:
