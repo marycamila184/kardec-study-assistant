@@ -83,6 +83,7 @@ export default function App() {
   const [guidedLoading, setGuidedLoading]= useState(false);
   const [explorarMsgs,  setExplorarMsgs] = useState([]);
   const [explorarLoad,  setExplorarLoad] = useState(false);
+  const [explorarConvoMeta, setExplorarConvoMeta] = useState(null); // { id, title } | null
   const [showSettings,  setShowSettings] = useState(false);
   const [shareMsg,      setShareMsg]     = useState(null);
   const [relatedModal,  setRelatedModal] = useState(null);
@@ -277,7 +278,13 @@ export default function App() {
     }
   };
   const handleGuidedDuvida = (text) => askDuvida(text, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
-  const handleExplorarDuvida = (text) => askDuvida(text, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
+  const handleExplorarDuvida = (text) => askDuvida(text, m => {
+    setExplorarMsgs(prev => {
+      const updated = [...prev, m];
+      if (explorarConvoMeta) saveConvo(explorarConvoMeta.id, explorarConvoMeta.title, 'estudar', updated);
+      return updated;
+    });
+  }, setExplorarLoad);
 
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
@@ -366,6 +373,10 @@ export default function App() {
     }
 
     const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
+    const convoId2 = 'explorar_' + Date.now();
+    const title = query.slice(0, 48);
+    setExplorarConvoMeta({ id: convoId2, title });
+    saveConvo(convoId2, title, 'estudar', [userMsg, aiMsg]);
     setExplorarMsgs([userMsg, aiMsg]);
     scrollToBottom();
   };
@@ -540,7 +551,7 @@ export default function App() {
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
-              onBookChange={() => setExplorarMsgs([])}
+              onBookChange={() => { setExplorarMsgs([]); setExplorarConvoMeta(null); }}
               onAskDuvida={handleExplorarDuvida}
             />
           )}
