@@ -14,7 +14,7 @@ import FollowUpButtons from '../chat/FollowUpButtons';
  *   theme
  *   onNext         — () => void — advance to next step, or complete the trilha and navigate back
  *   onBack         — () => void — back to picker
- *   onAskDuvida    — (text) => void — submit inline follow-up question
+ *   onAskDuvida    — (displayText, queryText) => void — submit contextualized follow-up
  *   onShare        — (msg) => void
  *   fontSize       — string CSS value
  */
