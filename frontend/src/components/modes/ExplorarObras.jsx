@@ -3,39 +3,7 @@ import { OBRAS } from '../../constants/obras';
 import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
-
-function DuvidaComposer({ theme, askingDuvida, setAskingDuvida, duvidaText, setDuvidaText, submitDuvida }) {
-  return (
-    <>
-      <button onClick={() => setAskingDuvida(v => !v)} style={{
-        background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-        color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-        fontSize: 13.5, fontWeight: 500, cursor: 'pointer',
-      }}>Tenho uma dúvida</button>
-      {askingDuvida && (
-        <div style={{ display: 'flex', gap: 6, width: '100%', maxWidth: 420, marginTop: 8 }}>
-          <input
-            value={duvidaText}
-            onChange={e => setDuvidaText(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); submitDuvida(); } }}
-            placeholder="Digite sua dúvida…"
-            autoFocus
-            style={{
-              flex: 1, background: theme.inputBg, border: `1px solid ${theme.inputBorder}`,
-              borderRadius: 8, padding: '8px 12px', fontSize: 13.5, color: theme.text, outline: 'none',
-            }}
-          />
-          <button onClick={submitDuvida} disabled={!duvidaText.trim()} style={{
-            background: '#6B9BB8', color: 'white', border: 'none',
-            padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600,
-            cursor: duvidaText.trim() ? 'pointer' : 'not-allowed',
-            opacity: duvidaText.trim() ? 1 : 0.5,
-          }}>Perguntar</button>
-        </div>
-      )}
-    </>
-  );
-}
+import FollowUpButtons from '../chat/FollowUpButtons';
 
 /**
  * "Explorar Obras" free consultation mode.
@@ -43,7 +11,7 @@ function DuvidaComposer({ theme, askingDuvida, setAskingDuvida, duvidaText, setD
  *   theme
  *   onBack               — () => void
  *   onRedirectDuvida     — (obraLabel) => void (unused by "Tenho uma dúvida"; see onAskDuvida)
- *   onAskDuvida          — (text) => void — submit inline follow-up question
+ *   onAskDuvida          — (displayText, queryText) => void — submit contextualized follow-up
  *   onAskTopic           — (query, obraId) => void  (triggers API call)
  *   messages             — array
  *   loading              — boolean
@@ -61,16 +29,6 @@ export default function ExplorarObras({
   const [openParts, setOpenParts] = useState({});
   const obra = OBRAS.find(o => o.id === selectedObra) || OBRAS[0];
   const hasMessages = messages.length > 0;
-
-  const [askingDuvida, setAskingDuvida] = useState(false);
-  const [duvidaText, setDuvidaText] = useState('');
-
-  const submitDuvida = () => {
-    if (!duvidaText.trim()) return;
-    onAskDuvida(duvidaText.trim());
-    setDuvidaText('');
-    setAskingDuvida(false);
-  };
 
   const togglePart = (key) => setOpenParts(p => ({ ...p, [key]: !p[key] }));
 
@@ -172,12 +130,6 @@ export default function ExplorarObras({
               </div>
             );
           })}
-
-          {/* Dúvida composer */}
-          <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <DuvidaComposer theme={theme} askingDuvida={askingDuvida} setAskingDuvida={setAskingDuvida}
-              duvidaText={duvidaText} setDuvidaText={setDuvidaText} submitDuvida={submitDuvida} />
-          </div>
         </div>
       ) : (
         <div style={{
@@ -195,8 +147,12 @@ export default function ExplorarObras({
                   onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
-                    <DuvidaComposer theme={theme} askingDuvida={askingDuvida} setAskingDuvida={setAskingDuvida}
-                      duvidaText={duvidaText} setDuvidaText={setDuvidaText} submitDuvida={submitDuvida} />
+                    <FollowUpButtons
+                      theme={theme}
+                      snippet={(msg.obra?.quote || msg.ia || '').slice(0, 400)}
+                      onAsk={onAskDuvida}
+                      loading={loading}
+                    />
                   </div>
                 </AIMessage>
           ))}
