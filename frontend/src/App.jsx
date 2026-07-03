@@ -384,6 +384,33 @@ export default function App() {
     scrollToBottom();
   };
 
+  // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
+  const handleLoadConvo = async (c) => {
+    setConvoId(c.id);
+    if (c.mode === 'refletir') {
+      setMode('refletir'); setRefletirSub('chat'); setMsgs(c.msgs);
+    } else if (c.mode === 'estudar' && c.id.startsWith('trilha_')) {
+      setMode('estudar'); setEstudarSub('guided');
+      const trilhaId = c.id.slice('trilha_'.length);
+      const trilhaDetail = await getPath(trilhaId).catch((err) => {
+        console.error('handleLoadConvo failed to fetch trilha detail:', err);
+        return null;
+      });
+      setActiveTrilha(trilhaDetail);
+      const tutorSteps = c.msgs.filter(m => typeof m.id === 'string' && m.id.startsWith('tutor_'));
+      setGuidedStep(Math.max(0, tutorSteps.length - 1));
+      setGuidedMsgs(c.msgs);
+    } else if (c.mode === 'estudar' && c.id.startsWith('explorar_')) {
+      setMode('estudar'); setEstudarSub('explorar');
+      const meta = { id: c.id, title: c.title };
+      setExplorarConvoMeta(meta);
+      explorarConvoMetaRef.current = meta;
+      setExplorarMsgs(c.msgs);
+    } else {
+      setMode(c.mode); setMsgs(c.msgs);
+    }
+  };
+
   // ── Redirect to dúvida with context ──────────────────────────────────────
   const redirectToDuvida = (obraLabel) => {
     const ctx = `Contexto: estou estudando "${obraLabel}". `;
@@ -464,7 +491,7 @@ export default function App() {
             onStudyTrecho={handleStudyTrecho}
             onTutorial={() => setOnboarded(false)}
             conversations={conversations}
-            onLoadConvo={(c) => { setMode(c.mode); setMsgs(c.msgs); setConvoId(c.id); }}
+            onLoadConvo={handleLoadConvo}
             onDeleteConvo={deleteConvo}
             onToggleConvoFavorite={toggleConvoFavorite}
             evangelhoData={evangelhoData}
@@ -485,7 +512,7 @@ export default function App() {
                 onStudyTrecho={() => { handleStudyTrecho(); setDrawerOpen(false); }}
                 onTutorial={() => { setOnboarded(false); setDrawerOpen(false); }}
                 conversations={conversations}
-                onLoadConvo={(c) => { setMode(c.mode); setMsgs(c.msgs); setConvoId(c.id); setDrawerOpen(false); }}
+                onLoadConvo={(c) => { handleLoadConvo(c); setDrawerOpen(false); }}
                 onDeleteConvo={deleteConvo}
                 onToggleConvoFavorite={toggleConvoFavorite}
                 evangelhoData={evangelhoData}
