@@ -13,7 +13,7 @@ const BookIcon = ({ size = 11, color = 'white' }) => (
 
 export default function AIMessage({
   msg, theme, fontSize,
-  onShare, onToggleFav, isFavorite,
+  onShare,
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
@@ -37,7 +37,7 @@ export default function AIMessage({
         <IABlock
           msg={msg} theme={theme} fontSize={fontSize}
           revealedText={revealedText} isRevealing={isRevealing}
-          onShare={onShare} onToggleFav={onToggleFav} isFavorite={isFavorite}
+          onShare={onShare}
           showQuickActions={showQuickActions} quickActions={quickActions}
           onQuickAction={onQuickAction}
           onReflectionQuestionClick={onReflectionQuestionClick}

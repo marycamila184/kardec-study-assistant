@@ -21,7 +21,7 @@ const ShareIcon = () => (
 export default function IABlock({
   msg, theme, fontSize = '13px',
   revealedText, isRevealing,
-  onShare, onToggleFav, isFavorite,
+  onShare,
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
@@ -53,15 +53,6 @@ export default function IABlock({
                   color: theme.subtext, borderRadius: 4,
                 }}>
                   <ShareIcon />
-                </button>
-              )}
-              {onToggleFav && (
-                <button onClick={() => onToggleFav(msg)} aria-label={isFavorite ? 'Remover dos favoritos' : 'Favoritar'} style={{
-                  background: 'transparent', border: 'none', cursor: 'pointer',
-                  padding: '2px 4px', fontSize: 20, lineHeight: 1,
-                  opacity: isFavorite ? 1 : 0.38,
-                }}>
-                  {isFavorite ? '⭐' : '☆'}
                 </button>
               )}
             </div>
