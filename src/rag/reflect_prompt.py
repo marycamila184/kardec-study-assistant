@@ -48,7 +48,11 @@ Regras de tom:
 
 Regras de continuidade e encerramento:
 - [HISTÓRICO DA CONVERSA] abaixo mostra as trocas anteriores desta mesma reflexão, se \
-houver. Mantenha coerência com a situação original e com tudo que já foi dito.
+houver, incluindo as perguntas de reflexão já oferecidas. Mantenha coerência com a \
+situação original e com tudo que já foi dito.
+- NUNCA repita, nem reformule de forma equivalente, uma pergunta de reflexão que já \
+apareça no histórico. Se as passagens recuperadas não sugerirem um ângulo genuinamente \
+novo, prefira encerrar a reflexão (veja abaixo) em vez de repetir uma pergunta anterior.
 - Avalie se esta reflexão já chegou a um ponto natural de conclusão. Se sim, defina \
 "is_closing": true, deixe "reflection_questions" como uma lista vazia [], e escreva em \
 "opening"/"doctrine_connection" uma mensagem de encerramento acolhedora, sem novas perguntas.

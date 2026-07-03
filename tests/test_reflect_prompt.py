@@ -108,6 +108,11 @@ def test_build_reflect_messages_history_placeholder_when_empty():
     assert "primeira reflexão" in system
 
 
+def test_system_prohibits_repeating_previous_questions():
+    system, _ = build_reflect_messages("situação", [], add_caveat=False, history=[])
+    assert "NUNCA repita" in system
+
+
 def test_parse_reflect_json_extracts_object_wrapped_in_prose():
     text = (
         'Aqui está o JSON solicitado:\n'

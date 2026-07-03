@@ -172,10 +172,16 @@ export default function App() {
   };
 
   // ── Build {role, content} history for a Refletir thread from current msgs ──
-  const buildReflectHistory = (msgs) => msgs.map(m => ({
-    role: m.isUser ? 'user' : 'assistant',
-    content: m.isUser ? m.text : `${m.opening || ''}\n\n${m.ia || ''}`.trim(),
-  }));
+  const buildReflectHistory = (msgs) => msgs.map(m => {
+    if (m.isUser) return { role: 'user', content: m.text };
+    const questions = (m.reflectionQuestions || []).map((q, i) => `${i + 1}. ${q}`).join('\n');
+    const content = [
+      m.opening,
+      m.ia,
+      questions ? `Perguntas de reflexão já oferecidas:\n${questions}` : '',
+    ].filter(Boolean).join('\n\n');
+    return { role: 'assistant', content };
+  });
 
   // ── Continue a Refletir thread via a clicked reflection-question button ───
   const handleReflectionQuestionClick = async (question) => {
