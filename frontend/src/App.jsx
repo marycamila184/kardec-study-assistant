@@ -268,13 +268,12 @@ export default function App() {
     runQuickAction(label, msg, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
-  const askDuvida = async (text, appendMsg, setLoad) => {
-    if (!text.trim()) return;
-    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text });
+  const askDuvida = async (displayText, queryText, appendMsg, setLoad) => {
+    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text: displayText });
     setLoad(true);
     scrollToBottom();
     try {
-      const reply = await chatMessage(text);
+      const reply = await chatMessage(queryText);
       appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('askDuvida failed:', err);
@@ -284,8 +283,9 @@ export default function App() {
       scrollToBottom();
     }
   };
-  const handleGuidedDuvida = (text) => askDuvida(text, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
-  const handleExplorarDuvida = (text) => askDuvida(text, m => {
+  const handleGuidedDuvida = (displayText, queryText) =>
+    askDuvida(displayText, queryText, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
+  const handleExplorarDuvida = (displayText, queryText) => askDuvida(displayText, queryText, m => {
     setExplorarMsgs(prev => {
       const updated = [...prev, m];
       if (explorarConvoMetaRef.current) saveConvo(explorarConvoMetaRef.current.id, explorarConvoMetaRef.current.title, 'estudar', updated);
