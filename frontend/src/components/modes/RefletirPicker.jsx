@@ -5,6 +5,10 @@ const SITUATIONS = [
   { icon: '👨‍👩‍👧', label: 'Conflito familiar', text: 'Estou vivendo um conflito familiar que está me machucando.' },
   { icon: '😟', label: 'Ansiedade ou medo do futuro', text: 'Estou sentindo muita ansiedade e medo em relação ao futuro.' },
   { icon: '🙏', label: 'Gratidão e um momento de alegria', text: 'Quero refletir sobre um momento de alegria e gratidão que estou vivendo.' },
+  { icon: '🤕', label: 'Doença ou sofrimento físico', text: 'Estou enfrentando uma doença ou sofrimento físico e isso está pesando em mim.' },
+  { icon: '💔', label: 'Mágoa ou dificuldade em perdoar', text: 'Estou guardando mágoa ou raiva de alguém e sinto dificuldade em perdoar.' },
+  { icon: '🌌', label: 'Dúvidas espirituais', text: 'Estou passando por dúvidas espirituais e queria refletir sobre isso.' },
+  { icon: '🔀', label: 'Decisão difícil ou mudança de vida', text: 'Estou diante de uma decisão difícil ou uma grande mudança de vida.' },
 ];
 
 /**
@@ -33,7 +37,7 @@ export default function RefletirPicker({ theme, onSubmit }) {
           fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
           textTransform: 'uppercase', color: theme.subtext, marginBottom: 10,
         }}>Situações comuns</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
           {SITUATIONS.map(s => (
             <button key={s.label} onClick={() => onSubmit(s.text)} style={{
               background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
