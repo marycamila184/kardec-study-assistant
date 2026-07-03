@@ -84,6 +84,7 @@ export default function App() {
   const [explorarMsgs,  setExplorarMsgs] = useState([]);
   const [explorarLoad,  setExplorarLoad] = useState(false);
   const [explorarConvoMeta, setExplorarConvoMeta] = useState(null); // { id, title } | null
+  const explorarConvoMetaRef = useRef(null);
   const [showSettings,  setShowSettings] = useState(false);
   const [shareMsg,      setShareMsg]     = useState(null);
   const [relatedModal,  setRelatedModal] = useState(null);
@@ -281,7 +282,7 @@ export default function App() {
   const handleExplorarDuvida = (text) => askDuvida(text, m => {
     setExplorarMsgs(prev => {
       const updated = [...prev, m];
-      if (explorarConvoMeta) saveConvo(explorarConvoMeta.id, explorarConvoMeta.title, 'estudar', updated);
+      if (explorarConvoMetaRef.current) saveConvo(explorarConvoMetaRef.current.id, explorarConvoMetaRef.current.title, 'estudar', updated);
       return updated;
     });
   }, setExplorarLoad);
@@ -375,7 +376,9 @@ export default function App() {
     const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
     const convoId2 = 'explorar_' + Date.now();
     const title = query.slice(0, 48);
-    setExplorarConvoMeta({ id: convoId2, title });
+    const meta = { id: convoId2, title };
+    setExplorarConvoMeta(meta);
+    explorarConvoMetaRef.current = meta;
     saveConvo(convoId2, title, 'estudar', [userMsg, aiMsg]);
     setExplorarMsgs([userMsg, aiMsg]);
     scrollToBottom();
@@ -551,7 +554,7 @@ export default function App() {
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
-              onBookChange={() => { setExplorarMsgs([]); setExplorarConvoMeta(null); }}
+              onBookChange={() => { setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null; }}
               onAskDuvida={handleExplorarDuvida}
             />
           )}
