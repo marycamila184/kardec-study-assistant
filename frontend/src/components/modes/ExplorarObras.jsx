@@ -47,13 +47,13 @@ function DuvidaComposer({ theme, askingDuvida, setAskingDuvida, duvidaText, setD
  *   onAskTopic           — (query, obraId) => void  (triggers API call)
  *   messages             — array
  *   loading              — boolean
- *   onShare, onToggleFav, isFavorite
+ *   onShare
  *   fontSize
  */
 export default function ExplorarObras({
   theme, onBack, onRedirectDuvida,
   onAskTopic, messages = [], loading,
-  onShare, onToggleFav, isFavorite, fontSize,
+  onShare, fontSize,
   quickActions = [], onQuickAction,
   onBookChange, onAskDuvida,
 }) {

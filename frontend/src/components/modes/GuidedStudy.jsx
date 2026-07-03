@@ -15,13 +15,11 @@ import LoadingDots from '../chat/LoadingDots';
  *   onBack         — () => void — back to picker
  *   onAskDuvida    — (text) => void — submit inline follow-up question
  *   onShare        — (msg) => void
- *   onToggleFav    — (msg) => void
- *   isFavorite     — (id) => boolean
  *   fontSize       — string CSS value
  */
 export default function GuidedStudy({
   trilha, currentStep, messages, loading,
-  theme, onNext, onBack, onAskDuvida, onShare, onToggleFav, isFavorite, fontSize,
+  theme, onNext, onBack, onAskDuvida, onShare, fontSize,
   quickActions = [], onQuickAction,
 }) {
   const scrollRef = useRef(null);
