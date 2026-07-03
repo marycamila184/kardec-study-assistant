@@ -25,14 +25,11 @@ const navModes = [
  *   onTutorial     — () => void
  *   conversations  — array of {id, title, mode, msgs}
  *   onLoadConvo    — (convo) => void
- *   favorites      — array of {id, ia, obra}
  */
 export default function Sidebar({
   mode, onModeChange,
   onStudyTrecho, onTutorial,
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
-  favorites = [],
-  onOpenFavorite,
   evangelhoData = null,
   onClose,
 }) {
@@ -182,30 +179,6 @@ export default function Sidebar({
             }}>Conversas recentes</div>
             {conversations.filter(c => !c.favorited).slice(0, 8).map(c => (
               <ConvoItem key={c.id} c={c} onLoad={onLoadConvo} onDelete={onDeleteConvo} onToggleFav={onToggleConvoFavorite} />
-            ))}
-          </>
-        )}
-
-        {/* Message favorites */}
-        {favorites.length > 0 && (
-          <>
-            <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
-            <div style={{
-              fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
-              textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
-            }}>Respostas salvas</div>
-            {favorites.slice(0, 5).map(f => (
-              <button
-                key={f.id}
-                onClick={() => onOpenFavorite?.(f)}
-                style={{
-                  display: 'block', width: '100%', textAlign: 'left',
-                  padding: '6px 8px', borderRadius: 5, cursor: onOpenFavorite ? 'pointer' : 'default',
-                  background: 'transparent', border: 'none',
-                  color: 'rgba(255,255,255,.6)', fontSize: 11, lineHeight: 1.35,
-                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                }}
-              >⭐ {(f.ia || '').slice(0, 42)}…</button>
             ))}
           </>
         )}

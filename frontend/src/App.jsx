@@ -19,7 +19,6 @@ import InputBar from './components/chat/InputBar';
 import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
-import { useFavorites } from './hooks/useFavorites';
 import { useReminder } from './hooks/useReminder';
 import { lightTheme } from './constants/theme';
 import {
@@ -65,7 +64,6 @@ export default function App() {
   const [completedTrilhas, setCompletedTrilhas] = useStorage('dialogando_completed_trilhas', []);
   const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
   const { conversations, saveConvo, deleteConvo, toggleConvoFavorite } = useConversations();
-  const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
   // ── API state ────────────────────────────────────────────────────────────
   const [evangelhoData, setEvangelhoData] = useState(null);
@@ -372,14 +370,6 @@ export default function App() {
     scrollToBottom();
   };
 
-  // ── Open a saved favorite back into the dúvida thread ─────────────────────
-  const handleOpenFavorite = (fav) => {
-    requestIdRef.current += 1; // invalidate any in-flight sendText
-    setMode('duvida'); setInput(''); setConvoId(null);
-    setMsgs([{ id: 'fav_' + fav.id, isUser: false, isAI: true, hasDaObra: !!fav.obra, obra: fav.obra, ia: fav.ia }]);
-    scrollToBottom();
-  };
-
   // ── Redirect to dúvida with context ──────────────────────────────────────
   const redirectToDuvida = (obraLabel) => {
     const ctx = `Contexto: estou estudando "${obraLabel}". `;
@@ -463,8 +453,6 @@ export default function App() {
             onLoadConvo={(c) => { setMode(c.mode); setMsgs(c.msgs); setConvoId(c.id); }}
             onDeleteConvo={deleteConvo}
             onToggleConvoFavorite={toggleConvoFavorite}
-            favorites={favorites}
-            onOpenFavorite={handleOpenFavorite}
             evangelhoData={evangelhoData}
           />
         )}
@@ -486,8 +474,6 @@ export default function App() {
                 onLoadConvo={(c) => { setMode(c.mode); setMsgs(c.msgs); setConvoId(c.id); setDrawerOpen(false); }}
                 onDeleteConvo={deleteConvo}
                 onToggleConvoFavorite={toggleConvoFavorite}
-                favorites={favorites}
-                onOpenFavorite={(fav) => { handleOpenFavorite(fav); setDrawerOpen(false); }}
                 evangelhoData={evangelhoData}
                 onClose={() => setDrawerOpen(false)}
               />
@@ -537,8 +523,6 @@ export default function App() {
               onBack={() => setEstudarSub('picker')}
               onAskDuvida={handleGuidedDuvida}
               onShare={setShareMsg}
-              onToggleFav={toggleFavorite}
-              isFavorite={isFavorite}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleGuidedQuickAction}
             />
@@ -553,8 +537,6 @@ export default function App() {
               messages={explorarMsgs}
               loading={explorarLoad}
               onShare={setShareMsg}
-              onToggleFav={toggleFavorite}
-              isFavorite={isFavorite}
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
@@ -640,8 +622,6 @@ export default function App() {
                     ? <UserBubble key={msg.id} text={msg.text} />
                     : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={msgFontSize}
                         onShare={() => setShareMsg(msg)}
-                        onToggleFav={() => toggleFavorite(msg)}
-                        isFavorite={isFavorite(msg.id)}
                         showQuickActions={false}
                         quickActions={QUICK_ACTIONS.filter(
                           qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
