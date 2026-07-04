@@ -75,7 +75,9 @@ def build_explicador_messages(
         footnote_passages=footnote_context or "(nenhuma)",
         related_passages=_format_related(related_chunks),
     )
-    messages = [{"role": "user", "content": "Analise o trecho acima de forma socrática."}]
+    messages = [
+        {"role": "user", "content": "Analise o trecho acima de forma socrática."}
+    ]
     return system, messages
 
 
@@ -87,6 +89,7 @@ def _fix_conceitos_array(s: str) -> str:
     Becomes:
         "conceitos_chave": ["dever: obrigação...", "lei: regra..."]
     """
+
     def _replacer(m: re.Match) -> str:
         fixed = re.sub(r'"([^"]+)":\s*"([^"]+)"', r'"\1: \2"', m.group(2))
         return m.group(1) + fixed + m.group(3)
@@ -138,7 +141,7 @@ def parse_explicador_json(text: str) -> tuple[str, list[str], list[str]]:
                         break
             if end != -1:
                 try:
-                    return _try_parse(s[start: end + 1])
+                    return _try_parse(s[start : end + 1])
                 except (json.JSONDecodeError, AttributeError, ValueError):
                     pass
         return None

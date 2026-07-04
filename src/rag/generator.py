@@ -48,7 +48,9 @@ def condense_query(question: str, history: list[dict]) -> str:
     return response.choices[0].message.content.strip()
 
 
-def generate(question: str, history: list[dict], book_filter: str | None = None) -> dict:
+def generate(
+    question: str, history: list[dict], book_filter: str | None = None
+) -> dict:
     search_query = question
     if history:
         try:

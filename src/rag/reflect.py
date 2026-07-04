@@ -63,7 +63,9 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
     combined_text = situation + " " + " ".join(h["content"] for h in history)
     add_caveat = needs_medical_caveat(combined_text)
     force_closing = len(history) // 2 >= CAP_ROUNDS
-    system, messages = build_reflect_messages(situation, primary, add_caveat, history=history)
+    system, messages = build_reflect_messages(
+        situation, primary, add_caveat, history=history
+    )
 
     opening = ""
     doctrine_connection = ""
@@ -76,8 +78,8 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,
         )
-        opening, doctrine_connection, reflection_questions, is_closing = parse_reflect_json(
-            response.choices[0].message.content
+        opening, doctrine_connection, reflection_questions, is_closing = (
+            parse_reflect_json(response.choices[0].message.content)
         )
     except Exception:
         generation_failed = True

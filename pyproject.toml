@@ -23,6 +23,7 @@ dev = [
     "isort",
     "pytest",
     "httpx",
+    "pytest-cov>=7.1.0",
 ]
 
 [tool.uv]

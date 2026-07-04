@@ -36,7 +36,9 @@ def _format_candidates(chunks: list[dict]) -> str:
     parts = []
     for i, c in enumerate(chunks):
         m = c["metadata"]
-        parts.append(f"[{i}] {m['book']} — Item {m['item_number']}\n\"{c['content'][:300]}\"")
+        parts.append(
+            f"[{i}] {m['book']} — Item {m['item_number']}\n\"{c['content'][:300]}\""
+        )
     return "\n\n".join(parts)
 
 
@@ -86,7 +88,7 @@ def parse_curador_json(text: str) -> list[dict]:
                     break
         if end != -1:
             try:
-                return _try_parse(text[start: end + 1])
+                return _try_parse(text[start : end + 1])
             except (json.JSONDecodeError, AttributeError, KeyError, ValueError):
                 pass
 

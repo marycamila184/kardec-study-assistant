@@ -23,7 +23,9 @@ class VectorStore:
             metadatas=metadatas,
         )
 
-    def query(self, embedding: list[float], n_results: int, where: dict | None = None) -> list[dict]:
+    def query(
+        self, embedding: list[float], n_results: int, where: dict | None = None
+    ) -> list[dict]:
         kwargs: dict = dict(
             query_embeddings=[embedding],
             n_results=n_results,

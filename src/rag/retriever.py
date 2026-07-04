@@ -36,7 +36,9 @@ def _strip_footnotes_from_results(results: list[dict]) -> list[dict]:
     return results
 
 
-def retrieve(query: str, top_k: int | None = None, book_filter: str | None = None) -> list[dict]:
+def retrieve(
+    query: str, top_k: int | None = None, book_filter: str | None = None
+) -> list[dict]:
     if top_k is None:
         top_k = settings.top_k
     embedding = encode([query])[0]
