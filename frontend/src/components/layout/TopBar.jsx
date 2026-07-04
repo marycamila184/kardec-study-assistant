@@ -14,7 +14,7 @@ const GearIcon = ({ color }) => (
   </svg>
 );
 
-export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer }) {
+export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer, isMobile = false }) {
   const meta = MODE_META[mode] || MODE_META.duvida;
   return (
     <div style={{
@@ -49,12 +49,15 @@ export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer }) {
           </svg>
         </div>
       )}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{
-          fontFamily: "'Crimson Pro', serif", fontSize: 17, fontWeight: 600, color: theme.text,
-        }}>{meta.title}</div>
-        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
-      </div>
+      {!isMobile && (
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{
+            fontFamily: "'Crimson Pro', serif", fontSize: 17, fontWeight: 600, color: theme.text,
+          }}>{meta.title}</div>
+          <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
+        </div>
+      )}
+      {isMobile && <div style={{ flex: 1 }} />}
       <button onClick={onOpenSettings} title="Configurações" aria-label="Abrir configurações" style={{
         width: 34, height: 34, borderRadius: 8,
         background: 'transparent', border: `1px solid ${theme.headerBorder}`,

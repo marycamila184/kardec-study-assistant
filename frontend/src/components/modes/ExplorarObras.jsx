@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { OBRAS } from '../../constants/obras';
 import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
-import FollowUpButtons from '../chat/FollowUpButtons';
+import InputBar from '../chat/InputBar';
 
 /**
  * "Explorar Obras" free consultation mode.
@@ -15,20 +15,38 @@ import FollowUpButtons from '../chat/FollowUpButtons';
  *   onAskTopic           — (query, obraId) => void  (triggers API call)
  *   messages             — array
  *   loading              — boolean
- *   onShare
  *   fontSize
  */
 export default function ExplorarObras({
   theme, onBack, onRedirectDuvida,
-  onAskTopic, messages = [], loading,
-  onShare, fontSize,
+  onAskTopic, onSendMessage, messages = [], loading,
+  fontSize,
   quickActions = [], onQuickAction,
   onBookChange, onAskDuvida,
 }) {
   const [selectedObra, setSelectedObra] = useState('le');
   const [openParts, setOpenParts] = useState({});
+  const [chatInput, setChatInput] = useState('');
   const obra = OBRAS.find(o => o.id === selectedObra) || OBRAS[0];
   const hasMessages = messages.length > 0;
+
+  const handleSend = () => {
+    const text = chatInput.trim();
+    if (!text || loading) return;
+    setChatInput('');
+    if (hasMessages && onSendMessage) {
+      onSendMessage(text, selectedObra);
+    } else {
+      onAskTopic(text, selectedObra);
+    }
+  };
+  const lastMsgRef = useRef(null);
+
+  useEffect(() => {
+    if (lastMsgRef.current) {
+      lastMsgRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [messages, loading]);
 
   const togglePart = (key) => setOpenParts(p => ({ ...p, [key]: !p[key] }));
 
@@ -136,29 +154,32 @@ export default function ExplorarObras({
           flex: 1, overflowY: 'auto', minHeight: 0,
           padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12,
         }}>
-          {messages.map(msg => (
+          {messages.map((msg, i) => (
             msg.isUser
-              ? <UserBubble key={msg.id} text={msg.text} />
-              : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={fontSize}
+              ? <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}><UserBubble text={msg.text} /></div>
+              : <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}>
+              <AIMessage msg={msg} theme={theme} fontSize={fontSize}
                   showQuickActions={false}
                   quickActions={quickActions.filter(
                     qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                   )}
                   onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
-                    <FollowUpButtons
-                      theme={theme}
-                      snippet={(msg.obra?.quote || msg.ia || '').slice(0, 400)}
-                      onAsk={onAskDuvida}
-                      loading={loading}
-                    />
-                  </div>
                 </AIMessage>
+              </div>
           ))}
           {loading && <LoadingDots theme={theme} />}
         </div>
       )}
+
+      <InputBar
+        value={chatInput}
+        onChange={setChatInput}
+        onSend={handleSend}
+        placeholder={`Pergunte sobre ${obra.label}…`}
+        theme={theme}
+        loading={loading}
+      />
     </>
   );
 }

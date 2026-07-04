@@ -13,14 +13,14 @@ const BookIcon = ({ size = 11, color = 'white' }) => (
 
 export default function AIMessage({
   msg, theme, fontSize,
-  onShare,
+  onShare, isMobile = false,
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
   onReflectionQuestionClick,
   children,
 }) {
-  const revealedText = useTypewriter(msg.ia, { key: msg.id });
+  const revealedText = useTypewriter(msg.ia, { key: msg.id, skip: !!msg.fromCache });
   const isRevealing = revealedText.length < (msg.ia || '').length;
 
   return (
@@ -33,11 +33,15 @@ export default function AIMessage({
         <BookIcon />
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        {msg.hasDaObra && <ObraBlock obra={msg.obra} theme={theme} />}
+        {msg.hasDaObra && (
+          <ObraBlock obra={msg.obra} theme={theme}
+            onShare={onShare && !isRevealing ? onShare : undefined}
+            compact={isMobile}
+          />
+        )}
         <IABlock
           msg={msg} theme={theme} fontSize={fontSize}
           revealedText={revealedText} isRevealing={isRevealing}
-          onShare={onShare}
           showQuickActions={showQuickActions} quickActions={quickActions}
           onQuickAction={onQuickAction}
           onReflectionQuestionClick={onReflectionQuestionClick}

@@ -32,6 +32,7 @@ export default function Sidebar({
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   evangelhoData = null,
   onClose,
+  isMobile = false,
 }) {
   const navBase = {
     display: 'flex', alignItems: 'center', gap: 8,
@@ -39,148 +40,163 @@ export default function Sidebar({
     fontSize: 13, marginBottom: 2, transition: 'background .15s',
   };
 
+  const hasFavorites = conversations.some(c => c.favorited);
+  const hasRecent = conversations.some(c => !c.favorited);
+
   return (
     <div style={{
-      width: 300, background: '#6B9BB8',
+      width: '100%', background: '#6B9BB8',
       display: 'flex', flexDirection: 'column', flexShrink: 0,
+      height: '100%',
     }}>
       {/* Brand */}
-      <div
-        onClick={onTutorial}
-        style={{ padding: '18px 14px 8px', cursor: onTutorial ? 'pointer' : 'default' }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 3 }}>
+      <div style={{ padding: isMobile ? '14px 12px 10px' : '18px 14px 8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{
-            width: 36, height: 36, borderRadius: 9,
+            width: 32, height: 32, borderRadius: 8, flexShrink: 0,
             background: 'rgba(255,255,255,.18)', border: '1px solid rgba(255,255,255,.26)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <BookIcon />
+            <BookIcon size={15} />
           </div>
           <div style={{
-            fontFamily: "'Crimson Pro', serif", fontSize: 18, fontWeight: 600,
-            color: 'white', lineHeight: 1.25, flex: 1,
+            fontFamily: "'Crimson Pro', serif",
+            fontSize: isMobile ? 15 : 18, fontWeight: 600,
+            color: 'white', lineHeight: 1.25, flex: 1, minWidth: 0,
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>Dialogando com a Doutrina</div>
           {onClose && (
-            <button onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Fechar menu" style={{
+            <button onClick={onClose} aria-label="Fechar menu" style={{
               background: 'transparent', border: 'none', cursor: 'pointer',
               color: 'rgba(255,255,255,.7)', fontSize: 22, lineHeight: 1,
               padding: '0 2px', flexShrink: 0,
             }}>×</button>
           )}
         </div>
-        <div style={{
-          fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
-          color: 'rgba(255,255,255,.45)', paddingLeft: 44, marginTop: 2,
-        }}>Estude · Reflita · Compreenda</div>
+        {!isMobile && (
+          <div style={{
+            fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,.45)', paddingLeft: 40, marginTop: 4,
+          }}>Estude · Reflita · Compreenda</div>
+        )}
       </div>
 
-      {/* Nav */}
-      <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '0 8px 12px' }}>
-        <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 4px 10px' }} />
-        <div style={{
-          fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
-          textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 8px',
-        }}>Modos de estudo</div>
-
-        {navModes.map(m => (
-          <button key={m.id}
-            onClick={() => onModeChange(m.id)}
-            aria-current={mode === m.id ? 'true' : undefined}
-            style={{
-              ...navBase,
-              width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
-              fontWeight: mode === m.id ? 600 : 400,
-              color: mode === m.id ? 'white' : 'rgba(255,255,255,.7)',
-              background: mode === m.id ? 'rgba(255,255,255,.22)' : 'transparent',
-            }}>
-            {m.label}
-          </button>
-        ))}
-
-        {/* Daily trecho */}
-        <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
-        <div style={{
-          fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
-          textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
-        }}>Trecho do dia</div>
-        <button
-          onClick={evangelhoData ? onStudyTrecho : undefined}
-          disabled={!evangelhoData}
-          aria-label="Ler e refletir sobre o trecho do dia"
-          style={{
-            display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
-            background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
-            cursor: evangelhoData ? 'pointer' : 'default',
-            transition: 'background .15s',
-          }}
-          onMouseEnter={e => {
-            if (!evangelhoData) return;
-            e.currentTarget.style.background = 'rgba(0,0,0,.25)';
-            const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
-            if (arrow) arrow.style.transform = 'translateX(3px)';
-          }}
-          onMouseLeave={e => {
-            if (!evangelhoData) return;
-            e.currentTarget.style.background = 'rgba(0,0,0,.15)';
-            const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
-            if (arrow) arrow.style.transform = 'translateX(0)';
-          }}
-        >
-          {evangelhoData ? (
-            <>
-              <div style={{
-                fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
-                color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
-              }}>"{evangelhoData.content.slice(0, 320)}…"</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
-                {evangelhoData.source.chapter_title && (
-                  <div>{evangelhoData.source.chapter_title}</div>
-                )}
-                <div>{evangelhoData.source.book}</div>
-              </div>
-              <div style={{ height: 1, background: 'rgba(255,255,255,.14)', margin: '9px 0' }} />
-              <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
-                fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,.85)',
+      {/* Nav — desktop only */}
+      {!isMobile && (
+        <div style={{ padding: '0 8px 4px' }}>
+          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 4px 10px' }} />
+          <div style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 8px',
+          }}>Modos de estudo</div>
+          {navModes.map(m => (
+            <button key={m.id}
+              onClick={() => onModeChange(m.id)}
+              aria-current={mode === m.id ? 'true' : undefined}
+              style={{
+                ...navBase,
+                width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
+                fontWeight: mode === m.id ? 600 : 400,
+                color: mode === m.id ? 'white' : 'rgba(255,255,255,.7)',
+                background: mode === m.id ? 'rgba(255,255,255,.22)' : 'transparent',
               }}>
-                Ler e refletir
-                <span data-trecho-arrow style={{ display: 'inline-flex', transition: 'transform .15s' }}>→</span>
-              </div>
-            </>
-          ) : (
-            <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
-              Carregando trecho do dia…
-            </div>
-          )}
-        </button>
+              {m.label}
+            </button>
+          ))}
+        </div>
+      )}
 
-        {/* Favorited convos */}
-        {conversations.some(c => c.favorited) && (
+      {/* Daily trecho — desktop only */}
+      {!isMobile && (
+        <div style={{ padding: '0 8px 4px' }}>
+          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '6px 4px 10px' }} />
+          <div style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
+          }}>Trecho do dia</div>
+          <button
+            onClick={evangelhoData ? onStudyTrecho : undefined}
+            disabled={!evangelhoData}
+            aria-label="Ler e refletir sobre o trecho do dia"
+            style={{
+              display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
+              background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
+              cursor: evangelhoData ? 'pointer' : 'default',
+              transition: 'background .15s',
+            }}
+            onMouseEnter={e => {
+              if (!evangelhoData) return;
+              e.currentTarget.style.background = 'rgba(0,0,0,.25)';
+              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
+              if (arrow) arrow.style.transform = 'translateX(3px)';
+            }}
+            onMouseLeave={e => {
+              if (!evangelhoData) return;
+              e.currentTarget.style.background = 'rgba(0,0,0,.15)';
+              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
+              if (arrow) arrow.style.transform = 'translateX(0)';
+            }}
+          >
+            {evangelhoData ? (
+              <>
+                <div style={{
+                  fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
+                  color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
+                }}>"{evangelhoData.content.slice(0, 320)}…"</div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
+                  {evangelhoData.source.chapter_title && <div>{evangelhoData.source.chapter_title}</div>}
+                  <div>{evangelhoData.source.book}</div>
+                </div>
+                <div style={{ height: 1, background: 'rgba(255,255,255,.14)', margin: '9px 0' }} />
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
+                  fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,.85)',
+                }}>
+                  Ler e refletir
+                  <span data-trecho-arrow style={{ display: 'inline-flex', transition: 'transform .15s' }}>→</span>
+                </div>
+              </>
+            ) : (
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
+                Carregando trecho do dia…
+              </div>
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* Conversations */}
+      <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '0 8px 12px' }}>
+        {hasFavorites && (
           <>
             <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
             <div style={{
               fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
               textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
-            }}>Conversas favoritas</div>
+            }}>Favoritas</div>
             {conversations.filter(c => c.favorited).map(c => (
               <ConvoItem key={c.id} c={c} onLoad={onLoadConvo} onDelete={onDeleteConvo} onToggleFav={onToggleConvoFavorite} />
             ))}
           </>
         )}
 
-        {/* Recent convos */}
-        {conversations.some(c => !c.favorited) && (
+        {hasRecent && (
           <>
             <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
             <div style={{
               fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
               textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
-            }}>Conversas recentes</div>
+            }}>Recentes</div>
             {conversations.filter(c => !c.favorited).slice(0, 8).map(c => (
               <ConvoItem key={c.id} c={c} onLoad={onLoadConvo} onDelete={onDeleteConvo} onToggleFav={onToggleConvoFavorite} />
             ))}
           </>
+        )}
+
+        {!hasFavorites && !hasRecent && (
+          <div style={{ padding: '20px 8px', fontSize: 12, color: 'rgba(255,255,255,.4)', fontStyle: 'italic', textAlign: 'center' }}>
+            Nenhuma conversa salva ainda
+          </div>
         )}
       </div>
 

@@ -3,25 +3,15 @@ import SourceModal from '../modals/SourceModal';
 import { BRAND_TERRACOTTA } from '../../constants/theme';
 import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
 
-const ShareIcon = () => (
-  <svg width={16} height={16} viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-  </svg>
-);
-
 /**
  * The "Da IA" block containing the explanation text, historical context,
- * share/fav buttons, and optional quick action pills. Reveal state
- * (`revealedText`/`isRevealing`) is owned by AIMessage and passed down so
- * follow-up buttons (rendered as AIMessage's `children`) can gate on it too.
+ * and optional quick action pills. Reveal state (`revealedText`/`isRevealing`)
+ * is owned by AIMessage and passed down so follow-up buttons (rendered as
+ * AIMessage's `children`) can gate on it too.
  */
 export default function IABlock({
   msg, theme, fontSize = '13px',
   revealedText, isRevealing,
-  onShare,
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
@@ -38,25 +28,12 @@ export default function IABlock({
       padding: '13px 16px',
     }}>
       {(msg.hasDaObra || msg.isReflection) && (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+        <div style={{ marginBottom: 10 }}>
           <span style={{
             background: msg.isReflection ? BRAND_TERRACOTTA : '#6B9BB8', color: 'white',
             fontSize: 9, fontWeight: 700, letterSpacing: '.1em',
             padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
           }}>{msg.isReflection ? '🪞 Reflexão' : 'Da IA'}</span>
-          {!isRevealing && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              {onShare && (
-                <button onClick={() => onShare(msg)} aria-label="Compartilhar" style={{
-                  background: 'transparent', border: 'none', cursor: 'pointer',
-                  padding: '2px 4px', display: 'flex', alignItems: 'center',
-                  color: theme.subtext, borderRadius: 4,
-                }}>
-                  <ShareIcon />
-                </button>
-              )}
-            </div>
-          )}
         </div>
       )}
 

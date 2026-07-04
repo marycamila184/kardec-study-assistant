@@ -36,11 +36,12 @@ def _strip_footnotes_from_results(results: list[dict]) -> list[dict]:
     return results
 
 
-def retrieve(query: str, top_k: int | None = None) -> list[dict]:
+def retrieve(query: str, top_k: int | None = None, book_filter: str | None = None) -> list[dict]:
     if top_k is None:
         top_k = settings.top_k
     embedding = encode([query])[0]
-    results = _get_store().query(embedding, n_results=top_k)
+    where = {"book": {"$eq": book_filter}} if book_filter else None
+    results = _get_store().query(embedding, n_results=top_k, where=where)
     filtered = [r for r in results if r["distance"] <= settings.max_distance]
     return _strip_footnotes_from_results(filtered)
 

@@ -27,7 +27,7 @@ router = APIRouter()
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest) -> ChatResponse:
     history = [m.model_dump() for m in request.history]
-    result = generate(request.question, history)
+    result = generate(request.question, history, book_filter=request.book_filter)
     suggested_mode = detect_suggested_mode(request.question)
     return ChatResponse(
         answer=result["answer"],

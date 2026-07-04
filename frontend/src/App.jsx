@@ -40,6 +40,12 @@ const MODE_PLACEHOLDER = {
   refletir: 'Ex: Estou passando por um conflito familiar…',
 };
 
+const MODE_PLACEHOLDER_MOBILE = {
+  estudar:  'Digite sua dúvida…',
+  duvida:   'Pergunte sobre a doutrina…',
+  refletir: 'Descreva sua situação…',
+};
+
 const SUGGESTIONS = [
   { icon: '📖', label: 'O que é o Espiritismo?' },
   { icon: '💬', label: 'Qual a diferença entre alma, perispírito e espírito?' },
@@ -121,6 +127,20 @@ export default function App() {
 
   // ── Font size helper ─────────────────────────────────────────────────────
   const msgFontSize = { small: '14px', medium: '15px', large: '17px' }[fontSize] || '15px';
+
+  // ── Conversation delete — clears active state if the deleted convo is current ─
+  const handleDeleteConvo = (id) => {
+    deleteConvo(id);
+    const isActive =
+      id === convoId ||
+      id === explorarConvoMeta?.id ||
+      id === guidedMsgs[0]?.convoId;
+    if (isActive) {
+      setMsgs([]); setConvoId(null); setLoading(false); setInput('');
+      setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
+      setMode('duvida');
+    }
+  };
 
   // ── Mode switching ───────────────────────────────────────────────────────
   const switchMode = (m) => {
@@ -268,12 +288,12 @@ export default function App() {
     runQuickAction(label, msg, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
-  const askDuvida = async (displayText, queryText, appendMsg, setLoad) => {
+  const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
     appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text: displayText });
     setLoad(true);
     scrollToBottom();
     try {
-      const reply = await chatMessage(queryText);
+      const reply = await chatMessage(queryText, [], bookFilter);
       appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('askDuvida failed:', err);
@@ -285,13 +305,13 @@ export default function App() {
   };
   const handleGuidedDuvida = (displayText, queryText) =>
     askDuvida(displayText, queryText, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
-  const handleExplorarDuvida = (displayText, queryText) => askDuvida(displayText, queryText, m => {
+  const handleExplorarDuvida = (displayText, queryText, bookFilter) => askDuvida(displayText, queryText, m => {
     setExplorarMsgs(prev => {
       const updated = [...prev, m];
       if (explorarConvoMetaRef.current) saveConvo(explorarConvoMetaRef.current.id, explorarConvoMetaRef.current.title, 'estudar', updated);
       return updated;
     });
-  }, setExplorarLoad);
+  }, setExplorarLoad, bookFilter);
 
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
@@ -362,7 +382,7 @@ export default function App() {
       if (item_number && bookName) {
         reply = await studyItem(bookName, item_number, chapter);
       } else {
-        reply = await chatMessage(bookName ? `Contexto: ${bookName}. ${query}` : query);
+        reply = await chatMessage(query, [], bookName || null);
       }
     } catch (err) {
       console.error('handleAskTopic failed:', err);
@@ -390,11 +410,82 @@ export default function App() {
     scrollToBottom();
   };
 
+  // ── Explorar Obras: free-text chat (appends to existing conversation) ────────
+  const handleExplorarChat = async (query, obraId) => {
+    const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: query };
+    const prevMsgs = explorarMsgs;
+    setExplorarMsgs([...prevMsgs, userMsg]);
+    setExplorarLoad(true);
+
+    const bookName = BOOK_NAME_MAP[obraId];
+    const { item_number, chapter } = parseItemRef(query);
+
+    const history = prevMsgs
+      .filter(m => m.isUser || m.isAI)
+      .slice(-6)
+      .map(m => ({ role: m.isUser ? 'user' : 'assistant', content: m.isUser ? m.text : (m.ia || '') }))
+      .filter(h => h.content);
+
+    let reply;
+    try {
+      if (item_number && bookName) {
+        reply = await studyItem(bookName, item_number, chapter);
+      } else {
+        reply = await chatMessage(query, history, bookName || null);
+      }
+    } catch (err) {
+      console.error('handleExplorarChat failed:', err);
+      reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
+    }
+
+    setExplorarLoad(false);
+    const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
+    const updatedMsgs = [...prevMsgs, userMsg, aiMsg];
+
+    const meta = explorarConvoMetaRef.current;
+    if (meta) {
+      saveConvo(meta.id, meta.title, 'estudar', updatedMsgs);
+    } else {
+      const convoId2 = 'explorar_' + Date.now();
+      const title = query.slice(0, 48);
+      const newMeta = { id: convoId2, title };
+      setExplorarConvoMeta(newMeta);
+      explorarConvoMetaRef.current = newMeta;
+      saveConvo(convoId2, title, 'estudar', updatedMsgs);
+    }
+    setExplorarMsgs(updatedMsgs);
+  };
+
+  // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
+  const handleGoStudyItem = async (source) => {
+    setMode('estudar'); setEstudarSub('explorar');
+    const label = `${source.book}, Q.${source.item_number}`;
+    const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: label };
+    setExplorarMsgs([userMsg]); setExplorarLoad(true);
+    setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
+    try {
+      const reply = await studyItem(source.book, source.item_number);
+      const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
+      const meta = { id: 'explorar_' + Date.now(), title: label };
+      setExplorarConvoMeta(meta); explorarConvoMetaRef.current = meta;
+      saveConvo(meta.id, label, 'estudar', [userMsg, aiMsg]);
+      setExplorarMsgs([userMsg, aiMsg]);
+    } catch (err) {
+      console.error('handleGoStudyItem failed:', err);
+      setExplorarMsgs([userMsg, { id: 'ea' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+    } finally {
+      setExplorarLoad(false);
+    }
+  };
+
+  const markFromCache = (msgs) => msgs.map(m => m.isAI ? { ...m, fromCache: true } : m);
+
   // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
   const handleLoadConvo = async (c) => {
     setConvoId(c.id);
+    const msgs = markFromCache(c.msgs);
     if (c.mode === 'refletir') {
-      setMode('refletir'); setRefletirSub('chat'); setMsgs(c.msgs);
+      setMode('refletir'); setRefletirSub('chat'); setMsgs(msgs);
     } else if (c.mode === 'estudar' && c.id.startsWith('trilha_')) {
       setMode('estudar'); setEstudarSub('guided');
       const trilhaId = c.id.slice('trilha_'.length);
@@ -403,17 +494,21 @@ export default function App() {
         return null;
       });
       setActiveTrilha(trilhaDetail);
-      const tutorSteps = c.msgs.filter(m => typeof m.id === 'string' && m.id.startsWith('tutor_'));
+      const tutorSteps = msgs.filter(m => typeof m.id === 'string' && m.id.startsWith('tutor_'));
       setGuidedStep(Math.max(0, tutorSteps.length - 1));
-      setGuidedMsgs(c.msgs);
+      setGuidedMsgs(msgs);
     } else if (c.mode === 'estudar' && c.id.startsWith('explorar_')) {
       setMode('estudar'); setEstudarSub('explorar');
       const meta = { id: c.id, title: c.title };
       setExplorarConvoMeta(meta);
       explorarConvoMetaRef.current = meta;
-      setExplorarMsgs(c.msgs);
+      setExplorarMsgs(msgs);
     } else {
-      setMode(c.mode); setMsgs(c.msgs);
+      requestIdRef.current += 1;
+      setMode('duvida');
+      setMsgs(msgs);
+      setInput('');
+      setLoading(false);
     }
   };
 
@@ -436,6 +531,8 @@ export default function App() {
     switchMode('duvida');
     const { source, content } = evangelhoData;
     const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: 'Estudo diário de hoje' };
+    const id = 'trecho_' + Date.now();
+    setConvoId(id);
     setMsgs([userMsg]); setLoading(true); scrollToBottom();
 
     let reply;
@@ -452,7 +549,9 @@ export default function App() {
       setLoading(false);
     }
 
-    setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply }]);
+    const finalMsgs = [userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
+    setMsgs(finalMsgs);
+    saveConvo(id, 'Trecho do dia', 'duvida', finalMsgs);
     scrollToBottom();
   };
 
@@ -491,27 +590,35 @@ export default function App() {
 
         {/* Sidebar (desktop) */}
         {!isMobile && (
-          <Sidebar
-            mode={mode}
-            onModeChange={switchMode}
-            onStudyTrecho={handleStudyTrecho}
-            onTutorial={() => setOnboarded(false)}
-            conversations={conversations}
-            onLoadConvo={handleLoadConvo}
-            onDeleteConvo={deleteConvo}
-            onToggleConvoFavorite={toggleConvoFavorite}
-            evangelhoData={evangelhoData}
-          />
+          <div style={{ width: 300, flexShrink: 0, display: 'flex' }}>
+            <Sidebar
+              mode={mode}
+              onModeChange={switchMode}
+              onStudyTrecho={handleStudyTrecho}
+              onTutorial={() => setOnboarded(false)}
+              conversations={conversations}
+              onLoadConvo={handleLoadConvo}
+              onDeleteConvo={handleDeleteConvo}
+              onToggleConvoFavorite={toggleConvoFavorite}
+              evangelhoData={evangelhoData}
+            />
+          </div>
         )}
 
         {/* Mobile drawer */}
         {isMobile && drawerOpen && (
           <>
+            <style>{`@keyframes slideInDrawer { from { transform: translateX(-100%); } to { transform: translateX(0); } }`}</style>
             <div
-              style={{ position: 'fixed', inset: 0, zIndex: 80, background: 'rgba(0,0,0,.5)' }}
+              style={{ position: 'fixed', inset: 0, zIndex: 80, background: 'rgba(0,0,0,.45)' }}
               onClick={() => setDrawerOpen(false)}
             />
-            <div style={{ position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 81, width: 300 }}>
+            <div style={{
+              position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 81,
+              width: 'min(300px, 85vw)', display: 'flex',
+              animation: 'slideInDrawer .22s cubic-bezier(.25,.46,.45,.94)',
+              boxShadow: '4px 0 24px rgba(0,0,0,.3)',
+            }}>
               <Sidebar
                 mode={mode}
                 onModeChange={(m) => { switchMode(m); setDrawerOpen(false); }}
@@ -519,10 +626,11 @@ export default function App() {
                 onTutorial={() => { setOnboarded(false); setDrawerOpen(false); }}
                 conversations={conversations}
                 onLoadConvo={(c) => { handleLoadConvo(c); setDrawerOpen(false); }}
-                onDeleteConvo={deleteConvo}
+                onDeleteConvo={handleDeleteConvo}
                 onToggleConvoFavorite={toggleConvoFavorite}
                 evangelhoData={evangelhoData}
                 onClose={() => setDrawerOpen(false)}
+                isMobile
               />
             </div>
           </>
@@ -536,6 +644,7 @@ export default function App() {
             mode={mode} theme={theme}
             onOpenSettings={() => setShowSettings(true)}
             onOpenDrawer={isMobile ? () => setDrawerOpen(true) : undefined}
+            isMobile={isMobile}
           />
 
           {/* Content */}
@@ -569,7 +678,6 @@ export default function App() {
               onNext={handleGuidedNext}
               onBack={() => setEstudarSub('picker')}
               onAskDuvida={handleGuidedDuvida}
-              onShare={setShareMsg}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleGuidedQuickAction}
             />
@@ -581,9 +689,9 @@ export default function App() {
               onBack={() => setEstudarSub('picker')}
               onRedirectDuvida={redirectToDuvida}
               onAskTopic={handleAskTopic}
+              onSendMessage={handleExplorarChat}
               messages={explorarMsgs}
               loading={explorarLoad}
-              onShare={setShareMsg}
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
@@ -625,31 +733,9 @@ export default function App() {
                     <div style={{ fontSize: 14, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 22 }}>
                       Escolha uma sugestão ou digite sua pergunta.
                     </div>
-                    <button onClick={() => switchMode('estudar')} style={{
-                      background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.3)',
-                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
-                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
-                      maxWidth: 360, width: '100%', marginBottom: 14,
-                    }}>
-                      <span style={{ fontSize: 20 }}>📚</span>
-                      <div>
-                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Estudar uma Obra</div>
-                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Trilhas guiadas e livre exploração pelas 5 obras</div>
-                      </div>
-                    </button>
-                    <button onClick={() => switchMode('refletir')} style={{
-                      background: 'rgba(200,133,106,.08)', border: '1px solid rgba(200,133,106,.3)',
-                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
-                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
-                      maxWidth: 360, width: '100%', marginBottom: 14,
-                    }}>
-                      <span style={{ fontSize: 20 }}>🪞</span>
-                      <div>
-                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Refletir sobre uma Situação</div>
-                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Veja momentos da sua vida pela lente da doutrina espírita</div>
-                      </div>
-                    </button>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, maxWidth: 360 }}>
+
+                    {/* Suggestions grid */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, maxWidth: 360, marginBottom: 28 }}>
                       {SUGGESTIONS.map(s => (
                         <button key={s.label} onClick={() => sendText(s.label)} style={{
                           background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
@@ -661,6 +747,41 @@ export default function App() {
                         </button>
                       ))}
                     </div>
+
+                    {/* Divider */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, maxWidth: 360, width: '100%', marginBottom: 16 }}>
+                      <div style={{ flex: 1, height: 1, background: theme.cardBorder }} />
+                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: theme.subtext }}>
+                        Outros modos
+                      </span>
+                      <div style={{ flex: 1, height: 1, background: theme.cardBorder }} />
+                    </div>
+
+                    {/* Other modes */}
+                    <button onClick={() => switchMode('estudar')} style={{
+                      background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.3)',
+                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
+                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
+                      maxWidth: 360, width: '100%', marginBottom: 10,
+                    }}>
+                      <span style={{ fontSize: 20 }}>📚</span>
+                      <div>
+                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Estudar uma Obra</div>
+                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Trilhas guiadas e livre exploração pelas 5 obras</div>
+                      </div>
+                    </button>
+                    <button onClick={() => switchMode('refletir')} style={{
+                      background: 'rgba(200,133,106,.08)', border: '1px solid rgba(200,133,106,.3)',
+                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
+                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
+                      maxWidth: 360, width: '100%',
+                    }}>
+                      <span style={{ fontSize: 20 }}>🪞</span>
+                      <div>
+                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Refletir sobre uma Situação</div>
+                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Veja momentos da sua vida pela lente da doutrina espírita</div>
+                      </div>
+                    </button>
                   </div>
                 )}
 
@@ -668,14 +789,31 @@ export default function App() {
                   msg.isUser
                     ? <UserBubble key={msg.id} text={msg.text} />
                     : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={msgFontSize}
-                        onShare={() => setShareMsg(msg)}
+                        onShare={msg.isTrecho ? () => setShareMsg(msg) : undefined}
+                        isMobile={isMobile}
                         showQuickActions={false}
                         quickActions={QUICK_ACTIONS.filter(
                           qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                         )}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
                         onReflectionQuestionClick={handleReflectionQuestionClick}
-                      />
+                      >
+                        {msg.suggestedMode === 'estudar_obra' && msg.sources?.[0]?.item_number && (
+                          <div style={{ marginTop: 10 }}>
+                            <button
+                              onClick={() => handleGoStudyItem(msg.sources[0])}
+                              style={{
+                                background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
+                                color: '#4A7A98', padding: '7px 14px', borderRadius: 8,
+                                fontSize: 13, fontWeight: 500, cursor: 'pointer',
+                                display: 'flex', alignItems: 'center', gap: 6,
+                              }}
+                            >
+                              📖 Estudar este item completo
+                            </button>
+                          </div>
+                        )}
+                      </AIMessage>
                 ))}
                 {loading && <LoadingDots theme={theme} />}
               </div>
@@ -686,10 +824,11 @@ export default function App() {
                   value={input}
                   onChange={setInput}
                   onSend={handleSend}
-                  placeholder={MODE_PLACEHOLDER[mode] || ''}
+                  placeholder={(isMobile ? MODE_PLACEHOLDER_MOBILE : MODE_PLACEHOLDER)[mode] || ''}
                   footerHint="IA treinada no Pentateuco Espírita · Respostas sempre referenciadas em Kardec · Enter para enviar"
                   theme={theme}
                   loading={loading}
+                  isMobile={isMobile}
                 />
               )}
             </>
@@ -698,7 +837,7 @@ export default function App() {
       </div>
 
       {/* Mobile bottom nav */}
-      {isMobile && <MobileBottomNav mode={mode} onChange={switchMode} />}
+      {isMobile && <MobileBottomNav mode={mode} onChange={switchMode} onStudyTrecho={handleStudyTrecho} />}
 
       {/* Modals */}
       <SettingsPanel

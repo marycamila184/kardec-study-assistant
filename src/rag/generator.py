@@ -10,6 +10,11 @@ NOT_FOUND_MESSAGE = (
     "a essa pergunta. Por favor, reformule sua dúvida ou consulte diretamente as obras."
 )
 
+BOOK_FALLBACK_NOTE = (
+    "Não encontrei citações específicas sobre esse tema em *{book}*. "
+    "Porém, outras obras de Kardec abordam o assunto:\n\n"
+)
+
 GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
 _client: OpenAI | None = None
@@ -43,7 +48,7 @@ def condense_query(question: str, history: list[dict]) -> str:
     return response.choices[0].message.content.strip()
 
 
-def generate(question: str, history: list[dict]) -> dict:
+def generate(question: str, history: list[dict], book_filter: str | None = None) -> dict:
     search_query = question
     if history:
         try:
@@ -52,7 +57,7 @@ def generate(question: str, history: list[dict]) -> dict:
             search_query = question
 
     try:
-        chunks = retrieve(search_query)
+        chunks = retrieve(search_query, book_filter=book_filter)
     except Exception:
         return {
             "answer": GENERATION_FAILED_MESSAGE,
@@ -60,6 +65,16 @@ def generate(question: str, history: list[dict]) -> dict:
             "not_found": False,
             "generation_failed": True,
         }
+
+    fallback_note: str | None = None
+    if not chunks and book_filter:
+        try:
+            fallback_chunks = retrieve(search_query)
+        except Exception:
+            fallback_chunks = []
+        if fallback_chunks:
+            chunks = fallback_chunks
+            fallback_note = BOOK_FALLBACK_NOTE.format(book=book_filter)
 
     if not chunks:
         return {
@@ -80,6 +95,8 @@ def generate(question: str, history: list[dict]) -> dict:
             messages=[{"role": "system", "content": system}] + messages,
         )
         answer = response.choices[0].message.content
+        if fallback_note:
+            answer = fallback_note + answer
         generation_failed = False
     except Exception:
         answer = GENERATION_FAILED_MESSAGE

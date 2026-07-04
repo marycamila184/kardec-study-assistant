@@ -2,7 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
-import FollowUpButtons from '../chat/FollowUpButtons';
+
+const FOLLOWUP_OPTIONS = [
+  { icon: '💬', label: 'Explicar mais simples', build: (s) => `Explique de forma mais simples: "${s}"` },
+  { icon: '🌱', label: 'Como aplicar', build: (s) => `Como posso aplicar isso no meu dia a dia? Contexto: "${s}"` },
+];
 
 /**
  * Guided trilha study mode.
@@ -15,31 +19,39 @@ import FollowUpButtons from '../chat/FollowUpButtons';
  *   onNext         — () => void — advance to next step, or complete the trilha and navigate back
  *   onBack         — () => void — back to picker
  *   onAskDuvida    — (displayText, queryText) => void — submit contextualized follow-up
- *   onShare        — (msg) => void
  *   fontSize       — string CSS value
  */
 export default function GuidedStudy({
   trilha, currentStep, messages, loading,
-  theme, onNext, onBack, onAskDuvida, onShare, fontSize,
+  theme, onNext, onBack, onAskDuvida, fontSize,
   quickActions = [], onQuickAction,
 }) {
   const scrollRef = useRef(null);
+  const lastMsgRef = useRef(null);
   const progress = trilha ? Math.round(((currentStep + 1) / trilha.steps.length) * 100) : 0;
   const stepTitle = trilha?.steps[currentStep]?.label || '';
   const isLast = trilha && currentStep === trilha.steps.length - 1;
 
   useEffect(() => {
-    let ticks = 0;
-    const interval = setInterval(() => {
-      if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-      ticks += 1;
-      if (ticks >= 20) clearInterval(interval); // ~2s at 100ms
-    }, 100);
-    return () => clearInterval(interval);
+    if (lastMsgRef.current) {
+      lastMsgRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, [messages, loading]);
 
-  // Find the last tutor message index (hasDaObra) for showing the next button
-  const lastTutorIdx = messages.reduce((last, m, i) => m.isAI && m.hasDaObra ? i : last, -1);
+  // Last AI message (any) — where "Entendi →" lives
+  const lastAiIdx = messages.reduce((last, m, i) => m.isAI ? i : last, -1);
+  // Last step card — source of the snippet for follow-up queries
+  const lastStepMsg = [...messages].reverse().find(m => m.isAI && m.hasDaObra);
+  const snippet = (lastStepMsg?.obra?.quote || lastStepMsg?.ia || '').slice(0, 400);
+  // Whether the last AI message is still the step card (no follow-up sent yet)
+  const lastAiIsStep = messages[lastAiIdx]?.hasDaObra;
+
+  const btnBase = {
+    border: 'none', padding: '9px 22px', borderRadius: 8,
+    fontSize: 14.5, fontWeight: 600,
+    cursor: loading ? 'not-allowed' : 'pointer',
+    opacity: loading ? 0.45 : 1,
+  };
 
   return (
     <>
@@ -79,42 +91,47 @@ export default function GuidedStudy({
       }}>
         {messages.map((msg, i) => (
           msg.isUser
-            ? <UserBubble key={msg.id} text={msg.text} />
-            : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={fontSize}
+            ? <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}><UserBubble text={msg.text} /></div>
+            : <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}>
+              <AIMessage msg={msg} theme={theme} fontSize={fontSize}
                 showQuickActions={false}
                 quickActions={quickActions.filter(
                   qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                 )}
                 onQuickAction={(label) => onQuickAction?.(label, msg)}
               >
-                {/* Show next/duvida buttons only on last tutor message */}
-                {i === lastTutorIdx && (
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, marginTop: 12 }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
-                      <FollowUpButtons
-                        theme={theme}
-                        snippet={(msg.obra?.quote || msg.ia || '').slice(0, 400)}
-                        onAsk={onAskDuvida}
-                        loading={loading}
-                      />
-                      {isLast
-                        ? <button onClick={onNext} disabled={loading} style={{
-                            background: '#C8856A', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.45 : 1,
-                          }}>Concluir trilha ✨</button>
-                        : <button onClick={onNext} disabled={loading} style={{
-                            background: '#6B9BB8', color: 'white', border: 'none',
-                            padding: '9px 22px', borderRadius: 8, fontSize: 14.5, fontWeight: 600,
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.45 : 1,
-                          }}>Entendi, próximo →</button>
-                      }
-                    </div>
+                {i === lastAiIdx && (
+                  <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', marginTop: 12 }}>
+                    {/* Follow-up buttons only while still on the step card */}
+                    {lastAiIsStep && FOLLOWUP_OPTIONS.map(opt => (
+                      <button
+                        key={opt.label}
+                        disabled={loading}
+                        onClick={() => onAskDuvida(opt.label, opt.build(snippet))}
+                        style={{
+                          background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
+                          color: '#4A7A98', padding: '9px 16px', borderRadius: 8,
+                          fontSize: 13.5, fontWeight: 500,
+                          cursor: loading ? 'not-allowed' : 'pointer',
+                          opacity: loading ? 0.45 : 1,
+                          display: 'flex', alignItems: 'center', gap: 6,
+                        }}
+                      >
+                        <span>{opt.icon}</span>{opt.label}
+                      </button>
+                    ))}
+                    {isLast
+                      ? <button onClick={onNext} disabled={loading} style={{ ...btnBase, background: '#C8856A', color: 'white' }}>
+                          Concluir trilha ✨
+                        </button>
+                      : <button onClick={onNext} disabled={loading} style={{ ...btnBase, background: '#6B9BB8', color: 'white' }}>
+                          Entendi, próximo ›
+                        </button>
+                    }
                   </div>
                 )}
               </AIMessage>
+            </div>
         ))}
         {loading && <LoadingDots theme={theme} />}
       </div>

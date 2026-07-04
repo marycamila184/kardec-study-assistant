@@ -45,6 +45,7 @@ function mapChat(data) {
     hasDaObra: false,
     obra: null,
     ia: data.answer,
+    suggestedMode: data.suggested_mode || null,
     sources: data.sources.map(s => ({
       book: s.book,
       item_number: s.item_number,
@@ -129,10 +130,10 @@ function mapReflect(data) {
 
 // ── Exported API functions ────────────────────────────────────────────────────
 
-export async function chatMessage(question, history = []) {
+export async function chatMessage(question, history = [], bookFilter = null) {
   const data = await request('/chat', {
     method: 'POST',
-    body: JSON.stringify({ question, history }),
+    body: JSON.stringify({ question, history, book_filter: bookFilter || undefined }),
   });
   return mapChat(data);
 }
