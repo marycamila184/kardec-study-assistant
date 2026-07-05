@@ -5,8 +5,16 @@ import pytest
 from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
 
 _MOCK_RESULTS = [
-    {"content": "alma espírita", "metadata": {"book": "X", "chapter_title": "A", "item_number": "1"}, "distance": 0.5},
-    {"content": "texto irrelevante", "metadata": {"book": "Y", "chapter_title": "B", "item_number": "2"}, "distance": 1.5},
+    {
+        "content": "alma espírita",
+        "metadata": {"book": "X", "chapter_title": "A", "item_number": "1"},
+        "distance": 0.5,
+    },
+    {
+        "content": "texto irrelevante",
+        "metadata": {"book": "Y", "chapter_title": "B", "item_number": "2"},
+        "distance": 1.5,
+    },
 ]
 
 
@@ -46,7 +54,12 @@ def test_retrieve_by_item_calls_get_by_filter_with_correct_where(monkeypatch):
     results = retrieve_by_item("O Livro dos Espíritos", "1")
     assert len(results) == 1
     mock_store.get_by_filter.assert_called_once_with(
-        {"$and": [{"book": {"$eq": "O Livro dos Espíritos"}}, {"item_number": {"$eq": "1"}}]}
+        {
+            "$and": [
+                {"book": {"$eq": "O Livro dos Espíritos"}},
+                {"item_number": {"$eq": "1"}},
+            ]
+        }
     )
 
 
@@ -64,16 +77,19 @@ def test_retrieve_by_item_with_chapter_adds_chapter_to_filter(monkeypatch):
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     retrieve_by_item("O Evangelho Segundo o Espiritismo", "1", chapter="CAPÍTULO IV")
     mock_store.get_by_filter.assert_called_once_with(
-        {"$and": [
-            {"book": {"$eq": "O Evangelho Segundo o Espiritismo"}},
-            {"item_number": {"$eq": "1"}},
-            {"chapter": {"$eq": "CAPÍTULO IV"}},
-        ]}
+        {
+            "$and": [
+                {"book": {"$eq": "O Evangelho Segundo o Espiritismo"}},
+                {"item_number": {"$eq": "1"}},
+                {"chapter": {"$eq": "CAPÍTULO IV"}},
+            ]
+        }
     )
 
 
 def test_split_footnotes_separates_clean_content_from_notes():
     from src.rag.retriever import _split_footnotes
+
     content = "Texto principal.\n[Nota 1] Primeira nota.\n[Nota 2] Segunda nota."
     clean, footnotes = _split_footnotes(content)
     assert clean == "Texto principal."
@@ -82,6 +98,7 @@ def test_split_footnotes_separates_clean_content_from_notes():
 
 def test_split_footnotes_returns_unchanged_when_no_marker():
     from src.rag.retriever import _split_footnotes
+
     clean, footnotes = _split_footnotes("Texto sem notas.")
     assert clean == "Texto sem notas."
     assert footnotes == ""
@@ -90,7 +107,11 @@ def test_split_footnotes_returns_unchanged_when_no_marker():
 def test_retrieve_strips_footnote_suffix_from_content(monkeypatch):
     mock_store = MagicMock()
     mock_store.query.return_value = [
-        {"content": "Texto principal.\n[Nota 1] Nota explicativa.", "metadata": {}, "distance": 0.5},
+        {
+            "content": "Texto principal.\n[Nota 1] Nota explicativa.",
+            "metadata": {},
+            "distance": 0.5,
+        },
     ]
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     results = retrieve("alma")
@@ -111,7 +132,11 @@ def test_retrieve_footnote_context_empty_when_no_footnote(monkeypatch):
 def test_retrieve_by_item_strips_footnote_suffix(monkeypatch):
     mock_store = MagicMock()
     mock_store.get_by_filter.return_value = [
-        {"content": "Item principal.\n[Nota 1] Explicação.", "metadata": {}, "distance": 0.0},
+        {
+            "content": "Item principal.\n[Nota 1] Explicação.",
+            "metadata": {},
+            "distance": 0.0,
+        },
     ]
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     results = retrieve_by_item("O Livro dos Espíritos", "1")

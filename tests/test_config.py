@@ -4,6 +4,7 @@ import pytest
 def test_settings_has_correct_defaults(monkeypatch):
     monkeypatch.setenv("GROQ_API_KEY", "test-key")
     from src.core.config import Settings
+
     s = Settings()
     assert s.top_k == 5
     assert s.max_distance == 0.55
@@ -18,6 +19,8 @@ def test_settings_has_correct_defaults(monkeypatch):
 def test_settings_requires_api_key(monkeypatch):
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
     from pydantic import ValidationError
+
     from src.core.config import Settings
+
     with pytest.raises(ValidationError):
         Settings(_env_file=None)

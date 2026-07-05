@@ -2,7 +2,9 @@ from src.parsing.chunking import split_into_subchunks
 
 
 def test_oversized_single_paragraph_is_split_under_max_chars():
-    paragraph = "Frase. " * 100  # single "line" (no \n), 700 chars, no split points a naive approach would use
+    paragraph = (
+        "Frase. " * 100
+    )  # single "line" (no \n), 700 chars, no split points a naive approach would use
     chunks = split_into_subchunks(paragraph, max_chars=400)
     assert all(len(c) <= 400 for c in chunks)
     assert len(chunks) > 1

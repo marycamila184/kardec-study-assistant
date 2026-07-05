@@ -8,7 +8,13 @@ client = TestClient(app)
 
 _ANSWER_RESULT = {
     "answer": "A reencarnação permite a evolução do espírito.",
-    "sources": [{"book": "O Livro dos Espíritos", "chapter": "Da Encarnação", "item_number": "132"}],
+    "sources": [
+        {
+            "book": "O Livro dos Espíritos",
+            "chapter": "Da Encarnação",
+            "item_number": "132",
+        }
+    ],
     "not_found": False,
 }
 
@@ -21,13 +27,17 @@ _NOT_FOUND_RESULT = {
 
 def test_chat_returns_200():
     with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
-        response = client.post("/chat", json={"question": "O que é reencarnação?", "history": []})
+        response = client.post(
+            "/chat", json={"question": "O que é reencarnação?", "history": []}
+        )
     assert response.status_code == 200
 
 
 def test_chat_response_has_expected_fields():
     with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
-        data = client.post("/chat", json={"question": "O que é reencarnação?", "history": []}).json()
+        data = client.post(
+            "/chat", json={"question": "O que é reencarnação?", "history": []}
+        ).json()
     assert "answer" in data
     assert "sources" in data
     assert "not_found" in data
@@ -36,13 +46,18 @@ def test_chat_response_has_expected_fields():
 
 def test_chat_not_found_flag_is_true_when_out_of_doctrine():
     with patch("src.api.routes.generate", return_value=_NOT_FOUND_RESULT):
-        data = client.post("/chat", json={"question": "Fale sobre budismo", "history": []}).json()
+        data = client.post(
+            "/chat", json={"question": "Fale sobre budismo", "history": []}
+        ).json()
     assert data["not_found"] is True
     assert data["sources"] == []
 
 
 def test_chat_passes_history_to_generator():
-    history = [{"role": "user", "content": "Olá"}, {"role": "assistant", "content": "Olá!"}]
+    history = [
+        {"role": "user", "content": "Olá"},
+        {"role": "assistant", "content": "Olá!"},
+    ]
     with patch("src.api.routes.generate", return_value=_ANSWER_RESULT) as mock_gen:
         client.post("/chat", json={"question": "Continua?", "history": history})
     _, called_history = mock_gen.call_args[0]
@@ -62,7 +77,11 @@ _STUDY_RESULT = {
     "perguntas": ["O que isso significa para a nossa existência?"],
     "related_items": [],
     "sources": [
-        {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}
+        {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Alma",
+            "item_number": "150",
+        }
     ],
     "generation_failed": False,
 }
@@ -163,7 +182,11 @@ _REFLECT_RESULT = {
     ],
     "complementary_items": [],
     "sources": [
-        {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}
+        {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Alma",
+            "item_number": "150",
+        }
     ],
     "not_found": False,
     "generation_failed": False,
@@ -199,8 +222,19 @@ def test_reflect_returns_200_with_not_found_flag_when_no_doctrine():
 
 def test_reflect_response_has_all_required_fields():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
-        data = client.post("/reflect", json={"situation": "meu casamento está difícil"}).json()
-    for field in ("opening", "doctrine_connection", "reflection_questions", "complementary_items", "sources", "not_found", "generation_failed", "is_closing"):
+        data = client.post(
+            "/reflect", json={"situation": "meu casamento está difícil"}
+        ).json()
+    for field in (
+        "opening",
+        "doctrine_connection",
+        "reflection_questions",
+        "complementary_items",
+        "sources",
+        "not_found",
+        "generation_failed",
+        "is_closing",
+    ):
         assert field in data
 
 
@@ -216,7 +250,13 @@ def test_reflect_passes_conversation_history_to_reflect_fn():
         {"role": "assistant", "content": "resposta anterior"},
     ]
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
-        client.post("/reflect", json={"situation": "nova pergunta", "conversation_history": history_payload})
+        client.post(
+            "/reflect",
+            json={
+                "situation": "nova pergunta",
+                "conversation_history": history_payload,
+            },
+        )
     mock_fn.assert_called_once_with("nova pergunta", history_payload)
 
 

@@ -1,5 +1,7 @@
 import json
+
 import pytest
+
 from src.api.paths import load_all_paths, load_path
 
 _PATH_DATA = {
@@ -9,7 +11,11 @@ _PATH_DATA = {
     "level": "iniciante",
     "steps": [
         {"book": "O Livro dos Espíritos", "item_number": "1", "label": "O que é Deus?"},
-        {"book": "O Livro dos Espíritos", "item_number": "2", "label": "Atributos da divindade"},
+        {
+            "book": "O Livro dos Espíritos",
+            "item_number": "2",
+            "label": "Atributos da divindade",
+        },
     ],
 }
 

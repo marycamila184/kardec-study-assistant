@@ -169,6 +169,7 @@ def test_subsection_field_present_in_all_chunks():
 
 # ── Footnote tests ────────────────────────────────────────────────────────────
 
+
 def test_paragraph_footnote_attached_only_to_its_chunk():
     """A footnote following a paragraph must appear in that chunk's footnotes only."""
     md = """\
@@ -189,7 +190,9 @@ __________
     chunks = parse_md_to_json(md, CEU_INFERNO)
     item1 = next(c for c in chunks if c["item_number"] == "1")
     item2 = next(c for c in chunks if c["item_number"] == "2")
-    assert item1["footnotes"] == [{"number": "1", "content": "Nota do primeiro parágrafo."}]
+    assert item1["footnotes"] == [
+        {"number": "1", "content": "Nota do primeiro parágrafo."}
+    ]
     assert item2["footnotes"] == []
 
 
@@ -210,7 +213,9 @@ __________
 """
     chunks = parse_md_to_json(md, CEU_INFERNO)
     assert len(chunks) == 1
-    assert chunks[0]["title_footnotes"] == [{"number": "1", "content": "Nota explicativa do título."}]
+    assert chunks[0]["title_footnotes"] == [
+        {"number": "1", "content": "Nota explicativa do título."}
+    ]
     assert chunks[0]["footnotes"] == []
 
 
