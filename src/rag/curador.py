@@ -1,6 +1,10 @@
+import logging
+
 from src.core.config import settings
 from src.rag.curador_prompt import build_curador_messages, parse_curador_json
 from src.rag.llm_client import get_client
+
+logger = logging.getLogger(__name__)
 
 
 def curar(main_text: str, candidates: list[dict]) -> list[dict]:
@@ -28,6 +32,7 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
         )
         selections = parse_curador_json(response.choices[0].message.content)
     except Exception:
+        logger.exception("curador call/parse failed; falling back to raw candidates")
         call_failed = True
         selections = []
 

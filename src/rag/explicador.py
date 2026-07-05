@@ -1,10 +1,13 @@
 import concurrent.futures
+import logging
 
 from src.core.config import settings
 from src.rag.curador import curar
 from src.rag.explicador_prompt import build_explicador_messages, parse_explicador_json
 from src.rag.llm_client import get_client
 from src.rag.retriever import retrieve, retrieve_by_item
+
+logger = logging.getLogger(__name__)
 
 
 def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | None:
@@ -25,6 +28,7 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
     try:
         all_related = retrieve(related_query, top_k=6)
     except Exception:
+        logger.exception("related-items retrieve failed in explicador")
         all_related = []
     related = [
         r
@@ -62,6 +66,7 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         try:
             contexto, conceitos_chave, perguntas = explicador_future.result()
         except Exception:
+            logger.exception("explicador LLM call/parse failed")
             generation_failed = True
 
         related_items = curador_future.result()

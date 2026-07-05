@@ -1,3 +1,4 @@
+import logging
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -149,3 +150,13 @@ def test_generate_no_caveat_for_normal_question(mock_retrieve, mock_client):
         "content"
     ]
     assert "profissional de saúde" not in system_arg
+
+
+def test_generate_logs_on_retrieval_error(monkeypatch, mock_client, caplog):
+    def _raise(*args, **kwargs):
+        raise RuntimeError("db error")
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _raise)
+    with caplog.at_level(logging.ERROR, logger="src.rag.generator"):
+        generate("pergunta", [])
+    assert any("retriev" in r.message.lower() for r in caplog.records)

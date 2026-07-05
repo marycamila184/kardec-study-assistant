@@ -1,4 +1,5 @@
 import concurrent.futures
+import logging
 
 from src.core.config import settings
 from src.rag.curador import curar
@@ -10,6 +11,8 @@ from src.rag.reflect_prompt import (
     parse_reflect_json,
 )
 from src.rag.retriever import has_real_item_number, retrieve
+
+logger = logging.getLogger(__name__)
 
 _NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec passagens suficientemente relacionadas "
@@ -32,6 +35,7 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
     try:
         chunks = retrieve(search_query, top_k=5)
     except Exception:
+        logger.exception("retrieve failed in /reflect")
         return {
             "opening": "",
             "doctrine_connection": GENERATION_FAILED_MESSAGE,
@@ -43,6 +47,7 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         }
 
     if not chunks:
+        logger.warning("no chunks retrieved for /reflect; returning not_found")
         return {
             "opening": "",
             "doctrine_connection": _NOT_FOUND_MESSAGE,
@@ -89,6 +94,7 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
                 reflexivo_future.result()
             )
         except Exception:
+            logger.exception("reflexivo LLM call/parse failed")
             generation_failed = True
 
         complementary_items = curador_future.result()

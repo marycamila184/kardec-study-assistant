@@ -1,3 +1,4 @@
+import logging
 from unittest.mock import MagicMock, patch
 
 from src.rag.explicador import explicar
@@ -138,3 +139,23 @@ def test_explicar_retrieves_related_using_first_subchunk_only():
         "Segundo subtrecho, com outro assunto diluidor."
     )
     assert mock_curar.call_args[0][0] == full_text
+
+
+def test_explicar_logs_on_llm_error(caplog):
+    def _raise(*args, **kwargs):
+        raise RuntimeError("API error")
+
+    with (
+        patch(
+            "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
+        ),
+        patch("src.rag.explicador.retrieve", return_value=[]),
+        patch("src.rag.explicador.curar", return_value=[]),
+        patch("src.rag.explicador.get_client") as mock_client,
+        caplog.at_level(logging.ERROR, logger="src.rag.explicador"),
+    ):
+        mock_client.return_value.chat.completions.create.side_effect = RuntimeError(
+            "API error"
+        )
+        explicar("O Livro dos Espíritos", "1")
+    assert any("explicador" in r.message.lower() for r in caplog.records)

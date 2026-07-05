@@ -1,3 +1,4 @@
+import logging
 from unittest.mock import MagicMock, patch
 
 from src.rag.reflect import reflect
@@ -326,3 +327,15 @@ def test_reflect_falls_back_to_raw_situation_when_condense_fails():
         result = reflect("situação atual", conversation_history=history)
     assert mock_retrieve.call_args[0][0] == "situação atual"
     assert result["generation_failed"] is False
+
+
+def test_reflect_logs_on_retrieval_error(caplog):
+    def _raise(*args, **kwargs):
+        raise RuntimeError("db error")
+
+    with (
+        patch("src.rag.reflect.retrieve", side_effect=_raise),
+        caplog.at_level(logging.ERROR, logger="src.rag.reflect"),
+    ):
+        reflect("situação")
+    assert any("retriev" in r.message.lower() for r in caplog.records)

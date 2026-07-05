@@ -1,9 +1,13 @@
+import logging
+
 from src.core.config import settings
 from src.rag.llm_client import get_client
 from src.rag.prompt import build_messages
 from src.rag.query_condenser import condense_query
 from src.rag.reflect_prompt import needs_medical_caveat
 from src.rag.retriever import has_real_item_number, retrieve
+
+logger = logging.getLogger(__name__)
 
 NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec informações suficientes para responder "
@@ -31,6 +35,7 @@ def generate(
     try:
         chunks = retrieve(search_query, book_filter=book_filter)
     except Exception:
+        logger.exception("retrieve failed in /chat generate")
         return {
             "answer": GENERATION_FAILED_MESSAGE,
             "sources": [],
@@ -47,8 +52,13 @@ def generate(
         if fallback_chunks:
             chunks = fallback_chunks
             fallback_note = BOOK_FALLBACK_NOTE.format(book=book_filter)
+            logger.info(
+                "book_filter %s empty; fell back to full-collection search",
+                book_filter,
+            )
 
     if not chunks:
+        logger.warning("no chunks retrieved for /chat; returning not_found")
         return {
             "answer": NOT_FOUND_MESSAGE,
             "sources": [],
@@ -71,6 +81,7 @@ def generate(
             answer = fallback_note + answer
         generation_failed = False
     except Exception:
+        logger.exception("chat generation LLM call failed")
         answer = GENERATION_FAILED_MESSAGE
         generation_failed = True
 
