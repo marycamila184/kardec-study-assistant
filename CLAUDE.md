@@ -139,7 +139,8 @@ Fully implemented. Each mode has a dedicated prompt file and a pipeline file.
 
 **Shared infrastructure:**
 - `retriever.py` — `retrieve(query, top_k)`: semantic search filtered by cosine distance threshold. `retrieve_by_item(book, item_number)`: metadata-only lookup returning all subchunks of a specific item. Both strip the ingestion-baked `\n[Nota N] ...` footnote suffix off `content` before returning, exposing it separately as `footnote_context` (empty string if none) — see "Footnote handling" below.
-- `mode_detector.py` — `detect_suggested_mode(question)`: regex-based detection of study intent (e.g. "questão 132", "item 45") → returns `"estudar_obra"` or `None`. No LLM cost.
+- `mode_detector.py` — `detect_suggested_mode(question)`: regex-based intent detection returning `"estudar_obra"` (item-lookup intent, e.g. "questão 132", "item 45"), `"refletir"` (situational/emotional cues, e.g. "tenho medo", "perdi minha mãe"), or `None`. `estudar_obra` wins when both match (item-lookup is the more specific intent). Situational patterns are intentionally broad — a false positive only surfaces an optional client button, never changes an answer. No LLM cost.
+- `query_condenser.py` — `condense_query(question, history)`: rewrites a follow-up + conversation history into a standalone search query (Groq, `condenser_model`) before embedding. Shared by `/chat` (`generator.py`) and multi-turn `/reflect` (`reflect.py`); callers fall back to the raw text if the condense call fails.
 
 **Footnote handling:** footnotes are baked into each chunk's stored `content` at ingestion time (see Ingestion Layer above), for embedding purposes only. `retriever.py` strips that suffix back off on every read so it never leaks into displayed text, LLM prompts, or citation excerpts — the stripped text is exposed as `footnote_context` for callers that want it as grounding material (currently only Explicador).
 
@@ -153,11 +154,11 @@ Fully implemented. Each mode has a dedicated prompt file and a pipeline file.
 
 **Reflexivo agent** (`/reflect`):
 - `reflect_prompt.py` — tone-adaptive system prompt with a hard no-advice constraint. A keyword list (`vozes`, `sombras`, `pânico`, etc.) triggers an optional medical/mediumship caveat. Output JSON: `{"opening", "doctrine_connection", "reflection_questions": [...]}`. `parse_reflect_json` extracts the three fields.
-- `reflect.py` — pipeline: semantic retrieval (top 5) → primary chunks ([:2]) used for LLM → complementary chunks ([2:5]) passed to `curar()`. Returns `opening`, `doctrine_connection`, `reflection_questions`, `complementary_items`, `sources`, `not_found`, `generation_failed`.
+- `reflect.py` — pipeline: query condensation for multi-turn threads (`condense_query`, only when `conversation_history` is non-empty; first-turn reflections retrieve on the raw situation) → semantic retrieval (top 5) → primary chunks ([:2]) used for LLM → complementary chunks ([2:5]) passed to `curar()`. Returns `opening`, `doctrine_connection`, `reflection_questions`, `complementary_items`, `sources`, `not_found`, `generation_failed`.
 
 **Generator** (`/chat`):
 - `prompt.py` — system prompt + message builder for `/chat`. Rules: answer strictly from retrieved passages; separate original text from AI explanation; never close with unsolicited advice or a suggested course of action (only if the user's question asks for one directly); never personify "o Espiritismo" as an agent; may optionally weave in a reflective question when it fits naturally (distinct from the advice prohibition — questions aren't advice).
-- `generator.py` — optional query condensation (Groq) → retrieval → prompt → Groq LLM answer. Returns `answer`, `sources` (each with `book`, `chapter`, `item_number`, `excerpt` — the retrieved chunk text, used by the frontend's citation-chip modal), `not_found`.
+- `generator.py` — optional query condensation (`condense_query`, when history is present) → retrieval → prompt → Groq LLM answer. Returns `answer`, `sources` (each with `book`, `chapter`, `item_number`, `excerpt` — the retrieved chunk text, used by the frontend's citation-chip modal), `not_found`.
 
 **Daily passage** (`evangelho.py`): sourced from `data/markdown_files/trecho_diario.md` — a curated 27-chapter subset of O Evangelho (hand-picked items per chapter, not the full book), deliberately kept separate from the main ChromaDB collection so it never pollutes `/chat`/`/reflect`/`/study`'s semantic search. Parsed once with the existing `parse_md_to_json` parser and cached in memory (`_get_chunks()`), no ChromaDB involved. `get_daily_passage()` seeds `random` with today's ISO date, picks a random chapter then a random item within it, and joins all of that item's subchunks (space-separated) into the full displayed text — not just the first subchunk. No LLM.
 
@@ -179,7 +180,7 @@ Fully implemented.
 
 The API is stateless — clients own conversation history. `/chat` and `/reflect` accept `history` / `conversation_history` but the server does not store it.
 
-**`suggested_mode` on `/chat`:** when the question looks like a specific item lookup (e.g. "explique a questão 132"), the response includes `suggested_mode: "estudar_obra"` as a hint for the client to surface the `/study` button.
+**`suggested_mode` on `/chat`:** a hint for the client to surface a cross-mode button. When the question looks like a specific item lookup (e.g. "explique a questão 132"), the response includes `suggested_mode: "estudar_obra"` (client surfaces the `/study` button). When it reads as situational/emotional (e.g. "tenho medo de morrer"), it includes `suggested_mode: "refletir"` and the client surfaces a "🪞 Refletir sobre esta situação" button that opens a Refletir thread seeded with the question. `estudar_obra` takes priority when both would match.
 
 **`Source`/`StudySource` schema** (used by `/chat`'s `sources` and `/reflect`'s `sources`):
 ```json
