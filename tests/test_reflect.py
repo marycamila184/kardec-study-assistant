@@ -277,3 +277,52 @@ def test_reflect_sources_include_excerpt():
         result = reflect("situação")
     excerpts = [s["excerpt"] for s in result["sources"]]
     assert "Os espíritos sobrevivem à morte do corpo." in excerpts
+
+
+def test_reflect_condenses_query_when_history_present():
+    history = [
+        {"role": "user", "content": "situação original"},
+        {"role": "assistant", "content": "reflexão anterior"},
+    ]
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]) as mock_retrieve,
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch(
+            "src.rag.reflect.condense_query", return_value="consulta condensada"
+        ) as mock_cond,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("e se ela não me perdoar?", conversation_history=history)
+    mock_cond.assert_called_once()
+    assert mock_retrieve.call_args[0][0] == "consulta condensada"
+
+
+def test_reflect_skips_condense_without_history():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]) as mock_retrieve,
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.condense_query") as mock_cond,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("minha situação")
+    mock_cond.assert_not_called()
+    assert mock_retrieve.call_args[0][0] == "minha situação"
+
+
+def test_reflect_falls_back_to_raw_situation_when_condense_fails():
+    history = [{"role": "user", "content": "anterior"}]
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]) as mock_retrieve,
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.condense_query", side_effect=RuntimeError("down")),
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("situação atual", conversation_history=history)
+    assert mock_retrieve.call_args[0][0] == "situação atual"
+    assert result["generation_failed"] is False

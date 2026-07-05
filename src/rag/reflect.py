@@ -3,6 +3,7 @@ import concurrent.futures
 from src.core.config import settings
 from src.rag.curador import curar
 from src.rag.llm_client import get_client
+from src.rag.query_condenser import condense_query
 from src.rag.reflect_prompt import (
     build_reflect_messages,
     needs_medical_caveat,
@@ -22,8 +23,14 @@ CAP_ROUNDS = 5  # after this many completed rounds, force closing regardless of 
 
 def reflect(situation: str, conversation_history: list[dict] | None = None) -> dict:
     history = conversation_history or []
+    search_query = situation
+    if history:
+        try:
+            search_query = condense_query(situation, history)
+        except Exception:
+            search_query = situation
     try:
-        chunks = retrieve(situation, top_k=5)
+        chunks = retrieve(search_query, top_k=5)
     except Exception:
         return {
             "opening": "",
