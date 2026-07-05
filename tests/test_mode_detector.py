@@ -27,3 +27,24 @@ def test_returns_none_for_generic_question():
 
 def test_returns_none_for_empty_string():
     assert detect_suggested_mode("") is None
+
+
+def test_detects_refletir_for_fear():
+    assert detect_suggested_mode("tenho medo de morrer") == "refletir"
+
+
+def test_detects_refletir_for_grief():
+    assert detect_suggested_mode("perdi minha mãe e não sei lidar") == "refletir"
+
+
+def test_detects_refletir_for_anxiety():
+    assert detect_suggested_mode("estou com muita ansiedade ultimamente") == "refletir"
+
+
+def test_estudar_wins_over_refletir_when_both_match():
+    # situational word "medo" + explicit item lookup -> study intent wins
+    assert detect_suggested_mode("tenho medo, explique a questão 132") == "estudar_obra"
+
+
+def test_generic_question_still_returns_none():
+    assert detect_suggested_mode("o que é reencarnação?") is None
