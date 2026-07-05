@@ -21,8 +21,9 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         c["footnote_context"] for c in chunks if c.get("footnote_context")
     )
 
+    related_query = chunks[0]["content"]
     try:
-        all_related = retrieve(original_text, top_k=6)
+        all_related = retrieve(related_query, top_k=6)
     except Exception:
         all_related = []
     related = [

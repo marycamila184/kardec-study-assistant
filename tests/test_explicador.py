@@ -13,6 +13,27 @@ _CHUNK_WITH_FOOTNOTE = {
     "distance": 0.0,
 }
 
+_MULTI_CHUNK_A = {
+    "content": "Primeiro subtrecho, curto e específico.",
+    "footnote_context": "",
+    "metadata": {
+        "book": "O Livro dos Espíritos",
+        "chapter_title": "Da Encarnação",
+        "item_number": "132",
+    },
+    "distance": 0.0,
+}
+_MULTI_CHUNK_B = {
+    "content": "Segundo subtrecho, com outro assunto diluidor.",
+    "footnote_context": "",
+    "metadata": {
+        "book": "O Livro dos Espíritos",
+        "chapter_title": "Da Encarnação",
+        "item_number": "132",
+    },
+    "distance": 0.0,
+}
+
 
 def _make_llm_response(content: str) -> MagicMock:
     return MagicMock(choices=[MagicMock(message=MagicMock(content=content))])
@@ -92,3 +113,28 @@ def test_explicar_degrades_gracefully_when_related_retrieval_fails():
     assert result["contexto"] == "Contexto de teste."
     assert result["related_items"] == []
     mock_curar.assert_called_once_with("1. Que é Deus?", [])
+
+
+def test_explicar_retrieves_related_using_first_subchunk_only():
+    llm_json = '{"contexto": "c", "conceitos_chave": [], "perguntas": []}'
+    with (
+        patch(
+            "src.rag.explicador.retrieve_by_item",
+            return_value=[_MULTI_CHUNK_A, _MULTI_CHUNK_B],
+        ),
+        patch("src.rag.explicador.retrieve", return_value=[]) as mock_retrieve,
+        patch("src.rag.explicador.curar", return_value=[]) as mock_curar,
+        patch("src.rag.explicador.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json)
+        )
+        explicar("O Livro dos Espíritos", "132")
+    # related retrieval uses ONLY the first subchunk
+    assert mock_retrieve.call_args[0][0] == "Primeiro subtrecho, curto e específico."
+    # curar still receives the FULL concatenated original text
+    full_text = (
+        "Primeiro subtrecho, curto e específico.\n\n"
+        "Segundo subtrecho, com outro assunto diluidor."
+    )
+    assert mock_curar.call_args[0][0] == full_text
