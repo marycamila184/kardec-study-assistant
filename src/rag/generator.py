@@ -1,6 +1,7 @@
 from src.core.config import settings
 from src.rag.llm_client import get_client
 from src.rag.prompt import build_messages
+from src.rag.query_condenser import condense_query
 from src.rag.reflect_prompt import needs_medical_caveat
 from src.rag.retriever import has_real_item_number, retrieve
 
@@ -15,24 +16,6 @@ BOOK_FALLBACK_NOTE = (
 )
 
 GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
-
-
-def condense_query(question: str, history: list[dict]) -> str:
-    history_text = "\n".join(
-        f"{t['role'].upper()}: {t['content']}"
-        for t in history[-settings.max_history_turns :]
-    )
-    prompt = (
-        f"Dado este histórico de conversa:\n{history_text}\n\n"
-        f"Reescreva a seguinte pergunta como uma consulta de busca independente e completa. "
-        f"Retorne apenas a consulta reescrita, sem explicações.\n\nPergunta: {question}"
-    )
-    response = get_client().chat.completions.create(
-        model=settings.condenser_model,
-        max_tokens=256,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.choices[0].message.content.strip()
 
 
 def generate(
