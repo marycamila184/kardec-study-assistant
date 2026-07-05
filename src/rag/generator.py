@@ -48,6 +48,7 @@ def generate(
         try:
             fallback_chunks = retrieve(search_query)
         except Exception:
+            logger.exception("book-filter fallback retrieve failed")
             fallback_chunks = []
         if fallback_chunks:
             chunks = fallback_chunks

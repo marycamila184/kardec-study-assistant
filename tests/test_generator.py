@@ -160,3 +160,22 @@ def test_generate_logs_on_retrieval_error(monkeypatch, mock_client, caplog):
     with caplog.at_level(logging.ERROR, logger="src.rag.generator"):
         generate("pergunta", [])
     assert any("retriev" in r.message.lower() for r in caplog.records)
+
+
+def test_generate_logs_on_book_fallback_retrieve_error(
+    monkeypatch, mock_client, caplog
+):
+    # First retrieve (book-filtered) returns nothing -> triggers the book_filter
+    # fallback; the fallback retrieve then raises and must be logged, not swallowed.
+    calls = {"n": 0}
+
+    def _retrieve(query, **kwargs):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return []
+        raise RuntimeError("db error")
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _retrieve)
+    with caplog.at_level(logging.ERROR, logger="src.rag.generator"):
+        generate("pergunta", [], book_filter="O Livro dos Espíritos")
+    assert any("fallback" in r.message.lower() for r in caplog.records)
