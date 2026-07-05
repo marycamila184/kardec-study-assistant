@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.rag.retriever import retrieve, retrieve_by_item
+from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
 
 _MOCK_RESULTS = [
     {"content": "alma espírita", "metadata": {"book": "X", "chapter_title": "A", "item_number": "1"}, "distance": 0.5},
@@ -117,3 +117,16 @@ def test_retrieve_by_item_strips_footnote_suffix(monkeypatch):
     results = retrieve_by_item("O Livro dos Espíritos", "1")
     assert results[0]["content"] == "Item principal."
     assert results[0]["footnote_context"] == "[Nota 1] Explicação."
+
+
+def test_has_real_item_number_true_for_numbered_item():
+    assert has_real_item_number("132") is True
+
+
+def test_has_real_item_number_false_for_placeholder():
+    assert has_real_item_number("section-3") is False
+
+
+def test_has_real_item_number_false_for_none_or_empty():
+    assert has_real_item_number(None) is False
+    assert has_real_item_number("") is False

@@ -9,6 +9,15 @@ _store: VectorStore | None = None
 _FOOTNOTE_MARKER = re.compile(r"\n\[Nota \d+\] ")
 
 
+def has_real_item_number(item_number: str | None) -> bool:
+    """False for the parser's fallback placeholder ids (e.g. "section-3"),
+    assigned to unnumbered content like a chapter's preamble. These are
+    internal bookkeeping only — never a citation a reader would recognize —
+    so callers should omit them from anything shown to the LLM or the user.
+    """
+    return bool(item_number) and not item_number.startswith("section-")
+
+
 def _get_store() -> VectorStore:
     global _store
     if _store is None:

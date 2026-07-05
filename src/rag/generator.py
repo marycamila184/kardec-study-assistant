@@ -2,7 +2,7 @@ from src.core.config import settings
 from src.rag.llm_client import get_client
 from src.rag.prompt import build_messages
 from src.rag.reflect_prompt import needs_medical_caveat
-from src.rag.retriever import retrieve
+from src.rag.retriever import has_real_item_number, retrieve
 
 NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec informações suficientes para responder "
@@ -102,7 +102,11 @@ def generate(
                 {
                     "book": m["book"],
                     "chapter": m.get("chapter_title") or None,
-                    "item_number": m.get("item_number") or None,
+                    "item_number": (
+                        m["item_number"]
+                        if has_real_item_number(m.get("item_number"))
+                        else None
+                    ),
                     "excerpt": chunk["content"],
                 }
             )

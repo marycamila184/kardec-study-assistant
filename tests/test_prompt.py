@@ -68,3 +68,18 @@ def test_caveat_instruction_in_system_when_requested():
 def test_no_caveat_in_system_by_default():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
     assert "profissional de saúde" not in system
+
+
+def test_system_shows_real_item_number():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "Item: 132" in system
+
+
+def test_system_omits_placeholder_item_number():
+    chunk = {
+        **_CHUNK,
+        "metadata": {**_CHUNK["metadata"], "item_number": "section-3"},
+    }
+    system, _ = build_messages("O que é reencarnação?", [chunk], [])
+    assert "section-3" not in system
+    assert "Item:" not in system

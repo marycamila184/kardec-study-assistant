@@ -8,7 +8,7 @@ from src.rag.reflect_prompt import (
     needs_medical_caveat,
     parse_reflect_json,
 )
-from src.rag.retriever import retrieve
+from src.rag.retriever import has_real_item_number, retrieve
 
 _NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec passagens suficientemente relacionadas "
@@ -94,7 +94,11 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         {
             "book": c["metadata"]["book"],
             "chapter_title": c["metadata"].get("chapter_title") or None,
-            "item_number": c["metadata"]["item_number"],
+            "item_number": (
+                c["metadata"]["item_number"]
+                if has_real_item_number(c["metadata"].get("item_number"))
+                else None
+            ),
             "excerpt": c["content"],
         }
         for c in primary

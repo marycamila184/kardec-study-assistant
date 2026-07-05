@@ -45,6 +45,23 @@ def test_generate_returns_deduplicated_sources(mock_retrieve, mock_client):
     assert result["sources"][0]["item_number"] == "132"
 
 
+def test_generate_masks_placeholder_item_number_in_sources(monkeypatch, mock_client):
+    chunks = [
+        {
+            "content": "Trecho introdutório sem item numerado.",
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "chapter_title": "Introdução",
+                "item_number": "section-3",
+            },
+            "distance": 0.4,
+        }
+    ]
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: chunks)
+    result = generate("O que é reencarnação?", [])
+    assert result["sources"][0]["item_number"] is None
+
+
 def test_generate_not_found_when_no_chunks(monkeypatch, mock_client):
     monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: [])
     result = generate("Fale sobre budismo", [])

@@ -1,3 +1,5 @@
+from src.rag.retriever import has_real_item_number
+
 _SYSTEM_TEMPLATE = """\
 Você é um assistente de estudos da doutrina espírita, fundamentado exclusivamente \
 nas cinco obras de Allan Kardec. Responda SOMENTE com base nas passagens recuperadas abaixo. \
@@ -5,7 +7,11 @@ Se as passagens não contiverem informação suficiente para responder, diga iss
 — não invente doutrina.
 
 Responda em Português (Brasil). Separe claramente o que vem do texto original e o que é \
-sua explicação.
+sua explicação, mas escreva UMA resposta coesa — não repita um par "Texto original" / \
+"Explicação" para cada passagem recuperada. Integre as citações relevantes (breves, \
+entre aspas, com a referência da obra) dentro de uma única explicação corrida; use \
+apenas as passagens que realmente ajudam a responder, mesmo que várias tenham sido \
+recuperadas.
 
 Não encerre a resposta com um conselho, sugestão de ação ou recomendação não solicitada \
 (ex.: "pense sobre...", "procure...", "tente..."). Atenha-se a explicar o que a doutrina diz. \
@@ -36,7 +42,7 @@ def _format_passage(index: int, chunk: dict) -> str:
     header = f"[{index}] Obra: {m['book']}"
     if m.get("chapter_title"):
         header += f" | Capítulo: {m['chapter_title']}"
-    if m.get("item_number"):
+    if has_real_item_number(m.get("item_number")):
         header += f" | Item: {m['item_number']}"
     return f"{header}\n    \"{chunk['content']}\""
 

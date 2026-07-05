@@ -1,6 +1,7 @@
 import json
 
 from src.rag.json_extract import extract_outermost, strip_code_fence
+from src.rag.retriever import has_real_item_number
 
 _SYSTEM_TEMPLATE = """\
 Você é um curador especializado nas obras de Allan Kardec.
@@ -37,9 +38,10 @@ def _format_candidates(chunks: list[dict]) -> str:
     parts = []
     for i, c in enumerate(chunks):
         m = c["metadata"]
-        parts.append(
-            f"[{i}] {m['book']} — Item {m['item_number']}\n\"{c['content'][:300]}\""
-        )
+        header = f"[{i}] {m['book']}"
+        if has_real_item_number(m.get("item_number")):
+            header += f" — Item {m['item_number']}"
+        parts.append(f"{header}\n\"{c['content'][:300]}\"")
     return "\n\n".join(parts)
 
 

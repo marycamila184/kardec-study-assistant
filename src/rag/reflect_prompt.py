@@ -1,6 +1,7 @@
 import json
 
 from src.rag.json_extract import extract_outermost, strip_code_fence
+from src.rag.retriever import has_real_item_number
 
 CLINICAL_KEYWORDS = [
     "vozes",
@@ -88,7 +89,7 @@ def _format_passages(chunks: list[dict]) -> str:
     for i, c in enumerate(chunks, 1):
         m = c["metadata"]
         header = f"[{i}] {m['book']}"
-        if m.get("item_number"):
+        if has_real_item_number(m.get("item_number")):
             header += f" | Item {m['item_number']}"
         parts.append(f"{header}\n\"{c['content']}\"")
     return "\n\n".join(parts)
