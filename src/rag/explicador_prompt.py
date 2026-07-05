@@ -1,6 +1,8 @@
 import json
 import re
 
+from src.rag.json_extract import extract_outermost, strip_code_fence
+
 _SYSTEM_TEMPLATE = """\
 Você é um tutor socrático especializado na obra de Allan Kardec.
 
@@ -104,11 +106,7 @@ def _fix_conceitos_array(s: str) -> str:
 
 def parse_explicador_json(text: str) -> tuple[str, list[str], list[str]]:
     """Returns (contexto, conceitos_chave, perguntas)."""
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```[a-z]*\n?", "", text)
-        text = re.sub(r"```$", "", text.strip())
-        text = text.strip()
+    text = strip_code_fence(text)
 
     def _try_parse(s: str):
         data = json.loads(s)
@@ -127,23 +125,12 @@ def parse_explicador_json(text: str) -> tuple[str, list[str], list[str]]:
             return _try_parse(s)
         except (json.JSONDecodeError, AttributeError, ValueError):
             pass
-        # Find outermost { } block
-        start = s.find("{")
-        if start != -1:
-            depth, end = 0, -1
-            for i, ch in enumerate(s[start:], start):
-                if ch == "{":
-                    depth += 1
-                elif ch == "}":
-                    depth -= 1
-                    if depth == 0:
-                        end = i
-                        break
-            if end != -1:
-                try:
-                    return _try_parse(s[start : end + 1])
-                except (json.JSONDecodeError, AttributeError, ValueError):
-                    pass
+        block = extract_outermost(s, "{", "}")
+        if block is not None:
+            try:
+                return _try_parse(block)
+            except (json.JSONDecodeError, AttributeError, ValueError):
+                pass
         return None
 
     # Try with the malformed-array fix first, then raw text

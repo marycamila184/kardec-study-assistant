@@ -1,21 +1,10 @@
-from openai import OpenAI
+import concurrent.futures
 
 from src.core.config import settings
 from src.rag.curador import curar
 from src.rag.explicador_prompt import build_explicador_messages, parse_explicador_json
+from src.rag.llm_client import get_client
 from src.rag.retriever import retrieve, retrieve_by_item
-
-_client: OpenAI | None = None
-
-
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(
-            api_key=settings.groq_api_key,
-            base_url="https://api.groq.com/openai/v1",
-        )
-    return _client
 
 
 def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | None:
@@ -49,21 +38,32 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         original_text, related, footnote_context=footnote_context
     )
 
-    contexto = ""
-    conceitos_chave: list[str] = []
-    perguntas: list[str] = []
-    generation_failed = False
-    try:
-        response = _get_client().chat.completions.create(
+    def _call_explicador():
+        response = get_client().chat.completions.create(
             model=settings.chat_model,
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,
         )
-        contexto, conceitos_chave, perguntas = parse_explicador_json(
-            response.choices[0].message.content
-        )
-    except Exception:
-        generation_failed = True
+        return parse_explicador_json(response.choices[0].message.content)
+
+    contexto = ""
+    conceitos_chave: list[str] = []
+    perguntas: list[str] = []
+    generation_failed = False
+
+    # curar() makes its own independent Groq call and only needs `related`,
+    # which is already available — run both LLM calls concurrently instead
+    # of paying their latency twice in sequence.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        explicador_future = executor.submit(_call_explicador)
+        curador_future = executor.submit(curar, original_text, related)
+
+        try:
+            contexto, conceitos_chave, perguntas = explicador_future.result()
+        except Exception:
+            generation_failed = True
+
+        related_items = curador_future.result()
 
     sources = [
         {
@@ -73,8 +73,6 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         }
         for c in chunks
     ]
-
-    related_items = curar(original_text, related)
 
     return {
         "original_text": original_text,

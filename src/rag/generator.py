@@ -1,6 +1,5 @@
-from openai import OpenAI
-
 from src.core.config import settings
+from src.rag.llm_client import get_client
 from src.rag.prompt import build_messages
 from src.rag.reflect_prompt import needs_medical_caveat
 from src.rag.retriever import retrieve
@@ -17,18 +16,6 @@ BOOK_FALLBACK_NOTE = (
 
 GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
-_client: OpenAI | None = None
-
-
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(
-            api_key=settings.groq_api_key,
-            base_url="https://api.groq.com/openai/v1",
-        )
-    return _client
-
 
 def condense_query(question: str, history: list[dict]) -> str:
     history_text = "\n".join(
@@ -40,7 +27,7 @@ def condense_query(question: str, history: list[dict]) -> str:
         f"Reescreva a seguinte pergunta como uma consulta de busca independente e completa. "
         f"Retorne apenas a consulta reescrita, sem explicações.\n\nPergunta: {question}"
     )
-    response = _get_client().chat.completions.create(
+    response = get_client().chat.completions.create(
         model=settings.condenser_model,
         max_tokens=256,
         messages=[{"role": "user", "content": prompt}],
@@ -91,7 +78,7 @@ def generate(
         question, chunks, history, settings.max_history_turns, add_caveat=add_caveat
     )
     try:
-        response = _get_client().chat.completions.create(
+        response = get_client().chat.completions.create(
             model=settings.chat_model,
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,

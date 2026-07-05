@@ -25,19 +25,21 @@ def test_group_chapters_preserves_chapter_order():
 
 
 def test_generate_summaries_calls_llm_for_new_chapters():
-    with patch("src.rag.generate_chapter_summaries._get_client") as mock_client:
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(
-            "Resumo do capítulo A."
+    with patch("src.rag.generate_chapter_summaries.get_client") as mock_client:
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response("Resumo do capítulo A.")
         )
         result = generate_summaries(_CHUNKS, existing={})
     assert result["Capítulo A"] == "Resumo do capítulo A."
-    assert result["Capítulo B"] == "Resumo do capítulo A."  # same mocked response for both calls
+    assert (
+        result["Capítulo B"] == "Resumo do capítulo A."
+    )  # same mocked response for both calls
 
 
 def test_generate_summaries_skips_existing_chapters_without_force():
-    with patch("src.rag.generate_chapter_summaries._get_client") as mock_client:
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(
-            "Novo resumo."
+    with patch("src.rag.generate_chapter_summaries.get_client") as mock_client:
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response("Novo resumo.")
         )
         result = generate_summaries(
             _CHUNKS, existing={"Capítulo A": "Resumo antigo revisado."}
@@ -48,9 +50,9 @@ def test_generate_summaries_skips_existing_chapters_without_force():
 
 
 def test_generate_summaries_force_regenerates_existing_chapters():
-    with patch("src.rag.generate_chapter_summaries._get_client") as mock_client:
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(
-            "Resumo regenerado."
+    with patch("src.rag.generate_chapter_summaries.get_client") as mock_client:
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response("Resumo regenerado.")
         )
         result = generate_summaries(
             _CHUNKS, existing={"Capítulo A": "Resumo antigo."}, force=True
@@ -71,7 +73,7 @@ def test_generate_summaries_continues_on_llm_failure_for_one_chapter(capsys):
 
     side_effect_func.call_count = 0
 
-    with patch("src.rag.generate_chapter_summaries._get_client") as mock_client:
+    with patch("src.rag.generate_chapter_summaries.get_client") as mock_client:
         mock_client.return_value.chat.completions.create.side_effect = side_effect_func
         result = generate_summaries(_CHUNKS, existing={})
 

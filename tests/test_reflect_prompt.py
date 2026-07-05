@@ -39,7 +39,9 @@ def test_no_advice_constraint_in_system():
 
 
 def test_situation_text_appears_in_system():
-    system, _ = build_reflect_messages("meu casamento está difícil", [], add_caveat=False)
+    system, _ = build_reflect_messages(
+        "meu casamento está difícil", [], add_caveat=False
+    )
     assert "meu casamento está difícil" in system
 
 
@@ -98,7 +100,9 @@ def test_build_reflect_messages_includes_history():
         {"role": "user", "content": "Qual pergunta anterior?"},
         {"role": "assistant", "content": "Resposta anterior dada."},
     ]
-    system, _ = build_reflect_messages("nova situação", [], add_caveat=False, history=history)
+    system, _ = build_reflect_messages(
+        "nova situação", [], add_caveat=False, history=history
+    )
     assert "Resposta anterior dada." in system
     assert "Qual pergunta anterior?" in system
 
@@ -115,9 +119,9 @@ def test_system_prohibits_repeating_previous_questions():
 
 def test_parse_reflect_json_extracts_object_wrapped_in_prose():
     text = (
-        'Aqui está o JSON solicitado:\n'
+        "Aqui está o JSON solicitado:\n"
         '{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"]}\n'
-        'Espero que ajude!'
+        "Espero que ajude!"
     )
     opening, conn, questions, is_closing = parse_reflect_json(text)
     assert opening == "A."

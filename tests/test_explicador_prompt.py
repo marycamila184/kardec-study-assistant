@@ -1,4 +1,6 @@
-from src.rag.explicador_prompt import build_explicador_messages
+import json
+
+from src.rag.explicador_prompt import build_explicador_messages, parse_explicador_json
 
 
 def test_system_prohibits_personifying_espiritismo():
@@ -13,11 +15,15 @@ def test_system_allows_historical_context():
 
 def test_system_still_forbids_doctrine_invention():
     system, _ = build_explicador_messages("Trecho de exemplo.", [])
-    assert "nunca invente" in system.lower() or "nunca invente ou altere" in system.lower()
+    assert (
+        "nunca invente" in system.lower() or "nunca invente ou altere" in system.lower()
+    )
 
 
 def test_footnote_context_appears_in_system_when_provided():
-    system, _ = build_explicador_messages("Trecho.", [], footnote_context="[Nota 1] Explicação de exemplo.")
+    system, _ = build_explicador_messages(
+        "Trecho.", [], footnote_context="[Nota 1] Explicação de exemplo."
+    )
     assert "Explicação de exemplo." in system
 
 
@@ -29,3 +35,67 @@ def test_footnote_context_defaults_to_placeholder_when_empty():
 def test_system_instructs_using_related_references_for_contexto_depth():
     system, _ = build_explicador_messages("Trecho de exemplo.", [])
     assert "use também as referências relacionadas" in system.lower()
+
+
+def test_parse_explicador_json_extracts_all_fields():
+    text = json.dumps(
+        {
+            "contexto": "Contexto de teste.",
+            "conceitos_chave": ["termo: definição"],
+            "perguntas": ["Pergunta 1?"],
+        }
+    )
+    contexto, conceitos, perguntas = parse_explicador_json(text)
+    assert contexto == "Contexto de teste."
+    assert conceitos == ["termo: definição"]
+    assert perguntas == ["Pergunta 1?"]
+
+
+def test_parse_explicador_json_strips_markdown_fences():
+    text = (
+        "```json\n"
+        + json.dumps({"contexto": "C", "conceitos_chave": [], "perguntas": []})
+        + "\n```"
+    )
+    contexto, conceitos, perguntas = parse_explicador_json(text)
+    assert contexto == "C"
+
+
+def test_parse_explicador_json_extracts_object_wrapped_in_prose():
+    text = (
+        "Aqui está o resultado: "
+        + json.dumps({"contexto": "C", "conceitos_chave": [], "perguntas": ["P?"]})
+        + " Espero que ajude."
+    )
+    contexto, conceitos, perguntas = parse_explicador_json(text)
+    assert contexto == "C"
+    assert perguntas == ["P?"]
+
+
+def test_parse_explicador_json_fixes_malformed_conceitos_array():
+    text = (
+        '{"contexto": "C", '
+        '"conceitos_chave": ["dever": "obrigação moral", "lei": "regra geral"], '
+        '"perguntas": []}'
+    )
+    contexto, conceitos, perguntas = parse_explicador_json(text)
+    assert conceitos == ["dever: obrigação moral", "lei: regra geral"]
+
+
+def test_parse_explicador_json_handles_conceitos_as_list_of_dicts():
+    text = json.dumps(
+        {
+            "contexto": "C",
+            "conceitos_chave": [{"dever": "obrigação moral"}],
+            "perguntas": [],
+        }
+    )
+    contexto, conceitos, perguntas = parse_explicador_json(text)
+    assert conceitos == ["dever: obrigação moral"]
+
+
+def test_parse_explicador_json_falls_back_to_regex_extraction_on_unparseable_json():
+    text = 'Resposta do modelo: "contexto": "Explicação via regex.", texto quebrado {[}'
+    contexto, conceitos, perguntas = parse_explicador_json(text)
+    assert contexto == "Explicação via regex."
+    assert conceitos == []

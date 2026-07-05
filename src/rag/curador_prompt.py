@@ -1,5 +1,6 @@
 import json
-import re
+
+from src.rag.json_extract import extract_outermost, strip_code_fence
 
 _SYSTEM_TEMPLATE = """\
 Você é um curador especializado nas obras de Allan Kardec.
@@ -55,19 +56,22 @@ def build_curador_messages(
 
 def parse_curador_json(text: str) -> list[dict]:
     """Returns list of {"index": int, "conexao": str}."""
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```[a-z]*\n?", "", text)
-        text = re.sub(r"```$", "", text.strip()).strip()
+    text = strip_code_fence(text)
 
     def _try_parse(s: str) -> list[dict]:
         data = json.loads(s)
         if isinstance(data, list):
-            return [
-                {"index": int(item["index"]), "conexao": str(item.get("conexao", ""))}
-                for item in data
-                if "index" in item
-            ]
+            seen_indices: set[int] = set()
+            result = []
+            for item in data:
+                if "index" not in item:
+                    continue
+                idx = int(item["index"])
+                if idx in seen_indices:
+                    continue
+                seen_indices.add(idx)
+                result.append({"index": idx, "conexao": str(item.get("conexao", ""))})
+            return result
         return []
 
     try:
@@ -75,21 +79,11 @@ def parse_curador_json(text: str) -> list[dict]:
     except (json.JSONDecodeError, AttributeError, KeyError, ValueError):
         pass
 
-    start = text.find("[")
-    if start != -1:
-        depth, end = 0, -1
-        for i, ch in enumerate(text[start:], start):
-            if ch == "[":
-                depth += 1
-            elif ch == "]":
-                depth -= 1
-                if depth == 0:
-                    end = i
-                    break
-        if end != -1:
-            try:
-                return _try_parse(text[start : end + 1])
-            except (json.JSONDecodeError, AttributeError, KeyError, ValueError):
-                pass
+    block = extract_outermost(text, "[", "]")
+    if block is not None:
+        try:
+            return _try_parse(block)
+        except (json.JSONDecodeError, AttributeError, KeyError, ValueError):
+            pass
 
     return []

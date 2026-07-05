@@ -1,5 +1,6 @@
 import json
-import re
+
+from src.rag.json_extract import extract_outermost, strip_code_fence
 
 CLINICAL_KEYWORDS = [
     "vozes",
@@ -127,22 +128,11 @@ def build_reflect_messages(
 
 def _extract_json_object(text: str) -> dict | None:
     """Find and parse the outermost {...} block in text, if any."""
-    start = text.find("{")
-    if start == -1:
-        return None
-    depth, end = 0, -1
-    for i, ch in enumerate(text[start:], start):
-        if ch == "{":
-            depth += 1
-        elif ch == "}":
-            depth -= 1
-            if depth == 0:
-                end = i
-                break
-    if end == -1:
+    block = extract_outermost(text, "{", "}")
+    if block is None:
         return None
     try:
-        data = json.loads(text[start : end + 1])
+        data = json.loads(block)
     except json.JSONDecodeError:
         return None
     return data if isinstance(data, dict) else None
@@ -155,11 +145,7 @@ def parse_reflect_json(text: str) -> tuple[str, str, list[str], bool]:
     JSON shape, so the caller can treat it as a generation failure instead
     of leaking unparsed model text to the user.
     """
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```[a-z]*\n?", "", text)
-        text = re.sub(r"```$", "", text.strip())
-        text = text.strip()
+    text = strip_code_fence(text)
 
     data = None
     try:

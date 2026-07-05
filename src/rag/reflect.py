@@ -1,7 +1,8 @@
-from openai import OpenAI
+import concurrent.futures
 
 from src.core.config import settings
 from src.rag.curador import curar
+from src.rag.llm_client import get_client
 from src.rag.reflect_prompt import (
     build_reflect_messages,
     needs_medical_caveat,
@@ -17,18 +18,6 @@ _NOT_FOUND_MESSAGE = (
 GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
 CAP_ROUNDS = 5  # after this many completed rounds, force closing regardless of the model's own judgment
-
-_client: OpenAI | None = None
-
-
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(
-            api_key=settings.groq_api_key,
-            base_url="https://api.groq.com/openai/v1",
-        )
-    return _client
 
 
 def reflect(situation: str, conversation_history: list[dict] | None = None) -> dict:
@@ -67,22 +56,35 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         situation, primary, add_caveat, history=history
     )
 
+    def _call_reflexivo():
+        response = get_client().chat.completions.create(
+            model=settings.chat_model,
+            max_tokens=1024,
+            messages=[{"role": "system", "content": system}] + messages,
+        )
+        return parse_reflect_json(response.choices[0].message.content)
+
     opening = ""
     doctrine_connection = ""
     reflection_questions = []
     is_closing = False
     generation_failed = False
-    try:
-        response = _get_client().chat.completions.create(
-            model=settings.chat_model,
-            max_tokens=1024,
-            messages=[{"role": "system", "content": system}] + messages,
-        )
-        opening, doctrine_connection, reflection_questions, is_closing = (
-            parse_reflect_json(response.choices[0].message.content)
-        )
-    except Exception:
-        generation_failed = True
+
+    # curar() makes its own independent Groq call and only needs
+    # `complementary_raw`, which is already retrieved — run both LLM calls
+    # concurrently instead of paying their latency twice in sequence.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        reflexivo_future = executor.submit(_call_reflexivo)
+        curador_future = executor.submit(curar, situation, complementary_raw)
+
+        try:
+            opening, doctrine_connection, reflection_questions, is_closing = (
+                reflexivo_future.result()
+            )
+        except Exception:
+            generation_failed = True
+
+        complementary_items = curador_future.result()
 
     if force_closing:
         is_closing = True
@@ -97,8 +99,6 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         }
         for c in primary
     ]
-
-    complementary_items = curar(situation, complementary_raw)
 
     return {
         "opening": opening,

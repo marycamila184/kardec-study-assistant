@@ -1,19 +1,6 @@
-from openai import OpenAI
-
 from src.core.config import settings
 from src.rag.curador_prompt import build_curador_messages, parse_curador_json
-
-_client: OpenAI | None = None
-
-
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(
-            api_key=settings.groq_api_key,
-            base_url="https://api.groq.com/openai/v1",
-        )
-    return _client
+from src.rag.llm_client import get_client
 
 
 def curar(main_text: str, candidates: list[dict]) -> list[dict]:
@@ -34,7 +21,7 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
 
     call_failed = False
     try:
-        response = _get_client().chat.completions.create(
+        response = get_client().chat.completions.create(
             model=settings.chat_model,
             max_tokens=512,
             messages=[{"role": "system", "content": system}] + messages,

@@ -116,13 +116,14 @@ export default function App() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  // Scrolls after the next couple of paint frames, once new content has
+  // actually been laid out, instead of polling scrollTop for seconds.
   const scrollToBottom = () => {
-    let ticks = 0;
-    const interval = setInterval(() => {
-      if (msgsRef.current) msgsRef.current.scrollTop = msgsRef.current.scrollHeight;
-      ticks += 1;
-      if (ticks >= 20) clearInterval(interval); // ~2s at 100ms
-    }, 100);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (msgsRef.current) msgsRef.current.scrollTop = msgsRef.current.scrollHeight;
+      });
+    });
   };
 
   // ── Font size helper ─────────────────────────────────────────────────────
@@ -166,7 +167,7 @@ export default function App() {
     try {
       let reply;
       if (requestMode === 'refletir') {
-        reply = await reflectSituation(txt);
+        reply = await reflectSituation(txt, buildReflectHistory(msgs));
       } else {
         const history = msgs.map(m => ({
           role: m.isUser ? 'user' : 'assistant',
@@ -308,7 +309,7 @@ export default function App() {
   const handleExplorarDuvida = (displayText, queryText, bookFilter) => askDuvida(displayText, queryText, m => {
     setExplorarMsgs(prev => {
       const updated = [...prev, m];
-      if (explorarConvoMetaRef.current) saveConvo(explorarConvoMetaRef.current.id, explorarConvoMetaRef.current.title, 'estudar', updated);
+      if (explorarConvoMetaRef.current) saveConvo(explorarConvoMetaRef.current.id, explorarConvoMetaRef.current.title, 'estudar', updated, 'explorar');
       return updated;
     });
   }, setExplorarLoad, bookFilter);
@@ -352,7 +353,7 @@ export default function App() {
     }
     const updatedMsgs = [...existingMsgs, tutorMsg];
     setGuidedMsgs(updatedMsgs);
-    saveConvo('trilha_' + trilha.id, trilha.title, 'estudar', updatedMsgs);
+    saveConvo('trilha_' + trilha.id, trilha.title, 'estudar', updatedMsgs, 'guided');
     setGuidedLoading(false);
     scrollToBottom();
   };
@@ -405,7 +406,7 @@ export default function App() {
     const meta = { id: convoId2, title };
     setExplorarConvoMeta(meta);
     explorarConvoMetaRef.current = meta;
-    saveConvo(convoId2, title, 'estudar', [userMsg, aiMsg]);
+    saveConvo(convoId2, title, 'estudar', [userMsg, aiMsg], 'explorar');
     setExplorarMsgs([userMsg, aiMsg]);
     scrollToBottom();
   };
@@ -444,14 +445,14 @@ export default function App() {
 
     const meta = explorarConvoMetaRef.current;
     if (meta) {
-      saveConvo(meta.id, meta.title, 'estudar', updatedMsgs);
+      saveConvo(meta.id, meta.title, 'estudar', updatedMsgs, 'explorar');
     } else {
       const convoId2 = 'explorar_' + Date.now();
       const title = query.slice(0, 48);
       const newMeta = { id: convoId2, title };
       setExplorarConvoMeta(newMeta);
       explorarConvoMetaRef.current = newMeta;
-      saveConvo(convoId2, title, 'estudar', updatedMsgs);
+      saveConvo(convoId2, title, 'estudar', updatedMsgs, 'explorar');
     }
     setExplorarMsgs(updatedMsgs);
   };
@@ -464,11 +465,11 @@ export default function App() {
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
     try {
-      const reply = await studyItem(source.book, source.item_number);
+      const reply = await studyItem(source.book, source.item_number, source.chapter || null);
       const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
       const meta = { id: 'explorar_' + Date.now(), title: label };
       setExplorarConvoMeta(meta); explorarConvoMetaRef.current = meta;
-      saveConvo(meta.id, label, 'estudar', [userMsg, aiMsg]);
+      saveConvo(meta.id, label, 'estudar', [userMsg, aiMsg], 'explorar');
       setExplorarMsgs([userMsg, aiMsg]);
     } catch (err) {
       console.error('handleGoStudyItem failed:', err);
@@ -484,9 +485,13 @@ export default function App() {
   const handleLoadConvo = async (c) => {
     setConvoId(c.id);
     const msgs = markFromCache(c.msgs);
+    // `sub` is stored explicitly on conversations saved after this field was
+    // added; fall back to the old id-prefix convention for older entries
+    // already sitting in a user's localStorage.
+    const sub = c.sub || (c.id.startsWith('trilha_') ? 'guided' : c.id.startsWith('explorar_') ? 'explorar' : null);
     if (c.mode === 'refletir') {
       setMode('refletir'); setRefletirSub('chat'); setMsgs(msgs);
-    } else if (c.mode === 'estudar' && c.id.startsWith('trilha_')) {
+    } else if (c.mode === 'estudar' && sub === 'guided') {
       setMode('estudar'); setEstudarSub('guided');
       const trilhaId = c.id.slice('trilha_'.length);
       const trilhaDetail = await getPath(trilhaId).catch((err) => {
@@ -497,7 +502,7 @@ export default function App() {
       const tutorSteps = msgs.filter(m => typeof m.id === 'string' && m.id.startsWith('tutor_'));
       setGuidedStep(Math.max(0, tutorSteps.length - 1));
       setGuidedMsgs(msgs);
-    } else if (c.mode === 'estudar' && c.id.startsWith('explorar_')) {
+    } else if (c.mode === 'estudar' && sub === 'explorar') {
       setMode('estudar'); setEstudarSub('explorar');
       const meta = { id: c.id, title: c.title };
       setExplorarConvoMeta(meta);

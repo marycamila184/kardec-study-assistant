@@ -2,28 +2,15 @@ import argparse
 import json
 import os
 
-from openai import OpenAI
-
 from src.core.config import settings
 from src.rag.chapter_summary_prompt import (
     build_chapter_summary_messages,
     clean_chapter_summary,
 )
+from src.rag.llm_client import get_client
 
 EVANGELHO_JSON_PATH = "data/json_files/evangelho.json"
 SUMMARIES_PATH = "data/chapter_summaries/evangelho.json"
-
-_client: OpenAI | None = None
-
-
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(
-            api_key=settings.groq_api_key,
-            base_url="https://api.groq.com/openai/v1",
-        )
-    return _client
 
 
 def group_chapters(chunks: list[dict]) -> dict[str, str]:
@@ -35,7 +22,7 @@ def group_chapters(chunks: list[dict]) -> dict[str, str]:
 
 def _summarize(chapter_title: str, chapter_text: str) -> str:
     system, messages = build_chapter_summary_messages(chapter_title, chapter_text)
-    response = _get_client().chat.completions.create(
+    response = get_client().chat.completions.create(
         model=settings.chat_model,
         max_tokens=256,
         messages=[{"role": "system", "content": system}] + messages,

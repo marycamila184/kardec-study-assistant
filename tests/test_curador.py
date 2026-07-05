@@ -35,22 +35,28 @@ def test_curar_returns_empty_for_no_candidates():
 
 def test_curar_includes_chapter_when_llm_selects_candidate():
     llm_json = '[{"index": 0, "conexao": "Conecta pela imortalidade da alma."}]'
-    with patch("src.rag.curador._get_client") as mock_client:
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(llm_json)
+    with patch("src.rag.curador.get_client") as mock_client:
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json)
+        )
         result = curar("trecho principal", [_CANDIDATE_1])
     assert result[0]["chapter"] == "CAPÍTULO I"
 
 
 def test_curar_includes_chapter_in_fallback_when_llm_fails():
-    with patch("src.rag.curador._get_client") as mock_client:
-        mock_client.return_value.chat.completions.create.side_effect = RuntimeError("API error")
+    with patch("src.rag.curador.get_client") as mock_client:
+        mock_client.return_value.chat.completions.create.side_effect = RuntimeError(
+            "API error"
+        )
         result = curar("trecho principal", [_CANDIDATE_1, _CANDIDATE_2])
     assert result[0]["chapter"] == "CAPÍTULO I"
     assert result[1]["chapter"] == "CAPÍTULO II"
 
 
 def test_curar_returns_empty_when_llm_legitimately_selects_nothing():
-    with patch("src.rag.curador._get_client") as mock_client:
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response("[]")
+    with patch("src.rag.curador.get_client") as mock_client:
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response("[]")
+        )
         result = curar("trecho principal", [_CANDIDATE_1])
     assert result == []

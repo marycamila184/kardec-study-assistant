@@ -3,10 +3,10 @@ import { useStorage } from './useStorage';
 export function useConversations() {
   const [conversations, setConversations] = useStorage('dialogando_convos', []);
 
-  const saveConvo = (id, title, mode, msgs) => {
+  const saveConvo = (id, title, mode, msgs, sub = null) => {
     setConversations(prev => {
       const existing = prev.find(c => c.id === id);
-      const entry = { id, title, mode, msgs, ts: Date.now(), favorited: existing?.favorited || false };
+      const entry = { id, title, mode, sub, msgs, ts: Date.now(), favorited: existing?.favorited || false };
       if (existing) return prev.map(c => c.id === id ? entry : c);
       return [entry, ...prev].slice(0, 20);
     });

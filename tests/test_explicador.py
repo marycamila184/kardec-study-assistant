@@ -25,47 +25,68 @@ def test_explicar_returns_none_when_no_chunks():
 
 
 def test_explicar_passes_footnote_context_to_prompt():
-    llm_json = '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
+    llm_json = (
+        '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
+    )
     with (
-        patch("src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]),
+        patch(
+            "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
+        ),
         patch("src.rag.explicador.retrieve", return_value=[]),
         patch("src.rag.explicador.curar", return_value=[]),
         patch("src.rag.explicador.build_explicador_messages") as mock_build,
-        patch("src.rag.explicador._get_client") as mock_client,
+        patch("src.rag.explicador.get_client") as mock_client,
     ):
         mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(llm_json)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json)
+        )
         explicar("O Livro dos Espíritos", "1")
-    assert mock_build.call_args.kwargs["footnote_context"] == "[Nota 1] Explicação editorial de exemplo."
+    assert (
+        mock_build.call_args.kwargs["footnote_context"]
+        == "[Nota 1] Explicação editorial de exemplo."
+    )
 
 
 def test_explicar_returns_contexto_from_llm():
-    llm_json = '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
+    llm_json = (
+        '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
+    )
     with (
-        patch("src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]),
+        patch(
+            "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
+        ),
         patch("src.rag.explicador.retrieve", return_value=[]),
         patch("src.rag.explicador.curar", return_value=[]),
-        patch("src.rag.explicador._get_client") as mock_client,
+        patch("src.rag.explicador.get_client") as mock_client,
     ):
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(llm_json)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json)
+        )
         result = explicar("O Livro dos Espíritos", "1")
     assert result["contexto"] == "Contexto de teste."
     assert result["original_text"] == "1. Que é Deus?"
 
 
 def test_explicar_degrades_gracefully_when_related_retrieval_fails():
-    llm_json = '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
+    llm_json = (
+        '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
+    )
 
     def _raise(*args, **kwargs):
         raise RuntimeError("db error")
 
     with (
-        patch("src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]),
+        patch(
+            "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
+        ),
         patch("src.rag.explicador.retrieve", side_effect=_raise),
         patch("src.rag.explicador.curar", return_value=[]) as mock_curar,
-        patch("src.rag.explicador._get_client") as mock_client,
+        patch("src.rag.explicador.get_client") as mock_client,
     ):
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(llm_json)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json)
+        )
         result = explicar("O Livro dos Espíritos", "1")
     assert result is not None
     assert result["contexto"] == "Contexto de teste."
