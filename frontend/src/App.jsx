@@ -479,6 +479,37 @@ export default function App() {
     }
   };
 
+  // ── Suggested-mode: jump from /chat to a Refletir thread seeded with the question ──
+  const handleGoReflect = async (situationText) => {
+    if (!situationText) return;
+    switchMode('refletir');
+    setRefletirSub('chat');
+    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: situationText };
+    setMsgs([userMsg]); setLoading(true);
+    const id = 'c' + Date.now();
+    setConvoId(id);
+    saveConvo(id, situationText.slice(0, 48), 'refletir', [userMsg]);
+    scrollToBottom();
+    const requestId = ++requestIdRef.current;
+    try {
+      const reply = await reflectSituation(situationText, []);
+      if (requestId !== requestIdRef.current) return;
+      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const finalMsgs = [userMsg, aiMsg];
+      setMsgs(finalMsgs);
+      saveConvo(id, situationText.slice(0, 48), 'refletir', finalMsgs);
+    } catch (err) {
+      console.error('handleGoReflect failed:', err);
+      if (requestId !== requestIdRef.current) return;
+      setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+    } finally {
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+        scrollToBottom();
+      }
+    }
+  };
+
   const markFromCache = (msgs) => msgs.map(m => m.isAI ? { ...m, fromCache: true } : m);
 
   // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
@@ -790,7 +821,7 @@ export default function App() {
                   </div>
                 )}
 
-                {msgs.map(msg => (
+                {msgs.map((msg, idx) => (
                   msg.isUser
                     ? <UserBubble key={msg.id} text={msg.text} />
                     : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={msgFontSize}
@@ -818,6 +849,25 @@ export default function App() {
                             </button>
                           </div>
                         )}
+                        {msg.suggestedMode === 'refletir' && (() => {
+                          const srcQuestion = msgs
+                            .slice(0, idx).reverse().find(m => m.isUser)?.text;
+                          return srcQuestion ? (
+                            <div style={{ marginTop: 10 }}>
+                              <button
+                                onClick={() => handleGoReflect(srcQuestion)}
+                                style={{
+                                  background: 'transparent', border: '1px solid rgba(200,133,106,.4)',
+                                  color: '#C8856A', padding: '7px 14px', borderRadius: 8,
+                                  fontSize: 13, fontWeight: 500, cursor: 'pointer',
+                                  display: 'flex', alignItems: 'center', gap: 6,
+                                }}
+                              >
+                                🪞 Refletir sobre esta situação
+                              </button>
+                            </div>
+                          ) : null;
+                        })()}
                       </AIMessage>
                 ))}
                 {loading && <LoadingDots theme={theme} />}
