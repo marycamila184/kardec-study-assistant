@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 
 /**
  * Slide-in settings panel from the right (300px wide).
@@ -24,6 +25,9 @@ export default function SettingsPanel({
   notifPermission, onRequestNotif,
   theme,
 }) {
+  const [justSaved, setJustSaved] = useState(false);
+  useEscapeKey(onClose, open);
+
   if (!open) return null;
 
   const Toggle = ({ on, onToggle }) => (
@@ -59,7 +63,7 @@ export default function SettingsPanel({
           <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 17, fontWeight: 600, color: theme.text }}>
             Configurações
           </div>
-          <button onClick={onClose} style={{
+          <button onClick={onClose} aria-label="Fechar configurações" style={{
             width: 28, height: 28, borderRadius: 6,
             background: 'transparent', border: `1px solid ${theme.headerBorder}`,
             cursor: 'pointer', fontSize: 18, color: theme.subtext,
@@ -125,12 +129,19 @@ export default function SettingsPanel({
             </Row>
             {reminderOn && (
               <>
-                <input type="time" value={reminderTime} onChange={e => onReminderTime(e.target.value)} style={{
+                <input type="time" value={reminderTime} onChange={e => {
+                  onReminderTime(e.target.value);
+                  setJustSaved(true);
+                  setTimeout(() => setJustSaved(false), 1500);
+                }} style={{
                   width: '100%', background: theme.inputBg,
                   border: `1px solid ${theme.headerBorder}`,
                   borderRadius: 7, padding: '8px 10px', fontSize: 13, color: theme.text,
-                  marginBottom: 10,
+                  marginBottom: 4,
                 }} />
+                <div style={{ fontSize: 11, color: '#6B9BB8', minHeight: 14, marginBottom: 6 }}>
+                  {justSaved ? 'Salvo ✓' : ''}
+                </div>
                 <button onClick={onRequestNotif} style={{
                   width: '100%', padding: 8, borderRadius: 7, fontSize: 12, fontWeight: 500, cursor: 'pointer',
                   border: `1px solid ${notifPermission === 'granted' ? '#6B9BB8' : theme.headerBorder}`,

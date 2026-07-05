@@ -1,25 +1,20 @@
-from openai import OpenAI
-
 from src.core.config import settings
+from src.rag.llm_client import get_client
 from src.rag.prompt import build_messages
-from src.rag.retriever import retrieve
+from src.rag.reflect_prompt import needs_medical_caveat
+from src.rag.retriever import has_real_item_number, retrieve
 
 NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec informações suficientes para responder "
     "a essa pergunta. Por favor, reformule sua dúvida ou consulte diretamente as obras."
 )
 
-_client: OpenAI | None = None
+BOOK_FALLBACK_NOTE = (
+    "Não encontrei citações específicas sobre esse tema em *{book}*. "
+    "Porém, outras obras de Kardec abordam o assunto:\n\n"
+)
 
-
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(
-            api_key=settings.groq_api_key,
-            base_url="https://api.groq.com/openai/v1",
-        )
-    return _client
+GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
 
 def condense_query(question: str, history: list[dict]) -> str:
@@ -32,7 +27,7 @@ def condense_query(question: str, history: list[dict]) -> str:
         f"Reescreva a seguinte pergunta como uma consulta de busca independente e completa. "
         f"Retorne apenas a consulta reescrita, sem explicações.\n\nPergunta: {question}"
     )
-    response = _get_client().chat.completions.create(
+    response = get_client().chat.completions.create(
         model=settings.condenser_model,
         max_tokens=256,
         messages=[{"role": "user", "content": prompt}],
@@ -40,21 +35,61 @@ def condense_query(question: str, history: list[dict]) -> str:
     return response.choices[0].message.content.strip()
 
 
-def generate(question: str, history: list[dict]) -> dict:
-    search_query = condense_query(question, history) if history else question
-    chunks = retrieve(search_query)
+def generate(
+    question: str, history: list[dict], book_filter: str | None = None
+) -> dict:
+    search_query = question
+    if history:
+        try:
+            search_query = condense_query(question, history)
+        except Exception:
+            search_query = question
+
+    try:
+        chunks = retrieve(search_query, book_filter=book_filter)
+    except Exception:
+        return {
+            "answer": GENERATION_FAILED_MESSAGE,
+            "sources": [],
+            "not_found": False,
+            "generation_failed": True,
+        }
+
+    fallback_note: str | None = None
+    if not chunks and book_filter:
+        try:
+            fallback_chunks = retrieve(search_query)
+        except Exception:
+            fallback_chunks = []
+        if fallback_chunks:
+            chunks = fallback_chunks
+            fallback_note = BOOK_FALLBACK_NOTE.format(book=book_filter)
 
     if not chunks:
-        return {"answer": NOT_FOUND_MESSAGE, "sources": [], "not_found": True}
+        return {
+            "answer": NOT_FOUND_MESSAGE,
+            "sources": [],
+            "not_found": True,
+            "generation_failed": False,
+        }
 
+    add_caveat = needs_medical_caveat(question)
     system, messages = build_messages(
-        question, chunks, history, settings.max_history_turns
+        question, chunks, history, settings.max_history_turns, add_caveat=add_caveat
     )
-    response = _get_client().chat.completions.create(
-        model=settings.chat_model,
-        max_tokens=1024,
-        messages=[{"role": "system", "content": system}] + messages,
-    )
+    try:
+        response = get_client().chat.completions.create(
+            model=settings.chat_model,
+            max_tokens=1024,
+            messages=[{"role": "system", "content": system}] + messages,
+        )
+        answer = response.choices[0].message.content
+        if fallback_note:
+            answer = fallback_note + answer
+        generation_failed = False
+    except Exception:
+        answer = GENERATION_FAILED_MESSAGE
+        generation_failed = True
 
     seen: set[tuple] = set()
     sources = []
@@ -67,12 +102,18 @@ def generate(question: str, history: list[dict]) -> dict:
                 {
                     "book": m["book"],
                     "chapter": m.get("chapter_title") or None,
-                    "item_number": m.get("item_number") or None,
+                    "item_number": (
+                        m["item_number"]
+                        if has_real_item_number(m.get("item_number"))
+                        else None
+                    ),
+                    "excerpt": chunk["content"],
                 }
             )
 
     return {
-        "answer": response.choices[0].message.content,
-        "sources": sources,
+        "answer": answer,
+        "sources": [] if generation_failed else sources,
         "not_found": False,
+        "generation_failed": generation_failed,
     }

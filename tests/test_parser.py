@@ -332,3 +332,12 @@ def test_chunk_without_footnote_has_empty_lists():
     chunks = parse_md_to_json(md, CEU_INFERNO)
     assert chunks[0]["footnotes"] == []
     assert chunks[0]["title_footnotes"] == []
+
+
+def test_default_max_chars_matches_embedding_safe_ceiling():
+    """BAAI/bge-m3 supports up to 8192 tokens of context, but the subchunk
+    ceiling is calibrated to typical item length (not the model's technical
+    limit) to keep retrieval chunks topically focused. Default is 800 chars."""
+    md = "# CAPÍTULO I\n\n# O TÍTULO\n\n1. " + "Frase de exemplo. " * 60 + "\n"
+    chunks = parse_md_to_json(md, CEU_INFERNO)
+    assert all(len(c["content"]) <= 800 for c in chunks)

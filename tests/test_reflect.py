@@ -30,7 +30,7 @@ _CHUNK_3 = {
     "distance": 0.7,
 }
 
-_LLM_JSON = '{"opening": "Compreendemos sua dor.", "doctrine_connection": "A doutrina ensina...", "reflection_questions": ["Q1?", "Q2?", "Q3?"]}'
+_LLM_JSON = '{"opening": "Compreendemos sua dor.", "doctrine_connection": "A doutrina ensina...", "reflection_questions": ["Q1?", "Q2?", "Q3?"], "is_closing": false}'
 
 
 def _make_llm_response(content: str) -> MagicMock:
@@ -50,9 +50,11 @@ def test_reflect_returns_not_found_when_no_chunks():
 def test_reflect_returns_opening_from_llm():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]),
-        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.get_client") as mock_client,
     ):
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
         result = reflect("meu pai faleceu")
     assert result["opening"] == "Compreendemos sua dor."
     assert result["not_found"] is False
@@ -61,9 +63,11 @@ def test_reflect_returns_opening_from_llm():
 def test_reflect_returns_reflection_questions():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
-        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.get_client") as mock_client,
     ):
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
         result = reflect("meu pai faleceu")
     assert result["reflection_questions"] == ["Q1?", "Q2?", "Q3?"]
 
@@ -71,21 +75,139 @@ def test_reflect_returns_reflection_questions():
 def test_reflect_sets_generation_failed_on_llm_error():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
-        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.get_client") as mock_client,
     ):
-        mock_client.return_value.chat.completions.create.side_effect = RuntimeError("API error")
+        mock_client.return_value.chat.completions.create.side_effect = RuntimeError(
+            "API error"
+        )
         result = reflect("situação")
     assert result["generation_failed"] is True
     assert result["opening"] == ""
     assert result["not_found"] is False
 
 
+def test_reflect_sets_generation_failed_on_retrieval_error():
+    def _raise(*args, **kwargs):
+        raise RuntimeError("db error")
+
+    with patch("src.rag.reflect.retrieve", side_effect=_raise):
+        result = reflect("situação")
+    assert result["generation_failed"] is True
+    assert result["not_found"] is False
+    assert result["sources"] == []
+    assert result["complementary_items"] == []
+
+
+def test_reflect_sets_generation_failed_on_unparseable_llm_output():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response("isso não é JSON de forma alguma")
+        )
+        result = reflect("situação")
+    assert result["generation_failed"] is True
+    assert result["opening"] == ""
+    assert result["doctrine_connection"] == ""
+    assert result["not_found"] is False
+
+
+def test_reflect_returns_is_closing_from_llm():
+    llm_json_closing = '{"opening": "Encerrando.", "doctrine_connection": "Conclusão.", "reflection_questions": [], "is_closing": true}'
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json_closing)
+        )
+        result = reflect("situação")
+    assert result["is_closing"] is True
+    assert result["reflection_questions"] == []
+
+
+def test_reflect_passes_history_to_build_reflect_messages():
+    history = [
+        {"role": "user", "content": "pergunta anterior"},
+        {"role": "assistant", "content": "resposta anterior"},
+    ]
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.build_reflect_messages") as mock_build,
+    ):
+        mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("nova pergunta", conversation_history=history)
+    assert mock_build.call_args.kwargs["history"] == history
+
+
+def test_reflect_caveat_persists_from_history():
+    history = [
+        {"role": "user", "content": "escuto vozes à noite"},
+        {"role": "assistant", "content": "Resposta anterior."},
+    ]
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.build_reflect_messages") as mock_build,
+    ):
+        mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("situação neutra agora", conversation_history=history)
+    _, _, add_caveat = mock_build.call_args[0]
+    assert add_caveat is True
+
+
+def test_reflect_forces_closing_after_round_cap():
+    history = []
+    for i in range(5):
+        history.append({"role": "user", "content": f"pergunta {i}"})
+        history.append({"role": "assistant", "content": f"resposta {i}"})
+    llm_json_not_closing = '{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"], "is_closing": false}'
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json_not_closing)
+        )
+        result = reflect("pergunta final", conversation_history=history)
+    assert result["is_closing"] is True
+    assert result["reflection_questions"] == []
+
+
+def test_reflect_does_not_force_closing_below_round_cap():
+    history = []
+    for i in range(4):
+        history.append({"role": "user", "content": f"pergunta {i}"})
+        history.append({"role": "assistant", "content": f"resposta {i}"})
+    llm_json_not_closing = '{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"], "is_closing": false}'
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(llm_json_not_closing)
+        )
+        result = reflect("pergunta", conversation_history=history)
+    assert result["is_closing"] is False
+    assert result["reflection_questions"] == ["C?"]
+
+
 def test_reflect_sources_come_from_first_two_chunks():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2, _CHUNK_3]),
-        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.get_client") as mock_client,
     ):
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
         result = reflect("situação")
     assert len(result["sources"]) == 2
     item_numbers = [s["item_number"] for s in result["sources"]]
@@ -104,9 +226,11 @@ def test_reflect_complementary_items_come_from_chunks_3_to_5():
     ]
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2] + extra),
-        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.get_client") as mock_client,
     ):
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
         result = reflect("situação")
     assert len(result["complementary_items"]) == 3
     assert result["complementary_items"][0]["item_number"] == "3"
@@ -115,11 +239,13 @@ def test_reflect_complementary_items_come_from_chunks_3_to_5():
 def test_reflect_passes_add_caveat_true_for_clinical_keywords():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
-        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.get_client") as mock_client,
         patch("src.rag.reflect.build_reflect_messages") as mock_build,
     ):
         mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
         reflect("escuto vozes à noite")
     _, _, add_caveat = mock_build.call_args[0]
     assert add_caveat is True
@@ -128,11 +254,26 @@ def test_reflect_passes_add_caveat_true_for_clinical_keywords():
 def test_reflect_passes_add_caveat_false_for_normal_situation():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
-        patch("src.rag.reflect._get_client") as mock_client,
+        patch("src.rag.reflect.get_client") as mock_client,
         patch("src.rag.reflect.build_reflect_messages") as mock_build,
     ):
         mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
-        mock_client.return_value.chat.completions.create.return_value = _make_llm_response(_LLM_JSON)
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
         reflect("meu pai faleceu")
     _, _, add_caveat = mock_build.call_args[0]
     assert add_caveat is False
+
+
+def test_reflect_sources_include_excerpt():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("situação")
+    excerpts = [s["excerpt"] for s in result["sources"]]
+    assert "Os espíritos sobrevivem à morte do corpo." in excerpts

@@ -1,8 +1,21 @@
+import re
+
 from src.core.config import settings
 from src.ingestion.embeddings import encode
 from src.ingestion.vectorstore import VectorStore
 
 _store: VectorStore | None = None
+
+_FOOTNOTE_MARKER = re.compile(r"\n\[Nota \d+\] ")
+
+
+def has_real_item_number(item_number: str | None) -> bool:
+    """False for the parser's fallback placeholder ids (e.g. "section-3"),
+    assigned to unnumbered content like a chapter's preamble. These are
+    internal bookkeeping only — never a citation a reader would recognize —
+    so callers should omit them from anything shown to the LLM or the user.
+    """
+    return bool(item_number) and not item_number.startswith("section-")
 
 
 def _get_store() -> VectorStore:
@@ -12,12 +25,36 @@ def _get_store() -> VectorStore:
     return _store
 
 
-def retrieve(query: str, top_k: int | None = None) -> list[dict]:
+def _split_footnotes(content: str) -> tuple[str, str]:
+    """Splits ingestion-baked footnote suffixes off a chunk's content.
+
+    Returns (clean_content, footnote_context) — footnote_context is ""
+    when no footnote marker is found.
+    """
+    match = _FOOTNOTE_MARKER.search(content)
+    if not match:
+        return content, ""
+    return content[: match.start()], content[match.start() + 1 :]
+
+
+def _strip_footnotes_from_results(results: list[dict]) -> list[dict]:
+    for r in results:
+        clean, footnotes = _split_footnotes(r["content"])
+        r["content"] = clean
+        r["footnote_context"] = footnotes
+    return results
+
+
+def retrieve(
+    query: str, top_k: int | None = None, book_filter: str | None = None
+) -> list[dict]:
     if top_k is None:
         top_k = settings.top_k
     embedding = encode([query])[0]
-    results = _get_store().query(embedding, n_results=top_k)
-    return [r for r in results if r["distance"] <= settings.max_distance]
+    where = {"book": {"$eq": book_filter}} if book_filter else None
+    results = _get_store().query(embedding, n_results=top_k, where=where)
+    filtered = [r for r in results if r["distance"] <= settings.max_distance]
+    return _strip_footnotes_from_results(filtered)
 
 
 def retrieve_by_item(
@@ -29,4 +66,5 @@ def retrieve_by_item(
     ]
     if chapter is not None:
         conditions.append({"chapter": {"$eq": chapter}})
-    return _get_store().get_by_filter({"$and": conditions})
+    results = _get_store().get_by_filter({"$and": conditions})
+    return _strip_footnotes_from_results(results)

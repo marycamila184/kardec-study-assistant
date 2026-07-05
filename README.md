@@ -31,7 +31,7 @@ This is **not** a chatbot trained on Spiritism. It is a **retrieval-grounded sys
 | Language | Python 3.12+ |
 | API framework | FastAPI |
 | Package manager | uv |
-| Embeddings | SentenceTransformers (`paraphrase-multilingual-mpnet-base-v2`) |
+| Embeddings | SentenceTransformers (`BAAI/bge-m3`) |
 | Vector store | ChromaDB |
 | LLM provider | Groq (OpenAI-compatible endpoint) |
 | PDF → Markdown | LlamaCloud (run once, output committed) |
@@ -203,9 +203,10 @@ kardec-study-assistant/
 - ✅ All four study modes as API endpoints
 - ✅ Curated learning paths
 - ✅ Web interface (React + Vite frontend)
-- Frontend → backend API integration (currently mocked)
-- Conversation memory support
-- Citation formatting improvements
+- ✅ Frontend → backend API integration
+- ✅ Clickable source citations (excerpt modal) on `/chat` and `/reflect`
+- ✅ Related-items modal with click-through to full study
+- Conversation memory support (server-side; currently client-owned)
 - Multilingual support
 - Deployment infrastructure
 

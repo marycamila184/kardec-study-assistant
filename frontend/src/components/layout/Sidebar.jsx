@@ -25,134 +25,178 @@ const navModes = [
  *   onTutorial     — () => void
  *   conversations  — array of {id, title, mode, msgs}
  *   onLoadConvo    — (convo) => void
- *   favorites      — array of {id, ia, obra}
  */
 export default function Sidebar({
   mode, onModeChange,
   onStudyTrecho, onTutorial,
-  conversations = [], onLoadConvo,
-  favorites = [],
+  conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   evangelhoData = null,
+  onClose,
+  isMobile = false,
 }) {
   const navBase = {
     display: 'flex', alignItems: 'center', gap: 8,
     padding: '7px 8px', borderRadius: 6, cursor: 'pointer',
-    fontSize: 11.5, marginBottom: 2, transition: 'background .15s',
+    fontSize: 13, marginBottom: 2, transition: 'background .15s',
   };
+
+  const hasFavorites = conversations.some(c => c.favorited);
+  const hasRecent = conversations.some(c => !c.favorited);
 
   return (
     <div style={{
-      width: 300, background: '#6B9BB8',
+      width: '100%', background: '#6B9BB8',
       display: 'flex', flexDirection: 'column', flexShrink: 0,
+      height: '100%',
     }}>
       {/* Brand */}
-      <div style={{ padding: '18px 14px 8px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 3 }}>
+      <div style={{ padding: isMobile ? '14px 12px 10px' : '18px 14px 8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{
-            width: 36, height: 36, borderRadius: 9,
+            width: 32, height: 32, borderRadius: 8, flexShrink: 0,
             background: 'rgba(255,255,255,.18)', border: '1px solid rgba(255,255,255,.26)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <BookIcon />
+            <BookIcon size={15} />
           </div>
           <div style={{
-            fontFamily: "'Crimson Pro', serif", fontSize: 18, fontWeight: 600,
-            color: 'white', lineHeight: 1.25,
+            fontFamily: "'Crimson Pro', serif",
+            fontSize: isMobile ? 15 : 18, fontWeight: 600,
+            color: 'white', lineHeight: 1.25, flex: 1, minWidth: 0,
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>Dialogando com a Doutrina</div>
-        </div>
-        <div style={{
-          fontSize: 8.5, letterSpacing: '.18em', textTransform: 'uppercase',
-          color: 'rgba(255,255,255,.45)', paddingLeft: 44, marginTop: 2,
-        }}>Estude · Reflita · Compreenda</div>
-      </div>
-
-      {/* Nav */}
-      <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '0 8px 12px' }}>
-        <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 4px 10px' }} />
-        <div style={{
-          fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
-          textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 8px',
-        }}>Modos de estudo</div>
-
-        {navModes.map(m => (
-          <div key={m.id}
-            onClick={() => onModeChange(m.id)}
-            style={{
-              ...navBase,
-              fontWeight: mode === m.id ? 600 : 400,
-              color: mode === m.id ? 'white' : 'rgba(255,255,255,.7)',
-              background: mode === m.id ? 'rgba(255,255,255,.22)' : 'transparent',
-            }}>
-            {m.label}
-          </div>
-        ))}
-
-        {/* Daily trecho */}
-        <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
-        <div style={{
-          fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
-          textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
-        }}>Trecho do dia</div>
-        <div style={{
-          background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
-        }}>
-          {evangelhoData ? (
-            <>
-              <div style={{
-                fontFamily: "'Crimson Pro', serif", fontSize: 12.5, fontStyle: 'italic',
-                color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
-              }}>"{evangelhoData.content.slice(0, 180)}…"</div>
-              <div style={{ fontSize: 9, color: 'rgba(255,255,255,.4)', marginBottom: 8 }}>
-                {evangelhoData.source.book}
-                {evangelhoData.source.chapter_title ? ` · ${evangelhoData.source.chapter_title}` : ''}
-              </div>
-              <button onClick={onStudyTrecho} style={{
-                background: 'rgba(255,255,255,.12)', border: '1px solid rgba(255,255,255,.2)',
-                color: 'rgba(255,255,255,.78)', fontSize: 10, padding: '4px 10px',
-                borderRadius: 12, cursor: 'pointer',
-              }}>Estudar este trecho →</button>
-            </>
-          ) : (
-            <div style={{ fontSize: 10.5, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
-              Carregando trecho do dia…
-            </div>
+          {onClose && (
+            <button onClick={onClose} aria-label="Fechar menu" style={{
+              background: 'transparent', border: 'none', cursor: 'pointer',
+              color: 'rgba(255,255,255,.7)', fontSize: 22, lineHeight: 1,
+              padding: '0 2px', flexShrink: 0,
+            }}>×</button>
           )}
         </div>
+        {!isMobile && (
+          <div style={{
+            fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,.45)', paddingLeft: 40, marginTop: 4,
+          }}>Estude · Reflita · Compreenda</div>
+        )}
+      </div>
 
-        {/* Recent convos */}
-        {conversations.length > 0 && (
+      {/* Nav — desktop only */}
+      {!isMobile && (
+        <div style={{ padding: '0 8px 4px' }}>
+          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 4px 10px' }} />
+          <div style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 8px',
+          }}>Modos de estudo</div>
+          {navModes.map(m => (
+            <button key={m.id}
+              onClick={() => onModeChange(m.id)}
+              aria-current={mode === m.id ? 'true' : undefined}
+              style={{
+                ...navBase,
+                width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
+                fontWeight: mode === m.id ? 600 : 400,
+                color: mode === m.id ? 'white' : 'rgba(255,255,255,.7)',
+                background: mode === m.id ? 'rgba(255,255,255,.22)' : 'transparent',
+              }}>
+              {m.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Daily trecho — desktop only */}
+      {!isMobile && (
+        <div style={{ padding: '0 8px 4px' }}>
+          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '6px 4px 10px' }} />
+          <div style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
+          }}>Trecho do dia</div>
+          <button
+            onClick={evangelhoData ? onStudyTrecho : undefined}
+            disabled={!evangelhoData}
+            aria-label="Ler e refletir sobre o trecho do dia"
+            style={{
+              display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
+              background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
+              cursor: evangelhoData ? 'pointer' : 'default',
+              transition: 'background .15s',
+            }}
+            onMouseEnter={e => {
+              if (!evangelhoData) return;
+              e.currentTarget.style.background = 'rgba(0,0,0,.25)';
+              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
+              if (arrow) arrow.style.transform = 'translateX(3px)';
+            }}
+            onMouseLeave={e => {
+              if (!evangelhoData) return;
+              e.currentTarget.style.background = 'rgba(0,0,0,.15)';
+              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
+              if (arrow) arrow.style.transform = 'translateX(0)';
+            }}
+          >
+            {evangelhoData ? (
+              <>
+                <div style={{
+                  fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
+                  color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
+                }}>"{evangelhoData.content.slice(0, 320)}…"</div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
+                  {evangelhoData.source.chapter_title && <div>{evangelhoData.source.chapter_title}</div>}
+                  <div>{evangelhoData.source.book}</div>
+                </div>
+                <div style={{ height: 1, background: 'rgba(255,255,255,.14)', margin: '9px 0' }} />
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
+                  fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,.85)',
+                }}>
+                  Ler e refletir
+                  <span data-trecho-arrow style={{ display: 'inline-flex', transition: 'transform .15s' }}>→</span>
+                </div>
+              </>
+            ) : (
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
+                Carregando trecho do dia…
+              </div>
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* Conversations */}
+      <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '0 8px 12px' }}>
+        {hasFavorites && (
           <>
             <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
             <div style={{
-              fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
+              fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
               textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
-            }}>Conversas recentes</div>
-            {conversations.slice(0, 8).map(c => (
-              <div key={c.id} onClick={() => onLoadConvo(c)} style={{
-                padding: '6px 8px', borderRadius: 5, cursor: 'pointer',
-                color: 'rgba(255,255,255,.6)', fontSize: 11, lineHeight: 1.35,
-                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-              }}>{c.title}</div>
+            }}>Favoritas</div>
+            {conversations.filter(c => c.favorited).map(c => (
+              <ConvoItem key={c.id} c={c} onLoad={onLoadConvo} onDelete={onDeleteConvo} onToggleFav={onToggleConvoFavorite} />
             ))}
           </>
         )}
 
-        {/* Favorites */}
-        {favorites.length > 0 && (
+        {hasRecent && (
           <>
             <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '10px 4px' }} />
             <div style={{
-              fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em',
+              fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
               textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 6px',
-            }}>Favoritos</div>
-            {favorites.slice(0, 5).map(f => (
-              <div key={f.id} style={{
-                padding: '6px 8px', borderRadius: 5, cursor: 'pointer',
-                color: 'rgba(255,255,255,.6)', fontSize: 11, lineHeight: 1.35,
-                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-              }}>⭐ {(f.ia || '').slice(0, 42)}…</div>
+            }}>Recentes</div>
+            {conversations.filter(c => !c.favorited).slice(0, 8).map(c => (
+              <ConvoItem key={c.id} c={c} onLoad={onLoadConvo} onDelete={onDeleteConvo} onToggleFav={onToggleConvoFavorite} />
             ))}
           </>
+        )}
+
+        {!hasFavorites && !hasRecent && (
+          <div style={{ padding: '20px 8px', fontSize: 12, color: 'rgba(255,255,255,.4)', fontStyle: 'italic', textAlign: 'center' }}>
+            Nenhuma conversa salva ainda
+          </div>
         )}
       </div>
 
@@ -173,6 +217,33 @@ export default function Sidebar({
           Ver tutorial
         </button>
       </div>
+    </div>
+  );
+}
+
+function ConvoItem({ c, onLoad, onDelete, onToggleFav }) {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 4,
+      padding: '3px 4px 3px 8px', borderRadius: 5,
+      color: 'rgba(255,255,255,.6)', fontSize: 11,
+    }}>
+      <button onClick={() => onLoad(c)} style={{
+        flex: 1, minWidth: 0, cursor: 'pointer', lineHeight: 1.35, fontSize: 12.5,
+        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+        padding: '3px 0', textAlign: 'left', background: 'transparent', border: 'none',
+        color: 'inherit', font: 'inherit',
+      }}>{c.title}</button>
+      <button onClick={() => onToggleFav(c.id)} aria-label={c.favorited ? 'Remover dos favoritos' : 'Favoritar'} title={c.favorited ? 'Remover dos favoritos' : 'Favoritar'} style={{
+        background: 'transparent', border: 'none', cursor: 'pointer',
+        fontSize: 12, padding: '2px 3px', flexShrink: 0, lineHeight: 1,
+        color: c.favorited ? '#F5C842' : 'rgba(255,255,255,.35)',
+      }}>{c.favorited ? '★' : '☆'}</button>
+      <button onClick={() => onDelete(c.id)} aria-label="Apagar conversa" title="Apagar conversa" style={{
+        background: 'transparent', border: 'none', cursor: 'pointer',
+        padding: '2px 4px', flexShrink: 0, lineHeight: 1,
+        color: 'rgba(255,255,255,.4)', fontSize: 14, fontWeight: 400,
+      }}>×</button>
     </div>
   );
 }

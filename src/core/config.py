@@ -5,16 +5,22 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     groq_api_key: str
-    embedding_model: str = "paraphrase-multilingual-mpnet-base-v2"
-    chat_model: str = "llama-3.1-8b-instant"
+    hf_token: str | None = None
+    embedding_model: str = "BAAI/bge-m3"
+    chat_model: str = "llama-3.3-70b-versatile"
     condenser_model: str = "llama-3.1-8b-instant"
     top_k: int = 5
-    max_distance: float = 1.2
+    max_distance: float = 0.55
     max_history_turns: int = 10
     chroma_path: str = "data/embeddings/"
     chroma_collection: str = "kardec_docs"
     json_dir: str = "data/json_files"
     paths_dir: str = "data/paths"
+    cors_allowed_origins: str = "http://localhost:5173"
+
+    @property
+    def cors_allowed_origins_list(self) -> list[str]:
+        return [o.strip() for o in self.cors_allowed_origins.split(",") if o.strip()]
 
 
 settings = Settings()

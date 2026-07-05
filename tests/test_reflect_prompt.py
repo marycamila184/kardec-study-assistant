@@ -39,8 +39,15 @@ def test_no_advice_constraint_in_system():
 
 
 def test_situation_text_appears_in_system():
-    system, _ = build_reflect_messages("meu casamento está difícil", [], add_caveat=False)
+    system, _ = build_reflect_messages(
+        "meu casamento está difícil", [], add_caveat=False
+    )
     assert "meu casamento está difícil" in system
+
+
+def test_system_prohibits_personifying_espiritismo():
+    system, _ = build_reflect_messages("qualquer situação", [], add_caveat=False)
+    assert "espiritismo" in system.lower()
 
 
 def test_chunk_content_appears_in_system():
@@ -56,23 +63,68 @@ def test_messages_contains_single_user_message():
 
 def test_parse_reflect_json_extracts_all_fields():
     text = '{"opening": "Sentimos sua dor.", "doctrine_connection": "A doutrina diz...", "reflection_questions": ["Q1?", "Q2?", "Q3?"]}'
-    opening, conn, questions = parse_reflect_json(text)
+    opening, conn, questions, is_closing = parse_reflect_json(text)
     assert opening == "Sentimos sua dor."
     assert conn == "A doutrina diz..."
     assert questions == ["Q1?", "Q2?", "Q3?"]
+    assert is_closing is False
 
 
 def test_parse_reflect_json_strips_markdown_fences():
     text = '```json\n{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"]}\n```'
-    opening, conn, questions = parse_reflect_json(text)
+    opening, conn, questions, is_closing = parse_reflect_json(text)
     assert opening == "A."
     assert conn == "B."
     assert questions == ["C?"]
+    assert is_closing is False
 
 
-def test_parse_reflect_json_falls_back_on_invalid_json():
+def test_parse_reflect_json_raises_on_invalid_json():
     text = "não é JSON válido"
-    opening, conn, questions = parse_reflect_json(text)
-    assert opening == "não é JSON válido"
-    assert conn == ""
+    try:
+        parse_reflect_json(text)
+        assert False, "expected ValueError"
+    except ValueError:
+        pass
+
+
+def test_parse_reflect_json_extracts_is_closing_true():
+    text = '{"opening": "Encerrando.", "doctrine_connection": "Conclusão.", "reflection_questions": [], "is_closing": true}'
+    opening, conn, questions, is_closing = parse_reflect_json(text)
+    assert is_closing is True
     assert questions == []
+
+
+def test_build_reflect_messages_includes_history():
+    history = [
+        {"role": "user", "content": "Qual pergunta anterior?"},
+        {"role": "assistant", "content": "Resposta anterior dada."},
+    ]
+    system, _ = build_reflect_messages(
+        "nova situação", [], add_caveat=False, history=history
+    )
+    assert "Resposta anterior dada." in system
+    assert "Qual pergunta anterior?" in system
+
+
+def test_build_reflect_messages_history_placeholder_when_empty():
+    system, _ = build_reflect_messages("situação", [], add_caveat=False, history=[])
+    assert "primeira reflexão" in system
+
+
+def test_system_prohibits_repeating_previous_questions():
+    system, _ = build_reflect_messages("situação", [], add_caveat=False, history=[])
+    assert "NUNCA repita" in system
+
+
+def test_parse_reflect_json_extracts_object_wrapped_in_prose():
+    text = (
+        "Aqui está o JSON solicitado:\n"
+        '{"opening": "A.", "doctrine_connection": "B.", "reflection_questions": ["C?"]}\n'
+        "Espero que ajude!"
+    )
+    opening, conn, questions, is_closing = parse_reflect_json(text)
+    assert opening == "A."
+    assert conn == "B."
+    assert questions == ["C?"]
+    assert is_closing is False

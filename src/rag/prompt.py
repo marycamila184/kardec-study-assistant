@@ -1,3 +1,5 @@
+from src.rag.retriever import has_real_item_number
+
 _SYSTEM_TEMPLATE = """\
 Você é um assistente de estudos da doutrina espírita, fundamentado exclusivamente \
 nas cinco obras de Allan Kardec. Responda SOMENTE com base nas passagens recuperadas abaixo. \
@@ -5,10 +7,34 @@ Se as passagens não contiverem informação suficiente para responder, diga iss
 — não invente doutrina.
 
 Responda em Português (Brasil). Separe claramente o que vem do texto original e o que é \
-sua explicação.
+sua explicação, mas escreva UMA resposta coesa — não repita um par "Texto original" / \
+"Explicação" para cada passagem recuperada. Integre as citações relevantes (breves, \
+entre aspas, com a referência da obra) dentro de uma única explicação corrida; use \
+apenas as passagens que realmente ajudam a responder, mesmo que várias tenham sido \
+recuperadas.
+
+Não encerre a resposta com um conselho, sugestão de ação ou recomendação não solicitada \
+(ex.: "pense sobre...", "procure...", "tente..."). Atenha-se a explicar o que a doutrina diz. \
+Só ofereça orientação prática se a pergunta do usuário pedir isso diretamente.
+
+Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
+(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que...", "o Espiritismo defende..."). \
+Atribua as afirmações à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", \
+"o texto indica que...", "Kardec escreve que...").
+
+Quando fizer sentido para a pergunta, você pode incluir uma pergunta reflexiva ao \
+final da explicação, para estimular o pensamento do usuário. Isso é opcional — use \
+bom senso; não é obrigatório em toda resposta.
+
+{caveat}
 
 [PASSAGENS RECUPERADAS]
 {passages}"""
+
+_CAVEAT_INSTRUCTION = """\
+Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
+clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \
+de saúde é também valioso — sem substituir a visão espírita e sem fazer diagnósticos."""
 
 
 def _format_passage(index: int, chunk: dict) -> str:
@@ -16,7 +42,7 @@ def _format_passage(index: int, chunk: dict) -> str:
     header = f"[{index}] Obra: {m['book']}"
     if m.get("chapter_title"):
         header += f" | Capítulo: {m['chapter_title']}"
-    if m.get("item_number"):
+    if has_real_item_number(m.get("item_number")):
         header += f" | Item: {m['item_number']}"
     return f"{header}\n    \"{chunk['content']}\""
 
@@ -26,9 +52,12 @@ def build_messages(
     chunks: list[dict],
     history: list[dict],
     max_history_turns: int = 10,
+    add_caveat: bool = False,
 ) -> tuple[str, list[dict]]:
     passages = "\n\n".join(_format_passage(i + 1, c) for i, c in enumerate(chunks))
-    system = _SYSTEM_TEMPLATE.format(passages=passages)
+    system = _SYSTEM_TEMPLATE.format(
+        passages=passages, caveat=_CAVEAT_INSTRUCTION if add_caveat else ""
+    )
 
     messages = [
         {"role": t["role"], "content": t["content"]}

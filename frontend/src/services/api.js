@@ -41,58 +41,100 @@ export function parseItemRef(itemString) {
 // ── Response mapping functions ────────────────────────────────────────────────
 
 function mapChat(data) {
-  const footer = data.sources.length > 0
-    ? '\n\n📚 ' + data.sources
-        .map(s => s.item_number ? `${s.book}, Q.${s.item_number}` : s.book)
-        .join(' · ')
-    : '';
-  return { hasDaObra: false, obra: null, ia: data.answer + footer };
+  return {
+    hasDaObra: false,
+    obra: null,
+    ia: data.answer,
+    suggestedMode: data.suggested_mode || null,
+    sources: data.sources.map(s => ({
+      book: s.book,
+      chapter: s.chapter || null,
+      item_number: s.item_number,
+      excerpt: s.excerpt || null,
+    })),
+  };
 }
 
 function mapStudy(data, bookLabel, itemNumber) {
   const note = data.generation_failed
-    ? '\n\n⚠️ A explicação não pôde ser gerada completamente.'
+    ? '\n\n⚠️ A análise não pôde ser gerada completamente.'
     : '';
-  const ia = data.explanation
-    + (data.practical_example ? '\n\nExemplo prático:\n' + data.practical_example : '')
-    + note;
+  const chapterTitle = data.sources[0]?.chapter_title;
+
+  const partes = [];
+  if (data.contexto) partes.push(data.contexto);
+  if (data.conceitos_chave?.length) {
+    partes.push('Conceitos-chave:\n' + data.conceitos_chave.map(c => `• ${c}`).join('\n'));
+  }
+  const ia = partes.join('\n\n') + note;
+
+  const titleParts = [bookLabel, chapterTitle, itemNumber ? 'Q.' + itemNumber : null]
+    .filter(Boolean);
   return {
     hasDaObra: true,
     obra: {
-      title: bookLabel + (itemNumber ? ' — Q.' + itemNumber : ''),
+      title: titleParts.join(' — '),
       quote: data.original_text,
       citation: bookLabel + ' — Allan Kardec',
-      context: data.sources[0]?.chapter_title || bookLabel,
+      context: chapterTitle || bookLabel,
     },
     ia,
+    relatedItems: (data.related_items || []).map(r => ({
+      book: r.book,
+      chapter: r.chapter || null,
+      item_number: r.item_number,
+      preview: r.preview,
+      conexao: r.conexao || null,
+    })),
   };
 }
 
 function mapReflect(data) {
-  const questions = data.reflection_questions
+  const relatedItems = (data.complementary_items || []).map(r => ({
+    book: r.book,
+    chapter: r.chapter || null,
+    item_number: r.item_number,
+    preview: r.preview,
+    conexao: r.conexao || null,
+  }));
+  const sources = data.sources.map(s => ({
+    book: s.book,
+    item_number: s.item_number,
+    excerpt: s.excerpt || null,
+  }));
+  const questions = (data.reflection_questions || [])
     .map((q, i) => `${i + 1}. ${q}`)
     .join('\n');
-  const footer = data.sources.length > 0
-    ? '\n\n📚 ' + data.sources
-        .map(s => s.item_number ? `${s.book}, Q.${s.item_number}` : s.book)
-        .join(' · ')
-    : '';
-  const ia = [
+  const doctrineConnection = data.generation_failed
+    ? '⚠️ A reflexão não pôde ser gerada completamente. Tente novamente.'
+    : data.doctrine_connection;
+  const fullText = [
     data.opening,
-    data.doctrine_connection,
+    doctrineConnection,
     questions ? 'Perguntas para reflexão:\n' + questions : '',
   ]
     .filter(Boolean)
-    .join('\n\n') + footer;
-  return { hasDaObra: false, obra: null, ia };
+    .join('\n\n');
+  return {
+    hasDaObra: false,
+    obra: null,
+    isReflection: true,
+    isClosing: !!data.is_closing,
+    opening: data.opening,
+    ia: doctrineConnection,
+    fullText,
+    reflectionQuestions: data.reflection_questions || [],
+    relatedItems,
+    sources,
+  };
 }
 
 // ── Exported API functions ────────────────────────────────────────────────────
 
-export async function chatMessage(question, history = []) {
+export async function chatMessage(question, history = [], bookFilter = null) {
   const data = await request('/chat', {
     method: 'POST',
-    body: JSON.stringify({ question, history }),
+    body: JSON.stringify({ question, history, book_filter: bookFilter || undefined }),
   });
   return mapChat(data);
 }
@@ -105,10 +147,10 @@ export async function studyItem(book, item_number, chapter = null) {
   return mapStudy(data, book, item_number);
 }
 
-export async function reflectSituation(situation) {
+export async function reflectSituation(situation, history = []) {
   const data = await request('/reflect', {
     method: 'POST',
-    body: JSON.stringify({ situation }),
+    body: JSON.stringify({ situation, conversation_history: history }),
   });
   return mapReflect(data);
 }

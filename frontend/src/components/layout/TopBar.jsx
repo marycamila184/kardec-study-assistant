@@ -14,7 +14,7 @@ const GearIcon = ({ color }) => (
   </svg>
 );
 
-export default function TopBar({ mode, theme, onOpenSettings }) {
+export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer, isMobile = false }) {
   const meta = MODE_META[mode] || MODE_META.duvida;
   return (
     <div style={{
@@ -23,23 +23,42 @@ export default function TopBar({ mode, theme, onOpenSettings }) {
       display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0,
       background: theme.headerBg,
     }}>
-      <div style={{
-        width: 34, height: 34, borderRadius: '50%', background: '#6B9BB8',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-      }}>
-        <svg width={14} height={14} viewBox="0 0 24 24" fill="none"
-          stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-      </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
+      {onOpenDrawer ? (
+        <button onClick={onOpenDrawer} title="Menu" aria-label="Abrir menu" style={{
+          width: 34, height: 34, borderRadius: 8, flexShrink: 0,
+          background: 'transparent', border: `1px solid ${theme.headerBorder}`,
+          cursor: 'pointer', display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center', gap: 4,
+        }}>
+          {[0, 1, 2].map(i => (
+            <span key={i} style={{
+              display: 'block', width: 14, height: 1.5,
+              background: theme.subtext, borderRadius: 1,
+            }} />
+          ))}
+        </button>
+      ) : (
         <div style={{
-          fontFamily: "'Crimson Pro', serif", fontSize: 15, fontWeight: 600, color: theme.text,
-        }}>{meta.title}</div>
-        <div style={{ fontSize: 10.5, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
-      </div>
-      <button onClick={onOpenSettings} title="Configurações" style={{
+          width: 34, height: 34, borderRadius: '50%', background: '#6B9BB8',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+        }}>
+          <svg width={14} height={14} viewBox="0 0 24 24" fill="none"
+            stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+      )}
+      {!isMobile && (
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{
+            fontFamily: "'Crimson Pro', serif", fontSize: 17, fontWeight: 600, color: theme.text,
+          }}>{meta.title}</div>
+          <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
+        </div>
+      )}
+      {isMobile && <div style={{ flex: 1 }} />}
+      <button onClick={onOpenSettings} title="Configurações" aria-label="Abrir configurações" style={{
         width: 34, height: 34, borderRadius: 8,
         background: 'transparent', border: `1px solid ${theme.headerBorder}`,
         cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,

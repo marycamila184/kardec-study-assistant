@@ -1,30 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { OBRAS } from '../../constants/obras';
 import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
+import InputBar from '../chat/InputBar';
 
 /**
  * "Explorar Obras" free consultation mode.
  * Props:
  *   theme
  *   onBack               — () => void
- *   onRedirectDuvida     — (obraLabel) => void
+ *   onRedirectDuvida     — (obraLabel) => void (unused by "Tenho uma dúvida"; see onAskDuvida)
+ *   onAskDuvida          — (displayText, queryText) => void — submit contextualized follow-up
  *   onAskTopic           — (query, obraId) => void  (triggers API call)
  *   messages             — array
  *   loading              — boolean
- *   onShare, onToggleFav, isFavorite
  *   fontSize
  */
 export default function ExplorarObras({
   theme, onBack, onRedirectDuvida,
-  onAskTopic, messages = [], loading,
-  onShare, onToggleFav, isFavorite, fontSize,
+  onAskTopic, onSendMessage, messages = [], loading,
+  fontSize,
+  quickActions = [], onQuickAction,
+  onBookChange, onAskDuvida,
 }) {
   const [selectedObra, setSelectedObra] = useState('le');
   const [openParts, setOpenParts] = useState({});
+  const [chatInput, setChatInput] = useState('');
   const obra = OBRAS.find(o => o.id === selectedObra) || OBRAS[0];
   const hasMessages = messages.length > 0;
+
+  const handleSend = () => {
+    const text = chatInput.trim();
+    if (!text || loading) return;
+    setChatInput('');
+    if (hasMessages && onSendMessage) {
+      onSendMessage(text, selectedObra);
+    } else {
+      onAskTopic(text, selectedObra);
+    }
+  };
+  const lastMsgRef = useRef(null);
+
+  useEffect(() => {
+    if (lastMsgRef.current) {
+      lastMsgRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [messages, loading]);
 
   const togglePart = (key) => setOpenParts(p => ({ ...p, [key]: !p[key] }));
 
@@ -39,7 +61,7 @@ export default function ExplorarObras({
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
           <button onClick={onBack} style={{
             background: 'transparent', border: 'none', cursor: 'pointer',
-            color: theme.subtext, fontSize: 11, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
+            color: theme.subtext, fontSize: 12.5, display: 'flex', alignItems: 'center', gap: 3, padding: 0,
           }}>
             <svg width={10} height={10} viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
@@ -47,8 +69,8 @@ export default function ExplorarObras({
             </svg>
             Estudar uma Obra
           </button>
-          <span style={{ color: theme.subtext, fontSize: 11 }}>·</span>
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#6B9BB8' }}>Explorar Obras</span>
+          <span style={{ color: theme.subtext, fontSize: 12.5 }}>·</span>
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: '#6B9BB8' }}>Explorar Obras</span>
         </div>
 
         {/* Obra card selector */}
@@ -56,15 +78,19 @@ export default function ExplorarObras({
           {OBRAS.map(o => {
             const active = o.id === selectedObra;
             return (
-              <button key={o.id} onClick={() => { setSelectedObra(o.id); setOpenParts({}); }} style={{
+              <button key={o.id} onClick={() => {
+                if (o.id !== selectedObra) onBookChange?.();
+                setSelectedObra(o.id);
+                setOpenParts({});
+              }} style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5,
                 padding: '8px 4px', borderRadius: 8, cursor: 'pointer',
                 border: `1px solid ${active ? '#6B9BB8' : 'rgba(107,155,184,.22)'}`,
                 background: active ? 'rgba(107,155,184,.15)' : 'transparent',
                 transition: 'all .15s',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: active ? '#6B9BB8' : theme.subtext }}>{o.abbr}</div>
-                <div style={{ fontSize: 9.5, lineHeight: 1.3, textAlign: 'center', color: active ? '#4A7A98' : theme.subtext }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: active ? '#6B9BB8' : theme.subtext }}>{o.abbr}</div>
+                <div style={{ fontSize: 11, lineHeight: 1.3, textAlign: 'center', color: active ? '#4A7A98' : theme.subtext }}>
                   {o.shortLabel}
                 </div>
               </button>
@@ -77,7 +103,7 @@ export default function ExplorarObras({
       {!hasMessages ? (
         <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '16px 18px' }}>
           <div style={{
-            fontSize: 9, fontWeight: 700, letterSpacing: '.14em',
+            fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
             textTransform: 'uppercase', color: theme.subtext, marginBottom: 12,
           }}>Tópicos de {obra.label}</div>
 
@@ -94,8 +120,8 @@ export default function ExplorarObras({
                   justifyContent: 'space-between', cursor: 'pointer',
                 }}>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: theme.text }}>{part.title}</div>
-                    <div style={{ fontSize: 10.5, color: theme.subtext, marginTop: 2 }}>{part.subtitle}</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: theme.text }}>{part.title}</div>
+                    <div style={{ fontSize: 12, color: theme.subtext, marginTop: 2 }}>{part.subtitle}</div>
                   </div>
                   <svg width={13} height={13} viewBox="0 0 24 24" fill="none"
                     stroke={theme.subtext} strokeWidth="2" strokeLinecap="round"
@@ -105,14 +131,14 @@ export default function ExplorarObras({
                 </div>
                 {open && (
                   <div style={{ borderTop: `1px solid ${theme.cardBorder}`, padding: '10px 14px' }}>
-                    <div style={{ fontSize: 11.5, color: theme.subtext, lineHeight: 1.65, marginBottom: 10, fontStyle: 'italic' }}>
+                    <div style={{ fontSize: 13, color: theme.subtext, lineHeight: 1.65, marginBottom: 10, fontStyle: 'italic' }}>
                       {part.context}
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                       {part.items.map(item => (
                         <button key={item} onClick={() => onAskTopic(item, obra.id)} style={{
                           background: 'rgba(107,155,184,.07)', border: '1px solid rgba(107,155,184,.22)',
-                          color: '#4A7A98', fontSize: 11.5, padding: '5px 12px',
+                          color: '#4A7A98', fontSize: 13, padding: '5px 12px',
                           borderRadius: 14, cursor: 'pointer', fontWeight: 500,
                         }}>{item}</button>
                       ))}
@@ -122,42 +148,38 @@ export default function ExplorarObras({
               </div>
             );
           })}
-
-          {/* Redirect prompt */}
-          <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
-            <button onClick={() => onRedirectDuvida(obra.label)} style={{
-              background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-              color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-              fontSize: 12, fontWeight: 500, cursor: 'pointer',
-            }}>Tenho uma dúvida</button>
-          </div>
         </div>
       ) : (
         <div style={{
           flex: 1, overflowY: 'auto', minHeight: 0,
           padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12,
         }}>
-          {messages.map(msg => (
+          {messages.map((msg, i) => (
             msg.isUser
-              ? <UserBubble key={msg.id} text={msg.text} />
-              : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={fontSize}
-                  onShare={() => onShare(msg)}
-                  onToggleFav={() => onToggleFav(msg)}
-                  isFavorite={isFavorite(msg.id)}
+              ? <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}><UserBubble text={msg.text} /></div>
+              : <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}>
+              <AIMessage msg={msg} theme={theme} fontSize={fontSize}
                   showQuickActions={false}
+                  quickActions={quickActions.filter(
+                    qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
+                  )}
+                  onQuickAction={(label) => onQuickAction?.(label, msg)}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
-                    <button onClick={() => onRedirectDuvida(obra.label)} style={{
-                      background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-                      color: '#4A7A98', padding: '9px 18px', borderRadius: 8,
-                      fontSize: 12, fontWeight: 500, cursor: 'pointer',
-                    }}>Tenho uma dúvida</button>
-                  </div>
                 </AIMessage>
+              </div>
           ))}
           {loading && <LoadingDots theme={theme} />}
         </div>
       )}
+
+      <InputBar
+        value={chatInput}
+        onChange={setChatInput}
+        onSend={handleSend}
+        placeholder={`Pergunte sobre ${obra.label}…`}
+        theme={theme}
+        loading={loading}
+      />
     </>
   );
 }

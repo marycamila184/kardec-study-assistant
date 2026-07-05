@@ -23,12 +23,17 @@ class VectorStore:
             metadatas=metadatas,
         )
 
-    def query(self, embedding: list[float], n_results: int) -> list[dict]:
-        result = self._collection.query(
+    def query(
+        self, embedding: list[float], n_results: int, where: dict | None = None
+    ) -> list[dict]:
+        kwargs: dict = dict(
             query_embeddings=[embedding],
             n_results=n_results,
             include=["documents", "metadatas", "distances"],
         )
+        if where:
+            kwargs["where"] = where
+        result = self._collection.query(**kwargs)
         return [
             {"content": doc, "metadata": meta, "distance": dist}
             for doc, meta, dist in zip(

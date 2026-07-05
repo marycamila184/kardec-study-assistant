@@ -57,8 +57,9 @@ def test_health_returns_ok():
 
 _STUDY_RESULT = {
     "original_text": "A alma é imortal.",
-    "explanation": "A alma continua existindo após a morte do corpo físico.",
-    "practical_example": "Como quando acordamos de um sonho muito vívido.",
+    "contexto": "A alma continua existindo após a morte do corpo físico.",
+    "conceitos_chave": ["alma: princípio inteligente do ser"],
+    "perguntas": ["O que isso significa para a nossa existência?"],
     "related_items": [],
     "sources": [
         {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}
@@ -199,14 +200,31 @@ def test_reflect_returns_200_with_not_found_flag_when_no_doctrine():
 def test_reflect_response_has_all_required_fields():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
         data = client.post("/reflect", json={"situation": "meu casamento está difícil"}).json()
-    for field in ("opening", "doctrine_connection", "reflection_questions", "complementary_items", "sources", "not_found", "generation_failed"):
+    for field in ("opening", "doctrine_connection", "reflection_questions", "complementary_items", "sources", "not_found", "generation_failed", "is_closing"):
         assert field in data
 
 
 def test_reflect_passes_situation_to_reflect_fn():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
         client.post("/reflect", json={"situation": "me sinto vazio"})
-    mock_fn.assert_called_once_with("me sinto vazio")
+    mock_fn.assert_called_once_with("me sinto vazio", [])
+
+
+def test_reflect_passes_conversation_history_to_reflect_fn():
+    history_payload = [
+        {"role": "user", "content": "pergunta anterior"},
+        {"role": "assistant", "content": "resposta anterior"},
+    ]
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
+        client.post("/reflect", json={"situation": "nova pergunta", "conversation_history": history_payload})
+    mock_fn.assert_called_once_with("nova pergunta", history_payload)
+
+
+def test_reflect_response_includes_is_closing_field():
+    result_with_closing = dict(_REFLECT_RESULT, is_closing=True)
+    with patch("src.api.routes.reflect_fn", return_value=result_with_closing):
+        data = client.post("/reflect", json={"situation": "situação"}).json()
+    assert data["is_closing"] is True
 
 
 _EVANGELHO_PASSAGE = {
@@ -261,3 +279,17 @@ def test_study_with_chapter_passes_chapter_to_study_fn():
     mock_fn.assert_called_once_with(
         "O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO IV"
     )
+
+
+def test_evangelho_response_includes_chapter_summary():
+    passage = dict(_EVANGELHO_PASSAGE, chapter_summary="Resumo do capítulo.")
+    with patch("src.api.routes.get_daily_passage", return_value=passage):
+        data = client.get("/evangelho").json()
+    assert data["chapter_summary"] == "Resumo do capítulo."
+
+
+def test_evangelho_response_chapter_summary_defaults_to_none():
+    passage = dict(_EVANGELHO_PASSAGE, chapter_summary=None)
+    with patch("src.api.routes.get_daily_passage", return_value=passage):
+        data = client.get("/evangelho").json()
+    assert data["chapter_summary"] is None

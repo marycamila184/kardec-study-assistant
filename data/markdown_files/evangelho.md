@@ -305,9 +305,7 @@ Foi por haver professado esses princípios que Sócrates se viu ridiculizado, de
 
 2. Na lei moisaica, há duas partes distintas: a lei de Deus, promulgada no monte Sinai, e a lei civil ou disciplinar, decretada por Moisés. Uma é invariável; a outra, apropriada aos costumes e ao caráter do povo, se modifica com o tempo. A lei de Deus está formulada nos dez mandamentos seguintes:
 
-I. Eu sou o Senhor, vosso Deus, que vos tirei do Egito, da casa da servidão. Não tereis, diante de mim, outros deuses estrangeiros.
-
-Não fareis imagem esculpida, nem figura alguma do que está em cima do céu, nem embaixo na Terra, nem do que quer que esteja nas águas sob a terra. Não os adorareis e não lhes prestareis culto soberano. (1)
+I. Eu sou o Senhor, vosso Deus, que vos tirei do Egito, da casa da servidão. Não tereis, diante de mim, outros deuses estrangeiros. Não fareis imagem esculpida, nem figura alguma do que está em cima do céu, nem embaixo na Terra, nem do que quer que esteja nas águas sob a terra. Não os adorareis e não lhes prestareis culto soberano. (1)
 
 ____________
 
@@ -1290,7 +1288,7 @@ Há, porém, duas maneiras bem diferentes de perdoar: uma, grande, nobre, verdad
 
 10. Uma das insensatezes da Humanidade consiste em vermos o mal de outrem, antes de vermos o mal que está em nós. Para julgar‑se a si mesmo, fora preciso que o homem pudesse ver seu interior num espelho, pudesse, de certo modo, transportar‑se para fora de si próprio, considerar‑se como outra pessoa e perguntar: Que pensaria eu, se visse alguém fazer o que faço? Incontestavelmente, é o orgulho que induz o homem a dissimular, para si mesmo, os seus defeitos, tanto morais, quanto físicos. Semelhante insensatez é essencialmente contrária à caridade, porquanto a verdadeira caridade é modesta, simples e indulgente. Caridade orgulhosa é um contra‑senso, visto que esses dois sentimentos se neutralizam um ao outro. Com efeito, como poderá um homem, bastante presunçoso para acreditar na importância da sua personalidade e na supremacia das suas qualidades, possuir ao mesmo tempo abnegação bastante para fazer ressaltar em outrem o bem que o eclipsaria, em vez do mal que o exalçaria? Por isso mesmo, porque é o pai de muitos vícios, o orgulho é também a negação de muitas virtudes. Ele se encontra na base e como móvel de quase todas as ações humanas. Essa a razão por que Jesus se empenhou tanto em combatê‑lo, como principal obstáculo ao progresso.
 
-Não julgueis, para não serdes julgados. - Atire a primeira pedra aquele que estiver sem pecado
+# Não julgueis, para não serdes julgados. Atire a primeira pedra aquele que estiver sem pecado
 
 11. Não julgueis, a fim de não serdes julgados; - porquanto sereis julgados conforme houverdes julgado os outros; empregar-se-á convosco a mesma medida de que voz tenhais servido para com os outros. (S. MATEUS, cap. VII, vv. 1 e 2.)
 

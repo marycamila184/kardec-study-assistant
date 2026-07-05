@@ -12,11 +12,13 @@ class Source(BaseModel):
     book: str
     chapter: str | None = None
     item_number: str | None = None
+    excerpt: str | None = None
 
 
 class ChatRequest(BaseModel):
     question: str
     history: list[Message] = []
+    book_filter: str | None = None
 
 
 class ChatResponse(BaseModel):
@@ -24,6 +26,7 @@ class ChatResponse(BaseModel):
     sources: list[Source]
     not_found: bool = False
     suggested_mode: str | None = None
+    generation_failed: bool = False
 
 
 class PathStep(BaseModel):
@@ -51,14 +54,17 @@ class PathDetail(BaseModel):
 
 class RelatedItem(BaseModel):
     book: str
+    chapter: str | None = None
     item_number: str
     preview: str
+    conexao: str | None = None
 
 
 class StudySource(BaseModel):
     book: str
     chapter_title: str | None = None
     item_number: str
+    excerpt: str | None = None
 
 
 class StudyRequest(BaseModel):
@@ -70,8 +76,9 @@ class StudyRequest(BaseModel):
 
 class StudyResponse(BaseModel):
     original_text: str
-    explanation: str
-    practical_example: str
+    contexto: str
+    conceitos_chave: list[str]
+    perguntas: list[str]
     related_items: list[RelatedItem]
     sources: list[StudySource]
     generation_failed: bool = False
@@ -86,6 +93,7 @@ class ReflectResponse(BaseModel):
     opening: str
     doctrine_connection: str
     reflection_questions: list[str]
+    is_closing: bool = False
     complementary_items: list[RelatedItem]
     sources: list[StudySource]
     not_found: bool = False
@@ -94,6 +102,7 @@ class ReflectResponse(BaseModel):
 
 class EvangelhoSource(BaseModel):
     book: str
+    chapter: str | None = None
     chapter_title: str | None = None
     item_number: str | None = None
     subchunk_index: int | None = None
@@ -104,3 +113,4 @@ class EvangelhoResponse(BaseModel):
     date: str
     content: str
     source: EvangelhoSource
+    chapter_summary: str | None = None

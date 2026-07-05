@@ -1,0 +1,147 @@
+import json
+import re
+
+from src.rag.json_extract import extract_outermost, strip_code_fence
+
+_SYSTEM_TEMPLATE = """\
+Você é um tutor socrático especializado na obra de Allan Kardec.
+
+REGRA ABSOLUTA: responda SOMENTE com o objeto JSON abaixo — nenhum texto antes, \
+nenhum texto depois, nenhuma observação, nenhum markdown. Qualquer caractere fora \
+do JSON quebrará o sistema.
+
+{{
+  "contexto": "<4 a 8 frases indicando onde este item se encaixa na estrutura da \
+doutrina e, quando relevante, o contexto histórico/cultural em que foi dito, \
+baseando-se no trecho, nas notas de rodapé, nas referências relacionadas e, se \
+necessário, em conhecimento histórico geral>",
+  "conceitos_chave": [
+    "<Termo exato do texto>: <definição baseada no trecho, podendo incluir uma \
+breve explicação esclarecedora>"
+  ],
+  "perguntas": [
+    "<pergunta aberta que leva o estudante a refletir sobre o trecho, sem revelar a resposta>"
+  ]
+}}
+
+Regras estritas:
+- "contexto": baseie-se no trecho e nas notas de rodapé para explicar onde este item \
+se encaixa na doutrina. Use também as REFERÊNCIAS RELACIONADAS abaixo para mostrar \
+como este trecho se conecta com outras passagens da doutrina espírita — cite ou \
+parafraseie a conexão de forma específica (ex.: "Esta ideia aparece também em..."), \
+em vez de mencionar as referências apenas de passagem. Você PODE incluir contexto \
+histórico ou cultural geral (ex.: quem eram os fariseus, publicanos, samaritanos; \
+costumes da época) para ajudar a entender a passagem, usando conhecimento histórico \
+amplamente estabelecido. Deixe claro na resposta o que é contexto histórico geral e \
+o que vem do texto/doutrina (ex.: "Historicamente, os fariseus eram... O texto, por \
+sua vez, mostra que..."). Nunca invente ou altere doutrina espírita — isso continua \
+restrito ao trecho e às referências relacionadas fornecidas.
+- "conceitos_chave": extraia os termos centrais com suas definições baseadas no \
+texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
+da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \
+não o inclua.
+- "perguntas": formule entre 2 e 3 perguntas abertas que estimulem o pensamento \
+crítico. Nunca responda as perguntas no próprio JSON. Nunca extrapole além do trecho.
+- É proibido resumir ou parafrasear o trecho no lugar do "contexto" — o estudante já \
+leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
+- Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
+(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as \
+afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passagem \
+mostra que...", "o texto indica que...").
+
+[TRECHO PRINCIPAL]
+{main_passage}
+
+[NOTAS DE RODAPÉ]
+{footnote_passages}
+
+[REFERÊNCIAS RELACIONADAS]
+{related_passages}"""
+
+
+def _format_related(chunks: list[dict]) -> str:
+    if not chunks:
+        return "(nenhuma)"
+    parts = []
+    for c in chunks:
+        m = c["metadata"]
+        parts.append(f"[{m['book']} | Item {m['item_number']}]\n\"{c['content']}\"")
+    return "\n\n".join(parts)
+
+
+def build_explicador_messages(
+    main_text: str, related_chunks: list[dict], footnote_context: str = ""
+) -> tuple[str, list[dict]]:
+    system = _SYSTEM_TEMPLATE.format(
+        main_passage=main_text,
+        footnote_passages=footnote_context or "(nenhuma)",
+        related_passages=_format_related(related_chunks),
+    )
+    messages = [
+        {"role": "user", "content": "Analise o trecho acima de forma socrática."}
+    ]
+    return system, messages
+
+
+def _fix_conceitos_array(s: str) -> str:
+    """Fix LLM habit of writing "term": "def" pairs inside the conceitos_chave array.
+
+    Example of malformed input:
+        "conceitos_chave": ["dever": "obrigação...", "lei": "regra..."]
+    Becomes:
+        "conceitos_chave": ["dever: obrigação...", "lei: regra..."]
+    """
+
+    def _replacer(m: re.Match) -> str:
+        fixed = re.sub(r'"([^"]+)":\s*"([^"]+)"', r'"\1: \2"', m.group(2))
+        return m.group(1) + fixed + m.group(3)
+
+    return re.sub(
+        r'("conceitos_chave"\s*:\s*\[)(.*?)(\])',
+        _replacer,
+        s,
+        flags=re.DOTALL,
+    )
+
+
+def parse_explicador_json(text: str) -> tuple[str, list[str], list[str]]:
+    """Returns (contexto, conceitos_chave, perguntas)."""
+    text = strip_code_fence(text)
+
+    def _try_parse(s: str):
+        data = json.loads(s)
+        conceitos = data.get("conceitos_chave", [])
+        # Handle case where LLM returned a list of objects instead of strings
+        if conceitos and isinstance(conceitos[0], dict):
+            conceitos = [f"{k}: {v}" for item in conceitos for k, v in item.items()]
+        return (
+            data.get("contexto", ""),
+            conceitos,
+            data.get("perguntas", []),
+        )
+
+    def _find_and_parse(s: str):
+        try:
+            return _try_parse(s)
+        except (json.JSONDecodeError, AttributeError, ValueError):
+            pass
+        block = extract_outermost(s, "{", "}")
+        if block is not None:
+            try:
+                return _try_parse(block)
+            except (json.JSONDecodeError, AttributeError, ValueError):
+                pass
+        return None
+
+    # Try with the malformed-array fix first, then raw text
+    for candidate in [_fix_conceitos_array(text), text]:
+        result = _find_and_parse(candidate)
+        if result is not None:
+            return result
+
+    # Regex extraction fallback — never show raw JSON to the user
+    contexto_m = re.search(r'"contexto"\s*:\s*"((?:[^"\\]|\\.)*)"', text, re.DOTALL)
+    perguntas_m = re.findall(r'"((?:[^"\\]|\\.){30,}\?)"', text)
+    contexto = contexto_m.group(1).replace('\\"', '"') if contexto_m else ""
+    perguntas = [p.replace('\\"', '"') for p in perguntas_m[:3]]
+    return contexto, [], perguntas

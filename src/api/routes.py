@@ -16,10 +16,10 @@ from src.api.schemas import (
 )
 from src.core.config import settings
 from src.rag.evangelho import get_daily_passage
+from src.rag.explicador import explicar as study_item_fn
 from src.rag.generator import generate
 from src.rag.mode_detector import detect_suggested_mode
 from src.rag.reflect import reflect as reflect_fn
-from src.rag.study import study as study_item_fn
 
 router = APIRouter()
 
@@ -27,13 +27,14 @@ router = APIRouter()
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest) -> ChatResponse:
     history = [m.model_dump() for m in request.history]
-    result = generate(request.question, history)
+    result = generate(request.question, history, book_filter=request.book_filter)
     suggested_mode = detect_suggested_mode(request.question)
     return ChatResponse(
         answer=result["answer"],
         sources=[Source(**s) for s in result["sources"]],
         not_found=result["not_found"],
         suggested_mode=suggested_mode,
+        generation_failed=result.get("generation_failed", False),
     )
 
 
@@ -67,7 +68,8 @@ def study(request: StudyRequest) -> StudyResponse:
 
 @router.post("/reflect", response_model=ReflectResponse)
 def reflect_situation(request: ReflectRequest) -> ReflectResponse:
-    result = reflect_fn(request.situation)
+    history = [m.model_dump() for m in request.conversation_history]
+    result = reflect_fn(request.situation, history)
     return ReflectResponse(**result)
 
 
@@ -83,6 +85,7 @@ def evangelho() -> EvangelhoResponse:
         date=passage["date"],
         content=passage["content"],
         source=EvangelhoSource(**passage["source"]),
+        chapter_summary=passage.get("chapter_summary"),
     )
 
 

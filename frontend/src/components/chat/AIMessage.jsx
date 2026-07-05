@@ -1,6 +1,7 @@
 import React from 'react';
 import ObraBlock from './ObraBlock';
 import IABlock from './IABlock';
+import { useTypewriter } from '../../hooks/useTypewriter';
 
 const BookIcon = ({ size = 11, color = 'white' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -10,17 +11,18 @@ const BookIcon = ({ size = 11, color = 'white' }) => (
   </svg>
 );
 
-/**
- * Full AI response: avatar + ObraBlock (if hasDaObra) + IABlock.
- * Pass showQuickActions=false in guided/free study modes.
- */
 export default function AIMessage({
   msg, theme, fontSize,
-  onShare, onToggleFav, isFavorite,
+  onShare, isMobile = false,
   showQuickActions = true,
   quickActions = [],
-  children, // optional slot for buttons below (e.g. "Entendi, próximo →")
+  onQuickAction,
+  onReflectionQuestionClick,
+  children,
 }) {
+  const revealedText = useTypewriter(msg.ia, { key: msg.id, skip: !!msg.fromCache });
+  const isRevealing = revealedText.length < (msg.ia || '').length;
+
   return (
     <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', animation: 'fade-up .3s ease' }}>
       <div style={{
@@ -31,13 +33,20 @@ export default function AIMessage({
         <BookIcon />
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        {msg.hasDaObra && <ObraBlock obra={msg.obra} theme={theme} />}
+        {msg.hasDaObra && (
+          <ObraBlock obra={msg.obra} theme={theme}
+            onShare={onShare && !isRevealing ? onShare : undefined}
+            compact={isMobile}
+          />
+        )}
         <IABlock
           msg={msg} theme={theme} fontSize={fontSize}
-          onShare={onShare} onToggleFav={onToggleFav} isFavorite={isFavorite}
+          revealedText={revealedText} isRevealing={isRevealing}
           showQuickActions={showQuickActions} quickActions={quickActions}
+          onQuickAction={onQuickAction}
+          onReflectionQuestionClick={onReflectionQuestionClick}
         />
-        {children}
+        {!isRevealing && children}
       </div>
     </div>
   );
