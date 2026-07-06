@@ -2,10 +2,11 @@ import logging
 
 from src.core.config import settings
 from src.rag.llm_client import get_client
+from src.rag.mode_detector import extract_study_reference
 from src.rag.prompt import build_messages
 from src.rag.query_condenser import condense_query
-from src.rag.reflect_prompt import needs_medical_caveat
-from src.rag.retriever import has_real_item_number, retrieve
+from src.rag.reflect_prompt import CRISIS_NOTE, needs_crisis_note, needs_medical_caveat
+from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
 
 logger = logging.getLogger(__name__)
 
@@ -22,9 +23,33 @@ BOOK_FALLBACK_NOTE = (
 GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
 
+def _with_crisis_note(text: str, crisis: bool) -> str:
+    if not crisis:
+        return text
+    return f"{text}\n\n{CRISIS_NOTE}" if text else CRISIS_NOTE
+
+
+def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
+    """Deterministic lookup for item-reference questions ("questão 132 do
+    Livro dos Espíritos"). Semantic search can't reliably find an item by
+    its number, so when the question names a specific item and the book is
+    known (named in the question, or implied by an active book filter),
+    fetch that item's chunks directly. Returns [] when not applicable."""
+    ref = extract_study_reference(question)
+    book = ref["book"] or book_filter
+    if not (ref["item_number"] and book):
+        return []
+    try:
+        return retrieve_by_item(book, ref["item_number"])
+    except Exception:
+        logger.exception("direct item lookup failed in /chat generate")
+        return []
+
+
 def generate(
     question: str, history: list[dict], book_filter: str | None = None
 ) -> dict:
+    crisis = needs_crisis_note(question)
     search_query = question
     if history:
         try:
@@ -32,16 +57,32 @@ def generate(
         except Exception:
             search_query = question
 
+    direct_chunks = _direct_item_chunks(question, book_filter)
+
     try:
         chunks = retrieve(search_query, book_filter=book_filter)
     except Exception:
         logger.exception("retrieve failed in /chat generate")
-        return {
-            "answer": GENERATION_FAILED_MESSAGE,
-            "sources": [],
-            "not_found": False,
-            "generation_failed": True,
+        if not direct_chunks:
+            return {
+                "answer": _with_crisis_note(GENERATION_FAILED_MESSAGE, crisis),
+                "sources": [],
+                "not_found": False,
+                "generation_failed": True,
+            }
+        chunks = []
+
+    if direct_chunks:
+        # The referenced item leads the passage list; drop any semantic
+        # duplicates of it so the prompt never repeats the same text.
+        direct_keys = {
+            (c["metadata"]["book"], c["metadata"]["item_number"]) for c in direct_chunks
         }
+        chunks = direct_chunks + [
+            c
+            for c in chunks
+            if (c["metadata"]["book"], c["metadata"]["item_number"]) not in direct_keys
+        ]
 
     fallback_note: str | None = None
     if not chunks and book_filter:
@@ -61,13 +102,13 @@ def generate(
     if not chunks:
         logger.warning("no chunks retrieved for /chat; returning not_found")
         return {
-            "answer": NOT_FOUND_MESSAGE,
+            "answer": _with_crisis_note(NOT_FOUND_MESSAGE, crisis),
             "sources": [],
             "not_found": True,
             "generation_failed": False,
         }
 
-    add_caveat = needs_medical_caveat(question)
+    add_caveat = needs_medical_caveat(question) or crisis
     system, messages = build_messages(
         question, chunks, history, settings.max_history_turns, add_caveat=add_caveat
     )
@@ -86,6 +127,8 @@ def generate(
         answer = GENERATION_FAILED_MESSAGE
         generation_failed = True
 
+    answer = _with_crisis_note(answer, crisis)
+
     seen: set[tuple] = set()
     sources = []
     for chunk in chunks:
@@ -97,6 +140,10 @@ def generate(
                 {
                     "book": m["book"],
                     "chapter": m.get("chapter_title") or None,
+                    # chapter_ref is the machine chapter id ("CAPÍTULO II"),
+                    # the value /study's retrieve_by_item filters on —
+                    # distinct from the display title in "chapter".
+                    "chapter_ref": m.get("chapter") or None,
                     "item_number": (
                         m["item_number"]
                         if has_real_item_number(m.get("item_number"))

@@ -15,6 +15,38 @@ CLINICAL_KEYWORDS = [
     "alucinação",
 ]
 
+# Suicidal-ideation / self-harm cues. Matching any of these triggers a fixed,
+# deterministic crisis note (CRISIS_NOTE) appended by the pipelines — never
+# left to the LLM's judgment. Includes unaccented variants because users
+# often type without accents.
+CRISIS_KEYWORDS = [
+    "suicídio",
+    "suicidio",
+    "suicidar",
+    "me matar",
+    "quero morrer",
+    "queria morrer",
+    "tirar minha vida",
+    "tirar a minha vida",
+    "acabar com minha vida",
+    "acabar com a minha vida",
+    "não quero mais viver",
+    "nao quero mais viver",
+    "não aguento mais viver",
+    "nao aguento mais viver",
+    "me machucar",
+    "me cortar",
+    "me ferir",
+    "desistir de viver",
+]
+
+CRISIS_NOTE = (
+    "Se você está pensando em suicídio ou em se machucar, procure ajuda agora: "
+    "o CVV — Centro de Valorização da Vida — oferece apoio emocional gratuito e "
+    "sigiloso pelo telefone 188 (24 horas, todos os dias) e pelo chat em cvv.org.br. "
+    "Em uma emergência, ligue 192 (SAMU)."
+)
+
 _NO_ADVICE = """\
 É absolutamente proibido fazer sugestões de ação. Nunca diga "você deveria", \
 "recomendo", "tente", "considere", ou equivalentes. Não sugira medicação, \
@@ -31,6 +63,13 @@ _CAVEAT_INSTRUCTION = """\
 Se a situação descrita puder ter causas clínicas, acrescente UMA frase curta \
 ao final indicando que o apoio de um profissional de saúde é também valioso — \
 sem substituir a visão espírita e sem fazer diagnósticos."""
+
+_FORCE_CLOSING_DIRECTIVE = """\
+ENCERRAMENTO OBRIGATÓRIO: esta reflexão atingiu o número máximo de rodadas. \
+Esta DEVE ser a mensagem de encerramento: defina "is_closing": true, deixe \
+"reflection_questions" como uma lista vazia [], e escreva em "opening" e \
+"doctrine_connection" uma conclusão acolhedora que retome com gentileza o \
+caminho percorrido nesta reflexão — sem novas perguntas."""
 
 _SYSTEM_TEMPLATE = """\
 Você é um assistente de estudos espíritas que ajuda pessoas a verem situações \
@@ -63,6 +102,8 @@ novas "reflection_questions" como de costume.
 - As regras abaixo sobre não dar conselhos e não personificar o Espiritismo valem também \
 para a mensagem de encerramento.
 
+{closing_directive}
+
 {no_advice}
 
 {caveat}
@@ -80,6 +121,11 @@ para a mensagem de encerramento.
 def needs_medical_caveat(situation: str) -> bool:
     lower = situation.lower()
     return any(kw in lower for kw in CLINICAL_KEYWORDS)
+
+
+def needs_crisis_note(text: str) -> bool:
+    lower = text.lower()
+    return any(kw in lower for kw in CRISIS_KEYWORDS)
 
 
 def _format_passages(chunks: list[dict]) -> str:
@@ -110,10 +156,12 @@ def build_reflect_messages(
     chunks: list[dict],
     add_caveat: bool,
     history: list[dict] | None = None,
+    force_closing: bool = False,
 ) -> tuple[str, list[dict]]:
     system = _SYSTEM_TEMPLATE.format(
         no_advice=_NO_ADVICE,
         caveat=_CAVEAT_INSTRUCTION if add_caveat else "",
+        closing_directive=_FORCE_CLOSING_DIRECTIVE if force_closing else "",
         history=_format_history(history or []),
         situation=situation,
         passages=_format_passages(chunks),

@@ -11,6 +11,7 @@ class Message(BaseModel):
 class Source(BaseModel):
     book: str
     chapter: str | None = None
+    chapter_ref: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -26,6 +27,8 @@ class ChatResponse(BaseModel):
     sources: list[Source]
     not_found: bool = False
     suggested_mode: str | None = None
+    suggested_item_number: str | None = None
+    suggested_book: str | None = None
     generation_failed: bool = False
 
 

@@ -329,6 +329,86 @@ def test_reflect_falls_back_to_raw_situation_when_condense_fails():
     assert result["generation_failed"] is False
 
 
+def test_reflect_appends_crisis_note_for_suicidal_situation():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("não aguento mais viver, penso em suicídio")
+    assert "CVV" in result["doctrine_connection"]
+    assert "188" in result["doctrine_connection"]
+    assert result["doctrine_connection"].startswith("A doutrina ensina...")
+
+
+def test_reflect_no_crisis_note_for_normal_situation():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("meu pai faleceu")
+    assert "CVV" not in result["doctrine_connection"]
+
+
+def test_reflect_crisis_note_present_even_when_not_found():
+    with patch("src.rag.reflect.retrieve", return_value=[]):
+        result = reflect("quero morrer")
+    assert result["not_found"] is True
+    assert "CVV" in result["doctrine_connection"]
+
+
+def test_reflect_crisis_triggers_medical_caveat():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.build_reflect_messages") as mock_build,
+    ):
+        mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("penso em me machucar")
+    _, _, add_caveat = mock_build.call_args[0]
+    assert add_caveat is True
+
+
+def test_reflect_passes_force_closing_to_prompt_at_cap():
+    history = []
+    for i in range(5):
+        history.append({"role": "user", "content": f"pergunta {i}"})
+        history.append({"role": "assistant", "content": f"resposta {i}"})
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.build_reflect_messages") as mock_build,
+    ):
+        mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("pergunta final", conversation_history=history)
+    assert mock_build.call_args.kwargs["force_closing"] is True
+
+
+def test_reflect_passes_force_closing_false_below_cap():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.build_reflect_messages") as mock_build,
+    ):
+        mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("primeira situação")
+    assert mock_build.call_args.kwargs["force_closing"] is False
+
+
 def test_reflect_logs_on_retrieval_error(caplog):
     def _raise(*args, **kwargs):
         raise RuntimeError("db error")

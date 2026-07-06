@@ -71,6 +71,153 @@ def test_generate_not_found_when_no_chunks(monkeypatch, mock_client):
     mock_client.chat.completions.create.assert_not_called()
 
 
+def test_generate_appends_crisis_note_for_suicidal_question(mock_retrieve, mock_client):
+    result = generate("penso em suicídio, o que a doutrina diz?", [])
+    assert result["answer"].startswith("Resposta gerada.")
+    assert "CVV" in result["answer"]
+    assert "188" in result["answer"]
+
+
+def test_generate_no_crisis_note_for_normal_question(mock_retrieve, mock_client):
+    result = generate("O que é reencarnação?", [])
+    assert "CVV" not in result["answer"]
+
+
+def test_generate_crisis_note_present_even_when_not_found(monkeypatch, mock_client):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: [])
+    result = generate("quero morrer, existe perdão?", [])
+    assert result["not_found"] is True
+    assert "CVV" in result["answer"]
+
+
+_ITEM_132_CHUNKS = [
+    {
+        "content": "132. Qual o objetivo da encarnação dos Espíritos?",
+        "metadata": {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Encarnação",
+            "item_number": "132",
+        },
+        "footnote_context": "",
+    }
+]
+
+_OTHER_CHUNKS = [
+    {
+        "content": "Trecho semanticamente próximo, mas de outro item.",
+        "metadata": {
+            "book": "A Gênese",
+            "chapter_title": "Caracteres da Revelação",
+            "item_number": "29",
+        },
+        "distance": 0.4,
+    }
+]
+
+
+def test_generate_direct_item_lookup_leads_sources(monkeypatch, mock_client):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _OTHER_CHUNKS)
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve_by_item", lambda b, n: _ITEM_132_CHUNKS
+    )
+    result = generate("explique a questão 132 do livro dos espíritos", [])
+    assert result["not_found"] is False
+    assert result["sources"][0]["item_number"] == "132"
+    assert result["sources"][0]["book"] == "O Livro dos Espíritos"
+    assert len(result["sources"]) == 2
+
+
+def test_generate_direct_item_lookup_dedupes_semantic_hit(monkeypatch, mock_client):
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve", lambda q, **kw: _ITEM_132_CHUNKS + _OTHER_CHUNKS
+    )
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve_by_item", lambda b, n: _ITEM_132_CHUNKS
+    )
+    result = generate("explique a questão 132 do livro dos espíritos", [])
+    item_keys = [(s["book"], s["item_number"]) for s in result["sources"]]
+    assert item_keys.count(("O Livro dos Espíritos", "132")) == 1
+
+
+def test_generate_no_direct_lookup_without_book(
+    mock_retrieve, mock_client, monkeypatch
+):
+    # "item N" (unlike "questão N") implies no book, so no direct lookup
+    calls = []
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve_by_item",
+        lambda b, n: calls.append((b, n)) or [],
+    )
+    generate("explique o item 132", [])
+    assert calls == []
+
+
+def test_generate_direct_lookup_uses_book_filter_as_book(
+    mock_retrieve, mock_client, monkeypatch
+):
+    calls = []
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve_by_item",
+        lambda b, n: calls.append((b, n)) or _ITEM_132_CHUNKS,
+    )
+    generate("explique o item 132", [], book_filter="O Livro dos Espíritos")
+    assert calls == [("O Livro dos Espíritos", "132")]
+
+
+def test_generate_direct_lookup_questao_defaults_to_livro_espiritos(
+    monkeypatch, mock_client
+):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _OTHER_CHUNKS)
+    calls = []
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve_by_item",
+        lambda b, n: calls.append((b, n)) or _ITEM_132_CHUNKS,
+    )
+    result = generate("explique a questao 132", [])
+    assert calls == [("O Livro dos Espíritos", "132")]
+    assert result["sources"][0]["item_number"] == "132"
+
+
+def test_generate_direct_lookup_failure_falls_back_to_semantic(
+    mock_retrieve, mock_client, monkeypatch
+):
+    def _raise(b, n):
+        raise RuntimeError("db error")
+
+    monkeypatch.setattr("src.rag.generator.retrieve_by_item", _raise)
+    result = generate("explique a questão 132 do livro dos espíritos", [])
+    assert result["generation_failed"] is False
+    assert result["answer"] == "Resposta gerada."
+
+
+def test_generate_answers_from_direct_lookup_when_semantic_empty(
+    monkeypatch, mock_client
+):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: [])
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve_by_item", lambda b, n: _ITEM_132_CHUNKS
+    )
+    result = generate("explique a questão 132 do livro dos espíritos", [])
+    assert result["not_found"] is False
+    assert result["answer"] == "Resposta gerada."
+    assert result["sources"][0]["item_number"] == "132"
+
+
+def test_generate_answers_from_direct_lookup_when_semantic_raises(
+    monkeypatch, mock_client
+):
+    def _raise(*args, **kwargs):
+        raise RuntimeError("db error")
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _raise)
+    monkeypatch.setattr(
+        "src.rag.generator.retrieve_by_item", lambda b, n: _ITEM_132_CHUNKS
+    )
+    result = generate("explique a questão 132 do livro dos espíritos", [])
+    assert result["generation_failed"] is False
+    assert result["sources"][0]["item_number"] == "132"
+
+
 def test_generate_calls_condenser_when_history_present(mock_retrieve, mock_client):
     history = [
         {"role": "user", "content": "O que é reencarnação?"},
@@ -87,6 +234,25 @@ def test_generate_skips_condenser_without_history(mock_retrieve, mock_client):
     with patch("src.rag.generator.condense_query") as mock_cond:
         generate("O que é reencarnação?", [])
     mock_cond.assert_not_called()
+
+
+def test_generate_sources_include_chapter_ref(monkeypatch, mock_client):
+    chunks = [
+        {
+            "content": "132. Qual o objetivo da encarnação dos Espíritos?",
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "chapter": "CAPÍTULO II",
+                "chapter_title": "DA ENCARNAÇÃO DOS ESPÍRITOS",
+                "item_number": "132",
+            },
+            "distance": 0.4,
+        }
+    ]
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: chunks)
+    result = generate("O que é encarnação?", [])
+    assert result["sources"][0]["chapter_ref"] == "CAPÍTULO II"
+    assert result["sources"][0]["chapter"] == "DA ENCARNAÇÃO DOS ESPÍRITOS"
 
 
 def test_generate_sources_include_excerpt(mock_retrieve, mock_client):

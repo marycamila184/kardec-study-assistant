@@ -170,6 +170,51 @@ def test_chat_suggested_mode_is_none_for_generic_question():
             "/chat", json={"question": "o que é amor?", "history": []}
         ).json()
     assert data["suggested_mode"] is None
+    assert data["suggested_item_number"] is None
+    assert data["suggested_book"] is None
+
+
+def test_chat_includes_study_reference_for_item_lookup():
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+        data = client.post(
+            "/chat",
+            json={
+                "question": "explique a questão 132 do Livro dos Espíritos",
+                "history": [],
+            },
+        ).json()
+    assert data["suggested_mode"] == "estudar_obra"
+    assert data["suggested_item_number"] == "132"
+    assert data["suggested_book"] == "O Livro dos Espíritos"
+
+
+def test_chat_study_reference_questao_defaults_book_to_livro_espiritos():
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+        data = client.post(
+            "/chat", json={"question": "explique a questão 132", "history": []}
+        ).json()
+    assert data["suggested_item_number"] == "132"
+    assert data["suggested_book"] == "O Livro dos Espíritos"
+
+
+def test_chat_study_reference_book_is_none_for_generic_item():
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+        data = client.post(
+            "/chat", json={"question": "explique o item 45", "history": []}
+        ).json()
+    assert data["suggested_item_number"] == "45"
+    assert data["suggested_book"] is None
+
+
+def test_chat_no_study_reference_for_refletir_suggestion():
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+        data = client.post(
+            "/chat",
+            json={"question": "tenho medo de morrer no ano 2050", "history": []},
+        ).json()
+    assert data["suggested_mode"] == "refletir"
+    assert data["suggested_item_number"] is None
+    assert data["suggested_book"] is None
 
 
 _REFLECT_RESULT = {

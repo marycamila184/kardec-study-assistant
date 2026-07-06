@@ -6,7 +6,9 @@ from src.rag.curador import curar
 from src.rag.llm_client import get_client
 from src.rag.query_condenser import condense_query
 from src.rag.reflect_prompt import (
+    CRISIS_NOTE,
     build_reflect_messages,
+    needs_crisis_note,
     needs_medical_caveat,
     parse_reflect_json,
 )
@@ -24,8 +26,16 @@ GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por fa
 CAP_ROUNDS = 5  # after this many completed rounds, force closing regardless of the model's own judgment
 
 
+def _with_crisis_note(text: str, crisis: bool) -> str:
+    if not crisis:
+        return text
+    return f"{text}\n\n{CRISIS_NOTE}" if text else CRISIS_NOTE
+
+
 def reflect(situation: str, conversation_history: list[dict] | None = None) -> dict:
     history = conversation_history or []
+    combined_text = situation + " " + " ".join(h["content"] for h in history)
+    crisis = needs_crisis_note(combined_text)
     search_query = situation
     if history:
         try:
@@ -38,7 +48,7 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         logger.exception("retrieve failed in /reflect")
         return {
             "opening": "",
-            "doctrine_connection": GENERATION_FAILED_MESSAGE,
+            "doctrine_connection": _with_crisis_note(GENERATION_FAILED_MESSAGE, crisis),
             "reflection_questions": [],
             "complementary_items": [],
             "sources": [],
@@ -50,7 +60,7 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         logger.warning("no chunks retrieved for /reflect; returning not_found")
         return {
             "opening": "",
-            "doctrine_connection": _NOT_FOUND_MESSAGE,
+            "doctrine_connection": _with_crisis_note(_NOT_FOUND_MESSAGE, crisis),
             "reflection_questions": [],
             "complementary_items": [],
             "sources": [],
@@ -61,11 +71,10 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
     primary = chunks[:2]
     complementary_raw = chunks[2:5]
 
-    combined_text = situation + " " + " ".join(h["content"] for h in history)
-    add_caveat = needs_medical_caveat(combined_text)
+    add_caveat = needs_medical_caveat(combined_text) or crisis
     force_closing = len(history) // 2 >= CAP_ROUNDS
     system, messages = build_reflect_messages(
-        situation, primary, add_caveat, history=history
+        situation, primary, add_caveat, history=history, force_closing=force_closing
     )
 
     def _call_reflexivo():
@@ -102,6 +111,8 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
     if force_closing:
         is_closing = True
         reflection_questions = []
+
+    doctrine_connection = _with_crisis_note(doctrine_connection, crisis)
 
     sources = [
         {
