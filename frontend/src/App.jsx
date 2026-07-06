@@ -462,14 +462,21 @@ export default function App() {
   // sources so the button never regresses versus the old sources[0] behavior.
   const resolveStudyTarget = (msg) => {
     const sources = msg.sources || [];
+    // chapter must be the machine id (chapter_ref, e.g. "CAPÍTULO II") that
+    // /study filters on — source.chapter holds the display title, which the
+    // backend would never match (404).
     if (msg.suggestedItemNumber) {
-      const match = sources.find(s => s.item_number === msg.suggestedItemNumber);
+      const match = sources.find(s =>
+        s.item_number === msg.suggestedItemNumber &&
+        (!msg.suggestedBook || s.book === msg.suggestedBook)
+      );
       const book = msg.suggestedBook || match?.book || sources[0]?.book || null;
       if (!book) return null;
-      return { book, item_number: msg.suggestedItemNumber, chapter: match?.chapter || null };
+      return { book, item_number: msg.suggestedItemNumber, chapter: match?.chapter_ref || null };
     }
     const first = sources[0];
-    return first?.item_number ? first : null;
+    if (!first?.item_number) return null;
+    return { book: first.book, item_number: first.item_number, chapter: first.chapter_ref || null };
   };
 
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────

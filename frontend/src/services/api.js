@@ -51,6 +51,7 @@ function mapChat(data) {
     sources: data.sources.map(s => ({
       book: s.book,
       chapter: s.chapter || null,
+      chapter_ref: s.chapter_ref || null,
       item_number: s.item_number,
       excerpt: s.excerpt || null,
     })),
