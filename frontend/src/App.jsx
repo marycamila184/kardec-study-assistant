@@ -20,6 +20,7 @@ import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
 import { useReminder } from './hooks/useReminder';
+import { formatItemRef } from './utils/format';
 import { lightTheme } from './constants/theme';
 import {
   chatMessage, studyItem, reflectSituation,
@@ -482,7 +483,7 @@ export default function App() {
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
   const handleGoStudyItem = async (source) => {
     setMode('estudar'); setEstudarSub('explorar');
-    const label = `${source.book}, Q.${source.item_number}`;
+    const label = `${source.book}, ${formatItemRef(source.book, source.item_number)}`;
     const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: label };
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
@@ -865,7 +866,7 @@ export default function App() {
                           if (msg.suggestedMode === 'estudar_obra') {
                             const studyTarget = resolveStudyTarget(msg);
                             return studyTarget ? {
-                              label: `📖 Estudar a Q.${studyTarget.item_number} na íntegra`,
+                              label: `📖 Estudar ${formatItemRef(studyTarget.book, studyTarget.item_number)} na íntegra`,
                               onClick: () => handleGoStudyItem(studyTarget),
                             } : null;
                           }

@@ -1,3 +1,5 @@
+import { formatItemRef } from '../utils/format';
+
 const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 class ApiError extends Error {
@@ -72,7 +74,7 @@ function mapStudy(data, bookLabel, itemNumber) {
   }
   const ia = partes.join('\n\n') + note;
 
-  const titleParts = [bookLabel, chapterTitle, itemNumber ? 'Q.' + itemNumber : null]
+  const titleParts = [bookLabel, chapterTitle, itemNumber ? formatItemRef(bookLabel, itemNumber) : null]
     .filter(Boolean);
   return {
     hasDaObra: true,
