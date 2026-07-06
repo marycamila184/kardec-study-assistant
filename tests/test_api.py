@@ -378,3 +378,12 @@ def test_evangelho_response_chapter_summary_defaults_to_none():
     with patch("src.api.routes.get_daily_passage", return_value=passage):
         data = client.get("/evangelho").json()
     assert data["chapter_summary"] is None
+
+
+def test_chat_passes_suggested_questions_through():
+    result = dict(_ANSWER_RESULT, suggested_questions=["Pergunta A?", "Pergunta B?"])
+    with patch("src.api.routes.generate", return_value=result):
+        data = client.post(
+            "/chat", json={"question": "O que é a alma?", "history": []}
+        ).json()
+    assert data["suggested_questions"] == ["Pergunta A?", "Pergunta B?"]

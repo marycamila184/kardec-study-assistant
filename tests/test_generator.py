@@ -299,6 +299,57 @@ def test_generate_invalid_fontes_indices_keep_all_sources(monkeypatch):
     assert len(result["sources"]) == 2
 
 
+def test_generate_parses_seguir_marker_into_suggested_questions(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(
+        monkeypatch,
+        "Resposta.\n[FONTES: 1]\n[SEGUIR: O que é o perispírito? | Como ocorre a reencarnação?]",
+    )
+    result = generate("O que é a alma?", [])
+    assert result["answer"] == "Resposta."
+    assert result["suggested_questions"] == [
+        "O que é o perispírito?",
+        "Como ocorre a reencarnação?",
+    ]
+    assert len(result["sources"]) == 1
+
+
+def test_generate_markers_parsed_in_either_order(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Resposta.\n[SEGUIR: Pergunta A?]\n[FONTES: 2]")
+    result = generate("O que é a alma?", [])
+    assert result["answer"] == "Resposta."
+    assert result["suggested_questions"] == ["Pergunta A?"]
+    assert result["sources"][0]["item_number"] == "5"
+
+
+def test_generate_seguir_caps_at_two_questions(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Resposta.\n[SEGUIR: A? | B? | C? | D?]")
+    result = generate("O que é a alma?", [])
+    assert result["suggested_questions"] == ["A?", "B?"]
+
+
+def test_generate_no_seguir_marker_yields_no_suggestions(mock_retrieve, mock_client):
+    result = generate("O que é reencarnação?", [])
+    assert result["suggested_questions"] == []
+
+
+def test_generate_crisis_suppresses_suggested_questions(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Resposta.\n[FONTES: 1]\n[SEGUIR: A? | B?]")
+    result = generate("penso em suicídio, o que a doutrina diz?", [])
+    assert result["suggested_questions"] == []
+    assert "CVV" in result["answer"]
+    assert "[SEGUIR" not in result["answer"]
+
+
+def test_generate_not_found_has_no_suggestions(monkeypatch, mock_client):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: [])
+    result = generate("Fale sobre budismo", [])
+    assert result["suggested_questions"] == []
+
+
 def test_generate_logs_condenser_failure(mock_retrieve, mock_client, caplog):
     history = [{"role": "user", "content": "pergunta anterior"}]
     with (

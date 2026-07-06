@@ -26,11 +26,16 @@ Quando fizer sentido para a pergunta, você pode incluir uma pergunta reflexiva 
 final da explicação, para estimular o pensamento do usuário. Isso é opcional — use \
 bom senso; não é obrigatório em toda resposta.
 
-Na ÚLTIMA linha da resposta, escreva exatamente [FONTES: ...] com os números das \
-passagens que você realmente usou para responder, separados por vírgula \
-(ex.: [FONTES: 1, 3]). Se não usou nenhuma passagem — por exemplo, quando as \
-passagens não contêm a informação pedida — escreva [FONTES:] vazio. Essa linha é \
-removida automaticamente antes de o usuário ver a resposta; nunca a mencione no texto.
+Ao final da resposta, acrescente duas linhas técnicas (ambas são removidas \
+automaticamente antes de o usuário ver a resposta — nunca as mencione no texto):
+1. [FONTES: ...] com os números das passagens que você realmente usou para \
+responder, separados por vírgula (ex.: [FONTES: 1, 3]). Se não usou nenhuma \
+passagem — por exemplo, quando as passagens não contêm a informação pedida — \
+escreva [FONTES:] vazio.
+2. [SEGUIR: pergunta 1 | pergunta 2] com DUAS perguntas curtas de continuação \
+que o usuário poderia fazer em seguida, separadas por "|". Cada pergunta deve \
+ser respondível pelas obras de Kardec e, de preferência, ligada aos temas das \
+passagens recuperadas — nunca sugira algo que as obras não abordam.
 
 {caveat}
 

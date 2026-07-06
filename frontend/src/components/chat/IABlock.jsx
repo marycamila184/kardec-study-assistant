@@ -16,6 +16,8 @@ export default function IABlock({
   quickActions = [],
   onQuickAction,
   onReflectionQuestionClick,
+  suggestedQuestions = [],
+  onSuggestedQuestionClick,
   footerAction = null,
 }) {
   const [openSource, setOpenSource] = useState(null);
@@ -58,6 +60,23 @@ export default function IABlock({
               onClick={() => onReflectionQuestionClick?.(q)}
               style={{
                 background: 'rgba(200,133,106,.08)', border: `1px solid rgba(200,133,106,.25)`,
+                borderRadius: 8, padding: '8px 12px', fontSize: 13, color: theme.text, lineHeight: 1.5,
+                textAlign: 'left', cursor: 'pointer', font: 'inherit', width: '100%',
+              }}
+            >{renderInlineMarkdown(q)}</button>
+          ))}
+        </div>
+      )}
+
+      {/* Follow-up question chips (Tirar uma Dúvida) — tap sends the question */}
+      {!isRevealing && suggestedQuestions.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
+          {suggestedQuestions.map((q, i) => (
+            <button
+              key={i}
+              onClick={() => onSuggestedQuestionClick?.(q)}
+              style={{
+                background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.25)',
                 borderRadius: 8, padding: '8px 12px', fontSize: 13, color: theme.text, lineHeight: 1.5,
                 textAlign: 'left', cursor: 'pointer', font: 'inherit', width: '100%',
               }}

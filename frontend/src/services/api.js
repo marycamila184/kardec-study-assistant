@@ -48,6 +48,7 @@ function mapChat(data) {
     suggestedMode: data.suggested_mode || null,
     suggestedItemNumber: data.suggested_item_number || null,
     suggestedBook: data.suggested_book || null,
+    suggestedQuestions: data.suggested_questions || [],
     sources: data.sources.map(s => ({
       book: s.book,
       chapter: s.chapter || null,

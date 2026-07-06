@@ -25,6 +25,7 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     sources: list[Source]
+    suggested_questions: list[str] = []
     not_found: bool = False
     suggested_mode: str | None = None
     suggested_item_number: str | None = None

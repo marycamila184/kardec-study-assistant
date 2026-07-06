@@ -37,6 +37,7 @@ def chat(request: ChatRequest) -> ChatResponse:
     return ChatResponse(
         answer=result["answer"],
         sources=[Source(**s) for s in result["sources"]],
+        suggested_questions=result.get("suggested_questions", []),
         not_found=result["not_found"],
         suggested_mode=suggested_mode,
         suggested_item_number=study_ref["item_number"],

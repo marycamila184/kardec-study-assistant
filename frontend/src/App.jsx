@@ -855,6 +855,12 @@ export default function App() {
                         )}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
                         onReflectionQuestionClick={handleReflectionQuestionClick}
+                        suggestedQuestions={
+                          idx === msgs.length - 1 && !msg.isReflection && !loading
+                            ? (msg.suggestedQuestions || [])
+                            : []
+                        }
+                        onSuggestedQuestionClick={(q) => sendText(q)}
                         footerAction={(() => {
                           if (msg.suggestedMode === 'estudar_obra') {
                             const studyTarget = resolveStudyTarget(msg);
