@@ -16,8 +16,10 @@ export default function IABlock({
   quickActions = [],
   onQuickAction,
   onReflectionQuestionClick,
+  footerAction = null,
 }) {
   const [openSource, setOpenSource] = useState(null);
+  const [footerHover, setFooterHover] = useState(false);
 
   return (
     <div style={{
@@ -94,6 +96,30 @@ export default function IABlock({
             </button>
           ))}
         </div>
+      )}
+
+      {/* Cross-mode action attached as the card's footer strip; negative
+          margins cancel the card's 13px 16px padding so it spans edge-to-edge
+          and its corners close the card's bottom radius. */}
+      {!isRevealing && footerAction && (
+        <button
+          onClick={footerAction.onClick}
+          onMouseEnter={() => setFooterHover(true)}
+          onMouseLeave={() => setFooterHover(false)}
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            width: 'calc(100% + 32px)', margin: '12px -16px -13px',
+            padding: '10px 16px',
+            background: footerHover ? 'rgba(128,128,128,.08)' : 'transparent',
+            border: 'none', borderTop: `1px solid ${theme.cardBorder}`,
+            borderRadius: '0 0 10px 10px', cursor: 'pointer',
+            color: footerAction.color || '#4A7A98',
+            fontSize: 13, fontWeight: 500, fontFamily: 'inherit', textAlign: 'left',
+          }}
+        >
+          <span>{footerAction.label}</span>
+          <span aria-hidden="true">→</span>
+        </button>
       )}
 
       <SourceModal source={openSource} theme={theme} onClose={() => setOpenSource(null)} />

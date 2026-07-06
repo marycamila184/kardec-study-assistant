@@ -848,45 +848,26 @@ export default function App() {
                         )}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
                         onReflectionQuestionClick={handleReflectionQuestionClick}
-                      >
-                        {msg.suggestedMode === 'estudar_obra' && (() => {
-                          const studyTarget = resolveStudyTarget(msg);
-                          return studyTarget ? (
-                          <div style={{ marginTop: 10 }}>
-                            <button
-                              onClick={() => handleGoStudyItem(studyTarget)}
-                              style={{
-                                background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-                                color: '#4A7A98', padding: '7px 14px', borderRadius: 8,
-                                fontSize: 13, fontWeight: 500, cursor: 'pointer',
-                                display: 'flex', alignItems: 'center', gap: 6,
-                              }}
-                            >
-                              📖 Estudar este item completo
-                            </button>
-                          </div>
-                          ) : null;
+                        footerAction={(() => {
+                          if (msg.suggestedMode === 'estudar_obra') {
+                            const studyTarget = resolveStudyTarget(msg);
+                            return studyTarget ? {
+                              label: `📖 Estudar a Q.${studyTarget.item_number} na íntegra`,
+                              onClick: () => handleGoStudyItem(studyTarget),
+                            } : null;
+                          }
+                          if (msg.suggestedMode === 'refletir') {
+                            const srcQuestion = msgs
+                              .slice(0, idx).reverse().find(m => m.isUser)?.text;
+                            return srcQuestion ? {
+                              label: '🪞 Refletir sobre esta situação',
+                              color: '#C8856A',
+                              onClick: () => handleGoReflect(srcQuestion),
+                            } : null;
+                          }
+                          return null;
                         })()}
-                        {msg.suggestedMode === 'refletir' && (() => {
-                          const srcQuestion = msgs
-                            .slice(0, idx).reverse().find(m => m.isUser)?.text;
-                          return srcQuestion ? (
-                            <div style={{ marginTop: 10 }}>
-                              <button
-                                onClick={() => handleGoReflect(srcQuestion)}
-                                style={{
-                                  background: 'transparent', border: '1px solid rgba(200,133,106,.4)',
-                                  color: '#C8856A', padding: '7px 14px', borderRadius: 8,
-                                  fontSize: 13, fontWeight: 500, cursor: 'pointer',
-                                  display: 'flex', alignItems: 'center', gap: 6,
-                                }}
-                              >
-                                🪞 Refletir sobre esta situação
-                              </button>
-                            </div>
-                          ) : null;
-                        })()}
-                      </AIMessage>
+                      />
                 ))}
                 {loading && <LoadingDots theme={theme} />}
               </div>
