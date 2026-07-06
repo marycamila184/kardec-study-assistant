@@ -46,6 +46,8 @@ function mapChat(data) {
     obra: null,
     ia: data.answer,
     suggestedMode: data.suggested_mode || null,
+    suggestedItemNumber: data.suggested_item_number || null,
+    suggestedBook: data.suggested_book || null,
     sources: data.sources.map(s => ({
       book: s.book,
       chapter: s.chapter || null,
