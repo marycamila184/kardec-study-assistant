@@ -457,6 +457,21 @@ export default function App() {
     setExplorarMsgs(updatedMsgs);
   };
 
+  // Resolve which item the "Estudar este item completo" button should open.
+  // Prefers the backend-extracted reference; falls back to the retrieved
+  // sources so the button never regresses versus the old sources[0] behavior.
+  const resolveStudyTarget = (msg) => {
+    const sources = msg.sources || [];
+    if (msg.suggestedItemNumber) {
+      const match = sources.find(s => s.item_number === msg.suggestedItemNumber);
+      const book = msg.suggestedBook || match?.book || sources[0]?.book || null;
+      if (!book) return null;
+      return { book, item_number: msg.suggestedItemNumber, chapter: match?.chapter || null };
+    }
+    const first = sources[0];
+    return first?.item_number ? first : null;
+  };
+
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
   const handleGoStudyItem = async (source) => {
     setMode('estudar'); setEstudarSub('explorar');
@@ -834,10 +849,12 @@ export default function App() {
                         onQuickAction={(label) => handleQuickAction(label, msg)}
                         onReflectionQuestionClick={handleReflectionQuestionClick}
                       >
-                        {msg.suggestedMode === 'estudar_obra' && msg.sources?.[0]?.item_number && (
+                        {msg.suggestedMode === 'estudar_obra' && (() => {
+                          const studyTarget = resolveStudyTarget(msg);
+                          return studyTarget ? (
                           <div style={{ marginTop: 10 }}>
                             <button
-                              onClick={() => handleGoStudyItem(msg.sources[0])}
+                              onClick={() => handleGoStudyItem(studyTarget)}
                               style={{
                                 background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
                                 color: '#4A7A98', padding: '7px 14px', borderRadius: 8,
@@ -848,7 +865,8 @@ export default function App() {
                               📖 Estudar este item completo
                             </button>
                           </div>
-                        )}
+                          ) : null;
+                        })()}
                         {msg.suggestedMode === 'refletir' && (() => {
                           const srcQuestion = msgs
                             .slice(0, idx).reverse().find(m => m.isUser)?.text;
