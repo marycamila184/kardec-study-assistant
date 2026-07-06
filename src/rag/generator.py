@@ -1,4 +1,5 @@
 import logging
+import re
 
 from src.core.config import settings
 from src.rag.llm_client import get_client
@@ -11,8 +12,10 @@ from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
 logger = logging.getLogger(__name__)
 
 NOT_FOUND_MESSAGE = (
-    "Não encontrei nas obras de Kardec informações suficientes para responder "
-    "a essa pergunta. Por favor, reformule sua dúvida ou consulte diretamente as obras."
+    "Não encontrei nas obras de Kardec passagens que respondam com segurança a essa "
+    "pergunta — e prefiro não inventar doutrina. Tente perguntar com outras palavras: "
+    "às vezes um termo diferente encontra o trecho certo. Se preferir navegar pelo "
+    "texto, o modo Estudar uma Obra permite abrir qualquer questão diretamente."
 )
 
 BOOK_FALLBACK_NOTE = (
@@ -27,6 +30,29 @@ def _with_crisis_note(text: str, crisis: bool) -> str:
     if not crisis:
         return text
     return f"{text}\n\n{CRISIS_NOTE}" if text else CRISIS_NOTE
+
+
+_FONTES_MARKER = re.compile(r"\s*\[FONTES:([^\]]*)\]\s*\.?\s*$")
+
+
+def _split_cited_sources(answer: str, chunks: list[dict]) -> tuple[str, list[dict]]:
+    """Strips the prompt-mandated [FONTES: 1, 3] trailer off the answer and
+    returns only the chunks the model says it used (1-based indices matching
+    the prompt's passage numbering). Fallbacks keep the citation chips honest
+    without ever losing them to a malformed marker:
+    - no marker at all → all chunks (pre-marker behavior);
+    - marker with only invalid indices → all chunks;
+    - explicitly empty marker → no sources (the model used none).
+    """
+    m = _FONTES_MARKER.search(answer)
+    if not m:
+        return answer, chunks
+    answer = answer[: m.start()].rstrip()
+    indices = [int(t) for t in re.findall(r"\d+", m.group(1))]
+    if not indices:
+        return answer, []
+    cited = [c for i, c in enumerate(chunks, 1) if i in set(indices)]
+    return answer, cited or chunks
 
 
 def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
@@ -55,6 +81,7 @@ def generate(
         try:
             search_query = condense_query(question, history)
         except Exception:
+            logger.exception("condense_query failed in /chat; using raw question")
             search_query = question
 
     direct_chunks = _direct_item_chunks(question, book_filter)
@@ -119,6 +146,7 @@ def generate(
             messages=[{"role": "system", "content": system}] + messages,
         )
         answer = response.choices[0].message.content
+        answer, chunks = _split_cited_sources(answer, chunks)
         if fallback_note:
             answer = fallback_note + answer
         generation_failed = False

@@ -78,7 +78,7 @@ abaixo, retorne APENAS um JSON válido com as chaves exatas:
 {{
   "opening": "<abertura empática ou alegre conforme o peso emocional da situação>",
   "doctrine_connection": "<o que a doutrina diz e como se conecta à situação descrita>",
-  "reflection_questions": ["<pergunta 1>", "<pergunta 2>", "<pergunta 3>"],
+  "reflection_questions": ["<de 1 a 3 perguntas abertas de reflexão>"],
   "is_closing": <true ou false>
 }}
 
@@ -86,6 +86,9 @@ Regras de tom:
 - Se a situação envolve perda, dor, medo ou dificuldade → abra com empatia e acolhimento.
 - Se a situação é positiva (nascimento, gratidão, celebração) → abra com calor e alegria.
 - Caso ambíguo → abra com compaixão equilibrada.
+- Ofereça de 1 a 3 perguntas de reflexão — prefira menos perguntas, mais certeiras; \
+só chegue a três quando cada uma abrir um ângulo realmente distinto. Uma conversa \
+acolhedora não é um questionário.
 
 Regras de continuidade e encerramento:
 - [HISTÓRICO DA CONVERSA] abaixo mostra as trocas anteriores desta mesma reflexão, se \

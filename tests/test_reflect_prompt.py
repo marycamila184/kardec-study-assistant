@@ -172,3 +172,8 @@ def test_parse_reflect_json_extracts_object_wrapped_in_prose():
     assert conn == "B."
     assert questions == ["C?"]
     assert is_closing is False
+
+
+def test_system_allows_one_to_three_questions():
+    system, _ = build_reflect_messages("situação", [], add_caveat=False)
+    assert "de 1 a 3 perguntas" in system

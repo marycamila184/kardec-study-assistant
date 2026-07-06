@@ -10,6 +10,9 @@ def condense_query(question: str, history: list[dict]) -> str:
     prompt = (
         f"Dado este histórico de conversa:\n{history_text}\n\n"
         f"Reescreva a seguinte pergunta como uma consulta de busca independente e completa. "
+        f"Mantenha a consulta em português (Brasil) e preserve os termos doutrinários "
+        f"espíritas usados na conversa (ex.: reencarnação, perispírito, expiação) — "
+        f"não os substitua por sinônimos genéricos. "
         f"Retorne apenas a consulta reescrita, sem explicações.\n\nPergunta: {question}"
     )
     response = get_client().chat.completions.create(

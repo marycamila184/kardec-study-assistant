@@ -17,8 +17,11 @@ from src.rag.retriever import has_real_item_number, retrieve
 logger = logging.getLogger(__name__)
 
 _NOT_FOUND_MESSAGE = (
-    "Não encontrei nas obras de Kardec passagens suficientemente relacionadas "
-    "à situação descrita."
+    "Obrigado por confiar e compartilhar o que você está vivendo. Desta vez não "
+    "encontrei nas obras de Kardec passagens próximas o bastante da sua situação "
+    "para propor uma reflexão bem fundamentada — e prefiro não improvisar. Se "
+    "quiser, descreva a situação com outras palavras, ou visite o modo Abrir o "
+    "Evangelho para a leitura do dia."
 )
 
 GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
@@ -41,6 +44,7 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         try:
             search_query = condense_query(situation, history)
         except Exception:
+            logger.exception("condense_query failed in /reflect; using raw situation")
             search_query = situation
     try:
         chunks = retrieve(search_query, top_k=5)

@@ -18,9 +18,6 @@ necessário, em conhecimento histórico geral>",
   "conceitos_chave": [
     "<Termo exato do texto>: <definição baseada no trecho, podendo incluir uma \
 breve explicação esclarecedora>"
-  ],
-  "perguntas": [
-    "<pergunta aberta que leva o estudante a refletir sobre o trecho, sem revelar a resposta>"
   ]
 }}
 
@@ -40,8 +37,6 @@ restrito ao trecho e às referências relacionadas fornecidas.
 texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
 da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \
 não o inclua.
-- "perguntas": formule entre 2 e 3 perguntas abertas que estimulem o pensamento \
-crítico. Nunca responda as perguntas no próprio JSON. Nunca extrapole além do trecho.
 - É proibido resumir ou parafrasear o trecho no lugar do "contexto" — o estudante já \
 leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
 - Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \

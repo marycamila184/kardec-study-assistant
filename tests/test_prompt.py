@@ -83,3 +83,8 @@ def test_system_omits_placeholder_item_number():
     system, _ = build_messages("O que é reencarnação?", [chunk], [])
     assert "section-3" not in system
     assert "Item:" not in system
+
+
+def test_system_requires_fontes_marker():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "[FONTES:" in system

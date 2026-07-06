@@ -236,6 +236,79 @@ def test_generate_skips_condenser_without_history(mock_retrieve, mock_client):
     mock_cond.assert_not_called()
 
 
+def _make_client(monkeypatch, content: str) -> MagicMock:
+    response = MagicMock()
+    response.choices = [MagicMock(message=MagicMock(content=content))]
+    client = MagicMock()
+    client.chat.completions.create.return_value = response
+    monkeypatch.setattr("src.rag.generator.get_client", lambda: client)
+    return client
+
+
+_TWO_CHUNKS = [
+    {
+        "content": "A encarnação tem por fim fazê-los progredir.",
+        "metadata": {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Encarnação",
+            "item_number": "132",
+        },
+        "distance": 0.4,
+    },
+    {
+        "content": "O amor resume toda a doutrina.",
+        "metadata": {
+            "book": "O Evangelho Segundo o Espiritismo",
+            "chapter_title": "Amai-vos",
+            "item_number": "5",
+        },
+        "distance": 0.5,
+    },
+]
+
+
+def test_generate_fontes_marker_filters_sources_and_is_stripped(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Resposta fundamentada.\n\n[FONTES: 2]")
+    result = generate("O que é o amor?", [])
+    assert result["answer"] == "Resposta fundamentada."
+    assert len(result["sources"]) == 1
+    assert result["sources"][0]["item_number"] == "5"
+
+
+def test_generate_empty_fontes_marker_yields_no_sources(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Não há informação suficiente.\n[FONTES:]")
+    result = generate("Pergunta fora das obras", [])
+    assert result["answer"] == "Não há informação suficiente."
+    assert result["sources"] == []
+
+
+def test_generate_missing_fontes_marker_keeps_all_sources(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Resposta sem marcador.")
+    result = generate("O que é o amor?", [])
+    assert len(result["sources"]) == 2
+
+
+def test_generate_invalid_fontes_indices_keep_all_sources(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Resposta.\n[FONTES: 7, 9]")
+    result = generate("O que é o amor?", [])
+    assert result["answer"] == "Resposta."
+    assert len(result["sources"]) == 2
+
+
+def test_generate_logs_condenser_failure(mock_retrieve, mock_client, caplog):
+    history = [{"role": "user", "content": "pergunta anterior"}]
+    with (
+        patch("src.rag.generator.condense_query", side_effect=RuntimeError("down")),
+        caplog.at_level(logging.ERROR, logger="src.rag.generator"),
+    ):
+        generate("O que é reencarnação?", history)
+    assert any("condense" in r.message.lower() for r in caplog.records)
+
+
 def test_generate_sources_include_chapter_ref(monkeypatch, mock_client):
     chunks = [
         {
