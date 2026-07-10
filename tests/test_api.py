@@ -64,6 +64,21 @@ def test_chat_passes_history_to_generator():
     assert len(called_history) == 2
 
 
+def test_chat_surfaces_orchestrator_nudge():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "refletir", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/chat",
+            json={"question": "estou muito mal", "current_mode": "tirar_duvida"},
+        ).json()
+    assert data["suggested_mode"] == "refletir"
+
+
 def test_health_returns_ok():
     response = client.get("/health")
     assert response.status_code == 200
@@ -153,7 +168,10 @@ def test_get_path_returns_404_when_not_found():
 def test_chat_includes_suggested_mode_when_detected():
     with (
         patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
-        patch("src.api.routes.detect_suggested_mode", return_value="estudar_obra"),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
     ):
         data = client.post(
             "/chat", json={"question": "explique a questão 132", "history": []}
@@ -164,7 +182,10 @@ def test_chat_includes_suggested_mode_when_detected():
 def test_chat_suggested_mode_is_none_for_generic_question():
     with (
         patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
-        patch("src.api.routes.detect_suggested_mode", return_value=None),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": None, "confidence": "low"},
+        ),
     ):
         data = client.post(
             "/chat", json={"question": "o que é amor?", "history": []}
@@ -175,7 +196,13 @@ def test_chat_suggested_mode_is_none_for_generic_question():
 
 
 def test_chat_includes_study_reference_for_item_lookup():
-    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
         data = client.post(
             "/chat",
             json={
@@ -189,7 +216,13 @@ def test_chat_includes_study_reference_for_item_lookup():
 
 
 def test_chat_study_reference_questao_defaults_book_to_livro_espiritos():
-    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
         data = client.post(
             "/chat", json={"question": "explique a questão 132", "history": []}
         ).json()
@@ -198,7 +231,13 @@ def test_chat_study_reference_questao_defaults_book_to_livro_espiritos():
 
 
 def test_chat_study_reference_book_is_none_for_generic_item():
-    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
         data = client.post(
             "/chat", json={"question": "explique o item 45", "history": []}
         ).json()
@@ -207,7 +246,13 @@ def test_chat_study_reference_book_is_none_for_generic_item():
 
 
 def test_chat_no_study_reference_for_refletir_suggestion():
-    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "refletir", "confidence": "high"},
+        ),
+    ):
         data = client.post(
             "/chat",
             json={"question": "tenho medo de morrer no ano 2050", "history": []},

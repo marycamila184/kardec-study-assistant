@@ -1,3 +1,5 @@
+from concurrent.futures import ThreadPoolExecutor
+
 from fastapi import APIRouter, HTTPException
 
 from src.api.paths import load_all_paths, load_path
@@ -18,7 +20,8 @@ from src.core.config import settings
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import explicar as study_item_fn
 from src.rag.generator import generate
-from src.rag.mode_detector import detect_suggested_mode, extract_study_reference
+from src.rag.mode_detector import extract_study_reference
+from src.rag.orchestrator import classify_intent
 from src.rag.reflect import reflect as reflect_fn
 
 router = APIRouter()
@@ -27,8 +30,14 @@ router = APIRouter()
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest) -> ChatResponse:
     history = [m.model_dump() for m in request.history]
-    result = generate(request.question, history, book_filter=request.book_filter)
-    suggested_mode = detect_suggested_mode(request.question)
+    # Classify intent concurrently so the nudge adds no perceptible latency.
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        intent_future = executor.submit(
+            classify_intent, request.question, request.current_mode, history
+        )
+        result = generate(request.question, history, book_filter=request.book_filter)
+        intent = intent_future.result()
+    suggested_mode = intent["mode"]
     study_ref = (
         extract_study_reference(request.question)
         if suggested_mode == "estudar_obra"

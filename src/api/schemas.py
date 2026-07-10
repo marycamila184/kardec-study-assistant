@@ -20,6 +20,7 @@ class ChatRequest(BaseModel):
     question: str
     history: list[Message] = []
     book_filter: str | None = None
+    current_mode: str | None = None
 
 
 class ChatResponse(BaseModel):
