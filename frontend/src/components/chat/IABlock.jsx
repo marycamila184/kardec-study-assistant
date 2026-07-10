@@ -96,7 +96,9 @@ export default function IABlock({
               padding: '3px 10px', borderRadius: 12,
               cursor: 'pointer', fontWeight: 500,
             }}>
-              📖 {s.item_number ? `${s.book}, ${formatItemRef(s.book, s.item_number)}` : s.book}
+              📖 {s.item_number
+                ? `${s.book}, ${formatItemRef(s.book, s.item_number)}`
+                : (s.chapter ? `${s.book} — ${s.chapter}` : s.book)}
             </button>
           ))}
         </div>
