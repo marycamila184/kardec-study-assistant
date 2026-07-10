@@ -33,6 +33,25 @@ def mock_client(monkeypatch):
     return client
 
 
+def test_generate_smalltalk_short_circuits_without_retrieval_or_llm(monkeypatch):
+    # A pure acknowledgment must skip retrieval and the LLM entirely and return
+    # a warm reply with no source chips or suggestions.
+    def _boom(*args, **kwargs):
+        raise AssertionError("retrieval/LLM should not run for small talk")
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _boom)
+    monkeypatch.setattr("src.rag.generator.get_client", _boom)
+
+    from src.rag.generator import SMALLTALK_REPLIES
+
+    result = generate("entendi obrigada", [])
+    assert result["answer"] in SMALLTALK_REPLIES
+    assert result["sources"] == []
+    assert result["suggested_questions"] == []
+    assert result["not_found"] is False
+    assert result["generation_failed"] is False
+
+
 def test_generate_returns_answer(mock_retrieve, mock_client):
     result = generate("O que é reencarnação?", [])
     assert result["answer"] == "Resposta gerada."
@@ -282,6 +301,34 @@ def test_generate_empty_fontes_marker_yields_no_sources(monkeypatch):
     result = generate("Pergunta fora das obras", [])
     assert result["answer"] == "Não há informação suficiente."
     assert result["sources"] == []
+
+
+def test_generate_malformed_fontes_marker_is_stripped(monkeypatch):
+    # The model sometimes mangles the trailer (e.g. "/FONTES:" with no brackets);
+    # it must still be stripped, not leaked into the answer, and an empty body
+    # means no sources.
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "As passagens não cobrem isso.\n\n/FONTES:")
+    result = generate("Pergunta fora das obras", [])
+    assert result["answer"] == "As passagens não cobrem isso."
+    assert result["sources"] == []
+
+
+def test_generate_fontes_marker_without_brackets_is_stripped(monkeypatch):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Resposta.\nFONTES: 2")
+    result = generate("O que é o amor?", [])
+    assert result["answer"] == "Resposta."
+    assert len(result["sources"]) == 1
+    assert result["sources"][0]["item_number"] == "5"
+
+
+def test_generate_lowercase_fontes_prose_is_not_stripped(monkeypatch):
+    # A genuine sentence ending in "fontes:" must never be mistaken for the marker.
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _TWO_CHUNKS)
+    _make_client(monkeypatch, "Consulte as fontes: as obras de Kardec.")
+    result = generate("O que é o amor?", [])
+    assert result["answer"] == "Consulte as fontes: as obras de Kardec."
 
 
 def test_generate_missing_fontes_marker_keeps_all_sources(monkeypatch):

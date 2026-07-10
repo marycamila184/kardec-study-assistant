@@ -1,4 +1,5 @@
 import re
+import unicodedata
 
 # Accent-tolerant ([ãa]) because users often type without accents; must stay
 # in sync with _ITEM_NUMBER_PATTERNS below, or the /chat direct lookup fires
@@ -65,6 +66,96 @@ def detect_suggested_mode(question: str) -> str | None:
     if any(p.search(question) for p in _SITUATIONAL_PATTERNS):
         return "refletir"
     return None
+
+
+# Pure acknowledgment / closing words. A message is treated as small talk only
+# when EVERY word is one of these (or a filler below) and it carries no question
+# mark. Deliberately high-precision: a miss just falls back to a normal grounded
+# answer, whereas a false positive would swallow a real question. Stored without
+# accents; is_smalltalk strips accents before matching.
+_ACK_TOKENS = frozenset(
+    {
+        "obrigado",
+        "obrigada",
+        "obg",
+        "obgd",
+        "vlw",
+        "valeu",
+        "entendi",
+        "entendido",
+        "entendida",
+        "compreendi",
+        "entendeu",
+        "perfeito",
+        "otimo",
+        "certo",
+        "ok",
+        "okay",
+        "blz",
+        "beleza",
+        "gratidao",
+        "agradecido",
+        "agradecida",
+        "show",
+        "top",
+        "maravilha",
+        "excelente",
+        "legal",
+        "massa",
+        "joia",
+    }
+)
+_FILLER_TOKENS = frozenset(
+    {
+        "muito",
+        "bem",
+        "mesmo",
+        "entao",
+        "ta",
+        "tudo",
+        "demais",
+        "ai",
+        "viu",
+        "hein",
+        "e",
+        "eh",
+        "sim",
+        "agora",
+        "por",
+        "isso",
+        "mas",
+        "pela",
+        "pelo",
+        "tao",
+        "de",
+        "ja",
+    }
+)
+
+_SMALLTALK_WORD_RE = re.compile(r"[a-z]+")
+
+
+def _strip_accents(text: str) -> str:
+    return "".join(
+        c for c in unicodedata.normalize("NFKD", text) if not unicodedata.combining(c)
+    )
+
+
+def is_smalltalk(text: str) -> bool:
+    """True when the message is a pure acknowledgment / thanks / closing with no
+    real question — e.g. "entendi obrigada", "valeu!", "muito obrigado mesmo".
+    Such messages should get a brief reply with no retrieved passages, never
+    doctrinal source chips. Conservative on purpose (see _ACK_TOKENS): every word
+    must be an ack or filler token, there must be no "?", and at least one word
+    must be an actual acknowledgment (so bare filler like "sim" doesn't match)."""
+    if not text or "?" in text:
+        return False
+    words = _SMALLTALK_WORD_RE.findall(_strip_accents(text.lower()))
+    if not words or len(words) > 6:
+        return False
+    if not all(w in _ACK_TOKENS or w in _FILLER_TOKENS for w in words):
+        return False
+    return any(w in _ACK_TOKENS for w in words)
 
 
 def extract_study_reference(question: str) -> dict:

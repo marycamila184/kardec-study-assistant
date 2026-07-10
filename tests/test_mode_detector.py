@@ -1,4 +1,43 @@
-from src.rag.mode_detector import detect_suggested_mode, extract_study_reference
+import pytest
+
+from src.rag.mode_detector import (
+    detect_suggested_mode,
+    extract_study_reference,
+    is_smalltalk,
+)
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "entendi obrigada",
+        "obrigado",
+        "Valeu!",
+        "muito obrigado mesmo",
+        "ok, entendi",
+        "Perfeito, obrigada 🙏",
+        "entendido",
+    ],
+)
+def test_is_smalltalk_true_for_pure_acknowledgments(text):
+    assert is_smalltalk(text) is True
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "sim",  # bare filler, no acknowledgment word
+        "entendi, mas e sobre a reencarnacao?",  # has a question
+        "obrigada, e o perispirito?",  # has a question
+        "obrigada pela explicacao",  # substantive words -> fall back, keep sources
+        "o que e o perispirito",
+        "me explique a questao 132",
+        "entendi que o espirito reencarna",
+        "",
+    ],
+)
+def test_is_smalltalk_false_for_questions_and_substantive_text(text):
+    assert is_smalltalk(text) is False
 
 
 def test_detects_questao_with_number():

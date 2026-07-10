@@ -1,9 +1,10 @@
 import logging
+import random
 import re
 
 from src.core.config import settings
 from src.rag.llm_client import get_client
-from src.rag.mode_detector import extract_study_reference
+from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
 from src.rag.query_condenser import condense_query
 from src.rag.reflect_prompt import CRISIS_NOTE, needs_crisis_note, needs_medical_caveat
@@ -25,6 +26,15 @@ BOOK_FALLBACK_NOTE = (
 
 GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por favor, tente novamente em instantes."
 
+# Brief warm replies for pure acknowledgment / closing messages (see
+# is_smalltalk). No retrieval, no LLM, no source chips — just a human closing.
+SMALLTALK_REPLIES = (
+    "De nada! Fico feliz em ajudar. 🙏",
+    "Imagina! Estou por aqui sempre que surgir outra dúvida.",
+    "Por nada! Que bom poder acompanhar seus estudos.",
+    "De nada! Sempre que quiser aprofundar, é só chamar.",
+)
+
 
 def _with_crisis_note(text: str, crisis: bool) -> str:
     if not crisis:
@@ -32,8 +42,14 @@ def _with_crisis_note(text: str, crisis: bool) -> str:
     return f"{text}\n\n{CRISIS_NOTE}" if text else CRISIS_NOTE
 
 
-_FONTES_MARKER = re.compile(r"\s*\[FONTES:([^\]]*)\]\s*\.?\s*$")
-_SEGUIR_MARKER = re.compile(r"\s*\[SEGUIR:([^\]]*)\]\s*\.?\s*$")
+# Tolerant of the model mangling the trailer: an optional leading "[" or stray
+# "/", optional closing "]", and whitespace around the colon — so variants like
+# "/FONTES:", "FONTES: 1, 3" or "[FONTES:]" are stripped instead of leaking into
+# the answer. Uppercase-only (no re.IGNORECASE) so prose like "as fontes:" is
+# never mistaken for the marker. Anchored to end; body stops at a newline so the
+# two markers on separate lines are matched one per loop pass.
+_FONTES_MARKER = re.compile(r"\s*[\[/]?\s*FONTES\s*:\s*([^\]\n]*)\]?\s*\.?\s*$")
+_SEGUIR_MARKER = re.compile(r"\s*[\[/]?\s*SEGUIR\s*:\s*([^\]\n]*)\]?\s*\.?\s*$")
 
 
 def _cited_chunks(marker_body: str, chunks: list[dict]) -> list[dict]:
@@ -93,6 +109,18 @@ def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
 def generate(
     question: str, history: list[dict], book_filter: str | None = None
 ) -> dict:
+    # A pure "obrigada / entendi / valeu" needs a warm closing, not a doctrinal
+    # answer with source chips. Short-circuit before any retrieval or LLM call.
+    # (Crisis takes priority — such a message is never mere small talk anyway.)
+    if is_smalltalk(question) and not needs_crisis_note(question):
+        return {
+            "answer": random.choice(SMALLTALK_REPLIES),
+            "sources": [],
+            "suggested_questions": [],
+            "not_found": False,
+            "generation_failed": False,
+        }
+
     crisis = needs_crisis_note(question)
     search_query = question
     if history:
