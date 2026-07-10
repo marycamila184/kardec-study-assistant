@@ -61,6 +61,8 @@ const ERROR_MSG = {
 };
 
 export default function App() {
+  const MODE_TO_INTENT = { duvida: 'tirar_duvida', refletir: 'refletir', estudar: 'estudar_obra' };
+
   // ── Theme ───────────────────────────────────────────────────────────────
   const { darkMode, toggleDark, theme } = useTheme();
 
@@ -185,13 +187,13 @@ export default function App() {
     try {
       let reply;
       if (requestMode === 'refletir') {
-        reply = await reflectSituation(txt, buildReflectHistory(msgs));
+        reply = await reflectSituation(txt, buildReflectHistory(msgs), MODE_TO_INTENT[requestMode] || null);
       } else {
         const history = msgs.map(m => ({
           role: m.isUser ? 'user' : 'assistant',
           content: m.isUser ? m.text : buildChatHistoryContent(m),
         }));
-        reply = await chatMessage(txt, history);
+        reply = await chatMessage(txt, history, null, MODE_TO_INTENT[requestMode] || null);
       }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
       const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
@@ -532,7 +534,7 @@ export default function App() {
     scrollToBottom();
     const requestId = ++requestIdRef.current;
     try {
-      const reply = await reflectSituation(situationText, []);
+      const reply = await reflectSituation(situationText, [], 'refletir');
       if (requestId !== requestIdRef.current) return;
       const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [userMsg, aiMsg];
@@ -540,6 +542,36 @@ export default function App() {
       saveConvo(id, situationText.slice(0, 48), 'refletir', finalMsgs);
     } catch (err) {
       console.error('handleGoReflect failed:', err);
+      if (requestId !== requestIdRef.current) return;
+      setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+    } finally {
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+        scrollToBottom();
+      }
+    }
+  };
+
+  // ── Suggested-mode: jump from /reflect to a Dúvida thread seeded with the question ──
+  const handleGoDuvida = async (questionText) => {
+    if (!questionText) return;
+    switchMode('duvida');
+    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: questionText };
+    setMsgs([userMsg]); setLoading(true);
+    const id = 'c' + Date.now();
+    setConvoId(id);
+    saveConvo(id, questionText.slice(0, 48), 'duvida', [userMsg]);
+    scrollToBottom();
+    const requestId = ++requestIdRef.current;
+    try {
+      const reply = await chatMessage(questionText, [], null, 'tirar_duvida');
+      if (requestId !== requestIdRef.current) return;
+      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const finalMsgs = [userMsg, aiMsg];
+      setMsgs(finalMsgs);
+      saveConvo(id, questionText.slice(0, 48), 'duvida', finalMsgs);
+    } catch (err) {
+      console.error('handleGoDuvida failed:', err);
       if (requestId !== requestIdRef.current) return;
       setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
@@ -907,6 +939,7 @@ export default function App() {
                         }
                         onSuggestedQuestionClick={(q) => sendText(q)}
                         footerAction={(() => {
+                          const srcMsg = msgs.slice(0, idx).reverse().find(m => m.isUser)?.text;
                           if (msg.suggestedMode === 'estudar_obra') {
                             const studyTarget = resolveStudyTarget(msg);
                             return studyTarget ? {
@@ -915,12 +948,16 @@ export default function App() {
                             } : null;
                           }
                           if (msg.suggestedMode === 'refletir') {
-                            const srcQuestion = msgs
-                              .slice(0, idx).reverse().find(m => m.isUser)?.text;
-                            return srcQuestion ? {
+                            return srcMsg ? {
                               label: '🪞 Refletir sobre esta situação',
                               color: '#C8856A',
-                              onClick: () => handleGoReflect(srcQuestion),
+                              onClick: () => handleGoReflect(srcMsg),
+                            } : null;
+                          }
+                          if (msg.suggestedMode === 'tirar_duvida') {
+                            return srcMsg ? {
+                              label: '💬 Tirar uma dúvida sobre isto',
+                              onClick: () => handleGoDuvida(srcMsg),
                             } : null;
                           }
                           return null;

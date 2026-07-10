@@ -132,15 +132,23 @@ function mapReflect(data) {
     reflectionQuestions: data.reflection_questions || [],
     relatedItems,
     sources,
+    suggestedMode: data.suggested_mode || null,
+    suggestedItemNumber: data.suggested_item_number || null,
+    suggestedBook: data.suggested_book || null,
   };
 }
 
 // ── Exported API functions ────────────────────────────────────────────────────
 
-export async function chatMessage(question, history = [], bookFilter = null) {
+export async function chatMessage(question, history = [], bookFilter = null, currentMode = null) {
   const data = await request('/chat', {
     method: 'POST',
-    body: JSON.stringify({ question, history, book_filter: bookFilter || undefined }),
+    body: JSON.stringify({
+      question,
+      history,
+      book_filter: bookFilter || undefined,
+      current_mode: currentMode || undefined,
+    }),
   });
   return mapChat(data);
 }
@@ -153,10 +161,14 @@ export async function studyItem(book, item_number, chapter = null) {
   return mapStudy(data, book, item_number);
 }
 
-export async function reflectSituation(situation, history = []) {
+export async function reflectSituation(situation, history = [], currentMode = null) {
   const data = await request('/reflect', {
     method: 'POST',
-    body: JSON.stringify({ situation, conversation_history: history }),
+    body: JSON.stringify({
+      situation,
+      conversation_history: history,
+      current_mode: currentMode || undefined,
+    }),
   });
   return mapReflect(data);
 }
