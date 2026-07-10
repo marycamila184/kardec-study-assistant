@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
 import MobileBottomNav from './components/layout/MobileBottomNav';
@@ -20,6 +20,7 @@ import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
 import { useReminder } from './hooks/useReminder';
+import { useStickToBottom } from './hooks/useStickToBottom';
 import { formatItemRef } from './utils/format';
 import { lightTheme } from './constants/theme';
 import {
@@ -101,6 +102,7 @@ export default function App() {
   const [drawerOpen,    setDrawerOpen]   = useState(false);
   const msgsRef = useRef(null);
   const requestIdRef = useRef(0);
+  useStickToBottom(msgsRef); // follow the typewriter reveal to the bottom
 
   // ── On-mount: fetch evangelho + paths ────────────────────────────────────
   useEffect(() => {
@@ -153,6 +155,21 @@ export default function App() {
   };
 
   // ── Main chat send (dúvida + refletir) ───────────────────────────────────
+  // Assistant turn for /chat history. Study/trecho replies (mode 'duvida' but
+  // produced by /study) carry the original passage in `obra.quote` while `ia`
+  // holds only contexto+conceitos — without the passage, /chat re-condenses and
+  // retrieves against a nonsense user turn ("Estudo diário de hoje") and loses
+  // all grounding. Prepend the studied passage so follow-ups stay coherent.
+  const buildChatHistoryContent = (m) => {
+    const parts = [];
+    if (m.obra?.quote) {
+      const label = m.obra.title ? `Trecho estudado — ${m.obra.title}` : 'Trecho estudado';
+      parts.push(`[${label}]\n${m.obra.quote}`);
+    }
+    if (m.ia) parts.push(m.ia);
+    return parts.join('\n\n');
+  };
+
   const sendText = async (txt) => {
     if (!txt) return;
     const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: txt };
@@ -172,7 +189,7 @@ export default function App() {
       } else {
         const history = msgs.map(m => ({
           role: m.isUser ? 'user' : 'assistant',
-          content: m.isUser ? m.text : (m.ia || ''),
+          content: m.isUser ? m.text : buildChatHistoryContent(m),
         }));
         reply = await chatMessage(txt, history);
       }
@@ -571,6 +588,31 @@ export default function App() {
     }
   };
 
+  // ── Trilha progress (for the Estudar picker) ──────────────────────────────
+  // Derive, per started trilha, how far the user got, from the cached guided
+  // conversation. `step` counts the `tutor_` step messages already presented
+  // (same reconstruction handleLoadConvo uses); the picker pairs it with the
+  // trilha's total step_count. Only trilhas with a saved conversation appear.
+  const trilhaProgress = useMemo(() => {
+    const out = {};
+    for (const c of conversations) {
+      if (typeof c.id !== 'string' || !c.id.startsWith('trilha_')) continue;
+      const trilhaId = c.id.slice('trilha_'.length);
+      const step = (c.msgs || []).filter(
+        m => typeof m.id === 'string' && m.id.startsWith('tutor_')
+      ).length;
+      out[trilhaId] = { step };
+    }
+    return out;
+  }, [conversations]);
+
+  // Resume a started trilha from cache — no LLM call (contrast with startTrilha).
+  const handleResumeTrilha = (tr) => {
+    const convo = conversations.find(c => c.id === 'trilha_' + tr.id);
+    if (convo) handleLoadConvo(convo);
+    else startTrilha(tr); // no cache (shouldn't happen from an in-progress card)
+  };
+
   // ── Redirect to dúvida with context ──────────────────────────────────────
   const redirectToDuvida = (obraLabel) => {
     const ctx = `Contexto: estou estudando "${obraLabel}". `;
@@ -711,11 +753,13 @@ export default function App() {
             <EstudarPicker
               theme={theme}
               onStartTrilha={startTrilha}
+              onResumeTrilha={handleResumeTrilha}
               onExplorar={() => { setEstudarSub('explorar'); setExplorarMsgs([]); }}
               onVerIntro={() => setEstudarSub('intro')}
               paths={paths}
               pathsLoading={pathsLoading}
               completedTrilhas={completedTrilhas}
+              trilhaProgress={trilhaProgress}
             />
           )}
 

@@ -3,7 +3,19 @@ import React from 'react';
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
 const LEVEL_ORDER = ['curioso', 'estudante', 'aprofundado'];
 
-export default function EstudarPicker({ theme, onStartTrilha, onExplorar, onVerIntro, paths = [], pathsLoading = false, completedTrilhas = [] }) {
+const PRIMARY_BTN = {
+  background: '#6B9BB8', color: 'white', border: 'none',
+  padding: '8px 16px', borderRadius: 7, fontSize: 12, fontWeight: 600,
+  cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
+};
+const SECONDARY_BTN = {
+  background: 'transparent', color: '#4A7A98',
+  border: '1px solid rgba(107,155,184,.35)',
+  padding: '8px 16px', borderRadius: 7, fontSize: 12, fontWeight: 600,
+  cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
+};
+
+export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, onExplorar, onVerIntro, paths = [], pathsLoading = false, completedTrilhas = [], trilhaProgress = {} }) {
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }}>
       <div style={{ marginBottom: 22 }}>
@@ -67,7 +79,14 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, onVerI
           if (group.length === 0) return null;
           return (
             <div key={level} style={{ marginBottom: 16 }}>
-              {group.map(tr => (
+              {group.map(tr => {
+                const completed = completedTrilhas.includes(tr.id);
+                const total = tr.step_count || 0;
+                const rawStep = trilhaProgress[tr.id]?.step || 0;
+                const step = Math.min(rawStep, total);
+                const inProgress = !completed && step > 0;
+                const pct = total > 0 ? Math.round((step / total) * 100) : 0;
+                return (
                 <div key={tr.id} style={{
                   background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
                   borderRadius: 10, padding: '16px 18px', marginBottom: 8,
@@ -81,25 +100,50 @@ export default function EstudarPicker({ theme, onStartTrilha, onExplorar, onVerI
                           padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
                         }}>{LEVEL_LABEL[level]}</span>
                         <span style={{ fontSize: 10, color: theme.subtext }}>{tr.step_count} trechos</span>
-                        {completedTrilhas.includes(tr.id) && (
+                        {completed && (
                           <span style={{
                             background: 'rgba(90,170,100,.12)', color: '#4A9A5A',
                             fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
                             padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
                           }}>✓ Concluída</span>
                         )}
+                        {inProgress && (
+                          <span style={{
+                            background: 'rgba(200,133,106,.12)', color: '#B5714E',
+                            fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
+                            padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
+                          }}>Em andamento</span>
+                        )}
                       </div>
                       <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 4 }}>{tr.title}</div>
                       <div style={{ fontSize: 13.5, color: theme.subtext, lineHeight: 1.55 }}>{tr.description}</div>
+                      {inProgress && (
+                        <div style={{ marginTop: 10 }}>
+                          <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 4 }}>
+                            Passo {step} de {total}
+                          </div>
+                          <div style={{ height: 4, borderRadius: 2, background: theme.cardBorder, overflow: 'hidden' }}>
+                            <div style={{ width: `${pct}%`, height: '100%', background: '#6B9BB8' }} />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <button onClick={() => onStartTrilha(tr)} style={{
-                      background: '#6B9BB8', color: 'white', border: 'none',
-                      padding: '8px 16px', borderRadius: 7, fontSize: 12, fontWeight: 600,
-                      cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
-                    }}>Iniciar →</button>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flexShrink: 0 }}>
+                      {inProgress ? (
+                        <>
+                          <button onClick={() => onResumeTrilha(tr)} style={PRIMARY_BTN}>Continuar →</button>
+                          <button onClick={() => onStartTrilha(tr)} style={SECONDARY_BTN}>Recomeçar</button>
+                        </>
+                      ) : completed ? (
+                        <button onClick={() => onStartTrilha(tr)} style={SECONDARY_BTN}>Refazer</button>
+                      ) : (
+                        <button onClick={() => onStartTrilha(tr)} style={PRIMARY_BTN}>Iniciar →</button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           );
         })}
