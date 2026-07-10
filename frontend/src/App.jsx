@@ -60,8 +60,11 @@ const ERROR_MSG = {
   ia: 'Não foi possível obter uma resposta. Verifique sua conexão e tente novamente.',
 };
 
+// Maps the client's mode state to the orchestrator's intent vocabulary, so the
+// backend never nudges the user toward the mode they're already in.
+const MODE_TO_INTENT = { duvida: 'tirar_duvida', refletir: 'refletir', estudar: 'estudar_obra' };
+
 export default function App() {
-  const MODE_TO_INTENT = { duvida: 'tirar_duvida', refletir: 'refletir', estudar: 'estudar_obra' };
 
   // ── Theme ───────────────────────────────────────────────────────────────
   const { darkMode, toggleDark, theme } = useTheme();

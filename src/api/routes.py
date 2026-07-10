@@ -1,4 +1,6 @@
+import logging
 from concurrent.futures import ThreadPoolExecutor
+from typing import Callable
 
 from fastapi import APIRouter, HTTPException
 
@@ -26,18 +28,48 @@ from src.rag.reflect import reflect as reflect_fn
 
 router = APIRouter()
 
+logger = logging.getLogger(__name__)
+
+# Cap how long a response waits on the intent classifier. The answer runs on the
+# calling thread; if the classifier is slower, we drop the nudge rather than
+# delay the whole response.
+_CLASSIFY_TIMEOUT_S = 8.0
+
+
+def _answer_with_nudge(
+    message: str,
+    current_mode: str | None,
+    history: list[dict],
+    answer_fn: Callable[[], dict],
+) -> tuple[dict, str | None]:
+    """Run answer_fn on the calling thread while classify_intent runs in a
+    worker thread; return (answer_result, suggested_mode). A slow or failing
+    classifier degrades to no nudge instead of delaying or breaking the response.
+    """
+    executor = ThreadPoolExecutor(max_workers=1)
+    try:
+        intent_future = executor.submit(classify_intent, message, current_mode, history)
+        result = answer_fn()
+        try:
+            suggested_mode = intent_future.result(timeout=_CLASSIFY_TIMEOUT_S)["mode"]
+        except Exception:
+            logger.exception("classify_intent slow or failed; proceeding with no nudge")
+            suggested_mode = None
+    finally:
+        # Don't join a stuck classifier thread; let it finish in the background.
+        executor.shutdown(wait=False)
+    return result, suggested_mode
+
 
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest) -> ChatResponse:
     history = [m.model_dump() for m in request.history]
-    # Classify intent concurrently so the nudge adds no perceptible latency.
-    with ThreadPoolExecutor(max_workers=1) as executor:
-        intent_future = executor.submit(
-            classify_intent, request.question, request.current_mode, history
-        )
-        result = generate(request.question, history, book_filter=request.book_filter)
-        intent = intent_future.result()
-    suggested_mode = intent["mode"]
+    result, suggested_mode = _answer_with_nudge(
+        request.question,
+        request.current_mode,
+        history,
+        lambda: generate(request.question, history, book_filter=request.book_filter),
+    )
     study_ref = (
         extract_study_reference(request.question)
         if suggested_mode == "estudar_obra"
@@ -86,13 +118,12 @@ def study(request: StudyRequest) -> StudyResponse:
 @router.post("/reflect", response_model=ReflectResponse)
 def reflect_situation(request: ReflectRequest) -> ReflectResponse:
     history = [m.model_dump() for m in request.conversation_history]
-    with ThreadPoolExecutor(max_workers=1) as executor:
-        intent_future = executor.submit(
-            classify_intent, request.situation, request.current_mode, history
-        )
-        result = reflect_fn(request.situation, history)
-        intent = intent_future.result()
-    suggested_mode = intent["mode"]
+    result, suggested_mode = _answer_with_nudge(
+        request.situation,
+        request.current_mode,
+        history,
+        lambda: reflect_fn(request.situation, history),
+    )
     study_ref = (
         extract_study_reference(request.situation)
         if suggested_mode == "estudar_obra"

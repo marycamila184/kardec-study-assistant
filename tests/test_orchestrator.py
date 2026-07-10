@@ -1,7 +1,5 @@
 from unittest.mock import MagicMock
 
-import pytest
-
 from src.rag.orchestrator import classify_intent
 
 
@@ -18,6 +16,19 @@ def test_classify_returns_refletir_for_emotional_message(monkeypatch):
     _mock_client(monkeypatch, '{"mode": "refletir", "confidence": "high"}')
     result = classify_intent("estou muito mal, me ajuda", current_mode="tirar_duvida")
     assert result["mode"] == "refletir"
+
+
+def test_classify_includes_history_in_prompt(monkeypatch):
+    client = _mock_client(monkeypatch, '{"mode": "refletir", "confidence": "high"}')
+    history = [
+        {"role": "user", "content": "perdi minha mãe"},
+        {"role": "assistant", "content": "sinto muito"},
+    ]
+    classify_intent("e sobre isso?", current_mode="tirar_duvida", history=history)
+    sent = client.chat.completions.create.call_args.kwargs["messages"]
+    user_content = sent[-1]["content"]
+    assert "perdi minha mãe" in user_content
+    assert "e sobre isso?" in user_content
 
 
 def test_classify_never_nudges_to_current_mode(monkeypatch):

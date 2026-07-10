@@ -28,6 +28,16 @@ _SYSTEM_PROMPT = (
 _JSON_RE = re.compile(r"\{.*\}", re.DOTALL)
 
 
+def _user_content(message: str, history: list[dict] | None) -> str:
+    """The message to classify, prefixed with the recent conversation so
+    follow-up fragments ("e sobre isso?") are classified in context."""
+    if not history:
+        return message
+    turns = history[-settings.max_history_turns :]
+    context = "\n".join(f"{t['role'].upper()}: {t['content']}" for t in turns)
+    return f"Histórico recente:\n{context}\n\nMENSAGEM ATUAL: {message}"
+
+
 def _parse(raw: str) -> dict:
     match = _JSON_RE.search(raw or "")
     if not match:
@@ -58,7 +68,7 @@ def classify_intent(
             max_tokens=60,
             messages=[
                 {"role": "system", "content": _SYSTEM_PROMPT},
-                {"role": "user", "content": message},
+                {"role": "user", "content": _user_content(message, history)},
             ],
         )
         result = _parse(response.choices[0].message.content)
