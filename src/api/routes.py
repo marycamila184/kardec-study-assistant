@@ -86,8 +86,24 @@ def study(request: StudyRequest) -> StudyResponse:
 @router.post("/reflect", response_model=ReflectResponse)
 def reflect_situation(request: ReflectRequest) -> ReflectResponse:
     history = [m.model_dump() for m in request.conversation_history]
-    result = reflect_fn(request.situation, history)
-    return ReflectResponse(**result)
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        intent_future = executor.submit(
+            classify_intent, request.situation, request.current_mode, history
+        )
+        result = reflect_fn(request.situation, history)
+        intent = intent_future.result()
+    suggested_mode = intent["mode"]
+    study_ref = (
+        extract_study_reference(request.situation)
+        if suggested_mode == "estudar_obra"
+        else {"item_number": None, "book": None}
+    )
+    return ReflectResponse(
+        **result,
+        suggested_mode=suggested_mode,
+        suggested_item_number=study_ref["item_number"],
+        suggested_book=study_ref["book"],
+    )
 
 
 @router.get("/evangelho", response_model=EvangelhoResponse)

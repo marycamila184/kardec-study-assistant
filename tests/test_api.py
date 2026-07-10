@@ -357,6 +357,31 @@ def test_reflect_response_includes_is_closing_field():
     assert data["is_closing"] is True
 
 
+def test_reflect_surfaces_orchestrator_nudge():
+    reflect_result = {
+        "opening": "",
+        "doctrine_connection": "texto",
+        "reflection_questions": [],
+        "complementary_items": [],
+        "sources": [],
+        "not_found": False,
+        "generation_failed": False,
+    }
+    with (
+        patch("src.api.routes.reflect_fn", return_value=reflect_result),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/reflect",
+            json={"situation": "explique a questão 132", "current_mode": "refletir"},
+        ).json()
+    assert data["suggested_mode"] == "estudar_obra"
+    assert data["suggested_item_number"] == "132"
+
+
 _EVANGELHO_PASSAGE = {
     "date": "2026-06-22",
     "content": "Bem-aventurados os que têm puro o coração.",

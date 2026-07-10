@@ -92,6 +92,7 @@ class StudyResponse(BaseModel):
 class ReflectRequest(BaseModel):
     situation: str
     conversation_history: list[Message] = []
+    current_mode: str | None = None
 
 
 class ReflectResponse(BaseModel):
@@ -103,6 +104,9 @@ class ReflectResponse(BaseModel):
     sources: list[StudySource]
     not_found: bool = False
     generation_failed: bool = False
+    suggested_mode: str | None = None
+    suggested_item_number: str | None = None
+    suggested_book: str | None = None
 
 
 class EvangelhoSource(BaseModel):
