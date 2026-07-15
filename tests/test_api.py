@@ -3,6 +3,7 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from src.api.main import app
+from src.api.schemas import ChatResponse, ReflectResponse
 
 client = TestClient(app)
 
@@ -521,3 +522,19 @@ def test_chat_passes_tirar_duvida_as_current_mode_to_classifier():
     ):
         client.post("/chat", json={"question": "algo", "current_mode": "refletir"})
     assert mock_cls.call_args.args[1] == "tirar_duvida"
+
+
+def test_chat_response_accepts_safety_level():
+    resp = ChatResponse(answer="x", sources=[], safety_level="crise")
+    assert resp.safety_level == "crise"
+
+
+def test_reflect_response_safety_level_defaults_none():
+    resp = ReflectResponse(
+        opening="",
+        doctrine_connection="x",
+        reflection_questions=[],
+        complementary_items=[],
+        sources=[],
+    )
+    assert resp.safety_level is None

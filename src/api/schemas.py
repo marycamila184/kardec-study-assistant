@@ -33,6 +33,7 @@ class ChatResponse(BaseModel):
     suggested_item_number: str | None = None
     suggested_book: str | None = None
     generation_failed: bool = False
+    safety_level: str | None = None
 
 
 class PathStep(BaseModel):
@@ -109,6 +110,7 @@ class ReflectResponse(BaseModel):
     suggested_mode: str | None = None
     suggested_item_number: str | None = None
     suggested_book: str | None = None
+    safety_level: str | None = None
 
 
 class EvangelhoSource(BaseModel):
