@@ -452,3 +452,41 @@ def test_reflect_anchor_never_leaks_into_sources():
         result = reflect("situação", anchor_text="TEXTO ÂNCORA EXCLUSIVO")
     for source in result["sources"]:
         assert source["excerpt"] != "TEXTO ÂNCORA EXCLUSIVO"
+
+
+def test_reflect_enriches_evangelho_top_hit():
+    ev = {
+        "content": "verso da parábola",
+        "metadata": {
+            "book": "O Evangelho Segundo o Espiritismo",
+            "chapter": "CAPÍTULO XX",
+            "chapter_title": "OS TRABALHADORES",
+            "item_number": "1",
+        },
+    }
+
+    def _spy_append(passages):
+        passages.append(
+            {
+                "content": "comentario kardec",
+                "metadata": {
+                    "book": "O Evangelho Segundo o Espiritismo",
+                    "chapter_title": "OS TRABALHADORES",
+                    "item_number": "2",
+                },
+            }
+        )
+        return passages
+
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[ev]),
+        patch("src.rag.reflect.append_chapter_commentary", _spy_append),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.curar", return_value=[]),
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("estou refletindo sobre a parábola")
+    excerpts = [s["excerpt"] for s in result["sources"]]
+    assert "comentario kardec" in excerpts

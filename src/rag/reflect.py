@@ -12,7 +12,7 @@ from src.rag.reflect_prompt import (
     needs_medical_caveat,
     parse_reflect_json,
 )
-from src.rag.retriever import has_real_item_number, retrieve
+from src.rag.retriever import append_chapter_commentary, has_real_item_number, retrieve
 
 logger = logging.getLogger(__name__)
 
@@ -77,7 +77,7 @@ def reflect(
             "generation_failed": False,
         }
 
-    primary = chunks[:2]
+    primary = append_chapter_commentary(chunks[:2])
     complementary_raw = chunks[2:5]
 
     add_caveat = needs_medical_caveat(combined_text) or crisis
