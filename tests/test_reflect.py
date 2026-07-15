@@ -419,3 +419,36 @@ def test_reflect_logs_on_retrieval_error(caplog):
     ):
         reflect("situação")
     assert any("retriev" in r.message.lower() for r in caplog.records)
+
+
+def test_reflect_blends_anchor_into_retrieval_query():
+    captured = {}
+
+    def _capture(query, **kw):
+        captured["query"] = query
+        return [_CHUNK_1, _CHUNK_2]
+
+    with (
+        patch("src.rag.reflect.retrieve", _capture),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.curar", return_value=[]),
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("preciso ser criança?", anchor_text="passagem sobre humildade")
+    assert "passagem sobre humildade" in captured["query"]
+
+
+def test_reflect_anchor_never_leaks_into_sources():
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.curar", return_value=[]),
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("situação", anchor_text="TEXTO ÂNCORA EXCLUSIVO")
+    for source in result["sources"]:
+        assert source["excerpt"] != "TEXTO ÂNCORA EXCLUSIVO"

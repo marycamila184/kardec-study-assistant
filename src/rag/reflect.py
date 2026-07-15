@@ -4,7 +4,7 @@ import logging
 from src.core.config import settings
 from src.rag.curador import curar
 from src.rag.llm_client import get_client
-from src.rag.query_condenser import condense_query
+from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import (
     CRISIS_NOTE,
     build_reflect_messages,
@@ -35,7 +35,11 @@ def _with_crisis_note(text: str, crisis: bool) -> str:
     return f"{text}\n\n{CRISIS_NOTE}" if text else CRISIS_NOTE
 
 
-def reflect(situation: str, conversation_history: list[dict] | None = None) -> dict:
+def reflect(
+    situation: str,
+    conversation_history: list[dict] | None = None,
+    anchor_text: str | None = None,
+) -> dict:
     history = conversation_history or []
     combined_text = situation + " " + " ".join(h["content"] for h in history)
     crisis = needs_crisis_note(combined_text)
@@ -46,6 +50,7 @@ def reflect(situation: str, conversation_history: list[dict] | None = None) -> d
         except Exception:
             logger.exception("condense_query failed in /reflect; using raw situation")
             search_query = situation
+    search_query = blend_anchor(search_query, anchor_text)
     try:
         chunks = retrieve(search_query, top_k=5)
     except Exception:
