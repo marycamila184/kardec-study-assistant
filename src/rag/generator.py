@@ -6,7 +6,7 @@ from src.core.config import settings
 from src.rag.llm_client import get_client
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
-from src.rag.query_condenser import condense_query
+from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import CRISIS_NOTE, needs_crisis_note, needs_medical_caveat
 from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
 
@@ -107,7 +107,10 @@ def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
 
 
 def generate(
-    question: str, history: list[dict], book_filter: str | None = None
+    question: str,
+    history: list[dict],
+    book_filter: str | None = None,
+    anchor_text: str | None = None,
 ) -> dict:
     # A pure "obrigada / entendi / valeu" needs a warm closing, not a doctrinal
     # answer with source chips. Short-circuit before any retrieval or LLM call.
@@ -129,6 +132,8 @@ def generate(
         except Exception:
             logger.exception("condense_query failed in /chat; using raw question")
             search_query = question
+
+    search_query = blend_anchor(search_query, anchor_text)
 
     direct_chunks = _direct_item_chunks(question, book_filter)
 

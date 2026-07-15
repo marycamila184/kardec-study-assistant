@@ -516,3 +516,27 @@ def test_generate_logs_on_book_fallback_retrieve_error(
     with caplog.at_level(logging.ERROR, logger="src.rag.generator"):
         generate("pergunta", [], book_filter="O Livro dos Espíritos")
     assert any("fallback" in r.message.lower() for r in caplog.records)
+
+
+def test_generate_blends_anchor_into_retrieval_query(monkeypatch, mock_client):
+    captured = {}
+
+    def _capture(query, **kw):
+        captured["query"] = query
+        return _CHUNKS
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _capture)
+    generate("preciso ser criança?", [], anchor_text="passagem sobre humildade")
+    assert "passagem sobre humildade" in captured["query"]
+
+
+def test_generate_no_anchor_leaves_query_clean(monkeypatch, mock_client):
+    captured = {}
+
+    def _capture(query, **kw):
+        captured["query"] = query
+        return _CHUNKS
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _capture)
+    generate("o que é humildade?", [], anchor_text=None)
+    assert captured["query"] == "o que é humildade?"
