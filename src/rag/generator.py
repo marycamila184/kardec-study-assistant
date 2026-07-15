@@ -8,7 +8,13 @@ from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
 from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import CRISIS_NOTE, needs_crisis_note, needs_medical_caveat
-from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
+from src.rag.retriever import (
+    EVANGELHO_BOOK,
+    append_chapter_commentary,
+    has_real_item_number,
+    retrieve,
+    retrieve_by_item,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -99,6 +105,11 @@ def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
     book = ref["book"] or book_filter
     if not (ref["item_number"] and book):
         return []
+    if book == EVANGELHO_BOOK:
+        # "item N do Evangelho" is ambiguous — item numbers repeat across ~28
+        # chapters, so a chapterless direct lookup would return them all. Defer
+        # to (enriched) semantic retrieval instead.
+        return []
     try:
         return retrieve_by_item(book, ref["item_number"])
     except Exception:
@@ -177,6 +188,8 @@ def generate(
                 "book_filter %s empty; fell back to full-collection search",
                 book_filter,
             )
+
+    chunks = append_chapter_commentary(chunks)
 
     if not chunks:
         logger.warning("no chunks retrieved for /chat; returning not_found")

@@ -540,3 +540,59 @@ def test_generate_no_anchor_leaves_query_clean(monkeypatch, mock_client):
     monkeypatch.setattr("src.rag.generator.retrieve", _capture)
     generate("o que é humildade?", [], anchor_text=None)
     assert captured["query"] == "o que é humildade?"
+
+
+from src.rag.generator import _direct_item_chunks
+
+
+def test_direct_item_chunks_skips_evangelho_without_chapter(monkeypatch):
+    def _boom(*a, **k):
+        raise AssertionError("retrieve_by_item must not run for chapterless Evangelho")
+
+    monkeypatch.setattr("src.rag.generator.retrieve_by_item", _boom)
+    # "item 1 do Evangelho" resolves book=Evangelho, no chapter -> ambiguous -> []
+    assert _direct_item_chunks("explique o item 1 do Evangelho", None) == []
+
+
+def test_direct_item_chunks_still_works_for_livro_espiritos(monkeypatch):
+    called = {}
+
+    def _mock_retrieve(b, i):
+        called["args"] = (b, i)
+        return [{"x": 1}]
+
+    monkeypatch.setattr("src.rag.generator.retrieve_by_item", _mock_retrieve)
+    out = _direct_item_chunks("questão 132 do Livro dos Espíritos", None)
+    assert out == [{"x": 1}]
+    assert called["args"] == ("O Livro dos Espíritos", "132")
+
+
+def test_generate_enriches_evangelho_top_hit(monkeypatch, mock_client):
+    ev = {
+        "content": "verso da parábola",
+        "metadata": {
+            "book": "O Evangelho Segundo o Espiritismo",
+            "chapter": "CAPÍTULO XX",
+            "chapter_title": "OS TRABALHADORES",
+            "item_number": "1",
+        },
+    }
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: [ev])
+
+    def _spy_append(passages):
+        passages.append(
+            {
+                "content": "comentario kardec",
+                "metadata": {
+                    "book": "O Evangelho Segundo o Espiritismo",
+                    "chapter_title": "OS TRABALHADORES",
+                    "item_number": "2",
+                },
+            }
+        )
+        return passages
+
+    monkeypatch.setattr("src.rag.generator.append_chapter_commentary", _spy_append)
+    result = generate("o que significa a parábola?", [])
+    excerpts = [s["excerpt"] for s in result["sources"]]
+    assert "comentario kardec" in excerpts
