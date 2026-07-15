@@ -283,3 +283,42 @@ def test_append_chapter_commentary_swallows_errors(monkeypatch):
     monkeypatch.setattr("src.rag.retriever.chapter_commentary", _raise)
     passages = [_ev_chunk("1", "verso")]
     assert append_chapter_commentary(passages) == passages  # best-effort, unchanged
+
+
+from src.rag.retriever import SENSITIVE_CHAPTERS, filter_sensitive_chunks
+
+
+def _ci_chunk(chapter_title, content="x"):
+    return {
+        "content": content,
+        "metadata": {"book": "O Céu e o Inferno", "chapter_title": chapter_title},
+    }
+
+
+def test_filter_sensitive_chunks_drops_dark_chapters():
+    chunks = [
+        _ci_chunk("SUICIDAS"),
+        _ci_chunk("ESPÍRITOS FELIZES"),
+        _ci_chunk("ESPÍRITOS SOFREDORES"),
+        _ci_chunk("O CÉU"),
+    ]
+    out = filter_sensitive_chunks(chunks)
+    kept = [c["metadata"]["chapter_title"] for c in out]
+    assert kept == ["ESPÍRITOS FELIZES", "O CÉU"]
+
+
+def test_filter_sensitive_chunks_covers_full_dark_set():
+    assert SENSITIVE_CHAPTERS == frozenset(
+        {
+            "SUICIDAS",
+            "ESPÍRITOS SOFREDORES",
+            "ESPÍRITOS ENDURECIDOS",
+            "CRIMINOSOS ARREPENDIDOS",
+            "EXPIAÇÕES TERRESTRES",
+        }
+    )
+
+
+def test_filter_sensitive_chunks_keeps_chunks_without_chapter_title():
+    chunks = [{"content": "x", "metadata": {"book": "O Livro dos Espíritos"}}]
+    assert filter_sensitive_chunks(chunks) == chunks

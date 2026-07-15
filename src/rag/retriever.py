@@ -10,6 +10,16 @@ logger = logging.getLogger(__name__)
 EVANGELHO_BOOK = "O Evangelho Segundo o Espiritismo"
 CHAPTER_COMMENTARY_CAP = 3000  # chars
 
+SENSITIVE_CHAPTERS = frozenset(
+    {
+        "SUICIDAS",
+        "ESPÍRITOS SOFREDORES",
+        "ESPÍRITOS ENDURECIDOS",
+        "CRIMINOSOS ARREPENDIDOS",
+        "EXPIAÇÕES TERRESTRES",
+    }
+)
+
 _store: VectorStore | None = None
 
 _FOOTNOTE_MARKER = re.compile(r"\n\[Nota \d+\] ")
@@ -149,3 +159,14 @@ def append_chapter_commentary(passages: list[dict]) -> list[dict]:
             passages.append(c)
             seen.add(_dedup_key(c))
     return passages
+
+
+def filter_sensitive_chunks(chunks: list[dict]) -> list[dict]:
+    """Drop chunks whose chapter_title is one of the darkest testimony chapters of
+    O Céu e o Inferno (SENSITIVE_CHAPTERS). Applied only on 'abalo' turns, so
+    distressing accounts don't surface for an emotionally vulnerable reader."""
+    return [
+        c
+        for c in chunks
+        if c["metadata"].get("chapter_title") not in SENSITIVE_CHAPTERS
+    ]
