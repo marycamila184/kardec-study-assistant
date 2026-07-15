@@ -1,8 +1,14 @@
+import logging
 import re
 
 from src.core.config import settings
 from src.ingestion.embeddings import encode
 from src.ingestion.vectorstore import VectorStore
+
+logger = logging.getLogger(__name__)
+
+EVANGELHO_BOOK = "O Evangelho Segundo o Espiritismo"
+CHAPTER_COMMENTARY_CAP = 3000  # chars
 
 _store: VectorStore | None = None
 
@@ -68,3 +74,48 @@ def retrieve_by_item(
         conditions.append({"chapter": {"$eq": chapter}})
     results = _get_store().get_by_filter({"$and": conditions})
     return _strip_footnotes_from_results(results)
+
+
+def retrieve_by_chapter(book: str, chapter: str) -> list[dict]:
+    """All chunks of a chapter (footnotes stripped), ordered by
+    (item_number, subchunk_index). item_number sorts numerically; the parser's
+    'section-N' placeholders sort after the numbered items."""
+    results = _get_store().get_by_filter(
+        {"$and": [{"book": {"$eq": book}}, {"chapter": {"$eq": chapter}}]}
+    )
+    results = _strip_footnotes_from_results(results)
+
+    def _key(r: dict):
+        item = r["metadata"].get("item_number") or ""
+        sub = r["metadata"].get("subchunk_index") or 0
+        return (0, int(item), sub) if item.isdigit() else (1, 0, sub)
+
+    return sorted(results, key=_key)
+
+
+def chapter_commentary(
+    book: str,
+    chapter: str,
+    exclude_item_number: str,
+    char_cap: int = CHAPTER_COMMENTARY_CAP,
+) -> list[dict]:
+    """The chapter's sibling chunks (excluding `exclude_item_number`), in chapter
+    order, accumulated until `char_cap` chars. Evangelho-only: the verse+commentary
+    split is unique to it. Returns [] for other books, a falsy chapter, or when no
+    siblings exist. The first sibling is always included even if it alone exceeds
+    the cap (never drop the commentary to empty)."""
+    if book != EVANGELHO_BOOK or not chapter:
+        return []
+    siblings = [
+        c
+        for c in retrieve_by_chapter(book, chapter)
+        if c["metadata"].get("item_number") != exclude_item_number
+    ]
+    selected: list[dict] = []
+    total = 0
+    for c in siblings:
+        if selected and total + len(c["content"]) > char_cap:
+            break
+        selected.append(c)
+        total += len(c["content"])
+    return selected

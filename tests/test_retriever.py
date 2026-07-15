@@ -155,3 +155,83 @@ def test_has_real_item_number_false_for_placeholder():
 def test_has_real_item_number_false_for_none_or_empty():
     assert has_real_item_number(None) is False
     assert has_real_item_number("") is False
+
+
+from src.rag.retriever import (
+    EVANGELHO_BOOK,
+    chapter_commentary,
+    retrieve_by_chapter,
+)
+
+_EV = "O Evangelho Segundo o Espiritismo"
+
+
+def _ev_chunk(item, content, sub=0):
+    return {
+        "content": content,
+        "metadata": {
+            "book": _EV,
+            "chapter": "CAPÍTULO XX",
+            "item_number": item,
+            "subchunk_index": sub,
+        },
+        "distance": 0.0,
+    }
+
+
+def test_retrieve_by_chapter_filters_and_orders(monkeypatch):
+    mock_store = MagicMock()
+    # returned out of order; expect (item asc, subchunk asc)
+    mock_store.get_by_filter.return_value = [
+        _ev_chunk("2", "comentario dois"),
+        _ev_chunk("1", "verso b", sub=1),
+        _ev_chunk("1", "verso a", sub=0),
+    ]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    results = retrieve_by_chapter(_EV, "CAPÍTULO XX")
+    assert [r["content"] for r in results] == ["verso a", "verso b", "comentario dois"]
+    mock_store.get_by_filter.assert_called_once_with(
+        {"$and": [{"book": {"$eq": _EV}}, {"chapter": {"$eq": "CAPÍTULO XX"}}]}
+    )
+    # footnotes stripped -> footnote_context key present
+    assert all("footnote_context" in r for r in results)
+
+
+def test_chapter_commentary_excludes_studied_item(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.retrieve_by_chapter",
+        lambda b, c: [_ev_chunk("1", "verso"), _ev_chunk("2", "comentario")],
+    )
+    out = chapter_commentary(_EV, "CAPÍTULO XX", "1")
+    assert [r["content"] for r in out] == ["comentario"]
+
+
+def test_chapter_commentary_respects_char_cap(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.retrieve_by_chapter",
+        lambda b, c: [
+            _ev_chunk("2", "a" * 2500),
+            _ev_chunk("3", "b" * 2500),
+            _ev_chunk("4", "c" * 2500),
+        ],
+    )
+    out = chapter_commentary(_EV, "CAPÍTULO XX", "1", char_cap=3000)
+    # first sibling always included; stop before exceeding the cap
+    assert [r["content"][0] for r in out] == ["a"]
+
+
+def test_chapter_commentary_always_returns_first_sibling(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.retrieve_by_chapter",
+        lambda b, c: [_ev_chunk("2", "x" * 9000)],
+    )
+    out = chapter_commentary(_EV, "CAPÍTULO XX", "1", char_cap=3000)
+    assert len(out) == 1  # a single over-cap sibling is never dropped to empty
+
+
+def test_chapter_commentary_non_evangelho_returns_empty():
+    assert chapter_commentary("O Livro dos Espíritos", "CAP I", "1") == []
+
+
+def test_chapter_commentary_empty_chapter_returns_empty():
+    assert chapter_commentary(_EV, "", "1") == []
