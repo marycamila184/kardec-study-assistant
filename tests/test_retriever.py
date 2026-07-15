@@ -235,3 +235,51 @@ def test_chapter_commentary_non_evangelho_returns_empty():
 
 def test_chapter_commentary_empty_chapter_returns_empty():
     assert chapter_commentary(_EV, "", "1") == []
+
+
+from src.rag.retriever import append_chapter_commentary
+
+
+def test_append_chapter_commentary_enriches_top_evangelho_hit(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.chapter_commentary",
+        lambda b, c, ex: [_ev_chunk("2", "comentario do kardec")],
+    )
+    passages = [_ev_chunk("1", "verso da parabola")]
+    out = append_chapter_commentary(passages)
+    assert [p["content"] for p in out] == ["verso da parabola", "comentario do kardec"]
+
+
+def test_append_chapter_commentary_noop_when_top_not_evangelho(monkeypatch):
+    def _boom(*a, **k):
+        raise AssertionError("chapter_commentary must not run for non-Evangelho top")
+
+    monkeypatch.setattr("src.rag.retriever.chapter_commentary", _boom)
+    passages = [
+        {
+            "content": "questao LE",
+            "metadata": {"book": "O Livro dos Espíritos", "item_number": "1"},
+        }
+    ]
+    assert append_chapter_commentary(passages) == passages
+
+
+def test_append_chapter_commentary_dedupes(monkeypatch):
+    dup = _ev_chunk("2", "comentario", sub=0)
+    monkeypatch.setattr("src.rag.retriever.chapter_commentary", lambda b, c, ex: [dup])
+    passages = [_ev_chunk("1", "verso"), dup]
+    out = append_chapter_commentary(passages)
+    assert len(out) == 2  # dup already present, not appended again
+
+
+def test_append_chapter_commentary_empty_passages():
+    assert append_chapter_commentary([]) == []
+
+
+def test_append_chapter_commentary_swallows_errors(monkeypatch):
+    def _raise(*a, **k):
+        raise RuntimeError("store down")
+
+    monkeypatch.setattr("src.rag.retriever.chapter_commentary", _raise)
+    passages = [_ev_chunk("1", "verso")]
+    assert append_chapter_commentary(passages) == passages  # best-effort, unchanged

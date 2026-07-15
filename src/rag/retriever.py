@@ -119,3 +119,33 @@ def chapter_commentary(
         selected.append(c)
         total += len(c["content"])
     return selected
+
+
+def _dedup_key(chunk: dict) -> tuple:
+    m = chunk["metadata"]
+    return (m.get("book"), m.get("item_number"), m.get("subchunk_index"))
+
+
+def append_chapter_commentary(passages: list[dict]) -> list[dict]:
+    """When the first passage is an Evangelho chunk with a chapter, append that
+    chapter's bounded Kardec commentary (deduped) so a gospel passage never
+    travels without its doctrinal reading. No-op otherwise. Best-effort: a
+    retrieval failure logs and returns the passages unchanged."""
+    if not passages:
+        return passages
+    top = passages[0]["metadata"]
+    if top.get("book") != EVANGELHO_BOOK or not top.get("chapter"):
+        return passages
+    try:
+        commentary = chapter_commentary(
+            top["book"], top["chapter"], top.get("item_number", "")
+        )
+    except Exception:
+        logger.exception("chapter_commentary failed; skipping enrichment")
+        return passages
+    seen = {_dedup_key(c) for c in passages}
+    for c in commentary:
+        if _dedup_key(c) not in seen:
+            passages.append(c)
+            seen.add(_dedup_key(c))
+    return passages
