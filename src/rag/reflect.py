@@ -1,18 +1,25 @@
 import concurrent.futures
 import logging
+from concurrent.futures import ThreadPoolExecutor
 
 from src.core.config import settings
 from src.rag.curador import curar
 from src.rag.llm_client import get_client
 from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import (
-    CRISIS_NOTE,
+    CRISIS_EXIT_MESSAGE,
     build_reflect_messages,
     needs_crisis_note,
     needs_medical_caveat,
     parse_reflect_json,
 )
-from src.rag.retriever import append_chapter_commentary, has_real_item_number, retrieve
+from src.rag.retriever import (
+    append_chapter_commentary,
+    filter_sensitive_chunks,
+    has_real_item_number,
+    retrieve,
+)
+from src.rag.sensitivity import classify_sensitivity
 
 logger = logging.getLogger(__name__)
 
@@ -28,11 +35,23 @@ GENERATION_FAILED_MESSAGE = "Não foi possível gerar uma resposta agora. Por fa
 
 CAP_ROUNDS = 5  # after this many completed rounds, force closing regardless of the model's own judgment
 
+_SENSITIVITY_TIMEOUT_S = 8.0
 
-def _with_crisis_note(text: str, crisis: bool) -> str:
-    if not crisis:
-        return text
-    return f"{text}\n\n{CRISIS_NOTE}" if text else CRISIS_NOTE
+
+def _crisis_exit() -> dict:
+    """Fixed, deterministic crisis response for /reflect — no retrieval, no
+    citations, no reflection questions. Never depends on the generation LLM."""
+    return {
+        "opening": "",
+        "doctrine_connection": CRISIS_EXIT_MESSAGE,
+        "reflection_questions": [],
+        "is_closing": False,
+        "complementary_items": [],
+        "sources": [],
+        "not_found": False,
+        "generation_failed": False,
+        "safety_level": "crise",
+    }
 
 
 def reflect(
@@ -42,45 +61,72 @@ def reflect(
 ) -> dict:
     history = conversation_history or []
     combined_text = situation + " " + " ".join(h["content"] for h in history)
-    crisis = needs_crisis_note(combined_text)
-    search_query = situation
-    if history:
-        try:
-            search_query = condense_query(situation, history)
-        except Exception:
-            logger.exception("condense_query failed in /reflect; using raw situation")
-            search_query = situation
-    search_query = blend_anchor(search_query, anchor_text)
+
+    # Deterministic crisis floor: a keyword hit short-circuits to the fixed exit
+    # before any retrieval or classifier call — never gated on the LLM.
+    if needs_crisis_note(combined_text):
+        return _crisis_exit()
+
+    executor = ThreadPoolExecutor(max_workers=1)
+    sensitivity_future = executor.submit(classify_sensitivity, situation)
     try:
-        chunks = retrieve(search_query, top_k=5)
-    except Exception:
-        logger.exception("retrieve failed in /reflect")
-        return {
-            "opening": "",
-            "doctrine_connection": _with_crisis_note(GENERATION_FAILED_MESSAGE, crisis),
-            "reflection_questions": [],
-            "complementary_items": [],
-            "sources": [],
-            "not_found": False,
-            "generation_failed": True,
-        }
+        search_query = situation
+        if history:
+            try:
+                search_query = condense_query(situation, history)
+            except Exception:
+                logger.exception(
+                    "condense_query failed in /reflect; using raw situation"
+                )
+                search_query = situation
+        search_query = blend_anchor(search_query, anchor_text)
+
+        try:
+            chunks = retrieve(search_query, top_k=5)
+        except Exception:
+            logger.exception("retrieve failed in /reflect")
+            return {
+                "opening": "",
+                "doctrine_connection": GENERATION_FAILED_MESSAGE,
+                "reflection_questions": [],
+                "complementary_items": [],
+                "sources": [],
+                "not_found": False,
+                "generation_failed": True,
+                "safety_level": "normal",
+            }
+
+        try:
+            level = sensitivity_future.result(timeout=_SENSITIVITY_TIMEOUT_S)
+        except Exception:
+            logger.exception("classify_sensitivity slow/failed; defaulting to normal")
+            level = "normal"
+    finally:
+        executor.shutdown(wait=False)
+
+    if level == "crise":
+        return _crisis_exit()
+
+    if level == "abalo":
+        chunks = filter_sensitive_chunks(chunks)
 
     if not chunks:
         logger.warning("no chunks retrieved for /reflect; returning not_found")
         return {
             "opening": "",
-            "doctrine_connection": _with_crisis_note(_NOT_FOUND_MESSAGE, crisis),
+            "doctrine_connection": _NOT_FOUND_MESSAGE,
             "reflection_questions": [],
             "complementary_items": [],
             "sources": [],
             "not_found": True,
             "generation_failed": False,
+            "safety_level": level,
         }
 
     primary = append_chapter_commentary(chunks[:2])
     complementary_raw = chunks[2:5]
 
-    add_caveat = needs_medical_caveat(combined_text) or crisis
+    add_caveat = needs_medical_caveat(combined_text) or level == "abalo"
     force_closing = len(history) // 2 >= CAP_ROUNDS
     system, messages = build_reflect_messages(
         situation, primary, add_caveat, history=history, force_closing=force_closing
@@ -103,9 +149,9 @@ def reflect(
     # curar() makes its own independent Groq call and only needs
     # `complementary_raw`, which is already retrieved — run both LLM calls
     # concurrently instead of paying their latency twice in sequence.
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-        reflexivo_future = executor.submit(_call_reflexivo)
-        curador_future = executor.submit(curar, situation, complementary_raw)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+        reflexivo_future = pool.submit(_call_reflexivo)
+        curador_future = pool.submit(curar, situation, complementary_raw)
 
         try:
             opening, doctrine_connection, reflection_questions, is_closing = (
@@ -120,8 +166,6 @@ def reflect(
     if force_closing:
         is_closing = True
         reflection_questions = []
-
-    doctrine_connection = _with_crisis_note(doctrine_connection, crisis)
 
     sources = [
         {
@@ -146,4 +190,5 @@ def reflect(
         "sources": sources,
         "not_found": False,
         "generation_failed": generation_failed,
+        "safety_level": level,
     }

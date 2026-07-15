@@ -1,6 +1,8 @@
 import logging
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 from src.rag.reflect import reflect
 
 _CHUNK_1 = {
@@ -36,6 +38,11 @@ _LLM_JSON = '{"opening": "Compreendemos sua dor.", "doctrine_connection": "A dou
 
 def _make_llm_response(content: str) -> MagicMock:
     return MagicMock(choices=[MagicMock(message=MagicMock(content=content))])
+
+
+@pytest.fixture(autouse=True)
+def _default_sensitivity_normal(monkeypatch):
+    monkeypatch.setattr("src.rag.reflect.classify_sensitivity", lambda t: "normal")
 
 
 def test_reflect_returns_not_found_when_no_chunks():
@@ -329,20 +336,6 @@ def test_reflect_falls_back_to_raw_situation_when_condense_fails():
     assert result["generation_failed"] is False
 
 
-def test_reflect_appends_crisis_note_for_suicidal_situation():
-    with (
-        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
-        patch("src.rag.reflect.get_client") as mock_client,
-    ):
-        mock_client.return_value.chat.completions.create.return_value = (
-            _make_llm_response(_LLM_JSON)
-        )
-        result = reflect("não aguento mais viver, penso em suicídio")
-    assert "CVV" in result["doctrine_connection"]
-    assert "188" in result["doctrine_connection"]
-    assert result["doctrine_connection"].startswith("A doutrina ensina...")
-
-
 def test_reflect_no_crisis_note_for_normal_situation():
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
@@ -355,24 +348,19 @@ def test_reflect_no_crisis_note_for_normal_situation():
     assert "CVV" not in result["doctrine_connection"]
 
 
-def test_reflect_crisis_note_present_even_when_not_found():
-    with patch("src.rag.reflect.retrieve", return_value=[]):
-        result = reflect("quero morrer")
-    assert result["not_found"] is True
-    assert "CVV" in result["doctrine_connection"]
-
-
-def test_reflect_crisis_triggers_medical_caveat():
+def test_reflect_abalo_triggers_medical_caveat(monkeypatch):
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.classify_sensitivity", lambda t: "abalo"),
         patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.curar", return_value=[]),
         patch("src.rag.reflect.build_reflect_messages") as mock_build,
     ):
         mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
         mock_client.return_value.chat.completions.create.return_value = (
             _make_llm_response(_LLM_JSON)
         )
-        reflect("penso em me machucar")
+        reflect("estou cansada e não aguento mais")
     _, _, add_caveat = mock_build.call_args[0]
     assert add_caveat is True
 
@@ -490,3 +478,63 @@ def test_reflect_enriches_evangelho_top_hit():
         result = reflect("estou refletindo sobre a parábola")
     excerpts = [s["excerpt"] for s in result["sources"]]
     assert "comentario kardec" in excerpts
+
+
+def test_reflect_keyword_crisis_returns_fixed_exit(monkeypatch):
+    def _boom(*a, **k):
+        raise AssertionError("classifier/retrieval must not run on keyword crisis")
+
+    monkeypatch.setattr("src.rag.reflect.classify_sensitivity", _boom)
+    monkeypatch.setattr("src.rag.reflect.retrieve", _boom)
+    result = reflect("não quero mais viver")
+    assert result["safety_level"] == "crise"
+    assert "188" in result["doctrine_connection"]
+    assert result["sources"] == []
+    assert result["reflection_questions"] == []
+
+
+def test_reflect_llm_crise_returns_fixed_exit(monkeypatch):
+    monkeypatch.setattr("src.rag.reflect.retrieve", lambda q, **kw: [_CHUNK_1])
+    monkeypatch.setattr("src.rag.reflect.classify_sensitivity", lambda t: "crise")
+    result = reflect("estou muito mal")
+    assert result["safety_level"] == "crise"
+    assert "188" in result["doctrine_connection"]
+    assert result["sources"] == []
+
+
+def test_reflect_abalo_filters_dark_chunks(monkeypatch):
+    dark = {
+        "content": "relato de suicida",
+        "metadata": {
+            "book": "O Céu e o Inferno",
+            "chapter_title": "SUICIDAS",
+            "item_number": "1",
+        },
+    }
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[dark, _CHUNK_1]),
+        patch("src.rag.reflect.classify_sensitivity", lambda t: "abalo"),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.curar", return_value=[]),
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("estou cansada e não aguento mais")
+    assert result["safety_level"] == "abalo"
+    assert all(s["excerpt"] != "relato de suicida" for s in result["sources"])
+
+
+def test_reflect_normal_carries_safety_level(monkeypatch):
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]),
+        patch("src.rag.reflect.classify_sensitivity", lambda t: "normal"),
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.curar", return_value=[]),
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("o que é a reencarnação?")
+    assert result["safety_level"] == "normal"
+    assert result["not_found"] is False
