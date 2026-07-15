@@ -73,3 +73,12 @@ def test_classify_invalid_mode_string_is_dropped(monkeypatch):
     _mock_client(monkeypatch, '{"mode": "banana", "confidence": "high"}')
     result = classify_intent("mensagem", current_mode="tirar_duvida")
     assert result["mode"] is None
+
+
+def test_system_prompt_marks_clarification_as_not_refletir():
+    from src.rag.orchestrator import _SYSTEM_PROMPT
+
+    # A doctrinal clarification question must be steered to tirar_duvida, not
+    # refletir, even when the topic sounds personal.
+    assert "esclarecimento" in _SYSTEM_PROMPT
+    assert "quer dizer que" in _SYSTEM_PROMPT

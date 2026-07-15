@@ -16,8 +16,11 @@ _SYSTEM_PROMPT = (
     "Allan Kardec. Classifique a MENSAGEM do usuário em um destes modos:\n"
     '- "tirar_duvida": pergunta objetiva sobre a doutrina espírita ou sobre o '
     'conteúdo das obras (ex.: "o que é o perispírito?").\n'
-    '- "refletir": a pessoa compartilha um sentimento, sofrimento ou situação '
-    'pessoal e busca acolhimento (ex.: "estou muito mal, me ajuda").\n'
+    '- "refletir": a pessoa compartilha um SENTIMENTO, sofrimento ou situação '
+    'pessoal vivida e busca acolhimento (ex.: "estou muito mal, me ajuda"). NÃO é '
+    "refletir quando a mensagem é uma pergunta de esclarecimento sobre a doutrina "
+    'ou sobre o texto, mesmo que o tema soe pessoal (ex.: "então quer dizer que '
+    'preciso ser criança?", "isso significa que...?") — isso é tirar_duvida.\n'
     '- "estudar_obra": a pessoa quer estudar um item/questão específico de uma '
     'obra (ex.: "explique a questão 132", "item 45 do Evangelho").\n'
     '- "nenhum": não se encaixa claramente em nenhum modo.\n'
