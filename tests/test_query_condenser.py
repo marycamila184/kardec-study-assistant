@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, patch
 
-from src.rag.query_condenser import condense_query
+from src.rag.query_condenser import ANCHOR_CAP, blend_anchor, condense_query
 
 
 def _make_llm_response(content: str) -> MagicMock:
@@ -29,3 +29,21 @@ def test_condense_query_sends_history_and_question_to_llm():
         ][0]["content"]
     assert "pergunta anterior" in prompt
     assert "nova pergunta" in prompt
+
+
+def test_blend_anchor_prepends_capped_anchor():
+    result = blend_anchor("minha pergunta", "contexto do estudo")
+    assert result == "contexto do estudo\nminha pergunta"
+
+
+def test_blend_anchor_caps_long_anchor_at_500_chars():
+    long_anchor = "a" * 900
+    result = blend_anchor("q", long_anchor)
+    assert result == ("a" * ANCHOR_CAP) + "\nq"
+    assert ANCHOR_CAP == 500
+
+
+def test_blend_anchor_returns_query_unchanged_when_no_anchor():
+    assert blend_anchor("q", None) == "q"
+    assert blend_anchor("q", "") == "q"
+    assert blend_anchor("q", "   ") == "q"

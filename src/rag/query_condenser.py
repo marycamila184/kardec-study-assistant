@@ -1,6 +1,18 @@
 from src.core.config import settings
 from src.rag.llm_client import get_client
 
+ANCHOR_CAP = 500
+
+
+def blend_anchor(query: str, anchor_text: str | None) -> str:
+    """Bias retrieval toward the passage the user is studying by prepending its
+    text (capped at ANCHOR_CAP) to the search query. Retrieval-only: the anchor
+    never reaches the prompt, sources, or displayed output. Returns query
+    unchanged when there is no usable anchor."""
+    if not anchor_text or not anchor_text.strip():
+        return query
+    return f"{anchor_text.strip()[:ANCHOR_CAP]}\n{query}"
+
 
 def condense_query(question: str, history: list[dict]) -> str:
     history_text = "\n".join(
