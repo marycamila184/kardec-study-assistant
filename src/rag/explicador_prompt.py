@@ -33,6 +33,9 @@ amplamente estabelecido. Deixe claro na resposta o que é contexto histórico ge
 o que vem do texto/doutrina (ex.: "Historicamente, os fariseus eram... O texto, por \
 sua vez, mostra que..."). Nunca invente ou altere doutrina espírita — isso continua \
 restrito ao trecho e às referências relacionadas fornecidas.
+- Quando o TRECHO PRINCIPAL for um texto evangélico (a citação do Evangelho), \
+baseie a leitura doutrinária no COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO — a exposição \
+de Kardec e dos Espíritos — que traz a interpretação espírita da passagem.
 - "conceitos_chave": extraia os termos centrais com suas definições baseadas no \
 texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
 da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \
@@ -50,6 +53,9 @@ mostra que...", "o texto indica que...").
 [NOTAS DE RODAPÉ]
 {footnote_passages}
 
+[COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO]
+{chapter_commentary}
+
 [REFERÊNCIAS RELACIONADAS]
 {related_passages}"""
 
@@ -65,11 +71,15 @@ def _format_related(chunks: list[dict]) -> str:
 
 
 def build_explicador_messages(
-    main_text: str, related_chunks: list[dict], footnote_context: str = ""
+    main_text: str,
+    related_chunks: list[dict],
+    footnote_context: str = "",
+    chapter_commentary_chunks: list[dict] | None = None,
 ) -> tuple[str, list[dict]]:
     system = _SYSTEM_TEMPLATE.format(
         main_passage=main_text,
         footnote_passages=footnote_context or "(nenhuma)",
+        chapter_commentary=_format_related(chapter_commentary_chunks or []),
         related_passages=_format_related(related_chunks),
     )
     messages = [

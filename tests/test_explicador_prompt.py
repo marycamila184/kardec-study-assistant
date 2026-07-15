@@ -99,3 +99,31 @@ def test_parse_explicador_json_falls_back_to_regex_extraction_on_unparseable_jso
     contexto, conceitos, perguntas = parse_explicador_json(text)
     assert contexto == "Explicação via regex."
     assert conceitos == []
+
+
+def test_explicador_prompt_renders_chapter_commentary_block():
+    commentary = [
+        {
+            "content": "O obreiro da última hora tem direito ao salário.",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "item_number": "2",
+            },
+        }
+    ]
+    system, _ = build_explicador_messages(
+        "verso da parábola", [], chapter_commentary_chunks=commentary
+    )
+    assert "COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO" in system
+    assert "O obreiro da última hora tem direito ao salário." in system
+
+
+def test_explicador_prompt_omits_commentary_block_content_when_empty():
+    system, _ = build_explicador_messages("verso", [], chapter_commentary_chunks=None)
+    assert "(nenhuma)" in system  # block present but marked empty, no crash
+
+
+def test_explicador_prompt_has_evangelical_grounding_rule():
+    system, _ = build_explicador_messages("verso", [])
+    assert "texto evangélico" in system
+    assert "COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO" in system
