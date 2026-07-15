@@ -66,7 +66,7 @@ def chat(request: ChatRequest) -> ChatResponse:
     history = [m.model_dump() for m in request.history]
     result, suggested_mode = _answer_with_nudge(
         request.question,
-        request.current_mode,
+        "tirar_duvida",
         history,
         lambda: generate(
             request.question,
@@ -125,7 +125,7 @@ def reflect_situation(request: ReflectRequest) -> ReflectResponse:
     history = [m.model_dump() for m in request.conversation_history]
     result, suggested_mode = _answer_with_nudge(
         request.situation,
-        request.current_mode,
+        "refletir",
         history,
         lambda: reflect_fn(request.situation, history, anchor_text=request.anchor_text),
     )

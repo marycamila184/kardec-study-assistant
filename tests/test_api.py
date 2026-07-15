@@ -475,3 +475,49 @@ def test_reflect_forwards_anchor_text_to_reflect_fn():
             json={"situation": "estou pensando nisso", "anchor_text": "humildade"},
         )
     assert mock_ref.call_args.kwargs["anchor_text"] == "humildade"
+
+
+def test_reflect_never_self_nudges_even_if_classifier_says_refletir():
+    def classify_with_guard(message, current_mode, history):
+        # Simulate the real guard logic from orchestrator.classify_intent
+        suggested = {"mode": "refletir", "confidence": "high"}
+        if suggested["mode"] == current_mode:
+            return {"mode": None, "confidence": suggested["confidence"]}
+        return suggested
+
+    with (
+        patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            side_effect=classify_with_guard,
+        ),
+    ):
+        data = client.post(
+            "/reflect", json={"situation": "ser criança novamente"}
+        ).json()
+    assert data["suggested_mode"] != "refletir"
+
+
+def test_reflect_passes_refletir_as_current_mode_to_classifier():
+    with (
+        patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT),
+        patch(
+            "src.api.routes.classify_intent", return_value={"mode": None}
+        ) as mock_cls,
+    ):
+        client.post(
+            "/reflect", json={"situation": "algo", "current_mode": "tirar_duvida"}
+        )
+    # current_mode is the 2nd positional arg to classify_intent
+    assert mock_cls.call_args.args[1] == "refletir"
+
+
+def test_chat_passes_tirar_duvida_as_current_mode_to_classifier():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent", return_value={"mode": None}
+        ) as mock_cls,
+    ):
+        client.post("/chat", json={"question": "algo", "current_mode": "refletir"})
+    assert mock_cls.call_args.args[1] == "tirar_duvida"
