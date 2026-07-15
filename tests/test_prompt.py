@@ -98,3 +98,19 @@ def test_system_requires_fontes_marker():
 def test_system_requires_seguir_marker():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
     assert "[SEGUIR:" in system
+
+
+_PROMPT_CHUNK = {
+    "content": "texto doutrinário",
+    "metadata": {"book": "O Livro dos Espíritos", "item_number": "1"},
+}
+
+
+def test_build_messages_sensitive_adds_gentle_instruction():
+    system, _ = build_messages("estou mal", [_PROMPT_CHUNK], [], sensitive=True)
+    assert "acolhimento" in system
+
+
+def test_build_messages_not_sensitive_omits_gentle_instruction():
+    system, _ = build_messages("o que é X?", [_PROMPT_CHUNK], [], sensitive=False)
+    assert "acolhimento" not in system

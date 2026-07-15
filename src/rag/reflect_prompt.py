@@ -47,6 +47,12 @@ CRISIS_NOTE = (
     "Em uma emergência, ligue 192 (SAMU)."
 )
 
+CRISIS_EXIT_MESSAGE = (
+    "Sinto muito que você esteja passando por um momento tão difícil. Você não está "
+    "só, e o que você sente importa. Antes de qualquer estudo, o mais importante "
+    "agora é cuidar de você e falar com alguém agora mesmo.\n\n" + CRISIS_NOTE
+)
+
 _NO_ADVICE = """\
 É absolutamente proibido fazer sugestões de ação. Nunca diga "você deveria", \
 "recomendo", "tente", "considere", ou equivalentes. Não sugira medicação, \

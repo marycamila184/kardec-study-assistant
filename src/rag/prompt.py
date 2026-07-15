@@ -50,6 +50,11 @@ Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional o
 clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \
 de saúde é também valioso — sem substituir a visão espírita e sem fazer diagnósticos."""
 
+_SENSITIVE_INSTRUCTION = """\
+A pessoa demonstra abalo emocional. Antes de qualquer doutrina, reconheça com \
+brevidade e acolhimento o que ela sente, em uma frase. Mantenha o tom gentil e \
+sereno em toda a resposta. Não invente doutrina nem faça diagnósticos."""
+
 
 def _format_passage(index: int, chunk: dict) -> str:
     m = chunk["metadata"]
@@ -67,11 +72,15 @@ def build_messages(
     history: list[dict],
     max_history_turns: int = 10,
     add_caveat: bool = False,
+    sensitive: bool = False,
 ) -> tuple[str, list[dict]]:
     passages = "\n\n".join(_format_passage(i + 1, c) for i, c in enumerate(chunks))
-    system = _SYSTEM_TEMPLATE.format(
-        passages=passages, caveat=_CAVEAT_INSTRUCTION if add_caveat else ""
-    )
+    notes = []
+    if sensitive:
+        notes.append(_SENSITIVE_INSTRUCTION)
+    if add_caveat:
+        notes.append(_CAVEAT_INSTRUCTION)
+    system = _SYSTEM_TEMPLATE.format(passages=passages, caveat="\n\n".join(notes))
 
     messages = [
         {"role": t["role"], "content": t["content"]}

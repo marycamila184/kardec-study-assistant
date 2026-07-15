@@ -177,3 +177,12 @@ def test_parse_reflect_json_extracts_object_wrapped_in_prose():
 def test_system_allows_one_to_three_questions():
     system, _ = build_reflect_messages("situação", [], add_caveat=False)
     assert "de 1 a 3 perguntas" in system
+
+
+from src.rag.reflect_prompt import CRISIS_EXIT_MESSAGE
+
+
+def test_crisis_exit_message_has_support_lines():
+    assert "188" in CRISIS_EXIT_MESSAGE  # CVV
+    assert "192" in CRISIS_EXIT_MESSAGE  # SAMU
+    assert "não está só" in CRISIS_EXIT_MESSAGE
