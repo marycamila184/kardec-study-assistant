@@ -15,10 +15,11 @@ CLINICAL_KEYWORDS = [
     "alucinação",
 ]
 
-# Suicidal-ideation / self-harm cues. Matching any of these triggers a fixed,
-# deterministic crisis note (CRISIS_NOTE) appended by the pipelines — never
-# left to the LLM's judgment. Includes unaccented variants because users
-# often type without accents.
+# Suicidal-ideation / self-harm cues. Matching any of these deterministically
+# short-circuits both pipelines to the fixed crisis exit (CRISIS_EXIT_MESSAGE,
+# which embeds CRISIS_NOTE) before any retrieval or LLM call — never left to the
+# LLM's judgment. Includes unaccented variants because users often type without
+# accents.
 CRISIS_KEYWORDS = [
     "suicídio",
     "suicidio",
