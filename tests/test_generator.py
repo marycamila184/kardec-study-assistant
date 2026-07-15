@@ -33,6 +33,14 @@ def mock_client(monkeypatch):
     return client
 
 
+@pytest.fixture(autouse=True)
+def _default_sensitivity_normal(monkeypatch):
+    # Default every test to the "normal" tier; sensitivity-specific tests
+    # override this. Keeps existing tests off the network (classify_sensitivity
+    # would otherwise call the real client) and on the pre-tiering behavior.
+    monkeypatch.setattr("src.rag.generator.classify_sensitivity", lambda t: "normal")
+
+
 def test_generate_smalltalk_short_circuits_without_retrieval_or_llm(monkeypatch):
     # A pure acknowledgment must skip retrieval and the LLM entirely and return
     # a warm reply with no source chips or suggestions.
@@ -90,23 +98,9 @@ def test_generate_not_found_when_no_chunks(monkeypatch, mock_client):
     mock_client.chat.completions.create.assert_not_called()
 
 
-def test_generate_appends_crisis_note_for_suicidal_question(mock_retrieve, mock_client):
-    result = generate("penso em suicídio, o que a doutrina diz?", [])
-    assert result["answer"].startswith("Resposta gerada.")
-    assert "CVV" in result["answer"]
-    assert "188" in result["answer"]
-
-
 def test_generate_no_crisis_note_for_normal_question(mock_retrieve, mock_client):
     result = generate("O que é reencarnação?", [])
     assert "CVV" not in result["answer"]
-
-
-def test_generate_crisis_note_present_even_when_not_found(monkeypatch, mock_client):
-    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: [])
-    result = generate("quero morrer, existe perdão?", [])
-    assert result["not_found"] is True
-    assert "CVV" in result["answer"]
 
 
 _ITEM_132_CHUNKS = [
@@ -565,6 +559,62 @@ def test_direct_item_chunks_still_works_for_livro_espiritos(monkeypatch):
     out = _direct_item_chunks("questão 132 do Livro dos Espíritos", None)
     assert out == [{"x": 1}]
     assert called["args"] == ("O Livro dos Espíritos", "132")
+
+
+def test_generate_keyword_crisis_returns_fixed_exit(monkeypatch):
+    def _boom(*a, **k):
+        raise AssertionError("classifier/retrieval must not run on keyword crisis")
+
+    monkeypatch.setattr("src.rag.generator.classify_sensitivity", _boom)
+    monkeypatch.setattr("src.rag.generator.retrieve", _boom)
+    result = generate("eu não aguento mais viver", [])
+    assert result["safety_level"] == "crise"
+    assert "188" in result["answer"]
+    assert result["sources"] == []
+    assert result["suggested_questions"] == []
+
+
+def test_generate_llm_crise_returns_fixed_exit(monkeypatch, mock_client):
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _CHUNKS)
+    monkeypatch.setattr("src.rag.generator.classify_sensitivity", lambda t: "crise")
+    result = generate("estou muito mal", [])
+    assert result["safety_level"] == "crise"
+    assert "188" in result["answer"]
+    assert result["sources"] == []
+
+
+def test_generate_abalo_filters_dark_chunks_and_suppresses_chips(
+    monkeypatch, mock_client
+):
+    dark = {
+        "content": "relato de suicida",
+        "metadata": {
+            "book": "O Céu e o Inferno",
+            "chapter_title": "SUICIDAS",
+            "item_number": "1",
+        },
+    }
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: [dark] + _CHUNKS)
+    monkeypatch.setattr("src.rag.generator.classify_sensitivity", lambda t: "abalo")
+    result = generate("estou cansada e não aguento mais", [])
+    assert result["safety_level"] == "abalo"
+    assert all(s["excerpt"] != "relato de suicida" for s in result["sources"])
+    assert result["suggested_questions"] == []
+
+
+def test_generate_normal_unchanged(monkeypatch, mock_client):
+    captured = {}
+
+    def _capture(question, chunks, history, mht, add_caveat=False, sensitive=False):
+        captured["sensitive"] = sensitive
+        return "SYS", [{"role": "user", "content": question}]
+
+    monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: _CHUNKS)
+    monkeypatch.setattr("src.rag.generator.classify_sensitivity", lambda t: "normal")
+    monkeypatch.setattr("src.rag.generator.build_messages", _capture)
+    result = generate("o que é o perispírito?", [])
+    assert result["safety_level"] == "normal"
+    assert captured["sensitive"] is False
 
 
 def test_generate_enriches_evangelho_top_hit(monkeypatch, mock_client):
