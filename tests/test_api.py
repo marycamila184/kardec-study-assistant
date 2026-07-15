@@ -538,3 +538,57 @@ def test_reflect_response_safety_level_defaults_none():
         sources=[],
     )
     assert resp.safety_level is None
+
+
+_CRISIS_CHAT_RESULT = {
+    "answer": "Sinto muito... 188 ... 192",
+    "sources": [],
+    "suggested_questions": [],
+    "not_found": False,
+    "generation_failed": False,
+    "safety_level": "crise",
+}
+
+
+def test_chat_exposes_safety_level():
+    with patch("src.api.routes.generate", return_value=_CRISIS_CHAT_RESULT):
+        data = client.post("/chat", json={"question": "não aguento mais viver"}).json()
+    assert data["safety_level"] == "crise"
+
+
+def test_chat_suppresses_nudge_on_crise():
+    with (
+        patch("src.api.routes.generate", return_value=_CRISIS_CHAT_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "refletir", "confidence": "high"},
+        ),
+    ):
+        data = client.post("/chat", json={"question": "não aguento mais viver"}).json()
+    assert data["suggested_mode"] is None
+
+
+def test_reflect_exposes_safety_level():
+    crise_reflect = {
+        "opening": "",
+        "doctrine_connection": "Sinto muito... 188 ... 192",
+        "reflection_questions": [],
+        "is_closing": False,
+        "complementary_items": [],
+        "sources": [],
+        "not_found": False,
+        "generation_failed": False,
+        "safety_level": "crise",
+    }
+    with (
+        patch("src.api.routes.reflect_fn", return_value=crise_reflect),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/reflect", json={"situation": "não quero mais viver"}
+        ).json()
+    assert data["safety_level"] == "crise"
+    assert data["suggested_mode"] is None

@@ -75,6 +75,8 @@ def chat(request: ChatRequest) -> ChatResponse:
             anchor_text=request.anchor_text,
         ),
     )
+    if result.get("safety_level") == "crise":
+        suggested_mode = None
     study_ref = (
         extract_study_reference(request.question)
         if suggested_mode == "estudar_obra"
@@ -89,6 +91,7 @@ def chat(request: ChatRequest) -> ChatResponse:
         suggested_item_number=study_ref["item_number"],
         suggested_book=study_ref["book"],
         generation_failed=result.get("generation_failed", False),
+        safety_level=result.get("safety_level"),
     )
 
 
@@ -129,6 +132,8 @@ def reflect_situation(request: ReflectRequest) -> ReflectResponse:
         history,
         lambda: reflect_fn(request.situation, history, anchor_text=request.anchor_text),
     )
+    if result.get("safety_level") == "crise":
+        suggested_mode = None
     study_ref = (
         extract_study_reference(request.situation)
         if suggested_mode == "estudar_obra"
