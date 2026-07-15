@@ -5,7 +5,7 @@ from src.core.config import settings
 from src.rag.curador import curar
 from src.rag.explicador_prompt import build_explicador_messages, parse_explicador_json
 from src.rag.llm_client import get_client
-from src.rag.retriever import retrieve, retrieve_by_item
+from src.rag.retriever import chapter_commentary, retrieve, retrieve_by_item
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +39,13 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         )
     ][:3]
 
+    commentary = chapter_commentary(book, chapter or "", item_number)
+
     system, messages = build_explicador_messages(
-        original_text, related, footnote_context=footnote_context
+        original_text,
+        related,
+        footnote_context=footnote_context,
+        chapter_commentary_chunks=commentary,
     )
 
     def _call_explicador():

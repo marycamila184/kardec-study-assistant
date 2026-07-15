@@ -159,3 +159,90 @@ def test_explicar_logs_on_llm_error(caplog):
         )
         explicar("O Livro dos Espíritos", "1")
     assert any("explicador" in r.message.lower() for r in caplog.records)
+
+
+def test_explicar_passes_chapter_commentary_to_prompt(monkeypatch):
+    ev_chunk = {
+        "content": "1. O reino dos céus é semelhante a um pai de família...",
+        "metadata": {
+            "book": "O Evangelho Segundo o Espiritismo",
+            "chapter": "CAPÍTULO XX",
+            "chapter_title": "OS TRABALHADORES DA ÚLTIMA HORA",
+            "item_number": "1",
+        },
+        "footnote_context": "",
+    }
+    captured = {}
+
+    def _capture_build(
+        main_text, related, footnote_context="", chapter_commentary_chunks=None
+    ):
+        captured["commentary"] = chapter_commentary_chunks
+        return "SYS", [{"role": "user", "content": "x"}]
+
+    monkeypatch.setattr(
+        "src.rag.explicador.retrieve_by_item", lambda b, i, c=None: [ev_chunk]
+    )
+    monkeypatch.setattr("src.rag.explicador.retrieve", lambda q, top_k=6: [])
+    monkeypatch.setattr("src.rag.explicador.curar", lambda t, r: [])
+    monkeypatch.setattr(
+        "src.rag.explicador.chapter_commentary",
+        lambda b, c, ex: [{"content": "comentario kardec", "metadata": {}}],
+    )
+    monkeypatch.setattr("src.rag.explicador.build_explicador_messages", _capture_build)
+
+    client = MagicMock()
+    client.chat.completions.create.return_value = MagicMock(
+        choices=[
+            MagicMock(
+                message=MagicMock(content='{"contexto":"c","conceitos_chave":[]}')
+            )
+        ]
+    )
+    monkeypatch.setattr("src.rag.explicador.get_client", lambda: client)
+
+    explicar("O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO XX")
+    assert captured["commentary"] == [{"content": "comentario kardec", "metadata": {}}]
+
+
+def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
+    le_chunk = {
+        "content": "132. A encarnação...",
+        "metadata": {
+            "book": "O Livro dos Espíritos",
+            "chapter": "CAP I",
+            "item_number": "132",
+        },
+        "footnote_context": "",
+    }
+
+    captured = {}
+
+    def _capture_build(
+        main_text, related, footnote_context="", chapter_commentary_chunks=None
+    ):
+        captured["commentary"] = chapter_commentary_chunks
+        return "SYS", [{"role": "user", "content": "x"}]
+
+    monkeypatch.setattr(
+        "src.rag.explicador.retrieve_by_item", lambda b, i, c=None: [le_chunk]
+    )
+    monkeypatch.setattr("src.rag.explicador.retrieve", lambda q, top_k=6: [])
+    monkeypatch.setattr("src.rag.explicador.curar", lambda t, r: [])
+    monkeypatch.setattr(
+        "src.rag.explicador.chapter_commentary",
+        lambda b, c, ex: [],  # Returns [] for non-Evangelho due to self-gating
+    )
+    monkeypatch.setattr("src.rag.explicador.build_explicador_messages", _capture_build)
+    client = MagicMock()
+    client.chat.completions.create.return_value = MagicMock(
+        choices=[
+            MagicMock(
+                message=MagicMock(content='{"contexto":"c","conceitos_chave":[]}')
+            )
+        ]
+    )
+    monkeypatch.setattr("src.rag.explicador.get_client", lambda: client)
+
+    explicar("O Livro dos Espíritos", "132", "CAP I")
+    assert captured["commentary"] == []
