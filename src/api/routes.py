@@ -68,7 +68,12 @@ def chat(request: ChatRequest) -> ChatResponse:
         request.question,
         request.current_mode,
         history,
-        lambda: generate(request.question, history, book_filter=request.book_filter),
+        lambda: generate(
+            request.question,
+            history,
+            book_filter=request.book_filter,
+            anchor_text=request.anchor_text,
+        ),
     )
     study_ref = (
         extract_study_reference(request.question)
@@ -122,7 +127,7 @@ def reflect_situation(request: ReflectRequest) -> ReflectResponse:
         request.situation,
         request.current_mode,
         history,
-        lambda: reflect_fn(request.situation, history),
+        lambda: reflect_fn(request.situation, history, anchor_text=request.anchor_text),
     )
     study_ref = (
         extract_study_reference(request.situation)

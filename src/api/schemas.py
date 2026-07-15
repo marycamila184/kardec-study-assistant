@@ -21,6 +21,7 @@ class ChatRequest(BaseModel):
     history: list[Message] = []
     book_filter: str | None = None
     current_mode: str | None = None
+    anchor_text: str | None = None
 
 
 class ChatResponse(BaseModel):
@@ -93,6 +94,7 @@ class ReflectRequest(BaseModel):
     situation: str
     conversation_history: list[Message] = []
     current_mode: str | None = None
+    anchor_text: str | None = None
 
 
 class ReflectResponse(BaseModel):

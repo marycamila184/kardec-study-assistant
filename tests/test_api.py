@@ -331,7 +331,7 @@ def test_reflect_response_has_all_required_fields():
 def test_reflect_passes_situation_to_reflect_fn():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
         client.post("/reflect", json={"situation": "me sinto vazio"})
-    mock_fn.assert_called_once_with("me sinto vazio", [])
+    mock_fn.assert_called_once_with("me sinto vazio", [], anchor_text=None)
 
 
 def test_reflect_passes_conversation_history_to_reflect_fn():
@@ -347,7 +347,7 @@ def test_reflect_passes_conversation_history_to_reflect_fn():
                 "conversation_history": history_payload,
             },
         )
-    mock_fn.assert_called_once_with("nova pergunta", history_payload)
+    mock_fn.assert_called_once_with("nova pergunta", history_payload, anchor_text=None)
 
 
 def test_reflect_response_includes_is_closing_field():
@@ -457,3 +457,21 @@ def test_chat_passes_suggested_questions_through():
             "/chat", json={"question": "O que é a alma?", "history": []}
         ).json()
     assert data["suggested_questions"] == ["Pergunta A?", "Pergunta B?"]
+
+
+def test_chat_forwards_anchor_text_to_generator():
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT) as mock_gen:
+        client.post(
+            "/chat",
+            json={"question": "preciso ser criança?", "anchor_text": "humildade"},
+        )
+    assert mock_gen.call_args.kwargs["anchor_text"] == "humildade"
+
+
+def test_reflect_forwards_anchor_text_to_reflect_fn():
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_ref:
+        client.post(
+            "/reflect",
+            json={"situation": "estou pensando nisso", "anchor_text": "humildade"},
+        )
+    assert mock_ref.call_args.kwargs["anchor_text"] == "humildade"
