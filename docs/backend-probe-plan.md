@@ -68,6 +68,29 @@ Legend: `POST /chat {question}`, `POST /reflect {situation}`.
 | F3 | `GET /evangelho` twice, same day | identical responses (deterministic, seeded by date); no LLM variance except `chapter_summary` (pre-generated) |
 | F4 | Footnote leak sweep: run D1/F1 and grep responses | no `[Nota N]` markers anywhere in `answer`/`original_text`/`excerpt` (footnotes stripped on read) |
 
+## G. Multi-turn dialogue (automated in the script)
+
+| # | Probe | Assertions |
+|---|-------|-----------|
+| G1 | Refletir thread, up to 6 turns, each turn "clicking" the first reflection question with real history threading (mirrors the frontend's `buildReflectHistory`) | no reflection question repeated verbatim across turns |
+| G2 | same thread | book allowlist holds on every turn |
+| G3 | same thread | 1–3 questions on every open turn |
+| G4/G4b | same thread | a closing turn carries no questions; the thread closes within 6 turns (naturally or via CAP_ROUNDS). Backend hardening (2026-07-19): a successful turn with zero questions is coerced to `is_closing=true` in code. |
+| G5 | same thread | never self-nudges `refletir` |
+| G6 | /chat thread, 3 turns, following its own suggested chips | markers stripped, no trailing "?", excerpts present on every turn; missing chips counted as WARN (model variance, UI-tolerated) |
+
+## Known findings log
+
+- **E3 (fixed 2026-07-19):** `extract_study_reference` bound "questão 1500" to
+  O Livro dos Espíritos with no range check; now the LE default only fires for
+  1–1019 (`_LE_MAX_QUESTAO`).
+- **Rate limiting:** an unpaced full run exceeds the Groq free-tier TPM (12k),
+  producing `generation_failed` responses that masquerade as contract
+  violations. The script paces LLM-bound POSTs (`--pause`, default 3s) and
+  retries once after 60s (a full TPM window) on `generation_failed`; content
+  checks and dialogue threads skip/abort with WARN rather than mis-scoring
+  provider failures as contract violations.
+
 ## Suggested harness
 
 Deterministic assertions → a small `scripts/probe_backend.py` (httpx against

@@ -46,6 +46,11 @@ _ITEM_NUMBER_PATTERNS = [
 
 _LIVRO_ESPIRITOS = "O Livro dos Espíritos"
 
+# LE's questões are numbered globally 1–1019; a "questão N" outside that range
+# cannot be an LE reference, so the book default must not fire (a /study
+# button built from it would 404).
+_LE_MAX_QUESTAO = 1019
+
 # Maps user phrasings to the canonical book names used by /study
 # (same canonical names as parsing_pipeline.BOOK_NAME_MAP values).
 _BOOK_PATTERNS = [
@@ -178,7 +183,12 @@ def extract_study_reference(question: str) -> dict:
         if p.search(question):
             book = canonical
             break
-    if book is None and is_questao:
+    if (
+        book is None
+        and is_questao
+        and item_number is not None
+        and 1 <= int(item_number) <= _LE_MAX_QUESTAO
+    ):
         book = _LIVRO_ESPIRITOS
 
     return {"item_number": item_number, "book": book}

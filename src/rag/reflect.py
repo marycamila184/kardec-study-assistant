@@ -185,9 +185,20 @@ def reflect(
         is_closing = True
         reflection_questions = []
 
-    if topic_note and not generation_failed:
-        # Deterministic: a suicide-topic turn always carries the CVV note.
-        doctrine_connection = doctrine_connection + "\n\n" + CRISIS_NOTE
+    if not generation_failed and not reflection_questions:
+        # Contract hardening: the prompt allows only two shapes — 1–3 questions,
+        # or a closing. A successful turn with zero questions IS a closing even
+        # when the model forgets to set the flag.
+        is_closing = True
+
+    if topic_note:
+        # Deterministic safety property: a suicide-topic turn ALWAYS carries
+        # the CVV note — even when generation failed (matches /chat).
+        doctrine_connection = (
+            doctrine_connection + "\n\n" + CRISIS_NOTE
+            if doctrine_connection
+            else CRISIS_NOTE
+        )
 
     sources = [
         {

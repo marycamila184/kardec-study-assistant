@@ -576,3 +576,44 @@ def test_reflect_topic_suicide_mention_gets_note_not_exit():
     assert result["safety_level"] != "crise"
     assert result["doctrine_connection"].endswith(CRISIS_NOTE)
     assert result["reflection_questions"]  # normal flow continued
+
+
+def test_reflect_empty_questions_coerced_to_closing():
+    # Contract hardening: the prompt allows two shapes — 1-3 questions, or a
+    # closing. A successful turn with zero questions IS a closing even when
+    # the model forgets the flag.
+    no_q_json = (
+        '{"opening": "o", "doctrine_connection": "d",'
+        ' "reflection_questions": [], "is_closing": false}'
+    )
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.curar", return_value=[]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(no_q_json)
+        )
+        result = reflect("situação qualquer")
+    assert result["is_closing"] is True
+    assert result["reflection_questions"] == []
+
+
+def test_reflect_topic_suicide_note_survives_generation_failure():
+    # The CVV note is a safety property: a suicide-topic turn carries it even
+    # when the generation LLM fails (matches /chat's unconditional append).
+    from src.rag.reflect_prompt import CRISIS_NOTE
+
+    def _boom(*args, **kwargs):
+        raise RuntimeError("llm down")
+
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1]),
+        patch("src.rag.reflect.curar", return_value=[]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.side_effect = _boom
+        result = reflect("perdi um amigo para o suicídio")
+
+    assert result["generation_failed"] is True
+    assert CRISIS_NOTE in result["doctrine_connection"]

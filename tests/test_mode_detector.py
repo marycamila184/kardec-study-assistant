@@ -153,3 +153,22 @@ def test_extract_study_reference_without_number():
 def test_extract_study_reference_o_que_diz_fallback():
     ref = extract_study_reference("o que diz Kardec no número 200")
     assert ref["item_number"] == "200"
+
+
+def test_questao_out_of_range_does_not_default_to_le():
+    # LE questões run 1–1019; an out-of-range "questão N" must not bind the
+    # book (the /study button would 404 on a nonexistent item).
+    assert extract_study_reference("O que diz a questão 1500?")["book"] is None
+    assert extract_study_reference("questão 0")["book"] is None
+
+
+def test_questao_at_range_edges_defaults_to_le():
+    assert (
+        extract_study_reference("questão 1019")["book"] == "O Livro dos Espíritos"
+    )
+    assert extract_study_reference("questão 1")["book"] == "O Livro dos Espíritos"
+
+
+def test_questao_out_of_range_with_explicit_book_keeps_it():
+    ref = extract_study_reference("questão 1500 do evangelho")
+    assert ref["book"] == "O Evangelho Segundo o Espiritismo"
