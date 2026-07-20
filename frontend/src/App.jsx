@@ -107,6 +107,12 @@ export default function App() {
   const [drawerOpen,    setDrawerOpen]   = useState(false);
   const msgsRef = useRef(null);
   const requestIdRef = useRef(0);
+  // Bumped whenever a message thread is replaced or reset (mode switch, convo
+  // load/delete, book change, trilha start). Slow quick-action / trecho replies
+  // capture it before their await and drop themselves if the thread they were
+  // meant for is gone — unlike requestIdRef, a concurrent *send* doesn't bump
+  // it, since interleaved appends to the same thread are fine.
+  const threadEpochRef = useRef(0);
   useStickToBottom(msgsRef); // follow the typewriter reveal to the bottom
 
   // ── On-mount: fetch evangelho + paths ────────────────────────────────────
@@ -140,11 +146,17 @@ export default function App() {
   // ── Conversation delete — clears active state if the deleted convo is current ─
   const handleDeleteConvo = (id) => {
     deleteConvo(id);
-    const isActive =
-      id === convoId ||
-      id === explorarConvoMeta?.id ||
-      id === guidedMsgs[0]?.convoId;
+    // Active trilha: guided messages carry tutor_* ids, not the convo id, so
+    // match against the trilha itself and clear the guided state directly.
+    if (activeTrilha && id === 'trilha_' + activeTrilha.id) {
+      threadEpochRef.current += 1;
+      setActiveTrilha(null); setGuidedMsgs([]); setGuidedStep(0); setGuidedLoading(false);
+      if (mode === 'estudar') setEstudarSub('picker');
+      return;
+    }
+    const isActive = id === convoId || id === explorarConvoMeta?.id;
     if (isActive) {
+      threadEpochRef.current += 1;
       setMsgs([]); setConvoId(null); setLoading(false); setInput('');
       setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
       setMode('duvida');
@@ -154,6 +166,7 @@ export default function App() {
   // ── Mode switching ───────────────────────────────────────────────────────
   const switchMode = (m) => {
     requestIdRef.current += 1; // invalidate any in-flight sendText for the old mode
+    threadEpochRef.current += 1;
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
     if (m === 'estudar') setEstudarSub('picker');
     if (m === 'refletir') setRefletirSub('picker');
@@ -240,7 +253,9 @@ export default function App() {
     const requestId = ++requestIdRef.current;
 
     try {
-      const reply = await reflectSituation(question, history);
+      // 'refletir' as current_mode so the orchestrator never self-nudges
+      // toward Refletir inside a Refletir thread (sendText does the same).
+      const reply = await reflectSituation(question, history, MODE_TO_INTENT.refletir);
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
       const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
@@ -264,10 +279,13 @@ export default function App() {
   const runQuickAction = async (label, msg, appendMsg, setLoad) => {
     const quote = msg.obra?.quote || msg.ia || '';
     const snippet = quote.slice(0, 400);
+    const epoch = threadEpochRef.current;
+    // Drop late replies if the target thread was replaced meanwhile.
+    const append = (m) => { if (epoch === threadEpochRef.current) appendMsg(m); };
 
     if (label === '📄 Ler original') {
       if (msg.obra?.quote) {
-        appendMsg({
+        append({
           id: 'a' + Date.now(), isUser: false, isAI: true,
           hasDaObra: true, obra: { ...msg.obra, title: 'Texto original' }, ia: '',
         });
@@ -287,17 +305,17 @@ export default function App() {
     const userText = label === '💡 Explicar simples'
       ? `Explique de forma mais simples: "${snippet}"`
       : '🪞 Reflexão sobre este trecho';
-    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text: userText });
+    append({ id: 'u' + Date.now(), isUser: true, isAI: false, text: userText });
     setLoad(true);
     scrollToBottom();
     try {
       const reply = label === '🪞 Reflexão'
         ? await reflectSituation(snippet)
         : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('runQuickAction failed:', err);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
       scrollToBottom();
@@ -313,15 +331,17 @@ export default function App() {
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
   const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
-    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text: displayText });
+    const epoch = threadEpochRef.current;
+    const append = (m) => { if (epoch === threadEpochRef.current) appendMsg(m); };
+    append({ id: 'u' + Date.now(), isUser: true, isAI: false, text: displayText });
     setLoad(true);
     scrollToBottom();
     try {
       const reply = await chatMessage(queryText, [], bookFilter);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('askDuvida failed:', err);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
       scrollToBottom();
@@ -339,6 +359,7 @@ export default function App() {
 
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
+    threadEpochRef.current += 1; // resets guidedMsgs — drop stale quick-action replies
     setEstudarSub('guided');
     setGuidedStep(0); setGuidedMsgs([]); setGuidedLoading(true);
     let pathDetail;
@@ -444,10 +465,12 @@ export default function App() {
     const bookName = BOOK_NAME_MAP[obraId];
     const { item_number, chapter } = parseItemRef(query);
 
+    // buildChatHistoryContent (not m.ia) so /study replies keep the studied
+    // passage in history — see the grounding note above sendText.
     const history = prevMsgs
       .filter(m => m.isUser || m.isAI)
       .slice(-6)
-      .map(m => ({ role: m.isUser ? 'user' : 'assistant', content: m.isUser ? m.text : (m.ia || '') }))
+      .map(m => ({ role: m.isUser ? 'user' : 'assistant', content: m.isUser ? m.text : buildChatHistoryContent(m) }))
       .filter(h => h.content);
 
     let reply;
@@ -589,6 +612,7 @@ export default function App() {
 
   // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
   const handleLoadConvo = async (c) => {
+    threadEpochRef.current += 1; // replaces a thread — drop stale async replies
     setConvoId(c.id);
     const msgs = markFromCache(c.msgs);
     // `sub` is stored explicitly on conversations saved after this field was
@@ -665,6 +689,7 @@ export default function App() {
   const handleStudyTrecho = async () => {
     if (!evangelhoData) return;
     switchMode('duvida');
+    const epoch = threadEpochRef.current; // after switchMode's bump
     const { source, content } = evangelhoData;
     const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: 'Estudo diário de hoje' };
     const id = 'trecho_' + Date.now();
@@ -685,6 +710,8 @@ export default function App() {
       setLoading(false);
     }
 
+    // User may have switched threads while /study ran — don't clobber the new one.
+    if (epoch !== threadEpochRef.current) return;
     const finalMsgs = [userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
     setMsgs(finalMsgs);
     saveConvo(id, 'Trecho do dia', 'duvida', finalMsgs);
@@ -833,7 +860,7 @@ export default function App() {
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
-              onBookChange={() => { setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null; }}
+              onBookChange={() => { threadEpochRef.current += 1; setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null; }}
               onAskDuvida={handleExplorarDuvida}
             />
           )}

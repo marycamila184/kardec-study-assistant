@@ -40,21 +40,27 @@ export default function RelatedItemsModal({ modal, theme, onClose, onSelectItem 
         </div>
 
         <div style={{ overflowY: 'auto', padding: '8px 10px' }}>
-          {modal.items.map((item, i) => (
+          {modal.items.map((item, i) => {
+            // Unnumbered content (chapter preambles, testimony sections) has no
+            // item_number — /study can't open it, so the row is informational only.
+            const openable = !!item.item_number;
+            return (
             <button
               key={i}
-              onClick={() => onSelectItem(item)}
+              onClick={openable ? () => onSelectItem(item) : undefined}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
                 display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
-                cursor: 'pointer', borderRadius: 10, padding: '12px 10px',
-                background: hoveredIndex === i ? theme.cardBg : 'transparent',
+                cursor: openable ? 'pointer' : 'default', borderRadius: 10, padding: '12px 10px',
+                background: openable && hoveredIndex === i ? theme.cardBg : 'transparent',
                 transition: 'background .15s',
               }}
             >
               <div style={{ fontSize: 12.5, fontWeight: 600, color: theme.text, marginBottom: 4 }}>
-                {item.book} — {formatItemRef(item.book, item.item_number)}
+                {item.item_number
+                  ? `${item.book} — ${formatItemRef(item.book, item.item_number)}`
+                  : (item.chapter ? `${item.book} — ${item.chapter}` : item.book)}
               </div>
               {item.conexao && (
                 <div style={{ fontSize: 11.5, color: theme.qasText, marginBottom: 4, lineHeight: 1.5 }}>
@@ -66,7 +72,8 @@ export default function RelatedItemsModal({ modal, theme, onClose, onSelectItem 
                 color: theme.subtext, lineHeight: 1.6,
               }}>"{item.preview}…"</div>
             </button>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
