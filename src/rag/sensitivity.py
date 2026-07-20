@@ -3,7 +3,7 @@ import logging
 import re
 
 from src.core.config import settings
-from src.rag.llm_client import get_client
+from src.rag.llm_client import create_json_completion, get_client
 
 logger = logging.getLogger(__name__)
 
@@ -34,8 +34,9 @@ def classify_sensitivity(text: str) -> str:
     if not text:
         return "normal"
     try:
-        response = get_client().chat.completions.create(
-            model=settings.condenser_model,
+        response = create_json_completion(
+            get_client(),
+            model=settings.resolved_condenser_model,
             max_tokens=30,
             messages=[
                 {"role": "system", "content": _SYSTEM_PROMPT},

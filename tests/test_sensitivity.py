@@ -46,3 +46,18 @@ def test_classify_llm_failure_defaults_normal(monkeypatch):
 
     monkeypatch.setattr("src.rag.sensitivity.get_client", _boom)
     assert classify_sensitivity("texto") == "normal"
+
+
+def test_classify_uses_json_response_format(monkeypatch):
+    from unittest.mock import MagicMock
+
+    response = MagicMock()
+    response.choices = [MagicMock(message=MagicMock(content='{"nivel": "normal"}'))]
+    client = MagicMock()
+    client.chat.completions.create.return_value = response
+    monkeypatch.setattr("src.rag.sensitivity.get_client", lambda: client)
+    monkeypatch.setattr("src.core.config.settings.structured_output", True)
+
+    classify_sensitivity("o que é o perispírito?")
+    kwargs = client.chat.completions.create.call_args.kwargs
+    assert kwargs["response_format"] == {"type": "json_object"}

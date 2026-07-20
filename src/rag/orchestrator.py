@@ -3,7 +3,7 @@ import logging
 import re
 
 from src.core.config import settings
-from src.rag.llm_client import get_client
+from src.rag.llm_client import create_json_completion, get_client
 from src.rag.mode_detector import is_smalltalk
 from src.rag.reflect_prompt import needs_crisis_note
 
@@ -66,8 +66,9 @@ def classify_intent(
     if not message or needs_crisis_note(message) or is_smalltalk(message):
         return {"mode": None, "confidence": "high"}
     try:
-        response = get_client().chat.completions.create(
-            model=settings.condenser_model,
+        response = create_json_completion(
+            get_client(),
+            model=settings.resolved_condenser_model,
             max_tokens=60,
             messages=[
                 {"role": "system", "content": _SYSTEM_PROMPT},

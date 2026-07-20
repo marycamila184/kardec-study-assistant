@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 from src.core.config import settings
 from src.rag.curador import curar
-from src.rag.llm_client import get_client
+from src.rag.llm_client import create_json_completion, get_client
 from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import (
     CRISIS_EXIT_MESSAGE,
@@ -151,8 +151,9 @@ def reflect(
     )
 
     def _call_reflexivo():
-        response = get_client().chat.completions.create(
-            model=settings.chat_model,
+        response = create_json_completion(
+            get_client(),
+            model=settings.resolved_chat_model,
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,
         )

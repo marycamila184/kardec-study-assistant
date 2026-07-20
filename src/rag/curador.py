@@ -27,7 +27,7 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
     call_failed = False
     try:
         response = get_client().chat.completions.create(
-            model=settings.chat_model,
+            model=settings.resolved_chat_model,
             max_tokens=512,
             messages=[{"role": "system", "content": system}] + messages,
         )

@@ -28,7 +28,7 @@ def condense_query(question: str, history: list[dict]) -> str:
         f"Retorne apenas a consulta reescrita, sem explicações.\n\nPergunta: {question}"
     )
     response = get_client().chat.completions.create(
-        model=settings.condenser_model,
+        model=settings.resolved_condenser_model,
         max_tokens=256,
         messages=[{"role": "user", "content": prompt}],
     )

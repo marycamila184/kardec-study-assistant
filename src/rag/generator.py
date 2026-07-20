@@ -267,7 +267,7 @@ def generate(
     )
     try:
         response = get_client().chat.completions.create(
-            model=settings.chat_model,
+            model=settings.resolved_chat_model,
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,
         )

@@ -50,7 +50,7 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
 
     def _call_explicador():
         response = get_client().chat.completions.create(
-            model=settings.chat_model,
+            model=settings.resolved_chat_model,
             max_tokens=1024,
             messages=[{"role": "system", "content": system}] + messages,
         )
