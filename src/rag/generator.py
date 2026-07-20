@@ -10,6 +10,8 @@ from src.rag.prompt import build_messages
 from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import (
     CRISIS_EXIT_MESSAGE,
+    CRISIS_NOTE,
+    mentions_suicide_topic,
     needs_crisis_note,
     needs_medical_caveat,
 )
@@ -156,6 +158,11 @@ def generate(
     if needs_crisis_note(question):
         return _crisis_exit()
 
+    # Topic-level mention (no ideation — that exited above): answer normally,
+    # but always carry the CVV note, appended in code before returning. The
+    # sensitivity classifier can still escalate this turn to a full exit.
+    topic_note = mentions_suicide_topic(question)
+
     # The sensitivity classifier runs concurrently with retrieval (both are
     # pre-generation), so it adds no serial latency in the common path.
     executor = ThreadPoolExecutor(max_workers=1)
@@ -236,7 +243,11 @@ def generate(
     if not chunks:
         logger.warning("no chunks retrieved for /chat; returning not_found")
         return {
-            "answer": NOT_FOUND_MESSAGE,
+            "answer": (
+                NOT_FOUND_MESSAGE + "\n\n" + CRISIS_NOTE
+                if topic_note
+                else NOT_FOUND_MESSAGE
+            ),
             "sources": [],
             "suggested_questions": [],
             "not_found": True,
@@ -274,6 +285,10 @@ def generate(
     if sensitive:
         # A distressed turn is not steered toward "explore more" chips.
         suggested_questions = []
+
+    if topic_note:
+        # Deterministic: any suicide-topic question carries the CVV note.
+        answer = answer + "\n\n" + CRISIS_NOTE
 
     seen: set[tuple] = set()
     sources = []

@@ -556,3 +556,23 @@ def test_reflect_restricts_retrieval_to_reflect_books():
         reflect("estou em conflito familiar")
 
     assert mock_retrieve.call_args.kwargs["book_filter"] == list(REFLECT_BOOKS)
+
+
+def test_reflect_topic_suicide_mention_gets_note_not_exit():
+    # Mentioning suicide as a topic (grief about someone else) must not take
+    # the fixed exit; the reflection proceeds with the CVV note appended.
+    from src.rag.reflect_prompt import CRISIS_NOTE
+
+    with (
+        patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]),
+        patch("src.rag.reflect.curar", return_value=[]),
+        patch("src.rag.reflect.get_client") as mock_client,
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        result = reflect("perdi um amigo para o suicídio no ano passado")
+
+    assert result["safety_level"] != "crise"
+    assert result["doctrine_connection"].endswith(CRISIS_NOTE)
+    assert result["reflection_questions"]  # normal flow continued

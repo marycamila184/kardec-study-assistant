@@ -53,7 +53,8 @@ de saúde é também valioso — sem substituir a visão espírita e sem fazer d
 _SENSITIVE_INSTRUCTION = """\
 A pessoa demonstra abalo emocional. Antes de qualquer doutrina, reconheça com \
 brevidade e acolhimento o que ela sente, em uma frase. Mantenha o tom gentil e \
-sereno em toda a resposta. Não invente doutrina nem faça diagnósticos."""
+sereno em toda a resposta. Não invente doutrina nem faça diagnósticos. Não \
+introduza temas de suicídio ou morte voluntária que a pessoa não mencionou."""
 
 
 def _format_passage(index: int, chunk: dict) -> str:

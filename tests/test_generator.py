@@ -646,3 +646,28 @@ def test_generate_enriches_evangelho_top_hit(monkeypatch, mock_client):
     result = generate("o que significa a parábola?", [])
     excerpts = [s["excerpt"] for s in result["sources"]]
     assert "comentario kardec" in excerpts
+
+
+def test_generate_topic_suicide_answers_with_crisis_note(mock_retrieve, mock_client):
+    # A doctrinal question about suicide gets a real grounded answer — not the
+    # fixed exit — but the CVV note is appended deterministically in code.
+    from src.rag.reflect_prompt import CRISIS_NOTE
+
+    result = generate("O que Kardec diz sobre o suicídio?", [])
+    assert result["generation_failed"] is False
+    assert result["answer"] != ""
+    assert result["answer"].endswith(CRISIS_NOTE)
+    assert result["safety_level"] == "normal"  # no forced escalation
+
+
+def test_generate_first_person_ideation_still_fixed_exit(monkeypatch):
+    from src.rag.reflect_prompt import CRISIS_EXIT_MESSAGE
+
+    def _boom(*args, **kwargs):
+        raise AssertionError("retrieval/LLM must not run on crisis exit")
+
+    monkeypatch.setattr("src.rag.generator.retrieve", _boom)
+    monkeypatch.setattr("src.rag.generator.get_client", _boom)
+    result = generate("penso em suicídio", [])
+    assert result["answer"] == CRISIS_EXIT_MESSAGE
+    assert result["safety_level"] == "crise"

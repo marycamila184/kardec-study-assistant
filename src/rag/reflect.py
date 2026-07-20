@@ -8,7 +8,9 @@ from src.rag.llm_client import get_client
 from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import (
     CRISIS_EXIT_MESSAGE,
+    CRISIS_NOTE,
     build_reflect_messages,
+    mentions_suicide_topic,
     needs_crisis_note,
     needs_medical_caveat,
     parse_reflect_json,
@@ -68,6 +70,11 @@ def reflect(
     if needs_crisis_note(combined_text):
         return _crisis_exit()
 
+    # Topic-level mention this turn (no ideation — that exited above): reflect
+    # normally, but always append the CVV note in code. Current turn only, so
+    # a thread that once mentioned the topic doesn't repeat the note forever.
+    topic_note = mentions_suicide_topic(situation)
+
     executor = ThreadPoolExecutor(max_workers=1)
     sensitivity_future = executor.submit(classify_sensitivity, situation)
     try:
@@ -109,17 +116,23 @@ def reflect(
         return _crisis_exit()
 
     if level == "abalo":
-        # No-op in practice: REFLECT_BOOKS already excludes O Céu e o Inferno,
-        # so no SENSITIVE_CHAPTERS chunk can be present. Kept for defense-in-depth
-        # and parity with the shared retrieval helpers; the other abalo behaviors
-        # (gentle prompt, medical caveat, chip suppression) still apply below.
+        # The chapter half is a no-op here (REFLECT_BOOKS excludes O Céu e o
+        # Inferno), but the content half is live: it drops suicide-adjacent
+        # passages that exist inside ESE/LE too (e.g. "abreviar as misérias"),
+        # so they are never introduced to a distressed reader unprompted. The
+        # other abalo behaviors (gentle prompt, caveat, chip suppression)
+        # still apply below.
         chunks = filter_sensitive_chunks(chunks)
 
     if not chunks:
         logger.warning("no chunks retrieved for /reflect; returning not_found")
         return {
             "opening": "",
-            "doctrine_connection": _NOT_FOUND_MESSAGE,
+            "doctrine_connection": (
+                _NOT_FOUND_MESSAGE + "\n\n" + CRISIS_NOTE
+                if topic_note
+                else _NOT_FOUND_MESSAGE
+            ),
             "reflection_questions": [],
             "complementary_items": [],
             "sources": [],
@@ -171,6 +184,10 @@ def reflect(
     if force_closing:
         is_closing = True
         reflection_questions = []
+
+    if topic_note and not generation_failed:
+        # Deterministic: a suicide-topic turn always carries the CVV note.
+        doctrine_connection = doctrine_connection + "\n\n" + CRISIS_NOTE
 
     sources = [
         {

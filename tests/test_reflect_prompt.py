@@ -186,3 +186,30 @@ def test_crisis_exit_message_has_support_lines():
     assert "188" in CRISIS_EXIT_MESSAGE  # CVV
     assert "192" in CRISIS_EXIT_MESSAGE  # SAMU
     assert "não está só" in CRISIS_EXIT_MESSAGE
+
+
+# ── Ideation vs. topic split ──────────────────────────────────────────────────
+from src.rag.reflect_prompt import mentions_suicide_topic  # noqa: E402
+
+
+def test_needs_crisis_note_false_for_doctrinal_suicide_question():
+    # Topic-level mention, no first-person ideation: must NOT take the fixed
+    # exit — the app must be able to teach what the works say about suicide.
+    assert needs_crisis_note("O que Kardec diz sobre o suicídio?") is False
+    assert needs_crisis_note("o que acontece com quem comete suicidio?") is False
+
+
+def test_needs_crisis_note_true_for_first_person_ideation_with_topic_word():
+    assert needs_crisis_note("penso em suicídio") is True
+    assert needs_crisis_note("estou pensando em me suicidar") is True
+    assert needs_crisis_note("quero me suicidar") is True
+
+
+def test_mentions_suicide_topic_true_for_doctrinal_question():
+    assert mentions_suicide_topic("O que Kardec diz sobre o suicídio?") is True
+    assert mentions_suicide_topic("o que acontece apos o suicidio") is True
+
+
+def test_mentions_suicide_topic_false_without_the_topic():
+    assert mentions_suicide_topic("estou triste com meu trabalho") is False
+    assert mentions_suicide_topic("o que Kardec diz sobre a morte?") is False

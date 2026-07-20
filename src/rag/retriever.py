@@ -178,12 +178,27 @@ def append_chapter_commentary(passages: list[dict]) -> list[dict]:
     return passages
 
 
+# Suicide-adjacent passages exist outside the dark testimony chapters too —
+# e.g. ESE's afflictions chapter discussing "abreviar as misérias" / "morte
+# voluntária". On an abalo turn these must not be introduced to someone who
+# never raised the theme, whatever book they come from.
+_SENSITIVE_CONTENT_RE = re.compile(
+    r"suic[ií]d"
+    r"|abreviar (?:a vida|as mis[ée]rias|suas mis[ée]rias|os dias)"
+    r"|morte volunt[áa]ria",
+    re.IGNORECASE,
+)
+
+
 def filter_sensitive_chunks(chunks: list[dict]) -> list[dict]:
-    """Drop chunks whose chapter_title is one of the darkest testimony chapters of
-    O Céu e o Inferno (SENSITIVE_CHAPTERS). Applied only on 'abalo' turns, so
-    distressing accounts don't surface for an emotionally vulnerable reader."""
+    """Drop chunks whose chapter_title is one of the darkest testimony chapters
+    of O Céu e o Inferno (SENSITIVE_CHAPTERS), plus any chunk whose content
+    matches suicide-adjacent language (_SENSITIVE_CONTENT_RE) regardless of
+    book. Applied only on 'abalo' turns, so distressing material never
+    surfaces unprompted for an emotionally vulnerable reader."""
     return [
         c
         for c in chunks
         if c["metadata"].get("chapter_title") not in SENSITIVE_CHAPTERS
+        and not _SENSITIVE_CONTENT_RE.search(c["content"])
     ]

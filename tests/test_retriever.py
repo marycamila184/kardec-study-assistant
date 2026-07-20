@@ -355,3 +355,31 @@ def test_filter_sensitive_chunks_covers_full_dark_set():
 def test_filter_sensitive_chunks_keeps_chunks_without_chapter_title():
     chunks = [{"content": "x", "metadata": {"book": "O Livro dos Espíritos"}}]
     assert filter_sensitive_chunks(chunks) == chunks
+
+
+def test_filter_sensitive_chunks_drops_suicide_content_regardless_of_book():
+    # The abalo filter is content-aware too: suicide-adjacent passages exist
+    # outside O Céu e o Inferno (e.g. ESE's afflictions chapter discussing
+    # "abreviar as misérias") and must not surface to a distressed reader.
+    chunks = [
+        {
+            "content": "Seria lícito abreviar as misérias pela morte voluntária?",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "chapter_title": "AFLIÇÕES",
+            },
+        },
+        {
+            "content": "O suicídio é contrário à lei da natureza.",
+            "metadata": {"book": "O Livro dos Espíritos", "chapter_title": "X"},
+        },
+        {
+            "content": "A caridade é a virtude suprema.",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "chapter_title": "CARIDADE",
+            },
+        },
+    ]
+    out = filter_sensitive_chunks(chunks)
+    assert [c["content"] for c in out] == ["A caridade é a virtude suprema."]

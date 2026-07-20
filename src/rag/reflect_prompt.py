@@ -20,10 +20,13 @@ CLINICAL_KEYWORDS = [
 # which embeds CRISIS_NOTE) before any retrieval or LLM call — never left to the
 # LLM's judgment. Includes unaccented variants because users often type without
 # accents.
+# First-person ideation / self-harm cues → deterministic fixed crisis exit.
+# Bare topic words ("suicídio" alone) live in SUICIDE_TOPIC_KEYWORDS below:
+# a doctrinal question about the topic gets a grounded answer + CRISIS_NOTE
+# appended in code, never the fixed exit. Keep the two lists in sync: every
+# ideation phrasing that contains a topic word must be listed here so it is
+# caught BEFORE the topic path (callers check needs_crisis_note first).
 CRISIS_KEYWORDS = [
-    "suicídio",
-    "suicidio",
-    "suicidar",
     "me matar",
     "quero morrer",
     "queria morrer",
@@ -39,6 +42,27 @@ CRISIS_KEYWORDS = [
     "me cortar",
     "me ferir",
     "desistir de viver",
+    # ideation phrasings that carry the topic word (accent-tolerant pairs)
+    "penso em suicídio",
+    "penso em suicidio",
+    "pensando em suicídio",
+    "pensando em suicidio",
+    "pensado em suicídio",
+    "pensado em suicidio",
+    "me suicidar",
+    "cometer suicídio",
+    "cometer suicidio",
+    "ideação suicida",
+    "ideacao suicida",
+]
+
+# Topic-level mentions (the subject, not first-person intent). Checked only
+# after needs_crisis_note() came back False.
+SUICIDE_TOPIC_KEYWORDS = [
+    "suicídio",
+    "suicidio",
+    "suicidar",
+    "suicida",
 ]
 
 CRISIS_NOTE = (
@@ -64,7 +88,11 @@ reflexão pessoal. Nunca elabore doutrina além dos trechos recuperados.
 Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
 (ex.: "o Espiritismo valoriza...", "o Espiritismo diz que...", "o Espiritismo defende..."). \
 Atribua as afirmações à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", \
-"o texto indica que...", "Kardec escreve que...")."""
+"o texto indica que...", "Kardec escreve que...").
+
+Nunca introduza temas de suicídio ou morte voluntária que a pessoa não mencionou. \
+Se uma passagem recuperada tocar nesses temas sem relação direta com a situação \
+relatada, simplesmente não a cite."""
 
 _CAVEAT_INSTRUCTION = """\
 Se a situação descrita puder ter causas clínicas, acrescente UMA frase curta \
@@ -134,8 +162,17 @@ def needs_medical_caveat(situation: str) -> bool:
 
 
 def needs_crisis_note(text: str) -> bool:
+    """First-person ideation/self-harm cues → the deterministic fixed exit."""
     lower = text.lower()
     return any(kw in lower for kw in CRISIS_KEYWORDS)
+
+
+def mentions_suicide_topic(text: str) -> bool:
+    """Topic-level mention of suicide (doctrinal question, grief about someone
+    else). Callers must check needs_crisis_note() FIRST — this path answers
+    normally and deterministically appends CRISIS_NOTE in code."""
+    lower = text.lower()
+    return any(kw in lower for kw in SUICIDE_TOPIC_KEYWORDS)
 
 
 def _format_passages(chunks: list[dict]) -> str:
