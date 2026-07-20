@@ -62,7 +62,7 @@ class PathDetail(BaseModel):
 class RelatedItem(BaseModel):
     book: str
     chapter: str | None = None
-    item_number: str
+    item_number: str | None = None
     preview: str
     conexao: str | None = None
 
@@ -70,7 +70,7 @@ class RelatedItem(BaseModel):
 class StudySource(BaseModel):
     book: str
     chapter_title: str | None = None
-    item_number: str
+    item_number: str | None = None
     excerpt: str | None = None
 
 
