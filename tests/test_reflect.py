@@ -538,3 +538,21 @@ def test_reflect_normal_carries_safety_level(monkeypatch):
         result = reflect("o que é a reencarnação?")
     assert result["safety_level"] == "normal"
     assert result["not_found"] is False
+
+
+def test_reflect_restricts_retrieval_to_reflect_books():
+    from src.rag.retriever import REFLECT_BOOKS
+
+    with (
+        patch(
+            "src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]
+        ) as mock_retrieve,
+        patch("src.rag.reflect.get_client") as mock_client,
+        patch("src.rag.reflect.curar", return_value=[]),
+    ):
+        mock_client.return_value.chat.completions.create.return_value = (
+            _make_llm_response(_LLM_JSON)
+        )
+        reflect("estou em conflito familiar")
+
+    assert mock_retrieve.call_args.kwargs["book_filter"] == list(REFLECT_BOOKS)

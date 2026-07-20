@@ -14,6 +14,7 @@ from src.rag.reflect_prompt import (
     parse_reflect_json,
 )
 from src.rag.retriever import (
+    REFLECT_BOOKS,
     append_chapter_commentary,
     filter_sensitive_chunks,
     has_real_item_number,
@@ -82,7 +83,7 @@ def reflect(
         search_query = blend_anchor(search_query, anchor_text)
 
         try:
-            chunks = retrieve(search_query, top_k=5)
+            chunks = retrieve(search_query, top_k=5, book_filter=list(REFLECT_BOOKS))
         except Exception:
             logger.exception("retrieve failed in /reflect")
             return {
@@ -108,6 +109,10 @@ def reflect(
         return _crisis_exit()
 
     if level == "abalo":
+        # No-op in practice: REFLECT_BOOKS already excludes O Céu e o Inferno,
+        # so no SENSITIVE_CHAPTERS chunk can be present. Kept for defense-in-depth
+        # and parity with the shared retrieval helpers; the other abalo behaviors
+        # (gentle prompt, medical caveat, chip suppression) still apply below.
         chunks = filter_sensitive_chunks(chunks)
 
     if not chunks:
