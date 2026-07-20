@@ -37,6 +37,39 @@ def test_retrieve_keeps_chunks_at_or_below_max_distance():
     assert all(r["distance"] <= 1.2 for r in results)
 
 
+def test_retrieve_with_list_book_filter_uses_in_operator(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.query.return_value = _MOCK_RESULTS
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    monkeypatch.setattr("src.rag.retriever.encode", lambda texts: [[0.1] * 1024])
+    retrieve("alma", book_filter=["O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo"])
+
+    where = mock_store.query.call_args.kwargs["where"]
+    assert where == {
+        "book": {"$in": ["O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo"]}
+    }
+
+
+def test_retrieve_with_str_book_filter_still_uses_eq(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.query.return_value = _MOCK_RESULTS
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    monkeypatch.setattr("src.rag.retriever.encode", lambda texts: [[0.1] * 1024])
+    retrieve("alma", book_filter="O Livro dos Espíritos")
+
+    where = mock_store.query.call_args.kwargs["where"]
+    assert where == {"book": {"$eq": "O Livro dos Espíritos"}}
+
+
+def test_reflect_books_constant_values():
+    from src.rag.retriever import REFLECT_BOOKS
+
+    assert REFLECT_BOOKS == (
+        "O Livro dos Espíritos",
+        "O Evangelho Segundo o Espiritismo",
+    )
+
+
 def test_retrieve_returns_empty_when_all_too_distant(monkeypatch):
     mock_store = MagicMock()
     mock_store.query.return_value = [

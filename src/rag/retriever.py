@@ -20,6 +20,16 @@ SENSITIVE_CHAPTERS = frozenset(
     }
 )
 
+# Reflect grounds only in the two reflection-appropriate works: broad moral
+# doctrine (Espíritos) and practical guidance for living (Evangelho). This keeps
+# O Céu e o Inferno's afterlife testimony, A Gênese's cosmology, and O Livro dos
+# Médiuns' mediumship technique out of life-situation reflections — a register
+# fix, independent of the abalo/sensitivity layer.
+REFLECT_BOOKS: tuple[str, str] = (
+    "O Livro dos Espíritos",
+    "O Evangelho Segundo o Espiritismo",
+)
+
 _store: VectorStore | None = None
 
 _FOOTNOTE_MARKER = re.compile(r"\n\[Nota \d+\] ")
@@ -62,12 +72,19 @@ def _strip_footnotes_from_results(results: list[dict]) -> list[dict]:
 
 
 def retrieve(
-    query: str, top_k: int | None = None, book_filter: str | None = None
+    query: str,
+    top_k: int | None = None,
+    book_filter: str | list[str] | None = None,
 ) -> list[dict]:
     if top_k is None:
         top_k = settings.top_k
     embedding = encode([query])[0]
-    where = {"book": {"$eq": book_filter}} if book_filter else None
+    if isinstance(book_filter, str):
+        where = {"book": {"$eq": book_filter}}
+    elif book_filter:
+        where = {"book": {"$in": list(book_filter)}}
+    else:
+        where = None
     results = _get_store().query(embedding, n_results=top_k, where=where)
     filtered = [r for r in results if r["distance"] <= settings.max_distance]
     return _strip_footnotes_from_results(filtered)
