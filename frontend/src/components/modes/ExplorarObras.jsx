@@ -71,7 +71,7 @@ export default function ExplorarObras({
               stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
               <polyline points="15 18 9 12 15 6"/>
             </svg>
-            Estudar uma Obra
+            Estudar
           </button>
           <span style={{ color: theme.subtext, fontSize: 12.5 }}>·</span>
           <span style={{ fontSize: 12.5, fontWeight: 600, color: '#6B9BB8' }}>Explorar Obras</span>

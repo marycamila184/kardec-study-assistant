@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
+import HomeLauncher from './components/layout/HomeLauncher';
 import MobileBottomNav from './components/layout/MobileBottomNav';
 import Onboarding from './components/modals/Onboarding';
 import SettingsPanel from './components/modals/SettingsPanel';
@@ -23,6 +24,7 @@ import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { formatItemRef } from './utils/format';
 import { lightTheme } from './constants/theme';
+import { MODES } from './constants/modes';
 import {
   chatMessage, studyItem, reflectSituation,
   getEvangelho, getPaths, getPath,
@@ -48,11 +50,14 @@ const MODE_PLACEHOLDER_MOBILE = {
   refletir: 'Descreva sua situação…',
 };
 
+// Starter questions for the Dialogar empty state — its only consumer.
+// Doctrinal questions only: "Como posso ter mais paz no dia a dia?" used to sit
+// here and was a Refletir prompt wearing a 🪞, which is a different mode with a
+// different contract (no advice, questions back rather than answers).
 const SUGGESTIONS = [
   { icon: '📖', label: 'O que é o Espiritismo?' },
   { icon: '💬', label: 'Qual a diferença entre alma, perispírito e espírito?' },
   { icon: '🔄', label: 'O que é a reencarnação?' },
-  { icon: '🪞', label: 'Como posso ter mais paz no dia a dia?' },
 ];
 
 const ERROR_MSG = {
@@ -84,7 +89,7 @@ export default function App() {
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
   // ── UI State ────────────────────────────────────────────────────────────
-  const [mode,          setMode]         = useState('duvida');
+  const [mode,          setMode]         = useState(null);
   const [input,         setInput]        = useState('');
   const [msgs,          setMsgs]         = useState([]);
   const [loading,       setLoading]      = useState(false);
@@ -737,9 +742,12 @@ export default function App() {
   };
 
   // ── Render ────────────────────────────────────────────────────────────────
+  const isHome = mode === null;
   const isEstudar = mode === 'estudar';
   const isRefletir = mode === 'refletir';
-  const isEmpty = msgs.length === 0 && !loading && !isEstudar;
+  // `!isHome` matters: without it the old empty state renders underneath the
+  // home launcher, and the user meets two different launchers.
+  const isEmpty = !isHome && msgs.length === 0 && !loading && !isEstudar;
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -811,6 +819,16 @@ export default function App() {
           />
 
           {/* Content */}
+          {isHome && (
+            <HomeLauncher
+              onPick={switchMode}
+              theme={theme}
+              evangelhoData={evangelhoData}
+              onStudyTrecho={handleStudyTrecho}
+              isMobile={isMobile}
+            />
+          )}
+
           {isEstudar && estudarSub === 'picker' && (
             <EstudarPicker
               theme={theme}
@@ -869,7 +887,7 @@ export default function App() {
             <RefletirPicker theme={theme} onSubmit={handleReflectSubmit} />
           )}
 
-          {!isEstudar && !(isRefletir && refletirSub === 'picker') && (
+          {!isHome && !isEstudar && !(isRefletir && refletirSub === 'picker') && (
             <>
               {/* Chat messages */}
               <div ref={msgsRef} style={{
@@ -879,74 +897,63 @@ export default function App() {
                 {isEmpty && (
                   <div style={{
                     flex: 1, display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '40px 16px',
+                    alignItems: 'center', justifyContent: 'center',
+                    textAlign: 'center', padding: '40px 16px',
                   }}>
                     <div style={{
                       width: 52, height: 52, borderRadius: '50%',
-                      background: 'rgba(107,155,184,.12)', border: '1px solid rgba(107,155,184,.2)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16,
+                      background: 'rgba(107,155,184,.12)',
+                      border: '1px solid rgba(107,155,184,.2)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      marginBottom: 16, fontSize: 24,
                     }}>
-                      <svg width={22} height={22} viewBox="0 0 24 24" fill="none"
-                        stroke="#6B9BB8" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                      </svg>
+                      {MODES.find(m => m.id === mode)?.icon || '💬'}
                     </div>
-                    <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 22, fontWeight: 600, color: theme.text, marginBottom: 8 }}>
-                      Em que posso ajudar?
-                    </div>
-                    <div style={{ fontSize: 14, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 22 }}>
-                      Escolha uma sugestão ou digite sua pergunta.
-                    </div>
-
-                    {/* Suggestions grid */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, maxWidth: 360, marginBottom: 28 }}>
-                      {SUGGESTIONS.map(s => (
-                        <button key={s.label} onClick={() => sendText(s.label)} style={{
-                          background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
-                          borderRadius: 10, padding: '12px 14px', cursor: 'pointer',
-                          textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 5,
-                        }}>
-                          <span style={{ fontSize: 16, lineHeight: 1 }}>{s.icon}</span>
-                          <span style={{ fontSize: 13, color: theme.text, fontWeight: 500, lineHeight: 1.45 }}>{s.label}</span>
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Divider */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, maxWidth: 360, width: '100%', marginBottom: 16 }}>
-                      <div style={{ flex: 1, height: 1, background: theme.cardBorder }} />
-                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: theme.subtext }}>
-                        Outros modos
-                      </span>
-                      <div style={{ flex: 1, height: 1, background: theme.cardBorder }} />
-                    </div>
-
-                    {/* Other modes */}
-                    <button onClick={() => switchMode('estudar')} style={{
-                      background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.3)',
-                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
-                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
-                      maxWidth: 360, width: '100%', marginBottom: 10,
+                    <div style={{
+                      fontFamily: "'Crimson Pro', serif",
+                      fontSize: 19, fontWeight: 600, color: theme.text, marginBottom: 6,
                     }}>
-                      <span style={{ fontSize: 20 }}>📚</span>
-                      <div>
-                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Estudar uma Obra</div>
-                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Trilhas guiadas e livre exploração pelas 5 obras</div>
+                      {MODES.find(m => m.id === mode)?.label}
+                    </div>
+                    <div style={{
+                      fontSize: 13.5, color: theme.text, opacity: .85, maxWidth: 340, lineHeight: 1.5,
+                    }}>
+                      {MODES.find(m => m.id === mode)?.desc}
+                    </div>
+
+                    {/* Starter questions. These came back after the old empty
+                        state was retired: that screen mixed TWO things, and only
+                        one was redundant. The mode cards duplicated the home
+                        launcher and are gone for good; these chips were the only
+                        one-tap way into a first question, and losing them cost
+                        discovery — worst on mobile, where typing is expensive.
+                        Chips, not cards: the visual weight is what made the old
+                        screen feel cluttered. */}
+                    {mode === 'duvida' && (
+                      <div style={{
+                        display: 'flex', flexWrap: 'wrap', justifyContent: 'center',
+                        gap: 8, marginTop: 26, maxWidth: 460,
+                      }}>
+                        {SUGGESTIONS.map(sug => (
+                          <button
+                            key={sug.label}
+                            onClick={() => sendText(sug.label)}
+                            style={{
+                              background: 'transparent',
+                              border: `1px solid ${theme.cardBorder}`,
+                              borderRadius: 999, padding: '7px 13px',
+                              cursor: 'pointer', font: 'inherit',
+                              fontSize: 12.5, color: theme.text,
+                              display: 'flex', alignItems: 'center', gap: 6,
+                              lineHeight: 1.35, textAlign: 'left',
+                            }}
+                          >
+                            <span aria-hidden="true">{sug.icon}</span>
+                            {sug.label}
+                          </button>
+                        ))}
                       </div>
-                    </button>
-                    <button onClick={() => switchMode('refletir')} style={{
-                      background: 'rgba(200,133,106,.08)', border: '1px solid rgba(200,133,106,.3)',
-                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
-                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
-                      maxWidth: 360, width: '100%',
-                    }}>
-                      <span style={{ fontSize: 20 }}>🪞</span>
-                      <div>
-                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Refletir sobre uma Situação</div>
-                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Veja momentos da sua vida pela lente da doutrina espírita</div>
-                      </div>
-                    </button>
+                    )}
                   </div>
                 )}
 

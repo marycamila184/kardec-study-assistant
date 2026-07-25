@@ -18,11 +18,13 @@ const SECONDARY_BTN = {
 export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, onExplorar, onVerIntro, paths = [], pathsLoading = false, completedTrilhas = [], trilhaProgress = {} }) {
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }}>
+      {/* No title here: the TopBar already names the mode. This line is the
+          screen's instruction, which is different content. */}
       <div style={{ marginBottom: 22 }}>
-        <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 22, fontWeight: 600, color: theme.text, marginBottom: 6 }}>
-          Estudar uma Obra
-        </div>
-        <div style={{ fontSize: 14, color: theme.subtext, lineHeight: 1.65 }}>
+        {/* theme.text, not subtext: this is now the screen's leading line,
+            not a caption. subtext is 2.92:1 on the light background —
+            below the 4.5:1 floor, and unreadable as primary copy. */}
+        <div style={{ fontSize: 15.5, color: theme.text, lineHeight: 1.6, maxWidth: 620 }}>
           Escolha entre o estudo guiado — com tutor socrático — ou a exploração livre.
         </div>
       </div>
