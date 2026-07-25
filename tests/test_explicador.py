@@ -47,9 +47,7 @@ def test_explicar_returns_none_when_no_chunks():
 
 
 def test_explicar_passes_footnote_context_to_prompt():
-    llm_json = (
-        '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
-    )
+    llm_markers = "CONTEXTO: Contexto de teste.\nCONCEITOS: "
     with (
         patch(
             "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
@@ -57,11 +55,11 @@ def test_explicar_passes_footnote_context_to_prompt():
         patch("src.rag.explicador.retrieve", return_value=[]),
         patch("src.rag.explicador.curar", return_value=[]),
         patch("src.rag.explicador.build_explicador_messages") as mock_build,
-        patch("src.rag.explicador.get_client") as mock_client,
+        patch("src.rag.prose.get_client") as mock_client,
     ):
         mock_build.return_value = ("system", [{"role": "user", "content": "msg"}])
         mock_client.return_value.chat.completions.create.return_value = (
-            _make_llm_response(llm_json)
+            _make_llm_response(llm_markers)
         )
         explicar("O Livro dos Espíritos", "1")
     assert (
@@ -71,19 +69,17 @@ def test_explicar_passes_footnote_context_to_prompt():
 
 
 def test_explicar_returns_contexto_from_llm():
-    llm_json = (
-        '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
-    )
+    llm_markers = "CONTEXTO: Contexto de teste.\nCONCEITOS: "
     with (
         patch(
             "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
         ),
         patch("src.rag.explicador.retrieve", return_value=[]),
         patch("src.rag.explicador.curar", return_value=[]),
-        patch("src.rag.explicador.get_client") as mock_client,
+        patch("src.rag.prose.get_client") as mock_client,
     ):
         mock_client.return_value.chat.completions.create.return_value = (
-            _make_llm_response(llm_json)
+            _make_llm_response(llm_markers)
         )
         result = explicar("O Livro dos Espíritos", "1")
     assert result["contexto"] == "Contexto de teste."
@@ -91,9 +87,7 @@ def test_explicar_returns_contexto_from_llm():
 
 
 def test_explicar_degrades_gracefully_when_related_retrieval_fails():
-    llm_json = (
-        '{"contexto": "Contexto de teste.", "conceitos_chave": [], "perguntas": []}'
-    )
+    llm_markers = "CONTEXTO: Contexto de teste.\nCONCEITOS: "
 
     def _raise(*args, **kwargs):
         raise RuntimeError("db error")
@@ -104,10 +98,10 @@ def test_explicar_degrades_gracefully_when_related_retrieval_fails():
         ),
         patch("src.rag.explicador.retrieve", side_effect=_raise),
         patch("src.rag.explicador.curar", return_value=[]) as mock_curar,
-        patch("src.rag.explicador.get_client") as mock_client,
+        patch("src.rag.prose.get_client") as mock_client,
     ):
         mock_client.return_value.chat.completions.create.return_value = (
-            _make_llm_response(llm_json)
+            _make_llm_response(llm_markers)
         )
         result = explicar("O Livro dos Espíritos", "1")
     assert result is not None
@@ -117,7 +111,7 @@ def test_explicar_degrades_gracefully_when_related_retrieval_fails():
 
 
 def test_explicar_retrieves_related_using_first_subchunk_only():
-    llm_json = '{"contexto": "c", "conceitos_chave": [], "perguntas": []}'
+    llm_markers = "CONTEXTO: c.\nCONCEITOS: "
     with (
         patch(
             "src.rag.explicador.retrieve_by_item",
@@ -125,10 +119,10 @@ def test_explicar_retrieves_related_using_first_subchunk_only():
         ),
         patch("src.rag.explicador.retrieve", return_value=[]) as mock_retrieve,
         patch("src.rag.explicador.curar", return_value=[]) as mock_curar,
-        patch("src.rag.explicador.get_client") as mock_client,
+        patch("src.rag.prose.get_client") as mock_client,
     ):
         mock_client.return_value.chat.completions.create.return_value = (
-            _make_llm_response(llm_json)
+            _make_llm_response(llm_markers)
         )
         explicar("O Livro dos Espíritos", "132")
     # related retrieval uses ONLY the first subchunk
@@ -151,7 +145,7 @@ def test_explicar_logs_on_llm_error(caplog):
         ),
         patch("src.rag.explicador.retrieve", return_value=[]),
         patch("src.rag.explicador.curar", return_value=[]),
-        patch("src.rag.explicador.get_client") as mock_client,
+        patch("src.rag.prose.get_client") as mock_client,
         caplog.at_level(logging.ERROR, logger="src.rag.explicador"),
     ):
         mock_client.return_value.chat.completions.create.side_effect = RuntimeError(
@@ -175,7 +169,11 @@ def test_explicar_passes_chapter_commentary_to_prompt(monkeypatch):
     captured = {}
 
     def _capture_build(
-        main_text, related, footnote_context="", chapter_commentary_chunks=None
+        main_text,
+        related,
+        footnote_context="",
+        chapter_commentary_chunks=None,
+        markers=False,
     ):
         captured["commentary"] = chapter_commentary_chunks
         return "SYS", [{"role": "user", "content": "x"}]
@@ -193,13 +191,9 @@ def test_explicar_passes_chapter_commentary_to_prompt(monkeypatch):
 
     client = MagicMock()
     client.chat.completions.create.return_value = MagicMock(
-        choices=[
-            MagicMock(
-                message=MagicMock(content='{"contexto":"c","conceitos_chave":[]}')
-            )
-        ]
+        choices=[MagicMock(message=MagicMock(content="CONTEXTO: c\nCONCEITOS: "))]
     )
-    monkeypatch.setattr("src.rag.explicador.get_client", lambda: client)
+    monkeypatch.setattr("src.rag.prose.get_client", lambda role="json": client)
 
     explicar("O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO XX")
     assert captured["commentary"] == [{"content": "comentario kardec", "metadata": {}}]
@@ -219,7 +213,11 @@ def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
     captured = {}
 
     def _capture_build(
-        main_text, related, footnote_context="", chapter_commentary_chunks=None
+        main_text,
+        related,
+        footnote_context="",
+        chapter_commentary_chunks=None,
+        markers=False,
     ):
         captured["commentary"] = chapter_commentary_chunks
         return "SYS", [{"role": "user", "content": "x"}]
@@ -236,13 +234,70 @@ def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
     monkeypatch.setattr("src.rag.explicador.build_explicador_messages", _capture_build)
     client = MagicMock()
     client.chat.completions.create.return_value = MagicMock(
-        choices=[
-            MagicMock(
-                message=MagicMock(content='{"contexto":"c","conceitos_chave":[]}')
-            )
-        ]
+        choices=[MagicMock(message=MagicMock(content="CONTEXTO: c\nCONCEITOS: "))]
     )
-    monkeypatch.setattr("src.rag.explicador.get_client", lambda: client)
+    monkeypatch.setattr("src.rag.prose.get_client", lambda role="json": client)
 
     explicar("O Livro dos Espíritos", "132", "CAP I")
     assert captured["commentary"] == []
+
+
+def test_explicador_uses_the_prose_lane(monkeypatch):
+    import src.rag.explicador as exp
+
+    monkeypatch.setattr(
+        exp,
+        "retrieve_by_item",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                },
+                "content": "trecho principal",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(exp, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "chapter_commentary", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "curar", lambda *a, **k: [])
+    monkeypatch.setattr(
+        exp,
+        "prose_completion",
+        lambda *a, **k: "CONTEXTO: Situa a lei moral.\nCONCEITOS: dever: obrigação",
+    )
+
+    out = exp.explicar("O Livro dos Espíritos", "625")
+    assert out["contexto"] == "Situa a lei moral."
+    assert out["conceitos_chave"] == ["dever: obrigação"]
+    assert out["generation_failed"] is False
+
+
+def test_explicador_marks_failure_on_unparseable_output(monkeypatch):
+    import src.rag.explicador as exp
+
+    monkeypatch.setattr(
+        exp,
+        "retrieve_by_item",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                },
+                "content": "trecho",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(exp, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "chapter_commentary", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "curar", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "prose_completion", lambda *a, **k: "lixo sem marcador")
+
+    out = exp.explicar("O Livro dos Espíritos", "625")
+    assert out["generation_failed"] is True
+    assert out["contexto"] == ""

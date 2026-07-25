@@ -1,10 +1,12 @@
 import concurrent.futures
 import logging
 
-from src.core.config import settings
 from src.rag.curador import curar
-from src.rag.explicador_prompt import build_explicador_messages, parse_explicador_json
-from src.rag.llm_client import get_client
+from src.rag.explicador_prompt import (
+    build_explicador_messages,
+    parse_explicador_markers,
+)
+from src.rag.prose import prose_completion
 from src.rag.retriever import chapter_commentary, retrieve, retrieve_by_item
 
 logger = logging.getLogger(__name__)
@@ -46,15 +48,11 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
         related,
         footnote_context=footnote_context,
         chapter_commentary_chunks=commentary,
+        markers=True,
     )
 
     def _call_explicador():
-        response = get_client().chat.completions.create(
-            model=settings.resolved_chat_model,
-            max_tokens=1024,
-            messages=[{"role": "system", "content": system}] + messages,
-        )
-        return parse_explicador_json(response.choices[0].message.content)
+        return parse_explicador_markers(prose_completion(system, messages))
 
     contexto = ""
     conceitos_chave: list[str] = []

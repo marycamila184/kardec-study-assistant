@@ -127,3 +127,51 @@ def test_explicador_prompt_has_evangelical_grounding_rule():
     system, _ = build_explicador_messages("verso", [])
     assert "texto evangélico" in system
     assert "COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO" in system
+
+
+from src.rag.explicador_prompt import parse_explicador_markers
+
+
+def test_parses_contexto_and_conceitos():
+    text = (
+        "CONTEXTO: Este item situa a lei de causa e efeito.\n"
+        "CONCEITOS: dever: obrigação moral | lei natural: regra divina"
+    )
+    contexto, conceitos, perguntas = parse_explicador_markers(text)
+    assert contexto == "Este item situa a lei de causa e efeito."
+    assert conceitos == ["dever: obrigação moral", "lei natural: regra divina"]
+    assert perguntas == []
+
+
+def test_missing_conceitos_gives_empty_list():
+    contexto, conceitos, _ = parse_explicador_markers("CONTEXTO: Apenas contexto.")
+    assert contexto == "Apenas contexto."
+    assert conceitos == []
+
+
+def test_tolerates_bracketed_markers():
+    text = "[CONTEXTO]: Um contexto.\n[CONCEITOS: a | b]"
+    contexto, conceitos, _ = parse_explicador_markers(text)
+    assert contexto == "Um contexto."
+    assert conceitos == ["a", "b"]
+
+
+def test_multiline_contexto():
+    text = "CONTEXTO: Primeira frase.\nSegunda frase.\nCONCEITOS: a"
+    contexto, _, _ = parse_explicador_markers(text)
+    assert contexto == "Primeira frase.\nSegunda frase."
+
+
+def test_unparseable_output_raises():
+    """A caller must be able to treat garbage as a generation failure rather
+    than leak raw model text to the user."""
+    import pytest
+
+    with pytest.raises(ValueError):
+        parse_explicador_markers("uma resposta sem marcador nenhum")
+
+
+def test_conceitos_capped_at_three():
+    text = "CONTEXTO: c.\nCONCEITOS: a | b | c | d | e"
+    _, conceitos, _ = parse_explicador_markers(text)
+    assert len(conceitos) == 3
