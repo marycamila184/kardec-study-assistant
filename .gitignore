@@ -54,6 +54,7 @@ ENV/
 
 # Logs
 *.log
+logs/
 
 # Temporary files
 tmp/
