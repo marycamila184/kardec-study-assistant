@@ -42,7 +42,10 @@ def test_retrieve_with_list_book_filter_uses_in_operator(monkeypatch):
     mock_store.query.return_value = _MOCK_RESULTS
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     monkeypatch.setattr("src.rag.retriever.encode", lambda texts: [[0.1] * 1024])
-    retrieve("alma", book_filter=["O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo"])
+    retrieve(
+        "alma",
+        book_filter=["O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo"],
+    )
 
     where = mock_store.query.call_args.kwargs["where"]
     assert where == {

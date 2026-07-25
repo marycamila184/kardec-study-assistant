@@ -163,9 +163,7 @@ def test_questao_out_of_range_does_not_default_to_le():
 
 
 def test_questao_at_range_edges_defaults_to_le():
-    assert (
-        extract_study_reference("questão 1019")["book"] == "O Livro dos Espíritos"
-    )
+    assert extract_study_reference("questão 1019")["book"] == "O Livro dos Espíritos"
     assert extract_study_reference("questão 1")["book"] == "O Livro dos Espíritos"
 
 
