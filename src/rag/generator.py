@@ -1,10 +1,10 @@
 import logging
 import random
-import re
 from concurrent.futures import ThreadPoolExecutor
 
 from src.core.config import settings
 from src.rag.llm_client import get_client
+from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
 from src.rag.query_condenser import blend_anchor, condense_query
@@ -64,53 +64,6 @@ def _crisis_exit() -> dict:
         "generation_failed": False,
         "safety_level": "crise",
     }
-
-
-# Tolerant of the model mangling the trailer: an optional leading "[" or stray
-# "/", optional closing "]", and whitespace around the colon — so variants like
-# "/FONTES:", "FONTES: 1, 3" or "[FONTES:]" are stripped instead of leaking into
-# the answer. Uppercase-only (no re.IGNORECASE) so prose like "as fontes:" is
-# never mistaken for the marker. Anchored to end; body stops at a newline so the
-# two markers on separate lines are matched one per loop pass.
-_FONTES_MARKER = re.compile(r"\s*[\[/]?\s*FONTES\s*:\s*([^\]\n]*)\]?\s*\.?\s*$")
-_SEGUIR_MARKER = re.compile(r"\s*[\[/]?\s*SEGUIR\s*:\s*([^\]\n]*)\]?\s*\.?\s*$")
-
-
-def _cited_chunks(marker_body: str, chunks: list[dict]) -> list[dict]:
-    """Resolves the [FONTES: 1, 3] body to the chunks the model says it used
-    (1-based indices matching the prompt's passage numbering). Fallbacks keep
-    the citation chips honest without ever losing them to a malformed marker:
-    - marker with only invalid indices → all chunks;
-    - explicitly empty marker → no sources (the model used none).
-    """
-    indices = [int(t) for t in re.findall(r"\d+", marker_body)]
-    if not indices:
-        return []
-    cited = [c for i, c in enumerate(chunks, 1) if i in set(indices)]
-    return cited or chunks
-
-
-def _strip_trailing_markers(
-    answer: str, chunks: list[dict]
-) -> tuple[str, list[dict], list[str]]:
-    """Strips the prompt-mandated [FONTES] and [SEGUIR] trailer lines off the
-    answer, in whichever order the model emitted them. Returns
-    (answer, cited_chunks, suggested_questions); a missing marker leaves its
-    output at the safe default (all chunks / no suggestions)."""
-    suggestions: list[str] = []
-    for _ in range(2):
-        m = _SEGUIR_MARKER.search(answer)
-        if m:
-            answer = answer[: m.start()].rstrip()
-            suggestions = [q.strip() for q in m.group(1).split("|") if q.strip()][:2]
-            continue
-        m = _FONTES_MARKER.search(answer)
-        if m:
-            answer = answer[: m.start()].rstrip()
-            chunks = _cited_chunks(m.group(1), chunks)
-            continue
-        break
-    return answer, chunks, suggestions
 
 
 def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
@@ -272,7 +225,7 @@ def generate(
             messages=[{"role": "system", "content": system}] + messages,
         )
         answer = response.choices[0].message.content
-        answer, chunks, suggested_questions = _strip_trailing_markers(answer, chunks)
+        answer, chunks, suggested_questions = strip_trailing_markers(answer, chunks)
         if fallback_note:
             answer = fallback_note + answer
         generation_failed = False
