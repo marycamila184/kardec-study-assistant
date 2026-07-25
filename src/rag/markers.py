@@ -18,6 +18,55 @@ from typing import Sequence
 _FONTES_MARKER = re.compile(r"\s*[\[/]?\s*FONTES\s*:\s*([^\]\n]*)\]?\s*\.?\s*$")
 _SEGUIR_MARKER = re.compile(r"\s*[\[/]?\s*SEGUIR\s*:\s*([^\]\n]*)\]?\s*\.?\s*$")
 
+# --- prose-lane-only debris cleanup -----------------------------------------
+#
+# The current provider always emits well-formed trailing markers (handled
+# above). The fine-tuned prose-lane model (riv-ai-v2) instead scatters marker
+# lines mid-text, prefixed with emoji decoration ("📖 [FONTES: ...]"), and
+# leaves stray decoration-only lines ("👉") behind. strip_marker_debris is a
+# prose-lane-only pass — it is NOT a replacement for strip_trailing_markers
+# and must never be applied to the current provider's output.
+
+# A marker line: arbitrary leading decoration (emoji/punctuation/whitespace,
+# optional "[" or "/"), the uppercase keyword, then anything to end of line.
+_DEBRIS_FONTES_LINE = re.compile(r"^[^\w\n]*[\[/]?[^\w\n]*FONTES\s*:.*$", re.MULTILINE)
+_DEBRIS_SEGUIR_LINE = re.compile(
+    r"^[^\w\n]*[\[/]?[^\w\n]*SEGUIR\s*:\s*([^\]\n]*)\]?[^\n]*$", re.MULTILINE
+)
+# A line with no letters or digits anywhere — pure emoji/punctuation/whitespace.
+_DECORATION_ONLY_LINE = re.compile(r"^[^\w\n]*$", re.MULTILINE)
+
+
+def strip_marker_debris(answer: str) -> tuple[str, list[str]]:
+    """Prose-lane-only cleanup for marker text that leaked into the displayed
+    answer. Unlike strip_trailing_markers (anchored to end-of-string, used by
+    the current provider), this scans the WHOLE text for FONTES/SEGUIR lines
+    — wherever the model placed them — tolerates emoji/punctuation decoration
+    in front of the keyword, and also removes lines that are pure decoration
+    (no letters or digits), such as a stray "👉" left after the marker line
+    itself was removed.
+
+    Returns (cleaned_answer, suggested_questions) — suggestions come from a
+    SEGUIR line if present (capped at 2), else []. Never raises on empty
+    input.
+    """
+    if not answer:
+        return "", []
+
+    suggestions: list[str] = []
+    seguir_match = _DEBRIS_SEGUIR_LINE.search(answer)
+    if seguir_match:
+        suggestions = split_pipe_list(seguir_match.group(1), limit=2)
+
+    text = _DEBRIS_SEGUIR_LINE.sub("", answer)
+    text = _DEBRIS_FONTES_LINE.sub("", text)
+
+    lines = [line for line in text.split("\n") if not _DECORATION_ONLY_LINE.match(line)]
+    cleaned = "\n".join(lines)
+    # Collapse the blank-line runs left behind by removed lines.
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip(), suggestions
+
 
 def split_pipe_list(body: str, limit: int | None = None) -> list[str]:
     """Splits a `"a | b | c"` marker body into trimmed, non-empty items."""

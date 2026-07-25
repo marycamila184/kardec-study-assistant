@@ -11,7 +11,7 @@ from src.rag.citations import (
 )
 from src.rag.groundedness import attribute_sources
 from src.rag.guardrails import counts_personification, strip_trailing_question
-from src.rag.markers import strip_trailing_markers
+from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
 from src.rag.prose import prose_completion
@@ -253,6 +253,7 @@ def generate(
         # Everything that MUTATES the answer or its sources is gated on the
         # prose lane, so Tasks 1-6 leave the current provider's output identical.
         prose_lane = settings.prose_provider is not None
+        debris_suggestions: list[str] = []
         if prose_lane:
             answer = strip_model_citations(answer)
             if not answer.strip():
@@ -260,9 +261,16 @@ def generate(
                 # left to show. Treat it as a generation failure rather than
                 # returning an empty bubble.
                 raise ValueError("answer emptied by strip_model_citations")
+            # riv-ai-v2 scatters marker lines mid-text (emoji-prefixed, not
+            # anchored to the end), which strip_trailing_markers below cannot
+            # see. Clear that debris first so the end-anchored pass only has
+            # to catch a well-formed trailer, if any remains.
+            answer, debris_suggestions = strip_marker_debris(answer)
         answer, marker_chunks, suggested_questions = strip_trailing_markers(
             answer, chunks
         )
+        if prose_lane and not suggested_questions:
+            suggested_questions = debris_suggestions
         if prose_lane:
             # riv-ai-v2 does not honor [FONTES:] — it emits question numbers or
             # invents references. Attribution is computed from the vector store

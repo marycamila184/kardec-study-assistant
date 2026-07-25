@@ -915,6 +915,26 @@ def test_monitor_failure_never_fails_a_request_on_frozen_lane(monkeypatch):
     assert out["answer"] == "Resposta gerada."
 
 
+def test_prose_lane_strips_leaked_marker_debris(monkeypatch):
+    """Live A/B evidence: riv-ai-v2 emits [FONTES:] mid-text with emoji
+    decoration, which the end-anchored strip_trailing_markers cannot catch.
+    The debris pass must remove it before display."""
+    import src.rag.generator as gen
+
+    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(_CHUNKS))
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(
+        gen,
+        "prose_completion",
+        lambda *a, **k: "A lei é clara.\n\n📖 [FONTES: O Livro dos Espíritos, 633]\n👉",
+    )
+    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: cs)
+
+    out = gen.generate("qual a lei?", [])
+    assert out["answer"] == "A lei é clara."
+
+
 def test_marker_lane_still_filters_by_fontes(monkeypatch):
     """With PROSE_PROVIDER unset the current provider honors [FONTES:], so
     today's behavior must be preserved exactly."""
