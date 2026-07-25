@@ -232,15 +232,29 @@ def test_reflect_complementary_items_come_from_chunks_3_to_5():
         }
         for i in range(3, 6)
     ]
+    seen = {}
+
+    def spy_curar(main_text, candidates):
+        seen["candidates"] = candidates
+        return [{"book": c["metadata"]["book"], "item_number": c["metadata"]["item_number"]}
+                for c in candidates]
+
+    # curar must be stubbed. It imports get_client into its OWN module, so
+    # patching reflect's client does not reach it — the call goes to the real
+    # provider, and the Curador's contract is to select 1-3 candidates, not 3.
+    # Asserting a count here made the test depend on the network and on a model
+    # judgment call; what this test is actually about is the SLICE.
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2] + extra),
+        patch("src.rag.reflect.curar", spy_curar),
         patch("src.rag.reflect.get_client") as mock_client,
     ):
         mock_client.return_value.chat.completions.create.return_value = (
             _make_llm_response(_LLM_JSON)
         )
         result = reflect("situação")
-    assert len(result["complementary_items"]) == 3
+
+    assert [c["metadata"]["item_number"] for c in seen["candidates"]] == ["3", "4", "5"]
     assert result["complementary_items"][0]["item_number"] == "3"
 
 
