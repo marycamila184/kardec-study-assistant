@@ -209,3 +209,18 @@ def test_extracts_plural_questoes_range_from_prose():
     )
     assert result
     assert result in ({"LE-887", "LE-888", "LE-889"}, {"LE-887"})
+
+
+# --- order-agnostic shape predicate (locator-first citations) --------------
+
+
+def test_strips_parenthetical_with_locator_before_book():
+    """The model may write the locator before the book name — the shape
+    predicate must strip this order too, not just 'book then locator'."""
+    text = "A caridade é central (questão 625 do Livro dos Espíritos)."
+    assert strip_model_citations(text) == "A caridade é central."
+
+
+def test_strips_source_line_with_locator_before_book():
+    text = "A alma persiste.\nFonte: questão 625 do Livro dos Espíritos."
+    assert strip_model_citations(text) == "A alma persiste."

@@ -20,13 +20,20 @@ SIGLAS: dict[str, str] = {
     "A Gênese": "GE",
 }
 
-# Accent-tolerant book patterns, ordered so the longest names match first.
+# Single source of truth for the five canonical book names, accent-tolerant
+# and ordered so the longest names match first. `_BOOK_PATTERNS` (extraction)
+# and `_BOOK_ALTERNATION` (the citation-shape predicate) are both derived from
+# this list so the names cannot drift apart between the two.
+_BOOK_REGEXES: list[tuple[str, str]] = [
+    (r"Evangelho(?:\s+Segundo\s+o\s+Espiritismo)?", "ESE"),
+    (r"Livro\s+dos\s+Esp[íi]ritos", "LE"),
+    (r"Livro\s+dos\s+M[ée]diuns", "LM"),
+    (r"C[ée]u\s+e\s+o\s+Inferno", "CI"),
+    (r"G[êe]nese", "GE"),
+]
+
 _BOOK_PATTERNS: list[tuple[re.Pattern, str]] = [
-    (re.compile(r"Evangelho(?:\s+Segundo\s+o\s+Espiritismo)?", re.IGNORECASE), "ESE"),
-    (re.compile(r"Livro\s+dos\s+Esp[íi]ritos", re.IGNORECASE), "LE"),
-    (re.compile(r"Livro\s+dos\s+M[ée]diuns", re.IGNORECASE), "LM"),
-    (re.compile(r"C[ée]u\s+e\s+o\s+Inferno", re.IGNORECASE), "CI"),
-    (re.compile(r"G[êe]nese", re.IGNORECASE), "GE"),
+    (re.compile(pattern, re.IGNORECASE), sigla) for pattern, sigla in _BOOK_REGEXES
 ]
 
 # "LE-625", "LE 625", "LE625"
@@ -97,12 +104,15 @@ _PAREN_REF = re.compile(r"\s*\(([^)]*)\)")
 # --- the one unifying predicate ---------------------------------------------
 #
 # A fragment (parenthetical contents, or the text after "Fonte:") is a
-# citation when, once an optional leading article, one of the five canonical
-# book names, and any locator tokens are removed, nothing but connective
-# punctuation is left. If any other word survives, the fragment is prose —
+# citation when, once one of the five canonical book names and any locator
+# tokens are removed — in whatever order the model happened to write them,
+# "book then locator" or "locator then book" — nothing but connective
+# filler (articles, the "do/da" that glues a locator to a book name, and
+# punctuation) is left. If any other word survives, the fragment is prose —
 # it merely *mentions* a work — and must be left alone. This single shape is
 # used for both the "Fonte:" line and parenthetical checks; there is no
-# second, looser test for either.
+# second, looser test for either, and it is order-agnostic by construction
+# (it removes tokens rather than matching a fixed sequence).
 #
 # Locators covered: questão/questões (accent-tolerant), item/itens,
 # capítulo/cap./cap, parte, nº/n°/no/n., arabic numbers and ranges
@@ -116,31 +126,35 @@ _LOCATOR_WORD = (
 )
 _LOCATOR_NUMBER = r"\d{1,4}(?:\s*[-–—]\s*\d{1,4})?"
 _LOCATOR_ROMAN = r"[IVXLCDM]+"
-_LOCATOR_TOKEN = rf"(?:{_LOCATOR_WORD}|{_LOCATOR_NUMBER}|{_LOCATOR_ROMAN})"
 
-_BOOK_ALTERNATION = (
-    r"Evangelho(?:\s+Segundo\s+o\s+Espiritismo)?"
-    r"|Livro\s+dos\s+Esp[íi]ritos"
-    r"|Livro\s+dos\s+M[ée]diuns"
-    r"|C[ée]u\s+e\s+o\s+Inferno"
-    r"|G[êe]nese"
-)
+_BOOK_ALTERNATION = "|".join(pattern for pattern, _ in _BOOK_REGEXES)
 
-_CITATION_SHAPE = re.compile(
-    r"^\s*(?:[oa]s?\s+)?"
-    rf"(?:{_BOOK_ALTERNATION})"
-    rf"(?:[\s,;:.\-–—]+{_LOCATOR_TOKEN})*"
-    r"[\s,;:.\-–—]*$",
+# Connective filler: locator tokens, the article ("o"/"a"/"os"/"as") that can
+# precede a book name or a locator, and the "do"/"da"/"dos"/"das" that glues
+# a locator to a following book name ("questão 625 **do** Livro dos
+# Espíritos"). Anything left over after removing the book name and all of
+# this filler is meaningful prose, not a citation.
+_FILLER_TOKEN = re.compile(
+    rf"\b(?:{_LOCATOR_WORD}|{_LOCATOR_NUMBER}|{_LOCATOR_ROMAN}|d[oa]s?|[oa]s?)\b",
     re.IGNORECASE,
 )
 
+# Punctuation/whitespace left behind once tokens are removed.
+_CONNECTIVE_PUNCT = re.compile(r"[\s,;:.\-–—]+")
+
 
 def _is_citation_fragment(text: str) -> bool:
-    """True when `text` is *only* a book name plus optional locators —
-    the one predicate shared by both stripping paths. A book name is
+    """True when `text` is *only* a book name plus optional locators, in any
+    order — the one predicate shared by both stripping paths. A book name is
     required: locator-shaped words with no book attribution (e.g. "questão
     42, item 3") are not a citation."""
-    return bool(_CITATION_SHAPE.match(text))
+    book_match = re.search(_BOOK_ALTERNATION, text, re.IGNORECASE)
+    if not book_match:
+        return False
+    remainder = text[: book_match.start()] + text[book_match.end() :]
+    remainder = _FILLER_TOKEN.sub("", remainder)
+    remainder = _CONNECTIVE_PUNCT.sub("", remainder)
+    return remainder == ""
 
 
 # The model's own trailing source line, observed in the smoke test:
