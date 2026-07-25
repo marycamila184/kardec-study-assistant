@@ -32,14 +32,27 @@ _BOOK_PATTERNS: list[tuple[re.Pattern, str]] = [
 # "LE-625", "LE 625", "LE625"
 _SIGLA_REF = re.compile(r"\b(LE|LM|ESE|CI|GE)[-\s]?(\d{1,4})\b")
 
-# "questão 625 do Livro dos Espíritos" / "item 12 da Gênese" — matches the
-# anchor (number + optional preposition); the book name is looked up in the
+# "questão 625 do Livro dos Espíritos" / "questões 887-889 do Livro dos
+# Espíritos" / "item 12 da Gênese" — matches the anchor (number, or number
+# range, plus optional preposition); the book name is looked up in the
 # following window via `_prose_window`, which stops at a real sentence
 # boundary rather than at every period (see below).
 _PROSE_ANCHOR = re.compile(
-    r"(?:quest[ãa]o|item|n[ºo°]?)\s*(\d{1,4})\s*(?:d[oaen]s?\s+)?",
+    r"(?:quest(?:[ãa]o|[õo]es)|itens|item|n[ºo°]?)\s*"
+    r"(\d{1,4}(?:\s*[-–—]\s*\d{1,4})?)\s*(?:d[oaen]s?\s+)?",
     re.IGNORECASE,
 )
+
+
+def _expand_locator_number(raw: str) -> list[int]:
+    """ "625" -> [625]; "887-889" (hyphen or en/em dash) -> [887, 888, 889]."""
+    parts = re.split(r"\s*[-–—]\s*", raw)
+    if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():
+        start, end = int(parts[0]), int(parts[1])
+        if start <= end:
+            return list(range(start, end + 1))
+    return [int(parts[0])]
+
 
 # Common Portuguese abbreviations that end in a period without ending a
 # sentence — e.g. "cap." in "questão 625 cap. II do Livro dos Espíritos".
@@ -81,33 +94,63 @@ def _prose_window(text: str, start: int, limit: int = 100) -> str:
 # A parenthetical whose contents name one of the works.
 _PAREN_REF = re.compile(r"\s*\(([^)]*)\)")
 
-# A parenthetical counts as a citation only when it is essentially *just* a
-# reference: an optional article, one of the five works, and then nothing
-# but locators (numbers, questão/item/capítulo/cap./parte, punctuation). A
-# parenthetical that names a work but continues as a full clause (other
-# words) is prose, not a citation, and is left alone.
-_PAREN_CITATION_SHAPE = re.compile(
-    r"^\s*(?:[oa]s?\s+)?"
-    r"(?:Evangelho(?:\s+Segundo\s+o\s+Espiritismo)?"
+# --- the one unifying predicate ---------------------------------------------
+#
+# A fragment (parenthetical contents, or the text after "Fonte:") is a
+# citation when, once an optional leading article, one of the five canonical
+# book names, and any locator tokens are removed, nothing but connective
+# punctuation is left. If any other word survives, the fragment is prose —
+# it merely *mentions* a work — and must be left alone. This single shape is
+# used for both the "Fonte:" line and parenthetical checks; there is no
+# second, looser test for either.
+#
+# Locators covered: questão/questões (accent-tolerant), item/itens,
+# capítulo/cap./cap, parte, nº/n°/no/n., arabic numbers and ranges
+# ("887-889", hyphen or en/em dash), and roman numerals (II, IV, XIV).
+_LOCATOR_WORD = (
+    r"quest(?:[ãa]o|[õo]es)"  # questão, questao, questões, questoes
+    r"|itens|item"
+    r"|cap[íi]tulos?|cap\.?"
+    r"|parte"
+    r"|n[º°o]\.?"
+)
+_LOCATOR_NUMBER = r"\d{1,4}(?:\s*[-–—]\s*\d{1,4})?"
+_LOCATOR_ROMAN = r"[IVXLCDM]+"
+_LOCATOR_TOKEN = rf"(?:{_LOCATOR_WORD}|{_LOCATOR_NUMBER}|{_LOCATOR_ROMAN})"
+
+_BOOK_ALTERNATION = (
+    r"Evangelho(?:\s+Segundo\s+o\s+Espiritismo)?"
     r"|Livro\s+dos\s+Esp[íi]ritos"
     r"|Livro\s+dos\s+M[ée]diuns"
     r"|C[ée]u\s+e\s+o\s+Inferno"
-    r"|G[êe]nese)"
-    r"(?:[\s,;:\-–—]+(?:quest[ãa]o|item|cap[íi]tulo|cap\.|parte|\d+))*"
-    r"[\s,;:\-–—.]*$",
+    r"|G[êe]nese"
+)
+
+_CITATION_SHAPE = re.compile(
+    r"^\s*(?:[oa]s?\s+)?"
+    rf"(?:{_BOOK_ALTERNATION})"
+    rf"(?:[\s,;:.\-–—]+{_LOCATOR_TOKEN})*"
+    r"[\s,;:.\-–—]*$",
     re.IGNORECASE,
 )
 
 
-def _paren_is_citation(text: str) -> bool:
-    return bool(_PAREN_CITATION_SHAPE.match(text))
+def _is_citation_fragment(text: str) -> bool:
+    """True when `text` is *only* a book name plus optional locators —
+    the one predicate shared by both stripping paths. A book name is
+    required: locator-shaped words with no book attribution (e.g. "questão
+    42, item 3") are not a citation."""
+    return bool(_CITATION_SHAPE.match(text))
 
 
 # The model's own trailing source line, observed in the smoke test:
 #   "📖 Fonte: O Livro dos Espíritos, questões 887-889."
 # Anchored to a line start so a sentence containing "fonte:" is untouched.
+# The content after the colon is what gets tested against the shared
+# citation-shape predicate.
 _SOURCE_LINE = re.compile(
-    r"^[ \t]*(?:📖|\*|-)?[ \t]*Fontes?\s*:.*$", re.MULTILINE | re.IGNORECASE
+    r"^(?P<full>[ \t]*(?:📖|\*|-)?[ \t]*Fontes?\s*:\s*(?P<content>.*))$",
+    re.MULTILINE | re.IGNORECASE,
 )
 
 
@@ -125,7 +168,8 @@ def extract_model_citations(text: str) -> set[str]:
         window = _prose_window(text, m.end())
         sigla = _sigla_in(window)
         if sigla:
-            found.add(f"{sigla}-{int(m.group(1))}")
+            for n in _expand_locator_number(m.group(1)):
+                found.add(f"{sigla}-{n}")
     return found
 
 
@@ -158,9 +202,12 @@ def strip_model_citations(text: str) -> str:
     source chips. The model's own "Fonte:" line is dropped whole (it carries
     invented question numbers); parentheticals naming a work are dropped whole;
     bare sigla refs are dropped in place."""
-    text = _SOURCE_LINE.sub(lambda m: "" if _sigla_in(m.group(0)) else m.group(0), text)
+    text = _SOURCE_LINE.sub(
+        lambda m: "" if _is_citation_fragment(m.group("content")) else m.group("full"),
+        text,
+    )
     text = _PAREN_REF.sub(
-        lambda m: "" if _paren_is_citation(m.group(1)) else m.group(0), text
+        lambda m: "" if _is_citation_fragment(m.group(1)) else m.group(0), text
     )
     text = _SIGLA_REF.sub("", text)
     # Tidy the punctuation the removals leave behind.

@@ -152,3 +152,60 @@ def test_strips_book_only_source_line():
     model citation trailer and must be stripped whole."""
     text = "A alma persiste.\nFonte: O Evangelho Segundo o Espiritismo."
     assert strip_model_citations(text) == "A alma persiste."
+
+
+# --- unified predicate: new coverage --------------------------------------
+
+
+def test_strips_parenthetical_with_question_range():
+    text = "A caridade é central (O Livro dos Espíritos, questões 887-889)."
+    assert strip_model_citations(text) == "A caridade é central."
+
+
+def test_strips_parenthetical_with_capitulo_abbreviation():
+    text = "A doutrina (O Livro dos Espíritos, cap. IV) trata disso."
+    assert strip_model_citations(text) == "A doutrina trata disso."
+
+
+def test_strips_parenthetical_with_multiple_locators():
+    text = "A questão trata da alma (O Livro dos Espíritos, questão 625, cap. II)."
+    assert strip_model_citations(text) == "A questão trata da alma."
+
+
+def test_strips_book_only_parenthetical_no_locator_duplicate_shape():
+    text = "A doutrina se apoia (O Livro dos Espíritos) nas respostas dos espíritos."
+    assert (
+        strip_model_citations(text)
+        == "A doutrina se apoia nas respostas dos espíritos."
+    )
+
+
+def test_strips_source_line_with_question_range_and_emoji():
+    text = "A alma persiste.\n📖 Fonte: O Livro dos Espíritos, questões 887-889."
+    assert strip_model_citations(text) == "A alma persiste."
+
+
+def test_strips_sigla_ref_conforme():
+    assert strip_model_citations("Conforme LE-625, a alma persiste.") == (
+        "Conforme, a alma persiste."
+    )
+
+
+def test_leaves_parenthetical_that_is_pure_mention_not_citation_shape():
+    text = "Kardec organizou a obra (o Livro dos Espíritos foi o primeiro) com base nas respostas."
+    assert strip_model_citations(text) == text
+
+
+def test_leaves_parenthetical_with_locator_words_but_no_book():
+    """A parenthetical with locator-shaped words but no book name is not a
+    citation — book presence is required by the unified predicate."""
+    text = "Isso é claro (questão 42, item 3)."
+    assert strip_model_citations(text) == text
+
+
+def test_extracts_plural_questoes_range_from_prose():
+    result = extract_model_citations(
+        "conforme as questões 887-889 do Livro dos Espíritos"
+    )
+    assert result
+    assert result in ({"LE-887", "LE-888", "LE-889"}, {"LE-887"})
