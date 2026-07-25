@@ -62,6 +62,8 @@ def attribute_sources(
     answer: str,
     chunks: list[dict],
     min_similarity: float | None = None,
+    margin: float | None = None,
+    max_sources: int | None = None,
     encoder=encode,
 ) -> list[dict]:
     """The retrieved chunks an answer actually draws on, ranked by similarity.
@@ -72,17 +74,37 @@ def attribute_sources(
     observed emitting question numbers instead of passage indices and inventing
     references outright, so its opinion on its own sources is not usable.
 
-    Never returns empty while chunks exist: if nothing clears the threshold the
-    single closest chunk survives, so an answer is never shown sourceless.
+    The cut is **relative to the best chunk for this answer**, not an absolute
+    similarity. The 2026-07-25 A/B run showed why: the similarity level tracks
+    how dense the question's vocabulary is, not how relevant the passage is, so
+    no fixed height separates the two. The worst chunk for "o que é o
+    perispírito?" scored 0.744 while the best chunk for "o que a doutrina diz
+    sobre o perdão?" scored 0.740 — one absolute threshold cannot be right for
+    both. Within a single question the step is clear (mean 0.092 at the elbow),
+    so `margin` cuts there and rides each question's own scale.
+
+    `min_similarity` survives as an absolute floor: the margin alone would keep
+    everything when retrieval is uniformly bad, since it only compares chunks to
+    each other.
+
+    Never returns empty while chunks exist: if nothing clears the bar the single
+    closest chunk survives, so an answer is never shown sourceless.
     """
     if not answer.strip() or not chunks:
         return []
     if min_similarity is None:
         min_similarity = settings.source_min_similarity
+    if margin is None:
+        margin = settings.source_relative_margin
+    if max_sources is None:
+        max_sources = settings.source_max_count
     scored = sorted(
         zip(_similarities(answer, chunks, encoder), chunks),
         key=lambda pair: pair[0],
         reverse=True,
     )
-    kept = [c for sim, c in scored if sim >= min_similarity]
+    best = scored[0][0]
+    kept = [
+        c for sim, c in scored if sim >= best - margin and sim >= min_similarity
+    ][:max_sources]
     return kept or [scored[0][1]]

@@ -32,7 +32,12 @@ PROVIDERS: dict[str, ProviderConfig] = {
         "https://api.together.xyz/v1",
         "together_api_key",
         "deepseek-ai/DeepSeek-V3",
-        "meta-llama/Llama-3.1-8B-Instruct-Turbo",
+        # Not a Llama 3.1 8B: Together serves no small Llama serverless. Every
+        # variant (with or without the "Meta-" prefix, Lite, 3.2-3B) returns
+        # "Unable to access non-serverless model" and needs a dedicated
+        # endpoint. Verified serverless 2026-07-25; the failure surfaces as
+        # every small-LLM agent breaking while chat works fine.
+        "Qwen/Qwen2.5-7B-Instruct-Turbo",
     ),
     # Prose-lane providers. Both serve riv-ai-v2 over an OpenAI-compatible /v1;
     # they differ only in where that endpoint lives.
@@ -76,12 +81,20 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://localhost:11434/v1"
     hf_endpoint_url: str | None = None
 
-    # Minimum answer-to-chunk cosine for a retrieved chunk to become a source
-    # chip on the prose lane. Calibrate from `scripts/compare_generators.py`'s
-    # "Answer-to-chunk cosine distribution" summary section (min/median/p25/p75/
-    # max plus counts kept at 0.3/0.4/0.5/0.6) — that is the per-chunk spread a
-    # threshold decision needs; the harness's mean groundedness and
-    # hallucinated-citation rate do not tell you where to draw this line.
+    # Which retrieved chunks become source chips on the prose lane.
+    #
+    # The cut is RELATIVE: keep chunks within `source_relative_margin` of the
+    # best chunk for that answer. Measured 2026-07-25 over 15 questions on both
+    # lanes — an absolute cut cannot work, because the similarity level tracks
+    # the question's vocabulary rather than passage relevance (the worst chunk
+    # for "o que é o perispírito?" scored 0.744, the best for "o que a doutrina
+    # diz sobre o perdão?" scored 0.740). At 0.35 all 75 chunks survived on both
+    # lanes, i.e. the filter was inert. Within one question the elbow is sharp
+    # (mean step 0.092), and 0.10 yields ~2.7 chips per answer.
+    source_relative_margin: float = 0.10
+    source_max_count: int = 3
+    # Absolute floor, not the primary cut: the margin only compares chunks to
+    # each other, so a uniformly bad retrieval would keep all of them.
     source_min_similarity: float = 0.35
 
     embedding_model: str = "BAAI/bge-m3"
