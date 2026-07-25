@@ -228,3 +228,69 @@ def strip_model_citations(text: str) -> str:
     text = re.sub(r"[ \t]{2,}", " ", text)
     text = re.sub(r"\s+([,.;:])", r"\1", text)
     return text.strip()
+
+
+# --- attribution checks (evaluation only) ------------------------------------
+#
+# A second failure mode, distinct from writing a wrong citation: naming the
+# WRONG WORK for the passage under study. Observed 2026-07-25 on riv-ai-v2,
+# which wrote "o trecho é extraído da obra 'O Evangelho Segundo o Espiritismo'"
+# for O Livro dos Espíritos 886. /study is now pinned to the large model, and
+# whether that model has the same habit was never measured — these two checks
+# are how it gets measured.
+#
+# Evaluation instruments, not request-path filters. Both report the matched
+# text so a human can overrule them.
+
+# An explicit COPULA is required. A first version allowed a bare preposition,
+# which fired on "Item 14 do Evangelho Segundo o Espiritismo" — a legitimate
+# cross-reference to a related passage, not a claim about the passage under
+# study. Attribution needs a verb asserting it ("é parte do", "foi extraída
+# de"); a reference does not.
+_ATTRIBUTION_PHRASE = re.compile(
+    r"(?:trecho|passagem|item|quest[ãa]o|texto)\b[^.;\n]{0,40}?"
+    r"\b(?:[ée]|foi|est[áa]|pertence)\s+"
+    r"(?:um[a]?\s+)?(?:parte|trecho|extra[íi]d[oa]|retirad[oa]|proveniente|tirad[oa]|oriund[oa])?\s*"
+    r"(?:de|da|do|a[o]?)\s+(?:obra\s+)?[\"“']?(?:O\s+|A\s+)?"
+    "(" + "|".join(p for p, _ in _BOOK_REGEXES) + r")",
+    re.IGNORECASE,
+)
+
+
+def books_mentioned(text: str) -> set[str]:
+    """Sigla of every Kardec work named anywhere in `text`."""
+    found = set()
+    for pattern, sigla in _BOOK_REGEXES:
+        if re.search(pattern, text, re.IGNORECASE):
+            found.add(sigla)
+    return found
+
+
+def unsupplied_books(text: str, supplied_books: list[str]) -> set[str]:
+    """Works named in `text` that were never among the passages given to the model.
+
+    The wide net: catches a work invented outright. It cannot catch the
+    misattribution above, because the wrongly-named work is usually one of the
+    related passages that WAS supplied — that is what `misattributions` is for.
+    """
+    allowed = {SIGLAS[b] for b in supplied_books if b in SIGLAS}
+    return books_mentioned(text) - allowed
+
+
+def misattributions(text: str, main_book: str) -> list[str]:
+    """Phrases attributing the passage under study to a work that is not its own.
+
+    Narrow by design: it only fires on an explicit attribution of the main
+    passage ("o trecho é extraído de X"), which is the shape of the observed
+    error. Naming a work in passing is legitimate and must not be flagged.
+    """
+    expected = SIGLAS.get(main_book)
+    hits = []
+    for m in _ATTRIBUTION_PHRASE.finditer(text):
+        named = next(
+            (s for p, s in _BOOK_REGEXES if re.fullmatch(p, m.group(1), re.IGNORECASE)),
+            None,
+        )
+        if named and named != expected:
+            hits.append(m.group(0).strip())
+    return hits

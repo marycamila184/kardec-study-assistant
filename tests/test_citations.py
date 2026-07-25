@@ -224,3 +224,60 @@ def test_strips_parenthetical_with_locator_before_book():
 def test_strips_source_line_with_locator_before_book():
     text = "A alma persiste.\nFonte: questão 625 do Livro dos Espíritos."
     assert strip_model_citations(text) == "A alma persiste."
+
+
+# --- attribution checks ------------------------------------------------------
+
+
+def test_books_mentioned_finds_each_work_by_any_spelling():
+    from src.rag.citations import books_mentioned
+
+    assert books_mentioned("ver O Livro dos Espiritos e a Genese") == {"LE", "GE"}
+    assert books_mentioned("nada aqui") == set()
+
+
+def test_unsupplied_books_flags_a_work_never_given_to_the_model():
+    from src.rag.citations import unsupplied_books
+
+    text = "Como mostra O Livro dos Médiuns, a mediunidade é uma aptidão."
+    assert unsupplied_books(text, ["O Livro dos Espíritos"]) == {"LM"}
+    assert unsupplied_books(text, ["O Livro dos Médiuns"]) == set()
+
+
+def test_misattribution_catches_the_observed_riv_ai_error():
+    """Verbatim shape of the 2026-07-25 failure: LE 886 attributed to ESE."""
+    from src.rag.citations import misattributions
+
+    text = "O trecho é extraído da obra \"O Evangelho Segundo o Espiritismo\"."
+    assert misattributions(text, "O Livro dos Espíritos")
+    assert misattributions(text, "O Evangelho Segundo o Espiritismo") == []
+
+    # Also from the 2026-07-25 run, on the 70B this time: O Livro dos Médiuns
+    # 132 declared to be part of O Livro dos Espíritos.
+    real = "A passagem é parte do Livro dos Espíritos, de Allan Kardec."
+    assert misattributions(real, "O Livro dos Médiuns")
+    assert misattributions(real, "O Livro dos Espíritos") == []
+
+
+def test_misattribution_ignores_a_passing_mention_of_another_work():
+    """Naming another work to draw a connection is legitimate and required —
+    only an explicit attribution OF THE MAIN PASSAGE is an error."""
+    from src.rag.citations import misattributions
+
+    for text in [
+        "A mesma ideia reaparece em O Livro dos Médiuns.",
+        "Kardec retoma esse ponto na Gênese, ao tratar dos milagres.",
+        "Esta passagem dialoga com O Céu e o Inferno.",
+        # From the 2026-07-25 run: a cross-reference the first version of the
+        # regex flagged as misattribution. A reference is not a claim about
+        # where the passage under study came from.
+        "conforme o Item 14 do Evangelho Segundo o Espiritismo",
+        "ver a questão 625 do Livro dos Espíritos sobre o mesmo tema",
+    ]:
+        assert misattributions(text, "O Livro dos Espíritos") == [], text
+
+
+def test_misattribution_empty_when_nothing_is_named():
+    from src.rag.citations import misattributions
+
+    assert misattributions("O texto trata da caridade.", "O Livro dos Espíritos") == []
