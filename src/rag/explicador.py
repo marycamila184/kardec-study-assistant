@@ -6,10 +6,8 @@ from src.rag.curador import curar
 from src.rag.explicador_prompt import (
     build_explicador_messages,
     parse_explicador_json,
-    parse_explicador_markers,
 )
 from src.rag.llm_client import get_client
-from src.rag.prose import prose_completion
 from src.rag.retriever import chapter_commentary, retrieve, retrieve_by_item
 
 logger = logging.getLogger(__name__)
@@ -46,48 +44,49 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
 
     commentary = chapter_commentary(book, chapter or "", item_number)
 
-    # The prompt format (and its parser) must follow the lane: prose_completion
-    # falls back to the JSON lane by resending the SAME payload on failure, so
-    # whichever format is sent is the format used on both the primary and
-    # fallback call. Never let the template and parser choices disagree.
-    use_markers = settings.prose_provider is not None
-
+    # Explicador is PINNED to the JSON lane, exactly like Reflexivo, and
+    # deliberately reads no setting: `PROSE_PROVIDER` is one switch, so honouring
+    # it here would drag /study along whenever the prose lane is enabled for
+    # /chat. The two modes have opposite evidence and must be able to sit on
+    # different models.
+    #
+    # Why /study stays on the large model (measured 2026-07-25, temperature=0 on
+    # the prose lane, so attributable): riv-ai-v2 failed the marker output
+    # contract on 3 of 3 study items, and still 2 of 3 after a contradiction in
+    # the marker prompt was fixed. It also misattributed a passage's own work
+    # ("O Evangelho Segundo o Espiritismo" for O Livro dos Espíritos 886). /chat
+    # tolerates a lighter voice because it is conversation; /study is where a
+    # reader goes to CHECK what a work says, and a wrong attribution there
+    # contaminates the study itself.
+    #
+    # The marker template and `parse_explicador_markers` are kept, reachable
+    # from `scripts/compare_generators.py`, so a future model can be re-evaluated
+    # without rebuilding this. They are not on the request path.
     system, messages = build_explicador_messages(
         original_text,
         related,
         footnote_context=footnote_context,
         chapter_commentary_chunks=commentary,
-        markers=use_markers,
+        markers=False,
     )
 
     def _call_explicador():
-        text = prose_completion(system, messages)
-        if not use_markers:
-            return parse_explicador_json(text)
-        try:
-            return parse_explicador_markers(text)
-        except ValueError:
-            # The prose-lane model ignored the marker protocol so badly the
-            # parse raised. prose_completion already returned successfully
-            # (it only falls back on a *provider* failure), so this is a
-            # *format* fallback: retry once on the JSON lane with the JSON
-            # template/parser, calling the json-lane client directly.
-            logger.warning(
-                "explicador marker parse failed; retrying once on the json lane"
-            )
-            json_system, json_messages = build_explicador_messages(
-                original_text,
-                related,
-                footnote_context=footnote_context,
-                chapter_commentary_chunks=commentary,
-                markers=False,
-            )
-            response = get_client("json").chat.completions.create(
-                model=settings.resolved_chat_model,
-                max_tokens=1024,
-                messages=[{"role": "system", "content": json_system}] + json_messages,
-            )
-            return parse_explicador_json(response.choices[0].message.content)
+        response = get_client("json").chat.completions.create(
+            model=settings.resolved_chat_model,
+            max_tokens=1024,
+            messages=[{"role": "system", "content": system}] + messages,
+        )
+        contexto, conceitos, perguntas = parse_explicador_json(
+            response.choices[0].message.content
+        )
+        if not contexto.strip():
+            # parse_explicador_json never raises: its last resort is a regex
+            # sweep that yields ("", [], []). Without this check an unreadable
+            # response reaches the client as an EMPTY contexto with
+            # generation_failed=False — a blank panel instead of an error. The
+            # marker path used to raise here; the JSON path has to be told.
+            raise ValueError("explicador returned no contexto")
+        return contexto, conceitos, perguntas
 
     contexto = ""
     conceitos_chave: list[str] = []
