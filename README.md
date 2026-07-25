@@ -140,6 +140,11 @@ The FastAPI app is a standard Python ASGI app. Deploy to any provider that suppo
 2. The vector database (`data/embeddings/`) is regenerable — run the ingestion pipeline as part of your build/start process, or mount it as a persistent volume.
 3. Start command: `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT`
 
+If `PROSE_PROVIDER` is set, the backend also needs a reachable prose endpoint:
+either a local Ollama (`ollama pull hf.co/ia-espirita/riv-ai-v2-Q4_K_M-GGUF`) or
+a hosted OpenAI-compatible endpoint via `HF_ENDPOINT_URL`. Leaving
+`PROSE_PROVIDER` unset requires no extra infrastructure.
+
 ### Frontend deployment
 
 The frontend is a static site after `npm run build`. Deploy to any static hosting provider (Netlify, Vercel, GitHub Pages, Cloudflare Pages, etc.):
