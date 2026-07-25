@@ -32,28 +32,75 @@ _BOOK_PATTERNS: list[tuple[re.Pattern, str]] = [
 # "LE-625", "LE 625", "LE625"
 _SIGLA_REF = re.compile(r"\b(LE|LM|ESE|CI|GE)[-\s]?(\d{1,4})\b")
 
-# "questão 625 do Livro dos Espíritos" / "item 12 da Gênese" — number first,
-# book within the next ~60 chars. The lookahead is restricted to `[^.\n]` so
-# it cannot cross a sentence boundary (or newline) into an unrelated clause.
-_PROSE_REF = re.compile(
-    r"(?:quest[ãa]o|item|n[ºo°]?)\s*(\d{1,4})\s*(?:d[oaen]s?\s+)?([^.\n]{0,60})",
+# "questão 625 do Livro dos Espíritos" / "item 12 da Gênese" — matches the
+# anchor (number + optional preposition); the book name is looked up in the
+# following window via `_prose_window`, which stops at a real sentence
+# boundary rather than at every period (see below).
+_PROSE_ANCHOR = re.compile(
+    r"(?:quest[ãa]o|item|n[ºo°]?)\s*(\d{1,4})\s*(?:d[oaen]s?\s+)?",
     re.IGNORECASE,
 )
+
+# Common Portuguese abbreviations that end in a period without ending a
+# sentence — e.g. "cap." in "questão 625 cap. II do Livro dos Espíritos".
+_ABBREVIATIONS = {"cap", "art", "p", "ed", "v", "trad", "org", "vol", "sec"}
+
+# Uppercase letters (plain and accented) that plausibly start a new sentence.
+_UPPER_START = re.compile(r"[A-ZÀ-Ý]")
+
+
+def _prose_window(text: str, start: int, limit: int = 100) -> str:
+    """Text following a prose reference anchor, cut at the first period that
+    actually ends a sentence — whitespace followed by an uppercase letter, or
+    end of string/line — rather than at every period. A period that closes a
+    known abbreviation ("cap.") or is followed by a lowercase word/roman
+    numeral does not count as a boundary."""
+    end = min(len(text), start + limit)
+    window = text[start:end]
+    i = 0
+    while i < len(window):
+        ch = window[i]
+        if ch == "\n":
+            return window[:i]
+        if ch == ".":
+            j = i
+            while j > 0 and window[j - 1].isalpha():
+                j -= 1
+            word = window[j:i].lower()
+            k = i + 1
+            while k < len(window) and window[k] in " \t":
+                k += 1
+            at_end = k >= len(window)
+            next_is_upper = k < len(window) and bool(_UPPER_START.match(window[k]))
+            if word not in _ABBREVIATIONS and (at_end or next_is_upper):
+                return window[:i]
+        i += 1
+    return window
+
 
 # A parenthetical whose contents name one of the works.
 _PAREN_REF = re.compile(r"\s*\(([^)]*)\)")
 
-# Citation shape inside a parenthetical/source line: a number, or a word that
-# only makes sense as a locator (questão/item/capítulo/cap./parte). Without
-# this, any parenthetical or "Fonte:" line that merely mentions a work's name
-# in passing prose would be mistaken for a citation.
-_CITATION_SHAPE = re.compile(
-    r"\d|quest[ãa]o|item|cap[íi]tulo|cap\.|parte", re.IGNORECASE
+# A parenthetical counts as a citation only when it is essentially *just* a
+# reference: an optional article, one of the five works, and then nothing
+# but locators (numbers, questão/item/capítulo/cap./parte, punctuation). A
+# parenthetical that names a work but continues as a full clause (other
+# words) is prose, not a citation, and is left alone.
+_PAREN_CITATION_SHAPE = re.compile(
+    r"^\s*(?:[oa]s?\s+)?"
+    r"(?:Evangelho(?:\s+Segundo\s+o\s+Espiritismo)?"
+    r"|Livro\s+dos\s+Esp[íi]ritos"
+    r"|Livro\s+dos\s+M[ée]diuns"
+    r"|C[ée]u\s+e\s+o\s+Inferno"
+    r"|G[êe]nese)"
+    r"(?:[\s,;:\-–—]+(?:quest[ãa]o|item|cap[íi]tulo|cap\.|parte|\d+))*"
+    r"[\s,;:\-–—.]*$",
+    re.IGNORECASE,
 )
 
 
-def _looks_like_citation(text: str) -> bool:
-    return bool(_sigla_in(text) and _CITATION_SHAPE.search(text))
+def _paren_is_citation(text: str) -> bool:
+    return bool(_PAREN_CITATION_SHAPE.match(text))
 
 
 # The model's own trailing source line, observed in the smoke test:
@@ -74,8 +121,9 @@ def _sigla_in(text: str) -> str | None:
 def extract_model_citations(text: str) -> set[str]:
     """Citation ids the model wrote, normalized to `SIGLA-N`."""
     found = {f"{m.group(1)}-{int(m.group(2))}" for m in _SIGLA_REF.finditer(text)}
-    for m in _PROSE_REF.finditer(text):
-        sigla = _sigla_in(m.group(2))
+    for m in _PROSE_ANCHOR.finditer(text):
+        window = _prose_window(text, m.end())
+        sigla = _sigla_in(window)
         if sigla:
             found.add(f"{sigla}-{int(m.group(1))}")
     return found
@@ -110,11 +158,9 @@ def strip_model_citations(text: str) -> str:
     source chips. The model's own "Fonte:" line is dropped whole (it carries
     invented question numbers); parentheticals naming a work are dropped whole;
     bare sigla refs are dropped in place."""
-    text = _SOURCE_LINE.sub(
-        lambda m: "" if _looks_like_citation(m.group(0)) else m.group(0), text
-    )
+    text = _SOURCE_LINE.sub(lambda m: "" if _sigla_in(m.group(0)) else m.group(0), text)
     text = _PAREN_REF.sub(
-        lambda m: "" if _looks_like_citation(m.group(1)) else m.group(0), text
+        lambda m: "" if _paren_is_citation(m.group(1)) else m.group(0), text
     )
     text = _SIGLA_REF.sub("", text)
     # Tidy the punctuation the removals leave behind.

@@ -45,6 +45,13 @@ def test_prose_number_does_not_borrow_book_from_next_sentence():
     assert extract_model_citations(text) == set()
 
 
+def test_prose_ref_not_truncated_by_abbreviation_period():
+    """An abbreviation like 'cap.' must not be mistaken for a sentence
+    boundary, or the book name after it is lost."""
+    text = "questão 625 cap. II do Livro dos Espíritos"
+    assert extract_model_citations(text) == {"LE-625"}
+
+
 # --- retrieved ids ----------------------------------------------------------
 
 
@@ -128,3 +135,20 @@ def test_leaves_source_line_that_names_no_work():
         "Fonte: inspiração divina, segundo os espíritos superiores."
     )
     assert strip_model_citations(text) == text
+
+
+def test_strips_book_only_parenthetical_citation():
+    """A parenthetical naming a work with no locator number is still a
+    citation and must be stripped, not merely a mention in passing."""
+    text = "A doutrina se apoia (O Livro dos Espíritos) nas respostas dos espíritos."
+    assert (
+        strip_model_citations(text)
+        == "A doutrina se apoia nas respostas dos espíritos."
+    )
+
+
+def test_strips_book_only_source_line():
+    """A 'Fonte:' line naming a work with no question number is still a
+    model citation trailer and must be stripped whole."""
+    text = "A alma persiste.\nFonte: O Evangelho Segundo o Espiritismo."
+    assert strip_model_citations(text) == "A alma persiste."
