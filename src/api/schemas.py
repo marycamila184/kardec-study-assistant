@@ -11,6 +11,7 @@ class Message(BaseModel):
 class Source(BaseModel):
     book: str
     chapter: str | None = None
+    chapter_ref: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -19,14 +20,20 @@ class ChatRequest(BaseModel):
     question: str
     history: list[Message] = []
     book_filter: str | None = None
+    current_mode: str | None = None
+    anchor_text: str | None = None
 
 
 class ChatResponse(BaseModel):
     answer: str
     sources: list[Source]
+    suggested_questions: list[str] = []
     not_found: bool = False
     suggested_mode: str | None = None
+    suggested_item_number: str | None = None
+    suggested_book: str | None = None
     generation_failed: bool = False
+    safety_level: str | None = None
 
 
 class PathStep(BaseModel):
@@ -55,7 +62,7 @@ class PathDetail(BaseModel):
 class RelatedItem(BaseModel):
     book: str
     chapter: str | None = None
-    item_number: str
+    item_number: str | None = None
     preview: str
     conexao: str | None = None
 
@@ -63,7 +70,7 @@ class RelatedItem(BaseModel):
 class StudySource(BaseModel):
     book: str
     chapter_title: str | None = None
-    item_number: str
+    item_number: str | None = None
     excerpt: str | None = None
 
 
@@ -87,6 +94,8 @@ class StudyResponse(BaseModel):
 class ReflectRequest(BaseModel):
     situation: str
     conversation_history: list[Message] = []
+    current_mode: str | None = None
+    anchor_text: str | None = None
 
 
 class ReflectResponse(BaseModel):
@@ -98,6 +107,10 @@ class ReflectResponse(BaseModel):
     sources: list[StudySource]
     not_found: bool = False
     generation_failed: bool = False
+    suggested_mode: str | None = None
+    suggested_item_number: str | None = None
+    suggested_book: str | None = None
+    safety_level: str | None = None
 
 
 class EvangelhoSource(BaseModel):

@@ -5,8 +5,16 @@ import pytest
 from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
 
 _MOCK_RESULTS = [
-    {"content": "alma espírita", "metadata": {"book": "X", "chapter_title": "A", "item_number": "1"}, "distance": 0.5},
-    {"content": "texto irrelevante", "metadata": {"book": "Y", "chapter_title": "B", "item_number": "2"}, "distance": 1.5},
+    {
+        "content": "alma espírita",
+        "metadata": {"book": "X", "chapter_title": "A", "item_number": "1"},
+        "distance": 0.5,
+    },
+    {
+        "content": "texto irrelevante",
+        "metadata": {"book": "Y", "chapter_title": "B", "item_number": "2"},
+        "distance": 1.5,
+    },
 ]
 
 
@@ -29,6 +37,42 @@ def test_retrieve_keeps_chunks_at_or_below_max_distance():
     assert all(r["distance"] <= 1.2 for r in results)
 
 
+def test_retrieve_with_list_book_filter_uses_in_operator(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.query.return_value = _MOCK_RESULTS
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    monkeypatch.setattr("src.rag.retriever.encode", lambda texts: [[0.1] * 1024])
+    retrieve(
+        "alma",
+        book_filter=["O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo"],
+    )
+
+    where = mock_store.query.call_args.kwargs["where"]
+    assert where == {
+        "book": {"$in": ["O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo"]}
+    }
+
+
+def test_retrieve_with_str_book_filter_still_uses_eq(monkeypatch):
+    mock_store = MagicMock()
+    mock_store.query.return_value = _MOCK_RESULTS
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    monkeypatch.setattr("src.rag.retriever.encode", lambda texts: [[0.1] * 1024])
+    retrieve("alma", book_filter="O Livro dos Espíritos")
+
+    where = mock_store.query.call_args.kwargs["where"]
+    assert where == {"book": {"$eq": "O Livro dos Espíritos"}}
+
+
+def test_reflect_books_constant_values():
+    from src.rag.retriever import REFLECT_BOOKS
+
+    assert REFLECT_BOOKS == (
+        "O Livro dos Espíritos",
+        "O Evangelho Segundo o Espiritismo",
+    )
+
+
 def test_retrieve_returns_empty_when_all_too_distant(monkeypatch):
     mock_store = MagicMock()
     mock_store.query.return_value = [
@@ -46,7 +90,12 @@ def test_retrieve_by_item_calls_get_by_filter_with_correct_where(monkeypatch):
     results = retrieve_by_item("O Livro dos Espíritos", "1")
     assert len(results) == 1
     mock_store.get_by_filter.assert_called_once_with(
-        {"$and": [{"book": {"$eq": "O Livro dos Espíritos"}}, {"item_number": {"$eq": "1"}}]}
+        {
+            "$and": [
+                {"book": {"$eq": "O Livro dos Espíritos"}},
+                {"item_number": {"$eq": "1"}},
+            ]
+        }
     )
 
 
@@ -64,16 +113,19 @@ def test_retrieve_by_item_with_chapter_adds_chapter_to_filter(monkeypatch):
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     retrieve_by_item("O Evangelho Segundo o Espiritismo", "1", chapter="CAPÍTULO IV")
     mock_store.get_by_filter.assert_called_once_with(
-        {"$and": [
-            {"book": {"$eq": "O Evangelho Segundo o Espiritismo"}},
-            {"item_number": {"$eq": "1"}},
-            {"chapter": {"$eq": "CAPÍTULO IV"}},
-        ]}
+        {
+            "$and": [
+                {"book": {"$eq": "O Evangelho Segundo o Espiritismo"}},
+                {"item_number": {"$eq": "1"}},
+                {"chapter": {"$eq": "CAPÍTULO IV"}},
+            ]
+        }
     )
 
 
 def test_split_footnotes_separates_clean_content_from_notes():
     from src.rag.retriever import _split_footnotes
+
     content = "Texto principal.\n[Nota 1] Primeira nota.\n[Nota 2] Segunda nota."
     clean, footnotes = _split_footnotes(content)
     assert clean == "Texto principal."
@@ -82,6 +134,7 @@ def test_split_footnotes_separates_clean_content_from_notes():
 
 def test_split_footnotes_returns_unchanged_when_no_marker():
     from src.rag.retriever import _split_footnotes
+
     clean, footnotes = _split_footnotes("Texto sem notas.")
     assert clean == "Texto sem notas."
     assert footnotes == ""
@@ -90,7 +143,11 @@ def test_split_footnotes_returns_unchanged_when_no_marker():
 def test_retrieve_strips_footnote_suffix_from_content(monkeypatch):
     mock_store = MagicMock()
     mock_store.query.return_value = [
-        {"content": "Texto principal.\n[Nota 1] Nota explicativa.", "metadata": {}, "distance": 0.5},
+        {
+            "content": "Texto principal.\n[Nota 1] Nota explicativa.",
+            "metadata": {},
+            "distance": 0.5,
+        },
     ]
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     results = retrieve("alma")
@@ -111,7 +168,11 @@ def test_retrieve_footnote_context_empty_when_no_footnote(monkeypatch):
 def test_retrieve_by_item_strips_footnote_suffix(monkeypatch):
     mock_store = MagicMock()
     mock_store.get_by_filter.return_value = [
-        {"content": "Item principal.\n[Nota 1] Explicação.", "metadata": {}, "distance": 0.0},
+        {
+            "content": "Item principal.\n[Nota 1] Explicação.",
+            "metadata": {},
+            "distance": 0.0,
+        },
     ]
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     results = retrieve_by_item("O Livro dos Espíritos", "1")
@@ -130,3 +191,198 @@ def test_has_real_item_number_false_for_placeholder():
 def test_has_real_item_number_false_for_none_or_empty():
     assert has_real_item_number(None) is False
     assert has_real_item_number("") is False
+
+
+from src.rag.retriever import (
+    EVANGELHO_BOOK,
+    chapter_commentary,
+    retrieve_by_chapter,
+)
+
+_EV = "O Evangelho Segundo o Espiritismo"
+
+
+def _ev_chunk(item, content, sub=0):
+    return {
+        "content": content,
+        "metadata": {
+            "book": _EV,
+            "chapter": "CAPÍTULO XX",
+            "item_number": item,
+            "subchunk_index": sub,
+        },
+        "distance": 0.0,
+    }
+
+
+def test_retrieve_by_chapter_filters_and_orders(monkeypatch):
+    mock_store = MagicMock()
+    # returned out of order; expect (item asc, subchunk asc)
+    mock_store.get_by_filter.return_value = [
+        _ev_chunk("2", "comentario dois"),
+        _ev_chunk("1", "verso b", sub=1),
+        _ev_chunk("1", "verso a", sub=0),
+    ]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+    results = retrieve_by_chapter(_EV, "CAPÍTULO XX")
+    assert [r["content"] for r in results] == ["verso a", "verso b", "comentario dois"]
+    mock_store.get_by_filter.assert_called_once_with(
+        {"$and": [{"book": {"$eq": _EV}}, {"chapter": {"$eq": "CAPÍTULO XX"}}]}
+    )
+    # footnotes stripped -> footnote_context key present
+    assert all("footnote_context" in r for r in results)
+
+
+def test_chapter_commentary_excludes_studied_item(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.retrieve_by_chapter",
+        lambda b, c: [_ev_chunk("1", "verso"), _ev_chunk("2", "comentario")],
+    )
+    out = chapter_commentary(_EV, "CAPÍTULO XX", "1")
+    assert [r["content"] for r in out] == ["comentario"]
+
+
+def test_chapter_commentary_respects_char_cap(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.retrieve_by_chapter",
+        lambda b, c: [
+            _ev_chunk("2", "a" * 2500),
+            _ev_chunk("3", "b" * 2500),
+            _ev_chunk("4", "c" * 2500),
+        ],
+    )
+    out = chapter_commentary(_EV, "CAPÍTULO XX", "1", char_cap=3000)
+    # first sibling always included; stop before exceeding the cap
+    assert [r["content"][0] for r in out] == ["a"]
+
+
+def test_chapter_commentary_always_returns_first_sibling(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.retrieve_by_chapter",
+        lambda b, c: [_ev_chunk("2", "x" * 9000)],
+    )
+    out = chapter_commentary(_EV, "CAPÍTULO XX", "1", char_cap=3000)
+    assert len(out) == 1  # a single over-cap sibling is never dropped to empty
+
+
+def test_chapter_commentary_non_evangelho_returns_empty():
+    assert chapter_commentary("O Livro dos Espíritos", "CAP I", "1") == []
+
+
+def test_chapter_commentary_empty_chapter_returns_empty():
+    assert chapter_commentary(_EV, "", "1") == []
+
+
+from src.rag.retriever import append_chapter_commentary
+
+
+def test_append_chapter_commentary_enriches_top_evangelho_hit(monkeypatch):
+    monkeypatch.setattr(
+        "src.rag.retriever.chapter_commentary",
+        lambda b, c, ex: [_ev_chunk("2", "comentario do kardec")],
+    )
+    passages = [_ev_chunk("1", "verso da parabola")]
+    out = append_chapter_commentary(passages)
+    assert [p["content"] for p in out] == ["verso da parabola", "comentario do kardec"]
+
+
+def test_append_chapter_commentary_noop_when_top_not_evangelho(monkeypatch):
+    def _boom(*a, **k):
+        raise AssertionError("chapter_commentary must not run for non-Evangelho top")
+
+    monkeypatch.setattr("src.rag.retriever.chapter_commentary", _boom)
+    passages = [
+        {
+            "content": "questao LE",
+            "metadata": {"book": "O Livro dos Espíritos", "item_number": "1"},
+        }
+    ]
+    assert append_chapter_commentary(passages) == passages
+
+
+def test_append_chapter_commentary_dedupes(monkeypatch):
+    dup = _ev_chunk("2", "comentario", sub=0)
+    monkeypatch.setattr("src.rag.retriever.chapter_commentary", lambda b, c, ex: [dup])
+    passages = [_ev_chunk("1", "verso"), dup]
+    out = append_chapter_commentary(passages)
+    assert len(out) == 2  # dup already present, not appended again
+
+
+def test_append_chapter_commentary_empty_passages():
+    assert append_chapter_commentary([]) == []
+
+
+def test_append_chapter_commentary_swallows_errors(monkeypatch):
+    def _raise(*a, **k):
+        raise RuntimeError("store down")
+
+    monkeypatch.setattr("src.rag.retriever.chapter_commentary", _raise)
+    passages = [_ev_chunk("1", "verso")]
+    assert append_chapter_commentary(passages) == passages  # best-effort, unchanged
+
+
+from src.rag.retriever import SENSITIVE_CHAPTERS, filter_sensitive_chunks
+
+
+def _ci_chunk(chapter_title, content="x"):
+    return {
+        "content": content,
+        "metadata": {"book": "O Céu e o Inferno", "chapter_title": chapter_title},
+    }
+
+
+def test_filter_sensitive_chunks_drops_dark_chapters():
+    chunks = [
+        _ci_chunk("SUICIDAS"),
+        _ci_chunk("ESPÍRITOS FELIZES"),
+        _ci_chunk("ESPÍRITOS SOFREDORES"),
+        _ci_chunk("O CÉU"),
+    ]
+    out = filter_sensitive_chunks(chunks)
+    kept = [c["metadata"]["chapter_title"] for c in out]
+    assert kept == ["ESPÍRITOS FELIZES", "O CÉU"]
+
+
+def test_filter_sensitive_chunks_covers_full_dark_set():
+    assert SENSITIVE_CHAPTERS == frozenset(
+        {
+            "SUICIDAS",
+            "ESPÍRITOS SOFREDORES",
+            "ESPÍRITOS ENDURECIDOS",
+            "CRIMINOSOS ARREPENDIDOS",
+            "EXPIAÇÕES TERRESTRES",
+        }
+    )
+
+
+def test_filter_sensitive_chunks_keeps_chunks_without_chapter_title():
+    chunks = [{"content": "x", "metadata": {"book": "O Livro dos Espíritos"}}]
+    assert filter_sensitive_chunks(chunks) == chunks
+
+
+def test_filter_sensitive_chunks_drops_suicide_content_regardless_of_book():
+    # The abalo filter is content-aware too: suicide-adjacent passages exist
+    # outside O Céu e o Inferno (e.g. ESE's afflictions chapter discussing
+    # "abreviar as misérias") and must not surface to a distressed reader.
+    chunks = [
+        {
+            "content": "Seria lícito abreviar as misérias pela morte voluntária?",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "chapter_title": "AFLIÇÕES",
+            },
+        },
+        {
+            "content": "O suicídio é contrário à lei da natureza.",
+            "metadata": {"book": "O Livro dos Espíritos", "chapter_title": "X"},
+        },
+        {
+            "content": "A caridade é a virtude suprema.",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "chapter_title": "CARIDADE",
+            },
+        },
+    ]
+    out = filter_sensitive_chunks(chunks)
+    assert [c["content"] for c in out] == ["A caridade é a virtude suprema."]

@@ -48,7 +48,9 @@ def test_pipeline_appends_footnotes_to_document(tmp_json_dir, tmp_path, monkeypa
     assert "[Nota 1]" in chunk_132["content"]
 
 
-def test_pipeline_appends_title_footnotes_to_document(tmp_json_dir, tmp_path, monkeypatch):
+def test_pipeline_appends_title_footnotes_to_document(
+    tmp_json_dir, tmp_path, monkeypatch
+):
     chroma_dir = str(tmp_path / "embeddings3")
     monkeypatch.setattr("src.ingestion.pipeline.settings.json_dir", tmp_json_dir)
     monkeypatch.setattr("src.ingestion.pipeline.settings.chroma_path", chroma_dir)

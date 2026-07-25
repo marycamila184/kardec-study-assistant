@@ -97,7 +97,8 @@ def test_returns_none_when_no_chunks(monkeypatch):
 def test_returns_none_when_markdown_file_missing(monkeypatch):
     monkeypatch.setattr("src.rag.evangelho._chunks", None)
     monkeypatch.setattr(
-        "src.rag.evangelho.TRECHO_DIARIO_PATH", "data/markdown_files/__does_not_exist__.md"
+        "src.rag.evangelho.TRECHO_DIARIO_PATH",
+        "data/markdown_files/__does_not_exist__.md",
     )
     result = get_daily_passage()
     assert result is None
@@ -167,7 +168,8 @@ def test_chapter_summary_is_none_when_file_missing(monkeypatch):
     monkeypatch.setattr("src.rag.evangelho._chunks", _SINGLE_CHUNK)
     monkeypatch.setattr("src.rag.evangelho._summaries", None)
     monkeypatch.setattr(
-        "src.rag.evangelho.CHAPTER_SUMMARIES_PATH", "data/chapter_summaries/__does_not_exist__.json"
+        "src.rag.evangelho.CHAPTER_SUMMARIES_PATH",
+        "data/chapter_summaries/__does_not_exist__.json",
     )
     result = get_daily_passage()
     assert result["chapter_summary"] is None
@@ -180,9 +182,7 @@ def test_chapter_summary_is_populated_when_present(monkeypatch, tmp_path):
     )
     monkeypatch.setattr("src.rag.evangelho._chunks", _SINGLE_CHUNK)
     monkeypatch.setattr("src.rag.evangelho._summaries", None)
-    monkeypatch.setattr(
-        "src.rag.evangelho.CHAPTER_SUMMARIES_PATH", str(summaries_file)
-    )
+    monkeypatch.setattr("src.rag.evangelho.CHAPTER_SUMMARIES_PATH", str(summaries_file))
     result = get_daily_passage()
     assert result["chapter_summary"] == "Resumo do capítulo."
 
@@ -192,8 +192,6 @@ def test_chapter_summary_is_none_when_chapter_not_in_summaries(monkeypatch, tmp_
     summaries_file.write_text('{"Outro Capítulo": "..."}', encoding="utf-8")
     monkeypatch.setattr("src.rag.evangelho._chunks", _SINGLE_CHUNK)
     monkeypatch.setattr("src.rag.evangelho._summaries", None)
-    monkeypatch.setattr(
-        "src.rag.evangelho.CHAPTER_SUMMARIES_PATH", str(summaries_file)
-    )
+    monkeypatch.setattr("src.rag.evangelho.CHAPTER_SUMMARIES_PATH", str(summaries_file))
     result = get_daily_passage()
     assert result["chapter_summary"] is None

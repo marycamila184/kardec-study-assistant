@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
 import { BRAND_TERRACOTTA } from '../../constants/theme';
 import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
+import { formatItemRef } from '../../utils/format';
 
 /**
  * The "Da IA" block containing the explanation text, historical context,
@@ -16,8 +17,12 @@ export default function IABlock({
   quickActions = [],
   onQuickAction,
   onReflectionQuestionClick,
+  suggestedQuestions = [],
+  onSuggestedQuestionClick,
+  footerAction = null,
 }) {
   const [openSource, setOpenSource] = useState(null);
+  const [footerHover, setFooterHover] = useState(false);
 
   return (
     <div style={{
@@ -64,6 +69,23 @@ export default function IABlock({
         </div>
       )}
 
+      {/* Follow-up question chips (Tirar uma Dúvida) — tap sends the question */}
+      {!isRevealing && suggestedQuestions.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
+          {suggestedQuestions.map((q, i) => (
+            <button
+              key={i}
+              onClick={() => onSuggestedQuestionClick?.(q)}
+              style={{
+                background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.25)',
+                borderRadius: 8, padding: '8px 12px', fontSize: 13, color: theme.text, lineHeight: 1.5,
+                textAlign: 'left', cursor: 'pointer', font: 'inherit', width: '100%',
+              }}
+            >{renderInlineMarkdown(q)}</button>
+          ))}
+        </div>
+      )}
+
       {!isRevealing && msg.sources?.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>
           {msg.sources.map((s, i) => (
@@ -74,7 +96,9 @@ export default function IABlock({
               padding: '3px 10px', borderRadius: 12,
               cursor: 'pointer', fontWeight: 500,
             }}>
-              📖 {s.item_number ? `${s.book}, Q.${s.item_number}` : s.book}
+              📖 {s.item_number
+                ? `${s.book}, ${formatItemRef(s.book, s.item_number)}`
+                : (s.chapter ? `${s.book} — ${s.chapter}` : s.book)}
             </button>
           ))}
         </div>
@@ -94,6 +118,30 @@ export default function IABlock({
             </button>
           ))}
         </div>
+      )}
+
+      {/* Cross-mode action attached as the card's footer strip; negative
+          margins cancel the card's 13px 16px padding so it spans edge-to-edge
+          and its corners close the card's bottom radius. */}
+      {!isRevealing && footerAction && (
+        <button
+          onClick={footerAction.onClick}
+          onMouseEnter={() => setFooterHover(true)}
+          onMouseLeave={() => setFooterHover(false)}
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            width: 'calc(100% + 32px)', margin: '12px -16px -13px',
+            padding: '10px 16px',
+            background: footerHover ? 'rgba(128,128,128,.08)' : 'transparent',
+            border: 'none', borderTop: `1px solid ${theme.cardBorder}`,
+            borderRadius: '0 0 10px 10px', cursor: 'pointer',
+            color: footerAction.color || '#4A7A98',
+            fontSize: 13, fontWeight: 500, fontFamily: 'inherit', textAlign: 'left',
+          }}
+        >
+          <span>{footerAction.label}</span>
+          <span aria-hidden="true">→</span>
+        </button>
       )}
 
       <SourceModal source={openSource} theme={theme} onClose={() => setOpenSource(null)} />

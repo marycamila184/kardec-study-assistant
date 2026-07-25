@@ -2,8 +2,64 @@ import json
 import re
 
 from src.rag.json_extract import extract_outermost, strip_code_fence
+from src.rag.markers import parse_sections, split_pipe_list
 
-_SYSTEM_TEMPLATE = """\
+_MARKER_FORMAT = """\
+REGRA ABSOLUTA DE FORMATO: responda usando EXATAMENTE estas duas seções, cada \
+uma começando no início de uma linha, em MAIÚSCULAS, e nada mais — nenhum \
+preâmbulo, nenhum markdown, nenhuma observação final.
+
+CONTEXTO: <4 a 8 frases indicando onde este item se encaixa na estrutura da \
+doutrina e, quando relevante, o contexto histórico/cultural em que foi dito>
+CONCEITOS: <termo: definição> | <termo: definição>
+
+Escreva de 1 a 3 conceitos, separados por " | ". Nunca escreva números de \
+questão, de item ou de capítulo, nem referências no formato de citação — o \
+sistema adiciona a citação depois, fora da sua resposta."""
+
+# The rules below were duplicated verbatim across the JSON and marker templates.
+# They had already drifted (the marker copy still quoted the JSON key
+# `"contexto"`), and worse, the marker copy contradicted its own format rule:
+# _MARKER_FORMAT forbids writing a work's name while the connection rule asked
+# for "Esta ideia aparece também em...", which cannot be written without naming
+# one. A model given both must violate one to satisfy the other — a plausible
+# contributor to riv-ai-v2's 3/3 marker-protocol failure on 2026-07-25.
+#
+# Resolved in favour of the code-owned citation, which is the project's standing
+# rule: the connection is described by its CONTENT, never by its reference. The
+# reference already reaches the reader through the Curador's related_items cards.
+_SHARED_RULES = """\
+Regras estritas:
+- {ctx}: baseie-se no trecho e nas notas de rodapé para explicar onde este item \
+se encaixa na doutrina. Use também as REFERÊNCIAS RELACIONADAS abaixo para mostrar \
+como este trecho se conecta com outras passagens da doutrina espírita. Descreva a \
+conexão pelo seu CONTEÚDO, nunca por sua referência (ex.: "a mesma ideia reaparece \
+onde Kardec trata da lei de causa e efeito" — e não "ver questão 625"). Você PODE \
+incluir contexto histórico ou cultural geral (ex.: quem eram os fariseus, publicanos, \
+samaritanos; costumes da época) para ajudar a entender a passagem, usando conhecimento \
+histórico amplamente estabelecido. Deixe claro na resposta o que é contexto histórico \
+geral e o que vem do texto/doutrina (ex.: "Historicamente, os fariseus eram... O texto, \
+por sua vez, mostra que..."). Nunca invente ou altere doutrina espírita — isso continua \
+restrito ao trecho e às referências relacionadas fornecidas.
+- Quando o TRECHO PRINCIPAL for um texto evangélico (a citação do Evangelho), \
+baseie a leitura doutrinária no COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO — a exposição \
+de Kardec e dos Espíritos — que traz a interpretação espírita da passagem.
+- {con}: extraia os termos centrais com suas definições baseadas no \
+texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
+da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \
+não o inclua.
+- É proibido resumir ou parafrasear o trecho no lugar do {ctx} — o estudante já \
+leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
+- Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
+(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as \
+afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passagem \
+mostra que...", "o texto indica que...")."""
+
+_JSON_RULES = _SHARED_RULES.format(ctx='"contexto"', con='"conceitos_chave"')
+_MARKER_RULES = _SHARED_RULES.format(ctx="CONTEXTO", con="CONCEITOS")
+
+_SYSTEM_TEMPLATE = (
+    """\
 Você é um tutor socrático especializado na obra de Allan Kardec.
 
 REGRA ABSOLUTA: responda SOMENTE com o objeto JSON abaixo — nenhum texto antes, \
@@ -18,36 +74,12 @@ necessário, em conhecimento histórico geral>",
   "conceitos_chave": [
     "<Termo exato do texto>: <definição baseada no trecho, podendo incluir uma \
 breve explicação esclarecedora>"
-  ],
-  "perguntas": [
-    "<pergunta aberta que leva o estudante a refletir sobre o trecho, sem revelar a resposta>"
   ]
 }}
 
-Regras estritas:
-- "contexto": baseie-se no trecho e nas notas de rodapé para explicar onde este item \
-se encaixa na doutrina. Use também as REFERÊNCIAS RELACIONADAS abaixo para mostrar \
-como este trecho se conecta com outras passagens da doutrina espírita — cite ou \
-parafraseie a conexão de forma específica (ex.: "Esta ideia aparece também em..."), \
-em vez de mencionar as referências apenas de passagem. Você PODE incluir contexto \
-histórico ou cultural geral (ex.: quem eram os fariseus, publicanos, samaritanos; \
-costumes da época) para ajudar a entender a passagem, usando conhecimento histórico \
-amplamente estabelecido. Deixe claro na resposta o que é contexto histórico geral e \
-o que vem do texto/doutrina (ex.: "Historicamente, os fariseus eram... O texto, por \
-sua vez, mostra que..."). Nunca invente ou altere doutrina espírita — isso continua \
-restrito ao trecho e às referências relacionadas fornecidas.
-- "conceitos_chave": extraia os termos centrais com suas definições baseadas no \
-texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
-da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \
-não o inclua.
-- "perguntas": formule entre 2 e 3 perguntas abertas que estimulem o pensamento \
-crítico. Nunca responda as perguntas no próprio JSON. Nunca extrapole além do trecho.
-- É proibido resumir ou parafrasear o trecho no lugar do "contexto" — o estudante já \
-leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
-- Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
-(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as \
-afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passagem \
-mostra que...", "o texto indica que...").
+"""
+    + _JSON_RULES
+    + """
 
 [TRECHO PRINCIPAL]
 {main_passage}
@@ -55,8 +87,37 @@ mostra que...", "o texto indica que...").
 [NOTAS DE RODAPÉ]
 {footnote_passages}
 
+[COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO]
+{chapter_commentary}
+
 [REFERÊNCIAS RELACIONADAS]
 {related_passages}"""
+)
+
+_MARKER_SYSTEM_TEMPLATE = (
+    """\
+Você é um tutor socrático especializado na obra de Allan Kardec.
+
+"""
+    + _MARKER_FORMAT
+    + """
+
+"""
+    + _MARKER_RULES
+    + """
+
+[TRECHO PRINCIPAL]
+{main_passage}
+
+[NOTAS DE RODAPÉ]
+{footnote_passages}
+
+[COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO]
+{chapter_commentary}
+
+[REFERÊNCIAS RELACIONADAS]
+{related_passages}"""
+)
 
 
 def _format_related(chunks: list[dict]) -> str:
@@ -70,11 +131,17 @@ def _format_related(chunks: list[dict]) -> str:
 
 
 def build_explicador_messages(
-    main_text: str, related_chunks: list[dict], footnote_context: str = ""
+    main_text: str,
+    related_chunks: list[dict],
+    footnote_context: str = "",
+    chapter_commentary_chunks: list[dict] | None = None,
+    markers: bool = False,
 ) -> tuple[str, list[dict]]:
-    system = _SYSTEM_TEMPLATE.format(
+    template = _MARKER_SYSTEM_TEMPLATE if markers else _SYSTEM_TEMPLATE
+    system = template.format(
         main_passage=main_text,
         footnote_passages=footnote_context or "(nenhuma)",
+        chapter_commentary=_format_related(chapter_commentary_chunks or []),
         related_passages=_format_related(related_chunks),
     )
     messages = [
@@ -145,3 +212,22 @@ def parse_explicador_json(text: str) -> tuple[str, list[str], list[str]]:
     contexto = contexto_m.group(1).replace('\\"', '"') if contexto_m else ""
     perguntas = [p.replace('\\"', '"') for p in perguntas_m[:3]]
     return contexto, [], perguntas
+
+
+def parse_explicador_markers(text: str) -> tuple[str, list[str], list[str]]:
+    """Returns (contexto, conceitos_chave, perguntas) from marker output.
+
+    `perguntas` is always [] — the field was removed from the prompt but is
+    kept in the return shape so callers and the API schema are unchanged.
+
+    Raises ValueError when no marker is present, so the caller treats it as a
+    generation failure instead of leaking raw model text to the user.
+    """
+    sections = parse_sections(text, ["CONTEXTO", "CONCEITOS"])
+    if not sections["CONTEXTO"] and not sections["CONCEITOS"]:
+        raise ValueError("could not parse explicador marker response")
+    return (
+        sections["CONTEXTO"],
+        split_pipe_list(sections["CONCEITOS"], limit=3),
+        [],
+    )

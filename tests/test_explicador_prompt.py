@@ -99,3 +99,79 @@ def test_parse_explicador_json_falls_back_to_regex_extraction_on_unparseable_jso
     contexto, conceitos, perguntas = parse_explicador_json(text)
     assert contexto == "Explicação via regex."
     assert conceitos == []
+
+
+def test_explicador_prompt_renders_chapter_commentary_block():
+    commentary = [
+        {
+            "content": "O obreiro da última hora tem direito ao salário.",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "item_number": "2",
+            },
+        }
+    ]
+    system, _ = build_explicador_messages(
+        "verso da parábola", [], chapter_commentary_chunks=commentary
+    )
+    assert "COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO" in system
+    assert "O obreiro da última hora tem direito ao salário." in system
+
+
+def test_explicador_prompt_omits_commentary_block_content_when_empty():
+    system, _ = build_explicador_messages("verso", [], chapter_commentary_chunks=None)
+    assert "(nenhuma)" in system  # block present but marked empty, no crash
+
+
+def test_explicador_prompt_has_evangelical_grounding_rule():
+    system, _ = build_explicador_messages("verso", [])
+    assert "texto evangélico" in system
+    assert "COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO" in system
+
+
+from src.rag.explicador_prompt import parse_explicador_markers
+
+
+def test_parses_contexto_and_conceitos():
+    text = (
+        "CONTEXTO: Este item situa a lei de causa e efeito.\n"
+        "CONCEITOS: dever: obrigação moral | lei natural: regra divina"
+    )
+    contexto, conceitos, perguntas = parse_explicador_markers(text)
+    assert contexto == "Este item situa a lei de causa e efeito."
+    assert conceitos == ["dever: obrigação moral", "lei natural: regra divina"]
+    assert perguntas == []
+
+
+def test_missing_conceitos_gives_empty_list():
+    contexto, conceitos, _ = parse_explicador_markers("CONTEXTO: Apenas contexto.")
+    assert contexto == "Apenas contexto."
+    assert conceitos == []
+
+
+def test_tolerates_bracketed_markers():
+    text = "[CONTEXTO]: Um contexto.\n[CONCEITOS: a | b]"
+    contexto, conceitos, _ = parse_explicador_markers(text)
+    assert contexto == "Um contexto."
+    assert conceitos == ["a", "b"]
+
+
+def test_multiline_contexto():
+    text = "CONTEXTO: Primeira frase.\nSegunda frase.\nCONCEITOS: a"
+    contexto, _, _ = parse_explicador_markers(text)
+    assert contexto == "Primeira frase.\nSegunda frase."
+
+
+def test_unparseable_output_raises():
+    """A caller must be able to treat garbage as a generation failure rather
+    than leak raw model text to the user."""
+    import pytest
+
+    with pytest.raises(ValueError):
+        parse_explicador_markers("uma resposta sem marcador nenhum")
+
+
+def test_conceitos_capped_at_three():
+    text = "CONTEXTO: c.\nCONCEITOS: a | b | c | d | e"
+    _, conceitos, _ = parse_explicador_markers(text)
+    assert len(conceitos) == 3

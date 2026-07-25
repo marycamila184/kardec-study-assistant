@@ -3,12 +3,19 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from src.api.main import app
+from src.api.schemas import ChatResponse, ReflectResponse
 
 client = TestClient(app)
 
 _ANSWER_RESULT = {
     "answer": "A reencarnação permite a evolução do espírito.",
-    "sources": [{"book": "O Livro dos Espíritos", "chapter": "Da Encarnação", "item_number": "132"}],
+    "sources": [
+        {
+            "book": "O Livro dos Espíritos",
+            "chapter": "Da Encarnação",
+            "item_number": "132",
+        }
+    ],
     "not_found": False,
 }
 
@@ -21,13 +28,17 @@ _NOT_FOUND_RESULT = {
 
 def test_chat_returns_200():
     with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
-        response = client.post("/chat", json={"question": "O que é reencarnação?", "history": []})
+        response = client.post(
+            "/chat", json={"question": "O que é reencarnação?", "history": []}
+        )
     assert response.status_code == 200
 
 
 def test_chat_response_has_expected_fields():
     with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
-        data = client.post("/chat", json={"question": "O que é reencarnação?", "history": []}).json()
+        data = client.post(
+            "/chat", json={"question": "O que é reencarnação?", "history": []}
+        ).json()
     assert "answer" in data
     assert "sources" in data
     assert "not_found" in data
@@ -36,17 +47,37 @@ def test_chat_response_has_expected_fields():
 
 def test_chat_not_found_flag_is_true_when_out_of_doctrine():
     with patch("src.api.routes.generate", return_value=_NOT_FOUND_RESULT):
-        data = client.post("/chat", json={"question": "Fale sobre budismo", "history": []}).json()
+        data = client.post(
+            "/chat", json={"question": "Fale sobre budismo", "history": []}
+        ).json()
     assert data["not_found"] is True
     assert data["sources"] == []
 
 
 def test_chat_passes_history_to_generator():
-    history = [{"role": "user", "content": "Olá"}, {"role": "assistant", "content": "Olá!"}]
+    history = [
+        {"role": "user", "content": "Olá"},
+        {"role": "assistant", "content": "Olá!"},
+    ]
     with patch("src.api.routes.generate", return_value=_ANSWER_RESULT) as mock_gen:
         client.post("/chat", json={"question": "Continua?", "history": history})
     _, called_history = mock_gen.call_args[0]
     assert len(called_history) == 2
+
+
+def test_chat_surfaces_orchestrator_nudge():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "refletir", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/chat",
+            json={"question": "estou muito mal", "current_mode": "tirar_duvida"},
+        ).json()
+    assert data["suggested_mode"] == "refletir"
 
 
 def test_health_returns_ok():
@@ -62,7 +93,11 @@ _STUDY_RESULT = {
     "perguntas": ["O que isso significa para a nossa existência?"],
     "related_items": [],
     "sources": [
-        {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}
+        {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Alma",
+            "item_number": "150",
+        }
     ],
     "generation_failed": False,
 }
@@ -134,7 +169,10 @@ def test_get_path_returns_404_when_not_found():
 def test_chat_includes_suggested_mode_when_detected():
     with (
         patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
-        patch("src.api.routes.detect_suggested_mode", return_value="estudar_obra"),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
     ):
         data = client.post(
             "/chat", json={"question": "explique a questão 132", "history": []}
@@ -145,12 +183,84 @@ def test_chat_includes_suggested_mode_when_detected():
 def test_chat_suggested_mode_is_none_for_generic_question():
     with (
         patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
-        patch("src.api.routes.detect_suggested_mode", return_value=None),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": None, "confidence": "low"},
+        ),
     ):
         data = client.post(
             "/chat", json={"question": "o que é amor?", "history": []}
         ).json()
     assert data["suggested_mode"] is None
+    assert data["suggested_item_number"] is None
+    assert data["suggested_book"] is None
+
+
+def test_chat_includes_study_reference_for_item_lookup():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/chat",
+            json={
+                "question": "explique a questão 132 do Livro dos Espíritos",
+                "history": [],
+            },
+        ).json()
+    assert data["suggested_mode"] == "estudar_obra"
+    assert data["suggested_item_number"] == "132"
+    assert data["suggested_book"] == "O Livro dos Espíritos"
+
+
+def test_chat_study_reference_questao_defaults_book_to_livro_espiritos():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/chat", json={"question": "explique a questão 132", "history": []}
+        ).json()
+    assert data["suggested_item_number"] == "132"
+    assert data["suggested_book"] == "O Livro dos Espíritos"
+
+
+def test_chat_study_reference_book_is_none_for_generic_item():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/chat", json={"question": "explique o item 45", "history": []}
+        ).json()
+    assert data["suggested_item_number"] == "45"
+    assert data["suggested_book"] is None
+
+
+def test_chat_no_study_reference_for_refletir_suggestion():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "refletir", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/chat",
+            json={"question": "tenho medo de morrer no ano 2050", "history": []},
+        ).json()
+    assert data["suggested_mode"] == "refletir"
+    assert data["suggested_item_number"] is None
+    assert data["suggested_book"] is None
 
 
 _REFLECT_RESULT = {
@@ -163,7 +273,11 @@ _REFLECT_RESULT = {
     ],
     "complementary_items": [],
     "sources": [
-        {"book": "O Livro dos Espíritos", "chapter_title": "Da Alma", "item_number": "150"}
+        {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Alma",
+            "item_number": "150",
+        }
     ],
     "not_found": False,
     "generation_failed": False,
@@ -199,15 +313,26 @@ def test_reflect_returns_200_with_not_found_flag_when_no_doctrine():
 
 def test_reflect_response_has_all_required_fields():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
-        data = client.post("/reflect", json={"situation": "meu casamento está difícil"}).json()
-    for field in ("opening", "doctrine_connection", "reflection_questions", "complementary_items", "sources", "not_found", "generation_failed", "is_closing"):
+        data = client.post(
+            "/reflect", json={"situation": "meu casamento está difícil"}
+        ).json()
+    for field in (
+        "opening",
+        "doctrine_connection",
+        "reflection_questions",
+        "complementary_items",
+        "sources",
+        "not_found",
+        "generation_failed",
+        "is_closing",
+    ):
         assert field in data
 
 
 def test_reflect_passes_situation_to_reflect_fn():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
         client.post("/reflect", json={"situation": "me sinto vazio"})
-    mock_fn.assert_called_once_with("me sinto vazio", [])
+    mock_fn.assert_called_once_with("me sinto vazio", [], anchor_text=None)
 
 
 def test_reflect_passes_conversation_history_to_reflect_fn():
@@ -216,8 +341,14 @@ def test_reflect_passes_conversation_history_to_reflect_fn():
         {"role": "assistant", "content": "resposta anterior"},
     ]
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
-        client.post("/reflect", json={"situation": "nova pergunta", "conversation_history": history_payload})
-    mock_fn.assert_called_once_with("nova pergunta", history_payload)
+        client.post(
+            "/reflect",
+            json={
+                "situation": "nova pergunta",
+                "conversation_history": history_payload,
+            },
+        )
+    mock_fn.assert_called_once_with("nova pergunta", history_payload, anchor_text=None)
 
 
 def test_reflect_response_includes_is_closing_field():
@@ -225,6 +356,31 @@ def test_reflect_response_includes_is_closing_field():
     with patch("src.api.routes.reflect_fn", return_value=result_with_closing):
         data = client.post("/reflect", json={"situation": "situação"}).json()
     assert data["is_closing"] is True
+
+
+def test_reflect_surfaces_orchestrator_nudge():
+    reflect_result = {
+        "opening": "",
+        "doctrine_connection": "texto",
+        "reflection_questions": [],
+        "complementary_items": [],
+        "sources": [],
+        "not_found": False,
+        "generation_failed": False,
+    }
+    with (
+        patch("src.api.routes.reflect_fn", return_value=reflect_result),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/reflect",
+            json={"situation": "explique a questão 132", "current_mode": "refletir"},
+        ).json()
+    assert data["suggested_mode"] == "estudar_obra"
+    assert data["suggested_item_number"] == "132"
 
 
 _EVANGELHO_PASSAGE = {
@@ -293,3 +449,146 @@ def test_evangelho_response_chapter_summary_defaults_to_none():
     with patch("src.api.routes.get_daily_passage", return_value=passage):
         data = client.get("/evangelho").json()
     assert data["chapter_summary"] is None
+
+
+def test_chat_passes_suggested_questions_through():
+    result = dict(_ANSWER_RESULT, suggested_questions=["Pergunta A?", "Pergunta B?"])
+    with patch("src.api.routes.generate", return_value=result):
+        data = client.post(
+            "/chat", json={"question": "O que é a alma?", "history": []}
+        ).json()
+    assert data["suggested_questions"] == ["Pergunta A?", "Pergunta B?"]
+
+
+def test_chat_forwards_anchor_text_to_generator():
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT) as mock_gen:
+        client.post(
+            "/chat",
+            json={"question": "preciso ser criança?", "anchor_text": "humildade"},
+        )
+    assert mock_gen.call_args.kwargs["anchor_text"] == "humildade"
+
+
+def test_reflect_forwards_anchor_text_to_reflect_fn():
+    with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_ref:
+        client.post(
+            "/reflect",
+            json={"situation": "estou pensando nisso", "anchor_text": "humildade"},
+        )
+    assert mock_ref.call_args.kwargs["anchor_text"] == "humildade"
+
+
+def test_reflect_never_self_nudges_even_if_classifier_says_refletir():
+    def classify_with_guard(message, current_mode, history):
+        # Simulate the real guard logic from orchestrator.classify_intent
+        suggested = {"mode": "refletir", "confidence": "high"}
+        if suggested["mode"] == current_mode:
+            return {"mode": None, "confidence": suggested["confidence"]}
+        return suggested
+
+    with (
+        patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            side_effect=classify_with_guard,
+        ),
+    ):
+        data = client.post(
+            "/reflect", json={"situation": "ser criança novamente"}
+        ).json()
+    assert data["suggested_mode"] != "refletir"
+
+
+def test_reflect_passes_refletir_as_current_mode_to_classifier():
+    with (
+        patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT),
+        patch(
+            "src.api.routes.classify_intent", return_value={"mode": None}
+        ) as mock_cls,
+    ):
+        client.post(
+            "/reflect", json={"situation": "algo", "current_mode": "tirar_duvida"}
+        )
+    # current_mode is the 2nd positional arg to classify_intent
+    assert mock_cls.call_args.args[1] == "refletir"
+
+
+def test_chat_passes_tirar_duvida_as_current_mode_to_classifier():
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent", return_value={"mode": None}
+        ) as mock_cls,
+    ):
+        client.post("/chat", json={"question": "algo", "current_mode": "refletir"})
+    assert mock_cls.call_args.args[1] == "tirar_duvida"
+
+
+def test_chat_response_accepts_safety_level():
+    resp = ChatResponse(answer="x", sources=[], safety_level="crise")
+    assert resp.safety_level == "crise"
+
+
+def test_reflect_response_safety_level_defaults_none():
+    resp = ReflectResponse(
+        opening="",
+        doctrine_connection="x",
+        reflection_questions=[],
+        complementary_items=[],
+        sources=[],
+    )
+    assert resp.safety_level is None
+
+
+_CRISIS_CHAT_RESULT = {
+    "answer": "Sinto muito... 188 ... 192",
+    "sources": [],
+    "suggested_questions": [],
+    "not_found": False,
+    "generation_failed": False,
+    "safety_level": "crise",
+}
+
+
+def test_chat_exposes_safety_level():
+    with patch("src.api.routes.generate", return_value=_CRISIS_CHAT_RESULT):
+        data = client.post("/chat", json={"question": "não aguento mais viver"}).json()
+    assert data["safety_level"] == "crise"
+
+
+def test_chat_suppresses_nudge_on_crise():
+    with (
+        patch("src.api.routes.generate", return_value=_CRISIS_CHAT_RESULT),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "refletir", "confidence": "high"},
+        ),
+    ):
+        data = client.post("/chat", json={"question": "não aguento mais viver"}).json()
+    assert data["suggested_mode"] is None
+
+
+def test_reflect_exposes_safety_level():
+    crise_reflect = {
+        "opening": "",
+        "doctrine_connection": "Sinto muito... 188 ... 192",
+        "reflection_questions": [],
+        "is_closing": False,
+        "complementary_items": [],
+        "sources": [],
+        "not_found": False,
+        "generation_failed": False,
+        "safety_level": "crise",
+    }
+    with (
+        patch("src.api.routes.reflect_fn", return_value=crise_reflect),
+        patch(
+            "src.api.routes.classify_intent",
+            return_value={"mode": "estudar_obra", "confidence": "high"},
+        ),
+    ):
+        data = client.post(
+            "/reflect", json={"situation": "não quero mais viver"}
+        ).json()
+    assert data["safety_level"] == "crise"
+    assert data["suggested_mode"] is None

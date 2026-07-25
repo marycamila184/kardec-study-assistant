@@ -1,6 +1,11 @@
+import logging
+
 from src.core.config import settings
 from src.rag.curador_prompt import build_curador_messages, parse_curador_json
 from src.rag.llm_client import get_client
+from src.rag.retriever import has_real_item_number
+
+logger = logging.getLogger(__name__)
 
 
 def curar(main_text: str, candidates: list[dict]) -> list[dict]:
@@ -22,12 +27,13 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
     call_failed = False
     try:
         response = get_client().chat.completions.create(
-            model=settings.chat_model,
+            model=settings.resolved_chat_model,
             max_tokens=512,
             messages=[{"role": "system", "content": system}] + messages,
         )
         selections = parse_curador_json(response.choices[0].message.content)
     except Exception:
+        logger.exception("curador call/parse failed; falling back to raw candidates")
         call_failed = True
         selections = []
 
@@ -36,7 +42,11 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
             {
                 "book": c["metadata"]["book"],
                 "chapter": c["metadata"].get("chapter"),
-                "item_number": c["metadata"]["item_number"],
+                "item_number": (
+                    c["metadata"]["item_number"]
+                    if has_real_item_number(c["metadata"].get("item_number"))
+                    else None
+                ),
                 "preview": c["content"][:200],
                 "conexao": None,
             }
@@ -55,7 +65,11 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
                 {
                     "book": c["metadata"]["book"],
                     "chapter": c["metadata"].get("chapter"),
-                    "item_number": c["metadata"]["item_number"],
+                    "item_number": (
+                        c["metadata"]["item_number"]
+                        if has_real_item_number(c["metadata"].get("item_number"))
+                        else None
+                    ),
                     "preview": c["content"][:200],
                     "conexao": sel["conexao"] or None,
                 }

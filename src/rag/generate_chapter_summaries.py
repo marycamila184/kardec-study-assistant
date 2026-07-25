@@ -23,7 +23,7 @@ def group_chapters(chunks: list[dict]) -> dict[str, str]:
 def _summarize(chapter_title: str, chapter_text: str) -> str:
     system, messages = build_chapter_summary_messages(chapter_title, chapter_text)
     response = get_client().chat.completions.create(
-        model=settings.chat_model,
+        model=settings.resolved_chat_model,
         max_tokens=256,
         messages=[{"role": "system", "content": system}] + messages,
     )

@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
+import { useStickToBottom } from '../../hooks/useStickToBottom';
 
 const FOLLOWUP_OPTIONS = [
   { icon: '💬', label: 'Explicar mais simples', build: (s) => `Explique de forma mais simples: "${s}"` },
@@ -27,14 +28,16 @@ export default function GuidedStudy({
   quickActions = [], onQuickAction,
 }) {
   const scrollRef = useRef(null);
-  const lastMsgRef = useRef(null);
+  useStickToBottom(scrollRef); // follow the typewriter reveal to the bottom
   const progress = trilha ? Math.round(((currentStep + 1) / trilha.steps.length) * 100) : 0;
   const stepTitle = trilha?.steps[currentStep]?.label || '';
   const isLast = trilha && currentStep === trilha.steps.length - 1;
 
+  // Jump to the bottom when a message is added / loading toggles; the pin
+  // above then keeps us there as the answer reveals word by word.
   useEffect(() => {
-    if (lastMsgRef.current) {
-      lastMsgRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, loading]);
 
@@ -91,8 +94,8 @@ export default function GuidedStudy({
       }}>
         {messages.map((msg, i) => (
           msg.isUser
-            ? <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}><UserBubble text={msg.text} /></div>
-            : <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}>
+            ? <div key={msg.id}><UserBubble text={msg.text} /></div>
+            : <div key={msg.id}>
               <AIMessage msg={msg} theme={theme} fontSize={fontSize}
                 showQuickActions={false}
                 quickActions={quickActions.filter(

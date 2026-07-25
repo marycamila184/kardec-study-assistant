@@ -1,8 +1,34 @@
+import logging
 import re
 
 from src.core.config import settings
 from src.ingestion.embeddings import encode
 from src.ingestion.vectorstore import VectorStore
+
+logger = logging.getLogger(__name__)
+
+EVANGELHO_BOOK = "O Evangelho Segundo o Espiritismo"
+CHAPTER_COMMENTARY_CAP = 3000  # chars
+
+SENSITIVE_CHAPTERS = frozenset(
+    {
+        "SUICIDAS",
+        "ESPÍRITOS SOFREDORES",
+        "ESPÍRITOS ENDURECIDOS",
+        "CRIMINOSOS ARREPENDIDOS",
+        "EXPIAÇÕES TERRESTRES",
+    }
+)
+
+# Reflect grounds only in the two reflection-appropriate works: broad moral
+# doctrine (Espíritos) and practical guidance for living (Evangelho). This keeps
+# O Céu e o Inferno's afterlife testimony, A Gênese's cosmology, and O Livro dos
+# Médiuns' mediumship technique out of life-situation reflections — a register
+# fix, independent of the abalo/sensitivity layer.
+REFLECT_BOOKS: tuple[str, str] = (
+    "O Livro dos Espíritos",
+    "O Evangelho Segundo o Espiritismo",
+)
 
 _store: VectorStore | None = None
 
@@ -46,12 +72,19 @@ def _strip_footnotes_from_results(results: list[dict]) -> list[dict]:
 
 
 def retrieve(
-    query: str, top_k: int | None = None, book_filter: str | None = None
+    query: str,
+    top_k: int | None = None,
+    book_filter: str | list[str] | None = None,
 ) -> list[dict]:
     if top_k is None:
         top_k = settings.top_k
     embedding = encode([query])[0]
-    where = {"book": {"$eq": book_filter}} if book_filter else None
+    if isinstance(book_filter, str):
+        where = {"book": {"$eq": book_filter}}
+    elif book_filter:
+        where = {"book": {"$in": list(book_filter)}}
+    else:
+        where = None
     results = _get_store().query(embedding, n_results=top_k, where=where)
     filtered = [r for r in results if r["distance"] <= settings.max_distance]
     return _strip_footnotes_from_results(filtered)
@@ -68,3 +101,104 @@ def retrieve_by_item(
         conditions.append({"chapter": {"$eq": chapter}})
     results = _get_store().get_by_filter({"$and": conditions})
     return _strip_footnotes_from_results(results)
+
+
+def retrieve_by_chapter(book: str, chapter: str) -> list[dict]:
+    """All chunks of a chapter (footnotes stripped), ordered by
+    (item_number, subchunk_index). item_number sorts numerically; the parser's
+    'section-N' placeholders sort after the numbered items."""
+    results = _get_store().get_by_filter(
+        {"$and": [{"book": {"$eq": book}}, {"chapter": {"$eq": chapter}}]}
+    )
+    results = _strip_footnotes_from_results(results)
+
+    def _key(r: dict):
+        item = r["metadata"].get("item_number") or ""
+        sub = r["metadata"].get("subchunk_index") or 0
+        return (0, int(item), sub) if item.isdigit() else (1, 0, sub)
+
+    return sorted(results, key=_key)
+
+
+def chapter_commentary(
+    book: str,
+    chapter: str,
+    exclude_item_number: str,
+    char_cap: int = CHAPTER_COMMENTARY_CAP,
+) -> list[dict]:
+    """The chapter's sibling chunks (excluding `exclude_item_number`), in chapter
+    order, accumulated until `char_cap` chars. Evangelho-only: the verse+commentary
+    split is unique to it. Returns [] for other books, a falsy chapter, or when no
+    siblings exist. The first sibling is always included even if it alone exceeds
+    the cap (never drop the commentary to empty)."""
+    if book != EVANGELHO_BOOK or not chapter:
+        return []
+    siblings = [
+        c
+        for c in retrieve_by_chapter(book, chapter)
+        if c["metadata"].get("item_number") != exclude_item_number
+    ]
+    selected: list[dict] = []
+    total = 0
+    for c in siblings:
+        if selected and total + len(c["content"]) > char_cap:
+            break
+        selected.append(c)
+        total += len(c["content"])
+    return selected
+
+
+def _dedup_key(chunk: dict) -> tuple:
+    m = chunk["metadata"]
+    return (m.get("book"), m.get("item_number"), m.get("subchunk_index"))
+
+
+def append_chapter_commentary(passages: list[dict]) -> list[dict]:
+    """When the first passage is an Evangelho chunk with a chapter, append that
+    chapter's bounded Kardec commentary (deduped) so a gospel passage never
+    travels without its doctrinal reading. No-op otherwise. Best-effort: a
+    retrieval failure logs and returns the passages unchanged."""
+    if not passages:
+        return passages
+    top = passages[0]["metadata"]
+    if top.get("book") != EVANGELHO_BOOK or not top.get("chapter"):
+        return passages
+    try:
+        commentary = chapter_commentary(
+            top["book"], top["chapter"], top.get("item_number", "")
+        )
+    except Exception:
+        logger.exception("chapter_commentary failed; skipping enrichment")
+        return passages
+    seen = {_dedup_key(c) for c in passages}
+    for c in commentary:
+        if _dedup_key(c) not in seen:
+            passages.append(c)
+            seen.add(_dedup_key(c))
+    return passages
+
+
+# Suicide-adjacent passages exist outside the dark testimony chapters too —
+# e.g. ESE's afflictions chapter discussing "abreviar as misérias" / "morte
+# voluntária". On an abalo turn these must not be introduced to someone who
+# never raised the theme, whatever book they come from.
+_SENSITIVE_CONTENT_RE = re.compile(
+    r"suic[ií]d"
+    r"|abreviar (?:a vida|as mis[ée]rias|suas mis[ée]rias|os dias)"
+    r"|morte volunt[áa]ria",
+    re.IGNORECASE,
+)
+
+
+def filter_sensitive_chunks(chunks: list[dict]) -> list[dict]:
+    """Drop chunks whose chapter_title is one of the darkest testimony chapters
+    of O Céu e o Inferno (SENSITIVE_CHAPTERS), plus any chunk whose content
+    matches suicide-adjacent language (_SENSITIVE_CONTENT_RE) regardless of
+    book. Applied only on 'abalo' turns, so distressing material never
+    surfaces unprompted for an emotionally vulnerable reader."""
+    return [
+        c
+        for c in chunks
+        if c["metadata"].get("chapter_title") not in SENSITIVE_CHAPTERS
+        and not _SENSITIVE_CONTENT_RE.search(c["content"])
+    ]

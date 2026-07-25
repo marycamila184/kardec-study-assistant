@@ -55,9 +55,14 @@ def test_system_prohibits_personifying_espiritismo():
     assert "espiritismo" in system.lower()
 
 
-def test_system_allows_optional_reflective_question():
+def test_system_forbids_closing_with_inline_question():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
-    assert "pergunta reflexiva" in system.lower()
+    assert "Não encerre o texto da resposta com uma pergunta" in system
+
+
+def test_system_forbids_repeating_asked_questions_in_seguir():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "já foi feita ou já foi respondida" in system
 
 
 def test_caveat_instruction_in_system_when_requested():
@@ -83,3 +88,29 @@ def test_system_omits_placeholder_item_number():
     system, _ = build_messages("O que é reencarnação?", [chunk], [])
     assert "section-3" not in system
     assert "Item:" not in system
+
+
+def test_system_requires_fontes_marker():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "[FONTES:" in system
+
+
+def test_system_requires_seguir_marker():
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "[SEGUIR:" in system
+
+
+_PROMPT_CHUNK = {
+    "content": "texto doutrinário",
+    "metadata": {"book": "O Livro dos Espíritos", "item_number": "1"},
+}
+
+
+def test_build_messages_sensitive_adds_gentle_instruction():
+    system, _ = build_messages("estou mal", [_PROMPT_CHUNK], [], sensitive=True)
+    assert "acolhimento" in system
+
+
+def test_build_messages_not_sensitive_omits_gentle_instruction():
+    system, _ = build_messages("o que é X?", [_PROMPT_CHUNK], [], sensitive=False)
+    assert "acolhimento" not in system

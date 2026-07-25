@@ -15,6 +15,89 @@ CLINICAL_KEYWORDS = [
     "alucinação",
 ]
 
+# Suicidal-ideation / self-harm cues. Matching any of these deterministically
+# short-circuits both pipelines to the fixed crisis exit (CRISIS_EXIT_MESSAGE,
+# which embeds CRISIS_NOTE) before any retrieval or LLM call — never left to the
+# LLM's judgment. Includes unaccented variants because users often type without
+# accents.
+# First-person ideation / self-harm cues → deterministic fixed crisis exit.
+# Bare topic words ("suicídio" alone) live in SUICIDE_TOPIC_KEYWORDS below:
+# a doctrinal question about the topic gets a grounded answer + CRISIS_NOTE
+# appended in code, never the fixed exit. Keep the two lists in sync: every
+# ideation phrasing that contains a topic word must be listed here so it is
+# caught BEFORE the topic path (callers check needs_crisis_note first).
+CRISIS_KEYWORDS = [
+    "me matar",
+    "quero morrer",
+    "queria morrer",
+    "tirar minha vida",
+    "tirar a minha vida",
+    "acabar com minha vida",
+    "acabar com a minha vida",
+    "não quero mais viver",
+    "nao quero mais viver",
+    "não aguento mais viver",
+    "nao aguento mais viver",
+    "me machucar",
+    "me cortar",
+    "me ferir",
+    "desistir de viver",
+    # ideation phrasings that carry the topic word (accent-tolerant pairs)
+    "penso em suicídio",
+    "penso em suicidio",
+    "pensando em suicídio",
+    "pensando em suicidio",
+    "pensado em suicídio",
+    "pensado em suicidio",
+    "me suicidar",
+    "cometer suicídio",
+    "cometer suicidio",
+    "ideação suicida",
+    "ideacao suicida",
+]
+
+# Topic-level mentions (the subject, not first-person intent). Checked only
+# after needs_crisis_note() came back False.
+SUICIDE_TOPIC_KEYWORDS = [
+    "suicídio",
+    "suicidio",
+    "suicidar",
+    "suicida",
+]
+
+CRISIS_NOTE = (
+    "Se você está pensando em suicídio ou em se machucar, procure ajuda agora: "
+    "o CVV — Centro de Valorização da Vida — oferece apoio emocional gratuito e "
+    "sigiloso pelo telefone 188 (24 horas, todos os dias) e pelo chat em cvv.org.br. "
+    "Em uma emergência, ligue 192 (SAMU)."
+)
+
+CRISIS_EXIT_MESSAGE = (
+    "Sinto muito que você esteja passando por um momento tão difícil. Você não está "
+    "só, e o que você sente importa. Antes de qualquer estudo, o mais importante "
+    "agora é cuidar de você e falar com alguém agora mesmo.\n\n" + CRISIS_NOTE
+)
+
+# The advice ban below was originally written entirely in the declarative
+# register ("você deveria", "recomendo", "tente"). The 2026-07-25 A/B run showed
+# the leak is interrogative: 3 of 6 turns put advice inside the reflection
+# questions using none of the banned words — "De que maneira você pode começar a
+# reconstruir a relação?" carries the course of action in its *presupposition*,
+# asking only HOW, never IF.
+#
+# The rule states a TEST the model applies to each question, not a list of
+# banned openers. A first attempt did enumerate stems ("De que maneira você
+# pode…", "Como você poderia…") and the model read the list as the rule's scope:
+# it wrote "De que forma você pode começar a reconstruir a relação?" — the same
+# presupposition, one synonym away from the blocklist. Naming the mechanism
+# leaves nothing to route around.
+#
+# The third paragraph covers a gap the prompt never had a rule for at all: a
+# question can overreach by digging into the person's interior rather than by
+# prescribing. This is a study companion, not therapy.
+#
+# Deliberately abstract, no worked examples: the smoke test found concrete
+# examples get parroted verbatim into unrelated situations rather than adapted.
 _NO_ADVICE = """\
 É absolutamente proibido fazer sugestões de ação. Nunca diga "você deveria", \
 "recomendo", "tente", "considere", ou equivalentes. Não sugira medicação, \
@@ -22,15 +105,39 @@ doação, separação, mudança de comportamento, ou qualquer outro curso de aç
 Sua única função é mostrar o que a doutrina diz e oferecer perguntas para \
 reflexão pessoal. Nunca elabore doutrina além dos trechos recuperados.
 
+Uma pergunta de reflexão convida a pessoa a OLHAR, nunca a PLANEJAR. Ela abre um \
+ângulo que a passagem ilumina na situação — não um passo a ser dado.
+
+Antes de escrever cada pergunta, aplique este teste: a resposta natural a ela \
+seria um plano, uma decisão ou um passo a dar? Se sim, a pergunta pressupõe um \
+curso de ação — reescreva-a para que a resposta natural seja algo que a pessoa \
+percebe, reconhece ou compreende, e não algo que ela faz. Isso vale mesmo quando \
+o curso de ação pressuposto parece evidentemente bom — perdoar, reconstruir, \
+crescer, aceitar, encontrar equilíbrio.
+
+Mantenha as perguntas no plano do que o texto propõe. Não peça à pessoa que \
+detalhe sua intimidade nem investigue sentimentos que ela não trouxe.
+
 Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
 (ex.: "o Espiritismo valoriza...", "o Espiritismo diz que...", "o Espiritismo defende..."). \
 Atribua as afirmações à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", \
-"o texto indica que...", "Kardec escreve que...")."""
+"o texto indica que...", "Kardec escreve que...").
+
+Nunca introduza temas de suicídio ou morte voluntária que a pessoa não mencionou. \
+Se uma passagem recuperada tocar nesses temas sem relação direta com a situação \
+relatada, simplesmente não a cite."""
 
 _CAVEAT_INSTRUCTION = """\
 Se a situação descrita puder ter causas clínicas, acrescente UMA frase curta \
 ao final indicando que o apoio de um profissional de saúde é também valioso — \
 sem substituir a visão espírita e sem fazer diagnósticos."""
+
+_FORCE_CLOSING_DIRECTIVE = """\
+ENCERRAMENTO OBRIGATÓRIO: esta reflexão atingiu o número máximo de rodadas. \
+Esta DEVE ser a mensagem de encerramento: defina "is_closing": true, deixe \
+"reflection_questions" como uma lista vazia [], e escreva em "opening" e \
+"doctrine_connection" uma conclusão acolhedora que retome com gentileza o \
+caminho percorrido nesta reflexão — sem novas perguntas."""
 
 _SYSTEM_TEMPLATE = """\
 Você é um assistente de estudos espíritas que ajuda pessoas a verem situações \
@@ -39,7 +146,7 @@ abaixo, retorne APENAS um JSON válido com as chaves exatas:
 {{
   "opening": "<abertura empática ou alegre conforme o peso emocional da situação>",
   "doctrine_connection": "<o que a doutrina diz e como se conecta à situação descrita>",
-  "reflection_questions": ["<pergunta 1>", "<pergunta 2>", "<pergunta 3>"],
+  "reflection_questions": ["<de 1 a 3 perguntas abertas de reflexão>"],
   "is_closing": <true ou false>
 }}
 
@@ -47,6 +154,9 @@ Regras de tom:
 - Se a situação envolve perda, dor, medo ou dificuldade → abra com empatia e acolhimento.
 - Se a situação é positiva (nascimento, gratidão, celebração) → abra com calor e alegria.
 - Caso ambíguo → abra com compaixão equilibrada.
+- Ofereça de 1 a 3 perguntas de reflexão — prefira menos perguntas, mais certeiras; \
+só chegue a três quando cada uma abrir um ângulo realmente distinto. Uma conversa \
+acolhedora não é um questionário.
 
 Regras de continuidade e encerramento:
 - [HISTÓRICO DA CONVERSA] abaixo mostra as trocas anteriores desta mesma reflexão, se \
@@ -62,6 +172,8 @@ novo, prefira encerrar a reflexão (veja abaixo) em vez de repetir uma pergunta 
 novas "reflection_questions" como de costume.
 - As regras abaixo sobre não dar conselhos e não personificar o Espiritismo valem também \
 para a mensagem de encerramento.
+
+{closing_directive}
 
 {no_advice}
 
@@ -80,6 +192,20 @@ para a mensagem de encerramento.
 def needs_medical_caveat(situation: str) -> bool:
     lower = situation.lower()
     return any(kw in lower for kw in CLINICAL_KEYWORDS)
+
+
+def needs_crisis_note(text: str) -> bool:
+    """First-person ideation/self-harm cues → the deterministic fixed exit."""
+    lower = text.lower()
+    return any(kw in lower for kw in CRISIS_KEYWORDS)
+
+
+def mentions_suicide_topic(text: str) -> bool:
+    """Topic-level mention of suicide (doctrinal question, grief about someone
+    else). Callers must check needs_crisis_note() FIRST — this path answers
+    normally and deterministically appends CRISIS_NOTE in code."""
+    lower = text.lower()
+    return any(kw in lower for kw in SUICIDE_TOPIC_KEYWORDS)
 
 
 def _format_passages(chunks: list[dict]) -> str:
@@ -110,10 +236,12 @@ def build_reflect_messages(
     chunks: list[dict],
     add_caveat: bool,
     history: list[dict] | None = None,
+    force_closing: bool = False,
 ) -> tuple[str, list[dict]]:
     system = _SYSTEM_TEMPLATE.format(
         no_advice=_NO_ADVICE,
         caveat=_CAVEAT_INSTRUCTION if add_caveat else "",
+        closing_directive=_FORCE_CLOSING_DIRECTIVE if force_closing else "",
         history=_format_history(history or []),
         situation=situation,
         passages=_format_passages(chunks),

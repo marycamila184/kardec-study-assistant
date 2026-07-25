@@ -1,10 +1,5 @@
 import React from 'react';
-
-const MODE_META = {
-  estudar:  { title: 'Estudar uma Obra',  desc: 'Consulte questões, capítulos e temas específicos' },
-  duvida:   { title: 'Tirar uma Dúvida',  desc: 'Perguntas abertas fundamentadas nas obras de Kardec' },
-  refletir: { title: 'Refletir',           desc: 'Relacione situações da vida aos ensinamentos da doutrina' },
-};
+import { MODE_META } from '../../constants/modes';
 
 const GearIcon = ({ color }) => (
   <svg width={15} height={15} viewBox="0 0 24 24" fill="none"
@@ -15,7 +10,7 @@ const GearIcon = ({ color }) => (
 );
 
 export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer, isMobile = false }) {
-  const meta = MODE_META[mode] || MODE_META.duvida;
+  const meta = MODE_META[mode] || { title: 'Dialogando com a Doutrina', desc: 'Escolha um caminho para começar' };
   return (
     <div style={{
       height: 58, padding: '0 20px',

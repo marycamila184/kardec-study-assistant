@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
+import HomeLauncher from './components/layout/HomeLauncher';
 import MobileBottomNav from './components/layout/MobileBottomNav';
 import Onboarding from './components/modals/Onboarding';
 import SettingsPanel from './components/modals/SettingsPanel';
@@ -20,7 +21,10 @@ import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
 import { useReminder } from './hooks/useReminder';
+import { useStickToBottom } from './hooks/useStickToBottom';
+import { formatItemRef } from './utils/format';
 import { lightTheme } from './constants/theme';
+import { MODES } from './constants/modes';
 import {
   chatMessage, studyItem, reflectSituation,
   getEvangelho, getPaths, getPath,
@@ -46,11 +50,14 @@ const MODE_PLACEHOLDER_MOBILE = {
   refletir: 'Descreva sua situação…',
 };
 
+// Starter questions for the Dialogar empty state — its only consumer.
+// Doctrinal questions only: "Como posso ter mais paz no dia a dia?" used to sit
+// here and was a Refletir prompt wearing a 🪞, which is a different mode with a
+// different contract (no advice, questions back rather than answers).
 const SUGGESTIONS = [
   { icon: '📖', label: 'O que é o Espiritismo?' },
   { icon: '💬', label: 'Qual a diferença entre alma, perispírito e espírito?' },
   { icon: '🔄', label: 'O que é a reencarnação?' },
-  { icon: '🪞', label: 'Como posso ter mais paz no dia a dia?' },
 ];
 
 const ERROR_MSG = {
@@ -58,7 +65,12 @@ const ERROR_MSG = {
   ia: 'Não foi possível obter uma resposta. Verifique sua conexão e tente novamente.',
 };
 
+// Maps the client's mode state to the orchestrator's intent vocabulary, so the
+// backend never nudges the user toward the mode they're already in.
+const MODE_TO_INTENT = { duvida: 'tirar_duvida', refletir: 'refletir', estudar: 'estudar_obra' };
+
 export default function App() {
+
   // ── Theme ───────────────────────────────────────────────────────────────
   const { darkMode, toggleDark, theme } = useTheme();
 
@@ -77,7 +89,7 @@ export default function App() {
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
   // ── UI State ────────────────────────────────────────────────────────────
-  const [mode,          setMode]         = useState('duvida');
+  const [mode,          setMode]         = useState(null);
   const [input,         setInput]        = useState('');
   const [msgs,          setMsgs]         = useState([]);
   const [loading,       setLoading]      = useState(false);
@@ -100,6 +112,13 @@ export default function App() {
   const [drawerOpen,    setDrawerOpen]   = useState(false);
   const msgsRef = useRef(null);
   const requestIdRef = useRef(0);
+  // Bumped whenever a message thread is replaced or reset (mode switch, convo
+  // load/delete, book change, trilha start). Slow quick-action / trecho replies
+  // capture it before their await and drop themselves if the thread they were
+  // meant for is gone — unlike requestIdRef, a concurrent *send* doesn't bump
+  // it, since interleaved appends to the same thread are fine.
+  const threadEpochRef = useRef(0);
+  useStickToBottom(msgsRef); // follow the typewriter reveal to the bottom
 
   // ── On-mount: fetch evangelho + paths ────────────────────────────────────
   useEffect(() => {
@@ -132,11 +151,17 @@ export default function App() {
   // ── Conversation delete — clears active state if the deleted convo is current ─
   const handleDeleteConvo = (id) => {
     deleteConvo(id);
-    const isActive =
-      id === convoId ||
-      id === explorarConvoMeta?.id ||
-      id === guidedMsgs[0]?.convoId;
+    // Active trilha: guided messages carry tutor_* ids, not the convo id, so
+    // match against the trilha itself and clear the guided state directly.
+    if (activeTrilha && id === 'trilha_' + activeTrilha.id) {
+      threadEpochRef.current += 1;
+      setActiveTrilha(null); setGuidedMsgs([]); setGuidedStep(0); setGuidedLoading(false);
+      if (mode === 'estudar') setEstudarSub('picker');
+      return;
+    }
+    const isActive = id === convoId || id === explorarConvoMeta?.id;
     if (isActive) {
+      threadEpochRef.current += 1;
       setMsgs([]); setConvoId(null); setLoading(false); setInput('');
       setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
       setMode('duvida');
@@ -146,12 +171,28 @@ export default function App() {
   // ── Mode switching ───────────────────────────────────────────────────────
   const switchMode = (m) => {
     requestIdRef.current += 1; // invalidate any in-flight sendText for the old mode
+    threadEpochRef.current += 1;
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
     if (m === 'estudar') setEstudarSub('picker');
     if (m === 'refletir') setRefletirSub('picker');
   };
 
   // ── Main chat send (dúvida + refletir) ───────────────────────────────────
+  // Assistant turn for /chat history. Study/trecho replies (mode 'duvida' but
+  // produced by /study) carry the original passage in `obra.quote` while `ia`
+  // holds only contexto+conceitos — without the passage, /chat re-condenses and
+  // retrieves against a nonsense user turn ("Estudo diário de hoje") and loses
+  // all grounding. Prepend the studied passage so follow-ups stay coherent.
+  const buildChatHistoryContent = (m) => {
+    const parts = [];
+    if (m.obra?.quote) {
+      const label = m.obra.title ? `Trecho estudado — ${m.obra.title}` : 'Trecho estudado';
+      parts.push(`[${label}]\n${m.obra.quote}`);
+    }
+    if (m.ia) parts.push(m.ia);
+    return parts.join('\n\n');
+  };
+
   const sendText = async (txt) => {
     if (!txt) return;
     const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: txt };
@@ -167,13 +208,13 @@ export default function App() {
     try {
       let reply;
       if (requestMode === 'refletir') {
-        reply = await reflectSituation(txt, buildReflectHistory(msgs));
+        reply = await reflectSituation(txt, buildReflectHistory(msgs), MODE_TO_INTENT[requestMode] || null);
       } else {
         const history = msgs.map(m => ({
           role: m.isUser ? 'user' : 'assistant',
-          content: m.isUser ? m.text : (m.ia || ''),
+          content: m.isUser ? m.text : buildChatHistoryContent(m),
         }));
-        reply = await chatMessage(txt, history);
+        reply = await chatMessage(txt, history, null, MODE_TO_INTENT[requestMode] || null);
       }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
       const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
@@ -217,7 +258,9 @@ export default function App() {
     const requestId = ++requestIdRef.current;
 
     try {
-      const reply = await reflectSituation(question, history);
+      // 'refletir' as current_mode so the orchestrator never self-nudges
+      // toward Refletir inside a Refletir thread (sendText does the same).
+      const reply = await reflectSituation(question, history, MODE_TO_INTENT.refletir);
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
       const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
@@ -241,10 +284,13 @@ export default function App() {
   const runQuickAction = async (label, msg, appendMsg, setLoad) => {
     const quote = msg.obra?.quote || msg.ia || '';
     const snippet = quote.slice(0, 400);
+    const epoch = threadEpochRef.current;
+    // Drop late replies if the target thread was replaced meanwhile.
+    const append = (m) => { if (epoch === threadEpochRef.current) appendMsg(m); };
 
     if (label === '📄 Ler original') {
       if (msg.obra?.quote) {
-        appendMsg({
+        append({
           id: 'a' + Date.now(), isUser: false, isAI: true,
           hasDaObra: true, obra: { ...msg.obra, title: 'Texto original' }, ia: '',
         });
@@ -264,17 +310,17 @@ export default function App() {
     const userText = label === '💡 Explicar simples'
       ? `Explique de forma mais simples: "${snippet}"`
       : '🪞 Reflexão sobre este trecho';
-    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text: userText });
+    append({ id: 'u' + Date.now(), isUser: true, isAI: false, text: userText });
     setLoad(true);
     scrollToBottom();
     try {
       const reply = label === '🪞 Reflexão'
         ? await reflectSituation(snippet)
         : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('runQuickAction failed:', err);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
       scrollToBottom();
@@ -290,15 +336,17 @@ export default function App() {
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
   const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
-    appendMsg({ id: 'u' + Date.now(), isUser: true, isAI: false, text: displayText });
+    const epoch = threadEpochRef.current;
+    const append = (m) => { if (epoch === threadEpochRef.current) appendMsg(m); };
+    append({ id: 'u' + Date.now(), isUser: true, isAI: false, text: displayText });
     setLoad(true);
     scrollToBottom();
     try {
       const reply = await chatMessage(queryText, [], bookFilter);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('askDuvida failed:', err);
-      appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
       scrollToBottom();
@@ -316,6 +364,7 @@ export default function App() {
 
   // ── Guided study ──────────────────────────────────────────────────────────
   const startTrilha = async (pathSummary) => {
+    threadEpochRef.current += 1; // resets guidedMsgs — drop stale quick-action replies
     setEstudarSub('guided');
     setGuidedStep(0); setGuidedMsgs([]); setGuidedLoading(true);
     let pathDetail;
@@ -421,10 +470,12 @@ export default function App() {
     const bookName = BOOK_NAME_MAP[obraId];
     const { item_number, chapter } = parseItemRef(query);
 
+    // buildChatHistoryContent (not m.ia) so /study replies keep the studied
+    // passage in history — see the grounding note above sendText.
     const history = prevMsgs
       .filter(m => m.isUser || m.isAI)
       .slice(-6)
-      .map(m => ({ role: m.isUser ? 'user' : 'assistant', content: m.isUser ? m.text : (m.ia || '') }))
+      .map(m => ({ role: m.isUser ? 'user' : 'assistant', content: m.isUser ? m.text : buildChatHistoryContent(m) }))
       .filter(h => h.content);
 
     let reply;
@@ -457,10 +508,32 @@ export default function App() {
     setExplorarMsgs(updatedMsgs);
   };
 
+  // Resolve which item the "Estudar este item completo" button should open.
+  // Prefers the backend-extracted reference; falls back to the retrieved
+  // sources so the button never regresses versus the old sources[0] behavior.
+  const resolveStudyTarget = (msg) => {
+    const sources = msg.sources || [];
+    // chapter must be the machine id (chapter_ref, e.g. "CAPÍTULO II") that
+    // /study filters on — source.chapter holds the display title, which the
+    // backend would never match (404).
+    if (msg.suggestedItemNumber) {
+      const match = sources.find(s =>
+        s.item_number === msg.suggestedItemNumber &&
+        (!msg.suggestedBook || s.book === msg.suggestedBook)
+      );
+      const book = msg.suggestedBook || match?.book || sources[0]?.book || null;
+      if (!book) return null;
+      return { book, item_number: msg.suggestedItemNumber, chapter: match?.chapter_ref || null };
+    }
+    const first = sources[0];
+    if (!first?.item_number) return null;
+    return { book: first.book, item_number: first.item_number, chapter: first.chapter_ref || null };
+  };
+
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
   const handleGoStudyItem = async (source) => {
     setMode('estudar'); setEstudarSub('explorar');
-    const label = `${source.book}, Q.${source.item_number}`;
+    const label = `${source.book}, ${formatItemRef(source.book, source.item_number)}`;
     const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: label };
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
@@ -479,10 +552,72 @@ export default function App() {
     }
   };
 
+  // ── Suggested-mode: jump from /chat to a Refletir thread seeded with the question ──
+  const handleGoReflect = async (situationText) => {
+    if (!situationText) return;
+    switchMode('refletir');
+    setRefletirSub('chat');
+    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: situationText };
+    setMsgs([userMsg]); setLoading(true);
+    const id = 'c' + Date.now();
+    setConvoId(id);
+    saveConvo(id, situationText.slice(0, 48), 'refletir', [userMsg]);
+    scrollToBottom();
+    const requestId = ++requestIdRef.current;
+    try {
+      const reply = await reflectSituation(situationText, [], 'refletir');
+      if (requestId !== requestIdRef.current) return;
+      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const finalMsgs = [userMsg, aiMsg];
+      setMsgs(finalMsgs);
+      saveConvo(id, situationText.slice(0, 48), 'refletir', finalMsgs);
+    } catch (err) {
+      console.error('handleGoReflect failed:', err);
+      if (requestId !== requestIdRef.current) return;
+      setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+    } finally {
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+        scrollToBottom();
+      }
+    }
+  };
+
+  // ── Suggested-mode: jump from /reflect to a Dúvida thread seeded with the question ──
+  const handleGoDuvida = async (questionText) => {
+    if (!questionText) return;
+    switchMode('duvida');
+    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: questionText };
+    setMsgs([userMsg]); setLoading(true);
+    const id = 'c' + Date.now();
+    setConvoId(id);
+    saveConvo(id, questionText.slice(0, 48), 'duvida', [userMsg]);
+    scrollToBottom();
+    const requestId = ++requestIdRef.current;
+    try {
+      const reply = await chatMessage(questionText, [], null, 'tirar_duvida');
+      if (requestId !== requestIdRef.current) return;
+      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const finalMsgs = [userMsg, aiMsg];
+      setMsgs(finalMsgs);
+      saveConvo(id, questionText.slice(0, 48), 'duvida', finalMsgs);
+    } catch (err) {
+      console.error('handleGoDuvida failed:', err);
+      if (requestId !== requestIdRef.current) return;
+      setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+    } finally {
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+        scrollToBottom();
+      }
+    }
+  };
+
   const markFromCache = (msgs) => msgs.map(m => m.isAI ? { ...m, fromCache: true } : m);
 
   // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
   const handleLoadConvo = async (c) => {
+    threadEpochRef.current += 1; // replaces a thread — drop stale async replies
     setConvoId(c.id);
     const msgs = markFromCache(c.msgs);
     // `sub` is stored explicitly on conversations saved after this field was
@@ -517,6 +652,31 @@ export default function App() {
     }
   };
 
+  // ── Trilha progress (for the Estudar picker) ──────────────────────────────
+  // Derive, per started trilha, how far the user got, from the cached guided
+  // conversation. `step` counts the `tutor_` step messages already presented
+  // (same reconstruction handleLoadConvo uses); the picker pairs it with the
+  // trilha's total step_count. Only trilhas with a saved conversation appear.
+  const trilhaProgress = useMemo(() => {
+    const out = {};
+    for (const c of conversations) {
+      if (typeof c.id !== 'string' || !c.id.startsWith('trilha_')) continue;
+      const trilhaId = c.id.slice('trilha_'.length);
+      const step = (c.msgs || []).filter(
+        m => typeof m.id === 'string' && m.id.startsWith('tutor_')
+      ).length;
+      out[trilhaId] = { step };
+    }
+    return out;
+  }, [conversations]);
+
+  // Resume a started trilha from cache — no LLM call (contrast with startTrilha).
+  const handleResumeTrilha = (tr) => {
+    const convo = conversations.find(c => c.id === 'trilha_' + tr.id);
+    if (convo) handleLoadConvo(convo);
+    else startTrilha(tr); // no cache (shouldn't happen from an in-progress card)
+  };
+
   // ── Redirect to dúvida with context ──────────────────────────────────────
   const redirectToDuvida = (obraLabel) => {
     const ctx = `Contexto: estou estudando "${obraLabel}". `;
@@ -534,6 +694,7 @@ export default function App() {
   const handleStudyTrecho = async () => {
     if (!evangelhoData) return;
     switchMode('duvida');
+    const epoch = threadEpochRef.current; // after switchMode's bump
     const { source, content } = evangelhoData;
     const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: 'Estudo diário de hoje' };
     const id = 'trecho_' + Date.now();
@@ -554,6 +715,8 @@ export default function App() {
       setLoading(false);
     }
 
+    // User may have switched threads while /study ran — don't clobber the new one.
+    if (epoch !== threadEpochRef.current) return;
     const finalMsgs = [userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
     setMsgs(finalMsgs);
     saveConvo(id, 'Trecho do dia', 'duvida', finalMsgs);
@@ -579,9 +742,12 @@ export default function App() {
   };
 
   // ── Render ────────────────────────────────────────────────────────────────
+  const isHome = mode === null;
   const isEstudar = mode === 'estudar';
   const isRefletir = mode === 'refletir';
-  const isEmpty = msgs.length === 0 && !loading && !isEstudar;
+  // `!isHome` matters: without it the old empty state renders underneath the
+  // home launcher, and the user meets two different launchers.
+  const isEmpty = !isHome && msgs.length === 0 && !loading && !isEstudar;
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -653,15 +819,27 @@ export default function App() {
           />
 
           {/* Content */}
+          {isHome && (
+            <HomeLauncher
+              onPick={switchMode}
+              theme={theme}
+              evangelhoData={evangelhoData}
+              onStudyTrecho={handleStudyTrecho}
+              isMobile={isMobile}
+            />
+          )}
+
           {isEstudar && estudarSub === 'picker' && (
             <EstudarPicker
               theme={theme}
               onStartTrilha={startTrilha}
+              onResumeTrilha={handleResumeTrilha}
               onExplorar={() => { setEstudarSub('explorar'); setExplorarMsgs([]); }}
               onVerIntro={() => setEstudarSub('intro')}
               paths={paths}
               pathsLoading={pathsLoading}
               completedTrilhas={completedTrilhas}
+              trilhaProgress={trilhaProgress}
             />
           )}
 
@@ -700,7 +878,7 @@ export default function App() {
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
-              onBookChange={() => { setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null; }}
+              onBookChange={() => { threadEpochRef.current += 1; setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null; }}
               onAskDuvida={handleExplorarDuvida}
             />
           )}
@@ -709,7 +887,7 @@ export default function App() {
             <RefletirPicker theme={theme} onSubmit={handleReflectSubmit} />
           )}
 
-          {!isEstudar && !(isRefletir && refletirSub === 'picker') && (
+          {!isHome && !isEstudar && !(isRefletir && refletirSub === 'picker') && (
             <>
               {/* Chat messages */}
               <div ref={msgsRef} style={{
@@ -719,78 +897,67 @@ export default function App() {
                 {isEmpty && (
                   <div style={{
                     flex: 1, display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '40px 16px',
+                    alignItems: 'center', justifyContent: 'center',
+                    textAlign: 'center', padding: '40px 16px',
                   }}>
                     <div style={{
                       width: 52, height: 52, borderRadius: '50%',
-                      background: 'rgba(107,155,184,.12)', border: '1px solid rgba(107,155,184,.2)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16,
+                      background: 'rgba(107,155,184,.12)',
+                      border: '1px solid rgba(107,155,184,.2)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      marginBottom: 16, fontSize: 24,
                     }}>
-                      <svg width={22} height={22} viewBox="0 0 24 24" fill="none"
-                        stroke="#6B9BB8" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                      </svg>
+                      {MODES.find(m => m.id === mode)?.icon || '💬'}
                     </div>
-                    <div style={{ fontFamily: "'Crimson Pro', serif", fontSize: 22, fontWeight: 600, color: theme.text, marginBottom: 8 }}>
-                      Em que posso ajudar?
-                    </div>
-                    <div style={{ fontSize: 14, color: theme.subtext, maxWidth: 300, lineHeight: 1.72, marginBottom: 22 }}>
-                      Escolha uma sugestão ou digite sua pergunta.
-                    </div>
-
-                    {/* Suggestions grid */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, maxWidth: 360, marginBottom: 28 }}>
-                      {SUGGESTIONS.map(s => (
-                        <button key={s.label} onClick={() => sendText(s.label)} style={{
-                          background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
-                          borderRadius: 10, padding: '12px 14px', cursor: 'pointer',
-                          textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 5,
-                        }}>
-                          <span style={{ fontSize: 16, lineHeight: 1 }}>{s.icon}</span>
-                          <span style={{ fontSize: 13, color: theme.text, fontWeight: 500, lineHeight: 1.45 }}>{s.label}</span>
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Divider */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, maxWidth: 360, width: '100%', marginBottom: 16 }}>
-                      <div style={{ flex: 1, height: 1, background: theme.cardBorder }} />
-                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: theme.subtext }}>
-                        Outros modos
-                      </span>
-                      <div style={{ flex: 1, height: 1, background: theme.cardBorder }} />
-                    </div>
-
-                    {/* Other modes */}
-                    <button onClick={() => switchMode('estudar')} style={{
-                      background: 'rgba(107,155,184,.08)', border: '1px solid rgba(107,155,184,.3)',
-                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
-                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
-                      maxWidth: 360, width: '100%', marginBottom: 10,
+                    <div style={{
+                      fontFamily: "'Crimson Pro', serif",
+                      fontSize: 19, fontWeight: 600, color: theme.text, marginBottom: 6,
                     }}>
-                      <span style={{ fontSize: 20 }}>📚</span>
-                      <div>
-                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Estudar uma Obra</div>
-                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Trilhas guiadas e livre exploração pelas 5 obras</div>
+                      {MODES.find(m => m.id === mode)?.label}
+                    </div>
+                    <div style={{
+                      fontSize: 13.5, color: theme.text, opacity: .85, maxWidth: 340, lineHeight: 1.5,
+                    }}>
+                      {MODES.find(m => m.id === mode)?.desc}
+                    </div>
+
+                    {/* Starter questions. These came back after the old empty
+                        state was retired: that screen mixed TWO things, and only
+                        one was redundant. The mode cards duplicated the home
+                        launcher and are gone for good; these chips were the only
+                        one-tap way into a first question, and losing them cost
+                        discovery — worst on mobile, where typing is expensive.
+                        Chips, not cards: the visual weight is what made the old
+                        screen feel cluttered. */}
+                    {mode === 'duvida' && (
+                      <div style={{
+                        display: 'flex', flexWrap: 'wrap', justifyContent: 'center',
+                        gap: 8, marginTop: 26, maxWidth: 460,
+                      }}>
+                        {SUGGESTIONS.map(sug => (
+                          <button
+                            key={sug.label}
+                            onClick={() => sendText(sug.label)}
+                            style={{
+                              background: 'transparent',
+                              border: `1px solid ${theme.cardBorder}`,
+                              borderRadius: 999, padding: '7px 13px',
+                              cursor: 'pointer', font: 'inherit',
+                              fontSize: 12.5, color: theme.text,
+                              display: 'flex', alignItems: 'center', gap: 6,
+                              lineHeight: 1.35, textAlign: 'left',
+                            }}
+                          >
+                            <span aria-hidden="true">{sug.icon}</span>
+                            {sug.label}
+                          </button>
+                        ))}
                       </div>
-                    </button>
-                    <button onClick={() => switchMode('refletir')} style={{
-                      background: 'rgba(200,133,106,.08)', border: '1px solid rgba(200,133,106,.3)',
-                      borderRadius: 10, padding: '14px 16px', cursor: 'pointer',
-                      textAlign: 'left', display: 'flex', alignItems: 'center', gap: 10,
-                      maxWidth: 360, width: '100%',
-                    }}>
-                      <span style={{ fontSize: 20 }}>🪞</span>
-                      <div>
-                        <div style={{ fontSize: 13.5, color: theme.text, fontWeight: 600 }}>Refletir sobre uma Situação</div>
-                        <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>Veja momentos da sua vida pela lente da doutrina espírita</div>
-                      </div>
-                    </button>
+                    )}
                   </div>
                 )}
 
-                {msgs.map(msg => (
+                {msgs.map((msg, idx) => (
                   msg.isUser
                     ? <UserBubble key={msg.id} text={msg.text} />
                     : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={msgFontSize}
@@ -802,23 +969,37 @@ export default function App() {
                         )}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
                         onReflectionQuestionClick={handleReflectionQuestionClick}
-                      >
-                        {msg.suggestedMode === 'estudar_obra' && msg.sources?.[0]?.item_number && (
-                          <div style={{ marginTop: 10 }}>
-                            <button
-                              onClick={() => handleGoStudyItem(msg.sources[0])}
-                              style={{
-                                background: 'transparent', border: '1px solid rgba(107,155,184,.4)',
-                                color: '#4A7A98', padding: '7px 14px', borderRadius: 8,
-                                fontSize: 13, fontWeight: 500, cursor: 'pointer',
-                                display: 'flex', alignItems: 'center', gap: 6,
-                              }}
-                            >
-                              📖 Estudar este item completo
-                            </button>
-                          </div>
-                        )}
-                      </AIMessage>
+                        suggestedQuestions={
+                          idx === msgs.length - 1 && !msg.isReflection && !loading
+                            ? (msg.suggestedQuestions || [])
+                            : []
+                        }
+                        onSuggestedQuestionClick={(q) => sendText(q)}
+                        footerAction={(() => {
+                          const srcMsg = msgs.slice(0, idx).reverse().find(m => m.isUser)?.text;
+                          if (msg.suggestedMode === 'estudar_obra') {
+                            const studyTarget = resolveStudyTarget(msg);
+                            return studyTarget ? {
+                              label: `📖 Estudar ${formatItemRef(studyTarget.book, studyTarget.item_number)} na íntegra`,
+                              onClick: () => handleGoStudyItem(studyTarget),
+                            } : null;
+                          }
+                          if (msg.suggestedMode === 'refletir') {
+                            return srcMsg ? {
+                              label: '🪞 Refletir sobre esta situação',
+                              color: '#C8856A',
+                              onClick: () => handleGoReflect(srcMsg),
+                            } : null;
+                          }
+                          if (msg.suggestedMode === 'tirar_duvida') {
+                            return srcMsg ? {
+                              label: '💬 Tirar uma dúvida sobre isto',
+                              onClick: () => handleGoDuvida(srcMsg),
+                            } : null;
+                          }
+                          return null;
+                        })()}
+                      />
                 ))}
                 {loading && <LoadingDots theme={theme} />}
               </div>

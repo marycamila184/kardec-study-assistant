@@ -1,3 +1,4 @@
+import logging
 from unittest.mock import MagicMock, patch
 
 from src.rag.curador import curar
@@ -60,3 +61,23 @@ def test_curar_returns_empty_when_llm_legitimately_selects_nothing():
         )
         result = curar("trecho principal", [_CANDIDATE_1])
     assert result == []
+
+
+def test_curar_logs_on_failure(caplog):
+    candidates = [
+        {
+            "content": "x",
+            "metadata": {"book": "B", "item_number": "1", "chapter_title": ""},
+        }
+    ]
+    with (
+        patch("src.rag.curador.get_client") as mock_client,
+        caplog.at_level(logging.ERROR, logger="src.rag.curador"),
+    ):
+        mock_client.return_value.chat.completions.create.side_effect = RuntimeError(
+            "API error"
+        )
+        result = curar("texto principal", candidates)
+    assert any("curador" in r.message.lower() for r in caplog.records)
+    # fallback still returns the raw candidates
+    assert len(result) == 1

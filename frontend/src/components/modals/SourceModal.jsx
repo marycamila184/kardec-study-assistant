@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
+import { formatItemRef } from '../../utils/format';
 
 /**
  * Citation excerpt modal — shows the retrieved passage behind a source chip.
@@ -13,7 +14,7 @@ export default function SourceModal({ source, theme, onClose }) {
   if (!source) return null;
 
   const reference = source.item_number
-    ? `${source.book}, Q.${source.item_number}`
+    ? `${source.book}, ${formatItemRef(source.book, source.item_number)}`
     : source.book;
 
   return (

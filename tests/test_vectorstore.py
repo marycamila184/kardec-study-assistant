@@ -1,4 +1,5 @@
 import pytest
+
 from src.ingestion.vectorstore import VectorStore
 
 _META = {

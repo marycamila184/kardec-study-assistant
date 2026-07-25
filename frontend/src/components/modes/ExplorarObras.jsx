@@ -4,6 +4,7 @@ import AIMessage from '../chat/AIMessage';
 import UserBubble from '../chat/UserBubble';
 import LoadingDots from '../chat/LoadingDots';
 import InputBar from '../chat/InputBar';
+import { useStickToBottom } from '../../hooks/useStickToBottom';
 
 /**
  * "Explorar Obras" free consultation mode.
@@ -40,11 +41,14 @@ export default function ExplorarObras({
       onAskTopic(text, selectedObra);
     }
   };
-  const lastMsgRef = useRef(null);
+  const scrollRef = useRef(null);
+  useStickToBottom(scrollRef); // follow the typewriter reveal to the bottom
 
+  // Jump to the bottom when a message is added / loading toggles; the pin
+  // above then keeps us there as the answer reveals word by word.
   useEffect(() => {
-    if (lastMsgRef.current) {
-      lastMsgRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, loading]);
 
@@ -67,7 +71,7 @@ export default function ExplorarObras({
               stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
               <polyline points="15 18 9 12 15 6"/>
             </svg>
-            Estudar uma Obra
+            Estudar
           </button>
           <span style={{ color: theme.subtext, fontSize: 12.5 }}>·</span>
           <span style={{ fontSize: 12.5, fontWeight: 600, color: '#6B9BB8' }}>Explorar Obras</span>
@@ -150,14 +154,14 @@ export default function ExplorarObras({
           })}
         </div>
       ) : (
-        <div style={{
+        <div ref={scrollRef} style={{
           flex: 1, overflowY: 'auto', minHeight: 0,
           padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12,
         }}>
           {messages.map((msg, i) => (
             msg.isUser
-              ? <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}><UserBubble text={msg.text} /></div>
-              : <div key={msg.id} ref={i === messages.length - 1 ? lastMsgRef : null}>
+              ? <div key={msg.id}><UserBubble text={msg.text} /></div>
+              : <div key={msg.id}>
               <AIMessage msg={msg} theme={theme} fontSize={fontSize}
                   showQuickActions={false}
                   quickActions={quickActions.filter(
