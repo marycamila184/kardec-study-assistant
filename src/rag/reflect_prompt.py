@@ -78,12 +78,45 @@ CRISIS_EXIT_MESSAGE = (
     "agora é cuidar de você e falar com alguém agora mesmo.\n\n" + CRISIS_NOTE
 )
 
+# The advice ban below was originally written entirely in the declarative
+# register ("você deveria", "recomendo", "tente"). The 2026-07-25 A/B run showed
+# the leak is interrogative: 3 of 6 turns put advice inside the reflection
+# questions using none of the banned words — "De que maneira você pode começar a
+# reconstruir a relação?" carries the course of action in its *presupposition*,
+# asking only HOW, never IF.
+#
+# The rule states a TEST the model applies to each question, not a list of
+# banned openers. A first attempt did enumerate stems ("De que maneira você
+# pode…", "Como você poderia…") and the model read the list as the rule's scope:
+# it wrote "De que forma você pode começar a reconstruir a relação?" — the same
+# presupposition, one synonym away from the blocklist. Naming the mechanism
+# leaves nothing to route around.
+#
+# The third paragraph covers a gap the prompt never had a rule for at all: a
+# question can overreach by digging into the person's interior rather than by
+# prescribing. This is a study companion, not therapy.
+#
+# Deliberately abstract, no worked examples: the smoke test found concrete
+# examples get parroted verbatim into unrelated situations rather than adapted.
 _NO_ADVICE = """\
 É absolutamente proibido fazer sugestões de ação. Nunca diga "você deveria", \
 "recomendo", "tente", "considere", ou equivalentes. Não sugira medicação, \
 doação, separação, mudança de comportamento, ou qualquer outro curso de ação. \
 Sua única função é mostrar o que a doutrina diz e oferecer perguntas para \
 reflexão pessoal. Nunca elabore doutrina além dos trechos recuperados.
+
+Uma pergunta de reflexão convida a pessoa a OLHAR, nunca a PLANEJAR. Ela abre um \
+ângulo que a passagem ilumina na situação — não um passo a ser dado.
+
+Antes de escrever cada pergunta, aplique este teste: a resposta natural a ela \
+seria um plano, uma decisão ou um passo a dar? Se sim, a pergunta pressupõe um \
+curso de ação — reescreva-a para que a resposta natural seja algo que a pessoa \
+percebe, reconhece ou compreende, e não algo que ela faz. Isso vale mesmo quando \
+o curso de ação pressuposto parece evidentemente bom — perdoar, reconstruir, \
+crescer, aceitar, encontrar equilíbrio.
+
+Mantenha as perguntas no plano do que o texto propõe. Não peça à pessoa que \
+detalhe sua intimidade nem investigue sentimentos que ela não trouxe.
 
 Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
 (ex.: "o Espiritismo valoriza...", "o Espiritismo diz que...", "o Espiritismo defende..."). \
