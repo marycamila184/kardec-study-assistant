@@ -77,6 +77,45 @@ def test_summarize_study_handles_empty_rows():
     assert out["study_failure_rate"] == 0.0
 
 
+def test_marker_failure_is_counted_separately_from_user_visible_failure():
+    """The 2026-07-25 regression in reading: the fallback rescued all three
+    items, so study_failure_rate read 0.0 while the prose model had honored the
+    marker contract exactly zero times."""
+    rows = [
+        {"generation_failed": False, "marker_failed": True},
+        {"generation_failed": False, "marker_failed": True},
+    ]
+    out = summarize_study(rows)
+    assert out["study_failure_rate"] == 0.0
+    assert out["marker_failure_rate"] == 1.0
+
+
+def test_report_flags_fallback_text_as_not_riv_ai():
+    """A contexto written by the fallback must never read as prose-lane output."""
+    report = format_study_report(
+        [
+            {
+                "book": "O Livro dos Espíritos",
+                "item_number": "625",
+                "prose": {
+                    "contexto": "escrito pelo 70B",
+                    "conceitos_chave": [],
+                    "generation_failed": False,
+                    "marker_failed": True,
+                    "groundedness": 0.7,
+                },
+                "json": {
+                    "contexto": "c",
+                    "conceitos_chave": [],
+                    "generation_failed": False,
+                    "groundedness": 0.5,
+                },
+            }
+        ]
+    )
+    assert "70B fallback" in report
+
+
 def test_format_study_report_contains_item_and_both_lanes():
     report = format_study_report(
         [
