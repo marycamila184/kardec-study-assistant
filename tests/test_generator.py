@@ -29,7 +29,7 @@ def mock_client(monkeypatch):
     response.choices = [MagicMock(message=MagicMock(content="Resposta gerada."))]
     client = MagicMock()
     client.chat.completions.create.return_value = response
-    monkeypatch.setattr("src.rag.generator.get_client", lambda: client)
+    monkeypatch.setattr("src.rag.prose.get_client", lambda role="json": client)
     return client
 
 
@@ -48,7 +48,7 @@ def test_generate_smalltalk_short_circuits_without_retrieval_or_llm(monkeypatch)
         raise AssertionError("retrieval/LLM should not run for small talk")
 
     monkeypatch.setattr("src.rag.generator.retrieve", _boom)
-    monkeypatch.setattr("src.rag.generator.get_client", _boom)
+    monkeypatch.setattr("src.rag.prose.get_client", _boom)
 
     from src.rag.generator import SMALLTALK_REPLIES
 
@@ -254,7 +254,7 @@ def _make_client(monkeypatch, content: str) -> MagicMock:
     response.choices = [MagicMock(message=MagicMock(content=content))]
     client = MagicMock()
     client.chat.completions.create.return_value = response
-    monkeypatch.setattr("src.rag.generator.get_client", lambda: client)
+    monkeypatch.setattr("src.rag.prose.get_client", lambda role="json": client)
     return client
 
 
@@ -431,7 +431,7 @@ def test_generate_sources_include_excerpt(mock_retrieve, mock_client):
 def test_generate_sets_generation_failed_on_llm_error(mock_retrieve, monkeypatch):
     client = MagicMock()
     client.chat.completions.create.side_effect = RuntimeError("API error")
-    monkeypatch.setattr("src.rag.generator.get_client", lambda: client)
+    monkeypatch.setattr("src.rag.prose.get_client", lambda role="json": client)
 
     result = generate("O que é reencarnação?", [])
 
@@ -667,7 +667,187 @@ def test_generate_first_person_ideation_still_fixed_exit(monkeypatch):
         raise AssertionError("retrieval/LLM must not run on crisis exit")
 
     monkeypatch.setattr("src.rag.generator.retrieve", _boom)
-    monkeypatch.setattr("src.rag.generator.get_client", _boom)
+    monkeypatch.setattr("src.rag.prose.get_client", _boom)
     result = generate("penso em suicídio", [])
     assert result["answer"] == CRISIS_EXIT_MESSAGE
     assert result["safety_level"] == "crise"
+
+
+def test_chat_answer_goes_through_the_prose_lane(monkeypatch):
+    """The /chat generation call must use prose_completion, not get_client
+    directly, so PROSE_PROVIDER routes it."""
+    import src.rag.generator as gen
+
+    monkeypatch.setattr(
+        gen,
+        "retrieve",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                    "chapter": "CAPÍTULO I",
+                },
+                "content": "trecho",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    called = {}
+
+    def _fake_prose(system, messages, max_tokens=1024):
+        called["hit"] = True
+        return "Resposta grounded.\n[FONTES: 1]\n[SEGUIR: a | b]"
+
+    monkeypatch.setattr(gen, "prose_completion", _fake_prose)
+
+    out = gen.generate("o que é o espírito?", [])
+    assert called["hit"] is True
+    assert out["answer"] == "Resposta grounded."
+    assert out["suggested_questions"] == ["a", "b"]
+
+
+def test_chat_answer_never_ends_with_a_question(monkeypatch):
+    import src.rag.generator as gen
+
+    monkeypatch.setattr(
+        gen,
+        "retrieve",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                    "chapter": "CAPÍTULO I",
+                },
+                "content": "trecho",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: cs)
+    monkeypatch.setattr(
+        gen,
+        "prose_completion",
+        lambda *a, **k: "A alma persiste. O que você acha disso?",
+    )
+
+    out = gen.generate("a alma persiste?", [])
+    assert out["answer"] == "A alma persiste."
+
+
+def test_chat_strips_model_written_citations(monkeypatch):
+    """Model-written citations must not compete with the real source chips."""
+    import src.rag.generator as gen
+
+    monkeypatch.setattr(
+        gen,
+        "retrieve",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                    "chapter": "CAPÍTULO I",
+                },
+                "content": "trecho",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: cs)
+    monkeypatch.setattr(
+        gen,
+        "prose_completion",
+        lambda *a, **k: "A alma persiste (O Livro dos Espíritos, questão 625).",
+    )
+
+    out = gen.generate("a alma persiste?", [])
+    assert "questão 625" not in out["answer"]
+    assert out["answer"] == "A alma persiste."
+
+
+def test_prose_lane_attributes_sources_from_the_vector_store(monkeypatch):
+    """On the prose lane the model's [FONTES:] marker is ignored entirely —
+    chips come from answer-to-chunk similarity computed in code."""
+    import src.rag.generator as gen
+
+    chunks = [
+        {
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "item_number": "625",
+                "chapter_title": "Cap",
+                "chapter": "CAPÍTULO I",
+            },
+            "content": "usado",
+            "footnote_context": "",
+        },
+        {
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "item_number": "886",
+                "chapter_title": "Cap",
+                "chapter": "CAPÍTULO I",
+            },
+            "content": "ignorado",
+            "footnote_context": "",
+        },
+    ]
+    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(chunks))
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
+    # The model names a passage index that does not exist; it must not matter.
+    monkeypatch.setattr(
+        gen, "prose_completion", lambda *a, **k: "A alma persiste.\n[FONTES: 625]"
+    )
+    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: [cs[0]])
+
+    out = gen.generate("a alma persiste?", [])
+    assert [s["item_number"] for s in out["sources"]] == ["625"]
+
+
+def test_marker_lane_still_filters_by_fontes(monkeypatch):
+    """With PROSE_PROVIDER unset the current provider honors [FONTES:], so
+    today's behavior must be preserved exactly."""
+    import src.rag.generator as gen
+
+    chunks = [
+        {
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "item_number": "625",
+                "chapter_title": "Cap",
+                "chapter": "CAPÍTULO I",
+            },
+            "content": "a",
+            "footnote_context": "",
+        },
+        {
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "item_number": "886",
+                "chapter_title": "Cap",
+                "chapter": "CAPÍTULO I",
+            },
+            "content": "b",
+            "footnote_context": "",
+        },
+    ]
+    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(chunks))
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", None)
+    monkeypatch.setattr(
+        gen, "prose_completion", lambda *a, **k: "Resposta.\n[FONTES: 2]"
+    )
+
+    out = gen.generate("pergunta?", [])
+    assert [s["item_number"] for s in out["sources"]] == ["886"]

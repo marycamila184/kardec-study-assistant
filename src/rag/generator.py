@@ -3,10 +3,19 @@ import random
 from concurrent.futures import ThreadPoolExecutor
 
 from src.core.config import settings
+from src.rag.citations import (
+    extract_model_citations,
+    retrieved_ids,
+    strip_model_citations,
+    validate_model_citations,
+)
+from src.rag.groundedness import attribute_sources
+from src.rag.guardrails import counts_personification, strip_trailing_question
 from src.rag.llm_client import get_client
 from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
+from src.rag.prose import prose_completion
 from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.reflect_prompt import (
     CRISIS_EXIT_MESSAGE,
@@ -219,13 +228,39 @@ def generate(
         sensitive=sensitive,
     )
     try:
-        response = get_client().chat.completions.create(
-            model=settings.resolved_chat_model,
-            max_tokens=1024,
-            messages=[{"role": "system", "content": system}] + messages,
+        answer = prose_completion(system, messages)
+
+        # Log-only monitors. These run on both lanes because they mutate
+        # nothing — they only record what the model did.
+        report = validate_model_citations(
+            extract_model_citations(answer), retrieved_ids(chunks)
         )
-        answer = response.choices[0].message.content
-        answer, chunks, suggested_questions = strip_trailing_markers(answer, chunks)
+        if not report["confiavel"]:
+            logger.warning(
+                "model cited ids outside the retrieved set: %s", report["alucinadas"]
+            )
+        personifications = counts_personification(answer)
+        if personifications:
+            logger.warning("personification of 'o Espiritismo': %d", personifications)
+
+        # Everything that MUTATES the answer or its sources is gated on the
+        # prose lane, so Tasks 1-6 leave the current provider's output identical.
+        prose_lane = settings.prose_provider is not None
+        if prose_lane:
+            answer = strip_model_citations(answer)
+        answer, marker_chunks, suggested_questions = strip_trailing_markers(
+            answer, chunks
+        )
+        if prose_lane:
+            # riv-ai-v2 does not honor [FONTES:] — it emits question numbers or
+            # invents references. Attribution is computed from the vector store
+            # instead, so the model never decides its own citations.
+            chunks = attribute_sources(answer, chunks)
+            # Backstop for the prompt rule: follow-ups live in [SEGUIR] only.
+            answer = strip_trailing_question(answer)
+        else:
+            # Current provider: it honors [FONTES:], so keep today's behavior.
+            chunks = marker_chunks
         if fallback_note:
             answer = fallback_note + answer
         generation_failed = False
