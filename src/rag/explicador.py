@@ -8,6 +8,7 @@ from src.rag.explicador_prompt import (
     parse_explicador_json,
     parse_explicador_markers,
 )
+from src.rag.llm_client import get_client
 from src.rag.prose import prose_completion
 from src.rag.retriever import chapter_commentary, retrieve, retrieve_by_item
 
@@ -61,9 +62,32 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
 
     def _call_explicador():
         text = prose_completion(system, messages)
-        if use_markers:
+        if not use_markers:
+            return parse_explicador_json(text)
+        try:
             return parse_explicador_markers(text)
-        return parse_explicador_json(text)
+        except ValueError:
+            # The prose-lane model ignored the marker protocol so badly the
+            # parse raised. prose_completion already returned successfully
+            # (it only falls back on a *provider* failure), so this is a
+            # *format* fallback: retry once on the JSON lane with the JSON
+            # template/parser, calling the json-lane client directly.
+            logger.warning(
+                "explicador marker parse failed; retrying once on the json lane"
+            )
+            json_system, json_messages = build_explicador_messages(
+                original_text,
+                related,
+                footnote_context=footnote_context,
+                chapter_commentary_chunks=commentary,
+                markers=False,
+            )
+            response = get_client("json").chat.completions.create(
+                model=settings.resolved_chat_model,
+                max_tokens=1024,
+                messages=[{"role": "system", "content": json_system}] + json_messages,
+            )
+            return parse_explicador_json(response.choices[0].message.content)
 
     contexto = ""
     conceitos_chave: list[str] = []

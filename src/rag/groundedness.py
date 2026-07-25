@@ -43,6 +43,21 @@ def groundedness_score(answer: str, chunks: list[dict], encoder=encode) -> float
     return sum(sims) / len(sims)
 
 
+def per_chunk_similarities(
+    answer: str, chunks: list[dict], encoder=encode
+) -> list[float]:
+    """Per-chunk answer-to-chunk cosines, in the same order as `chunks`.
+
+    Public so the A/B harness (`scripts/compare_generators.py`) can print the
+    raw distribution needed to calibrate `settings.source_min_similarity` —
+    `groundedness_score`'s mean hides exactly the per-chunk spread a threshold
+    needs. Not used on the live request path; `attribute_sources` computes its
+    own similarities internally."""
+    if not answer.strip() or not chunks:
+        return []
+    return _similarities(answer, chunks, encoder)
+
+
 def attribute_sources(
     answer: str,
     chunks: list[dict],

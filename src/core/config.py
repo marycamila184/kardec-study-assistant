@@ -77,7 +77,11 @@ class Settings(BaseSettings):
     hf_endpoint_url: str | None = None
 
     # Minimum answer-to-chunk cosine for a retrieved chunk to become a source
-    # chip on the prose lane. Calibrate from the harness output (Task 7).
+    # chip on the prose lane. Calibrate from `scripts/compare_generators.py`'s
+    # "Answer-to-chunk cosine distribution" summary section (min/median/p25/p75/
+    # max plus counts kept at 0.3/0.4/0.5/0.6) — that is the per-chunk spread a
+    # threshold decision needs; the harness's mean groundedness and
+    # hallucinated-citation rate do not tell you where to draw this line.
     source_min_similarity: float = 0.35
 
     embedding_model: str = "BAAI/bge-m3"

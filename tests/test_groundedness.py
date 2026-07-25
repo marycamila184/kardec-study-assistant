@@ -88,3 +88,25 @@ def test_no_chunks_gives_no_sources():
     from src.rag.groundedness import attribute_sources
 
     assert attribute_sources("r", [], encoder=_stub_encoder({})) == []
+
+
+# --- per_chunk_similarities --------------------------------------------------
+
+
+def test_per_chunk_similarities_returns_one_value_per_chunk_in_order():
+    from src.rag.groundedness import per_chunk_similarities
+
+    enc = _stub_encoder({"r": [1.0, 0.0], "a": [1.0, 0.0], "b": [0.0, 1.0]})
+    assert per_chunk_similarities("r", _chunks("a", "b"), encoder=enc) == [1.0, 0.0]
+
+
+def test_per_chunk_similarities_empty_when_no_chunks():
+    from src.rag.groundedness import per_chunk_similarities
+
+    assert per_chunk_similarities("r", [], encoder=_stub_encoder({})) == []
+
+
+def test_per_chunk_similarities_empty_when_answer_blank():
+    from src.rag.groundedness import per_chunk_similarities
+
+    assert per_chunk_similarities("   ", _chunks("a"), encoder=_stub_encoder({})) == []

@@ -356,6 +356,123 @@ def test_explicador_uses_marker_format_when_prose_provider_is_set(monkeypatch):
     assert out["generation_failed"] is False
 
 
+def test_explicador_falls_back_to_json_lane_when_markers_unparseable(monkeypatch):
+    """Finding 2: a prose-lane response that ignores the marker protocol must
+    retry once on the JSON lane rather than immediately failing."""
+    import src.rag.explicador as exp
+
+    monkeypatch.setattr(exp.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(
+        exp,
+        "retrieve_by_item",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                },
+                "content": "trecho",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(exp, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "chapter_commentary", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "curar", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "prose_completion", lambda *a, **k: "lixo sem marcador")
+
+    json_response = json.dumps(
+        {
+            "contexto": "Contexto via fallback JSON.",
+            "conceitos_chave": ["dever: obrigação"],
+            "perguntas": [],
+        }
+    )
+    client = MagicMock()
+    client.chat.completions.create.return_value = _make_llm_response(json_response)
+    monkeypatch.setattr(exp, "get_client", lambda role="json": client)
+
+    out = exp.explicar("O Livro dos Espíritos", "625")
+
+    assert out["contexto"] == "Contexto via fallback JSON."
+    assert out["conceitos_chave"] == ["dever: obrigação"]
+    assert out["generation_failed"] is False
+    client.chat.completions.create.assert_called_once()
+
+
+def test_explicador_json_fallback_logs_a_warning(monkeypatch, caplog):
+    import src.rag.explicador as exp
+
+    monkeypatch.setattr(exp.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(
+        exp,
+        "retrieve_by_item",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                },
+                "content": "trecho",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(exp, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "chapter_commentary", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "curar", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "prose_completion", lambda *a, **k: "lixo sem marcador")
+
+    json_response = json.dumps(
+        {"contexto": "c", "conceitos_chave": [], "perguntas": []}
+    )
+    client = MagicMock()
+    client.chat.completions.create.return_value = _make_llm_response(json_response)
+    monkeypatch.setattr(exp, "get_client", lambda role="json": client)
+
+    with caplog.at_level(logging.WARNING, logger="src.rag.explicador"):
+        exp.explicar("O Livro dos Espíritos", "625")
+
+    assert any("json lane" in r.message.lower() for r in caplog.records)
+
+
+def test_explicador_json_fallback_not_triggered_when_prose_lane_off(monkeypatch):
+    """Finding 2's retry is prose-lane-only: with PROSE_PROVIDER unset, the
+    caller is already on the json lane and a parse failure there must behave
+    exactly as before (no extra retry, no extra client call)."""
+    import src.rag.explicador as exp
+
+    monkeypatch.setattr(exp.settings, "prose_provider", None)
+    monkeypatch.setattr(
+        exp,
+        "retrieve_by_item",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                },
+                "content": "trecho",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(exp, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "chapter_commentary", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "curar", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "prose_completion", lambda *a, **k: "not json at all")
+
+    client = MagicMock()
+    monkeypatch.setattr(exp, "get_client", lambda role="json": client)
+
+    exp.explicar("O Livro dos Espíritos", "625")
+
+    client.chat.completions.create.assert_not_called()
+
+
 def test_explicador_marks_failure_on_unparseable_output(monkeypatch):
     import src.rag.explicador as exp
 
