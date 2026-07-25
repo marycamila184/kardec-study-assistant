@@ -1,3 +1,4 @@
+import json
 import logging
 from unittest.mock import MagicMock, patch
 
@@ -49,6 +50,7 @@ def test_explicar_returns_none_when_no_chunks():
 def test_explicar_passes_footnote_context_to_prompt():
     llm_markers = "CONTEXTO: Contexto de teste.\nCONCEITOS: "
     with (
+        patch("src.rag.explicador.settings.prose_provider", "ollama"),
         patch(
             "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
         ),
@@ -71,6 +73,7 @@ def test_explicar_passes_footnote_context_to_prompt():
 def test_explicar_returns_contexto_from_llm():
     llm_markers = "CONTEXTO: Contexto de teste.\nCONCEITOS: "
     with (
+        patch("src.rag.explicador.settings.prose_provider", "ollama"),
         patch(
             "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
         ),
@@ -93,6 +96,7 @@ def test_explicar_degrades_gracefully_when_related_retrieval_fails():
         raise RuntimeError("db error")
 
     with (
+        patch("src.rag.explicador.settings.prose_provider", "ollama"),
         patch(
             "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
         ),
@@ -113,6 +117,7 @@ def test_explicar_degrades_gracefully_when_related_retrieval_fails():
 def test_explicar_retrieves_related_using_first_subchunk_only():
     llm_markers = "CONTEXTO: c.\nCONCEITOS: "
     with (
+        patch("src.rag.explicador.settings.prose_provider", "ollama"),
         patch(
             "src.rag.explicador.retrieve_by_item",
             return_value=[_MULTI_CHUNK_A, _MULTI_CHUNK_B],
@@ -178,6 +183,7 @@ def test_explicar_passes_chapter_commentary_to_prompt(monkeypatch):
         captured["commentary"] = chapter_commentary_chunks
         return "SYS", [{"role": "user", "content": "x"}]
 
+    monkeypatch.setattr("src.rag.explicador.settings.prose_provider", "ollama")
     monkeypatch.setattr(
         "src.rag.explicador.retrieve_by_item", lambda b, i, c=None: [ev_chunk]
     )
@@ -222,6 +228,7 @@ def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
         captured["commentary"] = chapter_commentary_chunks
         return "SYS", [{"role": "user", "content": "x"}]
 
+    monkeypatch.setattr("src.rag.explicador.settings.prose_provider", "ollama")
     monkeypatch.setattr(
         "src.rag.explicador.retrieve_by_item", lambda b, i, c=None: [le_chunk]
     )
@@ -245,6 +252,80 @@ def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
 def test_explicador_uses_the_prose_lane(monkeypatch):
     import src.rag.explicador as exp
 
+    monkeypatch.setattr(exp.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(
+        exp,
+        "retrieve_by_item",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                },
+                "content": "trecho principal",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(exp, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "chapter_commentary", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "curar", lambda *a, **k: [])
+    monkeypatch.setattr(
+        exp,
+        "prose_completion",
+        lambda *a, **k: "CONTEXTO: Situa a lei moral.\nCONCEITOS: dever: obrigação",
+    )
+
+    out = exp.explicar("O Livro dos Espíritos", "625")
+    assert out["contexto"] == "Situa a lei moral."
+    assert out["conceitos_chave"] == ["dever: obrigação"]
+    assert out["generation_failed"] is False
+
+
+def test_explicador_uses_json_format_when_prose_provider_is_none(monkeypatch):
+    import src.rag.explicador as exp
+
+    monkeypatch.setattr(exp.settings, "prose_provider", None)
+    monkeypatch.setattr(
+        exp,
+        "retrieve_by_item",
+        lambda *a, **k: [
+            {
+                "metadata": {
+                    "book": "O Livro dos Espíritos",
+                    "item_number": "625",
+                    "chapter_title": "Cap",
+                },
+                "content": "trecho principal",
+                "footnote_context": "",
+            }
+        ],
+    )
+    monkeypatch.setattr(exp, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "chapter_commentary", lambda *a, **k: [])
+    monkeypatch.setattr(exp, "curar", lambda *a, **k: [])
+
+    json_response = json.dumps(
+        {
+            "contexto": "Contexto via JSON.",
+            "conceitos_chave": ["dever: obrigação"],
+            "perguntas": ["Pergunta?"],
+        }
+    )
+    monkeypatch.setattr(exp, "prose_completion", lambda *a, **k: json_response)
+
+    out = exp.explicar("O Livro dos Espíritos", "625")
+    assert out["contexto"] == "Contexto via JSON."
+    assert out["conceitos_chave"] == ["dever: obrigação"]
+    assert out["perguntas"] == ["Pergunta?"]
+    assert out["generation_failed"] is False
+
+
+def test_explicador_uses_marker_format_when_prose_provider_is_set(monkeypatch):
+    import src.rag.explicador as exp
+
+    monkeypatch.setattr(exp.settings, "prose_provider", "ollama")
     monkeypatch.setattr(
         exp,
         "retrieve_by_item",
@@ -278,6 +359,7 @@ def test_explicador_uses_the_prose_lane(monkeypatch):
 def test_explicador_marks_failure_on_unparseable_output(monkeypatch):
     import src.rag.explicador as exp
 
+    monkeypatch.setattr(exp.settings, "prose_provider", "ollama")
     monkeypatch.setattr(
         exp,
         "retrieve_by_item",

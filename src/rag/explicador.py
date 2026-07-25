@@ -1,9 +1,11 @@
 import concurrent.futures
 import logging
 
+from src.core.config import settings
 from src.rag.curador import curar
 from src.rag.explicador_prompt import (
     build_explicador_messages,
+    parse_explicador_json,
     parse_explicador_markers,
 )
 from src.rag.prose import prose_completion
@@ -43,16 +45,25 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
 
     commentary = chapter_commentary(book, chapter or "", item_number)
 
+    # The prompt format (and its parser) must follow the lane: prose_completion
+    # falls back to the JSON lane by resending the SAME payload on failure, so
+    # whichever format is sent is the format used on both the primary and
+    # fallback call. Never let the template and parser choices disagree.
+    use_markers = settings.prose_provider is not None
+
     system, messages = build_explicador_messages(
         original_text,
         related,
         footnote_context=footnote_context,
         chapter_commentary_chunks=commentary,
-        markers=True,
+        markers=use_markers,
     )
 
     def _call_explicador():
-        return parse_explicador_markers(prose_completion(system, messages))
+        text = prose_completion(system, messages)
+        if use_markers:
+            return parse_explicador_markers(text)
+        return parse_explicador_json(text)
 
     contexto = ""
     conceitos_chave: list[str] = []
