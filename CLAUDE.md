@@ -25,8 +25,8 @@ Supporting: `GET /paths`, `GET /paths/{id}`, `GET /health`.
 
 - Package manager **uv** (`uv sync --group dev`), Python 3.12+
 - Requires `.env` with `GROQ_API_KEY` (Groq, OpenAI-compatible endpoint)
-- Optional prose lane: `PROSE_PROVIDER=ollama` routes `/chat`, `/study` and
-  `ia-espirita/riv-ai-v2` (local Ollama). Unset = single provider, today's
+- Optional prose lane: `PROSE_PROVIDER=ollama` routes `/chat` and `/study` prose
+  to `ia-espirita/riv-ai-v2` (local Ollama). Unset = single provider, today's
   behavior. `/reflect` and every structured-JSON agent (Curador, orchestrator,
   condenser, sensitivity) always stay on `LLM_PROVIDER`.
 
