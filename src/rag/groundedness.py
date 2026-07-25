@@ -8,7 +8,9 @@ validation cannot see it (no citation is written), so we measure distance to the
 retrieved text instead.
 
 Used by the A/B harness as a comparison between lanes — never as an absolute
-threshold, and never in the request path.
+threshold. `attribute_sources` (below) is also called from the live /chat
+request path on the prose lane; `groundedness_score` itself remains
+harness-only.
 """
 
 import math

@@ -815,6 +815,106 @@ def test_prose_lane_attributes_sources_from_the_vector_store(monkeypatch):
     assert [s["item_number"] for s in out["sources"]] == ["625"]
 
 
+def test_prose_lane_empty_after_citation_strip_is_generation_failed(monkeypatch):
+    """Finding 1: if strip_model_citations consumes the entire answer, the
+    empty result must not be returned as a success — it must degrade to the
+    same failure path as an LLM error."""
+    import src.rag.generator as gen
+
+    chunks = [
+        {
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "item_number": "625",
+                "chapter_title": "Cap",
+                "chapter": "CAPÍTULO I",
+            },
+            "content": "trecho",
+            "footnote_context": "",
+        }
+    ]
+    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(chunks))
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(
+        gen,
+        "prose_completion",
+        lambda *a, **k: "(O Livro dos Espíritos, questão 625)",
+    )
+
+    out = gen.generate("a alma persiste?", [])
+    assert out["generation_failed"] is True
+    assert out["answer"] == gen.GENERATION_FAILED_MESSAGE
+    assert out["sources"] == []
+    assert out["suggested_questions"] == []
+
+
+def test_prose_lane_attribute_sources_failure_falls_back_to_marker_chunks(
+    monkeypatch,
+):
+    """Finding 2: attribute_sources runs the real bge-m3 encoder in production
+    and can fail (e.g. OOM). A perfectly good answer must survive, falling
+    back to the chunks the [FONTES:] marker resolved."""
+    import src.rag.generator as gen
+
+    chunks = [
+        {
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "item_number": "625",
+                "chapter_title": "Cap",
+                "chapter": "CAPÍTULO I",
+            },
+            "content": "trecho",
+            "footnote_context": "",
+        }
+    ]
+    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(chunks))
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
+    monkeypatch.setattr(
+        gen,
+        "prose_completion",
+        lambda *a, **k: "Uma resposta perfeitamente boa.\n[FONTES: 1]",
+    )
+
+    def _boom(answer, cs, **k):
+        raise RuntimeError("embedding model OOM")
+
+    monkeypatch.setattr(gen, "attribute_sources", _boom)
+
+    out = gen.generate("a alma persiste?", [])
+    assert out["generation_failed"] is False
+    assert out["answer"] == "Uma resposta perfeitamente boa."
+    assert len(out["sources"]) == 1
+    assert out["sources"][0]["item_number"] == "625"
+
+
+def test_monitor_failure_never_fails_a_request_on_frozen_lane(monkeypatch):
+    """Finding 3: counts_personification (and friends) are log-only monitors;
+    even with PROSE_PROVIDER unset, a monitor raising must not turn a good
+    answer into a generation failure."""
+    import src.rag.generator as gen
+
+    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(_CHUNKS))
+    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
+    monkeypatch.setattr(gen.settings, "prose_provider", None)
+
+    def _boom(*a, **k):
+        raise RuntimeError("monitor exploded")
+
+    monkeypatch.setattr(gen, "counts_personification", _boom)
+
+    def _fake_prose(system, messages, max_tokens=1024):
+        return "Resposta gerada."
+
+    monkeypatch.setattr(gen, "prose_completion", _fake_prose)
+
+    out = gen.generate("o que é o espírito?", [])
+    assert out["generation_failed"] is False
+    assert out["answer"] == "Resposta gerada."
+
+
 def test_marker_lane_still_filters_by_fontes(monkeypatch):
     """With PROSE_PROVIDER unset the current provider honors [FONTES:], so
     today's behavior must be preserved exactly."""

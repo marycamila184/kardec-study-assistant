@@ -92,6 +92,7 @@ def test_fallback_uses_the_chat_model():
         patch("src.rag.prose.get_client", side_effect=_by_role),
         patch("src.rag.prose.settings") as s,
     ):
+        s.prose_provider = "ollama"
         s.resolved_prose_model = "riv-ai-v2"
         s.resolved_chat_model = "llama-3.3-70b-versatile"
         prose_completion(_SYS, _MSGS)
@@ -102,11 +103,19 @@ def test_fallback_uses_the_chat_model():
 
 
 def test_raises_when_both_lanes_fail():
-    """The caller's existing generation_failed handling owns this case."""
+    """Lanes differ (PROSE_PROVIDER set) but both the prose lane and the
+    fallback json lane fail: the exception must still propagate, and both
+    lanes must have been tried — the caller's existing generation_failed
+    handling owns this case."""
     client = _client_raising(ConnectionError("down"))
-    with patch("src.rag.prose.get_client", return_value=client):
+    with (
+        patch("src.rag.prose.get_client", return_value=client),
+        patch("src.rag.prose.settings") as s,
+    ):
+        s.prose_provider = "ollama"
         with pytest.raises(ConnectionError):
             prose_completion(_SYS, _MSGS)
+    assert client.chat.completions.create.call_count == 2
 
 
 def test_no_fallback_call_when_lanes_are_the_same():

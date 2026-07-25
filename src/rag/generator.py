@@ -11,7 +11,6 @@ from src.rag.citations import (
 )
 from src.rag.groundedness import attribute_sources
 from src.rag.guardrails import counts_personification, strip_trailing_question
-from src.rag.llm_client import get_client
 from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
@@ -231,23 +230,36 @@ def generate(
         answer = prose_completion(system, messages)
 
         # Log-only monitors. These run on both lanes because they mutate
-        # nothing — they only record what the model did.
-        report = validate_model_citations(
-            extract_model_citations(answer), retrieved_ids(chunks)
-        )
-        if not report["confiavel"]:
-            logger.warning(
-                "model cited ids outside the retrieved set: %s", report["alucinadas"]
+        # nothing — they only record what the model did. Wrapped so a monitor
+        # can never fail an otherwise-good request. Citations are extracted
+        # BEFORE any stripping below.
+        try:
+            report = validate_model_citations(
+                extract_model_citations(answer), retrieved_ids(chunks)
             )
-        personifications = counts_personification(answer)
-        if personifications:
-            logger.warning("personification of 'o Espiritismo': %d", personifications)
+            if not report["confiavel"]:
+                logger.warning(
+                    "model cited ids outside the retrieved set: %s",
+                    report["alucinadas"],
+                )
+            personifications = counts_personification(answer)
+            if personifications:
+                logger.warning(
+                    "personification of 'o Espiritismo': %d", personifications
+                )
+        except Exception:
+            logger.exception("log-only citation/personification monitor failed")
 
         # Everything that MUTATES the answer or its sources is gated on the
         # prose lane, so Tasks 1-6 leave the current provider's output identical.
         prose_lane = settings.prose_provider is not None
         if prose_lane:
             answer = strip_model_citations(answer)
+            if not answer.strip():
+                # The model's entire reply was a citation; there is nothing
+                # left to show. Treat it as a generation failure rather than
+                # returning an empty bubble.
+                raise ValueError("answer emptied by strip_model_citations")
         answer, marker_chunks, suggested_questions = strip_trailing_markers(
             answer, chunks
         )
@@ -255,7 +267,13 @@ def generate(
             # riv-ai-v2 does not honor [FONTES:] — it emits question numbers or
             # invents references. Attribution is computed from the vector store
             # instead, so the model never decides its own citations.
-            chunks = attribute_sources(answer, chunks)
+            try:
+                chunks = attribute_sources(answer, chunks)
+            except Exception:
+                logger.exception(
+                    "attribute_sources failed; falling back to marker chunks"
+                )
+                chunks = marker_chunks
             # Backstop for the prompt rule: follow-ups live in [SEGUIR] only.
             answer = strip_trailing_question(answer)
         else:
