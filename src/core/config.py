@@ -8,7 +8,12 @@ class ProviderConfig(NamedTuple):
     api_key_field: str
     default_chat_model: str
     default_condenser_model: str
+    # Name of a Settings field that overrides base_url when set. Used by
+    # providers whose URL is per-machine (ollama) or per-deployment (hf-endpoint).
+    base_url_field: str | None = None
 
+
+_RIV_AI = "hf.co/ia-espirita/riv-ai-v2-Q4_K_M-GGUF"
 
 PROVIDERS: dict[str, ProviderConfig] = {
     "groq": ProviderConfig(
@@ -29,6 +34,22 @@ PROVIDERS: dict[str, ProviderConfig] = {
         "deepseek-ai/DeepSeek-V3",
         "meta-llama/Llama-3.1-8B-Instruct-Turbo",
     ),
+    # Prose-lane providers. Both serve riv-ai-v2 over an OpenAI-compatible /v1;
+    # they differ only in where that endpoint lives.
+    "ollama": ProviderConfig(
+        "http://localhost:11434/v1",
+        "ollama_api_key",
+        _RIV_AI,
+        _RIV_AI,
+        "ollama_base_url",
+    ),
+    "hf-endpoint": ProviderConfig(
+        "",  # no default; HF_ENDPOINT_URL is required
+        "hf_token",
+        _RIV_AI,
+        _RIV_AI,
+        "hf_endpoint_url",
+    ),
 }
 
 
@@ -46,6 +67,19 @@ class Settings(BaseSettings):
     condenser_model: str | None = None
     structured_output: bool = True
 
+    # Prose lane. Unset => prose uses the same provider and model as everything
+    # else, i.e. exactly today's behavior.
+    prose_provider: str | None = None
+    prose_model: str | None = None
+
+    ollama_api_key: str = "ollama"  # dummy: the OpenAI SDK rejects an empty key
+    ollama_base_url: str = "http://localhost:11434/v1"
+    hf_endpoint_url: str | None = None
+
+    # Minimum answer-to-chunk cosine for a retrieved chunk to become a source
+    # chip on the prose lane. Calibrate from the harness output (Task 7).
+    source_min_similarity: float = 0.35
+
     embedding_model: str = "BAAI/bge-m3"
     top_k: int = 5
     max_distance: float = 0.55
@@ -60,26 +94,48 @@ class Settings(BaseSettings):
     def cors_allowed_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_allowed_origins.split(",") if o.strip()]
 
-    @property
-    def active_provider(self) -> ProviderConfig:
+    def provider(self, name: str | None = None) -> ProviderConfig:
+        """Resolves a provider by name, applying its env base-URL override.
+        `name=None` means the active JSON-lane provider."""
+        name = name or self.llm_provider
         try:
-            return PROVIDERS[self.llm_provider]
+            cfg = PROVIDERS[name]
         except KeyError:
             raise ValueError(
-                f"Unknown LLM_PROVIDER {self.llm_provider!r}; "
-                f"valid options: {', '.join(PROVIDERS)}"
+                f"Unknown provider {name!r}; valid options: {', '.join(PROVIDERS)}"
             )
+        if cfg.base_url_field:
+            override = getattr(self, cfg.base_url_field)
+            if override:
+                cfg = cfg._replace(base_url=override)
+            elif not cfg.base_url:
+                raise ValueError(
+                    f"provider {name!r} requires "
+                    f"{cfg.base_url_field.upper()} to be set in the environment/.env"
+                )
+        return cfg
 
-    @property
-    def active_api_key(self) -> str:
-        field = self.active_provider.api_key_field
+    def api_key_for(self, name: str) -> str:
+        field = self.provider(name).api_key_field
         key = getattr(self, field)
         if not key:
             raise ValueError(
-                f"LLM_PROVIDER={self.llm_provider!r} requires "
+                f"provider {name!r} requires "
                 f"{field.upper()} to be set in the environment/.env"
             )
         return key
+
+    @property
+    def active_provider(self) -> ProviderConfig:
+        return self.provider()
+
+    @property
+    def active_api_key(self) -> str:
+        return self.api_key_for(self.llm_provider)
+
+    @property
+    def prose_provider_name(self) -> str:
+        return self.prose_provider or self.llm_provider
 
     @property
     def resolved_chat_model(self) -> str:
@@ -88,6 +144,14 @@ class Settings(BaseSettings):
     @property
     def resolved_condenser_model(self) -> str:
         return self.condenser_model or self.active_provider.default_condenser_model
+
+    @property
+    def resolved_prose_model(self) -> str:
+        # While the prose lane is off, prose must resolve exactly as chat does —
+        # including an explicit CHAT_MODEL override.
+        if self.prose_provider is None:
+            return self.resolved_chat_model
+        return self.prose_model or self.provider(self.prose_provider).default_chat_model
 
 
 settings = Settings()
