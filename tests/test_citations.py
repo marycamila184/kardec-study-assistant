@@ -35,6 +35,16 @@ def test_bare_number_is_not_a_citation():
     assert extract_model_citations("havia 625 pessoas") == set()
 
 
+def test_prose_number_does_not_borrow_book_from_next_sentence():
+    """The 60-char lookahead must not cross a sentence boundary to grab a
+    book name that belongs to an unrelated clause."""
+    text = (
+        "Reunimos a questão 42 do capítulo anterior. "
+        "Kardec, autor do Livro dos Espíritos, viveu no século XIX."
+    )
+    assert extract_model_citations(text) == set()
+
+
 # --- retrieved ids ----------------------------------------------------------
 
 
@@ -76,6 +86,14 @@ def test_strips_parenthetical_citation():
     assert strip_model_citations(text) == "A caridade é o essencial."
 
 
+def test_leaves_parenthetical_that_merely_mentions_a_book():
+    """A parenthetical that names a work but has no citation shape (no
+    number, no questão/item/capítulo word) is clarifying prose, not a
+    citation, and must not be stripped."""
+    text = "Kardec organizou a obra (o Livro dos Espíritos foi o primeiro) com base nas respostas."
+    assert strip_model_citations(text) == text
+
+
 def test_strips_sigla_reference():
     assert strip_model_citations("Conforme LE-625, a alma persiste.") == (
         "Conforme, a alma persiste."
@@ -100,3 +118,13 @@ def test_strips_the_models_own_source_line():
 def test_strips_source_line_without_emoji():
     text = "A alma persiste.\nFonte: O Livro dos Espíritos, Capítulo I."
     assert strip_model_citations(text) == "A alma persiste."
+
+
+def test_leaves_source_line_that_names_no_work():
+    """A line starting with 'Fonte:' that does not name one of the five
+    canonical works is legitimate prose, not a model citation trailer."""
+    text = (
+        "A fonte principal é a razão.\n"
+        "Fonte: inspiração divina, segundo os espíritos superiores."
+    )
+    assert strip_model_citations(text) == text

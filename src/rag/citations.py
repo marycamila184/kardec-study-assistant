@@ -29,20 +29,32 @@ _BOOK_PATTERNS: list[tuple[re.Pattern, str]] = [
     (re.compile(r"G[êe]nese", re.IGNORECASE), "GE"),
 ]
 
-_VALID_SIGLAS = set(SIGLAS.values())
-
 # "LE-625", "LE 625", "LE625"
 _SIGLA_REF = re.compile(r"\b(LE|LM|ESE|CI|GE)[-\s]?(\d{1,4})\b")
 
 # "questão 625 do Livro dos Espíritos" / "item 12 da Gênese" — number first,
-# book within the next ~60 chars.
+# book within the next ~60 chars. The lookahead is restricted to `[^.\n]` so
+# it cannot cross a sentence boundary (or newline) into an unrelated clause.
 _PROSE_REF = re.compile(
-    r"(?:quest[ãa]o|item|n[ºo°]?)\s*(\d{1,4})\s*(?:d[oaen]s?\s+)?(.{0,60})",
+    r"(?:quest[ãa]o|item|n[ºo°]?)\s*(\d{1,4})\s*(?:d[oaen]s?\s+)?([^.\n]{0,60})",
     re.IGNORECASE,
 )
 
 # A parenthetical whose contents name one of the works.
 _PAREN_REF = re.compile(r"\s*\(([^)]*)\)")
+
+# Citation shape inside a parenthetical/source line: a number, or a word that
+# only makes sense as a locator (questão/item/capítulo/cap./parte). Without
+# this, any parenthetical or "Fonte:" line that merely mentions a work's name
+# in passing prose would be mistaken for a citation.
+_CITATION_SHAPE = re.compile(
+    r"\d|quest[ãa]o|item|cap[íi]tulo|cap\.|parte", re.IGNORECASE
+)
+
+
+def _looks_like_citation(text: str) -> bool:
+    return bool(_sigla_in(text) and _CITATION_SHAPE.search(text))
+
 
 # The model's own trailing source line, observed in the smoke test:
 #   "📖 Fonte: O Livro dos Espíritos, questões 887-889."
@@ -98,8 +110,12 @@ def strip_model_citations(text: str) -> str:
     source chips. The model's own "Fonte:" line is dropped whole (it carries
     invented question numbers); parentheticals naming a work are dropped whole;
     bare sigla refs are dropped in place."""
-    text = _SOURCE_LINE.sub("", text)
-    text = _PAREN_REF.sub(lambda m: "" if _sigla_in(m.group(1)) else m.group(0), text)
+    text = _SOURCE_LINE.sub(
+        lambda m: "" if _looks_like_citation(m.group(0)) else m.group(0), text
+    )
+    text = _PAREN_REF.sub(
+        lambda m: "" if _looks_like_citation(m.group(1)) else m.group(0), text
+    )
     text = _SIGLA_REF.sub("", text)
     # Tidy the punctuation the removals leave behind.
     text = re.sub(r"[ \t]{2,}", " ", text)
