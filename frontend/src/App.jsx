@@ -787,8 +787,8 @@ export default function App() {
         {!isMobile && (
           <div style={{ width: 300, flexShrink: 0, display: 'flex' }}>
             <Sidebar
-              mode={mode}
-              onModeChange={switchMode}
+              onNewConvo={newConvo}
+              onPickMode={switchMode}
               onStudyTrecho={handleStudyTrecho}
               onTutorial={() => setOnboarded(false)}
               conversations={conversations}
@@ -815,8 +815,8 @@ export default function App() {
               boxShadow: '4px 0 24px rgba(0,0,0,.3)',
             }}>
               <Sidebar
-                mode={mode}
-                onModeChange={(m) => { switchMode(m); setDrawerOpen(false); }}
+                onNewConvo={() => { newConvo(); setDrawerOpen(false); }}
+                onPickMode={(m) => { switchMode(m); setDrawerOpen(false); }}
                 onStudyTrecho={() => { handleStudyTrecho(); setDrawerOpen(false); }}
                 onTutorial={() => { setOnboarded(false); setDrawerOpen(false); }}
                 conversations={conversations}

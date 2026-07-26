@@ -1,4 +1,5 @@
 import React from 'react';
+import NewConversationButton from './NewConversationButton';
 
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
 
@@ -10,36 +11,30 @@ const BookIcon = ({ size = 17, color = 'white' }) => (
   </svg>
 );
 
-const navModes = [
-  { id: 'estudar',  label: 'Estudar uma Obra' },
-  { id: 'duvida',   label: 'Tirar uma Dúvida' },
-  { id: 'refletir', label: 'Refletir' },
-];
-
 /**
- * Desktop sidebar (300px wide, sky blue background).
+ * Desktop sidebar (300px wide, sky blue background), also the mobile drawer.
+ *
+ * It no longer lists the modes. The sidebar is history-first: what belongs here
+ * is what the reader accumulates (favourites, recent conversations) plus the one
+ * control that starts something new. Mode selection lives on the home launcher,
+ * with the split button's caret as a shortcut into it.
+ *
  * Props:
- *   mode           — current active mode string
- *   onModeChange   — (modeId: string) => void
+ *   onNewConvo     — () => void  (opens the home launcher)
+ *   onPickMode     — (modeId: string) => void  (shortcut straight into a mode)
  *   onStudyTrecho  — () => void  (opens daily trecho in chat)
  *   onTutorial     — () => void
  *   conversations  — array of {id, title, mode, msgs}
  *   onLoadConvo    — (convo) => void
  */
 export default function Sidebar({
-  mode, onModeChange,
+  onNewConvo, onPickMode,
   onStudyTrecho, onTutorial,
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   evangelhoData = null,
   onClose,
   isMobile = false,
 }) {
-  const navBase = {
-    display: 'flex', alignItems: 'center', gap: 8,
-    padding: '7px 8px', borderRadius: 6, cursor: 'pointer',
-    fontSize: 13, marginBottom: 2, transition: 'background .15s',
-  };
-
   const hasFavorites = conversations.some(c => c.favorited);
   const hasRecent = conversations.some(c => !c.favorited);
 
@@ -81,34 +76,15 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* Nav — desktop only */}
-      {!isMobile && (
-        <div style={{ padding: '0 8px 4px' }}>
-          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 4px 10px' }} />
-          <div style={{
-            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 8px',
-          }}>Modos de estudo</div>
-          {navModes.map(m => (
-            <button key={m.id}
-              onClick={() => onModeChange(m.id)}
-              aria-current={mode === m.id ? 'true' : undefined}
-              style={{
-                ...navBase,
-                width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
-                fontWeight: mode === m.id ? 600 : 400,
-                color: mode === m.id ? 'white' : 'rgba(255,255,255,.7)',
-                background: mode === m.id ? 'rgba(255,255,255,.22)' : 'transparent',
-              }}>
-              {m.label}
-            </button>
-          ))}
-        </div>
-      )}
+      {/* New conversation — the only entry point into a mode */}
+      <div style={{ paddingTop: 10 }}>
+        <NewConversationButton onNewConvo={onNewConvo} onPickMode={onPickMode} />
+      </div>
 
-      {/* Daily trecho — desktop only */}
-      {!isMobile && (
-        <div style={{ padding: '0 8px 4px' }}>
+      {/* Daily trecho — desktop and the mobile drawer alike. On mobile the
+          drawer is the passage's home: the bottom nav no longer carries a tab
+          for it, so hiding it here would leave no way in. */}
+      <div style={{ padding: '0 8px 4px' }}>
           <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '6px 4px 10px' }} />
           <div style={{
             fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
@@ -162,8 +138,7 @@ export default function Sidebar({
               </div>
             )}
           </button>
-        </div>
-      )}
+      </div>
 
       {/* Conversations */}
       <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '0 8px 12px' }}>
