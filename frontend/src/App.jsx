@@ -24,7 +24,7 @@ import { useConversations } from './hooks/useConversations';
 import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { formatItemRef, formatSourceRef } from './utils/format';
-import { dayLabel, startsNewDay, formatTrechoDate } from './utils/day';
+import { dayLabel, startsNewDay } from './utils/day';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
@@ -823,7 +823,6 @@ export default function App() {
   // `!isHome` matters: without it the old empty state renders underneath the
   // home launcher, and the user meets two different launchers.
   const isEmpty = !isHome && msgs.length === 0 && !loading && !isEstudar;
-  const trechoDate = formatTrechoDate(evangelhoData?.date);
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -840,13 +839,11 @@ export default function App() {
           <div style={{ width: 300, flexShrink: 0, display: 'flex' }}>
             <Sidebar
               onNewConvo={newConvo}
-              onStudyTrecho={handleStudyTrecho}
               onTutorial={() => setOnboarded(false)}
               conversations={conversations}
               onLoadConvo={handleLoadConvo}
               onDeleteConvo={handleDeleteConvo}
               onToggleConvoFavorite={toggleConvoFavorite}
-              evangelhoData={evangelhoData}
             />
           </div>
         )}
@@ -867,13 +864,11 @@ export default function App() {
             }}>
               <Sidebar
                 onNewConvo={() => { newConvo(); setDrawerOpen(false); }}
-                onStudyTrecho={() => { handleStudyTrecho(); setDrawerOpen(false); }}
                 onTutorial={() => { setOnboarded(false); setDrawerOpen(false); }}
                 conversations={conversations}
                 onLoadConvo={(c) => { handleLoadConvo(c); setDrawerOpen(false); }}
                 onDeleteConvo={handleDeleteConvo}
                 onToggleConvoFavorite={toggleConvoFavorite}
-                evangelhoData={evangelhoData}
                 onClose={() => setDrawerOpen(false)}
                 isMobile
               />
@@ -898,6 +893,8 @@ export default function App() {
               onPick={switchMode}
               theme={theme}
               isMobile={isMobile}
+              evangelhoData={evangelhoData}
+              onStudyTrecho={handleStudyTrecho}
             />
           )}
 
@@ -1028,65 +1025,6 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* Trecho do dia — mobile only, and only here.
-                        handleStudyTrecho switches to Dialogar and answers in
-                        this thread, so this is the one screen where tapping it
-                        does not move the reader somewhere they did not ask to
-                        go. It sat in Estudar for one commit and was wrong for
-                        exactly that reason: the tap threw you out of Estudar,
-                        which is the defect the "Hoje" tab had.
-
-                        Desktop keeps the sidebar widget and does not show this
-                        — one entry point per layout, no duplication. On mobile
-                        the sidebar is a drawer and its trecho block is
-                        desktop-only, so without this the passage has no way in
-                        since the bottom nav dropped its tab. */}
-                    {mode === 'duvida' && isMobile && (
-                      <button
-                        onClick={evangelhoData ? handleStudyTrecho : undefined}
-                        disabled={!evangelhoData}
-                        style={{
-                          marginTop: 22, width: '100%', maxWidth: 460,
-                          textAlign: 'left', font: 'inherit',
-                          background: 'rgba(200,133,106,.07)',
-                          border: '1px solid rgba(200,133,106,.32)',
-                          borderRadius: 12, padding: '14px 16px',
-                          cursor: evangelhoData ? 'pointer' : 'default',
-                          display: 'flex', alignItems: 'flex-start', gap: 12,
-                        }}
-                      >
-                        <span style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }} aria-hidden="true">☀️</span>
-                        <span style={{ flex: 1, minWidth: 0 }}>
-                          <span style={{
-                            display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
-                            gap: 8, marginBottom: 3,
-                          }}>
-                            <span style={{ fontSize: 14.5, fontWeight: 600, color: theme.text }}>
-                              Trecho do dia
-                            </span>
-                            {trechoDate && (
-                              <span style={{ fontSize: 11, color: '#B5714E', flexShrink: 0 }}>{trechoDate}</span>
-                            )}
-                          </span>
-                          {evangelhoData ? (
-                            <>
-                              <span style={{
-                                display: 'block',
-                                fontFamily: "'Crimson Pro', serif", fontSize: 13.5, fontStyle: 'italic',
-                                color: theme.text, lineHeight: 1.55, marginBottom: 5,
-                              }}>"{evangelhoData.content.slice(0, 120)}…"</span>
-                              <span style={{ fontSize: 12, fontWeight: 600, color: '#B5714E' }}>
-                                Ler e refletir →
-                              </span>
-                            </>
-                          ) : (
-                            <span style={{ fontSize: 12.5, color: theme.subtext, fontStyle: 'italic' }}>
-                              Carregando trecho do dia…
-                            </span>
-                          )}
-                        </span>
-                      </button>
-                    )}
                   </div>
                 )}
 

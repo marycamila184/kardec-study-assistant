@@ -1,5 +1,4 @@
 import React from 'react';
-import { formatTrechoDate } from '../../utils/day';
 
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
 
@@ -14,28 +13,24 @@ const BookIcon = ({ size = 17, color = 'white' }) => (
 /**
  * Desktop sidebar (300px wide, sky blue background), also the mobile drawer.
  *
- * It no longer lists the modes. The sidebar is history-first: what belongs here
- * is what the reader accumulates (favourites, recent conversations) plus the one
- * control that starts something new. Mode selection lives on the home launcher,
- * which "Nova conversa" opens — the sidebar never enters a mode directly.
+ * History-only. What belongs here is what the reader accumulates — favourites
+ * and recent conversations — plus the one control that starts something new.
+ * The modes went to the home launcher, and so did the daily passage, which was
+ * the last block here that was not the reader's own material.
  *
  * Props:
  *   onNewConvo     — () => void  (opens the home launcher)
- *   onStudyTrecho  — () => void  (opens daily trecho in chat)
  *   onTutorial     — () => void
  *   conversations  — array of {id, title, mode, msgs}
  *   onLoadConvo    — (convo) => void
  */
 export default function Sidebar({
   onNewConvo,
-  onStudyTrecho, onTutorial,
+  onTutorial,
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
-  evangelhoData = null,
   onClose,
   isMobile = false,
 }) {
-  const trechoDate = formatTrechoDate(evangelhoData?.date);
-
   const hasFavorites = conversations.some(c => c.favorited);
   const hasRecent = conversations.some(c => !c.favorited);
 
@@ -102,75 +97,6 @@ export default function Sidebar({
           >
             <span style={{ fontSize: 15, lineHeight: 1 }}>+</span>
             Nova conversa
-          </button>
-        </div>
-      )}
-
-      {/* Daily trecho — desktop only */}
-      {!isMobile && (
-        <div style={{ padding: '0 8px 4px' }}>
-          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '6px 4px 10px' }} />
-          {/* The date is what distinguishes this block from Favoritas and
-              Recentes: those are what the reader accumulated, this is what
-              today handed them. It also tells a reader who opens the app twice
-              in a day that the passage is meant to be the same one. */}
-          <div style={{
-            display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8,
-            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
-          }}>
-            <span>Trecho do dia</span>
-            {trechoDate && (
-              <span style={{ fontWeight: 600, color: 'rgba(255,255,255,.28)' }}>{trechoDate}</span>
-            )}
-          </div>
-          <button
-            onClick={evangelhoData ? onStudyTrecho : undefined}
-            disabled={!evangelhoData}
-            aria-label="Ler e refletir sobre o trecho do dia"
-            style={{
-              display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
-              background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
-              cursor: evangelhoData ? 'pointer' : 'default',
-              transition: 'background .15s',
-            }}
-            onMouseEnter={e => {
-              if (!evangelhoData) return;
-              e.currentTarget.style.background = 'rgba(0,0,0,.25)';
-              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
-              if (arrow) arrow.style.transform = 'translateX(3px)';
-            }}
-            onMouseLeave={e => {
-              if (!evangelhoData) return;
-              e.currentTarget.style.background = 'rgba(0,0,0,.15)';
-              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
-              if (arrow) arrow.style.transform = 'translateX(0)';
-            }}
-          >
-            {evangelhoData ? (
-              <>
-                <div style={{
-                  fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
-                  color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
-                }}>"{evangelhoData.content.slice(0, 320)}…"</div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
-                  {evangelhoData.source.chapter_title && <div>{evangelhoData.source.chapter_title}</div>}
-                  <div>{evangelhoData.source.book}</div>
-                </div>
-                <div style={{ height: 1, background: 'rgba(255,255,255,.14)', margin: '9px 0' }} />
-                <div style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
-                  fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,.85)',
-                }}>
-                  Ler e refletir
-                  <span data-trecho-arrow style={{ display: 'inline-flex', transition: 'transform .15s' }}>→</span>
-                </div>
-              </>
-            ) : (
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
-                Carregando trecho do dia…
-              </div>
-            )}
           </button>
         </div>
       )}
