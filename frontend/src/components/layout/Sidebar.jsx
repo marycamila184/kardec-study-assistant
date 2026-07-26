@@ -80,7 +80,10 @@ export default function Sidebar({
           The mobile drawer is deliberately untouched — mode selection there
           belongs to MobileBottomNav. */}
       {!isMobile && (
-        <div style={{ padding: '10px 10px 4px' }}>
+        <div style={{ padding: '0 10px 4px' }}>
+          {/* Separates the action from the brand above it, using the same rule
+              that divides every other section of the sidebar. */}
+          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 2px 12px' }} />
           <button
             onClick={onNewConvo}
             style={{
