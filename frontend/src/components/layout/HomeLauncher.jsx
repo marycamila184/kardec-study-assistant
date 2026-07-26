@@ -80,6 +80,17 @@ export default function HomeLauncher({
           </button>
         ))}
 
+        {/* Separated, but not promoted. The three cards above answer the
+            headline — "como você quer estudar" — and the passage is not a mode,
+            it is a piece of content; rendered identically it read as a fourth
+            mode. The rule marks the change of kind. It stays last because first
+            position is a claim about priority: it would say the app is a daily
+            devotional with study attached rather than the other way round, and
+            would contradict the question printed directly above it. */}
+        {onStudyTrecho && (
+          <div style={{ height: 1, background: theme.cardBorder, margin: '10px 2px 2px' }} />
+        )}
+
         {onStudyTrecho && (
           <button
             onClick={evangelhoData ? onStudyTrecho : undefined}
