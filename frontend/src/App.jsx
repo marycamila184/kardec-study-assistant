@@ -16,6 +16,7 @@ import IntroObras from './components/modes/IntroObras';
 import UserBubble from './components/chat/UserBubble';
 import AIMessage from './components/chat/AIMessage';
 import LoadingDots from './components/chat/LoadingDots';
+import DayDivider from './components/chat/DayDivider';
 import InputBar from './components/chat/InputBar';
 import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
@@ -23,6 +24,7 @@ import { useConversations } from './hooks/useConversations';
 import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { formatItemRef, formatSourceRef } from './utils/format';
+import { dayLabel, startsNewDay } from './utils/day';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
@@ -219,7 +221,7 @@ export default function App() {
 
   const sendText = async (txt) => {
     if (!txt) return;
-    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: txt };
+    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: txt };
     const newMsgs = [...msgs, userMsg];
     setMsgs(newMsgs); setInput(''); setLoading(true);
     const id = convoId || ('c' + Date.now());
@@ -241,14 +243,14 @@ export default function App() {
         reply = await chatMessage(txt, history, null, MODE_TO_INTENT[requestMode] || null);
       }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
-      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, txt.slice(0, 48), mode, finalMsgs);
     } catch (err) {
       console.error('sendText failed:', err);
       if (requestId !== requestIdRef.current) return;
-      setMsgs([...newMsgs, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+      setMsgs([...newMsgs, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
       if (requestId === requestIdRef.current) {
         setLoading(false);
@@ -272,7 +274,7 @@ export default function App() {
   // ── Continue a Refletir thread via a clicked reflection-question button ───
   const handleReflectionQuestionClick = async (question) => {
     const history = buildReflectHistory(msgs);
-    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: question };
+    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: question };
     const newMsgs = [...msgs, userMsg];
     setMsgs(newMsgs); setLoading(true);
     const id = convoId || ('c' + Date.now());
@@ -286,14 +288,14 @@ export default function App() {
       // toward Refletir inside a Refletir thread (sendText does the same).
       const reply = await reflectSituation(question, history, MODE_TO_INTENT.refletir);
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
-      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, question.slice(0, 48), mode, finalMsgs);
     } catch (err) {
       console.error('handleReflectionQuestionClick failed:', err);
       if (requestId !== requestIdRef.current) return;
-      setMsgs([...newMsgs, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+      setMsgs([...newMsgs, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
       if (requestId === requestIdRef.current) {
         setLoading(false);
@@ -315,7 +317,7 @@ export default function App() {
     if (label === '📄 Ler original') {
       if (msg.obra?.quote) {
         append({
-          id: 'a' + Date.now(), isUser: false, isAI: true,
+          id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true,
           hasDaObra: true, obra: { ...msg.obra, title: 'Texto original' }, ia: '',
         });
       }
@@ -334,17 +336,17 @@ export default function App() {
     const userText = label === '💡 Explicar simples'
       ? `Explique de forma mais simples: "${snippet}"`
       : '🪞 Reflexão sobre este trecho';
-    append({ id: 'u' + Date.now(), isUser: true, isAI: false, text: userText });
+    append({ id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: userText });
     setLoad(true);
     scrollToBottom();
     try {
       const reply = label === '🪞 Reflexão'
         ? await reflectSituation(snippet)
         : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
-      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('runQuickAction failed:', err);
-      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
       scrollToBottom();
@@ -362,15 +364,15 @@ export default function App() {
   const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
     const epoch = threadEpochRef.current;
     const append = (m) => { if (epoch === threadEpochRef.current) appendMsg(m); };
-    append({ id: 'u' + Date.now(), isUser: true, isAI: false, text: displayText });
+    append({ id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: displayText });
     setLoad(true);
     scrollToBottom();
     try {
       const reply = await chatMessage(queryText, [], bookFilter);
-      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('askDuvida failed:', err);
-      append({ id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
       setLoad(false);
       scrollToBottom();
@@ -410,6 +412,7 @@ export default function App() {
       const reply = await studyItem(step.book, step.item_number, step.chapter || null);
       tutorMsg = {
         id: 'tutor_' + stepIdx,
+        ts: Date.now(),
         isUser: false, isAI: true,
         ...reply,
         obra: reply.obra
@@ -420,6 +423,7 @@ export default function App() {
       console.error('presentGuidedStep failed:', err);
       tutorMsg = {
         id: 'tutor_' + stepIdx,
+        ts: Date.now(),
         isUser: false, isAI: true, hasDaObra: false, obra: null,
         ia: `Não foi possível carregar "${step.label}". Tente novamente.`,
       };
@@ -445,7 +449,7 @@ export default function App() {
 
   // ── Explorar Obras ────────────────────────────────────────────────────────
   const handleAskTopic = async (query, obraId) => {
-    const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: query };
+    const userMsg = { id: 'eu' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: query };
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
 
     const bookName = BOOK_NAME_MAP[obraId];
@@ -473,7 +477,7 @@ export default function App() {
       setExplorarLoad(false);
     }
 
-    const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
+    const aiMsg = { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
     const convoId2 = 'explorar_' + Date.now();
     const title = query.slice(0, 48);
     const meta = { id: convoId2, title };
@@ -486,7 +490,7 @@ export default function App() {
 
   // ── Explorar Obras: free-text chat (appends to existing conversation) ────────
   const handleExplorarChat = async (query, obraId) => {
-    const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: query };
+    const userMsg = { id: 'eu' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: query };
     const prevMsgs = explorarMsgs;
     setExplorarMsgs([...prevMsgs, userMsg]);
     setExplorarLoad(true);
@@ -518,7 +522,7 @@ export default function App() {
     }
 
     setExplorarLoad(false);
-    const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
+    const aiMsg = { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
     const updatedMsgs = [...prevMsgs, userMsg, aiMsg];
 
     const meta = explorarConvoMetaRef.current;
@@ -603,19 +607,19 @@ export default function App() {
       chapterRef: source.chapter,   // handoff sources carry chapter_ref here
       itemNumber: source.item_number,
     });
-    const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: label };
+    const userMsg = { id: 'eu' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: label };
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
     try {
       const reply = await studyItem(source.book, source.item_number, source.chapter || null);
-      const aiMsg = { id: 'ea' + Date.now(), isUser: false, isAI: true, ...reply };
+      const aiMsg = { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const meta = { id: 'explorar_' + Date.now(), title: label };
       setExplorarConvoMeta(meta); explorarConvoMetaRef.current = meta;
       saveConvo(meta.id, label, 'estudar', [userMsg, aiMsg], 'explorar');
       setExplorarMsgs([userMsg, aiMsg]);
     } catch (err) {
       console.error('handleGoStudyItem failed:', err);
-      setExplorarMsgs([userMsg, { id: 'ea' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+      setExplorarMsgs([userMsg, { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
       setExplorarLoad(false);
     }
@@ -626,7 +630,7 @@ export default function App() {
     if (!situationText) return;
     switchMode('refletir');
     setRefletirSub('chat');
-    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: situationText };
+    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: situationText };
     setMsgs([userMsg]); setLoading(true);
     const id = 'c' + Date.now();
     setConvoId(id);
@@ -636,14 +640,14 @@ export default function App() {
     try {
       const reply = await reflectSituation(situationText, [], 'refletir');
       if (requestId !== requestIdRef.current) return;
-      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [userMsg, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, situationText.slice(0, 48), 'refletir', finalMsgs);
     } catch (err) {
       console.error('handleGoReflect failed:', err);
       if (requestId !== requestIdRef.current) return;
-      setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+      setMsgs([userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
       if (requestId === requestIdRef.current) {
         setLoading(false);
@@ -656,7 +660,7 @@ export default function App() {
   const handleGoDuvida = async (questionText) => {
     if (!questionText) return;
     switchMode('duvida');
-    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: questionText };
+    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: questionText };
     setMsgs([userMsg]); setLoading(true);
     const id = 'c' + Date.now();
     setConvoId(id);
@@ -666,14 +670,14 @@ export default function App() {
     try {
       const reply = await chatMessage(questionText, [], null, 'tirar_duvida');
       if (requestId !== requestIdRef.current) return;
-      const aiMsg = { id: 'a' + Date.now(), isUser: false, isAI: true, ...reply };
+      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [userMsg, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, questionText.slice(0, 48), 'duvida', finalMsgs);
     } catch (err) {
       console.error('handleGoDuvida failed:', err);
       if (requestId !== requestIdRef.current) return;
-      setMsgs([userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+      setMsgs([userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
       if (requestId === requestIdRef.current) {
         setLoading(false);
@@ -765,7 +769,7 @@ export default function App() {
     switchMode('duvida');
     const epoch = threadEpochRef.current; // after switchMode's bump
     const { source, content } = evangelhoData;
-    const userMsg = { id: 'u' + Date.now(), isUser: true, isAI: false, text: 'Estudo diário de hoje' };
+    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: 'Estudo diário de hoje' };
     const id = 'trecho_' + Date.now();
     setConvoId(id);
     setMsgs([userMsg]); setLoading(true); scrollToBottom();
@@ -786,7 +790,7 @@ export default function App() {
 
     // User may have switched threads while /study ran — don't clobber the new one.
     if (epoch !== threadEpochRef.current) return;
-    const finalMsgs = [userMsg, { id: 'a' + Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
+    const finalMsgs = [userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
     setMsgs(finalMsgs);
     saveConvo(id, 'Trecho do dia', 'duvida', finalMsgs);
     scrollToBottom();
@@ -1024,7 +1028,11 @@ export default function App() {
                 )}
 
                 {msgs.map((msg, idx) => (
-                  msg.isUser
+                  <React.Fragment key={msg.id}>
+                  {startsNewDay(msgs, idx) && (
+                    <DayDivider label={dayLabel(msg.ts)} theme={theme} />
+                  )}
+                  {msg.isUser
                     ? <UserBubble key={msg.id} text={msg.text} />
                     : <AIMessage key={msg.id} msg={msg} theme={theme} fontSize={msgFontSize}
                         onShare={msg.isTrecho ? () => setShareMsg(msg) : undefined}
@@ -1042,7 +1050,8 @@ export default function App() {
                         }
                         onSuggestedQuestionClick={(q) => sendText(q)}
                         footerAction={buildModeNudge(msg, priorUserTextAt(msgs, idx))}
-                      />
+                      />}
+                  </React.Fragment>
                 ))}
                 {loading && <LoadingDots theme={theme} />}
               </div>
@@ -1091,11 +1100,11 @@ export default function App() {
             scrollToBottom();
             try {
               const reply = await studyItem(item.book, item.item_number, item.chapter || null);
-              appendMsg({ id: 'a' + Date.now(), isUser: false, isAI: true, ...reply });
+              appendMsg({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
             } catch (err) {
               console.error('RelatedItemsModal onSelectItem failed:', err);
               appendMsg({
-                id: 'a' + Date.now(), isUser: false, isAI: true,
+                id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true,
                 hasDaObra: false, obra: null, ia: 'Não foi possível carregar este item.',
               });
             } finally {
