@@ -108,7 +108,7 @@ def test_seguir_by_path_separates_the_paths():
 
 
 def test_variants_differ_on_whether_chips_are_mandatory():
-    assert "DUAS perguntas" in VARIANTS["atual"]
+    assert "DUAS perguntas" in VARIANTS["duas-sempre"]
     assert "ATÉ duas" in VARIANTS["seguir-opcional"]
     assert "[SEGUIR:] vazio" in VARIANTS["seguir-opcional"]
 
@@ -118,17 +118,17 @@ def test_variants_differ_on_whether_chips_are_mandatory():
 
 def test_report_shows_every_variant_for_a_case():
     lanes = {
-        "atual": [_row("abertura-espirito", n_seguir=2)],
+        "duas-sempre": [_row("abertura-espirito", n_seguir=2)],
         "seguir-opcional": [_row("abertura-espirito", n_seguir=0)],
     }
     report = format_report(lanes)
-    assert "atual" in report
+    assert "duas-sempre" in report
     assert "seguir-opcional" in report
     assert "_(nenhum)_" in report  # the silent variant is visible as silence
 
 
 def test_report_warns_when_only_one_variant_ran():
-    report = format_report({"atual": [_row("abertura-espirito")]})
+    report = format_report({"duas-sempre": [_row("abertura-espirito")]})
     assert "não são nada" in report
 
 

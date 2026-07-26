@@ -28,7 +28,7 @@ variant that wins at 0 can still misbehave when sampled; that needs its own
 repeated-sampling run.
 
 Usage:
-    uv run python -m scripts.compare_generators --variants atual,seguir-opcional
+    uv run python -m scripts.compare_generators --variants duas-sempre,seguir-opcional
     uv run python -m scripts.compare_generators --report-only > logs/ab.md
 """
 
@@ -301,8 +301,9 @@ CASES = [
 # is one patch. Keeping both texts here makes the A/B repeatable instead of a
 # sequence of file edits nobody can reproduce.
 
-# atual — two questions, unconditionally. What production does today.
-_V_ATUAL = """\
+# duas-sempre — two questions, unconditionally. What production did before
+# 2026-07-26; kept so the comparison stays reproducible.
+_V_DUAS_SEMPRE = """\
 2. [SEGUIR: pergunta 1 | pergunta 2] com DUAS perguntas curtas de continuação \
 que o usuário poderia fazer em seguida, separadas por "|". Cada pergunta deve \
 ser respondível pelas obras de Kardec e, de preferência, ligada aos temas das \
@@ -335,7 +336,7 @@ ligada aos temas das passagens recuperadas — nunca sugira algo que as obras n�
 abordam. Nunca sugira uma pergunta que já foi feita ou já foi respondida nesta \
 conversa, nem uma reformulação equivalente dela."""
 
-VARIANTS = {"atual": _V_ATUAL, "seguir-opcional": _V_SEGUIR_OPCIONAL}
+VARIANTS = {"duas-sempre": _V_DUAS_SEMPRE, "seguir-opcional": _V_SEGUIR_OPCIONAL}
 
 
 def _resolve_variant(name: str) -> str | None:
