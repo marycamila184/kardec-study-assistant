@@ -1,5 +1,4 @@
 import React from 'react';
-import NewConversationButton from './NewConversationButton';
 
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
 
@@ -17,18 +16,17 @@ const BookIcon = ({ size = 17, color = 'white' }) => (
  * It no longer lists the modes. The sidebar is history-first: what belongs here
  * is what the reader accumulates (favourites, recent conversations) plus the one
  * control that starts something new. Mode selection lives on the home launcher,
- * with the split button's caret as a shortcut into it.
+ * which "Nova conversa" opens — the sidebar never enters a mode directly.
  *
  * Props:
  *   onNewConvo     — () => void  (opens the home launcher)
- *   onPickMode     — (modeId: string) => void  (shortcut straight into a mode)
  *   onStudyTrecho  — () => void  (opens daily trecho in chat)
  *   onTutorial     — () => void
  *   conversations  — array of {id, title, mode, msgs}
  *   onLoadConvo    — (convo) => void
  */
 export default function Sidebar({
-  onNewConvo, onPickMode,
+  onNewConvo,
   onStudyTrecho, onTutorial,
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   evangelhoData = null,
@@ -76,13 +74,29 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* New conversation — desktop only, and on desktop the only entry point
-          into a mode. The mobile drawer is deliberately untouched: mode
-          selection there belongs to MobileBottomNav, and the drawer stays
-          history-only as it already was. */}
+      {/* New conversation — desktop only. It goes to the home launcher and
+          nowhere else: home is the canonical place to choose a mode, and a
+          shortcut menu here would be a second launcher competing with it.
+          The mobile drawer is deliberately untouched — mode selection there
+          belongs to MobileBottomNav. */}
       {!isMobile && (
-        <div style={{ paddingTop: 10 }}>
-          <NewConversationButton onNewConvo={onNewConvo} onPickMode={onPickMode} />
+        <div style={{ padding: '10px 10px 4px' }}>
+          <button
+            onClick={onNewConvo}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 7, width: '100%',
+              background: 'rgba(255,255,255,.18)',
+              border: '1px solid rgba(255,255,255,.32)',
+              borderRadius: 8, padding: '9px 12px',
+              color: 'white', font: 'inherit', fontSize: 13, fontWeight: 600,
+              cursor: 'pointer', transition: 'background .15s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,.26)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,.18)'; }}
+          >
+            <span style={{ fontSize: 15, lineHeight: 1 }}>+</span>
+            Nova conversa
+          </button>
         </div>
       )}
 
