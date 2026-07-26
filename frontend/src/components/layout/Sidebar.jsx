@@ -76,15 +76,19 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* New conversation — the only entry point into a mode */}
-      <div style={{ paddingTop: 10 }}>
-        <NewConversationButton onNewConvo={onNewConvo} onPickMode={onPickMode} />
-      </div>
+      {/* New conversation — desktop only, and on desktop the only entry point
+          into a mode. The mobile drawer is deliberately untouched: mode
+          selection there belongs to MobileBottomNav, and the drawer stays
+          history-only as it already was. */}
+      {!isMobile && (
+        <div style={{ paddingTop: 10 }}>
+          <NewConversationButton onNewConvo={onNewConvo} onPickMode={onPickMode} />
+        </div>
+      )}
 
-      {/* Daily trecho — desktop and the mobile drawer alike. On mobile the
-          drawer is the passage's home: the bottom nav no longer carries a tab
-          for it, so hiding it here would leave no way in. */}
-      <div style={{ padding: '0 8px 4px' }}>
+      {/* Daily trecho — desktop only */}
+      {!isMobile && (
+        <div style={{ padding: '0 8px 4px' }}>
           <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '6px 4px 10px' }} />
           <div style={{
             fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
@@ -138,7 +142,8 @@ export default function Sidebar({
               </div>
             )}
           </button>
-      </div>
+        </div>
+      )}
 
       {/* Conversations */}
       <div style={{ flex: 1, overflowY: 'auto', minHeight: 0, padding: '0 8px 12px' }}>
