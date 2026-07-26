@@ -1,5 +1,20 @@
 import React from 'react';
 
+/**
+ * "2026-07-26" → "26 de julho".
+ *
+ * Built from the parts rather than `new Date(iso)`: that parses a bare
+ * yyyy-mm-dd as UTC midnight, which renders as the *previous* day anywhere west
+ * of Greenwich — 25 de julho for a reader in Brazil. The backend already means
+ * a calendar date, not an instant, so it is never converted to one here.
+ */
+const formatTrechoDate = (iso) => {
+  if (!iso) return null;
+  const [y, m, d] = iso.split('-').map(Number);
+  if (!y || !m || !d) return null;
+  return new Date(y, m - 1, d).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' });
+};
+
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
 
 const BookIcon = ({ size = 17, color = 'white' }) => (
@@ -33,6 +48,8 @@ export default function Sidebar({
   onClose,
   isMobile = false,
 }) {
+  const trechoDate = formatTrechoDate(evangelhoData?.date);
+
   const hasFavorites = conversations.some(c => c.favorited);
   const hasRecent = conversations.some(c => !c.favorited);
 
@@ -107,10 +124,20 @@ export default function Sidebar({
       {!isMobile && (
         <div style={{ padding: '0 8px 4px' }}>
           <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '6px 4px 10px' }} />
+          {/* The date is what distinguishes this block from Favoritas and
+              Recentes: those are what the reader accumulated, this is what
+              today handed them. It also tells a reader who opens the app twice
+              in a day that the passage is meant to be the same one. */}
           <div style={{
+            display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8,
             fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
             textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
-          }}>Trecho do dia</div>
+          }}>
+            <span>Trecho do dia</span>
+            {trechoDate && (
+              <span style={{ fontWeight: 600, color: 'rgba(255,255,255,.28)' }}>{trechoDate}</span>
+            )}
+          </div>
           <button
             onClick={evangelhoData ? onStudyTrecho : undefined}
             disabled={!evangelhoData}
