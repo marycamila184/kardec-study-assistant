@@ -1,4 +1,4 @@
-from src.rag.retriever import has_real_item_number
+from src.rag.retriever import has_real_item_number, item_word
 
 _SYSTEM_TEMPLATE = """\
 Você é um assistente de estudos da doutrina espírita, fundamentado exclusivamente \
@@ -89,7 +89,7 @@ def _format_passage(index: int, chunk: dict) -> str:
     if m.get("chapter_title"):
         header += f" | Capítulo: {m['chapter_title']}"
     if has_real_item_number(m.get("item_number")):
-        header += f" | Item: {m['item_number']}"
+        header += f" | {item_word(m['book'])}: {m['item_number']}"
     return f"{header}\n    \"{chunk['content']}\""
 
 

@@ -42,16 +42,18 @@ export default function IABlock({
         </div>
       )}
 
-      {msg.isReflection && msg.opening && (
-        <div style={{
-          fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', fontSize: 15,
-          color: BRAND_TERRACOTTA, lineHeight: 1.6, marginBottom: 10,
-        }}>{renderInlineMarkdown(msg.opening)}</div>
-      )}
-
+      {/* The Reflexivo's opening runs as the first paragraph of the answer, in
+          the same type as the rest. It used to be set apart in serif italic
+          terracotta, which read as a second voice speaking before the answer —
+          a greeting card stapled to a letter. It is the same voice, so it is
+          the same text. Joined into one block rather than styled to match, so
+          the paragraph rhythm is the body's own and reflections already saved
+          in a reader's history re-render the new way too. */}
       <div style={{
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
-      }}>{renderInlineMarkdown(revealedText)}</div>
+      }}>{renderInlineMarkdown(
+        [msg.isReflection && msg.opening, revealedText].filter(Boolean).join('\n\n')
+      )}</div>
 
       {!isRevealing && msg.isReflection && !msg.isClosing && msg.reflectionQuestions?.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>

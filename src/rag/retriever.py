@@ -44,6 +44,20 @@ def has_real_item_number(item_number: str | None) -> bool:
     return bool(item_number) and not item_number.startswith("section-")
 
 
+def item_word(book: str) -> str:
+    """What a numbered entry is *called* in a given work, for passage headers
+    fed to the LLM.
+
+    O Livro dos Espíritos numbers questões; the other four number itens. The
+    header is the only place the model learns this vocabulary, so labelling an
+    LE passage "Item 341" produced prose that said "o Item 341 do Livro dos
+    Espíritos" while the source chip beside it said "Q.341" — two names for one
+    passage on the same screen. The frontend's formatItemRef() is the display
+    half of this same rule.
+    """
+    return "Questão" if book == "O Livro dos Espíritos" else "Item"
+
+
 def _get_store() -> VectorStore:
     global _store
     if _store is None:

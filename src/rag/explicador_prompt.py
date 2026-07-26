@@ -3,6 +3,7 @@ import re
 
 from src.rag.json_extract import extract_outermost, strip_code_fence
 from src.rag.markers import parse_sections, split_pipe_list
+from src.rag.retriever import item_word
 
 _MARKER_FORMAT = """\
 REGRA ABSOLUTA DE FORMATO: responda usando EXATAMENTE estas duas seções, cada \
@@ -126,7 +127,9 @@ def _format_related(chunks: list[dict]) -> str:
     parts = []
     for c in chunks:
         m = c["metadata"]
-        parts.append(f"[{m['book']} | Item {m['item_number']}]\n\"{c['content']}\"")
+        parts.append(
+            f"[{m['book']} | {item_word(m['book'])} {m['item_number']}]\n\"{c['content']}\""
+        )
     return "\n\n".join(parts)
 
 
