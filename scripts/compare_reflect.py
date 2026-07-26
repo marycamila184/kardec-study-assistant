@@ -37,13 +37,35 @@ from unittest.mock import patch
 # Ordinary difficulty, deliberately below the crisis floor: `needs_crisis_note`
 # short-circuits before any LLM call, so a crisis phrasing here would compare
 # two identical fixed strings and measure nothing.
+# `corpus_fit` records whether the two works Reflect is allowed to search
+# (REFLECT_BOOKS: Espíritos + Evangelho) actually speak to the situation.
+#
+#   "bom"  — the Evangelho has chapters directly on this; a passage-fit test
+#            must NOT make the model go quiet here, or the fix is a regression
+#   "ruim" — retrieval returns vocabulary matches about other things. Grief is
+#            the case that started this: for "perdi alguém que eu amava" the top
+#            hit is LE 340, the agony of a Spirit about to reincarnate.
+#
+# Both groups exist for the same reason wrong_offer and wrong_silence do in
+# compare_generators: an abstention rate on its own would reward a variant that
+# refuses every situation, which would be useless.
 SITUATIONS = [
-    "estou passando por uma fase muito difícil no trabalho e me sinto sem valor",
-    "briguei com minha mãe e não sei como consertar",
-    "perdi meu pai ano passado e ainda sinto uma saudade que não passa",
-    "meu casamento acabou e eu me sinto um fracasso",
-    "tenho muita inveja de uma amiga e isso me envergonha",
-    "ando ansioso com o futuro e não consigo parar de me preocupar",
+    {"text": "estou passando por uma fase muito difícil no trabalho e me sinto sem valor",
+     "corpus_fit": "bom"},
+    {"text": "briguei com minha mãe e não sei como consertar",
+     "corpus_fit": "bom"},
+    {"text": "tenho muita inveja de uma amiga e isso me envergonha",
+     "corpus_fit": "bom"},
+    {"text": "não consigo perdoar quem me fez mal",
+     "corpus_fit": "bom"},
+    {"text": "perdi meu pai ano passado e ainda sinto uma saudade que não passa",
+     "corpus_fit": "ruim"},
+    {"text": "perdi alguém que eu amava e estou sofrendo muito com essa perda",
+     "corpus_fit": "ruim"},
+    {"text": "meu casamento acabou e eu me sinto um fracasso",
+     "corpus_fit": "ruim"},
+    {"text": "ando ansioso com o futuro e não consigo parar de me preocupar",
+     "corpus_fit": "ruim"},
 ]
 
 
@@ -89,6 +111,42 @@ def advice_hits(text: str) -> list[str]:
     return hits
 
 
+# The model saying, in so many words, that the retrieved passages do not address
+# the situation. Keyword-based and therefore a floor, not a ceiling: it will miss
+# a paraphrase it has not seen. It is read alongside the answers themselves in
+# the report, never on its own.
+_ABSTAINS = re.compile(
+    r"n[ãa]o\s+(?:tratam|falam|abordam|se\s+referem|trazem|dizem)\b"
+    r"|n[ãa]o\s+h[áa]\s+(?:trechos?|passagens?)"
+    r"|(?:trechos?|passagens?)[^.]{0,60}n[ãa]o\s+(?:tratam|falam|abordam)",
+    re.IGNORECASE,
+)
+
+
+def abstains(text: str) -> bool:
+    return bool(_ABSTAINS.search(text or ""))
+
+
+def summarize_by_fit(rows: list[dict]) -> dict:
+    """Abstention split by whether the corpus can serve the situation.
+
+    The two numbers must move in opposite directions for the change to be a
+    win: up on `ruim`, flat at zero on `bom`. A single overall rate would hide
+    a variant that simply went quiet everywhere.
+    """
+    out = {}
+    for fit in ("bom", "ruim"):
+        group = [r for r in rows if r.get("corpus_fit") == fit]
+        if not group:
+            continue
+        out[fit] = {
+            "n": len(group),
+            "abstention_rate": sum(1 for r in group if abstains(r["doctrine_connection"])) / len(group),
+            "mean_groundedness": sum(r["groundedness"] for r in group) / len(group),
+        }
+    return out
+
+
 def summarize(rows: list[dict]) -> dict:
     if not rows:
         return {}
@@ -101,6 +159,7 @@ def summarize(rows: list[dict]) -> dict:
         "parse_failure_rate": sum(1 for r in rows if r["generation_failed"]) / n,
         "mean_groundedness": sum(r["groundedness"] for r in rows) / n,
         "mean_questions": sum(len(r["reflection_questions"]) for r in rows) / n,
+        "abstention_rate": sum(1 for r in rows if abstains(r["doctrine_connection"])) / n,
     }
 
 
@@ -156,6 +215,57 @@ evidentemente bom — perdoar, reconstruir, crescer, aceitar, encontrar equilíb
 )
 
 VARIANTS = {"baseline": _V_BASELINE, "stems": _V_STEMS}
+
+
+# --- passage-fit variants (MEASURED AND REJECTED, 2026-07-26) ----------------
+#
+# Kept so the result stays reproducible, and so nobody proposes it a second
+# time. Re-running needs the {passage_fit} slot back in _SYSTEM_TEMPLATE; the
+# patch below uses create=True for the constant.
+#
+# The idea: retrieval ranks by embedding proximity, which tracks vocabulary and
+# therefore affect — for "perdi alguém que eu amava" the top hit is LE 340, the
+# agony of a Spirit about to reincarnate, while the apt passage (a prayer for
+# the departed) came third. The prompt had never given the model permission to
+# discard a retrieved passage, so it built on the first two and wrote the seam
+# in plain sight.
+#
+# Why it failed (8 situations, temperature 0):
+#   - abstained 1/4 on `bom` and 1/4 on `ruim` — the same rate, when the whole
+#     point was for those to move in opposite directions
+#   - the one abstention landed on work/self-worth, which the Evangelho covers
+#     directly, and on NEITHER grief case, which is what started this
+#   - "abstaining" did not stop it: "as passagens não tratam diretamente ...
+#     mas podemos refletir sobre" — it learned to announce the seam rather than
+#     stop sewing, using the exact connective the rule banned
+#   - advice_in_questions_rate doubled, 0.25 -> 0.50
+#
+# The conclusion is about capability, not wording: the model cannot judge
+# aptness better than the ranking can. Permission to discard produces arbitrary
+# hedging, not discernment. This is a retrieval problem and has to be fixed in
+# retrieval.
+_F_SEM_TESTE = ""
+
+# "com-teste" must stay a byte-for-byte copy of reflect_prompt._PASSAGE_FIT, or
+# the run stops describing what the file does. Asserted below.
+_F_COM_TESTE = """\
+A ordem das passagens não indica qualidade, e nem toda passagem recuperada serve \
+à situação: a busca aproxima vocabulário, de modo que um trecho pode repetir as \
+mesmas palavras de sofrimento e tratar de outra coisa.
+
+Antes de usar cada passagem, aplique este teste: ela fala do que a pessoa \
+trouxe, ou apenas se parece com o que ela escreveu? Use somente as que falam — \
+ainda que sobrem poucas, ainda que a melhor não seja a primeira da lista.
+
+Se você precisar de uma frase de ligação para a passagem caber na situação, ela \
+não cabe. Descarte-a.
+
+Se nenhuma passar no teste, não construa a ponte. Diga em "doctrine_connection", \
+com franqueza e sem constrangimento, que os trechos recuperados não tratam \
+diretamente do que a pessoa vive; acolha assim mesmo e ofereça perguntas que \
+nasçam da situação dela."""
+
+PASSAGE_FIT_VARIANTS = {"sem-teste": _F_SEM_TESTE, "com-teste": _F_COM_TESTE}
 
 
 def _resolve_variant(name: str) -> str | None:
@@ -222,6 +332,7 @@ def _run_lane(
     prose_provider: str | None,
     temperature: float | None = 0.0,
     variant: str | None = None,
+    passage_fit: str | None = None,
 ) -> list[dict]:
     """Runs every situation with Reflexivo pointed at `prose_provider`.
 
@@ -238,7 +349,8 @@ def _run_lane(
     llm_client._clients.clear()
 
     rows = []
-    for situation in SITUATIONS:
+    for case in SITUATIONS:
+        situation = case["text"]
         raw_sink: list[str] = []
         shim = (
             _prose_shim(raw_sink)
@@ -251,6 +363,19 @@ def _run_lane(
                 stack.enter_context(
                     patch("src.rag.reflect_prompt._NO_ADVICE", variant)
                 )
+            if passage_fit is not None:
+                # reflect_prompt has no _PASSAGE_FIT slot any more (the rule was
+                # measured and rejected on 2026-07-26 — see the note above
+                # PASSAGE_FIT_VARIANTS). `create=True` re-creates the attribute
+                # for the duration of a re-run, so the rejected variant stays
+                # reproducible without living in production.
+                stack.enter_context(
+                    patch(
+                        "src.rag.reflect_prompt._PASSAGE_FIT",
+                        passage_fit,
+                        create=True,
+                    )
+                )
             result = reflect(situation)
 
         # `sources` carries the excerpt text under a different key than the
@@ -260,6 +385,7 @@ def _run_lane(
         rows.append(
             {
                 "situation": situation,
+                "corpus_fit": case["corpus_fit"],
                 "opening": result["opening"],
                 "doctrine_connection": result["doctrine_connection"],
                 "reflection_questions": result["reflection_questions"],
@@ -329,6 +455,12 @@ def main() -> None:
         f"({', '.join(['atual', *VARIANTS])}). Empty = whatever is in the file.",
     )
     parser.add_argument(
+        "--passage-fit",
+        default="",
+        help="comma-separated passage-fit variants to compare on the JSON lane "
+        f"({', '.join(PASSAGE_FIT_VARIANTS)}). Empty = whatever is in the file.",
+    )
+    parser.add_argument(
         "--temperature",
         type=float,
         default=0.0,
@@ -337,6 +469,24 @@ def main() -> None:
     )
     args = parser.parse_args()
     temperature = None if args.temperature < 0 else args.temperature
+
+    if args.passage_fit:
+        names = [n.strip() for n in args.passage_fit.split(",") if n.strip()]
+        print(f"# /reflect — teste de aptidão da passagem @ temperature={temperature}\n")
+        results = {}
+        for name in names:
+            rows = _run_lane(None, temperature, None, PASSAGE_FIT_VARIANTS[name])
+            results[name] = rows
+            print(f"## variante: {name}\n")
+            for r in rows:
+                print(f"### [{r['corpus_fit']}] {r['situation']}\n")
+                print("\n".join(_format_lane(r, name)))
+            print("---\n")
+        print("## Summary\n")
+        for name, rows in results.items():
+            print(f"- {name}: {summarize(rows)}")
+            print(f"  por aptidão do acervo: {summarize_by_fit(rows)}")
+        return
 
     if args.variants:
         names = [n.strip() for n in args.variants.split(",") if n.strip()]
