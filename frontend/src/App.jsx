@@ -845,8 +845,6 @@ export default function App() {
             <HomeLauncher
               onPick={switchMode}
               theme={theme}
-              evangelhoData={evangelhoData}
-              onStudyTrecho={handleStudyTrecho}
               isMobile={isMobile}
             />
           )}

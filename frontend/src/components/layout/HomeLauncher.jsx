@@ -10,15 +10,16 @@ import { MODES } from '../../constants/modes';
  * go vestigial and the app would again have two competing launchers, which is
  * the problem this redesign exists to remove.
  *
- * The daily passage appears here as well as in the sidebar: on mobile the
- * sidebar is a drawer, so without this card the passage would cost two taps.
+ * The daily passage is deliberately not repeated here. It has its own pinned
+ * widget in the sidebar on desktop and its own "Hoje" tab in the bottom nav on
+ * mobile, so it is already one tap away from this screen in both layouts.
  *
  * Contrast: `theme.subtext` measures 2.92:1 on the light background, below the
  * 4.5:1 WCAG AA floor. It is used here only for the card descriptions, which sit
  * beside a stronger label. Every line the reader must actually read on its own —
  * the subtitle, the trecho button — uses `theme.text`.
  */
-export default function HomeLauncher({ onPick, theme, evangelhoData, onStudyTrecho, isMobile = false }) {
+export default function HomeLauncher({ onPick, theme, isMobile = false }) {
   return (
     <div style={{
       flex: 1, overflowY: 'auto', minHeight: 0,
@@ -68,21 +69,6 @@ export default function HomeLauncher({ onPick, theme, evangelhoData, onStudyTrec
           </button>
         ))}
       </div>
-
-      {evangelhoData && (
-        <button
-          onClick={onStudyTrecho}
-          style={{
-            marginTop: 26, background: 'transparent',
-            border: `1px solid ${theme.cardBorder}`, borderRadius: 999,
-            padding: '9px 18px', cursor: 'pointer', font: 'inherit',
-            fontSize: 12.5, color: theme.text,
-            display: 'flex', alignItems: 'center', gap: 7,
-          }}
-        >
-          ☀️ Ler o trecho do dia
-        </button>
-      )}
     </div>
   );
 }
