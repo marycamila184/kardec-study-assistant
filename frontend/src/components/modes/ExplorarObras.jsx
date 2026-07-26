@@ -17,6 +17,9 @@ import { useStickToBottom } from '../../hooks/useStickToBottom';
  *   messages             — array
  *   loading              — boolean
  *   fontSize
+ *   footerActionFor      — (msg, idx) => action | null — the mode nudge. Owned
+ *                          by App so this thread and the main one offer the
+ *                          same button; Explorar only decides where it renders.
  */
 export default function ExplorarObras({
   theme, onBack, onRedirectDuvida,
@@ -24,6 +27,7 @@ export default function ExplorarObras({
   fontSize,
   quickActions = [], onQuickAction,
   onBookChange, onAskDuvida,
+  footerActionFor,
 }) {
   const [selectedObra, setSelectedObra] = useState('le');
   const [openParts, setOpenParts] = useState({});
@@ -168,6 +172,7 @@ export default function ExplorarObras({
                     qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                   )}
                   onQuickAction={(label) => onQuickAction?.(label, msg)}
+                  footerAction={footerActionFor?.(msg, i) || null}
                 >
                 </AIMessage>
               </div>

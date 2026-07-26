@@ -507,7 +507,10 @@ export default function App() {
       if (item_number && bookName) {
         reply = await studyItem(bookName, item_number, chapter);
       } else {
-        reply = await chatMessage(query, history, bookName || null);
+        // 'estudar_obra' so the orchestrator does not nudge a reader who is
+        // already inside Estudar toward Estudar. Omitting it sends
+        // current_mode: undefined, which silently re-enables self-nudging.
+        reply = await chatMessage(query, history, bookName || null, 'estudar_obra');
       }
     } catch (err) {
       console.error('handleExplorarChat failed:', err);
@@ -553,6 +556,44 @@ export default function App() {
     if (!first?.item_number) return null;
     return { book: first.book, item_number: first.item_number, chapter: first.chapter_ref || null };
   };
+
+  // ── The mode nudge, as a footer button ────────────────────────────────────
+  // Shared by the main thread and by Explorar. The orchestrator returns
+  // `suggested_mode` on every /chat reply, so Explorar was already receiving
+  // this and discarding it — which matters most in exactly the case the reader
+  // slides from studying a passage into something Estudar is the wrong shape
+  // for, e.g. grief. Non-destructive: it offers, it never switches on its own.
+  //
+  // `priorUserText` is what gets carried into the new mode, so the reader does
+  // not retype their situation. Without it there is nothing to hand over and
+  // the button is not offered at all.
+  const buildModeNudge = (msg, priorUserText) => {
+    if (msg.suggestedMode === 'estudar_obra') {
+      const studyTarget = resolveStudyTarget(msg);
+      return studyTarget ? {
+        label: `📖 Estudar ${formatItemRef(studyTarget.book, studyTarget.item_number)} na íntegra`,
+        onClick: () => handleGoStudyItem(studyTarget),
+      } : null;
+    }
+    if (msg.suggestedMode === 'refletir') {
+      return priorUserText ? {
+        label: '🪞 Refletir sobre esta situação',
+        color: '#C8856A',
+        onClick: () => handleGoReflect(priorUserText),
+      } : null;
+    }
+    if (msg.suggestedMode === 'tirar_duvida') {
+      return priorUserText ? {
+        label: '💬 Dialogar sobre isto',
+        onClick: () => handleGoDuvida(priorUserText),
+      } : null;
+    }
+    return null;
+  };
+
+  // The user turn a nudge should carry forward: the last one before this reply.
+  const priorUserTextAt = (thread, idx) =>
+    thread.slice(0, idx).reverse().find(m => m.isUser)?.text;
 
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
   const handleGoStudyItem = async (source) => {
@@ -902,6 +943,7 @@ export default function App() {
               fontSize={msgFontSize}
               quickActions={QUICK_ACTIONS}
               onQuickAction={handleExplorarQuickAction}
+              footerActionFor={(msg, i) => buildModeNudge(msg, priorUserTextAt(explorarMsgs, i))}
               onBookChange={() => { threadEpochRef.current += 1; setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null; }}
               onAskDuvida={handleExplorarDuvida}
             />
@@ -999,30 +1041,7 @@ export default function App() {
                             : []
                         }
                         onSuggestedQuestionClick={(q) => sendText(q)}
-                        footerAction={(() => {
-                          const srcMsg = msgs.slice(0, idx).reverse().find(m => m.isUser)?.text;
-                          if (msg.suggestedMode === 'estudar_obra') {
-                            const studyTarget = resolveStudyTarget(msg);
-                            return studyTarget ? {
-                              label: `📖 Estudar ${formatItemRef(studyTarget.book, studyTarget.item_number)} na íntegra`,
-                              onClick: () => handleGoStudyItem(studyTarget),
-                            } : null;
-                          }
-                          if (msg.suggestedMode === 'refletir') {
-                            return srcMsg ? {
-                              label: '🪞 Refletir sobre esta situação',
-                              color: '#C8856A',
-                              onClick: () => handleGoReflect(srcMsg),
-                            } : null;
-                          }
-                          if (msg.suggestedMode === 'tirar_duvida') {
-                            return srcMsg ? {
-                              label: '💬 Dialogar sobre isto',
-                              onClick: () => handleGoDuvida(srcMsg),
-                            } : null;
-                          }
-                          return null;
-                        })()}
+                        footerAction={buildModeNudge(msg, priorUserTextAt(msgs, idx))}
                       />
                 ))}
                 {loading && <LoadingDots theme={theme} />}
