@@ -1,5 +1,4 @@
 import React from 'react';
-import { formatTrechoDate } from '../../utils/day';
 
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
 const LEVEL_ORDER = ['curioso', 'estudante', 'aprofundado'];
@@ -16,9 +15,7 @@ const SECONDARY_BTN = {
   cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
 };
 
-export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, onExplorar, onVerIntro, paths = [], pathsLoading = false, completedTrilhas = [], trilhaProgress = {}, evangelhoData = null, onStudyTrecho }) {
-  const trechoDate = formatTrechoDate(evangelhoData?.date);
-
+export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, onExplorar, onVerIntro, paths = [], pathsLoading = false, completedTrilhas = [], trilhaProgress = {} }) {
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }}>
       {/* No title here: the TopBar already names the mode. This line is the
@@ -31,63 +28,6 @@ export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, on
           Escolha entre o estudo guiado — com tutor socrático — ou a exploração livre.
         </div>
       </div>
-
-      {/* Trecho do dia — first, and the only card in the warm accent.
-          On mobile this is the passage's single entry point: the bottom nav no
-          longer carries a "Hoje" tab, because that tab navigated nowhere — it
-          generated a conversation and dropped the reader in Dialogar, leaving
-          the bar highlighting a tab they had not tapped. Here it is what it
-          always was, a passage to study, reached on purpose.
-          The accent is what pays for the extra tap: the daily passage is the
-          habit this app is built around, and a blue card in a column of blue
-          cards would bury it. */}
-      {onStudyTrecho && (
-        <div style={{ marginBottom: 24 }}>
-          <div style={{
-            fontSize: 10.5, fontWeight: 700, letterSpacing: '.14em',
-            textTransform: 'uppercase', color: theme.subtext, marginBottom: 10,
-            display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8,
-          }}>
-            <span>Hoje</span>
-            {trechoDate && <span style={{ fontWeight: 600 }}>{trechoDate}</span>}
-          </div>
-          <button
-            onClick={evangelhoData ? onStudyTrecho : undefined}
-            disabled={!evangelhoData}
-            style={{
-              display: 'block', width: '100%', textAlign: 'left', font: 'inherit',
-              background: 'rgba(200,133,106,.07)',
-              border: '1px solid rgba(200,133,106,.32)',
-              borderRadius: 10, padding: '16px 18px',
-              cursor: evangelhoData ? 'pointer' : 'default',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-              <span style={{ fontSize: 24, lineHeight: 1, flexShrink: 0 }} aria-hidden="true">☀️</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 4 }}>
-                  Trecho do dia
-                </div>
-                {evangelhoData ? (
-                  <>
-                    <div style={{
-                      fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
-                      color: theme.text, lineHeight: 1.6, marginBottom: 6,
-                    }}>"{evangelhoData.content.slice(0, 150)}…"</div>
-                    <div style={{ fontSize: 12.5, fontWeight: 600, color: '#B5714E' }}>
-                      Ler e refletir →
-                    </div>
-                  </>
-                ) : (
-                  <div style={{ fontSize: 13.5, color: theme.subtext, fontStyle: 'italic' }}>
-                    Carregando trecho do dia…
-                  </div>
-                )}
-              </div>
-            </div>
-          </button>
-        </div>
-      )}
 
       {/* Sobre as Obras — mesmo padrão das trilhas */}
       <div style={{ marginBottom: 24 }}>
