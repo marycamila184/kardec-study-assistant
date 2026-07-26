@@ -1015,7 +1015,7 @@ export default function App() {
                           }
                           if (msg.suggestedMode === 'tirar_duvida') {
                             return srcMsg ? {
-                              label: '💬 Tirar uma dúvida sobre isto',
+                              label: '💬 Dialogar sobre isto',
                               onClick: () => handleGoDuvida(srcMsg),
                             } : null;
                           }
