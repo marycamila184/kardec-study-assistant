@@ -66,7 +66,11 @@ const ERROR_MSG = {
 };
 
 // Maps the client's mode state to the orchestrator's intent vocabulary, so the
-// backend never nudges the user toward the mode they're already in.
+// backend never nudges the user toward the mode they're already in. `mode` is
+// null on the home screen, which sends no requests — but every dynamic lookup
+// is guarded with `|| null` at the call site anyway, because an undefined
+// reaching the backend would silently re-enable self-nudging rather than fail
+// loudly.
 const MODE_TO_INTENT = { duvida: 'tirar_duvida', refletir: 'refletir', estudar: 'estudar_obra' };
 
 export default function App() {
@@ -164,7 +168,9 @@ export default function App() {
       threadEpochRef.current += 1;
       setMsgs([]); setConvoId(null); setLoading(false); setInput('');
       setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
-      setMode('duvida');
+      // Home, not Dialogar: the reader deleted the thread they were reading, so
+      // dropping them into an empty chat picks a mode on their behalf.
+      setMode(null);
     }
   };
 
@@ -175,6 +181,24 @@ export default function App() {
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
     if (m === 'estudar') setEstudarSub('picker');
     if (m === 'refletir') setRefletirSub('picker');
+  };
+
+  // Returning home is "start a new conversation": mode is a property of a
+  // conversation (it is saved with it and restored by handleLoadConvo), so there
+  // is no separate "switch mode" action to model. The current thread is already
+  // in history — saveConvo runs every turn — so this clears the view, not the
+  // content.
+  //
+  // switchMode only resets estudarSub/refletirSub when switching *into* those
+  // modes, so going home must reset them explicitly or the next entry into
+  // Estudar reopens the guided view the reader thought they had left.
+  const newConvo = () => {
+    switchMode(null);
+    setEstudarSub('picker');
+    setRefletirSub('picker');
+    setExplorarMsgs([]);
+    setExplorarConvoMeta(null);
+    explorarConvoMetaRef.current = null;
   };
 
   // ── Main chat send (dúvida + refletir) ───────────────────────────────────
