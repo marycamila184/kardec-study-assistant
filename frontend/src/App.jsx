@@ -911,6 +911,8 @@ export default function App() {
               pathsLoading={pathsLoading}
               completedTrilhas={completedTrilhas}
               trilhaProgress={trilhaProgress}
+              evangelhoData={evangelhoData}
+              onStudyTrecho={handleStudyTrecho}
             />
           )}
 
@@ -1077,7 +1079,7 @@ export default function App() {
       </div>
 
       {/* Mobile bottom nav */}
-      {isMobile && <MobileBottomNav mode={mode} onChange={switchMode} onStudyTrecho={handleStudyTrecho} />}
+      {isMobile && <MobileBottomNav mode={mode} onChange={switchMode} />}
 
       {/* Modals */}
       <SettingsPanel

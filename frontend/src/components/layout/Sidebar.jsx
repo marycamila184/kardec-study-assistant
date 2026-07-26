@@ -1,19 +1,5 @@
 import React from 'react';
-
-/**
- * "2026-07-26" → "26 de julho".
- *
- * Built from the parts rather than `new Date(iso)`: that parses a bare
- * yyyy-mm-dd as UTC midnight, which renders as the *previous* day anywhere west
- * of Greenwich — 25 de julho for a reader in Brazil. The backend already means
- * a calendar date, not an instant, so it is never converted to one here.
- */
-const formatTrechoDate = (iso) => {
-  if (!iso) return null;
-  const [y, m, d] = iso.split('-').map(Number);
-  if (!y || !m || !d) return null;
-  return new Date(y, m - 1, d).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' });
-};
+import { formatTrechoDate } from '../../utils/day';
 
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
 
