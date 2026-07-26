@@ -124,7 +124,9 @@ export default function App() {
   // meant for is gone — unlike requestIdRef, a concurrent *send* doesn't bump
   // it, since interleaved appends to the same thread are fine.
   const threadEpochRef = useRef(0);
-  useStickToBottom(msgsRef); // follow the typewriter reveal to the bottom
+  // The returned callback ref is what pins the viewport; msgsRef stays for
+  // scrollToBottom's imperative jumps.
+  const attachMsgs = useStickToBottom(msgsRef); // follow the typewriter reveal
 
   // ── On-mount: fetch evangelho + paths ────────────────────────────────────
   useEffect(() => {
@@ -960,7 +962,7 @@ export default function App() {
           {!isHome && !isEstudar && !(isRefletir && refletirSub === 'picker') && (
             <>
               {/* Chat messages */}
-              <div ref={msgsRef} style={{
+              <div ref={attachMsgs} style={{
                 flex: 1, overflowY: 'auto', minHeight: 0,
                 padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 14,
               }}>

@@ -46,7 +46,7 @@ export default function ExplorarObras({
     }
   };
   const scrollRef = useRef(null);
-  useStickToBottom(scrollRef); // follow the typewriter reveal to the bottom
+  const attachScroll = useStickToBottom(scrollRef); // follow the reveal
 
   // Jump to the bottom when a message is added / loading toggles; the pin
   // above then keeps us there as the answer reveals word by word.
@@ -158,7 +158,7 @@ export default function ExplorarObras({
           })}
         </div>
       ) : (
-        <div ref={scrollRef} style={{
+        <div ref={attachScroll} style={{
           flex: 1, overflowY: 'auto', minHeight: 0,
           padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12,
         }}>
