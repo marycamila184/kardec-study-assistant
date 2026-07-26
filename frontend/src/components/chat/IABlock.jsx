@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
 import { BRAND_TERRACOTTA } from '../../constants/theme';
 import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
-import { formatItemRef } from '../../utils/format';
+import { formatSourceRef } from '../../utils/format';
 
 /**
  * The "Da IA" block containing the explanation text, historical context,
@@ -96,9 +96,11 @@ export default function IABlock({
               padding: '3px 10px', borderRadius: 12,
               cursor: 'pointer', fontWeight: 500,
             }}>
-              📖 {s.item_number
-                ? `${s.book}, ${formatItemRef(s.book, s.item_number)}`
-                : (s.chapter ? `${s.book} — ${s.chapter}` : s.book)}
+              📖 {formatSourceRef({
+                book: s.book,
+                chapterRef: s.chapter_ref,
+                itemNumber: s.item_number,
+              })}
             </button>
           ))}
         </div>

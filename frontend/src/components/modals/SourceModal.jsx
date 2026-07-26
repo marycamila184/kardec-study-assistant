@@ -1,11 +1,16 @@
 import React from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
-import { formatItemRef } from '../../utils/format';
+import { formatSourceRef, chapterTitleOf } from '../../utils/format';
 
 /**
  * Citation excerpt modal — shows the retrieved passage behind a source chip.
+ *
+ * This is where a reader who wants to find the passage in their own copy comes
+ * to read the reference, so it carries the chapter name as well as the number.
+ *
  * Props:
- *   source  — { book, item_number, excerpt } | null
+ *   source  — { book, chapter, chapter_ref, item_number, excerpt } | null
+ *             (`chapter` is the chapter *title*; `chapter_ref` is "CAPÍTULO V")
  *   theme
  *   onClose — () => void
  */
@@ -13,9 +18,12 @@ export default function SourceModal({ source, theme, onClose }) {
   useEscapeKey(onClose, !!source);
   if (!source) return null;
 
-  const reference = source.item_number
-    ? `${source.book}, ${formatItemRef(source.book, source.item_number)}`
-    : source.book;
+  const reference = formatSourceRef({
+    book: source.book,
+    chapterRef: source.chapter_ref,
+    itemNumber: source.item_number,
+  });
+  const chapterTitle = chapterTitleOf({ book: source.book, chapterTitle: source.chapter });
 
   return (
     <div style={{
@@ -43,7 +51,15 @@ export default function SourceModal({ source, theme, onClose }) {
             fontFamily: "'Crimson Pro', serif", fontSize: 16, fontStyle: 'italic',
             color: theme.text, lineHeight: 1.7, marginBottom: 14,
           }}>"{source.excerpt || 'Trecho não disponível.'}"</div>
-          <div style={{ fontSize: 11, color: theme.subtext }}>Retirado de: {reference}</div>
+          <div style={{ fontSize: 11, color: theme.text, lineHeight: 1.6 }}>
+            Retirado de: {reference}
+            {chapterTitle && (
+              <div style={{
+                fontFamily: "'Crimson Pro', serif", fontSize: 12.5,
+                fontStyle: 'italic', marginTop: 3,
+              }}>{chapterTitle}</div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
 import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
-import { formatItemRef } from './utils/format';
+import { formatItemRef, formatSourceRef } from './utils/format';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
@@ -557,7 +557,11 @@ export default function App() {
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
   const handleGoStudyItem = async (source) => {
     setMode('estudar'); setEstudarSub('explorar');
-    const label = `${source.book}, ${formatItemRef(source.book, source.item_number)}`;
+    const label = formatSourceRef({
+      book: source.book,
+      chapterRef: source.chapter,   // handoff sources carry chapter_ref here
+      itemNumber: source.item_number,
+    });
     const userMsg = { id: 'eu' + Date.now(), isUser: true, isAI: false, text: label };
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
