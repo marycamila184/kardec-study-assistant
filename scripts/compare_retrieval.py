@@ -42,6 +42,7 @@ import urllib.request
 
 from src.core.config import settings
 from src.ingestion.vectorstore import VectorStore
+from src.rag.retriever import REFLECT_BOOKS
 
 E5_MODEL = "intfloat/multilingual-e5-large-instruct"
 E5_COLLECTION = "kardec_docs_e5"
@@ -59,8 +60,6 @@ E5_TASK = (
 def e5_query(text: str) -> str:
     return f"Instruct: {E5_TASK}\nQuery: {text}"
 
-
-REFLECT_BOOKS = ("O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo")
 
 REFLECT_CASES = [
     {
@@ -393,72 +392,19 @@ def encode_gemini(
     return vectors
 
 
-def index_e5() -> None:
-    """Re-indexes the corpus into a second collection. Reuses the production
-    document builder so the only variable is the embedding model."""
-    import chromadb
+def _index_corpus(collection: str, encoder) -> int:
+    """Re-indexes the corpus into `collection` using `encoder(documents) ->
+    vectors`. Reuses the production document builder so the only variable
+    between lanes is the embedding model.
 
-    from src.ingestion.pipeline import BATCH_SIZE, _build_document, _build_id
-
-    # A previous run may have died partway (the 512-token cap did exactly
-    # that). Half a corpus would silently skew every comparison.
-    client = chromadb.PersistentClient(path=settings.chroma_path)
-    try:
-        client.delete_collection(E5_COLLECTION)
-        print(f"coleção {E5_COLLECTION} anterior removida")
-    except Exception:
-        pass
-
-    store = VectorStore(settings.chroma_path, E5_COLLECTION)
-    total = 0
-    for filename in sorted(os.listdir(settings.json_dir)):
-        if not filename.endswith(".json"):
-            continue
-        stem = filename[:-5]
-        with open(os.path.join(settings.json_dir, filename), encoding="utf-8") as f:
-            chunks = json.load(f)
-        print(f"  {stem}: {len(chunks)} chunks")
-        for i in range(0, len(chunks), BATCH_SIZE):
-            batch = chunks[i : i + BATCH_SIZE]
-            documents = [_build_document(c) for c in batch]
-            store.upsert(
-                [_build_id(stem, c) for c in batch],
-                encode_e5(documents),
-                documents,
-                [
-                    {
-                        "book": c["book"],
-                        "part": c.get("part") or "",
-                        "chapter": c.get("chapter") or "",
-                        "chapter_title": c.get("chapter_title") or "",
-                        "subsection": c.get("subsection") or "",
-                        "item_number": str(c["item_number"]),
-                        "subchunk_index": c["subchunk_index"],
-                        "total_subchunks": c["total_subchunks"],
-                    }
-                    for c in batch
-                ],
-            )
-            total += len(batch)
-    print(f"Indexado: {total} chunks em {E5_COLLECTION}")
-    print(
-        f"Truncados em {E5_MAX_CHARS} chars: {_truncated} "
-        f"({_truncated / total * 100:.1f}%)"
-    )
-
-
-def index_gemini(dim: int) -> None:
-    """Re-indexes the corpus with gemini-embedding-2 at `dim` dimensions.
-
-    Reuses the production document builder so the only variable is the model.
-    Nothing is truncated: a document the API refuses raises, because a silent
-    cut is the failure mode this whole comparison exists to avoid.
+    A previous run may have died partway (the e5 lane's 512-token cap did
+    exactly that). Half a corpus would silently skew every comparison, so any
+    prior collection under this name is dropped before indexing starts.
     """
     import chromadb
 
     from src.ingestion.pipeline import BATCH_SIZE, _build_document, _build_id
 
-    collection = gemini_collection(dim)
     client = chromadb.PersistentClient(path=settings.chroma_path)
     try:
         client.delete_collection(collection)
@@ -480,7 +426,7 @@ def index_gemini(dim: int) -> None:
             documents = [_build_document(c) for c in batch]
             store.upsert(
                 [_build_id(stem, c) for c in batch],
-                encode_gemini(documents, dim=dim),
+                encoder(documents),
                 documents,
                 [
                     {
@@ -497,6 +443,29 @@ def index_gemini(dim: int) -> None:
                 ],
             )
             total += len(batch)
+    return total
+
+
+def index_e5() -> None:
+    """Re-indexes the corpus into a second collection. Reuses the production
+    document builder so the only variable is the embedding model."""
+    total = _index_corpus(E5_COLLECTION, encode_e5)
+    print(f"Indexado: {total} chunks em {E5_COLLECTION}")
+    print(
+        f"Truncados em {E5_MAX_CHARS} chars: {_truncated} "
+        f"({_truncated / total * 100:.1f}%)"
+    )
+
+
+def index_gemini(dim: int) -> None:
+    """Re-indexes the corpus with gemini-embedding-2 at `dim` dimensions.
+
+    Reuses the production document builder so the only variable is the model.
+    Nothing is truncated: a document the API refuses raises, because a silent
+    cut is the failure mode this whole comparison exists to avoid.
+    """
+    collection = gemini_collection(dim)
+    total = _index_corpus(collection, lambda docs: encode_gemini(docs, dim=dim))
     print(f"Indexado: {total} chunks em {collection}, 0 truncados")
 
 
@@ -527,8 +496,12 @@ def top_gemini(query: str, where: dict | None, dim: int, k: int = 5) -> list[dic
 LANES = {
     "bge-m3 (atual)": top_bge,
     "e5-instruct (Together)": top_e5,
-    "gemini-2 @1024": lambda query, where: top_gemini(query, where, dim=1024),
-    "gemini-2 @3072": lambda query, where: top_gemini(query, where, dim=3072),
+    f"gemini-2 @{GEMINI_DIMS[0]}": lambda query, where: top_gemini(
+        query, where, dim=GEMINI_DIMS[0]
+    ),
+    f"gemini-2 @{GEMINI_DIMS[1]}": lambda query, where: top_gemini(
+        query, where, dim=GEMINI_DIMS[1]
+    ),
 }
 
 
@@ -541,6 +514,11 @@ def score(case: dict, hits: list[dict]) -> dict:
     `best_rank` is 1-based; None means no apt chapter in the top k. Reported
     beside `avoid_hit` on purpose — a model that returns nothing apt and nothing
     wrong is not doing better than one that returns both.
+
+    `top_distance` is the rank-1 hit's cosine distance, carried through so
+    `summarize()` can compare it against production's cutoff — a raw top-5
+    ranking win means nothing if `/reflect` or `/chat` would have discarded
+    the hit as too far.
     """
     titles = [h["metadata"].get("chapter_title", "") for h in hits]
     best = next(
@@ -552,21 +530,62 @@ def score(case: dict, hits: list[dict]) -> dict:
         "hit": best is not None,
         "avoid_hit": any(t in case["avoid"] for t in titles),
         "titles": titles,
+        "top_distance": hits[0]["distance"] if hits else None,
     }
 
 
 def summarize(rows: list[dict]) -> dict:
     n = len(rows)
     ranked = [r["best_rank"] for r in rows if r["best_rank"]]
+    distances = [r["top_distance"] for r in rows if r["top_distance"] is not None]
     return {
+        "n": n,
         "hit_rate@5": sum(1 for r in rows if r["hit"]) / n,
         "mean_best_rank": (sum(ranked) / len(ranked)) if ranked else None,
         "mrr": sum(1 / r["best_rank"] for r in rows if r["best_rank"]) / n,
         "avoid_hits": sum(1 for r in rows if r["avoid_hit"]),
+        "dist@1": (round(sum(distances) / len(distances), 3) if distances else None),
+        "over_cutoff": sum(1 for d in distances if d > settings.max_distance),
     }
 
 
+def _collection_counts() -> dict[str, int | None]:
+    """Document count per lane's collection, or None if it does not exist yet.
+
+    A crashed --index run leaves a partial (or absent) collection that a
+    ranking report cannot see on its own — the numbers still print, just
+    against a corpus missing whole books. `VectorStore` has no count of its
+    own, so the underlying chromadb client is read directly.
+    """
+    import chromadb
+
+    client = chromadb.PersistentClient(path=settings.chroma_path)
+    names = {
+        "bge-m3 (atual)": settings.chroma_collection,
+        "e5-instruct (Together)": E5_COLLECTION,
+        f"gemini-2 @{GEMINI_DIMS[0]}": gemini_collection(GEMINI_DIMS[0]),
+        f"gemini-2 @{GEMINI_DIMS[1]}": gemini_collection(GEMINI_DIMS[1]),
+    }
+    counts: dict[str, int | None] = {}
+    for lane, collection in names.items():
+        try:
+            counts[lane] = client.get_collection(collection).count()
+        except Exception:
+            counts[lane] = None
+    return counts
+
+
 def report() -> None:
+    counts = _collection_counts()
+    print("# Documentos por coleção\n")
+    for lane, count in counts.items():
+        print(f"- {lane}: {count if count is not None else 'ausente'}")
+    if len(set(counts.values())) > 1:
+        print(
+            "\n⚠️  ATENÇÃO: as coleções indexadas não têm o mesmo número de "
+            "documentos — uma reindexação pode ter parado no meio.\n"
+        )
+
     for case_set in CASE_SETS:
         print(f"\n# Conjunto: {case_set['name']}\n")
         results: dict[str, list[dict]] = {name: [] for name in LANES}
@@ -576,7 +595,10 @@ def report() -> None:
             for name, fn in LANES.items():
                 try:
                     hits = fn(case["query"], case_set["where"])
-                except Exception as exc:  # a lane that is not indexed yet
+                except (Exception, SystemExit) as exc:
+                    # A lane that is not indexed yet, or missing an API key
+                    # (`_gemini_post`/`_together_client` raise SystemExit,
+                    # which bare `except Exception` would not catch).
                     print(f"### {name}\n\n  (indisponível: {exc})\n")
                     continue
                 s = score(case, hits)
@@ -594,7 +616,8 @@ def report() -> None:
                     )
                     print(
                         f"  {mark} {i}. {m['book']} | {m.get('chapter_title')} "
-                        f"| item {m.get('item_number')}"
+                        f"| item {m.get('item_number')} "
+                        f"| dist {h['distance']:.3f}"
                     )
                 print()
 
@@ -608,7 +631,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--index",
-        choices=["e5", "gemini-1024", "gemini-3072"],
+        choices=["e5"] + [f"gemini-{dim}" for dim in GEMINI_DIMS],
         help="re-index the corpus with the given lane (one-off, ~US$0.25 for gemini)",
     )
     parser.add_argument("--report", action="store_true", help="compare and print")

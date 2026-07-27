@@ -164,6 +164,9 @@ def test_case_sets_cover_both_query_regimes():
     assert len(cr.CHAT_CASES) == 8
     # /chat questions span all five works, so the lane must not be book-filtered
     assert dict(zip(names, [cs["where"] for cs in cr.CASE_SETS]))["chat"] is None
+    # /reflect is restricted in production to these two works; the case set's
+    # filter must measure the same universe /reflect actually searches.
+    assert cr.CASE_SETS[0]["where"] == {"book": {"$in": list(cr.REFLECT_BOOKS)}}
 
 
 def test_the_bug_that_started_this_is_a_case():
@@ -212,3 +215,27 @@ def test_index_choices_are_the_three_lanes():
     assert args.index == "gemini-1024"
     with pytest.raises(SystemExit):
         parser.parse_args(["--index", "gemini-2048"])
+
+
+def test_summarize_reports_case_count_and_distance_to_cutoff():
+    """`summarize()` must expose `n` (so lanes that raised on some cases are
+    not silently compared over a smaller denominator), `dist@1` (mean rank-1
+    distance) and `over_cutoff` (how many rank-1 hits exceed production's
+    `settings.max_distance`) — built by hand, no network involved."""
+    from src.core.config import settings
+
+    rows = [
+        {"best_rank": 1, "hit": True, "avoid_hit": False, "top_distance": 0.2},
+        {
+            "best_rank": None,
+            "hit": False,
+            "avoid_hit": False,
+            "top_distance": settings.max_distance + 0.1,
+        },
+    ]
+
+    summary = cr.summarize(rows)
+
+    assert summary["n"] == 2
+    assert summary["dist@1"] == round((0.2 + settings.max_distance + 0.1) / 2, 3)
+    assert summary["over_cutoff"] == 1
