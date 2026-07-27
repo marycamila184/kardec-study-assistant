@@ -884,7 +884,7 @@ export default function App() {
   const isEmpty = !isHome && msgs.length === 0 && !loading && !isEstudar;
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div className="app-shell" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
       {/* Onboarding */}
       {!onboarded && (
