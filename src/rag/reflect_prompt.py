@@ -1,6 +1,5 @@
 import json
 
-from src.rag.crisis import needs_medical_caveat  # noqa: F401
 from src.rag.json_extract import extract_outermost, strip_code_fence
 from src.rag.retriever import has_real_item_number, item_word
 

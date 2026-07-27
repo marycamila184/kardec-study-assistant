@@ -1,8 +1,4 @@
-from src.rag.reflect_prompt import (
-    build_reflect_messages,
-    needs_medical_caveat,
-    parse_reflect_json,
-)
+from src.rag.reflect_prompt import build_reflect_messages, parse_reflect_json
 
 _CHUNK = {
     "content": "Os espíritos sobrevivem à morte do corpo.",
