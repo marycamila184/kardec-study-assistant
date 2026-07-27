@@ -149,3 +149,24 @@ def test_unknown_prose_provider_raises(monkeypatch):
     s = _settings(monkeypatch, GROQ_API_KEY="k", PROSE_PROVIDER="bogus")
     with pytest.raises(ValueError, match="Unknown provider"):
         _ = s.provider("bogus")
+
+
+def test_google_api_key_defaults_to_none_and_reads_env(monkeypatch):
+    """The embedding lane's key is its own field, not a PROVIDERS entry.
+
+    PROVIDERS routes text generation over OpenAI-compatible base URLs; the
+    Gemini embedding API is neither. Registering it there would imply that
+    setting this key routes /chat to Gemini, which it does not.
+    """
+    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    from src.core.config import Settings
+
+    assert Settings(_env_file=None).google_api_key is None
+
+    monkeypatch.setenv("GOOGLE_API_KEY", "test-google-key")
+    assert Settings(_env_file=None).google_api_key == "test-google-key"
+
+    from src.core.config import PROVIDERS
+
+    assert "google" not in PROVIDERS
+    assert "gemini" not in PROVIDERS

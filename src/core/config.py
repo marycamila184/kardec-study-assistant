@@ -67,6 +67,10 @@ class Settings(BaseSettings):
     together_api_key: str | None = None
     hf_token: str | None = None
 
+    # Embedding lane, not a text-generation provider: the Gemini embedding API
+    # is not OpenAI-compatible and does not belong in PROVIDERS.
+    google_api_key: str | None = None
+
     # Optional per-model overrides; unset → the active provider's default.
     chat_model: str | None = None
     condenser_model: str | None = None
