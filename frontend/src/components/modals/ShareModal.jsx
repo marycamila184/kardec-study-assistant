@@ -19,7 +19,10 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
   const citation = msg.obra?.citation || 'Dialogando com a Doutrina';
   const context  = msg.obra?.context  || '';
 
-  const shareText = `"${quote}"\n\n— ${citation}\n\nDialogando com a Doutrina`;
+  // O link fecha o texto pelo mesmo motivo que fecha a imagem: sem ele a
+  // mensagem nomeia o app e não diz onde encontrá-lo.
+  const shareText =
+    `"${quote}"\n\n— ${citation}\n\nDialogando com a Doutrina\nhttps://${APP_URL}`;
 
   const handleWhatsApp = () => {
     const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
