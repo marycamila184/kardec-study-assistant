@@ -25,6 +25,11 @@ export default function ShareModal({ msg, theme, onClose }) {
     window.open(url, '_blank', 'noopener');
   };
 
+  // Decidido uma vez, no render: em celular o botão compartilha, no desktop
+  // baixa — e o rótulo precisa dizer o que vai acontecer.
+  const canShareFile =
+    typeof navigator !== 'undefined' && typeof navigator.canShare === 'function';
+
   const handleDownload = () => {
     const canvas = document.createElement('canvas');
     canvas.width = 960; canvas.height = 560;
@@ -52,10 +57,45 @@ export default function ShareModal({ msg, theme, onClose }) {
     ctx.fillStyle = 'rgba(255,255,255,.6)';
     ctx.font = '13px DM Sans, sans-serif';
     ctx.fillText(citation, 52, y + 50);
-    const link = document.createElement('a');
-    link.download = 'trecho-espirita.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    // Entrega da imagem, em três degraus.
+    //
+    // O caminho antigo era `link.download` + data URL, e ele simplesmente não
+    // funciona no celular: o Safari do iOS ignora o atributo download, e a data
+    // URL abre na mesma aba ou não faz nada — o botão parecia morto.
+    //
+    // 1. navigator.share com arquivo: abre a folha de compartilhamento do
+    //    sistema, que é o que "compartilhar" significa num telefone.
+    // 2. download via blob URL: desktop, onde o atributo download é respeitado.
+    // 3. abrir numa aba: último recurso, a pessoa segura o dedo e salva.
+    canvas.toBlob(async (blob) => {
+      if (!blob) return;
+      const file = new File([blob], 'trecho-espirita.png', { type: 'image/png' });
+
+      if (navigator.canShare?.({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file] });
+          return;
+        } catch (err) {
+          // Cancelar a folha de compartilhamento levanta AbortError. Não é
+          // falha: cair no download depois disso reabriria algo que a pessoa
+          // acabou de fechar.
+          if (err?.name === 'AbortError') return;
+        }
+      }
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = 'trecho-espirita.png';
+      link.href = url;
+      if ('download' in link) {
+        link.click();
+      } else {
+        window.open(url, '_blank', 'noopener');
+      }
+      // Revoga depois do clique: revogar imediatamente cancela o download em
+      // alguns navegadores.
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    }, 'image/png');
   };
 
   return (
@@ -111,7 +151,7 @@ export default function ShareModal({ msg, theme, onClose }) {
           <button onClick={handleDownload} style={{
             flex: 1, background: '#6B9BB8', border: 'none',
             color: 'white', fontSize: 12, fontWeight: 500, padding: 9, borderRadius: 7, cursor: 'pointer',
-          }}>Baixar imagem</button>
+          }}>{canShareFile ? 'Compartilhar imagem' : 'Baixar imagem'}</button>
         </div>
       </div>
     </div>

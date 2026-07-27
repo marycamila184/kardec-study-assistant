@@ -68,7 +68,7 @@ export default function Sidebar({
           <div style={{
             fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
             color: 'rgba(255,255,255,.45)', paddingLeft: 40, marginTop: 4,
-          }}>Estude · Dialogue · Compreenda</div>
+          }}>Leia · Compreenda</div>
         )}
       </div>
 

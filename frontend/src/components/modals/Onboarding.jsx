@@ -43,7 +43,7 @@ export default function Onboarding({ onFinish }) {
           color: '#2A2318', lineHeight: 1.18, marginBottom: 10, letterSpacing: '-.01em',
         }}>Dialogando com<br/>a Doutrina</div>
         <div style={{ fontSize: 10, letterSpacing: '.22em', textTransform: 'uppercase', color: '#A09080', marginBottom: 22 }}>
-          Estude · Dialogue · Compreenda
+          Leia · Compreenda
         </div>
         <p style={{ fontSize: 14, color: '#6A5E50', lineHeight: 1.78, margin: '0 0 16px' }}>
           Aqui você estuda e tira dúvidas sobre as obras de Allan Kardec, e encontra
