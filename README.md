@@ -88,8 +88,8 @@ Interactive docs: `http://localhost:8000/docs`
 |--------|------|-------------|
 | `POST` | `/chat` | Ask a doctrinal question (Tirar uma Dúvida) |
 | `POST` | `/study` | Study a specific item from a book (Estudar uma Obra) |
-| `POST` | `/reflect` | Reflect on a personal situation (Refletir sobre uma Situação) |
 | `GET` | `/evangelho` | Daily passage from O Evangelho segundo o Espiritismo |
+| ~~`POST`~~ | ~~`/reflect`~~ | **Switched off.** Retrieval eval showed Refletir answers lived suffering with reincarnation passages, unfixable by embedding-model swap. Route is commented out (404 by absence, not a deliberate 503); code is disconnected, not deleted. See `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`. The shared crisis layer (deterministic suicidal-ideation handling, CVV 188 / SAMU 192) does not depend on this mode — it lives in `src/rag/crisis.py` and stays fully active on `/chat`. |
 | `GET` | `/paths` | List curated learning paths |
 | `GET` | `/paths/{path_id}` | Full learning path detail |
 | `GET` | `/health` | Health check |
@@ -205,11 +205,11 @@ kardec-study-assistant/
 ## Roadmap
 
 - ✅ RAG pipeline (parsing, ingestion, retrieval, generation)
-- ✅ All four study modes as API endpoints
+- ✅ All four study modes as API endpoints — Refletir sobre uma Situação is currently switched off (see Available Endpoints above and `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`); the other three ship
 - ✅ Curated learning paths
 - ✅ Web interface (React + Vite frontend)
 - ✅ Frontend → backend API integration
-- ✅ Clickable source citations (excerpt modal) on `/chat` and `/reflect`
+- ✅ Clickable source citations (excerpt modal) on `/chat` (also built for `/reflect`, currently switched off)
 - ✅ Related-items modal with click-through to full study
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
