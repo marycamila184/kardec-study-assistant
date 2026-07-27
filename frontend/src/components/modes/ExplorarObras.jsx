@@ -17,6 +17,9 @@ import { useStickToBottom } from '../../hooks/useStickToBottom';
  *   messages             — array
  *   loading              — boolean
  *   fontSize
+ *   footerActionFor      — (msg, idx) => action | null — the mode nudge. Owned
+ *                          by App so this thread and the main one offer the
+ *                          same button; Explorar only decides where it renders.
  */
 export default function ExplorarObras({
   theme, onBack, onRedirectDuvida,
@@ -24,6 +27,7 @@ export default function ExplorarObras({
   fontSize,
   quickActions = [], onQuickAction,
   onBookChange, onAskDuvida,
+  footerActionFor,
 }) {
   const [selectedObra, setSelectedObra] = useState('le');
   const [openParts, setOpenParts] = useState({});
@@ -42,7 +46,7 @@ export default function ExplorarObras({
     }
   };
   const scrollRef = useRef(null);
-  useStickToBottom(scrollRef); // follow the typewriter reveal to the bottom
+  const attachScroll = useStickToBottom(scrollRef); // follow the reveal
 
   // Jump to the bottom when a message is added / loading toggles; the pin
   // above then keeps us there as the answer reveals word by word.
@@ -154,7 +158,7 @@ export default function ExplorarObras({
           })}
         </div>
       ) : (
-        <div ref={scrollRef} style={{
+        <div ref={attachScroll} style={{
           flex: 1, overflowY: 'auto', minHeight: 0,
           padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12,
         }}>
@@ -168,6 +172,7 @@ export default function ExplorarObras({
                     qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                   )}
                   onQuickAction={(label) => onQuickAction?.(label, msg)}
+                  footerAction={footerActionFor?.(msg, i) || null}
                 >
                 </AIMessage>
               </div>

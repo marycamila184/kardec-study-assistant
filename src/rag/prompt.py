@@ -1,4 +1,4 @@
-from src.rag.retriever import has_real_item_number
+from src.rag.retriever import has_real_item_number, item_word
 
 _SYSTEM_TEMPLATE = """\
 Você é um assistente de estudos da doutrina espírita, fundamentado exclusivamente \
@@ -59,17 +59,43 @@ automaticamente antes de o usuário ver a resposta — nunca as mencione no text
 responder, separados por vírgula (ex.: [FONTES: 1, 3]). Se não usou nenhuma \
 passagem — por exemplo, quando as passagens não contêm a informação pedida — \
 escreva [FONTES:] vazio.
-2. [SEGUIR: pergunta 1 | pergunta 2] com DUAS perguntas curtas de continuação \
-que o usuário poderia fazer em seguida, separadas por "|". Cada pergunta deve \
-ser respondível pelas obras de Kardec e, de preferência, ligada aos temas das \
-passagens recuperadas — nunca sugira algo que as obras não abordam. Nunca sugira \
-uma pergunta que já foi feita ou já foi respondida nesta conversa, nem uma \
-reformulação equivalente dela — proponha ângulos genuinamente novos.
+{seguir}
 
 {caveat}
 
 [PASSAGENS RECUPERADAS]
 {passages}"""
+
+# Read from the module at call time by build_messages(), so an A/B variant is a
+# single patch — same shape as reflect_prompt._NO_ADVICE, and for the same
+# reason: comparing two versions of this rule by editing the file between runs
+# is how you end up unable to tell a prompt effect from sampling noise.
+#
+# Stated as a TEST the model applies, not as "ofereça se achar útil". The
+# _NO_ADVICE history in reflect_prompt.py is the evidence: a soft instruction
+# gets complied with unevenly, and enumerating surface forms gets routed around
+# one synonym away. Naming the condition — is there an angle the passages
+# support that this answer has not covered — leaves nothing to route around.
+_SEGUIR_RULE = """\
+2. [SEGUIR: pergunta 1 | pergunta 2] com ATÉ duas perguntas curtas de \
+continuação, separadas por "|", ou [SEGUIR:] vazio quando nenhuma se justificar. \
+Oferecer perguntas não é obrigatório e o vazio não é falha.
+
+Antes de escrever esta linha, aplique este teste: existe um ângulo que as \
+passagens recuperadas sustentam e que esta resposta ainda não cobriu? Se não \
+existir, escreva [SEGUIR:] vazio. Uma pergunta oferecida sem esse ângulo empurra \
+a conversa para frente em vez de responder à que foi feita.
+
+Escreva [SEGUIR:] vazio também quando a mensagem não for um pedido de estudo: \
+quando a pessoa encerra o assunto, quando fala de si mesma ou de alguém próximo \
+em vez de perguntar sobre a doutrina, ou quando as passagens não continham o que \
+ela pediu. Nesses turnos, quem decide o que vem depois é ela, não você.
+
+Quando houver ângulo, cada pergunta deve ser respondível pelas obras de Kardec e \
+ligada aos temas das passagens recuperadas — nunca sugira algo que as obras não \
+abordam. Nunca sugira uma pergunta que já foi feita ou já foi respondida nesta \
+conversa, nem uma reformulação equivalente dela."""
+
 
 _CAVEAT_INSTRUCTION = """\
 Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
@@ -89,7 +115,7 @@ def _format_passage(index: int, chunk: dict) -> str:
     if m.get("chapter_title"):
         header += f" | Capítulo: {m['chapter_title']}"
     if has_real_item_number(m.get("item_number")):
-        header += f" | Item: {m['item_number']}"
+        header += f" | {item_word(m['book'])}: {m['item_number']}"
     return f"{header}\n    \"{chunk['content']}\""
 
 
@@ -107,7 +133,11 @@ def build_messages(
         notes.append(_SENSITIVE_INSTRUCTION)
     if add_caveat:
         notes.append(_CAVEAT_INSTRUCTION)
-    system = _SYSTEM_TEMPLATE.format(passages=passages, caveat="\n\n".join(notes))
+    system = _SYSTEM_TEMPLATE.format(
+        passages=passages,
+        caveat="\n\n".join(notes),
+        seguir=_SEGUIR_RULE,
+    )
 
     messages = [
         {"role": t["role"], "content": t["content"]}

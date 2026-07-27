@@ -9,6 +9,16 @@ The project is split into two independent apps that are deployed separately:
 | **Backend** | `/` (root) | FastAPI RAG API — parsing, ingestion, retrieval, LLM generation |
 | **Frontend** | `frontend/` | React + Vite web interface |
 
+**Status:** the backend is live on Cloud Run at
+`https://kardec-api-391789792183.us-central1.run.app` (`us-central1`, scaling to
+zero). Deployment commands and the two traps that cost a build each are in
+[docs/deploy.md](docs/deploy.md).
+
+In production the embedding lane is hosted (`EMBEDDING_PROVIDER`), so the image
+carries no torch; locally the same `BAAI/bge-m3` runs in-process. The two were
+measured equivalent on 2026-07-27 — cosine 0.999994, 100% top-5 overlap — which
+is why one index serves both.
+
 ---
 
 ## Project Purpose
@@ -31,9 +41,9 @@ This is **not** a chatbot trained on Spiritism. It is a **retrieval-grounded sys
 | Language | Python 3.12+ |
 | API framework | FastAPI |
 | Package manager | uv |
-| Embeddings | SentenceTransformers (`BAAI/bge-m3`) |
+| Embeddings | `BAAI/bge-m3` — in-process locally, hosted in production (same model, see below) |
 | Vector store | ChromaDB |
-| LLM provider | Groq (OpenAI-compatible endpoint) |
+| LLM provider | Together (OpenAI-compatible endpoint) |
 | PDF → Markdown | LlamaCloud (run once, output committed) |
 
 ### Frontend
@@ -54,7 +64,7 @@ This is **not** a chatbot trained on Spiritism. It is a **retrieval-grounded sys
 - A `.env` file in the project root with:
 
 ```
-GROQ_API_KEY=your_groq_api_key_here
+TOGETHER_API_KEY=your_together_api_key_here
 ```
 
 ### 2. Install dependencies
@@ -88,8 +98,8 @@ Interactive docs: `http://localhost:8000/docs`
 |--------|------|-------------|
 | `POST` | `/chat` | Ask a doctrinal question (Tirar uma Dúvida) |
 | `POST` | `/study` | Study a specific item from a book (Estudar uma Obra) |
-| `POST` | `/reflect` | Reflect on a personal situation (Refletir sobre uma Situação) |
 | `GET` | `/evangelho` | Daily passage from O Evangelho segundo o Espiritismo |
+| ~~`POST`~~ | ~~`/reflect`~~ | **Switched off.** Retrieval eval showed Refletir answers lived suffering with reincarnation passages, unfixable by embedding-model swap. Route is commented out (404 by absence, not a deliberate 503); code is disconnected, not deleted. See `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`. The shared crisis layer (deterministic suicidal-ideation handling, CVV 188 / SAMU 192) does not depend on this mode — it lives in `src/rag/crisis.py` and stays fully active on `/chat`. |
 | `GET` | `/paths` | List curated learning paths |
 | `GET` | `/paths/{path_id}` | Full learning path detail |
 | `GET` | `/health` | Health check |
@@ -134,11 +144,38 @@ The backend and frontend are deployed independently.
 
 ### Backend deployment
 
-The FastAPI app is a standard Python ASGI app. Deploy to any provider that supports Python (Render, Railway, Fly.io, etc.):
+**Full command-by-command guide: [docs/deploy.md](docs/deploy.md).** Target is
+Cloud Run (`us-central1`) with the frontend on Vercel; the reasoning behind
+every choice is in
+`docs/superpowers/specs/2026-07-27-deploy-cloud-run-vercel-design.md`.
 
-1. Set the `GROQ_API_KEY` environment variable on the provider.
-2. The vector database (`data/embeddings/`) is regenerable — run the ingestion pipeline as part of your build/start process, or mount it as a persistent volume.
-3. Start command: `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT`
+The three things that shape the deployment:
+
+**1. The image must not contain torch.** `sentence-transformers` pulls torch and
+CUDA — about 4.7 GB that exists only to run `BAAI/bge-m3` in-process. It lives in
+the `ingest` dependency group, so `uv sync --no-dev` (what the `Dockerfile` runs)
+leaves it out and the image lands near 300 MB. On Cloud Run the image is pulled
+on every cold start, so that weight would be paid in user-visible latency.
+
+**2. Production calls the same embedding model over HTTP.** Set
+`EMBEDDING_PROVIDER=openrouter` (or `deepinfra`/`novita`) plus the matching key.
+It is the *same* `BAAI/bge-m3`: parity was measured on 2026-07-27 at cosine
+0.999994 against the stored vectors, with 100% top-5 overlap, so the existing
+index stays valid and no threshold needs recalibrating.
+
+**3. The index ships inside the image.** The corpus is static and nothing is
+written at runtime, so `data/embeddings/` is copied in — no volume, no bucket,
+no download on cold start. The trade-off is deliberate: updating the corpus
+means rebuilding the image.
+
+Region is a US one on purpose. Every model call leaves Brazil regardless
+(Together answered in 832ms and the hosted embedding in 346ms from São Paulo),
+and `/chat` makes two remote calls in sequence — so the backend belongs next to
+the providers, where the user pays one ocean crossing instead of two.
+
+Environment on the service: `LLM_PROVIDER`, `EMBEDDING_PROVIDER` and
+`CORS_ALLOWED_ORIGINS` as plain vars; API keys via Secret Manager, never
+`--set-env-vars`.
 
 If `PROSE_PROVIDER` is set, the backend also needs a reachable prose endpoint:
 either a local Ollama (`ollama pull hf.co/ia-espirita/riv-ai-v2-Q4_K_M-GGUF`) or
@@ -147,7 +184,9 @@ a hosted OpenAI-compatible endpoint via `HF_ENDPOINT_URL`. Leaving
 
 ### Frontend deployment
 
-The frontend is a static site after `npm run build`. Deploy to any static hosting provider (Netlify, Vercel, GitHub Pages, Cloudflare Pages, etc.):
+The frontend is a static site after `npm run build`. It targets **Vercel** (see
+[docs/deploy.md](docs/deploy.md)); any static host works, but the API URL has to
+reach the deployed backend either way:
 
 1. Build: `npm run build` (run from the `frontend/` folder)
 2. Publish directory: `frontend/dist`
@@ -196,7 +235,7 @@ kardec-study-assistant/
 │
 ├── tests/
 ├── pyproject.toml
-├── .env                        # Not committed — add your GROQ_API_KEY here
+├── .env                        # Not committed — add your TOGETHER_API_KEY here
 └── README.md
 ```
 
@@ -205,15 +244,18 @@ kardec-study-assistant/
 ## Roadmap
 
 - ✅ RAG pipeline (parsing, ingestion, retrieval, generation)
-- ✅ All four study modes as API endpoints
+- ✅ All four study modes as API endpoints — Refletir sobre uma Situação is currently switched off (see Available Endpoints above and `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`); the other three ship
 - ✅ Curated learning paths
 - ✅ Web interface (React + Vite frontend)
 - ✅ Frontend → backend API integration
-- ✅ Clickable source citations (excerpt modal) on `/chat` and `/reflect`
+- ✅ Clickable source citations (excerpt modal) on `/chat` (also built for `/reflect`, currently switched off)
 - ✅ Related-items modal with click-through to full study
+- ✅ Deployment infrastructure — Cloud Run (backend) + Vercel (frontend), index baked into the image, hosted embedding lane
+- Restore Refletir on a structural fix — the 2026-07-26 evaluation showed no embedding model separates "estou ansioso" from the chapter on a Spirit's agony before reincarnating, so the fix is chapter-level filtering, not a model swap
+- Deterministic suppression of follow-up chips on sensitive turns — measured 2026-07-26: `gemini-3.6-flash` offered one right below the CVV note, and the current model's silence there is luck, not a guarantee
+- Fix the 20 documents that overwrite each other in the index — `_build_id` omits `part`, so O Céu e o Inferno's two chapter I collide (7327 stored where ingestion reports 7347)
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
-- Deployment infrastructure
 
 ---
 

@@ -9,7 +9,6 @@ requires-python = ">=3.12"
 
 dependencies = [
     "openai>=1.0.0",
-    "sentence-transformers>=2.7.0",
     "chromadb>=0.4.0",
     "fastapi[standard]>=0.110.0",
     "uvicorn[standard]>=0.27.0",
@@ -18,7 +17,17 @@ dependencies = [
 ]
 
 [dependency-groups]
+# sentence-transformers pulls torch, and torch pulls CUDA: ~4.7 GB that exists
+# only to run BAAI/bge-m3 in-process. Since 2026-07-27 production calls the same
+# model over HTTP (EMBEDDING_PROVIDER), so the runtime image must not carry any
+# of it — the container is pulled on every cold start. Parsing and ingestion
+# still run it locally, offline, which is what this group is for.
+ingest = [
+    "sentence-transformers>=2.7.0",
+]
+
 dev = [
+    {include-group = "ingest"},
     "black",
     "isort",
     "pytest",

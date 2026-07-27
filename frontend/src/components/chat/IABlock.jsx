@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
-import { BRAND_TERRACOTTA } from '../../constants/theme';
+// Refletir is switched off for production — the mode is disconnected, not
+// deleted. BRAND_TERRACOTTA was only used for the "🪞 Reflexão" badge below,
+// which is commented out along with it. See
+// docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+// import { BRAND_TERRACOTTA } from '../../constants/theme';
 import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
-import { formatItemRef } from '../../utils/format';
+import { formatSourceRef } from '../../utils/format';
 
 /**
  * The "Da IA" block containing the explanation text, historical context,
@@ -32,28 +36,44 @@ export default function IABlock({
       borderRadius: '0 0 10px 10px',
       padding: '13px 16px',
     }}>
-      {(msg.hasDaObra || msg.isReflection) && (
+      {/* Refletir is switched off for production — the mode is disconnected,
+          not deleted. A legacy conversation saved before the switch-off can
+          still carry msg.isReflection: true; it must render as plain answer
+          text with no badge, since the terracotta "🪞 Reflexão" badge would
+          identify a mode that no longer exists. See
+          docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md */}
+      {/* {(msg.hasDaObra || msg.isReflection) && ( */}
+      {msg.hasDaObra && (
         <div style={{ marginBottom: 10 }}>
           <span style={{
-            background: msg.isReflection ? BRAND_TERRACOTTA : '#6B9BB8', color: 'white',
+            background: /* msg.isReflection ? BRAND_TERRACOTTA : */ '#6B9BB8', color: 'white',
             fontSize: 9, fontWeight: 700, letterSpacing: '.1em',
             padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
-          }}>{msg.isReflection ? '🪞 Reflexão' : 'Da IA'}</span>
+          }}>{/* msg.isReflection ? '🪞 Reflexão' : */ 'Da IA'}</span>
         </div>
       )}
 
-      {msg.isReflection && msg.opening && (
-        <div style={{
-          fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', fontSize: 15,
-          color: BRAND_TERRACOTTA, lineHeight: 1.6, marginBottom: 10,
-        }}>{renderInlineMarkdown(msg.opening)}</div>
-      )}
-
+      {/* The Reflexivo's opening runs as the first paragraph of the answer, in
+          the same type as the rest. It used to be set apart in serif italic
+          terracotta, which read as a second voice speaking before the answer —
+          a greeting card stapled to a letter. It is the same voice, so it is
+          the same text. Joined into one block rather than styled to match, so
+          the paragraph rhythm is the body's own and reflections already saved
+          in a reader's history re-render the new way too. */}
       <div style={{
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
-      }}>{renderInlineMarkdown(revealedText)}</div>
+      }}>{renderInlineMarkdown(
+        [msg.isReflection && msg.opening, revealedText].filter(Boolean).join('\n\n')
+      )}</div>
 
-      {!isRevealing && msg.isReflection && !msg.isClosing && msg.reflectionQuestions?.length > 0 && (
+      {/* Refletir is switched off for production — the mode is disconnected,
+          not deleted. A legacy conversation can still carry
+          msg.reflectionQuestions, but onReflectionQuestionClick is now always
+          undefined (App.jsx no longer wires handleReflectionQuestionClick) —
+          without this guard these buttons would render and silently do
+          nothing when clicked. Suppressed entirely rather than left dead. See
+          docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md */}
+      {/* {!isRevealing && msg.isReflection && !msg.isClosing && msg.reflectionQuestions?.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
           {msg.reflectionQuestions.map((q, i) => (
             <button
@@ -67,7 +87,7 @@ export default function IABlock({
             >{renderInlineMarkdown(q)}</button>
           ))}
         </div>
-      )}
+      )} */}
 
       {/* Follow-up question chips (Tirar uma Dúvida) — tap sends the question */}
       {!isRevealing && suggestedQuestions.length > 0 && (
@@ -96,9 +116,11 @@ export default function IABlock({
               padding: '3px 10px', borderRadius: 12,
               cursor: 'pointer', fontWeight: 500,
             }}>
-              📖 {s.item_number
-                ? `${s.book}, ${formatItemRef(s.book, s.item_number)}`
-                : (s.chapter ? `${s.book} — ${s.chapter}` : s.book)}
+              📖 {formatSourceRef({
+                book: s.book,
+                chapterRef: s.chapter_ref,
+                itemNumber: s.item_number,
+              })}
             </button>
           ))}
         </div>

@@ -12,10 +12,14 @@ def _mock_client(monkeypatch, content):
     return client
 
 
-def test_classify_returns_refletir_for_emotional_message(monkeypatch):
+def test_classify_drops_refletir_even_if_llm_suggests_it(monkeypatch):
+    # Refletir is switched off (see docs/superpowers/specs/2026-07-26-desligar-
+    # reflexivo-design.md): "refletir" is no longer in _VALID_MODES, so a model
+    # that still emits it (an old prompt cache, a hallucination) gets filtered
+    # to no nudge rather than routing to a dead route.
     _mock_client(monkeypatch, '{"mode": "refletir", "confidence": "high"}')
     result = classify_intent("estou muito mal, me ajuda", current_mode="tirar_duvida")
-    assert result["mode"] == "refletir"
+    assert result["mode"] is None
 
 
 def test_classify_includes_history_in_prompt(monkeypatch):
@@ -73,6 +77,13 @@ def test_classify_invalid_mode_string_is_dropped(monkeypatch):
     _mock_client(monkeypatch, '{"mode": "banana", "confidence": "high"}')
     result = classify_intent("mensagem", current_mode="tirar_duvida")
     assert result["mode"] is None
+
+
+def test_never_nudges_to_the_disabled_reflect_mode():
+    """A nudge to a mode with no route is a dead end for the reader."""
+    from src.rag.orchestrator import _VALID_MODES
+
+    assert "refletir" not in _VALID_MODES
 
 
 def test_system_prompt_marks_clarification_as_not_refletir():

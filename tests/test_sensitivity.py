@@ -42,7 +42,7 @@ def test_classify_empty_text_defaults_normal():
 
 def test_classify_llm_failure_defaults_normal(monkeypatch):
     def _boom():
-        raise RuntimeError("groq down")
+        raise RuntimeError("provider down")
 
     monkeypatch.setattr("src.rag.sensitivity.get_client", _boom)
     assert classify_sensitivity("texto") == "normal"

@@ -28,7 +28,7 @@ export default function GuidedStudy({
   quickActions = [], onQuickAction,
 }) {
   const scrollRef = useRef(null);
-  useStickToBottom(scrollRef); // follow the typewriter reveal to the bottom
+  const attachScroll = useStickToBottom(scrollRef); // follow the reveal
   const progress = trilha ? Math.round(((currentStep + 1) / trilha.steps.length) * 100) : 0;
   const stepTitle = trilha?.steps[currentStep]?.label || '';
   const isLast = trilha && currentStep === trilha.steps.length - 1;
@@ -88,7 +88,7 @@ export default function GuidedStudy({
       </div>
 
       {/* Messages */}
-      <div ref={scrollRef} style={{
+      <div ref={attachScroll} style={{
         flex: 1, overflowY: 'auto', minHeight: 0,
         padding: '14px 20px', display: 'flex', flexDirection: 'column', gap: 12,
       }}>

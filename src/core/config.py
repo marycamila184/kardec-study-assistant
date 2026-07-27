@@ -16,12 +16,6 @@ class ProviderConfig(NamedTuple):
 _RIV_AI = "hf.co/ia-espirita/riv-ai-v2-Q4_K_M-GGUF"
 
 PROVIDERS: dict[str, ProviderConfig] = {
-    "groq": ProviderConfig(
-        "https://api.groq.com/openai/v1",
-        "groq_api_key",
-        "llama-3.3-70b-versatile",
-        "llama-3.1-8b-instant",
-    ),
     "openrouter": ProviderConfig(
         "https://openrouter.ai/api/v1",
         "openrouter_api_key",
@@ -31,13 +25,25 @@ PROVIDERS: dict[str, ProviderConfig] = {
     "together": ProviderConfig(
         "https://api.together.xyz/v1",
         "together_api_key",
-        "deepseek-ai/DeepSeek-V3",
+        # Was deepseek-ai/DeepSeek-V3, which this account cannot serve: the
+        # first Cloud Run deploy (2026-07-27) had no CHAT_MODEL override and
+        # every /chat returned generation_failed on a 503 from Together, while
+        # the same code worked locally because .env overrode the default. A
+        # default nobody can call is a trap, not a default — this is the model
+        # the /chat A/B actually ran on.
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo",
         # Not a Llama 3.1 8B: Together serves no small Llama serverless. Every
         # variant (with or without the "Meta-" prefix, Lite, 3.2-3B) returns
         # "Unable to access non-serverless model" and needs a dedicated
         # endpoint. Verified serverless 2026-07-25; the failure surfaces as
         # every small-LLM agent breaking while chat works fine.
         "Qwen/Qwen2.5-7B-Instruct-Turbo",
+    ),
+    "google": ProviderConfig(
+        "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "google_api_key",
+        "gemini-3.6-flash",
+        "gemini-3.1-flash-lite",
     ),
     # Prose-lane providers. Both serve riv-ai-v2 over an OpenAI-compatible /v1;
     # they differ only in where that endpoint lives.
@@ -58,14 +64,44 @@ PROVIDERS: dict[str, ProviderConfig] = {
 }
 
 
+# Hosted embedding lanes. Deliberately NOT in PROVIDERS: that registry routes
+# text generation, and an embedding API is a different contract. Mixing them
+# would imply that setting an embedding key reroutes /chat, which it never does.
+# Both serve BAAI/bge-m3 — the same model the local lane loads — over an
+# OpenAI-compatible surface, so `settings.embedding_model` names it unchanged.
+# The third element is the model id, which is NOT the same string everywhere:
+# OpenRouter lowercases the vendor prefix. `settings.embedding_model` keeps
+# naming the local SentenceTransformer, so a hosted lane cannot silently point
+# at a different model than the one the index was built with.
+EMBEDDING_PROVIDERS: dict[str, tuple[str, str, str]] = {
+    "openrouter": (
+        "https://openrouter.ai/api/v1",
+        "openrouter_api_key",
+        "baai/bge-m3",
+    ),
+    "deepinfra": (
+        "https://api.deepinfra.com/v1/openai",
+        "deepinfra_api_key",
+        "BAAI/bge-m3",
+    ),
+    "novita": ("https://api.novita.ai/v3/openai", "novita_api_key", "baai/bge-m3"),
+}
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    llm_provider: str = "groq"
-    groq_api_key: str | None = None
+    llm_provider: str = "together"
     openrouter_api_key: str | None = None
     together_api_key: str | None = None
     hf_token: str | None = None
+
+    # Same key serves two axes: the Gemini embedding API (compare_retrieval.py)
+    # and, via the "google" PROVIDERS entry above, /chat text generation over
+    # Gemini's OpenAI-compatible endpoint. One key, one account — acceptable;
+    # what stays wrong is registering *embeddings* as a text-generation
+    # provider, which this field never does.
+    google_api_key: str | None = None
 
     # Optional per-model overrides; unset → the active provider's default.
     chat_model: str | None = None
@@ -98,6 +134,14 @@ class Settings(BaseSettings):
     source_min_similarity: float = 0.35
 
     embedding_model: str = "BAAI/bge-m3"
+    # Unset = the in-process SentenceTransformer, exactly today's behavior.
+    # Set to a key of EMBEDDING_PROVIDERS to call the same model over HTTP and
+    # drop 2.3 GB from the container — only ever after
+    # scripts/verify_embedding_parity.py says the vectors land in the same
+    # space, because a mismatched vector raises nothing and just retrieves worse.
+    embedding_provider: str | None = None
+    deepinfra_api_key: str | None = None
+    novita_api_key: str | None = None
     top_k: int = 5
     max_distance: float = 0.55
     max_history_turns: int = 10

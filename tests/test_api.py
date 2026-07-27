@@ -1,11 +1,21 @@
 from unittest.mock import patch
 
+import pytest
 from fastapi.testclient import TestClient
 
 from src.api.main import app
 from src.api.schemas import ChatResponse, ReflectResponse
 
 client = TestClient(app)
+
+# Refletir is switched off in production; these tests exercise the now-gone
+# /reflect route and are skipped along with it, not deleted (ReflectResponse
+# stays a live schema, so test_reflect_response_safety_level_defaults_none
+# below still runs unskipped).
+# See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+_reflect_route_skip = pytest.mark.skip(
+    reason="Refletir switched off — see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md"
+)
 
 _ANSWER_RESULT = {
     "answer": "A reencarnação permite a evolução do espírito.",
@@ -294,6 +304,37 @@ _REFLECT_NOT_FOUND = {
 }
 
 
+def test_reflect_route_is_gone():
+    """Refletir is off (see the 2026-07-26 shutdown spec): the route does not
+    exist in this version, so the honest answer is 404 — not a 503 that invites
+    the frontend to retry."""
+    response = client.post("/reflect", json={"situation": "estou triste"})
+    assert response.status_code == 404
+
+
+def test_chat_still_exits_on_first_person_ideation():
+    """The floor that must survive the shutdown: /chat's crisis exit is not
+    part of the Refletir feature and cannot go away with it."""
+    from src.rag.crisis import CRISIS_EXIT_MESSAGE
+
+    crisis_result = {
+        "answer": CRISIS_EXIT_MESSAGE,
+        "sources": [],
+        "suggested_questions": [],
+        "not_found": False,
+        "safety_level": "crise",
+    }
+    with patch("src.api.routes.generate", return_value=crisis_result):
+        response = client.post("/chat", json={"question": "eu quero morrer"})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["safety_level"] == "crise"
+    assert "188" in body["answer"]
+    assert body["sources"] == []
+    assert body["suggested_questions"] == []
+
+
+@_reflect_route_skip
 def test_reflect_returns_200():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
         response = client.post("/reflect", json={"situation": "meu pai faleceu"})
@@ -304,6 +345,7 @@ def test_reflect_returns_200():
     assert data["not_found"] is False
 
 
+@_reflect_route_skip
 def test_reflect_returns_200_with_not_found_flag_when_no_doctrine():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_NOT_FOUND):
         response = client.post("/reflect", json={"situation": "assunto sem doutrina"})
@@ -311,6 +353,7 @@ def test_reflect_returns_200_with_not_found_flag_when_no_doctrine():
     assert response.json()["not_found"] is True
 
 
+@_reflect_route_skip
 def test_reflect_response_has_all_required_fields():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT):
         data = client.post(
@@ -329,12 +372,14 @@ def test_reflect_response_has_all_required_fields():
         assert field in data
 
 
+@_reflect_route_skip
 def test_reflect_passes_situation_to_reflect_fn():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_fn:
         client.post("/reflect", json={"situation": "me sinto vazio"})
     mock_fn.assert_called_once_with("me sinto vazio", [], anchor_text=None)
 
 
+@_reflect_route_skip
 def test_reflect_passes_conversation_history_to_reflect_fn():
     history_payload = [
         {"role": "user", "content": "pergunta anterior"},
@@ -351,6 +396,7 @@ def test_reflect_passes_conversation_history_to_reflect_fn():
     mock_fn.assert_called_once_with("nova pergunta", history_payload, anchor_text=None)
 
 
+@_reflect_route_skip
 def test_reflect_response_includes_is_closing_field():
     result_with_closing = dict(_REFLECT_RESULT, is_closing=True)
     with patch("src.api.routes.reflect_fn", return_value=result_with_closing):
@@ -358,6 +404,7 @@ def test_reflect_response_includes_is_closing_field():
     assert data["is_closing"] is True
 
 
+@_reflect_route_skip
 def test_reflect_surfaces_orchestrator_nudge():
     reflect_result = {
         "opening": "",
@@ -469,6 +516,7 @@ def test_chat_forwards_anchor_text_to_generator():
     assert mock_gen.call_args.kwargs["anchor_text"] == "humildade"
 
 
+@_reflect_route_skip
 def test_reflect_forwards_anchor_text_to_reflect_fn():
     with patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT) as mock_ref:
         client.post(
@@ -478,6 +526,7 @@ def test_reflect_forwards_anchor_text_to_reflect_fn():
     assert mock_ref.call_args.kwargs["anchor_text"] == "humildade"
 
 
+@_reflect_route_skip
 def test_reflect_never_self_nudges_even_if_classifier_says_refletir():
     def classify_with_guard(message, current_mode, history):
         # Simulate the real guard logic from orchestrator.classify_intent
@@ -499,6 +548,7 @@ def test_reflect_never_self_nudges_even_if_classifier_says_refletir():
     assert data["suggested_mode"] != "refletir"
 
 
+@_reflect_route_skip
 def test_reflect_passes_refletir_as_current_mode_to_classifier():
     with (
         patch("src.api.routes.reflect_fn", return_value=_REFLECT_RESULT),
@@ -568,6 +618,7 @@ def test_chat_suppresses_nudge_on_crise():
     assert data["suggested_mode"] is None
 
 
+@_reflect_route_skip
 def test_reflect_exposes_safety_level():
     crise_reflect = {
         "opening": "",

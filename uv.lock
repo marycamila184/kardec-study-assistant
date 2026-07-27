@@ -531,34 +531,34 @@ wheels = [
 
 [package.optional-dependencies]
 cudart = [
-    { name = "nvidia-cuda-runtime", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-runtime" },
 ]
 cufft = [
-    { name = "nvidia-cufft", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cufft" },
 ]
 cufile = [
-    { name = "nvidia-cufile", marker = "sys_platform == 'linux'" },
+    { name = "nvidia-cufile" },
 ]
 cupti = [
-    { name = "nvidia-cuda-cupti", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-cupti" },
 ]
 curand = [
-    { name = "nvidia-curand", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-curand" },
 ]
 cusolver = [
-    { name = "nvidia-cusolver", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusolver" },
 ]
 cusparse = [
-    { name = "nvidia-cusparse", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cusparse" },
 ]
 nvjitlink = [
-    { name = "nvidia-nvjitlink", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvjitlink" },
 ]
 nvrtc = [
-    { name = "nvidia-cuda-nvrtc", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-cuda-nvrtc" },
 ]
 nvtx = [
-    { name = "nvidia-nvtx", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { name = "nvidia-nvtx" },
 ]
 
 [[package]]
@@ -1211,7 +1211,6 @@ dependencies = [
     { name = "openai" },
     { name = "pydantic-settings" },
     { name = "python-dotenv" },
-    { name = "sentence-transformers" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
@@ -1222,6 +1221,10 @@ dev = [
     { name = "isort" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "sentence-transformers" },
+]
+ingest = [
+    { name = "sentence-transformers" },
 ]
 
 [package.metadata]
@@ -1231,7 +1234,6 @@ requires-dist = [
     { name = "openai", specifier = ">=1.0.0" },
     { name = "pydantic-settings", specifier = ">=2.0.0" },
     { name = "python-dotenv" },
-    { name = "sentence-transformers", specifier = ">=2.7.0" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.27.0" },
 ]
 
@@ -1242,7 +1244,9 @@ dev = [
     { name = "isort" },
     { name = "pytest" },
     { name = "pytest-cov", specifier = ">=7.1.0" },
+    { name = "sentence-transformers", specifier = ">=2.7.0" },
 ]
+ingest = [{ name = "sentence-transformers", specifier = ">=2.7.0" }]
 
 [[package]]
 name = "kubernetes"

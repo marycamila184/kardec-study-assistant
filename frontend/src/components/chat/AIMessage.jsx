@@ -17,6 +17,11 @@ export default function AIMessage({
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
+  // Always undefined now — Refletir is switched off for production, the mode
+  // is disconnected, not deleted; App.jsx no longer wires
+  // handleReflectionQuestionClick. Kept + forwarded to IABlock (which guards
+  // on it) rather than threaded out, so re-enabling Refletir is a one-line
+  // change. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
   onReflectionQuestionClick,
   suggestedQuestions = [],
   onSuggestedQuestionClick,
@@ -47,6 +52,7 @@ export default function AIMessage({
           revealedText={revealedText} isRevealing={isRevealing}
           showQuickActions={showQuickActions} quickActions={quickActions}
           onQuickAction={onQuickAction}
+          // Forwarded as always-undefined; see comment on the prop above.
           onReflectionQuestionClick={onReflectionQuestionClick}
           suggestedQuestions={suggestedQuestions}
           onSuggestedQuestionClick={onSuggestedQuestionClick}

@@ -5,26 +5,30 @@ from typing import Callable
 from fastapi import APIRouter, HTTPException
 
 from src.api.paths import load_all_paths, load_path
-from src.api.schemas import (
-    ChatRequest,
-    ChatResponse,
-    EvangelhoResponse,
-    EvangelhoSource,
-    PathDetail,
-    PathSummary,
-    ReflectRequest,
-    ReflectResponse,
-    Source,
-    StudyRequest,
-    StudyResponse,
-)
 from src.core.config import settings
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import explicar as study_item_fn
 from src.rag.generator import generate
 from src.rag.mode_detector import extract_study_reference
 from src.rag.orchestrator import classify_intent
-from src.rag.reflect import reflect as reflect_fn
+
+# ReflectRequest and ReflectResponse are commented out below: Refletir is
+# switched off, see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+from src.api.schemas import (  # isort: skip
+    ChatRequest,
+    ChatResponse,
+    EvangelhoResponse,
+    EvangelhoSource,
+    PathDetail,
+    PathSummary,
+    # ReflectRequest,
+    # ReflectResponse,
+    Source,
+    StudyRequest,
+    StudyResponse,
+)
+
+# from src.rag.reflect import reflect as reflect_fn  # Refletir is switched off; see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
 
 router = APIRouter()
 
@@ -123,28 +127,33 @@ def study(request: StudyRequest) -> StudyResponse:
     return StudyResponse(**result)
 
 
-@router.post("/reflect", response_model=ReflectResponse)
-def reflect_situation(request: ReflectRequest) -> ReflectResponse:
-    history = [m.model_dump() for m in request.conversation_history]
-    result, suggested_mode = _answer_with_nudge(
-        request.situation,
-        "refletir",
-        history,
-        lambda: reflect_fn(request.situation, history, anchor_text=request.anchor_text),
-    )
-    if result.get("safety_level") == "crise":
-        suggested_mode = None
-    study_ref = (
-        extract_study_reference(request.situation)
-        if suggested_mode == "estudar_obra"
-        else {"item_number": None, "book": None}
-    )
-    return ReflectResponse(
-        **result,
-        suggested_mode=suggested_mode,
-        suggested_item_number=study_ref["item_number"],
-        suggested_book=study_ref["book"],
-    )
+# Refletir is switched off for production: the mode answers lived suffering with
+# passages about reincarnation, and the 2026-07-26 retrieval evaluation showed no
+# embedding model fixes it — the failure is structural, not a model choice. The
+# code below is disconnected, not deleted; re-enabling is reconnecting it.
+# See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+# @router.post("/reflect", response_model=ReflectResponse)
+# def reflect_situation(request: ReflectRequest) -> ReflectResponse:
+#     history = [m.model_dump() for m in request.conversation_history]
+#     result, suggested_mode = _answer_with_nudge(
+#         request.situation,
+#         "refletir",
+#         history,
+#         lambda: reflect_fn(request.situation, history, anchor_text=request.anchor_text),
+#     )
+#     if result.get("safety_level") == "crise":
+#         suggested_mode = None
+#     study_ref = (
+#         extract_study_reference(request.situation)
+#         if suggested_mode == "estudar_obra"
+#         else {"item_number": None, "book": None}
+#     )
+#     return ReflectResponse(
+#         **result,
+#         suggested_mode=suggested_mode,
+#         suggested_item_number=study_ref["item_number"],
+#         suggested_book=study_ref["book"],
+#     )
 
 
 @router.get("/evangelho", response_model=EvangelhoResponse)

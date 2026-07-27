@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
-import { formatItemRef } from '../../utils/format';
+import { formatSourceRef } from '../../utils/format';
 
 /**
  * Related items modal — lists items connected to the current passage.
@@ -58,9 +58,13 @@ export default function RelatedItemsModal({ modal, theme, onClose, onSelectItem 
               }}
             >
               <div style={{ fontSize: 12.5, fontWeight: 600, color: theme.text, marginBottom: 4 }}>
-                {item.item_number
-                  ? `${item.book} — ${formatItemRef(item.book, item.item_number)}`
-                  : (item.chapter ? `${item.book} — ${item.chapter}` : item.book)}
+                {/* RelatedItem.chapter is the ref ("CAPÍTULO V"), not the title
+                    it is on Source — same field name, different content. */}
+                {formatSourceRef({
+                  book: item.book,
+                  chapterRef: item.chapter,
+                  itemNumber: item.item_number,
+                })}
               </div>
               {item.conexao && (
                 <div style={{ fontSize: 11.5, color: theme.qasText, marginBottom: 4, lineHeight: 1.5 }}>
