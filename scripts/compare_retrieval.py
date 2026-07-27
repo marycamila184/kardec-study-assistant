@@ -447,6 +447,59 @@ def index_e5() -> None:
     )
 
 
+def index_gemini(dim: int) -> None:
+    """Re-indexes the corpus with gemini-embedding-2 at `dim` dimensions.
+
+    Reuses the production document builder so the only variable is the model.
+    Nothing is truncated: a document the API refuses raises, because a silent
+    cut is the failure mode this whole comparison exists to avoid.
+    """
+    import chromadb
+
+    from src.ingestion.pipeline import BATCH_SIZE, _build_document, _build_id
+
+    collection = gemini_collection(dim)
+    client = chromadb.PersistentClient(path=settings.chroma_path)
+    try:
+        client.delete_collection(collection)
+        print(f"coleção {collection} anterior removida")
+    except Exception:
+        pass
+
+    store = VectorStore(settings.chroma_path, collection)
+    total = 0
+    for filename in sorted(os.listdir(settings.json_dir)):
+        if not filename.endswith(".json"):
+            continue
+        stem = filename[:-5]
+        with open(os.path.join(settings.json_dir, filename), encoding="utf-8") as f:
+            chunks = json.load(f)
+        print(f"  {stem}: {len(chunks)} chunks")
+        for i in range(0, len(chunks), BATCH_SIZE):
+            batch = chunks[i : i + BATCH_SIZE]
+            documents = [_build_document(c) for c in batch]
+            store.upsert(
+                [_build_id(stem, c) for c in batch],
+                encode_gemini(documents, dim=dim),
+                documents,
+                [
+                    {
+                        "book": c["book"],
+                        "part": c.get("part") or "",
+                        "chapter": c.get("chapter") or "",
+                        "chapter_title": c.get("chapter_title") or "",
+                        "subsection": c.get("subsection") or "",
+                        "item_number": str(c["item_number"]),
+                        "subchunk_index": c["subchunk_index"],
+                        "total_subchunks": c["total_subchunks"],
+                    }
+                    for c in batch
+                ],
+            )
+            total += len(batch)
+    print(f"Indexado: {total} chunks em {collection}, 0 truncados")
+
+
 # --- querying ----------------------------------------------------------------
 
 
@@ -467,6 +520,16 @@ def top_gemini(query: str, where: dict | None, dim: int, k: int = 5) -> list[dic
     return store.query(
         encode_gemini([query], dim=dim, is_query=True)[0], n_results=k, where=where
     )
+
+
+# Displayed name -> fn(query, where). Order and labels are contractual: they
+# end up verbatim in the report the deployment decision cites.
+LANES = {
+    "bge-m3 (atual)": top_bge,
+    "e5-instruct (Together)": top_e5,
+    "gemini-2 @1024": lambda query, where: top_gemini(query, where, dim=1024),
+    "gemini-2 @3072": lambda query, where: top_gemini(query, where, dim=3072),
+}
 
 
 # --- scoring -----------------------------------------------------------------
@@ -504,55 +567,61 @@ def summarize(rows: list[dict]) -> dict:
 
 
 def report() -> None:
-    lanes = {"bge-m3 (atual)": top_bge, "e5-instruct (Together)": top_e5}
-    results: dict[str, list[dict]] = {name: [] for name in lanes}
+    for case_set in CASE_SETS:
+        print(f"\n# Conjunto: {case_set['name']}\n")
+        results: dict[str, list[dict]] = {name: [] for name in LANES}
 
-    where = {"book": {"$in": list(REFLECT_BOOKS)}}
-    for case in REFLECT_CASES:
-        print(f"\n## [{case['id']}] {case['query']}\n")
-        for name, fn in lanes.items():
-            try:
-                hits = fn(case["query"], where)
-            except Exception as exc:  # a lane that is not indexed yet
-                print(f"### {name}\n\n  (indisponível: {exc})\n")
-                continue
-            s = score(case, hits)
-            results[name].append(s)
-            print(
-                f"### {name} — rank do apto: {s['best_rank'] or '—'}"
-                f"{'  ⚠️ trouxe capítulo errado' if s['avoid_hit'] else ''}\n"
-            )
-            for i, h in enumerate(hits, 1):
-                m = h["metadata"]
-                mark = (
-                    "✅"
-                    if m.get("chapter_title") in case["expect"]
-                    else "❌" if m.get("chapter_title") in case["avoid"] else "  "
-                )
+        for case in case_set["cases"]:
+            print(f"\n## [{case['id']}] {case['query']}\n")
+            for name, fn in LANES.items():
+                try:
+                    hits = fn(case["query"], case_set["where"])
+                except Exception as exc:  # a lane that is not indexed yet
+                    print(f"### {name}\n\n  (indisponível: {exc})\n")
+                    continue
+                s = score(case, hits)
+                results[name].append(s)
                 print(
-                    f"  {mark} {i}. {m['book']} | {m.get('chapter_title')} "
-                    f"| item {m.get('item_number')}"
+                    f"### {name} — rank do apto: {s['best_rank'] or '—'}"
+                    f"{'  ⚠️ trouxe capítulo errado' if s['avoid_hit'] else ''}\n"
                 )
-            print()
+                for i, h in enumerate(hits, 1):
+                    m = h["metadata"]
+                    mark = (
+                        "✅"
+                        if m.get("chapter_title") in case["expect"]
+                        else "❌" if m.get("chapter_title") in case["avoid"] else "  "
+                    )
+                    print(
+                        f"  {mark} {i}. {m['book']} | {m.get('chapter_title')} "
+                        f"| item {m.get('item_number')}"
+                    )
+                print()
 
-    print("\n## Resumo\n")
-    for name, rows in results.items():
-        if rows:
-            print(f"- {name}: {summarize(rows)}")
+        print(f"\n## Resumo — {case_set['name']}\n")
+        for name, rows in results.items():
+            if rows:
+                print(f"- {name}: {summarize(rows)}")
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--index",
-        choices=["e5"],
-        help="re-index the corpus with the given model (one-off, ~US$0.03)",
+        choices=["e5", "gemini-1024", "gemini-3072"],
+        help="re-index the corpus with the given lane (one-off, ~US$0.25 for gemini)",
     )
     parser.add_argument("--report", action="store_true", help="compare and print")
-    args = parser.parse_args()
+    return parser
+
+
+def main() -> None:
+    args = build_parser().parse_args()
 
     if args.index == "e5":
         index_e5()
+    elif args.index in ("gemini-1024", "gemini-3072"):
+        index_gemini(int(args.index.split("-")[1]))
     if args.report or not args.index:
         report()
 

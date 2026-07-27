@@ -172,3 +172,43 @@ def test_the_bug_that_started_this_is_a_case():
     by_id = {case["id"]: case for case in cr.REFLECT_CASES}
     assert by_id["ansiedade-nua"]["query"] == "estou me sentindo ansioso"
     assert "DA VOLTA DO ESPÍRITO À VIDA CORPORAL" in by_id["ansiedade-nua"]["avoid"]
+
+
+def test_lane_names_are_stable_and_cover_all_four():
+    """The report's lane labels end up in the log that the decision cites."""
+    assert list(cr.LANES) == [
+        "bge-m3 (atual)",
+        "e5-instruct (Together)",
+        "gemini-2 @1024",
+        "gemini-2 @3072",
+    ]
+
+
+def test_gemini_lanes_query_their_own_collection(monkeypatch):
+    seen: list[tuple[str, int]] = []
+
+    class FakeStore:
+        def __init__(self, path, collection):
+            seen.append(collection)
+
+        def query(self, vector, n_results, where):
+            seen.append(len(vector))
+            return []
+
+    monkeypatch.setattr(cr, "VectorStore", FakeStore)
+    monkeypatch.setattr(
+        cr, "_gemini_post", lambda body: {"embeddings": [{"values": [0.0] * 3072}]}
+    )
+
+    cr.LANES["gemini-2 @3072"]("uma consulta", None)
+
+    assert seen[0] == "kardec_docs_gemini_3072"
+    assert seen[1] == 3072
+
+
+def test_index_choices_are_the_three_lanes():
+    parser = cr.build_parser()
+    args = parser.parse_args(["--index", "gemini-1024"])
+    assert args.index == "gemini-1024"
+    with pytest.raises(SystemExit):
+        parser.parse_args(["--index", "gemini-2048"])
