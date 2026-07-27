@@ -6,9 +6,12 @@ import { useEffect, useRef, useState } from 'react';
  *   fullText — the complete string to reveal
  *   options.speed — ms between reveal ticks (default 50)
  *   options.key — identity that resets the reveal when it changes (e.g. msg.id)
+ *   options.start — hold at zero until true, so two reveals can run in
+ *     sequence at one speed instead of one appearing whole while the other
+ *     types. Defaults to true, which is the single-reveal behaviour.
  * Returns the currently-visible substring of fullText.
  */
-export function useTypewriter(fullText, { speed = 50, key, skip = false } = {}) {
+export function useTypewriter(fullText, { speed = 50, key, skip = false, start = true } = {}) {
   const full = fullText || '';
   const words = full.match(/\S+\s*/g) || [];
   const [visibleWords, setVisibleWords] = useState(skip ? words.length : 0);
@@ -20,13 +23,13 @@ export function useTypewriter(fullText, { speed = 50, key, skip = false } = {}) 
   }, [key, skip]);
 
   useEffect(() => {
-    if (skip || visibleWords >= words.length) return;
+    if (skip || !start || visibleWords >= words.length) return;
     const timer = setTimeout(() => {
       if (keyRef.current !== key) return;
       setVisibleWords(v => Math.min(v + 1, words.length));
     }, speed);
     return () => clearTimeout(timer);
-  }, [visibleWords, words.length, speed, key, skip]);
+  }, [visibleWords, words.length, speed, key, skip, start]);
 
   return skip ? full : words.slice(0, visibleWords).join('');
 }

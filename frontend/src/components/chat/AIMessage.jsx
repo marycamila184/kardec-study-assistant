@@ -28,8 +28,20 @@ export default function AIMessage({
   footerAction = null,
   children,
 }) {
-  const revealedText = useTypewriter(msg.ia, { key: msg.id, skip: !!msg.fromCache });
-  const isRevealing = revealedText.length < (msg.ia || '').length;
+  // A citação da obra revelava de uma vez enquanto a resposta digitava, então
+  // o trecho do dia aparecia inteiro e a explicação vinha devagar logo abaixo.
+  // Agora as duas usam o mesmo relógio, em sequência: primeiro a passagem,
+  // depois o que a IA diz sobre ela — que é a ordem em que se lê.
+  const quote = msg.obra?.quote || '';
+  const revealedQuote = useTypewriter(quote, { key: msg.id, skip: !!msg.fromCache });
+  const quoteDone = revealedQuote.length >= quote.length;
+
+  const revealedText = useTypewriter(msg.ia, {
+    key: msg.id,
+    skip: !!msg.fromCache,
+    start: quoteDone,
+  });
+  const isRevealing = !quoteDone || revealedText.length < (msg.ia || '').length;
 
   return (
     <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', animation: 'fade-up .3s ease' }}>
@@ -42,7 +54,7 @@ export default function AIMessage({
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         {msg.hasDaObra && (
-          <ObraBlock obra={msg.obra} theme={theme}
+          <ObraBlock obra={{ ...msg.obra, quote: revealedQuote }} theme={theme}
             onShare={onShare && !isRevealing ? onShare : undefined}
             compact={isMobile}
           />

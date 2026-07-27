@@ -251,11 +251,54 @@ kardec-study-assistant/
 - ✅ Clickable source citations (excerpt modal) on `/chat` (also built for `/reflect`, currently switched off)
 - ✅ Related-items modal with click-through to full study
 - ✅ Deployment infrastructure — Cloud Run (backend) + Vercel (frontend), index baked into the image, hosted embedding lane
-- Restore Refletir on a structural fix — the 2026-07-26 evaluation showed no embedding model separates "estou ansioso" from the chapter on a Spirit's agony before reincarnating, so the fix is chapter-level filtering, not a model swap
+- **Refletir sobre uma Situação — in development, not shipped.** The mode exists in full (`src/rag/reflect.py`, `reflect_prompt.py`, `RefletirPicker.jsx`) and is disconnected rather than deleted, so re-enabling is wiring rather than rewriting. What keeps it off is measured: the 2026-07-26 retrieval evaluation found that all four embedding models tested answer *"estou me sentindo ansioso"* with the chapter on a Spirit's agony before **reincarnating**. The failure is structural, so the fix is chapter-level filtering, not a model swap. See `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`
 - Deterministic suppression of follow-up chips on sensitive turns — measured 2026-07-26: `gemini-3.6-flash` offered one right below the CVV note, and the current model's silence there is luck, not a guarantee
 - Fix the 20 documents that overwrite each other in the index — `_build_id` omits `part`, so O Céu e o Inferno's two chapter I collide (7327 stored where ingestion reports 7347)
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
+
+### Planned
+
+**riv-ai-v2 for Refletir.** Whether a model fine-tuned on Spiritist material
+holds the reflective register better than the general one. The obstacle is
+already known and has to be re-measured rather than assumed: riv-ai-v2 was cut
+from Reflexivo on 2026-07-24 for giving direct advice, which the mode forbids
+outright — and that verdict came from an ad-hoc n=5 smoke test whose raw output
+was never saved. `scripts/compare_reflect.py` exists to make that evidence
+reproducible. Any return of the mode has to clear the no-advice constraint on
+the record, not from memory.
+
+**Spiritist centre map.** A directory of nearby centres, using the reader's
+location. The open question is where it belongs: it is not a study mode, and
+putting it beside Estudar/Dialogar would suggest it is one. Estudar is the
+current candidate, since someone who has just read a passage is closer to
+wanting a room with people in it than someone mid-question. Needs a data source
+for the centres and an explicit, revocable location permission — the app asks
+for nothing today, and that is worth keeping true until the feature earns it.
+
+**A warmer, more capable conversational agent.** Today the reader asks and gets
+an answer. The next step is a companion that can act on the works during the
+conversation — open a chapter when the reader wants to go deeper, and bring the
+passage along instead of describing it. The constraint that governs everything
+else applies unchanged: whatever it opens must be shown as source text, visibly
+separate from anything the model adds.
+
+**Study module content review** A doctrinal pass over the curated
+learning paths and the Explicador output. Retrieval quality is measured; whether
+the *pedagogy* is sound is not something a benchmark answers.
+
+**Prompt caching on Together.** Every `/chat` turn resends the system prompt and
+the retrieved passages, and prompt tokens dominate the bill — this is where the
+spend actually is. Worth measuring the hit rate before assuming the saving:
+cache economics depend on how much of the prompt is genuinely stable across
+turns, and the retrieved passages are the part that changes.
+
+**Fine-tuning, later.** A model that reads as a teacher rather than an
+encyclopaedia, trained on recorded teaching — podcasts and lectures. Two
+prerequisites before any of it: rights to the material must be cleared with
+whoever produced it, and the grounding rule has to survive. A fine-tune that
+starts speaking doctrine from its weights instead of from retrieved passages
+would break the one thing this project refuses to break.
 
 ---
 

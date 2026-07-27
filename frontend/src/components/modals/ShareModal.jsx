@@ -10,7 +10,7 @@ const WhatsAppIcon = () => (
 /**
  * Share quote modal — shows preview card + copy/WhatsApp/download actions.
  */
-export default function ShareModal({ msg, theme, onClose }) {
+export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
   useEscapeKey(onClose, !!msg);
   if (!msg) return null;
 
@@ -25,10 +25,21 @@ export default function ShareModal({ msg, theme, onClose }) {
     window.open(url, '_blank', 'noopener');
   };
 
-  // Decidido uma vez, no render: em celular o botão compartilha, no desktop
-  // baixa — e o rótulo precisa dizer o que vai acontecer.
-  const canShareFile =
-    typeof navigator !== 'undefined' && typeof navigator.canShare === 'function';
+  // Testa com um arquivo de verdade, não só a existência da função: o Chrome do
+  // desktop tem navigator.canShare mas recusa arquivos, então checar só o
+  // `typeof` fazia o botão prometer "Compartilhar imagem" e baixar.
+  const canShareFile = (() => {
+    if (typeof navigator === 'undefined' || typeof navigator.canShare !== 'function') {
+      return false;
+    }
+    try {
+      return navigator.canShare({
+        files: [new File([new Blob()], 'x.png', { type: 'image/png' })],
+      });
+    } catch {
+      return false;
+    }
+  })();
 
   const handleDownload = () => {
     const canvas = document.createElement('canvas');
@@ -73,7 +84,9 @@ export default function ShareModal({ msg, theme, onClose }) {
 
       if (navigator.canShare?.({ files: [file] })) {
         try {
-          await navigator.share({ files: [file] });
+          // Imagem E texto no mesmo envio: quem escolher WhatsApp recebe a foto
+          // com a legenda, em vez de ter de decidir antes entre um e outro.
+          await navigator.share({ files: [file], text: shareText });
           return;
         } catch (err) {
           // Cancelar a folha de compartilhamento levanta AbortError. Não é
@@ -102,11 +115,18 @@ export default function ShareModal({ msg, theme, onClose }) {
     <div style={{
       position: 'fixed', inset: 0, zIndex: 90,
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: 24, background: 'rgba(0,0,0,.5)',
+      padding: isMobile ? 12 : 24, background: 'rgba(0,0,0,.5)',
     }} onClick={onClose}>
+      {/* O trecho do dia pode ser longo, e sem teto de altura o cartão crescia
+          para fora da tela no celular: o rodapé com os botões ficava abaixo da
+          dobra, sem rolagem, e a pessoa via um cartão cortado sem saída.
+          maxHeight prende o modal na viewport e a rolagem vai para o miolo,
+          deixando cabeçalho e ações sempre visíveis. */}
       <div style={{
         background: theme.headerBg, borderRadius: 14,
-        maxWidth: 480, width: '100%', boxShadow: '0 8px 48px rgba(0,0,0,.3)', overflow: 'hidden',
+        maxWidth: 480, width: '100%', maxHeight: '92vh',
+        display: 'flex', flexDirection: 'column',
+        boxShadow: '0 8px 48px rgba(0,0,0,.3)', overflow: 'hidden',
       }} onClick={e => e.stopPropagation()}>
         <div style={{
           padding: '16px 18px', borderBottom: `1px solid ${theme.headerBorder}`,
@@ -122,15 +142,17 @@ export default function ShareModal({ msg, theme, onClose }) {
         {/* Preview card */}
         <div style={{
           background: 'linear-gradient(135deg, #3A6E8A, #2A5070)',
-          padding: '32px 28px',
+          padding: isMobile ? '22px 20px' : '32px 28px',
+          overflowY: 'auto', minHeight: 0,
         }}>
           <div style={{
             fontSize: 8.5, fontWeight: 700, letterSpacing: '.18em',
             textTransform: 'uppercase', color: 'rgba(255,255,255,.5)', marginBottom: 18,
           }}>Dialogando com a Doutrina</div>
           <div style={{
-            fontFamily: "'Crimson Pro', serif", fontSize: 20, fontStyle: 'italic',
+            fontFamily: "'Crimson Pro', serif", fontSize: isMobile ? 17 : 20, fontStyle: 'italic',
             color: 'white', lineHeight: 1.7, marginBottom: 16,
+            overflowWrap: 'anywhere',
           }}>{quote}</div>
           <div style={{ height: 1, background: 'rgba(255,255,255,.2)', marginBottom: 14 }} />
           <div style={{ fontSize: 10, color: 'rgba(255,255,255,.65)' }}>{citation}</div>
@@ -139,19 +161,30 @@ export default function ShareModal({ msg, theme, onClose }) {
           )}
         </div>
 
-        {/* Actions */}
-        <div style={{ padding: '14px 18px', display: 'flex', gap: 8 }}>
-          <button onClick={handleWhatsApp} style={{
-            flex: 1, background: '#25D366', border: 'none',
-            color: 'white', fontSize: 12, fontWeight: 600, padding: 9, borderRadius: 7,
-            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-          }}>
-            <WhatsAppIcon /> WhatsApp
-          </button>
+        {/* Ações.
+
+            Onde existe folha do sistema, um botão só. Dois botões confundiam:
+            o verde tinha a marca do WhatsApp e mandava apenas texto, enquanto o
+            de imagem — que é o que a pessoa quer compartilhar — parecia
+            secundário. A folha já lista WhatsApp, Instagram e o que mais
+            estiver instalado, e agora leva foto e legenda juntas.
+
+            No desktop os dois continuam, porque lá não há folha: o WhatsApp Web
+            abre com o texto e o outro salva o arquivo. */}
+        <div style={{ padding: '14px 18px', display: 'flex', gap: 8, flexShrink: 0 }}>
+          {!canShareFile && (
+            <button onClick={handleWhatsApp} style={{
+              flex: 1, background: '#25D366', border: 'none',
+              color: 'white', fontSize: 12, fontWeight: 600, padding: 9, borderRadius: 7,
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+            }}>
+              <WhatsAppIcon /> WhatsApp
+            </button>
+          )}
           <button onClick={handleDownload} style={{
             flex: 1, background: '#6B9BB8', border: 'none',
             color: 'white', fontSize: 12, fontWeight: 500, padding: 9, borderRadius: 7, cursor: 'pointer',
-          }}>{canShareFile ? 'Compartilhar imagem' : 'Baixar imagem'}</button>
+          }}>{canShareFile ? 'Compartilhar' : 'Baixar imagem'}</button>
         </div>
       </div>
     </div>
