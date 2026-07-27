@@ -5,6 +5,10 @@ import pytest
 
 from src.rag.reflect import reflect
 
+pytestmark = pytest.mark.skip(
+    reason="Refletir switched off — see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md"
+)
+
 _CHUNK_1 = {
     "content": "Os espíritos sobrevivem à morte do corpo.",
     "metadata": {
@@ -236,8 +240,10 @@ def test_reflect_complementary_items_come_from_chunks_3_to_5():
 
     def spy_curar(main_text, candidates):
         seen["candidates"] = candidates
-        return [{"book": c["metadata"]["book"], "item_number": c["metadata"]["item_number"]}
-                for c in candidates]
+        return [
+            {"book": c["metadata"]["book"], "item_number": c["metadata"]["item_number"]}
+            for c in candidates
+        ]
 
     # curar must be stubbed. It imports get_client into its OWN module, so
     # patching reflect's client does not reach it — the call goes to the real
@@ -575,7 +581,7 @@ def test_reflect_restricts_retrieval_to_reflect_books():
 def test_reflect_topic_suicide_mention_gets_note_not_exit():
     # Mentioning suicide as a topic (grief about someone else) must not take
     # the fixed exit; the reflection proceeds with the CVV note appended.
-    from src.rag.reflect_prompt import CRISIS_NOTE
+    from src.rag.crisis import CRISIS_NOTE
 
     with (
         patch("src.rag.reflect.retrieve", return_value=[_CHUNK_1, _CHUNK_2]),
@@ -616,7 +622,7 @@ def test_reflect_empty_questions_coerced_to_closing():
 def test_reflect_topic_suicide_note_survives_generation_failure():
     # The CVV note is a safety property: a suicide-topic turn carries it even
     # when the generation LLM fails (matches /chat's unconditional append).
-    from src.rag.reflect_prompt import CRISIS_NOTE
+    from src.rag.crisis import CRISIS_NOTE
 
     def _boom(*args, **kwargs):
         raise RuntimeError("llm down")

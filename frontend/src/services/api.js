@@ -95,6 +95,9 @@ function mapStudy(data, bookLabel, itemNumber) {
   };
 }
 
+// mapReflect and reflectSituation below are unused now — Refletir is switched
+// off for production — the mode is disconnected, not deleted. See
+// docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
 function mapReflect(data) {
   const relatedItems = (data.complementary_items || []).map(r => ({
     book: r.book,
@@ -161,6 +164,9 @@ export async function studyItem(book, item_number, chapter = null) {
   return mapStudy(data, book, item_number);
 }
 
+// Unused now — Refletir is switched off for production — the mode is
+// disconnected, not deleted. See
+// docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
 export async function reflectSituation(situation, history = [], currentMode = null) {
   const data = await request('/reflect', {
     method: 'POST',

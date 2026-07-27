@@ -76,8 +76,18 @@ def test_no_caveat_in_system_by_default():
 
 
 def test_system_shows_real_item_number():
+    # _CHUNK is O Livro dos Espíritos, whose entries are questões — the header
+    # is where the model learns that vocabulary, and it echoes it into prose.
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+    assert "Questão: 132" in system
+    assert "Item: 132" not in system
+
+
+def test_system_calls_other_works_itens():
+    chunk = {**_CHUNK, "metadata": {**_CHUNK["metadata"], "book": "A Gênese"}}
+    system, _ = build_messages("O que é reencarnação?", [chunk], [])
     assert "Item: 132" in system
+    assert "Questão" not in system
 
 
 def test_system_omits_placeholder_item_number():
@@ -88,6 +98,7 @@ def test_system_omits_placeholder_item_number():
     system, _ = build_messages("O que é reencarnação?", [chunk], [])
     assert "section-3" not in system
     assert "Item:" not in system
+    assert "Questão:" not in system
 
 
 def test_system_requires_fontes_marker():

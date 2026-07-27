@@ -91,6 +91,8 @@ class StudyResponse(BaseModel):
     generation_failed: bool = False
 
 
+# ReflectRequest and ReflectResponse are without a route while Refletir is
+# switched off; see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
 class ReflectRequest(BaseModel):
     situation: str
     conversation_history: list[Message] = []

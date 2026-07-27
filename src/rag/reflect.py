@@ -3,18 +3,17 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 
 from src.core.config import settings
-from src.rag.curador import curar
-from src.rag.llm_client import create_json_completion, get_client
-from src.rag.query_condenser import blend_anchor, condense_query
-from src.rag.reflect_prompt import (
+from src.rag.crisis import (
     CRISIS_EXIT_MESSAGE,
     CRISIS_NOTE,
-    build_reflect_messages,
     mentions_suicide_topic,
     needs_crisis_note,
     needs_medical_caveat,
-    parse_reflect_json,
 )
+from src.rag.curador import curar
+from src.rag.llm_client import create_json_completion, get_client
+from src.rag.query_condenser import blend_anchor, condense_query
+from src.rag.reflect_prompt import build_reflect_messages, parse_reflect_json
 from src.rag.retriever import (
     REFLECT_BOOKS,
     append_chapter_commentary,
@@ -165,7 +164,7 @@ def reflect(
     is_closing = False
     generation_failed = False
 
-    # curar() makes its own independent Groq call and only needs
+    # curar() makes its own independent provider call and only needs
     # `complementary_raw`, which is already retrieved — run both LLM calls
     # concurrently instead of paying their latency twice in sequence.
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:

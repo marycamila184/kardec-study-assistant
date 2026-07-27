@@ -1,7 +1,7 @@
 import json
 
 from src.rag.json_extract import extract_outermost, strip_code_fence
-from src.rag.retriever import has_real_item_number
+from src.rag.retriever import has_real_item_number, item_word
 
 _SYSTEM_TEMPLATE = """\
 Você é um curador especializado nas obras de Allan Kardec.
@@ -46,7 +46,7 @@ def _format_candidates(chunks: list[dict]) -> str:
         m = c["metadata"]
         header = f"[{i}] {m['book']}"
         if has_real_item_number(m.get("item_number")):
-            header += f" — Item {m['item_number']}"
+            header += f" — {item_word(m['book'])} {m['item_number']}"
         # 800 = the chunker's ceiling, so a candidate is never actually cut.
         # At 300 the model judged a doctrinal connection from a third of the
         # passage and was not told it was truncated — a plausible cause of

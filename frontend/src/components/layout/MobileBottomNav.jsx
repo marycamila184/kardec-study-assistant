@@ -15,46 +15,33 @@ const ChatIcon = ({ active }) => (
   </svg>
 );
 
-const MirrorIcon = ({ active }) => (
-  <svg width={20} height={20} viewBox="0 0 24 24" fill="none"
-    stroke="white" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3C8 3 5 6 5 9c0 4 4 8 7 11 3-3 7-7 7-11 0-3-3-6-7-6z"/>
-    <line x1="12" y1="3" x2="12" y2="20"/>
-  </svg>
-);
+// Refletir is switched off for production — the mode is disconnected, not
+// deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+// const MirrorIcon = ({ active }) => (
+//   <svg width={20} height={20} viewBox="0 0 24 24" fill="none"
+//     stroke="white" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
+//     <path d="M12 3C8 3 5 6 5 9c0 4 4 8 7 11 3-3 7-7 7-11 0-3-3-6-7-6z"/>
+//     <line x1="12" y1="3" x2="12" y2="20"/>
+//   </svg>
+// );
 
-const SunIcon = ({ active }) => (
-  <svg width={20} height={20} viewBox="0 0 24 24" fill="none"
-    stroke="white" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="5"/>
-    <line x1="12" y1="1" x2="12" y2="3"/>
-    <line x1="12" y1="21" x2="12" y2="23"/>
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-    <line x1="1" y1="12" x2="3" y2="12"/>
-    <line x1="21" y1="12" x2="23" y2="12"/>
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-  </svg>
-);
-
+// Every tab here navigates. "Hoje" used to sit alongside these and did not:
+// tapping it generated a conversation and left the reader in Dúvida, with the
+// bar highlighting a tab they had not tapped — its isActive was hardcoded false
+// because there was no screen for it to be active on. The daily passage is now
+// a card at the top of Estudar, which is a destination.
 const TABS = [
   { id: 'estudar',  label: 'Estudar',  Icon: BookOpenIcon },
   { id: 'duvida',   label: 'Dúvida',   Icon: ChatIcon },
-  { id: 'refletir', label: 'Refletir', Icon: MirrorIcon },
-  { id: 'hoje',     label: 'Hoje',     Icon: SunIcon },
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  // { id: 'refletir', label: 'Refletir', Icon: MirrorIcon },
 ];
 
-export default function MobileBottomNav({ mode, onChange, onStudyTrecho }) {
-  const handleTab = (id) => {
-    if (id === 'hoje') {
-      onStudyTrecho?.();
-    } else {
-      onChange(id);
-    }
-  };
+export default function MobileBottomNav({ mode, onChange }) {
+  const handleTab = (id) => onChange(id);
 
-  const isActive = (id) => id === 'hoje' ? false : mode === id;
+  const isActive = (id) => mode === id;
 
   return (
     <div style={{

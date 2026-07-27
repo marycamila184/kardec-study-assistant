@@ -10,36 +10,27 @@ const BookIcon = ({ size = 17, color = 'white' }) => (
   </svg>
 );
 
-const navModes = [
-  { id: 'estudar',  label: 'Estudar uma Obra' },
-  { id: 'duvida',   label: 'Tirar uma Dúvida' },
-  { id: 'refletir', label: 'Refletir' },
-];
-
 /**
- * Desktop sidebar (300px wide, sky blue background).
+ * Desktop sidebar (300px wide, sky blue background), also the mobile drawer.
+ *
+ * History-only. What belongs here is what the reader accumulates — favourites
+ * and recent conversations — plus the one control that starts something new.
+ * The modes went to the home launcher, and so did the daily passage, which was
+ * the last block here that was not the reader's own material.
+ *
  * Props:
- *   mode           — current active mode string
- *   onModeChange   — (modeId: string) => void
- *   onStudyTrecho  — () => void  (opens daily trecho in chat)
+ *   onNewConvo     — () => void  (opens the home launcher)
  *   onTutorial     — () => void
  *   conversations  — array of {id, title, mode, msgs}
  *   onLoadConvo    — (convo) => void
  */
 export default function Sidebar({
-  mode, onModeChange,
-  onStudyTrecho, onTutorial,
+  onNewConvo,
+  onTutorial,
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
-  evangelhoData = null,
   onClose,
   isMobile = false,
 }) {
-  const navBase = {
-    display: 'flex', alignItems: 'center', gap: 8,
-    padding: '7px 8px', borderRadius: 6, cursor: 'pointer',
-    fontSize: 13, marginBottom: 2, transition: 'background .15s',
-  };
-
   const hasFavorites = conversations.some(c => c.favorited);
   const hasRecent = conversations.some(c => !c.favorited);
 
@@ -77,90 +68,35 @@ export default function Sidebar({
           <div style={{
             fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
             color: 'rgba(255,255,255,.45)', paddingLeft: 40, marginTop: 4,
-          }}>Estude · Reflita · Compreenda</div>
+          }}>Estude · Dialogue · Compreenda</div>
         )}
       </div>
 
-      {/* Nav — desktop only */}
+      {/* New conversation — desktop only. It goes to the home launcher and
+          nowhere else: home is the canonical place to choose a mode, and a
+          shortcut menu here would be a second launcher competing with it.
+          The mobile drawer is deliberately untouched — mode selection there
+          belongs to MobileBottomNav. */}
       {!isMobile && (
-        <div style={{ padding: '0 8px 4px' }}>
-          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 4px 10px' }} />
-          <div style={{
-            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 8px',
-          }}>Modos de estudo</div>
-          {navModes.map(m => (
-            <button key={m.id}
-              onClick={() => onModeChange(m.id)}
-              aria-current={mode === m.id ? 'true' : undefined}
-              style={{
-                ...navBase,
-                width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
-                fontWeight: mode === m.id ? 600 : 400,
-                color: mode === m.id ? 'white' : 'rgba(255,255,255,.7)',
-                background: mode === m.id ? 'rgba(255,255,255,.22)' : 'transparent',
-              }}>
-              {m.label}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Daily trecho — desktop only */}
-      {!isMobile && (
-        <div style={{ padding: '0 8px 4px' }}>
-          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '6px 4px 10px' }} />
-          <div style={{
-            fontSize: 11, fontWeight: 700, letterSpacing: '.14em',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,.36)', padding: '0 6px 7px',
-          }}>Trecho do dia</div>
+        <div style={{ padding: '0 10px 4px' }}>
+          {/* Separates the action from the brand above it, using the same rule
+              that divides every other section of the sidebar. */}
+          <div style={{ height: 1, background: 'rgba(255,255,255,.12)', margin: '4px 2px 12px' }} />
           <button
-            onClick={evangelhoData ? onStudyTrecho : undefined}
-            disabled={!evangelhoData}
-            aria-label="Ler e refletir sobre o trecho do dia"
+            onClick={onNewConvo}
             style={{
-              display: 'block', width: '100%', textAlign: 'left', border: 'none', font: 'inherit',
-              background: 'rgba(0,0,0,.15)', borderRadius: 8, padding: '11px 12px', margin: '0 2px',
-              cursor: evangelhoData ? 'pointer' : 'default',
-              transition: 'background .15s',
+              display: 'flex', alignItems: 'center', gap: 7, width: '100%',
+              background: 'rgba(255,255,255,.18)',
+              border: '1px solid rgba(255,255,255,.32)',
+              borderRadius: 8, padding: '9px 12px',
+              color: 'white', font: 'inherit', fontSize: 13, fontWeight: 600,
+              cursor: 'pointer', transition: 'background .15s',
             }}
-            onMouseEnter={e => {
-              if (!evangelhoData) return;
-              e.currentTarget.style.background = 'rgba(0,0,0,.25)';
-              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
-              if (arrow) arrow.style.transform = 'translateX(3px)';
-            }}
-            onMouseLeave={e => {
-              if (!evangelhoData) return;
-              e.currentTarget.style.background = 'rgba(0,0,0,.15)';
-              const arrow = e.currentTarget.querySelector('[data-trecho-arrow]');
-              if (arrow) arrow.style.transform = 'translateX(0)';
-            }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,.26)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,.18)'; }}
           >
-            {evangelhoData ? (
-              <>
-                <div style={{
-                  fontFamily: "'Crimson Pro', serif", fontSize: 14, fontStyle: 'italic',
-                  color: 'rgba(255,255,255,.82)', lineHeight: 1.65, marginBottom: 7,
-                }}>"{evangelhoData.content.slice(0, 320)}…"</div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,.4)', lineHeight: 1.5 }}>
-                  {evangelhoData.source.chapter_title && <div>{evangelhoData.source.chapter_title}</div>}
-                  <div>{evangelhoData.source.book}</div>
-                </div>
-                <div style={{ height: 1, background: 'rgba(255,255,255,.14)', margin: '9px 0' }} />
-                <div style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
-                  fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,.85)',
-                }}>
-                  Ler e refletir
-                  <span data-trecho-arrow style={{ display: 'inline-flex', transition: 'transform .15s' }}>→</span>
-                </div>
-              </>
-            ) : (
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>
-                Carregando trecho do dia…
-              </div>
-            )}
+            <span style={{ fontSize: 15, lineHeight: 1 }}>+</span>
+            Nova conversa
           </button>
         </div>
       )}

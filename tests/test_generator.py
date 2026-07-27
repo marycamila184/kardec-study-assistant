@@ -651,7 +651,7 @@ def test_generate_enriches_evangelho_top_hit(monkeypatch, mock_client):
 def test_generate_topic_suicide_answers_with_crisis_note(mock_retrieve, mock_client):
     # A doctrinal question about suicide gets a real grounded answer — not the
     # fixed exit — but the CVV note is appended deterministically in code.
-    from src.rag.reflect_prompt import CRISIS_NOTE
+    from src.rag.crisis import CRISIS_NOTE
 
     result = generate("O que Kardec diz sobre o suicídio?", [])
     assert result["generation_failed"] is False
@@ -661,7 +661,7 @@ def test_generate_topic_suicide_answers_with_crisis_note(mock_retrieve, mock_cli
 
 
 def test_generate_first_person_ideation_still_fixed_exit(monkeypatch):
-    from src.rag.reflect_prompt import CRISIS_EXIT_MESSAGE
+    from src.rag.crisis import CRISIS_EXIT_MESSAGE
 
     def _boom(*args, **kwargs):
         raise AssertionError("retrieval/LLM must not run on crisis exit")

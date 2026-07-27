@@ -1,0 +1,40 @@
+# gcloud falls back to .gitignore when this file is absent, and .gitignore
+# excludes data/embeddings/ because the index is regenerable. But the index is
+# exactly what has to ship: the Dockerfile bakes it into the image so the
+# container needs no volume and fetches nothing on cold start. Without this
+# file the build fails at `COPY data/embeddings/` — which is how it failed on
+# the first attempt, 2026-07-27.
+#
+# Because this file REPLACES the .gitignore fallback, every secret .gitignore
+# used to cover has to be re-excluded here by hand. The source tree is uploaded
+# to a Cloud Storage bucket before the build, so a missing line is a real leak,
+# not a tidiness problem.
+.env
+.env.*
+*.env
+.git/
+.gitignore
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Ingestion inputs and originals: read only by the offline pipeline.
+data/books/
+data/json_files/
+data/embeddings-prod/
+
+# Everything the frontend needs lives on Vercel, not in this image.
+frontend/
+
+# Local scratch and evaluation output.
+logs/
+tmp/
+temp/
+.superpowers/
+.claude/
+.agents/
+.worktrees/
+docs/superpowers/

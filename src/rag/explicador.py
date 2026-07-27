@@ -93,7 +93,7 @@ def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | 
     perguntas: list[str] = []
     generation_failed = False
 
-    # curar() makes its own independent Groq call and only needs `related`,
+    # curar() makes its own independent provider call and only needs `related`,
     # which is already available — run both LLM calls concurrently instead
     # of paying their latency twice in sequence.
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
