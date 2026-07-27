@@ -63,9 +63,22 @@ PROVIDERS: dict[str, ProviderConfig] = {
 # would imply that setting an embedding key reroutes /chat, which it never does.
 # Both serve BAAI/bge-m3 — the same model the local lane loads — over an
 # OpenAI-compatible surface, so `settings.embedding_model` names it unchanged.
-EMBEDDING_PROVIDERS: dict[str, tuple[str, str]] = {
-    "deepinfra": ("https://api.deepinfra.com/v1/openai", "deepinfra_api_key"),
-    "novita": ("https://api.novita.ai/v3/openai", "novita_api_key"),
+# The third element is the model id, which is NOT the same string everywhere:
+# OpenRouter lowercases the vendor prefix. `settings.embedding_model` keeps
+# naming the local SentenceTransformer, so a hosted lane cannot silently point
+# at a different model than the one the index was built with.
+EMBEDDING_PROVIDERS: dict[str, tuple[str, str, str]] = {
+    "openrouter": (
+        "https://openrouter.ai/api/v1",
+        "openrouter_api_key",
+        "baai/bge-m3",
+    ),
+    "deepinfra": (
+        "https://api.deepinfra.com/v1/openai",
+        "deepinfra_api_key",
+        "BAAI/bge-m3",
+    ),
+    "novita": ("https://api.novita.ai/v3/openai", "novita_api_key", "baai/bge-m3"),
 }
 
 

@@ -6,12 +6,16 @@ the retriever (one short query per request) and `groundedness.attribute_sources`
 lane is a configuration change rather than an edit to any of them.
 """
 
-import huggingface_hub
-from sentence_transformers import SentenceTransformer
+from typing import Any
 
 from src.core.config import EMBEDDING_PROVIDERS, settings
 
-_model: SentenceTransformer | None = None
+# sentence_transformers pulls torch, and torch is most of the container image.
+# Importing it lazily is what lets a hosted-only deployment drop the dependency
+# entirely instead of shipping ~2.3 GB of weights plus the framework to load
+# them — which is the whole point of the hosted lane. Module-level imports here
+# would keep the image fat no matter what EMBEDDING_PROVIDER says.
+_model: Any = None
 
 # Conservative: the providers do not publish a batch ceiling, and the only
 # caller that sends more than one text at a time is the offline pipeline, where
@@ -19,9 +23,12 @@ _model: SentenceTransformer | None = None
 HOSTED_BATCH_MAX = 100
 
 
-def _get_model() -> SentenceTransformer:
+def _get_model() -> Any:
     global _model
     if _model is None:
+        import huggingface_hub
+        from sentence_transformers import SentenceTransformer
+
         if settings.hf_token:
             huggingface_hub.login(token=settings.hf_token, add_to_git_credential=False)
         _model = SentenceTransformer(settings.embedding_model)
@@ -32,7 +39,7 @@ def _hosted_client():
     from openai import OpenAI
 
     try:
-        base_url, key_field = EMBEDDING_PROVIDERS[settings.embedding_provider]
+        base_url, key_field, _ = EMBEDDING_PROVIDERS[settings.embedding_provider]
     except KeyError:
         raise ValueError(
             f"Unknown embedding provider {settings.embedding_provider!r}; "
@@ -47,6 +54,10 @@ def _hosted_client():
     return OpenAI(api_key=key, base_url=base_url)
 
 
+def _hosted_model_id() -> str:
+    return EMBEDDING_PROVIDERS[settings.embedding_provider][2]
+
+
 def _encode_hosted(texts: list[str]) -> list[list[float]]:
     """Same model, over HTTP.
 
@@ -58,7 +69,7 @@ def _encode_hosted(texts: list[str]) -> list[list[float]]:
     vectors: list[list[float]] = []
     for start in range(0, len(texts), HOSTED_BATCH_MAX):
         batch = texts[start : start + HOSTED_BATCH_MAX]
-        response = client.embeddings.create(model=settings.embedding_model, input=batch)
+        response = client.embeddings.create(model=_hosted_model_id(), input=batch)
         returned = [d.embedding for d in response.data]
         if len(returned) != len(batch):
             raise RuntimeError(

@@ -1,4 +1,18 @@
+import pytest
+
 from src.ingestion.embeddings import encode
+
+
+@pytest.fixture(autouse=True)
+def _local_lane_by_default(monkeypatch):
+    """These tests are about the local model, so they must not follow whatever
+    EMBEDDING_PROVIDER the developer's .env happens to set — over the hosted
+    lane they would cost money, take a network round trip, and fail the
+    determinism assertion, since two hosted calls agree to ~1e-6 and not
+    bitwise. Tests that want the hosted lane set it themselves, after this."""
+    from src.ingestion import embeddings
+
+    monkeypatch.setattr(embeddings.settings, "embedding_provider", None)
 
 
 def test_encode_returns_one_vector_per_input():
@@ -12,6 +26,7 @@ def test_encode_vector_dimension_is_1024():
 
 
 def test_encode_same_text_is_deterministic():
+    """Bitwise, which only the in-process model guarantees."""
     a = encode(["Deus"])
     b = encode(["Deus"])
     assert a == b
