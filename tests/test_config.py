@@ -25,7 +25,7 @@ def _settings(monkeypatch, **env):
 
 
 def test_settings_has_correct_defaults(monkeypatch):
-    monkeypatch.setenv("GROQ_API_KEY", "test-key")
+    monkeypatch.setenv("TOGETHER_API_KEY", "test-key")
     from src.core.config import Settings
 
     s = Settings()
@@ -37,13 +37,28 @@ def test_settings_has_correct_defaults(monkeypatch):
     assert s.embedding_model == "BAAI/bge-m3"
 
 
-def test_defaults_to_groq_provider(monkeypatch):
-    s = _settings(monkeypatch, GROQ_API_KEY="k")
-    assert s.llm_provider == "groq"
-    assert s.active_provider.base_url == "https://api.groq.com/openai/v1"
+def test_defaults_to_together_provider(monkeypatch):
+    """Together is the default because Groq needs a paid plan this project does
+    not have. Groq stays commented in PROVIDERS — it answered the same
+    llama-3.3-70b in 215ms against Together's 832ms — so this assertion is the
+    tripwire that says which lane production is actually on."""
+    s = _settings(monkeypatch, TOGETHER_API_KEY="k")
+    assert s.llm_provider == "together"
+    assert s.active_provider.base_url == "https://api.together.xyz/v1"
     assert s.active_api_key == "k"
-    assert s.resolved_chat_model == "llama-3.3-70b-versatile"
-    assert s.resolved_condenser_model == "llama-3.1-8b-instant"
+    assert s.resolved_chat_model == "deepseek-ai/DeepSeek-V3"
+    assert s.resolved_condenser_model == "Qwen/Qwen2.5-7B-Instruct-Turbo"
+
+
+def test_groq_is_disconnected_not_merely_unused(monkeypatch):
+    """Having GROQ_API_KEY in an old .env must not silently route anything."""
+    from src.core.config import PROVIDERS
+
+    assert "groq" not in PROVIDERS
+    s = _settings(monkeypatch, TOGETHER_API_KEY="k", GROQ_API_KEY="stale")
+    assert s.llm_provider == "together"
+    with pytest.raises(ValueError, match="Unknown provider"):
+        s.provider("groq")
 
 
 def test_openrouter_provider_defaults(monkeypatch):
@@ -83,20 +98,20 @@ def test_missing_key_for_selected_provider_raises(monkeypatch):
 
 def test_prose_lane_defaults_to_the_json_lane(monkeypatch):
     """PROSE_PROVIDER unset => prose is identical to chat. The rollback switch."""
-    s = _settings(monkeypatch, GROQ_API_KEY="k")
+    s = _settings(monkeypatch, TOGETHER_API_KEY="k")
     assert s.prose_provider is None
-    assert s.prose_provider_name == "groq"
+    assert s.prose_provider_name == "together"
     assert s.resolved_prose_model == s.resolved_chat_model
 
 
 def test_prose_lane_honors_chat_model_override_when_unset(monkeypatch):
     """An explicit CHAT_MODEL must still drive prose while PROSE_PROVIDER is unset."""
-    s = _settings(monkeypatch, GROQ_API_KEY="k", CHAT_MODEL="my/custom-model")
+    s = _settings(monkeypatch, TOGETHER_API_KEY="k", CHAT_MODEL="my/custom-model")
     assert s.resolved_prose_model == "my/custom-model"
 
 
 def test_ollama_prose_provider(monkeypatch):
-    s = _settings(monkeypatch, GROQ_API_KEY="k", PROSE_PROVIDER="ollama")
+    s = _settings(monkeypatch, TOGETHER_API_KEY="k", PROSE_PROVIDER="ollama")
     assert s.prose_provider_name == "ollama"
     assert s.provider("ollama").base_url == "http://localhost:11434/v1"
     assert s.resolved_prose_model == "hf.co/ia-espirita/riv-ai-v2-Q4_K_M-GGUF"
@@ -147,7 +162,7 @@ def test_hf_endpoint_with_url(monkeypatch):
 
 
 def test_unknown_prose_provider_raises(monkeypatch):
-    s = _settings(monkeypatch, GROQ_API_KEY="k", PROSE_PROVIDER="bogus")
+    s = _settings(monkeypatch, TOGETHER_API_KEY="k", PROSE_PROVIDER="bogus")
     with pytest.raises(ValueError, match="Unknown provider"):
         _ = s.provider("bogus")
 

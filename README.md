@@ -54,7 +54,7 @@ This is **not** a chatbot trained on Spiritism. It is a **retrieval-grounded sys
 - A `.env` file in the project root with:
 
 ```
-GROQ_API_KEY=your_groq_api_key_here
+TOGETHER_API_KEY=your_together_api_key_here
 ```
 
 ### 2. Install dependencies
@@ -136,7 +136,7 @@ The backend and frontend are deployed independently.
 
 The FastAPI app is a standard Python ASGI app. Deploy to any provider that supports Python (Render, Railway, Fly.io, etc.):
 
-1. Set the `GROQ_API_KEY` environment variable on the provider.
+1. Set the `TOGETHER_API_KEY` environment variable on the provider.
 2. The vector database (`data/embeddings/`) is regenerable — run the ingestion pipeline as part of your build/start process, or mount it as a persistent volume.
 3. Start command: `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT`
 
@@ -196,7 +196,7 @@ kardec-study-assistant/
 │
 ├── tests/
 ├── pyproject.toml
-├── .env                        # Not committed — add your GROQ_API_KEY here
+├── .env                        # Not committed — add your TOGETHER_API_KEY here
 └── README.md
 ```
 

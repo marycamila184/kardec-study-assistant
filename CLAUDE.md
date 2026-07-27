@@ -24,7 +24,11 @@ Supporting: `GET /paths`, `GET /paths/{id}`, `GET /health`.
 ## Environment
 
 - Package manager **uv** (`uv sync --group dev`), Python 3.12+
-- Requires `.env` with `GROQ_API_KEY` (Groq, OpenAI-compatible endpoint)
+- Requires `.env` with `TOGETHER_API_KEY` (Together, OpenAI-compatible endpoint).
+  `LLM_PROVIDER` also accepts `openrouter` and `google`. **Groq is commented out
+  in `PROVIDERS`** for lack of a paid plan — it served the same llama-3.3-70b at
+  215ms against Together's 832ms (measured 2026-07-26), so reconnect it first if
+  the plan ever exists.
 - Optional prose lane: `PROSE_PROVIDER=ollama` routes `/chat` and `/study` prose
   to `ia-espirita/riv-ai-v2` (local Ollama). Unset = single provider, today's
   behavior. Reflexivo (currently switched off, see below) and every
