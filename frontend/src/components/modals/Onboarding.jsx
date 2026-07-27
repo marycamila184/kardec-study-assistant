@@ -41,11 +41,12 @@ export default function Onboarding({ onFinish }) {
           color: '#2A2318', lineHeight: 1.18, marginBottom: 10, letterSpacing: '-.01em',
         }}>Dialogando com<br/>a Doutrina</div>
         <div style={{ fontSize: 10, letterSpacing: '.22em', textTransform: 'uppercase', color: '#A09080', marginBottom: 22 }}>
-          Estude · Reflita · Compreenda
+          Estude · Dialogue · Compreenda
         </div>
         <p style={{ fontSize: 14, color: '#6A5E50', lineHeight: 1.78, margin: '0 0 16px' }}>
-          Aqui você estuda, tira dúvidas e reflete sobre as obras de Allan Kardec —
-          com respostas sempre fundamentadas e referenciadas nos próprios textos.
+          Aqui você estuda e tira dúvidas sobre as obras de Allan Kardec, e encontra
+          todo dia um novo trecho do Evangelho — com respostas sempre fundamentadas
+          e referenciadas nos próprios textos.
         </p>
         <div style={{
           background: 'rgba(107,155,184,.1)', border: '1px solid rgba(107,155,184,.25)',

@@ -11,7 +11,7 @@ import { formatTrechoDate } from '../../utils/day';
  * go vestigial and the app would again have two competing launchers, which is
  * the problem this redesign exists to remove.
  *
- * The daily passage is the fourth card, in both layouts and with no isMobile
+ * The daily passage is the last card, in both layouts and with no isMobile
  * branch. It was in the sidebar, which was the last thing there that was not
  * material the reader had accumulated; moving it here is what finally makes the
  * sidebar history-only. Home is the opening screen of every session, so the
@@ -19,8 +19,10 @@ import { formatTrechoDate } from '../../utils/day';
  * and it keeps a short excerpt for the same reason: it should find the reader,
  * not merely be linkable.
  *
- * It carries no accent colour and sits in the same card language as the three
- * modes, because it is the same kind of choice: what to do today.
+ * It carries no accent colour and sits in the same card language as the mode
+ * cards above it (Estudar, Dialogar — Refletir is switched off for production,
+ * see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md), because
+ * it is the same kind of choice: what to do today.
  *
  * Contrast: `theme.subtext` measures 2.92:1 on the light background, below the
  * 4.5:1 WCAG AA floor. It is used here only for the card descriptions, which sit
@@ -80,7 +82,7 @@ export default function HomeLauncher({
           </button>
         ))}
 
-        {/* Separated, but not promoted. The three cards above answer the
+        {/* Separated, but not promoted. The mode cards above answer the
             headline — "como você quer estudar" — and the passage is not a mode,
             it is a piece of content; rendered identically it read as a fourth
             mode. The rule marks the change of kind. It stays last because first

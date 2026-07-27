@@ -69,7 +69,7 @@ flowchart TD
         ORC[Orchestrator]
         CON[Query condenser]
         SEN[Sensitivity classifier]
-        REF["Reflexivo (/reflect) — pinned"]
+        REF["Reflexivo (/reflect) — pinned<br/><b>switched off for production</b>"]
         EXP["Explicador (/study) — pinned"]
     end
     subgraph PROSE["Prose lane — free text"]
@@ -84,7 +84,7 @@ flowchart TD
 
 **With `PROSE_PROVIDER` unset both lanes are the same provider and the system behaves exactly as it always has.** That is the rollback switch, and it is the default — leave it unset unless you are running an evaluation.
 
-**Two agents ignore the switch entirely.** Reflexivo and Explicador call the JSON lane directly and read no setting. `PROSE_PROVIDER` is one switch for the whole app, so honouring it in those two would drag `/reflect` and `/study` onto the prose model the moment `/chat` is enabled — and the evidence for those modes points the other way (see each agent below). The prose lane covers **`/chat` only**.
+**Two agents ignore the switch entirely.** Reflexivo and Explicador call the JSON lane directly and read no setting. `PROSE_PROVIDER` is one switch for the whole app, so honouring it in those two would drag `/reflect` and `/study` onto the prose model the moment `/chat` is enabled — and the evidence for those modes points the other way (see each agent below). The prose lane covers **`/chat` only**. (Reflexivo/`/reflect` is switched off for production, see the Reflexivo section below — the point about the switch still holds for the dormant code.)
 
 `prose.py` wraps the prose call with a **provider fallback**: a connection error, a dead Ollama, or a non-2xx degrades to the JSON lane rather than to a 500. It cannot see a response that arrived successfully in the wrong *format* — that is a separate fallback, described under Explicador.
 
@@ -98,9 +98,10 @@ Each mode has a dedicated prompt file + pipeline file.
 
 **Shared infrastructure:**
 - `retriever.py` — `retrieve(query, top_k)`: semantic search filtered by cosine-distance threshold. `retrieve_by_item(book, item_number)`: metadata-only lookup returning all subchunks of an item. Both strip the ingestion-baked `\n[Nota N] …` footnote suffix off `content`, exposing it separately as `footnote_context` (`""` if none). Also owns `filter_sensitive_chunks`, `append_chapter_commentary`, `has_real_item_number`, `REFLECT_BOOKS`.
-- `mode_detector.py` — `detect_suggested_mode(question)`: regex intent → `"estudar_obra"` / `"refletir"` / `None` (estudar_obra wins on tie). `extract_study_reference(question)`: `{"item_number", "book"}` by regex; "questão N"/"Q. N" default book to O Livro dos Espíritos, "item N" leaves `null`. Accent-tolerant; detection and extraction patterns must stay in sync. `is_smalltalk(text)`: pure-acknowledgment detector for the `/chat` short-circuit. (Superseded for suggested-mode by the orchestrator, but kept + unit-tested.)
+- `crisis.py` — the mode-independent deterministic crisis layer: `needs_crisis_note()` (first-person ideation, accent-tolerant), `mentions_suicide_topic()` (topic-level mention, no ideation), `CRISIS_EXIT_MESSAGE`/`CRISIS_NOTE` (CVV 188 / SAMU 192), `CRISIS_KEYWORDS`. Runs in code, before any retrieval or LLM call, and is shared by every mode that touches user-authored text — it did not vanish with Refletir; `/chat` is its only caller now.
+- `mode_detector.py` — `detect_suggested_mode(question)`: regex intent → `"estudar_obra"` / `None` (estudar_obra wins on tie; the `"refletir"` branch is commented out, Refletir switched off for production — see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md). `extract_study_reference(question)`: `{"item_number", "book"}` by regex; "questão N"/"Q. N" default book to O Livro dos Espíritos, "item N" leaves `null`. Accent-tolerant; detection and extraction patterns must stay in sync. `is_smalltalk(text)`: pure-acknowledgment detector for the `/chat` short-circuit. (Superseded for suggested-mode by the orchestrator, but kept + unit-tested.)
 - `query_condenser.py` — `condense_query(question, history)`: rewrites a follow-up + history into a standalone Portuguese search query (`condenser_model`) before embedding; forbids replacing doctrine terms with generic synonyms. `blend_anchor(query, anchor_text)` prepends the passage being studied (capped at `ANCHOR_CAP`) to bias retrieval — **retrieval-only; the anchor never reaches the prompt, sources, or displayed output.** Callers log and fall back to raw text on failure.
-- `orchestrator.py` — `classify_intent(message, current_mode, history)`: small-LLM classifier returning `{"mode": tirar_duvida|refletir|estudar_obra|None, "confidence": high|low}`. Deterministic safety (`needs_crisis_note`, `is_smalltalk`) runs before any LLM call; nudge only on `high` confidence, never toward `current_mode`; any failure → `{"mode": None}`. Runs concurrently with generation, capped by `_CLASSIFY_TIMEOUT_S`.
+- `orchestrator.py` — `classify_intent(message, current_mode, history)`: small-LLM classifier returning `{"mode": tirar_duvida|estudar_obra|None, "confidence": high|low}` (`"refletir"` is disconnected along with the mode — see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md). Deterministic safety (`needs_crisis_note`, `is_smalltalk`) runs before any LLM call; nudge only on `high` confidence, never toward `current_mode`; any failure → `{"mode": None}`. Runs concurrently with generation, capped by `_CLASSIFY_TIMEOUT_S`.
 - `markers.py` — the flat uppercase `NOME: valor` protocol the prose models emit and code parses. Chosen over JSON because an 8B holds a flat format far more reliably than a nested one. Every pattern is **uppercase-only** so ordinary prose ("as fontes:") is never mistaken for a marker. `strip_marker_debris` is a **prose-lane-only** pass for riv-ai's habit of scattering emoji-prefixed marker lines mid-text (`📖 [FONTES: ...]`) — it must never be applied to the current provider's output.
 - `citations.py` — `strip_model_citations` removes references the fine-tune writes unprompted; `validate_model_citations(cited, retrieved)` reports `{exibir, alucinadas, confiavel}`. **This never feeds the UI** — displayed citations always come from chunk metadata. It is a grounding monitor, with a deliberate blind spot: it only inspects citations the model *writes*.
 - `groundedness.py` — answer-vs-passage cosine using the in-process `bge-m3`. `groundedness_score` (harness-only) and `attribute_sources` (live, prose lane).
@@ -125,6 +126,12 @@ Measured 2026-07-25 over 15 questions on both lanes: an absolute cut cannot work
 `source_min_similarity` survives as an **absolute floor**, not the primary cut: the margin only compares chunks to each other, so a uniformly bad retrieval would otherwise keep all of them.
 
 ### Safety: the deterministic floor
+
+`/reflect` in this diagram is historical — Reflexivo is switched off for
+production (see the Reflexivo section below and
+docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md). The floor
+itself is mode-independent (`src/rag/crisis.py`) and its only live caller
+today is `/chat`.
 
 ```mermaid
 flowchart TD
@@ -183,7 +190,7 @@ sequenceDiagram
 **Curador** (called by Explicador + Reflexivo) — `curador_prompt.py` + `curador.py`:
 - Given the main passage + up to 3 candidates, selects 1–3 doctrinally connected ones and writes one Portuguese sentence per connection. Output JSON `[{"index", "conexao"}]`. `curar` merges `conexao` and `chapter` into candidate metadata; on any failure falls back to raw candidates without `conexao` (never breaks the caller). **`chapter` is required** so the frontend can disambiguate per-chapter numbering (Evangelho, Céu e Inferno), where `book` + `item_number` alone is ambiguous.
 
-**Reflexivo** (`/reflect`) — `reflect_prompt.py` + `reflect.py`:
+**Reflexivo** (`/reflect`) — **switched off for production.** `reflect_prompt.py` + `reflect.py` and the `/reflect` route are disconnected, not deleted — the mode had a structural retrieval failure on lived suffering. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md. The section below documents the mode as it was built, for re-enabling:
 - Tone-adaptive system prompt with a **hard no-advice constraint** — the defining rule of the mode. `CLINICAL_KEYWORDS` triggers an optional medical/mediumship caveat. `build_reflect_messages(..., force_closing=True)` injects an "ENCERRAMENTO OBRIGATÓRIO" directive. Output JSON `{"opening", "doctrine_connection", "reflection_questions", "is_closing"}` — 1–3 questions per turn.
 - **Pinned to the JSON lane, permanently.** Smoke testing found riv-ai-v2 giving direct advice ("você pode se conectar com amigos e familiares") with the no-advice constraint stated explicitly in the prompt. That constraint is both the mode's defining rule and the least enforceable in code.
 - Contract hardening: a successful turn with zero questions **is** a closing, even when the model forgets the flag. After `CAP_ROUNDS` (5) rounds `force_closing` is passed into the prompt and enforced post-hoc.
@@ -352,19 +359,19 @@ settle a small prompt change on their own.
 
 ## API Layer (`src/api/`)
 
-Stateless. Clients own conversation history; `/chat` and `/reflect` accept it but the server stores nothing.
+Stateless. Clients own conversation history; `/chat` accepts it but the server stores nothing. (`/reflect` did too, and its schemas below are kept for reference — Reflexivo is switched off for production, not deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md.)
 
-**`suggested_mode`** (on `/chat` and `/reflect`): a hint for the client to surface a cross-mode nudge button, produced by `orchestrator.classify_intent`. For `estudar_obra` the response also carries `suggested_item_number` / `suggested_book` (from `extract_study_reference`; book `null` unless named) so the client opens `/study` pre-filled. Both `null` for `refletir`/`None`. The client sends `current_mode` so the orchestrator never nudges toward the current mode. Suppressed on `crise`.
+**`suggested_mode`** (on `/chat`, and historically `/reflect`): a hint for the client to surface a cross-mode nudge button, produced by `orchestrator.classify_intent`. For `estudar_obra` the response also carries `suggested_item_number` / `suggested_book` (from `extract_study_reference`; book `null` unless named) so the client opens `/study` pre-filled. `null` when no nudge applies (the `refletir` target is disconnected, see `orchestrator.py`). The client sends `current_mode` so the orchestrator never nudges toward the current mode. Suppressed on `crise`.
 
-**`safety_level`** (on `/chat` and `/reflect`): `normal | abalo | crise`, so the client can adapt presentation.
+**`safety_level`** (on `/chat`, and historically `/reflect`): `normal | abalo | crise`, so the client can adapt presentation.
 
-**`Source` / `StudySource`** (`/chat` + `/reflect` `sources`):
+**`Source` / `StudySource`** (`/chat` `sources`, and historically `/reflect`):
 ```json
 { "book": "...", "chapter": "...", "chapter_ref": "...", "item_number": "...", "excerpt": "..." }
 ```
 `excerpt` is the retrieved chunk text (footnote-stripped), used by the frontend citation-chip modal. `chapter` is the display title; `chapter_ref` is the machine chapter id (`"CAPÍTULO II"`) that `/study`'s `retrieve_by_item` filters on. `null` for legacy/unpopulated cases.
 
-**`RelatedItem`** (`/study` `related_items` + `/reflect` `complementary_items`):
+**`RelatedItem`** (`/study` `related_items`, and historically `/reflect` `complementary_items`):
 ```json
 { "book": "...", "chapter": "...", "item_number": "...", "preview": "...", "conexao": "..." }
 ```
