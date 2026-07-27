@@ -36,6 +36,9 @@ Usage:
 import argparse
 import json
 import os
+import time
+import urllib.error
+import urllib.request
 
 from src.core.config import settings
 from src.ingestion.vectorstore import VectorStore
@@ -182,6 +185,98 @@ def encode_e5(texts: list[str], is_query: bool = False) -> list[list[float]]:
     payload = [e5_query(t) for t in texts] if is_query else [_fit(t) for t in texts]
     response = client.embeddings.create(model=E5_MODEL, input=payload)
     return [d.embedding for d in response.data]
+
+
+# --- gemini lane -------------------------------------------------------------
+
+GEMINI_MODEL = "gemini-embedding-2"
+GEMINI_DIMS = (1024, 3072)
+# The API rejects a larger batch outright with 400 INVALID_ARGUMENT.
+GEMINI_BATCH_MAX = 100
+GEMINI_ENDPOINT = (
+    "https://generativelanguage.googleapis.com/v1beta/models/"
+    f"{GEMINI_MODEL}:batchEmbedContents"
+)
+# 429 is expected during a full-corpus run (74 batches) and must not end it.
+GEMINI_RETRY_STATUSES = (429, 500, 502, 503, 504)
+
+
+def gemini_collection(dim: int) -> str:
+    return f"kardec_docs_gemini_{dim}"
+
+
+class GeminiHTTPError(RuntimeError):
+    def __init__(self, status: int, body: str):
+        super().__init__(f"HTTP {status}: {body[:300]}")
+        self.status = status
+        self.body = body
+
+
+def _gemini_post(body: dict) -> dict:
+    """One HTTP call. This is the seam the tests replace — they never touch
+    urllib, so a change of transport does not invalidate them."""
+    key = settings.google_api_key
+    if not key:
+        raise SystemExit("GOOGLE_API_KEY não está no ambiente/.env")
+    request = urllib.request.Request(
+        GEMINI_ENDPOINT,
+        data=json.dumps(body).encode("utf-8"),
+        headers={"x-goog-api-key": key, "Content-Type": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as exc:
+        raise GeminiHTTPError(exc.code, exc.read().decode("utf-8", "replace")) from exc
+
+
+def _post_with_retry(body: dict, attempts: int = 6, sleep=time.sleep) -> dict:
+    """Retries only what a retry can fix. A 400 is the oversize-document
+    signal and propagates immediately: the corpus fits in 8192 tokens, so a
+    rejection means an assumption broke and the run must stop, not shrink."""
+    for attempt in range(attempts):
+        try:
+            return _gemini_post(body)
+        except GeminiHTTPError as exc:
+            if exc.status not in GEMINI_RETRY_STATUSES or attempt == attempts - 1:
+                raise
+            sleep(2**attempt)
+    raise AssertionError("unreachable")
+
+
+def encode_gemini(
+    texts: list[str], dim: int, is_query: bool = False
+) -> list[list[float]]:
+    """Embeds texts, no truncation anywhere by design.
+
+    gemini-embedding-2 takes 8192 tokens against a corpus p90 of 775 chars, so
+    a document that does not fit is a broken assumption rather than an edge to
+    absorb — the e5 lane's silent 1500-char cut is what this avoids.
+    """
+    task_type = "RETRIEVAL_QUERY" if is_query else "RETRIEVAL_DOCUMENT"
+    vectors: list[list[float]] = []
+    for start in range(0, len(texts), GEMINI_BATCH_MAX):
+        batch = texts[start : start + GEMINI_BATCH_MAX]
+        data = _post_with_retry(
+            {
+                "requests": [
+                    {
+                        "model": f"models/{GEMINI_MODEL}",
+                        "content": {"parts": [{"text": text}]},
+                        "taskType": task_type,
+                        "outputDimensionality": dim,
+                    }
+                    for text in batch
+                ]
+            }
+        )
+        returned = [e["values"] for e in data.get("embeddings", [])]
+        if len(returned) != len(batch):
+            raise RuntimeError(
+                f"a API devolveu {len(returned)} vetores para {len(batch)} textos"
+            )
+        vectors.extend(returned)
+    return vectors
 
 
 def index_e5() -> None:
