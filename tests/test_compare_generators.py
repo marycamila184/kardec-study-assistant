@@ -1,7 +1,9 @@
 import sys
+from unittest.mock import patch
 
 import pytest
 
+import scripts.compare_generators as cg
 from scripts.compare_generators import (
     VARIANTS,
     _sanitize_lane_name,
@@ -261,3 +263,64 @@ def test_models_entry_without_colon_is_rejected(monkeypatch, capsys):
         main()
     err = capsys.readouterr().err
     assert "provider:model" in err
+
+
+def test_max_tokens_override_reaches_the_call(monkeypatch):
+    """A reasoning model spends the budget on thinking before it writes.
+
+    gemini-3.6-flash truncated 23 of 26 answers at the production 1024, and the
+    [FONTES]/[SEGUIR] trailer lives at the END of the answer — so the chip
+    metrics scored the cut, not the model. The override has to actually reach
+    the completion call, or the re-run measures the same thing again.
+    """
+    seen = {}
+
+    class FakeClient:
+        class chat:  # noqa: N801
+            class completions:  # noqa: N801
+                @staticmethod
+                def create(**kwargs):
+                    seen.update(kwargs)
+                    from unittest.mock import MagicMock
+
+                    return MagicMock(
+                        choices=[
+                            MagicMock(
+                                finish_reason="stop",
+                                message=MagicMock(content="ok"),
+                            )
+                        ]
+                    )
+
+    monkeypatch.setattr(cg, "_pinned_prose_completion", cg._pinned_prose_completion)
+    with patch("src.rag.llm_client.get_client", return_value=FakeClient):
+        shim = cg._pinned_prose_completion(0.0, None, 4096)
+        shim("sys", [{"role": "user", "content": "q"}])
+    assert seen["max_tokens"] == 4096
+
+    with patch("src.rag.llm_client.get_client", return_value=FakeClient):
+        shim = cg._pinned_prose_completion(0.0, None, None)
+        shim("sys", [{"role": "user", "content": "q"}])
+    assert seen["max_tokens"] == 1024, "sem override, o valor de produção manda"
+
+
+def test_truncation_warning_names_the_lane_and_the_reason():
+    """A silent `truncados: 23` in a stats dict is a number nobody reads."""
+    rows = [
+        {
+            "id": "x",
+            "path": "abertura",
+            "question": "q",
+            "expects_seguir": True,
+            "answer": "a",
+            "seguir": [],
+            "n_seguir": 0,
+            "groundedness": 0.5,
+            "confiavel": True,
+            "finish_reason": "length",
+        }
+    ]
+    report = cg.format_report({"google-gemini-3.6-flash": rows})
+    assert "google-gemini-3.6-flash (1)" in report
+    assert "truncad" in report.lower()
+    assert "--max-tokens" in report

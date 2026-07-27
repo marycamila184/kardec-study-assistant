@@ -509,7 +509,9 @@ def seguir_by_path(rows: list[dict]) -> dict:
 
 
 def _pinned_prose_completion(
-    temperature: float, finish_reasons: list[str | None] | None = None
+    temperature: float,
+    finish_reasons: list[str | None] | None = None,
+    max_tokens_override: int | None = None,
 ):
     """Stands in for `generator.prose_completion`, pinning sampling.
 
@@ -536,6 +538,15 @@ def _pinned_prose_completion(
     from src.rag.llm_client import get_client
 
     def shim(system: str, messages: list[dict], max_tokens: int = 1024):
+        # A reasoning model spends this budget on thinking before it writes.
+        # gemini-3.6-flash truncated 23 of 26 answers at the production 1024,
+        # and because [FONTES]/[SEGUIR] sit at the END of the answer, a
+        # truncated answer loses them — the chip metrics would have scored the
+        # model's judgement when they were really scoring the cut. The override
+        # applies to every lane in a run, so the budget stays a constant of the
+        # comparison and never becomes a per-lane variable.
+        if max_tokens_override is not None:
+            max_tokens = max_tokens_override
         payload = [{"role": "system", "content": system}] + messages
         response = get_client("prose").chat.completions.create(
             model=settings.resolved_prose_model,
@@ -601,6 +612,7 @@ def _run_variant(
     temperature: float | None = 0.0,
     provider: str | None = None,
     model: str | None = None,
+    max_tokens: int | None = None,
 ) -> list[dict]:
     """Runs every case with `prompt._SEGUIR_RULE` replaced by `variant`.
 
@@ -632,13 +644,23 @@ def _run_variant(
             settings.llm_provider = provider
         if model is not None:
             settings.chat_model = model
+        # Pinning chat_model alone is not isolation. This machine's .env sets
+        # CONDENSER_MODEL globally, so the first run of this lane sent a
+        # Together model id to Google's API: the condenser 400'd, fell back to
+        # the raw question, and the Gemini lane silently retrieved on
+        # uncondensed queries while the llama lane retrieved on condensed ones.
+        # The report showed 26 healthy rows either way. Every model-selection
+        # setting has to follow the lane, not just the visible one.
+        settings.condenser_model = settings.provider(
+            settings.llm_provider
+        ).default_condenser_model
         llm_client._clients.clear()
 
     rows: list[dict] = []
     all_sims: list[float] = []
     for case in CASES:
         finish_reasons: list[str | None] = []
-        with _variant_patches(variant, temperature, finish_reasons):
+        with _variant_patches(variant, temperature, finish_reasons, max_tokens):
             result = generator.generate(case["question"], case["history"])
         chunks = retrieve(case["question"])
         report = validate_model_citations(
@@ -674,6 +696,7 @@ def _variant_patches(
     variant: str | None,
     temperature: float | None,
     finish_reasons: list[str | None] | None = None,
+    max_tokens: int | None = None,
 ):
     from contextlib import ExitStack
 
@@ -684,7 +707,7 @@ def _variant_patches(
         stack.enter_context(
             patch(
                 "src.rag.generator.prose_completion",
-                _pinned_prose_completion(temperature, finish_reasons),
+                _pinned_prose_completion(temperature, finish_reasons, max_tokens),
             )
         )
     return stack
@@ -729,6 +752,24 @@ def format_report(
         lines += ["---", ""]
 
     lines += ["## Resumo", ""]
+    truncated_lanes = {
+        name: summarize(rows)["truncados"]
+        for name, rows in lanes.items()
+        if summarize(rows)["truncados"]
+    }
+    if truncated_lanes:
+        lines += [
+            "> ⚠️ **Vias com respostas truncadas — números não confiáveis:** "
+            + ", ".join(f"{n} ({c})" for n, c in truncated_lanes.items())
+            + ".",
+            ">",
+            "> Os marcadores `[FONTES]`/`[SEGUIR]` ficam no FIM da resposta, "
+            "então uma resposta cortada os perde: as métricas de chip e de "
+            "estilo dessas vias medem a truncagem, não o julgamento do modelo. "
+            "Suba `--max-tokens` (igual para todas as vias) e rode de novo.",
+            "",
+        ]
+
     for name, rows in lanes.items():
         stats = summarize(rows)
         lines += [
@@ -790,6 +831,17 @@ def main() -> None:
         help="sampling temperature; pass -1 to restore production sampling",
     )
     parser.add_argument(
+        "--max-tokens",
+        type=int,
+        default=None,
+        help=(
+            "answer token budget for EVERY lane in the run (default: the "
+            "production 1024). A reasoning model spends this on hidden "
+            "thinking before writing, so a shared budget is the only way the "
+            "comparison stays attributable — never set it per lane."
+        ),
+    )
+    parser.add_argument(
         "--report-only",
         action="store_true",
         help="run nothing; rebuild the report from the persisted lane files",
@@ -814,10 +866,19 @@ def main() -> None:
 
     if not args.report_only:
         for name in variant_names:
-            _run_variant(name, _resolve_variant(name), temperature)
+            _run_variant(
+                name, _resolve_variant(name), temperature, max_tokens=args.max_tokens
+            )
         for entry in model_entries:
             provider, _, model = entry.partition(":")
-            _run_variant(entry, None, temperature, provider=provider, model=model)
+            _run_variant(
+                entry,
+                None,
+                temperature,
+                provider=provider,
+                model=model,
+                max_tokens=args.max_tokens,
+            )
 
     report_names = variant_names or model_entries or list(VARIANTS)
     lanes = {}
