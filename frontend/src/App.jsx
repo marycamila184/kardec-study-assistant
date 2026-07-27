@@ -9,7 +9,9 @@ import ShareModal from './components/modals/ShareModal';
 import RelatedItemsModal from './components/modals/RelatedItemsModal';
 import TrilhaCompleteModal from './components/modals/TrilhaCompleteModal';
 import EstudarPicker from './components/modes/EstudarPicker';
-import RefletirPicker from './components/modes/RefletirPicker';
+// Refletir is switched off for production — the mode is disconnected, not
+// deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+// import RefletirPicker from './components/modes/RefletirPicker';
 import GuidedStudy from './components/modes/GuidedStudy';
 import ExplorarObras from './components/modes/ExplorarObras';
 import IntroObras from './components/modes/IntroObras';
@@ -28,7 +30,10 @@ import { dayLabel, startsNewDay } from './utils/day';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
-  chatMessage, studyItem, reflectSituation,
+  chatMessage, studyItem,
+  // reflectSituation intentionally not imported — Refletir is switched off for
+  // production — the mode is disconnected, not deleted. See
+  // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
   getEvangelho, getPaths, getPath,
   BOOK_NAME_MAP, parseItemRef,
 } from './services/api';
@@ -36,20 +41,23 @@ import {
 const QUICK_ACTIONS = [
   { label: '📄 Ler original' },
   { label: '💡 Explicar simples' },
-  { label: '🪞 Reflexão' },
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  // { label: '🪞 Reflexão' },
   { label: '📚 Relacionados' },
 ];
 
+// Refletir is switched off for production — the mode is disconnected, not
+// deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+// (refletir entries removed from both placeholder maps below)
 const MODE_PLACEHOLDER = {
   estudar:  'Ex: Explique a questão 132 do Livro dos Espíritos…',
   duvida:   'Ex: O que Kardec fala sobre reencarnação?',
-  refletir: 'Ex: Estou passando por um conflito familiar…',
 };
 
 const MODE_PLACEHOLDER_MOBILE = {
   estudar:  'Digite sua dúvida…',
   duvida:   'Pergunte sobre a doutrina…',
-  refletir: 'Descreva sua situação…',
 };
 
 // Starter questions for the Dialogar empty state — its only consumer.
@@ -73,7 +81,10 @@ const ERROR_MSG = {
 // is guarded with `|| null` at the call site anyway, because an undefined
 // reaching the backend would silently re-enable self-nudging rather than fail
 // loudly.
-const MODE_TO_INTENT = { duvida: 'tirar_duvida', refletir: 'refletir', estudar: 'estudar_obra' };
+// Refletir is switched off for production — the mode is disconnected, not
+// deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+// ('refletir: 'refletir'' removed from the map below)
+const MODE_TO_INTENT = { duvida: 'tirar_duvida', estudar: 'estudar_obra' };
 
 export default function App() {
 
@@ -184,7 +195,10 @@ export default function App() {
     threadEpochRef.current += 1;
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
     if (m === 'estudar') setEstudarSub('picker');
-    if (m === 'refletir') setRefletirSub('picker');
+    // Refletir is switched off for production — the mode is disconnected, not
+    // deleted (m can never be 'refletir' — no remaining UI path sets it). See
+    // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+    // if (m === 'refletir') setRefletirSub('picker');
   };
 
   // Returning home is "start a new conversation": mode is a property of a
@@ -235,15 +249,19 @@ export default function App() {
 
     try {
       let reply;
-      if (requestMode === 'refletir') {
-        reply = await reflectSituation(txt, buildReflectHistory(msgs), MODE_TO_INTENT[requestMode] || null);
-      } else {
-        const history = msgs.map(m => ({
-          role: m.isUser ? 'user' : 'assistant',
-          content: m.isUser ? m.text : buildChatHistoryContent(m),
-        }));
-        reply = await chatMessage(txt, history, null, MODE_TO_INTENT[requestMode] || null);
-      }
+      // Refletir is switched off for production — the mode is disconnected,
+      // not deleted (requestMode can never be 'refletir' — no remaining UI
+      // path sets it). See
+      // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+      // if (requestMode === 'refletir') {
+      //   reply = await reflectSituation(txt, buildReflectHistory(msgs), MODE_TO_INTENT[requestMode] || null);
+      // } else {
+      const history = msgs.map(m => ({
+        role: m.isUser ? 'user' : 'assistant',
+        content: m.isUser ? m.text : buildChatHistoryContent(m),
+      }));
+      reply = await chatMessage(txt, history, null, MODE_TO_INTENT[requestMode] || null);
+      // }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
       const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
@@ -261,50 +279,53 @@ export default function App() {
     }
   };
 
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  //
   // ── Build {role, content} history for a Refletir thread from current msgs ──
-  const buildReflectHistory = (msgs) => msgs.map(m => {
-    if (m.isUser) return { role: 'user', content: m.text };
-    const questions = (m.reflectionQuestions || []).map((q, i) => `${i + 1}. ${q}`).join('\n');
-    const content = [
-      m.opening,
-      m.ia,
-      questions ? `Perguntas de reflexão já oferecidas:\n${questions}` : '',
-    ].filter(Boolean).join('\n\n');
-    return { role: 'assistant', content };
-  });
-
+  // const buildReflectHistory = (msgs) => msgs.map(m => {
+  //   if (m.isUser) return { role: 'user', content: m.text };
+  //   const questions = (m.reflectionQuestions || []).map((q, i) => `${i + 1}. ${q}`).join('\n');
+  //   const content = [
+  //     m.opening,
+  //     m.ia,
+  //     questions ? `Perguntas de reflexão já oferecidas:\n${questions}` : '',
+  //   ].filter(Boolean).join('\n\n');
+  //   return { role: 'assistant', content };
+  // });
+  //
   // ── Continue a Refletir thread via a clicked reflection-question button ───
-  const handleReflectionQuestionClick = async (question) => {
-    const history = buildReflectHistory(msgs);
-    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: question };
-    const newMsgs = [...msgs, userMsg];
-    setMsgs(newMsgs); setLoading(true);
-    const id = convoId || ('c' + Date.now());
-    setConvoId(id);
-    saveConvo(id, question.slice(0, 48), mode, newMsgs);
-    scrollToBottom();
-    const requestId = ++requestIdRef.current;
-
-    try {
-      // 'refletir' as current_mode so the orchestrator never self-nudges
-      // toward Refletir inside a Refletir thread (sendText does the same).
-      const reply = await reflectSituation(question, history, MODE_TO_INTENT.refletir);
-      if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
-      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
-      const finalMsgs = [...newMsgs, aiMsg];
-      setMsgs(finalMsgs);
-      saveConvo(id, question.slice(0, 48), mode, finalMsgs);
-    } catch (err) {
-      console.error('handleReflectionQuestionClick failed:', err);
-      if (requestId !== requestIdRef.current) return;
-      setMsgs([...newMsgs, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
-    } finally {
-      if (requestId === requestIdRef.current) {
-        setLoading(false);
-        scrollToBottom();
-      }
-    }
-  };
+  // const handleReflectionQuestionClick = async (question) => {
+  //   const history = buildReflectHistory(msgs);
+  //   const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: question };
+  //   const newMsgs = [...msgs, userMsg];
+  //   setMsgs(newMsgs); setLoading(true);
+  //   const id = convoId || ('c' + Date.now());
+  //   setConvoId(id);
+  //   saveConvo(id, question.slice(0, 48), mode, newMsgs);
+  //   scrollToBottom();
+  //   const requestId = ++requestIdRef.current;
+  //
+  //   try {
+  //     // 'refletir' as current_mode so the orchestrator never self-nudges
+  //     // toward Refletir inside a Refletir thread (sendText does the same).
+  //     const reply = await reflectSituation(question, history, MODE_TO_INTENT.refletir);
+  //     if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
+  //     const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
+  //     const finalMsgs = [...newMsgs, aiMsg];
+  //     setMsgs(finalMsgs);
+  //     saveConvo(id, question.slice(0, 48), mode, finalMsgs);
+  //   } catch (err) {
+  //     console.error('handleReflectionQuestionClick failed:', err);
+  //     if (requestId !== requestIdRef.current) return;
+  //     setMsgs([...newMsgs, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+  //   } finally {
+  //     if (requestId === requestIdRef.current) {
+  //       setLoading(false);
+  //       scrollToBottom();
+  //     }
+  //   }
+  // };
 
   const handleSend = () => sendText(input.trim());
 
@@ -335,16 +356,22 @@ export default function App() {
       return;
     }
 
-    const userText = label === '💡 Explicar simples'
-      ? `Explique de forma mais simples: "${snippet}"`
-      : '🪞 Reflexão sobre este trecho';
+    // Refletir is switched off for production — the mode is disconnected, not
+    // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+    // '🪞 Reflexão' is no longer a reachable label (removed from QUICK_ACTIONS
+    // above), so this branch always resolves to '💡 Explicar simples' now:
+    // const userText = label === '💡 Explicar simples'
+    //   ? `Explique de forma mais simples: "${snippet}"`
+    //   : '🪞 Reflexão sobre este trecho';
+    const userText = `Explique de forma mais simples: "${snippet}"`;
     append({ id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: userText });
     setLoad(true);
     scrollToBottom();
     try {
-      const reply = label === '🪞 Reflexão'
-        ? await reflectSituation(snippet)
-        : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
+      // const reply = label === '🪞 Reflexão'
+      //   ? await reflectSituation(snippet)
+      //   : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
+      const reply = await chatMessage(`Explique de forma mais simples: "${snippet}"`);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('runQuickAction failed:', err);
@@ -581,13 +608,17 @@ export default function App() {
         onClick: () => handleGoStudyItem(studyTarget),
       } : null;
     }
-    if (msg.suggestedMode === 'refletir') {
-      return priorUserText ? {
-        label: '🪞 Refletir sobre esta situação',
-        color: '#C8856A',
-        onClick: () => handleGoReflect(priorUserText),
-      } : null;
-    }
+    // Refletir is switched off for production — the mode is disconnected, not
+    // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+    // The backend no longer nudges toward 'refletir' (task 2), but this branch
+    // is commented out too so the frontend never acts on it even defensively.
+    // if (msg.suggestedMode === 'refletir') {
+    //   return priorUserText ? {
+    //     label: '🪞 Refletir sobre esta situação',
+    //     color: '#C8856A',
+    //     onClick: () => handleGoReflect(priorUserText),
+    //   } : null;
+    // }
     if (msg.suggestedMode === 'tirar_duvida') {
       return priorUserText ? {
         label: '💬 Dialogar sobre isto',
@@ -627,36 +658,39 @@ export default function App() {
     }
   };
 
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  //
   // ── Suggested-mode: jump from /chat to a Refletir thread seeded with the question ──
-  const handleGoReflect = async (situationText) => {
-    if (!situationText) return;
-    switchMode('refletir');
-    setRefletirSub('chat');
-    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: situationText };
-    setMsgs([userMsg]); setLoading(true);
-    const id = 'c' + Date.now();
-    setConvoId(id);
-    saveConvo(id, situationText.slice(0, 48), 'refletir', [userMsg]);
-    scrollToBottom();
-    const requestId = ++requestIdRef.current;
-    try {
-      const reply = await reflectSituation(situationText, [], 'refletir');
-      if (requestId !== requestIdRef.current) return;
-      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
-      const finalMsgs = [userMsg, aiMsg];
-      setMsgs(finalMsgs);
-      saveConvo(id, situationText.slice(0, 48), 'refletir', finalMsgs);
-    } catch (err) {
-      console.error('handleGoReflect failed:', err);
-      if (requestId !== requestIdRef.current) return;
-      setMsgs([userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
-    } finally {
-      if (requestId === requestIdRef.current) {
-        setLoading(false);
-        scrollToBottom();
-      }
-    }
-  };
+  // const handleGoReflect = async (situationText) => {
+  //   if (!situationText) return;
+  //   switchMode('refletir');
+  //   setRefletirSub('chat');
+  //   const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: situationText };
+  //   setMsgs([userMsg]); setLoading(true);
+  //   const id = 'c' + Date.now();
+  //   setConvoId(id);
+  //   saveConvo(id, situationText.slice(0, 48), 'refletir', [userMsg]);
+  //   scrollToBottom();
+  //   const requestId = ++requestIdRef.current;
+  //   try {
+  //     const reply = await reflectSituation(situationText, [], 'refletir');
+  //     if (requestId !== requestIdRef.current) return;
+  //     const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
+  //     const finalMsgs = [userMsg, aiMsg];
+  //     setMsgs(finalMsgs);
+  //     saveConvo(id, situationText.slice(0, 48), 'refletir', finalMsgs);
+  //   } catch (err) {
+  //     console.error('handleGoReflect failed:', err);
+  //     if (requestId !== requestIdRef.current) return;
+  //     setMsgs([userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
+  //   } finally {
+  //     if (requestId === requestIdRef.current) {
+  //       setLoading(false);
+  //       scrollToBottom();
+  //     }
+  //   }
+  // };
 
   // ── Suggested-mode: jump from /reflect to a Dúvida thread seeded with the question ──
   const handleGoDuvida = async (questionText) => {
@@ -699,9 +733,16 @@ export default function App() {
     // added; fall back to the old id-prefix convention for older entries
     // already sitting in a user's localStorage.
     const sub = c.sub || (c.id.startsWith('trilha_') ? 'guided' : c.id.startsWith('explorar_') ? 'explorar' : null);
-    if (c.mode === 'refletir') {
-      setMode('refletir'); setRefletirSub('chat'); setMsgs(msgs);
-    } else if (c.mode === 'estudar' && sub === 'guided') {
+    // Refletir is switched off for production — the mode is disconnected, not
+    // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+    // A conversation saved with mode 'refletir' before the switch-off can still
+    // exist in a reader's localStorage; it now falls through to the final
+    // `else` below and opens read-only in Dúvida instead of reopening a mode
+    // that no longer has a screen or a working endpoint.
+    // if (c.mode === 'refletir') {
+    //   setMode('refletir'); setRefletirSub('chat'); setMsgs(msgs);
+    // } else if (c.mode === 'estudar' && sub === 'guided') {
+    if (c.mode === 'estudar' && sub === 'guided') {
       setMode('estudar'); setEstudarSub('guided');
       const trilhaId = c.id.slice('trilha_'.length);
       const trilhaDetail = await getPath(trilhaId).catch((err) => {
@@ -759,11 +800,15 @@ export default function App() {
     setTimeout(() => setInput(ctx), 50);
   };
 
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  // Was RefletirPicker's onSubmit; unreferenced now that the picker isn't
+  // rendered.
   // ── Refletir submit ──────────────────────────────────────────────────────
-  const handleReflectSubmit = (text) => {
-    setRefletirSub('chat');
-    sendText(text);
-  };
+  // const handleReflectSubmit = (text) => {
+  //   setRefletirSub('chat');
+  //   sendText(text);
+  // };
 
   // ── Daily trecho (evangelho) ──────────────────────────────────────────────
   const handleStudyTrecho = async () => {
@@ -819,6 +864,10 @@ export default function App() {
   // ── Render ────────────────────────────────────────────────────────────────
   const isHome = mode === null;
   const isEstudar = mode === 'estudar';
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted (mode can never actually be 'refletir' — no remaining UI path sets
+  // it, so this is always false). See
+  // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
   const isRefletir = mode === 'refletir';
   // `!isHome` matters: without it the old empty state renders underneath the
   // home launcher, and the user meets two different launchers.
@@ -953,9 +1002,12 @@ export default function App() {
             />
           )}
 
-          {isRefletir && refletirSub === 'picker' && (
+          {/* Refletir is switched off for production — the mode is disconnected,
+              not deleted (isRefletir is always false, so this never rendered).
+              See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md */}
+          {/* {isRefletir && refletirSub === 'picker' && (
             <RefletirPicker theme={theme} onSubmit={handleReflectSubmit} />
-          )}
+          )} */}
 
           {!isHome && !isEstudar && !(isRefletir && refletirSub === 'picker') && (
             <>
@@ -1043,7 +1095,13 @@ export default function App() {
                           qa => qa.label !== '📚 Relacionados' || msg.relatedItems?.length > 0
                         )}
                         onQuickAction={(label) => handleQuickAction(label, msg)}
-                        onReflectionQuestionClick={handleReflectionQuestionClick}
+                        // Refletir is switched off for production — the mode is
+                        // disconnected, not deleted. handleReflectionQuestionClick
+                        // is commented out above along with it; msg.reflectionQuestions
+                        // can no longer be populated, so this prop's button never
+                        // rendered anyway. See
+                        // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+                        // onReflectionQuestionClick={handleReflectionQuestionClick}
                         suggestedQuestions={
                           idx === msgs.length - 1 && !msg.isReflection && !loading
                             ? (msg.suggestedQuestions || [])

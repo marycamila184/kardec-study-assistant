@@ -15,13 +15,15 @@ const ChatIcon = ({ active }) => (
   </svg>
 );
 
-const MirrorIcon = ({ active }) => (
-  <svg width={20} height={20} viewBox="0 0 24 24" fill="none"
-    stroke="white" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3C8 3 5 6 5 9c0 4 4 8 7 11 3-3 7-7 7-11 0-3-3-6-7-6z"/>
-    <line x1="12" y1="3" x2="12" y2="20"/>
-  </svg>
-);
+// Refletir is switched off for production — the mode is disconnected, not
+// deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+// const MirrorIcon = ({ active }) => (
+//   <svg width={20} height={20} viewBox="0 0 24 24" fill="none"
+//     stroke="white" strokeWidth={active ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
+//     <path d="M12 3C8 3 5 6 5 9c0 4 4 8 7 11 3-3 7-7 7-11 0-3-3-6-7-6z"/>
+//     <line x1="12" y1="3" x2="12" y2="20"/>
+//   </svg>
+// );
 
 // Every tab here navigates. "Hoje" used to sit alongside these and did not:
 // tapping it generated a conversation and left the reader in Dúvida, with the
@@ -31,7 +33,9 @@ const MirrorIcon = ({ active }) => (
 const TABS = [
   { id: 'estudar',  label: 'Estudar',  Icon: BookOpenIcon },
   { id: 'duvida',   label: 'Dúvida',   Icon: ChatIcon },
-  { id: 'refletir', label: 'Refletir', Icon: MirrorIcon },
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  // { id: 'refletir', label: 'Refletir', Icon: MirrorIcon },
 ];
 
 export default function MobileBottomNav({ mode, onChange }) {

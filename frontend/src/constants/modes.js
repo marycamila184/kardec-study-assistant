@@ -22,12 +22,14 @@ export const MODES = [
     desc: 'Perguntas abertas fundamentadas nas obras de Kardec',
     icon: '💬',
   },
-  {
-    id: 'refletir',
-    label: 'Refletir',
-    desc: 'Relacione situações da vida aos ensinamentos da doutrina',
-    icon: '🪞',
-  },
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  // {
+  //   id: 'refletir',
+  //   label: 'Refletir',
+  //   desc: 'Relacione situações da vida aos ensinamentos da doutrina',
+  //   icon: '🪞',
+  // },
 ];
 
 // TopBar's existing lookup shape, derived so the two never disagree.
