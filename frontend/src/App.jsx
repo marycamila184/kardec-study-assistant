@@ -1161,7 +1161,8 @@ export default function App() {
         notifPermission={notifPerm} onRequestNotif={requestNotif}
         theme={theme}
       />
-      {shareMsg && <ShareModal msg={shareMsg} theme={theme} onClose={() => setShareMsg(null)} />}
+      {shareMsg && <ShareModal
+        isMobile={isMobile} msg={shareMsg} theme={theme} onClose={() => setShareMsg(null)} />}
       {relatedModal && (
         <RelatedItemsModal
           modal={relatedModal}
