@@ -3,9 +3,9 @@ import logging
 import re
 
 from src.core.config import settings
+from src.rag.crisis import needs_crisis_note
 from src.rag.llm_client import create_json_completion, get_client
 from src.rag.mode_detector import is_smalltalk
-from src.rag.reflect_prompt import needs_crisis_note
 
 logger = logging.getLogger(__name__)
 

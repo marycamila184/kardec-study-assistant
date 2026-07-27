@@ -9,6 +9,13 @@ from src.rag.citations import (
     strip_model_citations,
     validate_model_citations,
 )
+from src.rag.crisis import (
+    CRISIS_EXIT_MESSAGE,
+    CRISIS_NOTE,
+    mentions_suicide_topic,
+    needs_crisis_note,
+    needs_medical_caveat,
+)
 from src.rag.groundedness import attribute_sources
 from src.rag.guardrails import counts_personification, strip_trailing_question
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
@@ -16,13 +23,6 @@ from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
 from src.rag.prose import prose_completion
 from src.rag.query_condenser import blend_anchor, condense_query
-from src.rag.reflect_prompt import (
-    CRISIS_EXIT_MESSAGE,
-    CRISIS_NOTE,
-    mentions_suicide_topic,
-    needs_crisis_note,
-    needs_medical_caveat,
-)
 from src.rag.retriever import (
     EVANGELHO_BOOK,
     append_chapter_commentary,
