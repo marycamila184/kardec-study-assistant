@@ -25,10 +25,21 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
     window.open(url, '_blank', 'noopener');
   };
 
-  // Decidido uma vez, no render: em celular o botão compartilha, no desktop
-  // baixa — e o rótulo precisa dizer o que vai acontecer.
-  const canShareFile =
-    typeof navigator !== 'undefined' && typeof navigator.canShare === 'function';
+  // Testa com um arquivo de verdade, não só a existência da função: o Chrome do
+  // desktop tem navigator.canShare mas recusa arquivos, então checar só o
+  // `typeof` fazia o botão prometer "Compartilhar imagem" e baixar.
+  const canShareFile = (() => {
+    if (typeof navigator === 'undefined' || typeof navigator.canShare !== 'function') {
+      return false;
+    }
+    try {
+      return navigator.canShare({
+        files: [new File([new Blob()], 'x.png', { type: 'image/png' })],
+      });
+    } catch {
+      return false;
+    }
+  })();
 
   const handleDownload = () => {
     const canvas = document.createElement('canvas');
@@ -73,7 +84,9 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
 
       if (navigator.canShare?.({ files: [file] })) {
         try {
-          await navigator.share({ files: [file] });
+          // Imagem E texto no mesmo envio: quem escolher WhatsApp recebe a foto
+          // com a legenda, em vez de ter de decidir antes entre um e outro.
+          await navigator.share({ files: [file], text: shareText });
           return;
         } catch (err) {
           // Cancelar a folha de compartilhamento levanta AbortError. Não é
@@ -148,19 +161,30 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
           )}
         </div>
 
-        {/* Actions */}
+        {/* Ações.
+
+            Onde existe folha do sistema, um botão só. Dois botões confundiam:
+            o verde tinha a marca do WhatsApp e mandava apenas texto, enquanto o
+            de imagem — que é o que a pessoa quer compartilhar — parecia
+            secundário. A folha já lista WhatsApp, Instagram e o que mais
+            estiver instalado, e agora leva foto e legenda juntas.
+
+            No desktop os dois continuam, porque lá não há folha: o WhatsApp Web
+            abre com o texto e o outro salva o arquivo. */}
         <div style={{ padding: '14px 18px', display: 'flex', gap: 8, flexShrink: 0 }}>
-          <button onClick={handleWhatsApp} style={{
-            flex: 1, background: '#25D366', border: 'none',
-            color: 'white', fontSize: 12, fontWeight: 600, padding: 9, borderRadius: 7,
-            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-          }}>
-            <WhatsAppIcon /> WhatsApp
-          </button>
+          {!canShareFile && (
+            <button onClick={handleWhatsApp} style={{
+              flex: 1, background: '#25D366', border: 'none',
+              color: 'white', fontSize: 12, fontWeight: 600, padding: 9, borderRadius: 7,
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+            }}>
+              <WhatsAppIcon /> WhatsApp
+            </button>
+          )}
           <button onClick={handleDownload} style={{
             flex: 1, background: '#6B9BB8', border: 'none',
             color: 'white', fontSize: 12, fontWeight: 500, padding: 9, borderRadius: 7, cursor: 'pointer',
-          }}>{canShareFile ? 'Compartilhar imagem' : 'Baixar imagem'}</button>
+          }}>{canShareFile ? 'Compartilhar' : 'Baixar imagem'}</button>
         </div>
       </div>
     </div>
