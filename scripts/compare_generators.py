@@ -46,7 +46,7 @@ needs its own repeated-sampling run.
 
 Usage:
     uv run python -m scripts.compare_generators --variants duas-sempre,seguir-opcional
-    uv run python -m scripts.compare_generators --models groq:llama-3.3-70b-versatile,google:gemini-3.6-flash
+    uv run python -m scripts.compare_generators --models together:meta-llama/Llama-3.3-70B-Instruct-Turbo,google:gemini-3.6-flash
     uv run python -m scripts.compare_generators --report-only > logs/ab.md
 """
 
@@ -821,7 +821,7 @@ def main() -> None:
         default="",
         help="comma-separated provider:model pairs to run on the fixed "
         "production prompt, e.g. "
-        "groq:llama-3.3-70b-versatile,google:gemini-3.6-flash. Mutually "
+        "together:meta-llama/Llama-3.3-70B-Instruct-Turbo,google:gemini-3.6-flash. Mutually "
         "exclusive with --variants.",
     )
     parser.add_argument(

@@ -16,16 +16,6 @@ class ProviderConfig(NamedTuple):
 _RIV_AI = "hf.co/ia-espirita/riv-ai-v2-Q4_K_M-GGUF"
 
 PROVIDERS: dict[str, ProviderConfig] = {
-    # Groq is disconnected for lack of a paid plan, not for lack of merit: it
-    # answered llama-3.3-70b in 215ms from Brazil against Together's 832ms for
-    # the same model (measured 2026-07-26). Kept here, commented, because the
-    # day the plan exists this is a one-line change and a ~600ms win.
-    # "groq": ProviderConfig(
-    #     "https://api.groq.com/openai/v1",
-    #     "groq_api_key",
-    #     "llama-3.3-70b-versatile",
-    #     "llama-3.1-8b-instant",
-    # ),
     "openrouter": ProviderConfig(
         "https://openrouter.ai/api/v1",
         "openrouter_api_key",
@@ -72,10 +62,6 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     llm_provider: str = "together"
-    # The field outlives its PROVIDERS entry on purpose: a stray GROQ_API_KEY
-    # in an existing .env must not crash the app on boot, and the key is
-    # already there on every machine that ran this before today.
-    groq_api_key: str | None = None
     openrouter_api_key: str | None = None
     together_api_key: str | None = None
     hf_token: str | None = None

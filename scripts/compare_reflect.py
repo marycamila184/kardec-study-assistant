@@ -281,7 +281,7 @@ def _prose_shim(raw_sink: list[str]):
     setting that redirects it — this monkeypatch is how the comparison happens
     without loosening that in `src/`. Mirrors the prose lane's own call shape
     (`src/rag/prose.py`): temperature=0, and no `response_format`, which the
-    local llama.cpp/Ollama surface does not honor the way Groq does.
+    local llama.cpp/Ollama surface does not honor the way a hosted API does.
     """
     from src.core.config import settings
     from src.rag.llm_client import get_client

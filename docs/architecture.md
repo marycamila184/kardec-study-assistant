@@ -76,7 +76,7 @@ flowchart TD
         direction TB
         GEN["Generator (/chat)"]
     end
-    JSON --> P1["settings.llm_provider<br/>groq / together / openrouter"]
+    JSON --> P1["settings.llm_provider<br/>together / openrouter / google"]
     PROSE --> SW{"PROSE_PROVIDER set?"}
     SW -->|no, the default| P1
     SW -->|yes| P2["ollama / hf-endpoint<br/>riv-ai-v2, Llama 3.1 8B QLoRA"]

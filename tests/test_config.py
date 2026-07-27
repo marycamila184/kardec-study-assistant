@@ -3,6 +3,8 @@ import pytest
 
 def _settings(monkeypatch, **env):
     for var in (
+        # Not a Settings field anymore: an exported shell value would make
+        # Settings() raise on the unknown key, so it has to be cleared here.
         "GROQ_API_KEY",
         "OPENROUTER_API_KEY",
         "TOGETHER_API_KEY",
@@ -38,27 +40,13 @@ def test_settings_has_correct_defaults(monkeypatch):
 
 
 def test_defaults_to_together_provider(monkeypatch):
-    """Together is the default because Groq needs a paid plan this project does
-    not have. Groq stays commented in PROVIDERS — it answered the same
-    llama-3.3-70b in 215ms against Together's 832ms — so this assertion is the
-    tripwire that says which lane production is actually on."""
+    """The tripwire that says which lane production is actually on."""
     s = _settings(monkeypatch, TOGETHER_API_KEY="k")
     assert s.llm_provider == "together"
     assert s.active_provider.base_url == "https://api.together.xyz/v1"
     assert s.active_api_key == "k"
     assert s.resolved_chat_model == "deepseek-ai/DeepSeek-V3"
     assert s.resolved_condenser_model == "Qwen/Qwen2.5-7B-Instruct-Turbo"
-
-
-def test_groq_is_disconnected_not_merely_unused(monkeypatch):
-    """Having GROQ_API_KEY in an old .env must not silently route anything."""
-    from src.core.config import PROVIDERS
-
-    assert "groq" not in PROVIDERS
-    s = _settings(monkeypatch, TOGETHER_API_KEY="k", GROQ_API_KEY="stale")
-    assert s.llm_provider == "together"
-    with pytest.raises(ValueError, match="Unknown provider"):
-        s.provider("groq")
 
 
 def test_openrouter_provider_defaults(monkeypatch):
@@ -85,7 +73,7 @@ def test_explicit_model_overrides_provider_default(monkeypatch):
 
 
 def test_unknown_provider_raises(monkeypatch):
-    s = _settings(monkeypatch, LLM_PROVIDER="bogus", GROQ_API_KEY="k")
+    s = _settings(monkeypatch, LLM_PROVIDER="bogus", TOGETHER_API_KEY="k")
     with pytest.raises(ValueError, match="Unknown provider"):
         _ = s.active_provider
 
@@ -121,7 +109,7 @@ def test_ollama_prose_provider(monkeypatch):
 def test_prose_model_override(monkeypatch):
     s = _settings(
         monkeypatch,
-        GROQ_API_KEY="k",
+        TOGETHER_API_KEY="k",
         PROSE_PROVIDER="ollama",
         PROSE_MODEL="some/other-gguf",
     )
@@ -131,7 +119,7 @@ def test_prose_model_override(monkeypatch):
 def test_ollama_base_url_override(monkeypatch):
     s = _settings(
         monkeypatch,
-        GROQ_API_KEY="k",
+        TOGETHER_API_KEY="k",
         PROSE_PROVIDER="ollama",
         OLLAMA_BASE_URL="http://192.168.0.9:11434/v1",
     )
@@ -140,7 +128,7 @@ def test_ollama_base_url_override(monkeypatch):
 
 def test_hf_endpoint_requires_a_url(monkeypatch):
     s = _settings(
-        monkeypatch, GROQ_API_KEY="k", HF_TOKEN="hf-k", PROSE_PROVIDER="hf-endpoint"
+        monkeypatch, TOGETHER_API_KEY="k", HF_TOKEN="hf-k", PROSE_PROVIDER="hf-endpoint"
     )
     with pytest.raises(ValueError, match="HF_ENDPOINT_URL"):
         _ = s.provider("hf-endpoint")
@@ -149,7 +137,7 @@ def test_hf_endpoint_requires_a_url(monkeypatch):
 def test_hf_endpoint_with_url(monkeypatch):
     s = _settings(
         monkeypatch,
-        GROQ_API_KEY="k",
+        TOGETHER_API_KEY="k",
         HF_TOKEN="hf-k",
         PROSE_PROVIDER="hf-endpoint",
         HF_ENDPOINT_URL="https://abc.endpoints.huggingface.cloud/v1",

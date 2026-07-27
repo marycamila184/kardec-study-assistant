@@ -103,7 +103,7 @@ Legend: `POST /chat {question}`, `POST /reflect {situation}`.
 - **E3 (fixed 2026-07-19):** `extract_study_reference` bound "questão 1500" to
   O Livro dos Espíritos with no range check; now the LE default only fires for
   1–1019 (`_LE_MAX_QUESTAO`).
-- **Rate limiting:** an unpaced full run exceeds the Groq free-tier TPM (12k),
+- **Rate limiting:** an unpaced full run exceeds the provider's free-tier TPM,
   producing `generation_failed` responses that masquerade as contract
   violations. The script paces LLM-bound POSTs (`--pause`, default 3s) and
   retries once after 60s (a full TPM window) on `generation_failed`; content

@@ -30,7 +30,7 @@ FOOTNOTE_RE = re.compile(r"\[Nota \d+\]")
 # REFLECT_BOOKS = {"O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo"}
 
 
-# Seconds to sleep before each LLM-bound POST — the Groq free tier caps tokens
+# Seconds to sleep before each LLM-bound POST — the provider's free tier caps tokens
 # per minute (TPM 12k), and an unpaced full run burns through it, producing
 # generation_failed responses that look like contract violations but aren't.
 PAUSE = 3.0
@@ -774,7 +774,7 @@ def main():
         "--pause",
         type=float,
         default=3.0,
-        help="seconds to sleep before each LLM-bound POST (Groq TPM pacing)",
+        help="seconds to sleep before each LLM-bound POST (provider TPM pacing)",
     )
     args = ap.parse_args()
     votes = 1 if args.fast else 3

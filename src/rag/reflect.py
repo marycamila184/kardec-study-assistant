@@ -164,7 +164,7 @@ def reflect(
     is_closing = False
     generation_failed = False
 
-    # curar() makes its own independent Groq call and only needs
+    # curar() makes its own independent provider call and only needs
     # `complementary_raw`, which is already retrieved — run both LLM calls
     # concurrently instead of paying their latency twice in sequence.
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
