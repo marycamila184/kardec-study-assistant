@@ -251,13 +251,22 @@ kardec-study-assistant/
 - ✅ Clickable source citations (excerpt modal) on `/chat` (also built for `/reflect`, currently switched off)
 - ✅ Related-items modal with click-through to full study
 - ✅ Deployment infrastructure — Cloud Run (backend) + Vercel (frontend), index baked into the image, hosted embedding lane
-- Restore Refletir on a structural fix — the 2026-07-26 evaluation showed no embedding model separates "estou ansioso" from the chapter on a Spirit's agony before reincarnating, so the fix is chapter-level filtering, not a model swap
+- **Refletir sobre uma Situação — in development, not shipped.** The mode exists in full (`src/rag/reflect.py`, `reflect_prompt.py`, `RefletirPicker.jsx`) and is disconnected rather than deleted, so re-enabling is wiring rather than rewriting. What keeps it off is measured: the 2026-07-26 retrieval evaluation found that all four embedding models tested answer *"estou me sentindo ansioso"* with the chapter on a Spirit's agony before **reincarnating**. The failure is structural, so the fix is chapter-level filtering, not a model swap. See `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`
 - Deterministic suppression of follow-up chips on sensitive turns — measured 2026-07-26: `gemini-3.6-flash` offered one right below the CVV note, and the current model's silence there is luck, not a guarantee
 - Fix the 20 documents that overwrite each other in the index — `_build_id` omits `part`, so O Céu e o Inferno's two chapter I collide (7327 stored where ingestion reports 7347)
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
 
 ### Planned
+
+**riv-ai-v2 for Refletir.** Whether a model fine-tuned on Spiritist material
+holds the reflective register better than the general one. The obstacle is
+already known and has to be re-measured rather than assumed: riv-ai-v2 was cut
+from Reflexivo on 2026-07-24 for giving direct advice, which the mode forbids
+outright — and that verdict came from an ad-hoc n=5 smoke test whose raw output
+was never saved. `scripts/compare_reflect.py` exists to make that evidence
+reproducible. Any return of the mode has to clear the no-advice constraint on
+the record, not from memory.
 
 **Spiritist centre map.** A directory of nearby centres, using the reader's
 location. The open question is where it belongs: it is not a study mode, and
@@ -274,7 +283,7 @@ passage along instead of describing it. The constraint that governs everything
 else applies unchanged: whatever it opens must be shown as source text, visibly
 separate from anything the model adds.
 
-**Study module content review** (with Angela). A doctrinal pass over the curated
+**Study module content review** A doctrinal pass over the curated
 learning paths and the Explicador output. Retrieval quality is measured; whether
 the *pedagogy* is sound is not something a benchmark answers.
 
