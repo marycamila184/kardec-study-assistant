@@ -257,6 +257,40 @@ kardec-study-assistant/
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
 
+### Planned
+
+**Spiritist centre map.** A directory of nearby centres, using the reader's
+location. The open question is where it belongs: it is not a study mode, and
+putting it beside Estudar/Dialogar would suggest it is one. Estudar is the
+current candidate, since someone who has just read a passage is closer to
+wanting a room with people in it than someone mid-question. Needs a data source
+for the centres and an explicit, revocable location permission — the app asks
+for nothing today, and that is worth keeping true until the feature earns it.
+
+**A warmer, more capable conversational agent.** Today the reader asks and gets
+an answer. The next step is a companion that can act on the works during the
+conversation — open a chapter when the reader wants to go deeper, and bring the
+passage along instead of describing it. The constraint that governs everything
+else applies unchanged: whatever it opens must be shown as source text, visibly
+separate from anything the model adds.
+
+**Study module content review** (with Angela). A doctrinal pass over the curated
+learning paths and the Explicador output. Retrieval quality is measured; whether
+the *pedagogy* is sound is not something a benchmark answers.
+
+**Prompt caching on Together.** Every `/chat` turn resends the system prompt and
+the retrieved passages, and prompt tokens dominate the bill — this is where the
+spend actually is. Worth measuring the hit rate before assuming the saving:
+cache economics depend on how much of the prompt is genuinely stable across
+turns, and the retrieved passages are the part that changes.
+
+**Fine-tuning, later.** A model that reads as a teacher rather than an
+encyclopaedia, trained on recorded teaching — podcasts and lectures. Two
+prerequisites before any of it: rights to the material must be cleared with
+whoever produced it, and the grounding rule has to survive. A fine-tune that
+starts speaking doctrine from its weights instead of from retrieved passages
+would break the one thing this project refuses to break.
+
 ---
 
 ## Other Commands
