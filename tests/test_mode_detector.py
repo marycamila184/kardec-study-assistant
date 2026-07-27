@@ -81,19 +81,26 @@ def test_returns_none_for_empty_string():
     assert detect_suggested_mode("") is None
 
 
-def test_detects_refletir_for_fear():
-    assert detect_suggested_mode("tenho medo de morrer") == "refletir"
+def test_situational_message_no_longer_suggests_reflect():
+    assert detect_suggested_mode("estou passando por um momento muito difícil") is None
 
 
-def test_detects_refletir_for_grief():
-    assert detect_suggested_mode("perdi minha mãe e não sei lidar") == "refletir"
+# Refletir is switched off for production; situational cues (fear, grief,
+# anxiety) no longer suggest it — the branch that did is disconnected in
+# detect_suggested_mode. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+def test_fear_no_longer_suggests_reflect():
+    assert detect_suggested_mode("tenho medo de morrer") is None
 
 
-def test_detects_refletir_for_anxiety():
-    assert detect_suggested_mode("estou com muita ansiedade ultimamente") == "refletir"
+def test_grief_no_longer_suggests_reflect():
+    assert detect_suggested_mode("perdi minha mãe e não sei lidar") is None
 
 
-def test_estudar_wins_over_refletir_when_both_match():
+def test_anxiety_no_longer_suggests_reflect():
+    assert detect_suggested_mode("estou com muita ansiedade ultimamente") is None
+
+
+def test_estudar_wins_over_situational_cues_when_both_match():
     # situational word "medo" + explicit item lookup -> study intent wins
     assert detect_suggested_mode("tenho medo, explique a questão 132") == "estudar_obra"
 

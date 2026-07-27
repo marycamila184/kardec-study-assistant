@@ -9,18 +9,21 @@ from src.rag.mode_detector import is_smalltalk
 
 logger = logging.getLogger(__name__)
 
-_VALID_MODES = {"tirar_duvida", "refletir", "estudar_obra"}
+_VALID_MODES = {"tirar_duvida", "estudar_obra"}
 
+# Refletir is switched off for production (structural retrieval failure on lived
+# suffering, see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md);
+# the "refletir" classification option below is disconnected along with it.
 _SYSTEM_PROMPT = (
     "Você é um roteador de intenção para um assistente de estudo das obras de "
     "Allan Kardec. Classifique a MENSAGEM do usuário em um destes modos:\n"
     '- "tirar_duvida": pergunta objetiva sobre a doutrina espírita ou sobre o '
-    'conteúdo das obras (ex.: "o que é o perispírito?").\n'
-    '- "refletir": a pessoa compartilha um SENTIMENTO, sofrimento ou situação '
-    'pessoal vivida e busca acolhimento (ex.: "estou muito mal, me ajuda"). NÃO é '
-    "refletir quando a mensagem é uma pergunta de esclarecimento sobre a doutrina "
-    'ou sobre o texto, mesmo que o tema soe pessoal (ex.: "então quer dizer que '
-    'preciso ser criança?", "isso significa que...?") — isso é tirar_duvida.\n'
+    'conteúdo das obras (ex.: "o que é o perispírito?"). Uma pergunta de '
+    "esclarecimento sobre a doutrina ou sobre o texto é sempre tirar_duvida, "
+    'mesmo que o tema soe pessoal (ex.: "então quer dizer que preciso ser '
+    'criança?", "isso significa que...?").\n'
+    # - "refletir": a pessoa compartilha um SENTIMENTO, sofrimento ou situação
+    #   pessoal vivida e busca acolhimento. Disconnected with the mode shutdown.
     '- "estudar_obra": a pessoa quer estudar um item/questão específico de uma '
     'obra (ex.: "explique a questão 132", "item 45 do Evangelho").\n'
     '- "nenhum": não se encaixa claramente em nenhum modo.\n'

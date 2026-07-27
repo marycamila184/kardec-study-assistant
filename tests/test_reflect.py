@@ -5,6 +5,10 @@ import pytest
 
 from src.rag.reflect import reflect
 
+pytestmark = pytest.mark.skip(
+    reason="Refletir switched off — see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md"
+)
+
 _CHUNK_1 = {
     "content": "Os espíritos sobrevivem à morte do corpo.",
     "metadata": {

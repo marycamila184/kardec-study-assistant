@@ -68,8 +68,12 @@ _BOOK_PATTERNS = [
 def detect_suggested_mode(question: str) -> str | None:
     if any(p.search(question) for p in _STUDY_PATTERNS):
         return "estudar_obra"
-    if any(p.search(question) for p in _SITUATIONAL_PATTERNS):
-        return "refletir"
+    # Refletir is switched off for production; the situational-cue branch below
+    # is disconnected along with it, not deleted (_SITUATIONAL_PATTERNS stays
+    # defined so re-enabling is reconnecting it).
+    # See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+    # if any(p.search(question) for p in _SITUATIONAL_PATTERNS):
+    #     return "refletir"
     return None
 
 

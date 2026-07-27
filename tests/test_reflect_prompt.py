@@ -1,4 +1,10 @@
+import pytest
+
 from src.rag.reflect_prompt import build_reflect_messages, parse_reflect_json
+
+pytestmark = pytest.mark.skip(
+    reason="Refletir switched off — see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md"
+)
 
 _CHUNK = {
     "content": "Os espíritos sobrevivem à morte do corpo.",
