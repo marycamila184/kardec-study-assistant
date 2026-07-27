@@ -248,7 +248,7 @@ def test_misattribution_catches_the_observed_riv_ai_error():
     """Verbatim shape of the 2026-07-25 failure: LE 886 attributed to ESE."""
     from src.rag.citations import misattributions
 
-    text = "O trecho é extraído da obra \"O Evangelho Segundo o Espiritismo\"."
+    text = 'O trecho é extraído da obra "O Evangelho Segundo o Espiritismo".'
     assert misattributions(text, "O Livro dos Espíritos")
     assert misattributions(text, "O Evangelho Segundo o Espiritismo") == []
 
