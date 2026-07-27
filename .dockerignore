@@ -1,0 +1,16 @@
+# Everything is excluded by default; the Dockerfile opts in file by file.
+# An allowlist is the only version of this that stays correct — a denylist
+# silently ships whatever gets added to the repo next.
+*
+
+!pyproject.toml
+!uv.lock
+!src/
+!data/embeddings/
+!data/paths/
+!data/markdown_files/trecho_diario.md
+
+# Re-excluded inside the allowed paths.
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
