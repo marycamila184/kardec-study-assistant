@@ -7,6 +7,9 @@ query as a document degrades the model for reasons unrelated to the model),
 and retry (a 429 mid-corpus must not leave half an index behind).
 """
 
+import json
+import os
+
 import pytest
 
 from scripts import compare_retrieval as cr
@@ -102,3 +105,70 @@ def test_short_response_is_an_error(monkeypatch):
 def test_collection_name_carries_the_dimension():
     assert cr.gemini_collection(1024) == "kardec_docs_gemini_1024"
     assert cr.gemini_collection(3072) == "kardec_docs_gemini_3072"
+
+
+CORPUS_DIR = "data/json_files"
+needs_corpus = pytest.mark.skipif(
+    not os.path.isdir(CORPUS_DIR), reason="data/json_files é gitignored e regenerável"
+)
+
+
+def corpus_chapter_titles() -> set[str]:
+    titles = set()
+    for filename in os.listdir(CORPUS_DIR):
+        if filename.endswith(".json"):
+            with open(os.path.join(CORPUS_DIR, filename), encoding="utf-8") as f:
+                for chunk in json.load(f):
+                    if chunk.get("chapter_title"):
+                        titles.add(chunk["chapter_title"])
+    return titles
+
+
+@needs_corpus
+def test_every_label_matches_a_real_chapter_title():
+    """A mistyped label never matches and scores as "found nothing" — the
+    harness would report a retrieval failure that is really a typo.
+
+    This is not hypothetical: O Evangelho's misericordiosos chapter spells its
+    hyphen U+2011 (NON-BREAKING HYPHEN) while every other BEM-AVENTURADOS uses
+    U+002D. Typing that label by hand produces a label that can never hit.
+    """
+    titles = corpus_chapter_titles()
+    unknown = [
+        (case_set["name"], case["id"], label)
+        for case_set in cr.CASE_SETS
+        for case in case_set["cases"]
+        for label in case["expect"] + case["avoid"]
+        if label not in titles
+    ]
+    assert unknown == []
+
+
+def test_expect_and_avoid_never_overlap():
+    """A chapter counted as both apt and known-wrong makes the case unscoreable."""
+    for case_set in cr.CASE_SETS:
+        for case in case_set["cases"]:
+            assert not set(case["expect"]) & set(case["avoid"]), case["id"]
+
+
+def test_case_ids_are_unique_within_a_set():
+    for case_set in cr.CASE_SETS:
+        ids = [case["id"] for case in case_set["cases"]]
+        assert len(ids) == len(set(ids)), case_set["name"]
+
+
+def test_case_sets_cover_both_query_regimes():
+    names = [case_set["name"] for case_set in cr.CASE_SETS]
+    assert names == ["reflexivo", "chat"]
+    assert len(cr.REFLECT_CASES) == 9  # 8 originais + ansiedade-nua
+    assert len(cr.CHAT_CASES) == 8
+    # /chat questions span all five works, so the lane must not be book-filtered
+    assert dict(zip(names, [cs["where"] for cs in cr.CASE_SETS]))["chat"] is None
+
+
+def test_the_bug_that_started_this_is_a_case():
+    """The bare phrasing, not only the long one: a longer query has more
+    vocabulary to anchor the ranking and can pass while the short one fails."""
+    by_id = {case["id"]: case for case in cr.REFLECT_CASES}
+    assert by_id["ansiedade-nua"]["query"] == "estou me sentindo ansioso"
+    assert "DA VOLTA DO ESPÍRITO À VIDA CORPORAL" in by_id["ansiedade-nua"]["avoid"]

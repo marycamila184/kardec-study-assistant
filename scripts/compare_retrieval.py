@@ -60,7 +60,9 @@ def e5_query(text: str) -> str:
     return f"Instruct: {E5_TASK}\nQuery: {text}"
 
 
-CASES = [
+REFLECT_BOOKS = ("O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo")
+
+REFLECT_CASES = [
     {
         "id": "luto-alguem-amado",
         "query": "Perdi alguém que eu amava e estou sofrendo muito com essa perda.",
@@ -121,10 +123,12 @@ CASES = [
         "expect": [
             "BEM-AVENTURADOS OS AFLITOS",
             "BEM-AVENTURADOS OS POBRES DE ESPÍRITO",
-            "DA LEI DO TRABALHO",
             "DAS PENAS E GOZOS TERRESTRES",
         ],
-        "avoid": [],
+        # The situation is low self-worth and sadness; DA LEI DO TRABALHO is
+        # about the duty and purpose of labour. It matches on the word
+        # "trabalho" alone — the near-miss this harness exists to measure.
+        "avoid": ["DA LEI DO TRABALHO", "DA VOLTA DO ESPÍRITO À VIDA CORPORAL"],
     },
     {
         "id": "ansiedade-futuro",
@@ -139,13 +143,123 @@ CASES = [
     {
         "id": "separacao",
         "query": "meu casamento acabou e eu me sinto um fracasso",
+        # The end of a marriage has no single facet — grief, forgiveness and
+        # anxiety are all defensible readings. A label that pretends otherwise
+        # measures the labeller. The avoid survives the ambiguity: marking a
+        # chapter wrong does not require knowing which one is right.
         "expect": [
             "NÃO SEPAREIS O QUE DEUS JUNTOU",
             "BEM-AVENTURADOS OS AFLITOS",
             "DAS PENAS E GOZOS TERRESTRES",
+            "AMAI OS VOSSOS INIMIGOS",
+            "BEM‑AVENTURADOS OS QUE SÃO MISERICORDIOSOS",
         ],
-        "avoid": [],
+        "avoid": ["DA VOLTA DO ESPÍRITO À VIDA CORPORAL"],
     },
+    {
+        # The verbatim phrasing that produced the failure this work exists for:
+        # bge-m3 answered it with LE 340, a Spirit's agony before *reincarnating*.
+        # Kept alongside ansiedade-futuro on purpose — the gap between the two
+        # measures how much the ranking leans on query length.
+        "id": "ansiedade-nua",
+        "query": "estou me sentindo ansioso",
+        "expect": [
+            "BEM-AVENTURADOS OS AFLITOS",
+            "A FÉ TRANSPORTA MONTANHAS",
+            "DAS PENAS E GOZOS TERRESTRES",
+        ],
+        "avoid": ["DA VOLTA DO ESPÍRITO À VIDA CORPORAL"],
+    },
+]
+
+CHAT_CASES = [
+    {
+        "id": "perispirito",
+        "query": "O que é o perispírito e para que ele serve?",
+        "expect": ["DOS ESPÍRITOS", "DA ENCARNAÇÃO DOS ESPÍRITOS", "OS FLUIDOS"],
+        # The vital principle is not the perispirit: the beginner's confusion.
+        "avoid": ["DO PRINCÍPIO VITAL"],
+    },
+    {
+        "id": "por-que-reencarnamos",
+        "query": "Por que reencarnamos? Qual o objetivo das vidas sucessivas?",
+        "expect": [
+            "DA PLURALIDADE DAS EXISTÊNCIAS",
+            "CONSIDERAÇÕES SOBRE A PLURALIDADE DAS EXISTÊNCIAS",
+            "DA VOLTA DO ESPÍRITO À VIDA CORPORAL",
+            "NINGUÉM PODERÁ VER O REINO DE DEUS SE NÃO NASCER DE NOVO",
+        ],
+        # The original pair, now in the other direction.
+        "avoid": ["DA VOLTA DO ESPÍRITO, EXTINTA A VIDA CORPÓREA, À VIDA ESPIRITUAL"],
+    },
+    {
+        "id": "obsessao",
+        "query": "O que é obsessão e como uma pessoa se liberta dela?",
+        "expect": ["DA OBSESSÃO", "DOS INCONVENIENTES E PERIGOS DA MEDIUNIDADE"],
+        # Same vocabulary of bad Spirits acting on people; the subject is the
+        # refutation of the demon doctrine, not what to do about obsession.
+        "avoid": ["OS DEMÔNIOS", "INTERVENÇÃO DOS DEMÔNIOS NAS MODERNAS MANIFESTAÇÕES"],
+    },
+    {
+        "id": "quem-pode-ser-medium",
+        "query": "Qualquer pessoa pode ser médium?",
+        "expect": ["DOS MÉDIUNS", "DA FORMAÇÃO DOS MÉDIUNS", "DOS MÉDIUNS ESPECIAIS"],
+        "avoid": ["DA MEDIUNIDADE NOS ANIMAIS"],
+    },
+    {
+        "id": "para-que-serve-a-prece",
+        "query": "Para que serve orar? A prece é atendida?",
+        "expect": [
+            "PEDI E OBTEREIS",
+            "COLETÂNEA DE PRECES ESPÍRITAS",
+            "DA LEI DE ADORAÇÃO",
+        ],
+        # Also addressing the spirit world, but a different act.
+        "avoid": ["DAS EVOCAÇÕES"],
+    },
+    {
+        "id": "milagres-do-evangelho",
+        "query": "Como o Espiritismo explica os milagres do Evangelho?",
+        "expect": ["CARACTERES DOS MILAGRES", "OS MILAGRES DO EVANGELHO", "OS FLUIDOS"],
+        "avoid": [
+            "HAVERÁ FALSOS CRISTOS E FALSOS PROFETAS",
+            "DO CHARLATANISMO E DO EMBUSTE",
+        ],
+    },
+    {
+        "id": "penas-eternas",
+        "query": "O inferno existe? As penas são eternas?",
+        "expect": [
+            "DOUTRINA DAS PENAS ETERNAS",
+            "AS PENAS FUTURAS SEGUNDO O ESPIRITISMO",
+            "O INFERNO",
+            "DAS PENAS E GOZOS FUTUROS",
+        ],
+        # Near-identical title, opposite scope: this life, not the next.
+        "avoid": ["DAS PENAS E GOZOS TERRESTRES"],
+    },
+    {
+        "id": "fora-da-caridade",
+        "query": 'O que quer dizer "fora da caridade não há salvação"?',
+        "expect": [
+            "FORA DA CARIDADE NÃO HÁ SALVAÇÃO",
+            "DA LEI DE JUSTIÇA, DE AMOR E DE CARIDADE",
+            "AMAR O PRÓXIMO COMO A SI MESMO",
+        ],
+        # Dense with charity vocabulary; the subject is ostentation in alms.
+        "avoid": ["NÃO SAIBA A VOSSA MÃO ESQUERDA O QUE DÊ A VOSSA MÃO DIREITA"],
+    },
+]
+
+CASE_SETS = [
+    {
+        "name": "reflexivo",
+        # /reflect is restricted to these two works in production.
+        "where": {"book": {"$in": list(REFLECT_BOOKS)}},
+        "cases": REFLECT_CASES,
+    },
+    # /chat questions span all five works, so no filter.
+    {"name": "chat", "where": None, "cases": CHAT_CASES},
 ]
 
 
@@ -335,24 +449,23 @@ def index_e5() -> None:
 
 # --- querying ----------------------------------------------------------------
 
-REFLECT_BOOKS = ("O Livro dos Espíritos", "O Evangelho Segundo o Espiritismo")
 
-
-def _where():
-    return {"book": {"$in": list(REFLECT_BOOKS)}}
-
-
-def top_bge(query: str, k: int = 5) -> list[dict]:
+def top_bge(query: str, where: dict | None, k: int = 5) -> list[dict]:
     from src.ingestion.embeddings import encode
 
     store = VectorStore(settings.chroma_path, settings.chroma_collection)
-    return store.query(encode([query])[0], n_results=k, where=_where())
+    return store.query(encode([query])[0], n_results=k, where=where)
 
 
-def top_e5(query: str, k: int = 5) -> list[dict]:
+def top_e5(query: str, where: dict | None, k: int = 5) -> list[dict]:
     store = VectorStore(settings.chroma_path, E5_COLLECTION)
+    return store.query(encode_e5([query], is_query=True)[0], n_results=k, where=where)
+
+
+def top_gemini(query: str, where: dict | None, dim: int, k: int = 5) -> list[dict]:
+    store = VectorStore(settings.chroma_path, gemini_collection(dim))
     return store.query(
-        encode_e5([query], is_query=True)[0], n_results=k, where=_where()
+        encode_gemini([query], dim=dim, is_query=True)[0], n_results=k, where=where
     )
 
 
@@ -394,11 +507,12 @@ def report() -> None:
     lanes = {"bge-m3 (atual)": top_bge, "e5-instruct (Together)": top_e5}
     results: dict[str, list[dict]] = {name: [] for name in lanes}
 
-    for case in CASES:
+    where = {"book": {"$in": list(REFLECT_BOOKS)}}
+    for case in REFLECT_CASES:
         print(f"\n## [{case['id']}] {case['query']}\n")
         for name, fn in lanes.items():
             try:
-                hits = fn(case["query"])
+                hits = fn(case["query"], where)
             except Exception as exc:  # a lane that is not indexed yet
                 print(f"### {name}\n\n  (indisponível: {exc})\n")
                 continue
