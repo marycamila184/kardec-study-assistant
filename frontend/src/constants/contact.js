@@ -16,3 +16,10 @@ export const PRIVACY_NOTICE =
 
 export const LOCAL_STORAGE_NOTICE =
   'Suas conversas ficam salvas apenas no seu navegador.';
+
+// Métricas de acesso da Vercel: página, país, dispositivo. Sem cookies e sem
+// identificação — mas é coleta que antes não existia, e a seção de privacidade
+// deixaria de ser completa sem dizê-lo.
+export const ANALYTICS_NOTICE =
+  'Também medimos acessos de forma agregada (página, país, tipo de aparelho), ' +
+  'sem cookies e sem ligar isso às suas conversas.';
