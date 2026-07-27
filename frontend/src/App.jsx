@@ -1134,7 +1134,7 @@ export default function App() {
                   onChange={setInput}
                   onSend={handleSend}
                   placeholder={(isMobile ? MODE_PLACEHOLDER_MOBILE : MODE_PLACEHOLDER)[mode] || ''}
-                  footerHint="IA treinada no Pentateuco Espírita · Respostas sempre referenciadas em Kardec · Enter para enviar"
+                  footerHint="IA treinada no Pentateuco Espírita · Respostas sempre referenciadas em Kardec · Conversas salvas só no seu navegador · Enter para enviar"
                   theme={theme}
                   loading={loading}
                   isMobile={isMobile}

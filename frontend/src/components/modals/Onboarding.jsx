@@ -41,12 +41,12 @@ export default function Onboarding({ onFinish }) {
           color: '#2A2318', lineHeight: 1.18, marginBottom: 10, letterSpacing: '-.01em',
         }}>Dialogando com<br/>a Doutrina</div>
         <div style={{ fontSize: 10, letterSpacing: '.22em', textTransform: 'uppercase', color: '#A09080', marginBottom: 22 }}>
-          Estude · Dialogue · Compreenda
+          Estude · Compreenda
         </div>
         <p style={{ fontSize: 14, color: '#6A5E50', lineHeight: 1.78, margin: '0 0 16px' }}>
-          Aqui você estuda e tira dúvidas sobre as obras de Allan Kardec, e encontra
-          todo dia um novo trecho do Evangelho — com respostas sempre fundamentadas
-          e referenciadas nos próprios textos.
+          Um companheiro de estudo para as obras de Allan Kardec. Pergunte o que
+          quiser sobre a doutrina — toda resposta vem fundamentada e referenciada
+          nos próprios textos.
         </p>
         <div style={{
           background: 'rgba(107,155,184,.1)', border: '1px solid rgba(107,155,184,.25)',
@@ -59,8 +59,8 @@ export default function Onboarding({ onFinish }) {
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
           <div style={{ fontSize: 12.5, color: '#5A6E7A', lineHeight: 1.65 }}>
-            Funciona exclusivamente com o <strong>Pentateuco Espírita</strong> —
-            as cinco obras de Kardec. O objetivo não é substituir a leitura, mas torná-la mais acessível.
+            Funciona exclusivamente com o <strong>Pentateuco Espírita</strong>,
+            as cinco obras de Kardec. Não substitui a leitura: existe para torná-la mais acessível.
           </div>
         </div>
         <button onClick={onFinish} style={{
