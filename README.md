@@ -31,7 +31,7 @@ This is **not** a chatbot trained on Spiritism. It is a **retrieval-grounded sys
 | Language | Python 3.12+ |
 | API framework | FastAPI |
 | Package manager | uv |
-| Embeddings | SentenceTransformers (`BAAI/bge-m3`) |
+| Embeddings | `BAAI/bge-m3` — in-process locally, hosted in production (same model, see below) |
 | Vector store | ChromaDB |
 | LLM provider | Together (OpenAI-compatible endpoint) |
 | PDF → Markdown | LlamaCloud (run once, output committed) |
@@ -134,11 +134,38 @@ The backend and frontend are deployed independently.
 
 ### Backend deployment
 
-The FastAPI app is a standard Python ASGI app. Deploy to any provider that supports Python (Render, Railway, Fly.io, etc.):
+**Full command-by-command guide: [docs/deploy.md](docs/deploy.md).** Target is
+Cloud Run (`us-central1`) with the frontend on Vercel; the reasoning behind
+every choice is in
+`docs/superpowers/specs/2026-07-27-deploy-cloud-run-vercel-design.md`.
 
-1. Set the `TOGETHER_API_KEY` environment variable on the provider.
-2. The vector database (`data/embeddings/`) is regenerable — run the ingestion pipeline as part of your build/start process, or mount it as a persistent volume.
-3. Start command: `uvicorn src.api.main:app --host 0.0.0.0 --port $PORT`
+The three things that shape the deployment:
+
+**1. The image must not contain torch.** `sentence-transformers` pulls torch and
+CUDA — about 4.7 GB that exists only to run `BAAI/bge-m3` in-process. It lives in
+the `ingest` dependency group, so `uv sync --no-dev` (what the `Dockerfile` runs)
+leaves it out and the image lands near 300 MB. On Cloud Run the image is pulled
+on every cold start, so that weight would be paid in user-visible latency.
+
+**2. Production calls the same embedding model over HTTP.** Set
+`EMBEDDING_PROVIDER=openrouter` (or `deepinfra`/`novita`) plus the matching key.
+It is the *same* `BAAI/bge-m3`: parity was measured on 2026-07-27 at cosine
+0.999994 against the stored vectors, with 100% top-5 overlap, so the existing
+index stays valid and no threshold needs recalibrating.
+
+**3. The index ships inside the image.** The corpus is static and nothing is
+written at runtime, so `data/embeddings/` is copied in — no volume, no bucket,
+no download on cold start. The trade-off is deliberate: updating the corpus
+means rebuilding the image.
+
+Region is a US one on purpose. Every model call leaves Brazil regardless
+(Together answered in 832ms and the hosted embedding in 346ms from São Paulo),
+and `/chat` makes two remote calls in sequence — so the backend belongs next to
+the providers, where the user pays one ocean crossing instead of two.
+
+Environment on the service: `LLM_PROVIDER`, `EMBEDDING_PROVIDER` and
+`CORS_ALLOWED_ORIGINS` as plain vars; API keys via Secret Manager, never
+`--set-env-vars`.
 
 If `PROSE_PROVIDER` is set, the backend also needs a reachable prose endpoint:
 either a local Ollama (`ollama pull hf.co/ia-espirita/riv-ai-v2-Q4_K_M-GGUF`) or

@@ -24,6 +24,10 @@ Supporting: `GET /paths`, `GET /paths/{id}`, `GET /health`.
 ## Environment
 
 - Package manager **uv** (`uv sync --group dev`), Python 3.12+
+- **Dependency groups matter for deploy:** `sentence-transformers` (and with it
+  torch + CUDA, ~4.7 GB) lives in the `ingest` group, not in the runtime
+  dependencies. The container runs `uv sync --no-dev` and must never install it —
+  see [docs/deploy.md](docs/deploy.md).
 - Requires `.env` with `TOGETHER_API_KEY` (Together, OpenAI-compatible endpoint).
   `LLM_PROVIDER` also accepts `openrouter` and `google`.
 - Optional prose lane: `PROSE_PROVIDER=ollama` routes `/chat` and `/study` prose
@@ -56,7 +60,7 @@ PDFs → (LlamaCloud) → data/markdown_files/*.md
 ```
 
 - **`src/parsing/`** — cleans LlamaCloud artifacts and parses Markdown into structured chunks (`book`, `chapter`, `item_number`, `content`, per-paragraph `footnotes`, `title_footnotes`, …). Numbered items (`123. text`) are the primary unit. Long content is split into ≤800-char subchunks at line boundaries. See docs/architecture.md for the chunk schema and footnote format.
-- **`src/ingestion/`** — `embeddings.py` (`BAAI/bge-m3` singleton), `vectorstore.py` (ChromaDB), `pipeline.py`. Document ID: `{book_stem}_{item_number}_{subchunk_index}` (stable, upsert-idempotent).
+- **`src/ingestion/`** — `embeddings.py`, `vectorstore.py` (ChromaDB), `pipeline.py`. `encode()` is the single seam every embedding passes through and dispatches on `EMBEDDING_PROVIDER`: unset = `BAAI/bge-m3` in-process (dev), or a key of `EMBEDDING_PROVIDERS` (`openrouter`/`deepinfra`/`novita`) to call **the same model** over HTTP (production). Parity measured 2026-07-27: cosine 0.999994 vs the stored vectors, 100% top-5 overlap — the index and the calibrated thresholds survive the switch. `sentence_transformers` is imported *inside* `_get_model()` so a hosted-only image can drop the dependency; do not hoist that import. Document ID: `{book_stem}_{item_number}_{subchunk_index}` (stable, upsert-idempotent).
 - **`src/rag/`** — one prompt file + one pipeline file per mode. Agents: **Explicador** (`/study`), **Reflexivo** (`reflect.py`/`reflect_prompt.py` — code intact but **not routed**, see MVP modes table above), **Curador** (called by Explicador and, when reconnected, Reflexivo), **Generator** (`/chat`), **Orchestrator** (mode-nudge classifier). Shared: `retriever.py`, `mode_detector.py`, `query_condenser.py`, `evangelho.py`, `crisis.py` (see Rules below).
 - **`src/api/`** — FastAPI routes (`routes.py`), pydantic schemas (`schemas.py`). Stateless: clients own conversation history; `/chat` accepts it but nothing is stored. (`ReflectRequest`/`ReflectResponse` schemas still exist, inert, for the same reason.)
 
