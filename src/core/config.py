@@ -58,6 +58,17 @@ PROVIDERS: dict[str, ProviderConfig] = {
 }
 
 
+# Hosted embedding lanes. Deliberately NOT in PROVIDERS: that registry routes
+# text generation, and an embedding API is a different contract. Mixing them
+# would imply that setting an embedding key reroutes /chat, which it never does.
+# Both serve BAAI/bge-m3 — the same model the local lane loads — over an
+# OpenAI-compatible surface, so `settings.embedding_model` names it unchanged.
+EMBEDDING_PROVIDERS: dict[str, tuple[str, str]] = {
+    "deepinfra": ("https://api.deepinfra.com/v1/openai", "deepinfra_api_key"),
+    "novita": ("https://api.novita.ai/v3/openai", "novita_api_key"),
+}
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
@@ -104,6 +115,14 @@ class Settings(BaseSettings):
     source_min_similarity: float = 0.35
 
     embedding_model: str = "BAAI/bge-m3"
+    # Unset = the in-process SentenceTransformer, exactly today's behavior.
+    # Set to a key of EMBEDDING_PROVIDERS to call the same model over HTTP and
+    # drop 2.3 GB from the container — only ever after
+    # scripts/verify_embedding_parity.py says the vectors land in the same
+    # space, because a mismatched vector raises nothing and just retrieves worse.
+    embedding_provider: str | None = None
+    deepinfra_api_key: str | None = None
+    novita_api_key: str | None = None
     top_k: int = 5
     max_distance: float = 0.55
     max_history_turns: int = 10
