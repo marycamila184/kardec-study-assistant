@@ -1,4 +1,5 @@
 import logging
+import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 
@@ -13,6 +14,7 @@ from src.api.limits import (
 )
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
+from src.rag.conversation_log import log_chat_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import explicar as study_item_fn
@@ -86,6 +88,7 @@ def _enforce_rate_limit(http_request: Request) -> None:
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     _enforce_rate_limit(http_request)
+    started = time.monotonic()
     history = [m.model_dump() for m in request.history]
 
     # Crisis outranks the size cap, always. Someone writing at length about
@@ -123,6 +126,12 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
         extract_study_reference(request.question)
         if suggested_mode == "estudar_obra"
         else {"item_number": None, "book": None}
+    )
+    log_chat_turn(
+        request.question,
+        result,
+        latency_ms=int((time.monotonic() - started) * 1000),
+        suggested_mode=suggested_mode,
     )
     return ChatResponse(
         answer=result["answer"],
