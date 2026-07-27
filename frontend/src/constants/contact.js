@@ -23,3 +23,7 @@ export const LOCAL_STORAGE_NOTICE =
 export const ANALYTICS_NOTICE =
   'Também medimos acessos de forma agregada (página, país, tipo de aparelho), ' +
   'sem cookies e sem ligar isso às suas conversas.';
+
+// Vai impresso na imagem compartilhada: sem ele, quem recebe o trecho gosta e
+// nao tem como chegar ao app.
+export const APP_URL = 'kardec-study-assistant.vercel.app';

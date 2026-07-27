@@ -31,3 +31,14 @@ html, body { margin: 0; height: 100%; overflow: hidden; font-family: 'DM Sans', 
 .fade-up    { animation: fade-up .3s ease; }
 .slide-right{ animation: slide-in-right .24s ease; }
 .slide-left { animation: slide-in-left .24s ease; }
+
+/* A casca do app.
+   100vh no celular e a altura da viewport COM a barra de endereco escondida,
+   entao com ela visivel o layout fica mais alto que a tela e a barra inferior
+   e empurrada para baixo da dobra — sobra uma fatia azul, que parece uma linha
+   solta sob o campo de mensagem. 100dvh acompanha a area de fato visivel; o
+   100vh acima fica como fallback para navegador que nao conhece dvh. */
+.app-shell {
+  height: 100vh;
+  height: 100dvh;
+}

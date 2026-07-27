@@ -1,3 +1,4 @@
+import { APP_URL } from '../../constants/contact';
 import React from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 
@@ -18,7 +19,10 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
   const citation = msg.obra?.citation || 'Dialogando com a Doutrina';
   const context  = msg.obra?.context  || '';
 
-  const shareText = `"${quote}"\n\n— ${citation}\n\nDialogando com a Doutrina`;
+  // O link fecha o texto pelo mesmo motivo que fecha a imagem: sem ele a
+  // mensagem nomeia o app e não diz onde encontrá-lo.
+  const shareText =
+    `"${quote}"\n\n— ${citation}\n\nDialogando com a Doutrina\nhttps://${APP_URL}`;
 
   const handleWhatsApp = () => {
     const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
@@ -42,32 +46,80 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
   })();
 
   const handleDownload = () => {
+    // A imagem é medida antes de ser criada.
+    //
+    // Antes o canvas tinha altura fixa de 560px e o texto era cortado com "…"
+    // depois de oito linhas — e o trecho do dia quase sempre passa disso, então
+    // o que se compartilhava era uma passagem truncada. Agora as linhas são
+    // quebradas primeiro, num canvas de medição, e a altura final sai do
+    // resultado: a imagem cresce com o texto em vez de o texto encolher para
+    // caber nela.
+    const WIDTH = 960;
+    const PAD = 52;
+    const MAX_TEXT = WIDTH - PAD * 2;
+
+    const measure = document.createElement('canvas').getContext('2d');
+    const wrap = (text, fontSize) => {
+      measure.font = `italic 300 ${fontSize}px Crimson Pro, Georgia, serif`;
+      const lines = [];
+      let line = '';
+      for (const w of text.replace(/"/g, '').split(' ')) {
+        const test = line + w + ' ';
+        if (measure.measureText(test).width > MAX_TEXT && line) {
+          lines.push(line.trim());
+          line = w + ' ';
+        } else {
+          line = test;
+        }
+      }
+      if (line.trim()) lines.push(line.trim());
+      return lines;
+    };
+
+    // Passagens longas encolhem a fonte antes de esticar a imagem: uma foto
+    // muito alta é cortada na pré-visualização do WhatsApp. Abaixo de 20px a
+    // leitura sofre, então aí a altura é que cede.
+    let fontSize = 28;
+    let lines = wrap(quote, fontSize);
+    while (lines.length > 12 && fontSize > 20) {
+      fontSize -= 2;
+      lines = wrap(quote, fontSize);
+    }
+
+    const lineHeight = Math.round(fontSize * 1.55);
+    const TOP = 110;
+    const textBlock = lines.length * lineHeight;
+    const height = Math.max(560, TOP + textBlock + 150);
+
     const canvas = document.createElement('canvas');
-    canvas.width = 960; canvas.height = 560;
+    canvas.width = WIDTH; canvas.height = height;
     const ctx = canvas.getContext('2d');
-    const grad = ctx.createLinearGradient(0, 0, 960, 560);
+    const grad = ctx.createLinearGradient(0, 0, WIDTH, height);
     grad.addColorStop(0, '#3A6E8A'); grad.addColorStop(1, '#2A5070');
-    ctx.fillStyle = grad; ctx.fillRect(0, 0, 960, 560);
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, WIDTH, height);
+
     ctx.fillStyle = 'rgba(255,255,255,.45)';
     ctx.font = '500 13px DM Sans, sans-serif';
-    ctx.fillText('DIALOGANDO COM A DOUTRINA', 52, 58);
+    ctx.fillText('DIALOGANDO COM A DOUTRINA', PAD, 58);
+
     ctx.fillStyle = 'white';
-    ctx.font = 'italic 300 28px Crimson Pro, Georgia, serif';
-    const words = quote.replace(/"/g, '').split(' ');
-    let line = '', y = 110;
-    for (const w of words) {
-      const test = line + w + ' ';
-      if (ctx.measureText(test).width > 856 && line) {
-        ctx.fillText(line.trim(), 52, y); line = w + ' '; y += 44;
-        if (y > 460) { ctx.fillText('…', 52, y); break; }
-      } else { line = test; }
-    }
-    if (y <= 460) ctx.fillText(line.trim(), 52, y);
+    ctx.font = `italic 300 ${fontSize}px Crimson Pro, Georgia, serif`;
+    let y = TOP;
+    for (const l of lines) { ctx.fillText(l, PAD, y); y += lineHeight; }
+
     ctx.strokeStyle = 'rgba(255,255,255,.2)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(52, y + 24); ctx.lineTo(908, y + 24); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(PAD, y + 10); ctx.lineTo(WIDTH - PAD, y + 10); ctx.stroke();
+
     ctx.fillStyle = 'rgba(255,255,255,.6)';
     ctx.font = '13px DM Sans, sans-serif';
-    ctx.fillText(citation, 52, y + 50);
+    ctx.fillText(citation, PAD, y + 38);
+
+    // O link fecha a imagem: quem recebe o trecho e gosta precisa de um lugar
+    // para onde ir.
+    ctx.fillStyle = 'rgba(255,255,255,.4)';
+    ctx.font = '500 12px DM Sans, sans-serif';
+    ctx.fillText(APP_URL, PAD, y + 62);
+
     // Entrega da imagem, em três degraus.
     //
     // O caminho antigo era `link.download` + data URL, e ele simplesmente não
