@@ -1,4 +1,4 @@
-import { CONTACT_FORM_URL, LOCAL_STORAGE_NOTICE, PRIVACY_NOTICE } from '../../constants/contact';
+import { ANALYTICS_NOTICE, CONTACT_FORM_URL, LOCAL_STORAGE_NOTICE, PRIVACY_NOTICE } from '../../constants/contact';
 import React, { useState } from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 
@@ -117,8 +117,11 @@ export default function SettingsPanel({
               <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: '0 0 10px' }}>
                 {LOCAL_STORAGE_NOTICE}
               </p>
-              <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: 0 }}>
+              <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: '0 0 10px' }}>
                 {PRIVACY_NOTICE}
+              </p>
+              <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: 0 }}>
+                {ANALYTICS_NOTICE}
               </p>
               {CONTACT_FORM_URL && (
                 <a href={CONTACT_FORM_URL} target="_blank" rel="noopener noreferrer" style={{

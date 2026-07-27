@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
+// React + Vite, então o subcaminho é /react — o /next da documentação
+// da Vercel é do Next.js e não resolve aqui.
+import { Analytics } from '@vercel/analytics/react';
 import HomeLauncher from './components/layout/HomeLauncher';
 import MobileBottomNav from './components/layout/MobileBottomNav';
 import Onboarding from './components/modals/Onboarding';
@@ -1198,6 +1201,7 @@ export default function App() {
           setEstudarSub('picker');
         }}
       />
+      <Analytics />
     </div>
   );
 }
