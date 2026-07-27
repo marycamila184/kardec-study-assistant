@@ -14,6 +14,7 @@ def _settings(monkeypatch, **env):
         "OLLAMA_BASE_URL",
         "HF_ENDPOINT_URL",
         "HF_TOKEN",
+        "GOOGLE_API_KEY",
     ):
         monkeypatch.delenv(var, raising=False)
     for k, v in env.items():
@@ -152,11 +153,10 @@ def test_unknown_prose_provider_raises(monkeypatch):
 
 
 def test_google_api_key_defaults_to_none_and_reads_env(monkeypatch):
-    """The embedding lane's key is its own field, not a PROVIDERS entry.
-
-    PROVIDERS routes text generation over OpenAI-compatible base URLs; the
-    Gemini embedding API is neither. Registering it there would imply that
-    setting this key routes /chat to Gemini, which it does not.
+    """`google_api_key` is a single field serving two axes: the Gemini
+    embedding API (compare_retrieval.py) and, via the "google" PROVIDERS
+    entry, /chat text generation over Gemini's OpenAI-compatible endpoint.
+    Reading it must not depend on which axis is active.
     """
     monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
     from src.core.config import Settings
@@ -166,7 +166,19 @@ def test_google_api_key_defaults_to_none_and_reads_env(monkeypatch):
     monkeypatch.setenv("GOOGLE_API_KEY", "test-google-key")
     assert Settings(_env_file=None).google_api_key == "test-google-key"
 
-    from src.core.config import PROVIDERS
 
-    assert "google" not in PROVIDERS
-    assert "gemini" not in PROVIDERS
+def test_google_provider_defaults(monkeypatch):
+    s = _settings(monkeypatch, LLM_PROVIDER="google", GOOGLE_API_KEY="g-k")
+    assert (
+        s.active_provider.base_url
+        == "https://generativelanguage.googleapis.com/v1beta/openai/"
+    )
+    assert s.active_api_key == "g-k"
+    assert s.resolved_chat_model == "gemini-3.6-flash"
+    assert s.resolved_condenser_model == "gemini-3.1-flash-lite"
+
+
+def test_google_provider_requires_key(monkeypatch):
+    s = _settings(monkeypatch, LLM_PROVIDER="google")  # no GOOGLE_API_KEY
+    with pytest.raises(ValueError, match="GOOGLE_API_KEY"):
+        _ = s.active_api_key

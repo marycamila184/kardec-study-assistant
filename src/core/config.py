@@ -39,6 +39,12 @@ PROVIDERS: dict[str, ProviderConfig] = {
         # every small-LLM agent breaking while chat works fine.
         "Qwen/Qwen2.5-7B-Instruct-Turbo",
     ),
+    "google": ProviderConfig(
+        "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "google_api_key",
+        "gemini-3.6-flash",
+        "gemini-3.1-flash-lite",
+    ),
     # Prose-lane providers. Both serve riv-ai-v2 over an OpenAI-compatible /v1;
     # they differ only in where that endpoint lives.
     "ollama": ProviderConfig(
@@ -67,8 +73,11 @@ class Settings(BaseSettings):
     together_api_key: str | None = None
     hf_token: str | None = None
 
-    # Embedding lane, not a text-generation provider: the Gemini embedding API
-    # is not OpenAI-compatible and does not belong in PROVIDERS.
+    # Same key serves two axes: the Gemini embedding API (compare_retrieval.py)
+    # and, via the "google" PROVIDERS entry above, /chat text generation over
+    # Gemini's OpenAI-compatible endpoint. One key, one account — acceptable;
+    # what stays wrong is registering *embeddings* as a text-generation
+    # provider, which this field never does.
     google_api_key: str | None = None
 
     # Optional per-model overrides; unset → the active provider's default.
