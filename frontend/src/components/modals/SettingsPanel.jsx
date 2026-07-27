@@ -1,3 +1,4 @@
+import { CONTACT_FORM_URL, LOCAL_STORAGE_NOTICE, PRIVACY_NOTICE } from '../../constants/contact';
 import React, { useState } from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 
@@ -104,6 +105,27 @@ export default function SettingsPanel({
                   ⚠️ Perguntas fora do escopo das obras de Kardec serão redirecionadas ou não respondidas.
                 </div>
               </div>
+            </div>
+          </Section>
+
+          {/* Privacidade — saiu do onboarding, onde competia com a
+              apresentação do projeto e era lida no pior momento: antes de a
+              pessoa ter qualquer motivo para se importar. Aqui ela é
+              encontrada por quem procura. */}
+          <Section title="Privacidade" theme={theme}>
+            <div style={{ background: 'rgba(107,155,184,.07)', border: '1px solid rgba(107,155,184,.2)', borderRadius: 8, padding: 14 }}>
+              <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: '0 0 10px' }}>
+                {LOCAL_STORAGE_NOTICE}
+              </p>
+              <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: 0 }}>
+                {PRIVACY_NOTICE}
+              </p>
+              {CONTACT_FORM_URL && (
+                <a href={CONTACT_FORM_URL} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'inline-block', marginTop: 10, fontSize: 12,
+                  color: '#6B9BB8', textDecoration: 'none', fontWeight: 500,
+                }}>Fale comigo →</a>
+              )}
             </div>
           </Section>
 

@@ -17,8 +17,6 @@ import React from 'react';
  * Props:
  *   onFinish() — called when the reader dismisses the overlay
  */
-import { CONTACT_FORM_URL, LOCAL_STORAGE_NOTICE, PRIVACY_NOTICE } from '../../constants/contact';
-
 export default function Onboarding({ onFinish }) {
   return (
     <div style={{
@@ -43,7 +41,7 @@ export default function Onboarding({ onFinish }) {
           color: '#2A2318', lineHeight: 1.18, marginBottom: 10, letterSpacing: '-.01em',
         }}>Dialogando com<br/>a Doutrina</div>
         <div style={{ fontSize: 10, letterSpacing: '.22em', textTransform: 'uppercase', color: '#A09080', marginBottom: 22 }}>
-          Leia · Compreenda
+          Estude · Compreenda
         </div>
         <p style={{ fontSize: 14, color: '#6A5E50', lineHeight: 1.78, margin: '0 0 16px' }}>
           Aqui você estuda e tira dúvidas sobre as obras de Allan Kardec, e encontra
@@ -65,13 +63,6 @@ export default function Onboarding({ onFinish }) {
             as cinco obras de Kardec. O objetivo não é substituir a leitura, mas torná-la mais acessível.
           </div>
         </div>
-        <p style={{ fontSize: 11.5, color: '#8A7E70', lineHeight: 1.6, margin: '0 0 22px' }}>
-          {LOCAL_STORAGE_NOTICE} {PRIVACY_NOTICE}
-          {CONTACT_FORM_URL && (
-            <> <a href={CONTACT_FORM_URL} target="_blank" rel="noopener noreferrer"
-              style={{ color: '#6B9BB8' }}>Fale comigo</a>.</>
-          )}
-        </p>
         <button onClick={onFinish} style={{
           background: '#6B9BB8', color: 'white', border: 'none',
           padding: '13px 36px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer',
