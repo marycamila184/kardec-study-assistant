@@ -1,11 +1,21 @@
 import logging
+import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 
+from src.api.limits import (
+    RATE_LIMITED_MESSAGE,
+    TOO_LONG_MESSAGE,
+    check_rate_limit,
+    client_ip,
+    exceeds_size_limit,
+)
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
+from src.rag.conversation_log import log_chat_turn
+from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import explicar as study_item_fn
 from src.rag.generator import generate
@@ -65,9 +75,40 @@ def _answer_with_nudge(
     return result, suggested_mode
 
 
+def _enforce_rate_limit(http_request: Request) -> None:
+    retry_after = check_rate_limit(client_ip(http_request))
+    if retry_after is not None:
+        raise HTTPException(
+            status_code=429,
+            detail={"error": "rate_limited", "message": RATE_LIMITED_MESSAGE},
+            headers={"Retry-After": str(retry_after)},
+        )
+
+
 @router.post("/chat", response_model=ChatResponse)
-def chat(request: ChatRequest) -> ChatResponse:
+def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
+    _enforce_rate_limit(http_request)
+    started = time.monotonic()
     history = [m.model_dump() for m in request.history]
+
+    # Crisis outranks the size cap, always. Someone writing at length about
+    # wanting to die must get the CVV number, never "your message is too long"
+    # — the guard that saves money can never be the one that answers that.
+    if not needs_crisis_note(request.question) and exceeds_size_limit(
+        request.question, history
+    ):
+        return ChatResponse(
+            answer=TOO_LONG_MESSAGE,
+            sources=[],
+            suggested_questions=[],
+            not_found=False,
+            suggested_mode=None,
+            suggested_item_number=None,
+            suggested_book=None,
+            generation_failed=False,
+            safety_level="normal",
+        )
+
     result, suggested_mode = _answer_with_nudge(
         request.question,
         "tirar_duvida",
@@ -85,6 +126,12 @@ def chat(request: ChatRequest) -> ChatResponse:
         extract_study_reference(request.question)
         if suggested_mode == "estudar_obra"
         else {"item_number": None, "book": None}
+    )
+    log_chat_turn(
+        request.question,
+        result,
+        latency_ms=int((time.monotonic() - started) * 1000),
+        suggested_mode=suggested_mode,
     )
     return ChatResponse(
         answer=result["answer"],

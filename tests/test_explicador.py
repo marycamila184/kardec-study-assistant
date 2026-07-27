@@ -197,7 +197,11 @@ def test_explicar_passes_chapter_commentary_to_prompt(monkeypatch):
 
     client = MagicMock()
     client.chat.completions.create.return_value = MagicMock(
-        choices=[MagicMock(message=MagicMock(content='{"contexto": "c", "conceitos_chave": []}'))]
+        choices=[
+            MagicMock(
+                message=MagicMock(content='{"contexto": "c", "conceitos_chave": []}')
+            )
+        ]
     )
     monkeypatch.setattr("src.rag.explicador.get_client", lambda role="json": client)
 
@@ -241,7 +245,11 @@ def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
     monkeypatch.setattr("src.rag.explicador.build_explicador_messages", _capture_build)
     client = MagicMock()
     client.chat.completions.create.return_value = MagicMock(
-        choices=[MagicMock(message=MagicMock(content='{"contexto": "c", "conceitos_chave": []}'))]
+        choices=[
+            MagicMock(
+                message=MagicMock(content='{"contexto": "c", "conceitos_chave": []}')
+            )
+        ]
     )
     monkeypatch.setattr("src.rag.explicador.get_client", lambda role="json": client)
 

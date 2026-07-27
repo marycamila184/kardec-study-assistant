@@ -33,6 +33,12 @@ export default function ObraBlock({ obra, theme, onShare, compact = false }) {
           }}>Da Obra</span>
           <span style={{
             fontSize: 12, color: '#907060',
+            // minWidth: 0 é o que faz as reticências funcionarem aqui. Item de
+            // flex não encolhe abaixo do próprio conteúdo por padrão
+            // (min-width: auto), então sem isto o texto ignora o overflow e
+            // estoura o card em vez de cortar — visível no mobile, onde a
+            // referência da obra não cabe na largura.
+            minWidth: 0,
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>{obra.title}</span>
         </div>

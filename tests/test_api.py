@@ -590,7 +590,7 @@ def test_reflect_response_safety_level_defaults_none():
     assert resp.safety_level is None
 
 
-_CRISIS_CHAT_RESULT = {
+_CRISIS_ANSWER_RESULT = {
     "answer": "Sinto muito... 188 ... 192",
     "sources": [],
     "suggested_questions": [],
@@ -601,14 +601,14 @@ _CRISIS_CHAT_RESULT = {
 
 
 def test_chat_exposes_safety_level():
-    with patch("src.api.routes.generate", return_value=_CRISIS_CHAT_RESULT):
+    with patch("src.api.routes.generate", return_value=_CRISIS_ANSWER_RESULT):
         data = client.post("/chat", json={"question": "não aguento mais viver"}).json()
     assert data["safety_level"] == "crise"
 
 
 def test_chat_suppresses_nudge_on_crise():
     with (
-        patch("src.api.routes.generate", return_value=_CRISIS_CHAT_RESULT),
+        patch("src.api.routes.generate", return_value=_CRISIS_ANSWER_RESULT),
         patch(
             "src.api.routes.classify_intent",
             return_value={"mode": "refletir", "confidence": "high"},
@@ -643,3 +643,85 @@ def test_reflect_exposes_safety_level():
         ).json()
     assert data["safety_level"] == "crise"
     assert data["suggested_mode"] is None
+
+
+# --- abuse guards -------------------------------------------------------------
+
+
+def test_long_message_never_reaches_the_model():
+    """The guard has to run BEFORE generation, or it saves nothing."""
+    from unittest.mock import patch
+
+    with patch("src.api.routes.generate") as generate:
+        response = client.post("/chat", json={"question": "palavra " * 1001})
+
+    assert response.status_code == 200
+    assert "mil palavras" in response.json()["answer"]
+    assert response.json()["sources"] == []
+    generate.assert_not_called()
+
+
+def test_message_just_under_the_ceiling_flows_normally():
+    from unittest.mock import patch
+
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT) as generate:
+        response = client.post("/chat", json={"question": "palavra " * 999})
+
+    assert response.status_code == 200
+    generate.assert_called_once()
+
+
+def test_history_counts_toward_the_same_ceiling():
+    """max_history_turns caps how many turns, not how big — ten turns of 900
+    words would pass the turn cap and cost more than the message this blocks."""
+    from unittest.mock import patch
+
+    history = [{"role": "user", "content": "palavra " * 600} for _ in range(2)]
+    with patch("src.api.routes.generate") as generate:
+        response = client.post(
+            "/chat", json={"question": "e sobre isso?", "history": history}
+        )
+
+    assert "mil palavras" in response.json()["answer"]
+    generate.assert_not_called()
+
+
+def test_crisis_outranks_the_size_cap():
+    """The guard that saves money can never be the one that answers ideation.
+
+    A long message containing first-person ideation must reach the crisis exit
+    with CVV 188, not the "your message is too long" reply.
+    """
+    from unittest.mock import patch
+
+    question = "palavra " * 1200 + " eu quero morrer"
+    with patch("src.api.routes.generate", return_value=_CRISIS_ANSWER_RESULT) as gen:
+        response = client.post("/chat", json={"question": question})
+
+    assert response.status_code == 200
+    assert "mil palavras" not in response.json()["answer"]
+    assert "188" in response.json()["answer"]
+    gen.assert_called_once()
+
+
+def test_rate_limit_returns_429_with_retry_after():
+    from unittest.mock import patch
+
+    from src.api import limits
+
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+        for _ in range(limits.RATE_LIMIT_REQUESTS):
+            assert client.post("/chat", json={"question": "oi"}).status_code == 200
+        blocked = client.post("/chat", json={"question": "oi"})
+
+    assert blocked.status_code == 429
+    assert int(blocked.headers["Retry-After"]) > 0
+    assert "pausa" in blocked.json()["detail"]["message"]
+
+
+def test_cheap_routes_are_not_rate_limited():
+    from src.api import limits
+
+    for _ in range(limits.RATE_LIMIT_REQUESTS + 5):
+        assert client.get("/health").status_code == 200
+    assert client.get("/paths").status_code == 200

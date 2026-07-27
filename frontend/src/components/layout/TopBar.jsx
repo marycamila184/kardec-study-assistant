@@ -10,7 +10,8 @@ const GearIcon = ({ color }) => (
 );
 
 export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer, isMobile = false }) {
-  const meta = MODE_META[mode] || { title: 'Dialogando com a Doutrina', desc: 'Escolha um caminho para começar' };
+  const isHome = mode === null || mode === undefined;
+  const meta = MODE_META[mode] || {};
   return (
     <div style={{
       height: 58, padding: '0 20px',
@@ -33,18 +34,30 @@ export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer, isMo
           ))}
         </button>
       ) : (
-        <div style={{
-          width: 34, height: 34, borderRadius: '50%', background: '#6B9BB8',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-        }}>
-          <svg width={14} height={14} viewBox="0 0 24 24" fill="none"
-            stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
-        </div>
+        // Some na home junto com o texto: o HomeLauncher já traz a marca logo
+        // abaixo, e uma logo repetida a 58px de distância da outra só ocupa
+        // espaço. Quando o menu do celular ocupa este lugar, ele fica — é
+        // navegação, não identidade.
+        !isHome && (
+          <div style={{
+            width: 34, height: 34, borderRadius: '50%', background: '#6B9BB8',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+          }}>
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none"
+              stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+        )
       )}
-      {!isMobile && (
+      {/* Na home o texto sai, os botões ficam.
+          O HomeLauncher já anuncia a marca e já diz "Escolha um caminho para
+          começar" — a barra repetia a mesma frase logo acima. Esconder a barra
+          inteira seria o corte óbvio, mas ela é o único acesso ao menu e às
+          configurações no celular, onde a barra inferior só tem as abas de
+          modo: da home não haveria como abrir o histórico. */}
+      {!isMobile && !isHome && (
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{
             fontFamily: "'Crimson Pro', serif", fontSize: 17, fontWeight: 600, color: theme.text,
@@ -52,7 +65,7 @@ export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer, isMo
           <div style={{ fontSize: 12, color: theme.subtext, marginTop: 1 }}>{meta.desc}</div>
         </div>
       )}
-      {isMobile && <div style={{ flex: 1 }} />}
+      {(isMobile || isHome) && <div style={{ flex: 1 }} />}
       <button onClick={onOpenSettings} title="Configurações" aria-label="Abrir configurações" style={{
         width: 34, height: 34, borderRadius: 8,
         background: 'transparent', border: `1px solid ${theme.headerBorder}`,

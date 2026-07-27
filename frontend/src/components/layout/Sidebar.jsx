@@ -1,3 +1,4 @@
+import { CONTACT_FORM_URL } from '../../constants/contact';
 import React from 'react';
 
 const LEVEL_LABEL = { curioso: 'Iniciante', estudante: 'Intermediário', aprofundado: 'Avançado' };
@@ -67,8 +68,8 @@ export default function Sidebar({
         {!isMobile && (
           <div style={{
             fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
-            color: 'rgba(255,255,255,.45)', paddingLeft: 40, marginTop: 4,
-          }}>Estude · Dialogue · Compreenda</div>
+            color: 'rgba(255,255,255,.45)', textAlign: 'center', marginTop: 4,
+          }}>Estude · Compreenda</div>
         )}
       </div>
 
@@ -136,8 +137,10 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* Tutorial button */}
-      <div style={{ padding: '8px 12px 14px', flexShrink: 0 }}>
+      {/* Rodapé: sobre o projeto e contato.
+          "Ver tutorial" prometia um passo a passo que não existe — a tela é
+          uma apresentação do projeto, e o rótulo passa a dizer isso. */}
+      <div style={{ padding: '8px 12px 14px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
         <button onClick={onTutorial} style={{
           width: '100%', background: 'rgba(255,255,255,.18)',
           border: '1px solid rgba(255,255,255,.32)', color: 'white',
@@ -150,8 +153,23 @@ export default function Sidebar({
             <line x1="12" y1="8" x2="12" y2="12"/>
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          Ver tutorial
+          Sobre o projeto
         </button>
+        {CONTACT_FORM_URL && (
+          <a href={CONTACT_FORM_URL} target="_blank" rel="noopener noreferrer" style={{
+            width: '100%', background: 'transparent',
+            border: '1px solid rgba(255,255,255,.18)', color: 'rgba(255,255,255,.7)',
+            fontSize: 11.5, fontWeight: 500, padding: '8px 10px', borderRadius: 7,
+            cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
+            justifyContent: 'center', textDecoration: 'none', boxSizing: 'border-box',
+          }}>
+            <svg width={12} height={12} viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Fale comigo
+          </a>
+        )}
       </div>
     </div>
   );
