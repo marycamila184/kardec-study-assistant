@@ -4,6 +4,24 @@ Desenho e justificativas em
 `docs/superpowers/specs/2026-07-27-deploy-cloud-run-vercel-design.md`.
 Aqui ficam só os comandos, na ordem em que funcionam.
 
+**Serviço no ar:** `https://kardec-api-391789792183.us-central1.run.app`
+(projeto `dialogando-doutrina`, região `us-central1`).
+
+## Duas armadilhas que já custaram um deploy cada
+
+**1. `.gcloudignore` é obrigatório.** Sem ele o gcloud usa o `.gitignore` como
+substituto — e `data/embeddings/` é gitignorado por ser regenerável. O build
+falha em `COPY data/embeddings/`. Pior: ao criar o arquivo, tudo que o
+`.gitignore` protegia precisa ser reexcluído à mão, **incluindo o `.env`**, que
+senão sobe para o bucket de fontes do Cloud Build.
+
+**2. Os padrões de modelo do provider não são os que você usa.** A primeira
+revisão subiu sem `CHAT_MODEL` e todo `/chat` respondeu `generation_failed`
+com 503 da Together, porque o padrão apontava para um modelo que a conta não
+serve — enquanto local funcionava, já que o `.env` sobrescrevia. O padrão foi
+corrigido em `config.py`, mas a lição fica: **o que o `.env` esconde, o deploy
+revela.**
+
 ## 0. Antes de tudo: o índice
 
 O container leva `data/embeddings/` assado dentro dele, então o índice precisa
@@ -24,8 +42,8 @@ for c in chromadb.PersistentClient(path='data/embeddings/').list_collections():
 # Esperado: kardec_docs 7327 — e mais nada.
 ```
 
-Se aparecerem `kardec_docs_e5` ou `kardec_docs_gemini_*`, elas são lixo de
-avaliação e não podem ir para a imagem:
+Se aparecerem `kardec_docs_e5` ou `kardec_docs_gemini_*`, são lixo de avaliação
+e não podem ir para a imagem:
 
 ```bash
 uv run python -m scripts.build_production_index --out data/embeddings-prod

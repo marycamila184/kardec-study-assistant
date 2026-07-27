@@ -45,7 +45,7 @@ def test_defaults_to_together_provider(monkeypatch):
     assert s.llm_provider == "together"
     assert s.active_provider.base_url == "https://api.together.xyz/v1"
     assert s.active_api_key == "k"
-    assert s.resolved_chat_model == "deepseek-ai/DeepSeek-V3"
+    assert s.resolved_chat_model == "meta-llama/Llama-3.3-70B-Instruct-Turbo"
     assert s.resolved_condenser_model == "Qwen/Qwen2.5-7B-Instruct-Turbo"
 
 
@@ -59,7 +59,7 @@ def test_openrouter_provider_defaults(monkeypatch):
 def test_together_provider_defaults(monkeypatch):
     s = _settings(monkeypatch, LLM_PROVIDER="together", TOGETHER_API_KEY="tg-k")
     assert s.active_provider.base_url == "https://api.together.xyz/v1"
-    assert s.resolved_chat_model == "deepseek-ai/DeepSeek-V3"
+    assert s.resolved_chat_model == "meta-llama/Llama-3.3-70B-Instruct-Turbo"
 
 
 def test_explicit_model_overrides_provider_default(monkeypatch):

@@ -25,7 +25,13 @@ PROVIDERS: dict[str, ProviderConfig] = {
     "together": ProviderConfig(
         "https://api.together.xyz/v1",
         "together_api_key",
-        "deepseek-ai/DeepSeek-V3",
+        # Was deepseek-ai/DeepSeek-V3, which this account cannot serve: the
+        # first Cloud Run deploy (2026-07-27) had no CHAT_MODEL override and
+        # every /chat returned generation_failed on a 503 from Together, while
+        # the same code worked locally because .env overrode the default. A
+        # default nobody can call is a trap, not a default — this is the model
+        # the /chat A/B actually ran on.
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo",
         # Not a Llama 3.1 8B: Together serves no small Llama serverless. Every
         # variant (with or without the "Meta-" prefix, Lite, 3.2-3B) returns
         # "Unable to access non-serverless model" and needs a dedicated

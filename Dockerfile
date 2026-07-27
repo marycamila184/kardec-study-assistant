@@ -42,4 +42,7 @@ COPY data/markdown_files/trecho_diario.md ./data/markdown_files/trecho_diario.md
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["sh", "-c", "uv run --no-dev uvicorn src.api.main:app --host 0.0.0.0 --port ${PORT}"]
+# The venv binary directly, not `uv run`: uv would try to re-resolve the
+# environment at startup, which is a network call and a failure mode inside a
+# container that already has everything it needs.
+CMD ["sh", "-c", "/app/.venv/bin/uvicorn src.api.main:app --host 0.0.0.0 --port ${PORT}"]

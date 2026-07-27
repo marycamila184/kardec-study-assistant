@@ -9,6 +9,16 @@ The project is split into two independent apps that are deployed separately:
 | **Backend** | `/` (root) | FastAPI RAG API — parsing, ingestion, retrieval, LLM generation |
 | **Frontend** | `frontend/` | React + Vite web interface |
 
+**Status:** the backend is live on Cloud Run at
+`https://kardec-api-391789792183.us-central1.run.app` (`us-central1`, scaling to
+zero). Deployment commands and the two traps that cost a build each are in
+[docs/deploy.md](docs/deploy.md).
+
+In production the embedding lane is hosted (`EMBEDDING_PROVIDER`), so the image
+carries no torch; locally the same `BAAI/bge-m3` runs in-process. The two were
+measured equivalent on 2026-07-27 — cosine 0.999994, 100% top-5 overlap — which
+is why one index serves both.
+
 ---
 
 ## Project Purpose
@@ -174,7 +184,9 @@ a hosted OpenAI-compatible endpoint via `HF_ENDPOINT_URL`. Leaving
 
 ### Frontend deployment
 
-The frontend is a static site after `npm run build`. Deploy to any static hosting provider (Netlify, Vercel, GitHub Pages, Cloudflare Pages, etc.):
+The frontend is a static site after `npm run build`. It targets **Vercel** (see
+[docs/deploy.md](docs/deploy.md)); any static host works, but the API URL has to
+reach the deployed backend either way:
 
 1. Build: `npm run build` (run from the `frontend/` folder)
 2. Publish directory: `frontend/dist`
@@ -238,9 +250,12 @@ kardec-study-assistant/
 - ✅ Frontend → backend API integration
 - ✅ Clickable source citations (excerpt modal) on `/chat` (also built for `/reflect`, currently switched off)
 - ✅ Related-items modal with click-through to full study
+- ✅ Deployment infrastructure — Cloud Run (backend) + Vercel (frontend), index baked into the image, hosted embedding lane
+- Restore Refletir on a structural fix — the 2026-07-26 evaluation showed no embedding model separates "estou ansioso" from the chapter on a Spirit's agony before reincarnating, so the fix is chapter-level filtering, not a model swap
+- Deterministic suppression of follow-up chips on sensitive turns — measured 2026-07-26: `gemini-3.6-flash` offered one right below the CVV note, and the current model's silence there is luck, not a guarantee
+- Fix the 20 documents that overwrite each other in the index — `_build_id` omits `part`, so O Céu e o Inferno's two chapter I collide (7327 stored where ingestion reports 7347)
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
-- Deployment infrastructure
 
 ---
 
