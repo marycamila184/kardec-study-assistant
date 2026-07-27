@@ -1,34 +1,52 @@
-"""A/B two versions of the /chat prompt on one model.
+"""A/B one dimension of /chat at a time: prompt variants, or models.
 
 This script used to compare two *providers* — a local prose lane (riv-ai-v2)
 against the 70B baseline. That question is settled and the prose lane is gone
-from here: everything below runs on whatever `LLM_PROVIDER` resolves to, and a
-"lane" now means **a prompt variant**, not a model. Comparing two prompts across
-two models could never attribute a difference to either one.
+from here. Two dimensions remain, and a run picks exactly one:
 
-What it reports, per variant:
+  --variants pins the model (whatever `LLM_PROVIDER` resolves to) and swaps
+  `src.rag.prompt._SEGUIR_RULE` across `VARIANTS`. A "lane" is a prompt variant.
+
+  --models pins the prompt (the production one, unmodified) and runs each
+  given `provider:model` pair. A "lane" is a provider:model pair.
+
+They never mix in one run: comparing two prompts across two models could never
+attribute a difference to either one, which is exactly why the original
+--variants design fixed the model. The mirror of that argument fixes the
+prompt when the model is what moves, so the script refuses `--variants` and
+`--models` together.
+
+What it reports, per lane:
 
   - mean groundedness — how close answers stay to their retrieved passages
   - hallucinated-citation rate — how often the model cites outside that set
   - the [SEGUIR] numbers — whether follow-up chips were offered, how many, and
     whether they were offered on the turns where a chip actually belongs
   - style metrics — length, inline-reference density, paragraph count
+  - truncados — cases whose `finish_reason` was not `stop`. A reasoning model
+    can spend its `max_tokens` budget on hidden thinking and cut the answer off
+    mid-sentence — right where the `[SEGUIR]`/`[FONTES:]` trailer lives — which
+    would otherwise misread as "this model doesn't offer chips" when it is
+    really "this response never finished."
 
-Read as a *comparison between variants*, never as absolute thresholds.
+Read as a *comparison between lanes*, never as absolute thresholds.
 
-Each variant is run and persisted independently (`logs/lane-<name>.json`),
-written after every single case rather than at the end. The 2026-07-25 run lost
-fifteen answers to a mid-run provider quota error because nothing was written
-until the last one finished. Now a run that dies keeps everything it produced.
+Each lane is run and persisted independently (`logs/lane-<name>.json`), written
+after every single case rather than at the end. The 2026-07-25 run lost fifteen
+answers to a mid-run provider quota error because nothing was written until the
+last one finished. Now a run that dies keeps everything it produced. Lane names
+that contain `/` or `:` (a `provider:model` pair, or a model id that is itself
+`vendor/model`) are sanitised before touching the filesystem.
 
 Sampling is pinned to temperature 0 by default. That is wrong for production —
 a study companion that answers identically forever is worse — but it makes a
-prompt A/B readable: it leaves the prompt as the only thing that moved. A
-variant that wins at 0 can still misbehave when sampled; that needs its own
-repeated-sampling run.
+prompt or model A/B readable: it leaves the one thing under test as the only
+thing that moved. A lane that wins at 0 can still misbehave when sampled; that
+needs its own repeated-sampling run.
 
 Usage:
     uv run python -m scripts.compare_generators --variants duas-sempre,seguir-opcional
+    uv run python -m scripts.compare_generators --models groq:llama-3.3-70b-versatile,google:gemini-3.6-flash
     uv run python -m scripts.compare_generators --report-only > logs/ab.md
 """
 
@@ -373,11 +391,21 @@ def style_metrics(rows: list[dict]) -> dict:
 
 def summarize(rows: list[dict]) -> dict:
     if not rows:
-        return {"mean_groundedness": 0.0, "hallucinated_citation_rate": 0.0}
+        return {
+            "mean_groundedness": 0.0,
+            "hallucinated_citation_rate": 0.0,
+            "truncados": 0,
+        }
     n = len(rows)
     return {
         "mean_groundedness": sum(r["groundedness"] for r in rows) / n,
         "hallucinated_citation_rate": sum(1 for r in rows if not r["confiavel"]) / n,
+        # None means "not captured" (production `prose_completion` ran
+        # unpatched, or the turn short-circuited before any LLM call — see
+        # _pinned_prose_completion) and must not count as a truncation.
+        "truncados": sum(
+            1 for r in rows if r.get("finish_reason") not in (None, "stop")
+        ),
     }
 
 
@@ -480,7 +508,9 @@ def seguir_by_path(rows: list[dict]) -> dict:
     }
 
 
-def _pinned_prose_completion(temperature: float):
+def _pinned_prose_completion(
+    temperature: float, finish_reasons: list[str | None] | None = None
+):
     """Stands in for `generator.prose_completion`, pinning sampling.
 
     The production function leaves temperature to the provider default while
@@ -492,7 +522,15 @@ def _pinned_prose_completion(temperature: float):
     Safe to build the call by hand here only because `_run_variant` forces
     `settings.prose_provider = None` first: with the lane off,
     `resolved_prose_model` is `resolved_chat_model` and `get_client("prose")`
-    is the main client, so this is the same single 70B everything else uses.
+    is the main client, so this is the same single model everything else uses.
+
+    `finish_reasons`, when given, is a list this shim appends to on every call
+    — the only place in the harness that ever sees the raw completion object.
+    `generator.generate` calls `prose_completion(system, messages)` and only
+    ever gets the string back, so `finish_reason` cannot travel through its
+    return value without changing that production signature. Reading it here,
+    from the harness's own patched stand-in, is the smallest way to capture it
+    without touching production code.
     """
     from src.core.config import settings
     from src.rag.llm_client import get_client
@@ -505,6 +543,8 @@ def _pinned_prose_completion(temperature: float):
             messages=payload,
             temperature=temperature,
         )
+        if finish_reasons is not None:
+            finish_reasons.append(response.choices[0].finish_reason)
         return response.choices[0].message.content
 
     return shim
@@ -513,8 +553,17 @@ def _pinned_prose_completion(temperature: float):
 LANE_DIR = "logs"
 
 
+def _sanitize_lane_name(name: str) -> str:
+    """A lane name can be a `provider:model` pair, and a model id can itself
+    contain `/` (e.g. `deepseek/deepseek-chat`) — replace both with `-` so the
+    name stays a valid, single-segment filename. Prompt-variant names
+    (`duas-sempre`, `seguir-opcional`, `arquivo`) contain neither and pass
+    through unchanged."""
+    return name.replace("/", "-").replace(":", "-")
+
+
 def lane_path(lane: str) -> str:
-    return os.path.join(LANE_DIR, f"lane-{lane}.json")
+    return os.path.join(LANE_DIR, f"lane-{_sanitize_lane_name(lane)}.json")
 
 
 def save_lane(lane: str, chat: list[dict], sims: list[float] | None = None) -> None:
@@ -547,9 +596,21 @@ def load_lane(lane: str) -> dict | None:
 
 
 def _run_variant(
-    name: str, variant: str | None, temperature: float | None = 0.0
+    name: str,
+    variant: str | None,
+    temperature: float | None = 0.0,
+    provider: str | None = None,
+    model: str | None = None,
 ) -> list[dict]:
-    """Runs every case with `prompt._SEGUIR_RULE` replaced by `variant`."""
+    """Runs every case with `prompt._SEGUIR_RULE` replaced by `variant`.
+
+    `provider`/`model` add the model dimension: when both are `None` this is
+    byte-for-byte the original prompt-variant runner — no existing run changes.
+    When given, they pin the lane to that provider/model the same way the code
+    below already pins the prose lane off: set the setting, then clear the
+    client cache so `get_client` builds a fresh client instead of reusing one
+    cached under the previous provider's name.
+    """
     from src.core.config import settings
     from src.rag import generator, llm_client
     from src.rag.citations import (
@@ -566,10 +627,18 @@ def _run_variant(
     settings.prose_provider = None
     llm_client._clients.clear()
 
+    if provider is not None or model is not None:
+        if provider is not None:
+            settings.llm_provider = provider
+        if model is not None:
+            settings.chat_model = model
+        llm_client._clients.clear()
+
     rows: list[dict] = []
     all_sims: list[float] = []
     for case in CASES:
-        with _variant_patches(variant, temperature):
+        finish_reasons: list[str | None] = []
+        with _variant_patches(variant, temperature, finish_reasons):
             result = generator.generate(case["question"], case["history"])
         chunks = retrieve(case["question"])
         report = validate_model_citations(
@@ -589,6 +658,11 @@ def _run_variant(
                 "not_found": result.get("not_found"),
                 "groundedness": groundedness_score(result["answer"], chunks),
                 "confiavel": report["confiavel"],
+                # None when the shim never ran (a smalltalk/crisis short-circuit
+                # never calls prose_completion) or was never patched in at all
+                # (--temperature -1 leaves production prose_completion
+                # untouched — finish_reason is genuinely unreachable there).
+                "finish_reason": finish_reasons[-1] if finish_reasons else None,
             }
         )
         all_sims.extend(per_chunk_similarities(result["answer"], chunks))
@@ -596,7 +670,11 @@ def _run_variant(
     return rows
 
 
-def _variant_patches(variant: str | None, temperature: float | None):
+def _variant_patches(
+    variant: str | None,
+    temperature: float | None,
+    finish_reasons: list[str | None] | None = None,
+):
     from contextlib import ExitStack
 
     stack = ExitStack()
@@ -606,7 +684,7 @@ def _variant_patches(variant: str | None, temperature: float | None):
         stack.enter_context(
             patch(
                 "src.rag.generator.prose_completion",
-                _pinned_prose_completion(temperature),
+                _pinned_prose_completion(temperature, finish_reasons),
             )
         )
     return stack
@@ -615,7 +693,7 @@ def _variant_patches(variant: str | None, temperature: float | None):
 def format_report(
     lanes: dict[str, list[dict]], sims: dict[str, list[float]] | None = None
 ) -> str:
-    lines = ["# /chat — variantes da regra [SEGUIR]", ""]
+    lines = ["# /chat — comparação de vias (prompt ou modelo)", ""]
     names = list(lanes)
 
     lines += ["## Por caso", ""]
@@ -652,12 +730,15 @@ def format_report(
 
     lines += ["## Resumo", ""]
     for name, rows in lanes.items():
+        stats = summarize(rows)
         lines += [
             f"### {name} ({len(rows)} casos)",
             "",
-            f"- qualidade: {summarize(rows)}",
-            f"- estilo:    {style_metrics(rows)}",
-            f"- SEGUIR:    {seguir_metrics(rows)}",
+            f"- qualidade:  {stats}",
+            f"- truncados:  {stats['truncados']} de {len(rows)} "
+            "(finish_reason != stop)",
+            f"- estilo:     {style_metrics(rows)}",
+            f"- SEGUIR:     {seguir_metrics(rows)}",
             "",
             "| caminho | n | chip esperado | taxa de oferta |",
             "|---|---|---|---|",
@@ -692,7 +773,15 @@ def main() -> None:
         default="",
         help="comma-separated prompt variants to run "
         f"({', '.join(['arquivo', *VARIANTS])}). Empty = run nothing, report "
-        "from whatever lane files exist.",
+        "from whatever lane files exist. Mutually exclusive with --models.",
+    )
+    parser.add_argument(
+        "--models",
+        default="",
+        help="comma-separated provider:model pairs to run on the fixed "
+        "production prompt, e.g. "
+        "groq:llama-3.3-70b-versatile,google:gemini-3.6-flash. Mutually "
+        "exclusive with --variants.",
     )
     parser.add_argument(
         "--temperature",
@@ -707,14 +796,30 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    variant_names = [n.strip() for n in args.variants.split(",") if n.strip()]
+    model_entries = [n.strip() for n in args.models.split(",") if n.strip()]
+
+    if variant_names and model_entries:
+        parser.error(
+            "--variants and --models cannot be combined in one run: mixing a "
+            "prompt change with a model change makes the resulting difference "
+            "unattributable to either one — the same reason this script never "
+            "compares prompts across providers. Run one dimension at a time."
+        )
+    for entry in model_entries:
+        if ":" not in entry:
+            parser.error(f"--models entry {entry!r} must be provider:model")
+
     temperature = None if args.temperature < 0 else args.temperature
-    names = [n.strip() for n in args.variants.split(",") if n.strip()]
 
     if not args.report_only:
-        for name in names:
+        for name in variant_names:
             _run_variant(name, _resolve_variant(name), temperature)
+        for entry in model_entries:
+            provider, _, model = entry.partition(":")
+            _run_variant(entry, None, temperature, provider=provider, model=model)
 
-    report_names = names or list(VARIANTS)
+    report_names = variant_names or model_entries or list(VARIANTS)
     lanes = {}
     sims = {}
     for name in report_names:

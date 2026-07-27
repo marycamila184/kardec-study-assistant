@@ -1,8 +1,13 @@
+import sys
+
 import pytest
 
 from scripts.compare_generators import (
     VARIANTS,
+    _sanitize_lane_name,
     format_report,
+    lane_path,
+    main,
     seguir_by_path,
     seguir_metrics,
     similarity_distribution,
@@ -17,6 +22,7 @@ def _row(
     expects=True,
     groundedness=0.8,
     confiavel=True,
+    finish_reason="stop",
 ):
     return {
         "id": case_id,
@@ -28,6 +34,7 @@ def _row(
         "n_seguir": n_seguir,
         "groundedness": groundedness,
         "confiavel": confiavel,
+        "finish_reason": finish_reason,
     }
 
 
@@ -154,3 +161,103 @@ def test_similarity_distribution_handles_empty():
     out = similarity_distribution([])
     assert out["median"] == 0.0
     assert out["kept_at_0.3"] == 0
+
+
+# --- truncados (finish_reason) ------------------------------------------------
+
+
+def test_summarize_counts_truncados():
+    rows = [
+        _row("a", finish_reason="stop"),
+        _row("b", finish_reason="length"),
+        _row("c", finish_reason="stop"),
+    ]
+    out = summarize(rows)
+    assert out["truncados"] == 1
+
+
+def test_summarize_truncados_ignores_none_finish_reason():
+    """None means "not captured" (short-circuited turn, or production
+    prose_completion ran unpatched) — not a truncation."""
+    rows = [_row("a", finish_reason=None), _row("b", finish_reason="stop")]
+    out = summarize(rows)
+    assert out["truncados"] == 0
+
+
+def test_summarize_truncados_defaults_to_zero_without_the_key():
+    """Rows produced before finish_reason existed must not break summarize."""
+    row = _row("a")
+    del row["finish_reason"]
+    out = summarize([row])
+    assert out["truncados"] == 0
+
+
+def test_summarize_handles_empty_rows_truncados():
+    assert summarize([])["truncados"] == 0
+
+
+def test_format_report_shows_truncados_per_lane():
+    lanes = {
+        "google:gemini-3.6-flash": [
+            _row("a", finish_reason="length"),
+            _row("b", finish_reason="stop"),
+        ]
+    }
+    report = format_report(lanes)
+    assert "truncados" in report
+    assert "1 de 2" in report
+
+
+# --- lane-name sanitisation ---------------------------------------------------
+
+
+def test_sanitize_lane_name_replaces_colon_and_slash():
+    assert _sanitize_lane_name("google:gemini-3.6-flash") == "google-gemini-3.6-flash"
+    assert (
+        _sanitize_lane_name("openrouter:deepseek/deepseek-chat")
+        == "openrouter-deepseek-deepseek-chat"
+    )
+
+
+def test_sanitize_lane_name_leaves_plain_variant_names_untouched():
+    assert _sanitize_lane_name("duas-sempre") == "duas-sempre"
+
+
+def test_lane_path_uses_sanitized_name():
+    assert (
+        lane_path("google:gemini-3.6-flash") == "logs/lane-google-gemini-3.6-flash.json"
+    )
+
+
+# --- --variants / --models mutual exclusion -----------------------------------
+
+
+def test_variants_and_models_together_is_rejected(monkeypatch, capsys):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "compare_generators.py",
+            "--variants",
+            "duas-sempre",
+            "--models",
+            "google:gemini-3.6-flash",
+            "--report-only",
+        ],
+    )
+    with pytest.raises(SystemExit):
+        main()
+    err = capsys.readouterr().err
+    assert "cannot be combined" in err
+
+
+def test_models_entry_without_colon_is_rejected(monkeypatch, capsys):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["compare_generators.py", "--models", "gemini-3.6-flash", "--report-only"],
+    )
+    with pytest.raises(SystemExit):
+        main()
+    err = capsys.readouterr().err
+    assert "provider:model" in err
