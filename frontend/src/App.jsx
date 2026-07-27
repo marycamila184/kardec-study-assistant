@@ -111,7 +111,11 @@ export default function App() {
   const [msgs,          setMsgs]         = useState([]);
   const [loading,       setLoading]      = useState(false);
   const [estudarSub,    setEstudarSub]   = useState('picker');
-  const [refletirSub,   setRefletirSub] = useState('picker');
+  // Refletir is switched off for production — the mode is disconnected, not
+  // deleted. isRefletir is permanently false, so this sub-state (and every
+  // setter call below) is dead. See
+  // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+  // const [refletirSub,   setRefletirSub] = useState('picker');
   const [activeTrilha,  setActiveTrilha] = useState(null);
   const [guidedStep,    setGuidedStep]   = useState(0);
   const [guidedMsgs,    setGuidedMsgs]   = useState([]);
@@ -213,7 +217,10 @@ export default function App() {
   const newConvo = () => {
     switchMode(null);
     setEstudarSub('picker');
-    setRefletirSub('picker');
+    // Refletir is switched off for production — the mode is disconnected, not
+    // deleted (refletirSub state is commented out above). See
+    // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
+    // setRefletirSub('picker');
     setExplorarMsgs([]);
     setExplorarConvoMeta(null);
     explorarConvoMetaRef.current = null;
@@ -1009,7 +1016,12 @@ export default function App() {
             <RefletirPicker theme={theme} onSubmit={handleReflectSubmit} />
           )} */}
 
-          {!isHome && !isEstudar && !(isRefletir && refletirSub === 'picker') && (
+          {/* refletirSub dropped from this condition — it's commented out
+              below with the rest of Refletir's state. isRefletir alone is
+              always false, so `!(isRefletir && refletirSub === 'picker')` and
+              `!(isRefletir)` are equivalent here regardless of refletirSub's
+              value. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md */}
+          {!isHome && !isEstudar && !(isRefletir) && (
             <>
               {/* Chat messages */}
               <div ref={attachMsgs} style={{
