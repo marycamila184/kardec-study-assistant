@@ -10,16 +10,18 @@ Guidance for Claude Code working in this repo. These instructions override defau
 
 This file is the orientation + the rules. Implementation detail — per-agent output shapes, parsing internals, schemas, provider lanes, calibrated thresholds — lives in [docs/architecture.md](docs/architecture.md); read it when you touch a specific layer. Past decisions and their reasoning are indexed in [docs/superpowers/specs/README.md](docs/superpowers/specs/README.md).
 
-### MVP modes
+### Modes and endpoints
 
-| # | Mode | Endpoint | Returns |
-|---|---|---|---|
-| 1 | **Estudar uma Obra** | `POST /study` | Original text + doctrinal context + key concepts + Socratic questions + curated related refs |
-| 2 | **Tirar uma Dúvida** | `POST /chat`, `POST /chat/stream` | Grounded answer + excerpts + sources + suggested mode |
-| 3 | **Refletir sobre uma Situação** — ⚠️ **switched off** | ~~`POST /reflect`~~ | Retrieval eval showed it answers lived suffering with reincarnation passages, unfixable by embedding-model swap. Code is disconnected, not deleted. See [the design](docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md). |
-| 4 | **Abrir o Evangelho** | `GET /evangelho` | Daily passage (deterministic, no LLM) |
+| Mode | Endpoint | State |
+|---|---|---|
+| **Estudar uma Obra** | `POST /study` | Live. Requires `book` + `item_number` |
+| **Tirar uma Dúvida** | `POST /chat` | Live. `POST /chat/stream` returns the same answer over SSE (`token` / `done`); `/chat` keeps its contract and stays the recovery path |
+| **Refletir sobre uma Situação** | ~~`POST /reflect`~~ | ⚠️ **Switched off.** Retrieval eval showed it answers lived suffering with reincarnation passages, unfixable by embedding-model swap. Code disconnected, not deleted; the route is commented out, so it 404s by absence rather than a deliberate 503. See [the design](docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md) |
+| **Abrir o Evangelho** | `GET /evangelho` | Live. Deterministic, no LLM (503 if the file can't be read) |
 
 Supporting: `GET /paths`, `GET /paths/{id}`, `GET /health`.
+
+Request and response shapes live in `src/api/schemas.py` — read there, don't duplicate. Field-level semantics (`suggested_mode`, `safety_level`, `Source`, `RelatedItem`) are in [docs/architecture.md](docs/architecture.md).
 
 ## Environment
 
@@ -61,7 +63,7 @@ PDFs → (LlamaCloud) → data/markdown_files/*.md
 - **Never personify "o Espiritismo"** as an agent that does/values things — attribute doctrinal claims to the passage, the text, or Kardec. Applies to Explicador, Generator, and Reflexivo (currently switched off).
 - **Crisis handling is a shared layer, independent of any single mode — it does not live or die with Reflexivo.** It is its own module, `src/rag/crisis.py`, imported by every consumer (`/chat`'s `generator.py`, the `orchestrator.py` nudge classifier, and `reflect.py`/`reflect_prompt.py` when Reflexivo is reconnected) precisely so that switching a mode off can never switch this off with it. It is deterministic, never left to the LLM: `needs_crisis_note()` (**first-person** suicidal-ideation/self-harm cues, accent-tolerant) short-circuits to a fixed crisis exit (`CRISIS_EXIT_MESSAGE`, CVV 188 / SAMU 192) **in code, before any retrieval or LLM call** — no doctrinal answer, no citations, no chips. **Topic-level mentions** (`mentions_suicide_topic()`: "suicídio" as subject, no ideation) do NOT exit: the question is answered from the works and `CRISIS_NOTE` (CVV 188) is appended to the answer **in code, always**; keep every ideation phrasing that contains a topic word listed in `CRISIS_KEYWORDS` so it is caught before the topic path. This is the guaranteed floor of the **sensitivity tiering** layer (`normal | abalo | crise`, see `src/rag/sensitivity.py`): a small-LLM `classify_sensitivity` runs concurrently with retrieval and can only *escalate* handling (`final = max(keyword_crise, llm_level)`), never lower it. On `abalo`, the darkest O Céu e o Inferno testimony chapters (`SENSITIVE_CHAPTERS`) **and any chunk whose content matches suicide-adjacent language** (`_SENSITIVE_CONTENT_RE`, book-agnostic — catches ESE's "abreviar as misérias") are filtered from retrieval, the prompt turns gentle, and follow-up chips are suppressed; on `crise` (keyword or LLM), the fixed exit is returned. `safety_level` is exposed on responses and the mode nudge is suppressed on `crise`. `CLINICAL_KEYWORDS`/`needs_medical_caveat()` (the medical/mediumship caveat trigger) live here too, since `/chat` depends on them independent of Reflexivo.
 - **The crisis exit never streams.** It is fixed text decided in code before any model call, and arrives whole and immediate — a crisis message appearing letter by letter would be cruel and pointless. Small talk, the size cap and the rate limit likewise all answer before a stream is ever opened.
-- **⚠️ Reflexivo is currently switched off** (see MVP modes table) — the rest of this bullet describes it as it behaves when reconnected, not current production behavior: hard no-advice constraint (no suggestions, no course of action unless directly asked); the medical/mediumship caveat text (`_CAVEAT_INSTRUCTION` in `reflect_prompt.py`) is triggered by `needs_medical_caveat()` from `crisis.py`; after `CAP_ROUNDS` (5) rounds it forces a closing; 1–3 reflection questions per turn (fewer, sharper).
+- **⚠️ Reflexivo is currently switched off** (see the modes table above) — the rest of this bullet describes it as it behaves when reconnected, not current production behavior: hard no-advice constraint (no suggestions, no course of action unless directly asked); the medical/mediumship caveat text (`_CAVEAT_INSTRUCTION` in `reflect_prompt.py`) is triggered by `needs_medical_caveat()` from `crisis.py`; after `CAP_ROUNDS` (5) rounds it forces a closing; 1–3 reflection questions per turn (fewer, sharper).
 - **`/chat` trailer markers:** the model ends its answer with machine-readable `[FONTES: 1, 3]` (passages actually used; empty = no sources) and `[SEGUIR: q1 | q2]` (two follow-up chips). `_strip_trailing_markers` removes them (tolerant of malformed/`/FONTES:` variants). The answer text must **never end with a question** — follow-ups live only in `[SEGUIR]`.
 - **No streamed token may ever contain `FONTES` or `SEGUIR`.** `stream_buffer.py` holds back any text that could still grow into a trailer marker, and the `done` event carries the fully post-processed answer — it is the source of truth, so a streamed response ends up identical to what `POST /chat` returns.
 - **Small talk:** `is_smalltalk()` short-circuits pure acknowledgments ("obrigada", "valeu") to a brief warm reply with no retrieval, no sources, no suggestions.
@@ -69,21 +71,6 @@ PDFs → (LlamaCloud) → data/markdown_files/*.md
 - **Footnotes** are baked into stored `content` at ingestion (for embedding only) and **stripped on every read** in `retriever.py`, exposed separately as `footnote_context` — they never leak into displayed text, prompts, or citations.
 - **Curador** must carry `chapter` on related items — `book` + `item_number` is ambiguous for Evangelho and Céu e Inferno (per-chapter numbering).
 - **Daily passage** (`evangelho.py`) is sourced from the curated `data/markdown_files/trecho_diario.md`, kept out of the main ChromaDB collection so it never pollutes semantic search; deterministic (seeded by today's date), no LLM.
-
-## API endpoints
-
-| Method | Path | Notes |
-|---|---|---|
-| `POST` | `/chat` | Grounded answer with sources, follow-up chips and the mode nudge |
-| `POST` | `/chat/stream` | Same answer over Server-Sent Events (`token` / `done`); `/chat` keeps its contract and stays the recovery path |
-| `POST` | `/study` | Requires `book` + `item_number` |
-| `GET` | `/evangelho` | Daily passage (503 if the file can't be read) |
-| `GET` | `/paths`, `/paths/{id}` | Curated learning paths (static JSON in `data/paths/`) |
-| `GET` | `/health` | `{"status": "ok"}` |
-
-`POST /reflect` is absent because the route is commented out (Reflexivo is switched off); it returns 404 by absence of route, not a deliberate 503.
-
-Request and response shapes are defined in `src/api/schemas.py` — read there, don't duplicate. Field-level semantics (`suggested_mode`, `safety_level`, `Source`, `RelatedItem`) are documented in [docs/architecture.md](docs/architecture.md).
 
 ## Data
 
