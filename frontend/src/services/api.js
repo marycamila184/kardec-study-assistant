@@ -51,6 +51,11 @@ function mapChat(data) {
     suggestedItemNumber: data.suggested_item_number || null,
     suggestedBook: data.suggested_book || null,
     suggestedQuestions: data.suggested_questions || [],
+    // The shape this answer was written with. The caller carries it into the
+    // next turn — without that, a reader who asks for citations gets them once
+    // and then silently loses them, which reads as the app forgetting.
+    profile: data.profile || null,
+    inlineRefs: data.inline_refs || [],
     sources: data.sources.map(s => ({
       book: s.book,
       chapter: s.chapter || null,
@@ -151,7 +156,9 @@ function mapReflect(data) {
 
 // ── Exported API functions ────────────────────────────────────────────────────
 
-export async function chatMessage(question, history = [], bookFilter = null, currentMode = null) {
+export async function chatMessage(
+  question, history = [], bookFilter = null, currentMode = null, profile = null,
+) {
   const data = await request('/chat', {
     method: 'POST',
     body: JSON.stringify({
@@ -159,6 +166,7 @@ export async function chatMessage(question, history = [], bookFilter = null, cur
       history,
       book_filter: bookFilter || undefined,
       current_mode: currentMode || undefined,
+      profile: profile || undefined,
     }),
   });
   return mapChat(data);
@@ -211,12 +219,14 @@ async function streamSSE(path, body, onEvent) {
 // Same answer as chatMessage, streamed. Falls to the caller to recover.
 export async function chatMessageStream(
   question, history = [], bookFilter = null, currentMode = null, onToken = () => {},
+  profile = null,
 ) {
   const done = await streamSSE('/chat/stream', {
     question,
     history,
     book_filter: bookFilter || undefined,
     current_mode: currentMode || undefined,
+    profile: profile || undefined,
   }, (event, payload) => { if (event === 'token') onToken(payload.text); });
   return mapChat(done);
 }

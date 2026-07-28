@@ -149,6 +149,11 @@ export default function App() {
   const [mode,          setMode]         = useState(null);
   const [input,         setInput]        = useState('');
   const [msgs,          setMsgs]         = useState([]);
+  // The shape the conversation is currently answered with. Carried between
+  // turns, never shown: the reader asked in their own words and the answer
+  // arrives already shaped, with no announcement. Lives with the thread, so
+  // switching conversations does not carry one reader's request into another's.
+  const [profile,       setProfile]      = useState(null);
   const [loading,       setLoading]      = useState(false);
   const [estudarSub,    setEstudarSub]   = useState('picker');
   // Refletir is switched off for production — the mode is disconnected, not
@@ -225,7 +230,7 @@ export default function App() {
     const isActive = id === convoId || id === explorarConvoMeta?.id;
     if (isActive) {
       threadEpochRef.current += 1;
-      setMsgs([]); setConvoId(null); setLoading(false); setInput('');
+      setMsgs([]); setConvoId(null); setLoading(false); setInput(''); setProfile(null);
       setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
       // Home, not Dialogar: the reader deleted the thread they were reading, so
       // dropping them into an empty chat picks a mode on their behalf.
@@ -238,6 +243,9 @@ export default function App() {
     requestIdRef.current += 1; // invalidate any in-flight sendText for the old mode
     threadEpochRef.current += 1;
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
+    // A new thread starts neutral: one reader's request must not shape
+    // another's conversation.
+    setProfile(null);
     if (m === 'estudar') setEstudarSub('picker');
     // Refletir is switched off for production — the mode is disconnected, not
     // deleted (m can never be 'refletir' — no remaining UI path sets it). See
@@ -325,14 +333,18 @@ export default function App() {
       };
       const intent = MODE_TO_INTENT[requestMode] || null;
       try {
-        reply = await chatMessageStream(txt, history, null, intent, onToken);
+        reply = await chatMessageStream(txt, history, null, intent, onToken, profile);
       } catch (err) {
         console.warn('stream failed; falling back to /chat', err);
         streamedText = '';
-        reply = await chatMessage(txt, history, null, intent);
+        reply = await chatMessage(txt, history, null, intent, profile);
       }
       // }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
+      // Whatever shape this turn was answered with carries into the next one.
+      // Without this a reader who asks for citations gets them once and then
+      // silently loses them, which reads as the app forgetting.
+      if (reply.profile) setProfile(reply.profile);
       const aiMsg = { id: streamMsgId, ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
       setMsgs(finalMsgs);
@@ -822,6 +834,11 @@ export default function App() {
   const handleLoadConvo = async (c) => {
     threadEpochRef.current += 1; // replaces a thread — drop stale async replies
     setConvoId(c.id);
+    // A reopened conversation starts neutral rather than inheriting the shape
+    // of whatever thread was on screen. The profile is not persisted with the
+    // conversation yet — reopening one and asking for citations again is a
+    // small cost; carrying another thread's shape into it silently is not.
+    setProfile(null);
     const msgs = c.msgs;
     // `sub` is stored explicitly on conversations saved after this field was
     // added; fall back to the old id-prefix convention for older entries

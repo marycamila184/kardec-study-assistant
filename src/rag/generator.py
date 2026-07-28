@@ -23,7 +23,11 @@ from src.rag.guardrails import (
     strip_internal_terms,
     strip_trailing_question,
 )
-from src.rag.inline_refs import InlineMarkerFilter, extract_passage_refs
+from src.rag.inline_refs import (
+    InlineMarkerFilter,
+    extract_passage_refs,
+    render_references,
+)
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile
@@ -345,9 +349,7 @@ def _postprocess(
     # metadata. The model was asked to write references and measurably does not
     # (2026-07-28 A/B); it does reliably mark WHERE they go, which is the part
     # only it can do. The canonical form is the part only code can guarantee.
-    answer, inline_refs = extract_passage_refs(
-        answer, ctx["chunks"], render=ctx["profile"].citation_precision == "full"
-    )
+    answer, inline_refs = extract_passage_refs(answer, ctx["chunks"])
 
     # A quotation attributed to the works that is in none of the retrieved
     # passages is fabricated doctrine, which this project treats as
@@ -371,6 +373,11 @@ def _postprocess(
     if unsupported:
         logger.warning("fabricated quotation, answer withheld: %s", unsupported[:3])
         raise UnsupportedQuoteError(unsupported)
+
+    # Only now, with the guard satisfied on what the MODEL wrote, does code
+    # write the references in. Doing it earlier fed the guard its own output.
+    if ctx["profile"].citation_precision == "full":
+        answer, inline_refs = render_references(answer, inline_refs)
 
     return answer, chunks, suggested_questions, inline_refs
 

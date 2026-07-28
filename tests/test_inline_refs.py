@@ -175,10 +175,12 @@ def test_the_literal_placeholder_is_stripped_for_study_too():
 # ── Rendering the reference from metadata (citation_precision: full) ──────────
 
 
-def test_the_marker_becomes_the_canonical_reference():
-    """Asking the model to write references does not work — the 2026-07-28 A/B
-    measured zero even after the contradicting rule was removed. It does mark
-    where they go, which is the half only it can do."""
+def test_the_marker_position_becomes_the_canonical_reference():
+    """Asking the model to write references does not work — two A/B runs on
+    2026-07-28 measured zero, the second with the contradicting rule already
+    removed. It does mark where they go, which is the half only it can do."""
+    from src.rag.inline_refs import render_references
+
     chunks = [
         {
             "content": "texto",
@@ -191,32 +193,51 @@ def test_the_marker_becomes_the_canonical_reference():
         }
     ]
     clean, refs = extract_passage_refs(
-        "A prece é um ato de adoração [fonte 1].", chunks, render=True
+        "A prece é um ato de adoração [fonte 1].", chunks
     )
-    assert clean == "A prece é um ato de adoração (A Gênese, CAPÍTULO XIV, item 22)."
-    assert refs[0]["chapter_ref"] == "CAPÍTULO XIV"
+    assert clean == "A prece é um ato de adoração."
+
+    rendered, shifted = render_references(clean, refs)
+    assert rendered == "A prece é um ato de adoração (A Gênese, CAPÍTULO XIV, item 22)."
+    assert shifted[0]["position"] <= len(rendered)
 
 
-def test_without_render_the_marker_is_still_removed():
-    clean, _ = extract_passage_refs("Texto [fonte 1].", _CHUNKS, render=False)
+def test_extraction_alone_never_renders():
+    """Rendering is a separate step so the quotation guard only ever inspects
+    what the model produced. Doing it inside extraction fed the guard its own
+    output and withheld a correct answer."""
+    clean, _ = extract_passage_refs("Texto [fonte 1].", _CHUNKS)
     assert clean == "Texto."
+    assert "(" not in clean
 
 
-def test_a_rendered_reference_is_never_invented():
-    """An index outside the retrieved list renders nothing at all, exactly as it
-    resolves to nothing — a reference written in code must not be reachable by a
-    marker the model made up."""
-    clean, refs = extract_passage_refs("Texto [fonte 9].", _CHUNKS, render=True)
-    assert clean == "Texto."
-    assert refs == []
+def test_a_reference_is_never_rendered_for_an_unretrieved_marker():
+    from src.rag.inline_refs import render_references
+
+    clean, refs = extract_passage_refs("Texto [fonte 9].", _CHUNKS)
+    rendered, _ = render_references(clean, refs)
+    assert rendered == "Texto."
 
 
 def test_a_book_without_a_chapter_reference_still_renders():
+    from src.rag.inline_refs import render_references
+
     chunks = [
         {
             "content": "texto",
             "metadata": {"book": "O Livro dos Espíritos", "item_number": "132"},
         }
     ]
-    clean, _ = extract_passage_refs("Texto [fonte 1].", chunks, render=True)
-    assert clean == "Texto (O Livro dos Espíritos, item 132)."
+    clean, refs = extract_passage_refs("Texto [fonte 1].", chunks)
+    rendered, _ = render_references(clean, refs)
+    assert rendered == "Texto (O Livro dos Espíritos, item 132)."
+
+
+def test_several_references_keep_their_places():
+    """Insertions run back to front so earlier positions stay valid."""
+    from src.rag.inline_refs import render_references
+
+    clean, refs = extract_passage_refs("Primeiro [fonte 1], depois [fonte 2].", _CHUNKS)
+    rendered, _ = render_references(clean, refs)
+    assert rendered.index("O Livro dos Espíritos") < rendered.index("Evangelho")
+    assert rendered.count("(") == 2

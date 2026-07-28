@@ -65,21 +65,15 @@ def extract_item_refs(text: str, allowed: list[dict]) -> tuple[str, list[dict]]:
     return _extract(text, _ITEM_MARKER, _resolve)
 
 
-def extract_passage_refs(
-    text: str, chunks: list[dict], render: bool = False
-) -> tuple[str, list[dict]]:
+def extract_passage_refs(text: str, chunks: list[dict]) -> tuple[str, list[dict]]:
     """Pulls `[fonte N]` out of /chat prose, where N is the 1-based passage index
     the prompt printed. Indices outside the retrieved list are removed.
 
-    With `render`, the marker is replaced by the canonical reference instead of
-    being deleted — "(A Gênese, CAPÍTULO XIV, item 22)".
-
-    That is how `citation_precision: full` is actually delivered. Asking the
-    model to write references does not work: the 2026-07-28 A/B measured zero
-    prose references even after the contradicting base rule was removed. But the
-    model does not need to write them — it already marks where they go, and the
-    marker resolves to metadata. Written in code, the reference cannot be
-    invented, cannot drift from the source chip, and cannot be forgotten.
+    Rendering the reference into the text is a SEPARATE step
+    (`render_references`), deliberately. Doing it here put text the code had
+    written in front of the quotation guard, which compared it against the
+    corpus and withheld a correct answer — the same ordering mistake, in a new
+    place: a guard must only ever inspect what the model produced.
     """
 
     def _resolve(body: str) -> list[dict]:
@@ -101,9 +95,7 @@ def extract_passage_refs(
                 )
         return out
 
-    return _extract(
-        text, _PASSAGE_MARKER, _resolve, format_reference if render else None
-    )
+    return _extract(text, _PASSAGE_MARKER, _resolve)
 
 
 def format_reference(ref: dict) -> str:
@@ -126,9 +118,7 @@ def format_reference(ref: dict) -> str:
 _SENTINEL = "\ue000"
 
 
-def _extract(
-    text: str, pattern: re.Pattern, resolve, render=None
-) -> tuple[str, list[dict]]:
+def _extract(text: str, pattern: re.Pattern, resolve) -> tuple[str, list[dict]]:
     """Shared walk: rebuild the text without markers, recording where each
     resolved one stood.
 
@@ -148,8 +138,6 @@ def _extract(
         resolved = resolve(match.group(1))
         if resolved:
             parts.append(_SENTINEL)
-            if render:
-                parts.append("".join(render(r) for r in resolved))
             refs.extend(resolved)
         # Unresolved markers vanish exactly like resolved ones: the reader never
         # sees a bracket either way, and a dropped reference must not leave a
@@ -242,3 +230,34 @@ class InlineMarkerFilter:
         answer."""
         held, self._held = self._held, ""
         return self._full.sub("", held)
+
+
+def render_references(text: str, refs: list[dict]) -> tuple[str, list[dict]]:
+    """Writes each reference into the text at the position its marker stood.
+
+    This is how `citation_precision: full` is delivered. Asking the model to
+    write references does not work — two A/B runs on 2026-07-28 measured zero,
+    the second with the contradicting base rule already removed. It does
+    reliably mark WHERE the reference goes, which is the half only it can do;
+    the canonical form is the half only code can guarantee.
+
+    Applied AFTER the quotation guard has seen the prose. Rendering before it
+    put code-written text in front of a check that compares against the corpus,
+    and withheld a correct answer.
+
+    Insertions run back to front so earlier positions stay valid, and the
+    returned refs carry positions into the NEW text.
+    """
+    if not refs:
+        return text, refs
+
+    out = text
+    shifted = []
+    for ref in sorted(refs, key=lambda r: r["position"], reverse=True):
+        rendered = format_reference(ref)
+        at = min(ref["position"], len(out))
+        out = out[:at] + rendered + out[at:]
+        shifted.append({**ref, "position": at + len(rendered)})
+
+    shifted.reverse()
+    return out, shifted
