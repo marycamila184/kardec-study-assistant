@@ -95,3 +95,53 @@ def test_no_chunks_means_every_long_quote_is_unsupported():
 
 def test_empty_answer():
     assert find_unsupported_quotes("", _CHUNKS) == []
+
+
+def test_a_quotation_containing_an_inline_marker(monkeypatch):
+    """Regression from the 2026-07-28 probe: the model wrote "[fonte 3]" inside
+    a quotation. The guard ran before markers were stripped, compared the marker
+    against the corpus, and withheld a correct answer.
+
+    The ordering fix lives in generator._postprocess — this records what the
+    guard sees once the text is clean.
+    """
+    from src.rag.inline_refs import extract_passage_refs
+
+    raw = (
+        'Kardec escreve que "O perispírito desempenha preponderante papel no '
+        'organismo [fonte 1]."'
+    )
+    clean, _ = extract_passage_refs(raw, [{"content": "x", "metadata": {"book": "b"}}])
+    assert find_unsupported_quotes(clean, _CHUNKS) == []
+
+
+def test_a_quotation_that_starts_real_and_drifts_is_not_fabrication():
+    """From the 2026-07-28 probe. The model quotes Kardec correctly, then keeps
+    paraphrasing inside the same quotation marks. Sloppy boundary, not an
+    invention — withholding the answer over it costs the reader something
+    correct."""
+    answer = (
+        '"O perispírito desempenha preponderante papel no organismo, e por isso '
+        'ele influencia diretamente o estado emocional de cada pessoa."'
+    )
+    assert find_unsupported_quotes(answer, _CHUNKS) == []
+
+
+def test_an_invention_with_no_anchor_at_all_is_still_caught():
+    answer = (
+        '"o duplo etéreo é uma espécie de envoltório fluídico que envolve o '
+        'corpo físico e o penetra inteiramente"'
+    )
+    assert len(find_unsupported_quotes(answer, _CHUNKS)) == 1
+
+
+def test_two_quoted_terms_do_not_pair_across_the_prose_between_them():
+    """From the 2026-07-28 probe: the closing quote of one term paired with the
+    opening quote of the next, capturing the model's own sentence in between and
+    withholding a correct answer."""
+    answer = (
+        'Kardec não menciona os "chakras" em suas obras.\n\n'
+        "O Espiritismo aborda a relação entre o corpo e o Espírito, "
+        'mas não faz referência específica aos "chakras".'
+    )
+    assert find_unsupported_quotes(answer, _CHUNKS) == []

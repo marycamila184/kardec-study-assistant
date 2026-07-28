@@ -269,24 +269,6 @@ def _postprocess(
     generation."""
     chunks = ctx["chunks"]
 
-    # A quotation attributed to the works that is in none of the retrieved
-    # passages is fabricated doctrine, which this project treats as
-    # unacceptable — so the answer does not get shown, on any lane.
-    #
-    # Deliberately NOT behind the prose-lane gate below. That gate exists to
-    # keep the current provider's output identical, and it is exactly why this
-    # failure reached production untouched on 2026-07-28: everything that could
-    # have caught it was switched off for the lane actually running.
-    #
-    # The whole answer goes, not just the sentence: the same improvisation that
-    # invented a quotation wrote the paragraphs around it. In the case this was
-    # built from, three paragraphs about "duplo etéreo" preceded the fake quote
-    # and none of them came from the works either.
-    unsupported = find_unsupported_quotes(answer, chunks)
-    if unsupported:
-        logger.warning("fabricated quotation, answer withheld: %s", unsupported[:3])
-        raise UnsupportedQuoteError(unsupported)
-
     # Log-only monitors. These run on both lanes because they mutate
     # nothing — they only record what the model did. Wrapped so a monitor
     # can never fail an otherwise-good request. Citations are extracted
@@ -346,6 +328,30 @@ def _postprocess(
     # is dropped here rather than shown. Last, so positions index into the text
     # the reader really sees — including the fallback note prepended above.
     answer, inline_refs = extract_passage_refs(answer, ctx["chunks"])
+
+    # A quotation attributed to the works that is in none of the retrieved
+    # passages is fabricated doctrine, which this project treats as
+    # unacceptable — so the answer does not get shown, on any lane.
+    #
+    # Deliberately NOT behind the prose-lane gate above. That gate exists to
+    # keep the current provider's output identical, and it is exactly why this
+    # failure reached production untouched on 2026-07-28: everything that could
+    # have caught it was switched off for the lane actually running.
+    #
+    # Runs LAST, on the finished text. Running it first cost a correct answer in
+    # the 2026-07-28 probe: the model had written "[fonte 3]" inside a
+    # quotation, and comparing a marker against the corpus can only ever fail.
+    # The check belongs on what the reader will actually see.
+    #
+    # The whole answer goes, not just the sentence: the same improvisation that
+    # invented a quotation wrote the paragraphs around it. In the case this was
+    # built from, three paragraphs about "duplo etéreo" preceded the fake quote
+    # and none of them came from the works either.
+    unsupported = find_unsupported_quotes(answer, ctx["chunks"])
+    if unsupported:
+        logger.warning("fabricated quotation, answer withheld: %s", unsupported[:3])
+        raise UnsupportedQuoteError(unsupported)
+
     return answer, chunks, suggested_questions, inline_refs
 
 

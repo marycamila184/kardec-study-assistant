@@ -149,3 +149,24 @@ def test_a_bare_bracketed_number_is_not_a_passage_marker():
     clean, refs = extract_passage_refs("Uma nota [1] do editor.", _CHUNKS)
     assert clean == "Uma nota [1] do editor."
     assert refs == []
+
+
+# ── The literal template placeholder (leaked to a reader on 2026-07-28) ───────
+
+
+def test_the_literal_placeholder_is_stripped_not_shown():
+    """The model copies the rule verbatim often enough to matter: "[fonte N]"
+    reached a reader. It resolves to nothing, but a placeholder on screen is a
+    leak either way."""
+    clean, refs = extract_passage_refs(
+        "Kardec não menciona os chakras. [fonte N]", _CHUNKS
+    )
+    assert "[" not in clean
+    assert "fonte" not in clean
+    assert refs == []
+
+
+def test_the_literal_placeholder_is_stripped_for_study_too():
+    clean, refs = extract_item_refs("Texto [item N] fim.", _ALLOWED)
+    assert clean == "Texto fim."
+    assert refs == []

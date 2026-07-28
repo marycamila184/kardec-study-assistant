@@ -35,8 +35,15 @@ import unicodedata
 MIN_QUOTED_WORDS = 6
 
 # Straight, curly, and the guillemets the Portuguese editions use.
+#
+# Newlines are excluded from the span, and it is not cosmetic. Pairing any two
+# quote characters lets the closing quote of one term pair with the opening
+# quote of the next and swallow the prose between them — in the 2026-07-28
+# probe that captured the model's own honest sentence about chakras, spanning a
+# paragraph break, and withheld a correct answer over it. A real quotation from
+# these works does not cross a blank line.
 _QUOTED = re.compile(
-    r"[\"“”«]([^\"“”«»]{20,600})[\"“”»]",
+    r"[\"“”«]([^\"“”«»\n]{20,600})[\"“”»]",
 )
 
 
@@ -76,7 +83,32 @@ def find_unsupported_quotes(answer: str, chunks: list[dict]) -> list[str]:
         words = _words(quoted)
         if len(words) < MIN_QUOTED_WORDS:
             continue
-        if " ".join(words) not in haystack:
+        if not _has_anchor(words, haystack):
             unsupported.append(quoted.strip())
 
     return unsupported
+
+
+def _has_anchor(words: list[str], haystack: str) -> bool:
+    """Whether any run of MIN_QUOTED_WORDS consecutive words is in the corpus.
+
+    Requiring the WHOLE quotation to be verbatim conflated two different things,
+    and the 2026-07-28 probe showed it costing a good answer at a rate no
+    reader would tolerate. The model opens a quotation, quotes Kardec correctly,
+    then carries on paraphrasing inside the same quotation marks:
+
+        "se emprega para exprimir coisas muito diferentes. Em uma acepção,
+         a alma se refere ao princípio da vida, uma"
+
+    The first half is real; the rest is the model's own words. That is a sloppy
+    quotation boundary — worth fixing in the prompt, not worth withholding an
+    otherwise correct answer over.
+
+    Fabrication is the case where NO part of the quotation is in the corpus at
+    all: nothing was being quoted, and the quotation marks are decoration on an
+    invention. That is what this returns False for, and only that.
+    """
+    for i in range(len(words) - MIN_QUOTED_WORDS + 1):
+        if " ".join(words[i : i + MIN_QUOTED_WORDS]) in haystack:
+            return True
+    return False

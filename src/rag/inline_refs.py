@@ -27,7 +27,11 @@ import re
 # "[item 11]", "[ITEM 11]", "[item11]" — the mangling worth tolerating, and no
 # more. A bare "[11]" is NOT an item marker: /study prose legitimately contains
 # bracketed numbers, and guessing would strip a reader's own text.
-_ITEM_MARKER = re.compile(r"\[\s*item\s*(\d{1,4})\s*\]", re.IGNORECASE)
+# The literal "N" is accepted alongside a real number because the model copies
+# the template verbatim often enough to matter: "[fonte N]" reached a reader on
+# 2026-07-28. It resolves to nothing and the marker is removed — a placeholder
+# on screen is a leak either way.
+_ITEM_MARKER = re.compile(r"\[\s*item\s*(\d{1,4}|N)\s*\]", re.IGNORECASE)
 
 # "[fonte 1]", "[FONTE 1, 3]" — the passage indices /chat's prompt prints.
 #
@@ -38,7 +42,7 @@ _ITEM_MARKER = re.compile(r"\[\s*item\s*(\d{1,4})\s*\]", re.IGNORECASE)
 # degrades better — every guard can fail, and a stray "[fonte 1]" on screen
 # reads as a clumsy citation while a stray "[1]" reads as a bug.
 _PASSAGE_MARKER = re.compile(
-    r"\[\s*fontes?\s*(\d{1,2}(?:\s*[,\s]\s*\d{1,2})*)\s*\]", re.IGNORECASE
+    r"\[\s*fontes?\s*(\d{1,2}(?:\s*[,\s]\s*\d{1,2})*|N)\s*\]", re.IGNORECASE
 )
 
 
@@ -173,13 +177,16 @@ class InlineMarkerFilter:
         # instant before `done` replaces the text, and the streamed answer would
         # not be character-identical to the one that stands.
         self._full = re.compile(
-            r"[ \t]*\[\s*%ss?\s*(\d{1,4}(?:\s*[,\s]\s*\d{1,4})*)\s*\]" % word,
+            r"[ \t]*\[\s*%ss?\s*(\d{1,4}(?:\s*[,\s]\s*\d{1,4})*|N)\s*\]" % word,
             re.IGNORECASE,
         )
         # Every prefix of the word, so a marker split anywhere is still caught.
         prefixes = "".join(f"({c}" for c in word) + ")?" * len(word)
         self._partial = re.compile(
-            r"[ \t]*\[\s*(?:%s)?s?[\d,\s]{0,12}$" % prefixes, re.IGNORECASE
+            # "N" is held back like a digit: the model copies the template
+            # literally, and a candidate not held is a candidate emitted.
+            r"[ \t]*\[\s*(?:%s)?s?[\dN,\s]{0,12}$" % prefixes,
+            re.IGNORECASE,
         )
         self._held = ""
 
