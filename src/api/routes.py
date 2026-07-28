@@ -202,6 +202,7 @@ def _chat_response(
         )
     return ChatResponse(
         answer=result["answer"],
+        inline_refs=result.get("inline_refs", []),
         sources=[Source(**s) for s in result["sources"]],
         suggested_questions=result.get("suggested_questions", []),
         not_found=result["not_found"],

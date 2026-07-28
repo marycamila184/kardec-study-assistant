@@ -19,6 +19,7 @@ from src.rag.crisis import (
 )
 from src.rag.groundedness import attribute_sources
 from src.rag.guardrails import counts_personification, strip_trailing_question
+from src.rag.inline_refs import InlineMarkerFilter, extract_passage_refs
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile
@@ -250,7 +251,9 @@ def _prepare(
     }
 
 
-def _postprocess(answer: str, ctx: dict) -> tuple[str, list[dict], list[str]]:
+def _postprocess(
+    answer: str, ctx: dict
+) -> tuple[str, list[dict], list[str], list[dict]]:
     """Turns the model's raw text into what gets displayed and cited. Shared by
     both lanes, and the reason a streamed `done` payload is identical to what
     POST /chat returns. May raise — the caller treats that as a failed
@@ -311,7 +314,12 @@ def _postprocess(answer: str, ctx: dict) -> tuple[str, list[dict], list[str]]:
         chunks = marker_chunks
     if ctx["fallback_note"]:
         answer = ctx["fallback_note"] + answer
-    return answer, chunks, suggested_questions
+
+    # Resolved against what was actually retrieved; an index outside that list
+    # is dropped here rather than shown. Last, so positions index into the text
+    # the reader really sees — including the fallback note prepended above.
+    answer, inline_refs = extract_passage_refs(answer, ctx["chunks"])
+    return answer, chunks, suggested_questions, inline_refs
 
 
 def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
@@ -320,15 +328,16 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
     drift apart."""
     chunks: list[dict] = []
     suggested_questions: list[str] = []
+    inline_refs: list[dict] = []
     if generation_failed:
         answer = GENERATION_FAILED_MESSAGE
     else:
         try:
-            answer, chunks, suggested_questions = _postprocess(answer, ctx)
+            answer, chunks, suggested_questions, inline_refs = _postprocess(answer, ctx)
         except Exception:
             logger.exception("chat answer post-processing failed")
             answer = GENERATION_FAILED_MESSAGE
-            chunks, suggested_questions = [], []
+            chunks, suggested_questions, inline_refs = [], [], []
             generation_failed = True
 
     if ctx["sensitive"]:
@@ -362,6 +371,9 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
 
     return {
         "answer": answer,
+        # Dropped along with the sources on a failed generation: a reference
+        # into text that was replaced by an error message points nowhere.
+        "inline_refs": [] if generation_failed else inline_refs,
         "sources": [] if generation_failed else sources,
         "suggested_questions": suggested_questions,
         "not_found": False,
@@ -416,14 +428,21 @@ def generate_stream(
         return
 
     buffer = StreamBuffer()
+    # The trailer buffer cannot do this job: it seals on the first opening,
+    # because a trailer is terminal by contract, and inline markers sit in the
+    # middle of prose. Composed after it so the trailer is handled first.
+    markers = InlineMarkerFilter("fonte")
     pieces: list[str] = []
     generation_failed = False
     try:
         for piece in prose_completion_stream(ctx["system"], ctx["messages"]):
             pieces.append(piece)
-            safe = buffer.feed(piece)
+            safe = markers.feed(buffer.feed(piece))
             if safe:
                 yield "token", safe
+        tail = markers.flush()
+        if tail:
+            yield "token", tail
     except Exception:
         # Mid-stream failure: whatever is on screen gets replaced by the
         # `done` payload below, so the reader is never left with half an answer.

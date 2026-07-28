@@ -260,7 +260,7 @@ def explicar_stream(ctx: dict) -> Iterator[tuple[str, object]]:
         # The streamed contexto carries the inline markers; they must never
         # flash on screen, and the text a reader watches arrive has to end up
         # identical to the clean text `done` carries.
-        markers = InlineMarkerFilter()
+        markers = InlineMarkerFilter("item")
 
         try:
             stream = get_client("json").chat.completions.create(

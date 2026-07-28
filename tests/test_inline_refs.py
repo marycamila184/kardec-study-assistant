@@ -117,27 +117,35 @@ def test_no_allowed_items_drops_everything():
     assert refs == []
 
 
-# ── /chat: [N] ────────────────────────────────────────────────────────────────
+# ── /chat: [fonte N] ────────────────────────────────────────────────────────────────
 
 
 def test_passage_index_resolves_to_its_chunk():
-    clean, refs = extract_passage_refs("A encarnação faz progredir [1].", _CHUNKS)
+    clean, refs = extract_passage_refs("A encarnação faz progredir [fonte 1].", _CHUNKS)
     assert clean == "A encarnação faz progredir."
     assert refs[0]["book"] == "O Livro dos Espíritos"
     assert refs[0]["item_number"] == "132"
 
 
 def test_index_outside_the_retrieved_list_is_dropped():
-    clean, refs = extract_passage_refs("Uma afirmação [7].", _CHUNKS)
+    clean, refs = extract_passage_refs("Uma afirmação [fonte 7].", _CHUNKS)
     assert clean == "Uma afirmação."
     assert refs == []
 
 
 def test_one_marker_may_carry_several_indices():
-    _, refs = extract_passage_refs("Ambas dizem isso [1, 2].", _CHUNKS)
+    _, refs = extract_passage_refs("Ambas dizem isso [fonte 1, 2].", _CHUNKS)
     assert [r["item_number"] for r in refs] == ["132", "4"]
 
 
 def test_a_partly_valid_marker_keeps_only_what_was_retrieved():
-    _, refs = extract_passage_refs("Texto [1, 9].", _CHUNKS)
+    _, refs = extract_passage_refs("Texto [fonte 1, 9].", _CHUNKS)
     assert [r["item_number"] for r in refs] == ["132"]
+
+
+def test_a_bare_bracketed_number_is_not_a_passage_marker():
+    """The reason the word is there: brackets around numbers occur in ordinary
+    prose and in the works."""
+    clean, refs = extract_passage_refs("Uma nota [1] do editor.", _CHUNKS)
+    assert clean == "Uma nota [1] do editor."
+    assert refs == []

@@ -20,6 +20,8 @@ resposta. A interface já exibe cada fonte ao lado, com a obra, o capítulo e o 
 completo. Repetir isso no meio da explicação cansa quem lê e não acrescenta procedência \
 nenhuma.
 
+{passage_marker}
+
 Mas SEMPRE deixe visível que a afirmação vem do texto, e não de você: "Kardec escreve \
 que...", "a passagem mostra que...", "o texto indica que...". Toda afirmação doutrinária \
 precisa de uma dessas marcas — sem ela a resposta soa como se a doutrina fosse \
@@ -98,6 +100,31 @@ abordam. Nunca sugira uma pergunta que já foi feita ou já foi respondida nesta
 conversa, nem uma reformulação equivalente dela."""
 
 
+# The inline grounding marker.
+#
+# Worded to sit WITH the "Distinga REFERÊNCIA de ATRIBUIÇÃO" rule above, not
+# against it: that rule forbids writing a human-readable reference (obra,
+# capítulo, item) into the prose, because the interface already shows it. This
+# marker is machine-readable and removed before display, so the two are not in
+# conflict — but a marker prompt that reads as contradicting the reference rule
+# is exactly how the /study marker contract failed once before, so the
+# distinction is stated rather than assumed.
+#
+# Isolated as one constant so a prompt restructure can replace the wording
+# wholesale: everything downstream depends on the marker SHAPE ("[fonte N]"),
+# parsed in inline_refs.py, never on this sentence. An index outside the
+# retrieved list is dropped in code.
+# See docs/superpowers/specs/2026-07-28-grounding-markers-design.md
+_PASSAGE_MARKER_RULE = """\
+Isso não vale para o marcador técnico [fonte N], que é outra coisa: ele não é \
+uma referência escrita, é uma marca legível por máquina, removida \
+automaticamente antes de o usuário ver a resposta. Quando uma afirmação se \
+apoiar numa passagem recuperada, escreva [fonte N] logo depois dela, com N \
+sendo o número da passagem entre colchetes na lista abaixo. Use apenas números \
+que aparecem nessa lista. O marcador fica junto da afirmação que ele sustenta \
+— não o acumule no fim, que é onde mora a linha [FONTES:]."""
+
+
 _CAVEAT_INSTRUCTION = """\
 Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
 clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \
@@ -139,6 +166,7 @@ def build_messages(
         passages=passages,
         caveat="\n\n".join(notes),
         seguir=_SEGUIR_RULE,
+        passage_marker=_PASSAGE_MARKER_RULE,
     )
     # Appended rather than woven into the template so an empty fragment leaves
     # the prompt byte-identical. The sensitivity and caveat instructions above

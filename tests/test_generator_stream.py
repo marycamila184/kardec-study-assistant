@@ -124,3 +124,50 @@ def test_a_failing_model_stream_still_ends_with_a_done_event(monkeypatch):
 
     assert len(done) == 1
     assert done[0]["generation_failed"] is True
+
+
+def test_inline_markers_never_reach_the_screen(monkeypatch):
+    """[fonte N] is machine-readable; the reader sees prose."""
+    answer = (
+        "Kardec escreve que a encarnação faz progredir [fonte 1]."
+        "[FONTES: 1][SEGUIR:]"
+    )
+
+    def _fake(system, messages, max_tokens=1024):
+        for i in range(0, len(answer), 5):
+            yield answer[i : i + 5]
+
+    monkeypatch.setattr("src.rag.generator.prose_completion_stream", _fake)
+    tokens, done = _collect(list(generate_stream("o que é a encarnação?", [])))
+
+    streamed = "".join(tokens)
+    assert "fonte" not in streamed and "[" not in streamed
+    assert "fonte" not in done[0]["answer"]
+    # What was watched arriving matches what stands as the answer.
+    assert streamed.split() == done[0]["answer"].split()
+
+
+def test_a_resolved_marker_becomes_an_inline_ref(monkeypatch):
+    answer = "A encarnação faz progredir [fonte 1].[FONTES: 1][SEGUIR:]"
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion_stream",
+        lambda s, m, max_tokens=1024: iter([answer]),
+    )
+    _, done = _collect(list(generate_stream("o que é a encarnação?", [])))
+
+    refs = done[0]["inline_refs"]
+    assert len(refs) == 1
+    assert refs[0]["item_number"] == "132"
+    assert refs[0]["position"] <= len(done[0]["answer"])
+
+
+def test_a_marker_outside_the_retrieved_list_is_dropped(monkeypatch):
+    answer = "Uma afirmação inventada [fonte 9].[FONTES:][SEGUIR:]"
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion_stream",
+        lambda s, m, max_tokens=1024: iter([answer]),
+    )
+    _, done = _collect(list(generate_stream("o que é a encarnação?", [])))
+
+    assert done[0]["inline_refs"] == []
+    assert "9" not in done[0]["answer"]

@@ -38,6 +38,7 @@ class InlineRef(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+    inline_refs: list[InlineRef] = []
     sources: list[Source]
     suggested_questions: list[str] = []
     not_found: bool = False

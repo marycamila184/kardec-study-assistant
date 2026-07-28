@@ -29,8 +29,17 @@ import re
 # bracketed numbers, and guessing would strip a reader's own text.
 _ITEM_MARKER = re.compile(r"\[\s*item\s*(\d{1,4})\s*\]", re.IGNORECASE)
 
-# "[1]", "[1, 3]", "[1 3]" — the passage indices /chat's prompt prints.
-_PASSAGE_MARKER = re.compile(r"\[\s*(\d{1,2}(?:\s*[,\s]\s*\d{1,2})*)\s*\]")
+# "[fonte 1]", "[FONTE 1, 3]" — the passage indices /chat's prompt prints.
+#
+# The word is load-bearing, not decoration. A bare "[1]" would collide with
+# brackets that occur in ordinary prose and in the works themselves, and it
+# would be a third silent vocabulary for a concept the system already names
+# twice: the "[FONTES: 1, 3]" trailer and the "Fonte citada" modal. It also
+# degrades better — every guard can fail, and a stray "[fonte 1]" on screen
+# reads as a clumsy citation while a stray "[1]" reads as a bug.
+_PASSAGE_MARKER = re.compile(
+    r"\[\s*fontes?\s*(\d{1,2}(?:\s*[,\s]\s*\d{1,2})*)\s*\]", re.IGNORECASE
+)
 
 
 def extract_item_refs(text: str, allowed: list[dict]) -> tuple[str, list[dict]]:
@@ -138,7 +147,10 @@ def _extract(text: str, pattern: re.Pattern, resolve) -> tuple[str, list[dict]]:
 
 
 class InlineMarkerFilter:
-    """Strips `[item N]` from a stream without ever emitting a partial one.
+    """Strips inline markers from a stream without ever emitting a partial one.
+
+    Built for a marker vocabulary — "item" for /study, "fonte" for /chat — so
+    the two lanes share the mechanism and differ only in the word.
 
     The trailer buffer in stream_buffer.py cannot do this job: it *seals* on the
     first opening, because a trailer is terminal by contract. Inline markers sit
@@ -150,20 +162,33 @@ class InlineMarkerFilter:
     resolved references, and the streamed text has to end up identical to it.
     """
 
-    # Longest hold: "[ item 1234" plus slack, before a "]" is required.
-    _MAX_HOLD = 16
-    _PARTIAL = re.compile(r"\[\s*(i(t(e(m)?)?)?)?\s*\d{0,4}\s*$", re.IGNORECASE)
+    # Longest hold: "[ fontes 1, 3" plus slack, before a "]" is required. A
+    # candidate that outgrows this was never a marker, and holding prose
+    # indefinitely would be worse than showing a bracket.
+    _MAX_HOLD = 20
 
-    def __init__(self) -> None:
+    def __init__(self, word: str = "item") -> None:
+        # The leading space is consumed with the marker, matching the tidying
+        # the extractors do. Without it the stream shows "progredir ." for the
+        # instant before `done` replaces the text, and the streamed answer would
+        # not be character-identical to the one that stands.
+        self._full = re.compile(
+            r"[ \t]*\[\s*%ss?\s*(\d{1,4}(?:\s*[,\s]\s*\d{1,4})*)\s*\]" % word,
+            re.IGNORECASE,
+        )
+        # Every prefix of the word, so a marker split anywhere is still caught.
+        prefixes = "".join(f"({c}" for c in word) + ")?" * len(word)
+        self._partial = re.compile(
+            r"[ \t]*\[\s*(?:%s)?s?[\d,\s]{0,12}$" % prefixes, re.IGNORECASE
+        )
         self._held = ""
 
     def feed(self, chunk: str) -> str:
         """Returns the text safe to show now; holds anything that might still
         become a marker."""
-        pending = self._held + chunk
-        pending = _ITEM_MARKER.sub("", pending)
+        pending = self._full.sub("", self._held + chunk)
 
-        match = self._PARTIAL.search(pending)
+        match = self._partial.search(pending)
         if match and len(pending) - match.start() <= self._MAX_HOLD:
             self._held = pending[match.start() :]
             return pending[: match.start()]
@@ -176,4 +201,4 @@ class InlineMarkerFilter:
         is prose after all, and withholding it would silently truncate the
         answer."""
         held, self._held = self._held, ""
-        return _ITEM_MARKER.sub("", held)
+        return self._full.sub("", held)
