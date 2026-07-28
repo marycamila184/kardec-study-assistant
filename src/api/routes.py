@@ -1,9 +1,11 @@
+import json
 import logging
 import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 
 from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import StreamingResponse
 
 from src.api.limits import (
     RATE_LIMITED_MESSAGE,
@@ -18,7 +20,7 @@ from src.rag.conversation_log import log_chat_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import explicar as study_item_fn
-from src.rag.generator import generate
+from src.rag.generator import generate, generate_stream
 from src.rag.mode_detector import extract_study_reference
 from src.rag.orchestrator import classify_intent
 
@@ -97,17 +99,7 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     if not needs_crisis_note(request.question) and exceeds_size_limit(
         request.question, history
     ):
-        return ChatResponse(
-            answer=TOO_LONG_MESSAGE,
-            sources=[],
-            suggested_questions=[],
-            not_found=False,
-            suggested_mode=None,
-            suggested_item_number=None,
-            suggested_book=None,
-            generation_failed=False,
-            safety_level="normal",
-        )
+        return _too_long_response()
 
     result, suggested_mode = _answer_with_nudge(
         request.question,
@@ -120,19 +112,92 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
             anchor_text=request.anchor_text,
         ),
     )
+    return _chat_response(
+        request.question, result, suggested_mode, started_at=started, log=True
+    )
+
+
+@router.post("/chat/stream")
+def chat_stream(request: ChatRequest, http_request: Request) -> StreamingResponse:
+    """Same answer as POST /chat, delivered as Server-Sent Events.
+
+    POST /chat is unchanged and remains the recovery path: a client whose
+    connection drops mid-stream can re-ask there rather than keep half a
+    response. See docs/superpowers/specs/2026-07-27-streaming-design.md
+    """
+    _enforce_rate_limit(http_request)
+    started = time.monotonic()
+    history = [m.model_dump() for m in request.history]
+
+    # Same ordering as POST /chat: crisis outranks the size cap, and the cap
+    # answers before any stream is opened.
+    if not needs_crisis_note(request.question) and exceeds_size_limit(
+        request.question, history
+    ):
+        return _sse_response(_only_done(_too_long_response()))
+
+    def events():
+        executor = ThreadPoolExecutor(max_workers=1)
+        try:
+            intent_future = executor.submit(
+                classify_intent, request.question, "tirar_duvida", history
+            )
+            result: dict = {}
+            for kind, payload in generate_stream(
+                request.question,
+                history,
+                book_filter=request.book_filter,
+                anchor_text=request.anchor_text,
+            ):
+                if kind == "token":
+                    yield _sse("token", {"text": payload})
+                else:
+                    result = payload
+
+            try:
+                suggested_mode = intent_future.result(timeout=_CLASSIFY_TIMEOUT_S)[
+                    "mode"
+                ]
+            except Exception:
+                logger.exception(
+                    "classify_intent slow or failed; proceeding with no nudge"
+                )
+                suggested_mode = None
+        finally:
+            # Don't join a stuck classifier thread; let it finish in the background.
+            executor.shutdown(wait=False)
+
+        response = _chat_response(
+            request.question, result, suggested_mode, started_at=started, log=True
+        )
+        yield _sse("done", response.model_dump())
+
+    return _sse_response(events())
+
+
+def _chat_response(
+    question: str,
+    result: dict,
+    suggested_mode: str | None,
+    started_at: float,
+    log: bool,
+) -> ChatResponse:
+    """Builds the /chat body. Shared with the stream's `done` event so the two
+    routes cannot drift apart."""
     if result.get("safety_level") == "crise":
         suggested_mode = None
     study_ref = (
-        extract_study_reference(request.question)
+        extract_study_reference(question)
         if suggested_mode == "estudar_obra"
         else {"item_number": None, "book": None}
     )
-    log_chat_turn(
-        request.question,
-        result,
-        latency_ms=int((time.monotonic() - started) * 1000),
-        suggested_mode=suggested_mode,
-    )
+    if log:
+        log_chat_turn(
+            question,
+            result,
+            latency_ms=int((time.monotonic() - started_at) * 1000),
+            suggested_mode=suggested_mode,
+        )
     return ChatResponse(
         answer=result["answer"],
         sources=[Source(**s) for s in result["sources"]],
@@ -143,6 +208,43 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
         suggested_book=study_ref["book"],
         generation_failed=result.get("generation_failed", False),
         safety_level=result.get("safety_level"),
+    )
+
+
+def _too_long_response() -> ChatResponse:
+    return ChatResponse(
+        answer=TOO_LONG_MESSAGE,
+        sources=[],
+        suggested_questions=[],
+        not_found=False,
+        suggested_mode=None,
+        suggested_item_number=None,
+        suggested_book=None,
+        generation_failed=False,
+        safety_level="normal",
+    )
+
+
+def _sse(event: str, data: dict) -> str:
+    # ensure_ascii=False keeps the accented Portuguese readable on the wire;
+    # the payload is JSON on one line, as the SSE framing requires.
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+def _only_done(response: ChatResponse):
+    yield _sse("done", response.model_dump())
+
+
+def _sse_response(events) -> StreamingResponse:
+    return StreamingResponse(
+        events,
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-store",
+            # Nginx and the proxies derived from it honor this header and stop
+            # accumulating the body before passing it on.
+            "X-Accel-Buffering": "no",
+        },
     )
 
 

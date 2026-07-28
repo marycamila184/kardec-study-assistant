@@ -1,6 +1,7 @@
 import logging
 import random
 from concurrent.futures import ThreadPoolExecutor
+from typing import Iterator
 
 from src.core.config import settings
 from src.rag.citations import (
@@ -21,7 +22,7 @@ from src.rag.guardrails import counts_personification, strip_trailing_question
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.prompt import build_messages
-from src.rag.prose import prose_completion
+from src.rag.prose import prose_completion, prose_completion_stream
 from src.rag.query_condenser import blend_anchor, condense_query
 from src.rag.retriever import (
     EVANGELHO_BOOK,
@@ -32,6 +33,7 @@ from src.rag.retriever import (
     retrieve_by_item,
 )
 from src.rag.sensitivity import classify_sensitivity
+from src.rag.stream_buffer import StreamBuffer
 
 logger = logging.getLogger(__name__)
 
@@ -96,12 +98,20 @@ def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
         return []
 
 
-def generate(
+def _prepare(
     question: str,
     history: list[dict],
     book_filter: str | None = None,
     anchor_text: str | None = None,
-) -> dict:
+) -> tuple[dict | None, dict | None]:
+    """Everything that happens before the model call: the short-circuits, the
+    sensitivity tier, retrieval, and the prompt.
+
+    Returns (early_result, context). Exactly one of the two is set: an
+    early_result is a finished response that must be returned as-is — small
+    talk, the crisis exit, a retrieval failure, no chunks — and it is what keeps
+    those paths from ever opening a stream.
+    """
     # A pure "obrigada / entendi / valeu" needs a warm closing, not a doctrinal
     # answer with source chips. Short-circuit before any retrieval or LLM call.
     if is_smalltalk(question) and not needs_crisis_note(question):
@@ -112,12 +122,12 @@ def generate(
             "not_found": False,
             "generation_failed": False,
             "safety_level": "normal",
-        }
+        }, None
 
     # Deterministic crisis floor: a keyword hit short-circuits to the fixed exit
     # before any retrieval or classifier call — never gated on the LLM.
     if needs_crisis_note(question):
-        return _crisis_exit()
+        return _crisis_exit(), None
 
     # Topic-level mention (no ideation — that exited above): answer normally,
     # but always carry the CVV note, appended in code before returning. The
@@ -153,7 +163,7 @@ def generate(
                     "not_found": False,
                     "generation_failed": True,
                     "safety_level": "normal",
-                }
+                }, None
             chunks = []
 
         if direct_chunks:
@@ -196,7 +206,7 @@ def generate(
         executor.shutdown(wait=False)
 
     if level == "crise":
-        return _crisis_exit()
+        return _crisis_exit(), None
 
     if level == "abalo":
         chunks = filter_sensitive_chunks(chunks)
@@ -214,7 +224,7 @@ def generate(
             "not_found": True,
             "generation_failed": False,
             "safety_level": level,
-        }
+        }, None
 
     sensitive = level == "abalo"
     add_caveat = needs_medical_caveat(question) or sensitive
@@ -226,81 +236,103 @@ def generate(
         add_caveat=add_caveat,
         sensitive=sensitive,
     )
+    return None, {
+        "system": system,
+        "messages": messages,
+        "chunks": chunks,
+        "level": level,
+        "sensitive": sensitive,
+        "topic_note": topic_note,
+        "fallback_note": fallback_note,
+    }
+
+
+def _postprocess(answer: str, ctx: dict) -> tuple[str, list[dict], list[str]]:
+    """Turns the model's raw text into what gets displayed and cited. Shared by
+    both lanes, and the reason a streamed `done` payload is identical to what
+    POST /chat returns. May raise — the caller treats that as a failed
+    generation."""
+    chunks = ctx["chunks"]
+
+    # Log-only monitors. These run on both lanes because they mutate
+    # nothing — they only record what the model did. Wrapped so a monitor
+    # can never fail an otherwise-good request. Citations are extracted
+    # BEFORE any stripping below.
     try:
-        answer = prose_completion(system, messages)
-
-        # Log-only monitors. These run on both lanes because they mutate
-        # nothing — they only record what the model did. Wrapped so a monitor
-        # can never fail an otherwise-good request. Citations are extracted
-        # BEFORE any stripping below.
-        try:
-            report = validate_model_citations(
-                extract_model_citations(answer), retrieved_ids(chunks)
-            )
-            if not report["confiavel"]:
-                logger.warning(
-                    "model cited ids outside the retrieved set: %s",
-                    report["alucinadas"],
-                )
-            personifications = counts_personification(answer)
-            if personifications:
-                logger.warning(
-                    "personification of 'o Espiritismo': %d", personifications
-                )
-        except Exception:
-            logger.exception("log-only citation/personification monitor failed")
-
-        # Everything that MUTATES the answer or its sources is gated on the
-        # prose lane, so Tasks 1-6 leave the current provider's output identical.
-        prose_lane = settings.prose_provider is not None
-        debris_suggestions: list[str] = []
-        if prose_lane:
-            answer = strip_model_citations(answer)
-            if not answer.strip():
-                # The model's entire reply was a citation; there is nothing
-                # left to show. Treat it as a generation failure rather than
-                # returning an empty bubble.
-                raise ValueError("answer emptied by strip_model_citations")
-            # riv-ai-v2 scatters marker lines mid-text (emoji-prefixed, not
-            # anchored to the end), which strip_trailing_markers below cannot
-            # see. Clear that debris first so the end-anchored pass only has
-            # to catch a well-formed trailer, if any remains.
-            answer, debris_suggestions = strip_marker_debris(answer)
-        answer, marker_chunks, suggested_questions = strip_trailing_markers(
-            answer, chunks
+        report = validate_model_citations(
+            extract_model_citations(answer), retrieved_ids(chunks)
         )
-        if prose_lane and not suggested_questions:
-            suggested_questions = debris_suggestions
-        if prose_lane:
-            # riv-ai-v2 does not honor [FONTES:] — it emits question numbers or
-            # invents references. Attribution is computed from the vector store
-            # instead, so the model never decides its own citations.
-            try:
-                chunks = attribute_sources(answer, chunks)
-            except Exception:
-                logger.exception(
-                    "attribute_sources failed; falling back to marker chunks"
-                )
-                chunks = marker_chunks
-            # Backstop for the prompt rule: follow-ups live in [SEGUIR] only.
-            answer = strip_trailing_question(answer)
-        else:
-            # Current provider: it honors [FONTES:], so keep today's behavior.
-            chunks = marker_chunks
-        if fallback_note:
-            answer = fallback_note + answer
-        generation_failed = False
+        if not report["confiavel"]:
+            logger.warning(
+                "model cited ids outside the retrieved set: %s",
+                report["alucinadas"],
+            )
+        personifications = counts_personification(answer)
+        if personifications:
+            logger.warning("personification of 'o Espiritismo': %d", personifications)
     except Exception:
-        logger.exception("chat generation LLM call failed")
-        answer = GENERATION_FAILED_MESSAGE
-        suggested_questions = []
-        generation_failed = True
+        logger.exception("log-only citation/personification monitor failed")
 
-    if sensitive:
+    # Everything that MUTATES the answer or its sources is gated on the
+    # prose lane, so Tasks 1-6 leave the current provider's output identical.
+    prose_lane = settings.prose_provider is not None
+    debris_suggestions: list[str] = []
+    if prose_lane:
+        answer = strip_model_citations(answer)
+        if not answer.strip():
+            # The model's entire reply was a citation; there is nothing
+            # left to show. Treat it as a generation failure rather than
+            # returning an empty bubble.
+            raise ValueError("answer emptied by strip_model_citations")
+        # riv-ai-v2 scatters marker lines mid-text (emoji-prefixed, not
+        # anchored to the end), which strip_trailing_markers below cannot
+        # see. Clear that debris first so the end-anchored pass only has
+        # to catch a well-formed trailer, if any remains.
+        answer, debris_suggestions = strip_marker_debris(answer)
+    answer, marker_chunks, suggested_questions = strip_trailing_markers(answer, chunks)
+    if prose_lane and not suggested_questions:
+        suggested_questions = debris_suggestions
+    if prose_lane:
+        # riv-ai-v2 does not honor [FONTES:] — it emits question numbers or
+        # invents references. Attribution is computed from the vector store
+        # instead, so the model never decides its own citations.
+        try:
+            chunks = attribute_sources(answer, chunks)
+        except Exception:
+            logger.exception("attribute_sources failed; falling back to marker chunks")
+            chunks = marker_chunks
+        # Backstop for the prompt rule: follow-ups live in [SEGUIR] only.
+        answer = strip_trailing_question(answer)
+    else:
+        # Current provider: it honors [FONTES:], so keep today's behavior.
+        chunks = marker_chunks
+    if ctx["fallback_note"]:
+        answer = ctx["fallback_note"] + answer
+    return answer, chunks, suggested_questions
+
+
+def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
+    """Assembles the response body from the model's text. The single place both
+    POST /chat and the stream's `done` event go through, so the two can never
+    drift apart."""
+    chunks: list[dict] = []
+    suggested_questions: list[str] = []
+    if generation_failed:
+        answer = GENERATION_FAILED_MESSAGE
+    else:
+        try:
+            answer, chunks, suggested_questions = _postprocess(answer, ctx)
+        except Exception:
+            logger.exception("chat answer post-processing failed")
+            answer = GENERATION_FAILED_MESSAGE
+            chunks, suggested_questions = [], []
+            generation_failed = True
+
+    if ctx["sensitive"]:
         # A distressed turn is not steered toward "explore more" chips.
         suggested_questions = []
 
-    if topic_note:
+    if ctx["topic_note"]:
         # Deterministic: any suicide-topic question carries the CVV note.
         answer = answer + "\n\n" + CRISIS_NOTE
 
@@ -331,5 +363,66 @@ def generate(
         "suggested_questions": suggested_questions,
         "not_found": False,
         "generation_failed": generation_failed,
-        "safety_level": level,
+        "safety_level": ctx["level"],
     }
+
+
+def generate(
+    question: str,
+    history: list[dict],
+    book_filter: str | None = None,
+    anchor_text: str | None = None,
+) -> dict:
+    early, ctx = _prepare(question, history, book_filter, anchor_text)
+    if early is not None:
+        return early
+
+    try:
+        answer = prose_completion(ctx["system"], ctx["messages"])
+        generation_failed = False
+    except Exception:
+        logger.exception("chat generation LLM call failed")
+        answer, generation_failed = None, True
+
+    return _finalize(answer, ctx, generation_failed)
+
+
+def generate_stream(
+    question: str,
+    history: list[dict],
+    book_filter: str | None = None,
+    anchor_text: str | None = None,
+) -> Iterator[tuple[str, object]]:
+    """The same answer as generate(), yielded as ("token", text) pairs followed
+    by exactly one ("done", result).
+
+    Every short-circuit — small talk, the crisis exit, a retrieval failure, no
+    chunks — yields its `done` and nothing else: those responses are decided in
+    code and arrive whole, never letter by letter.
+
+    Tokens pass through StreamBuffer, so a trailer marker can never reach the
+    screen. The `done` payload is built by _finalize from the complete text, and
+    is the source of truth: a client that replaces its accumulated text with it
+    ends up byte-identical to POST /chat.
+    """
+    early, ctx = _prepare(question, history, book_filter, anchor_text)
+    if early is not None:
+        yield "done", early
+        return
+
+    buffer = StreamBuffer()
+    pieces: list[str] = []
+    generation_failed = False
+    try:
+        for piece in prose_completion_stream(ctx["system"], ctx["messages"]):
+            pieces.append(piece)
+            safe = buffer.feed(piece)
+            if safe:
+                yield "token", safe
+    except Exception:
+        # Mid-stream failure: whatever is on screen gets replaced by the
+        # `done` payload below, so the reader is never left with half an answer.
+        logger.exception("chat streaming LLM call failed")
+        generation_failed = True
+
+    yield "done", _finalize("".join(pieces), ctx, generation_failed)

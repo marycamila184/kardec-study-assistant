@@ -170,9 +170,9 @@ def test_absolute_floor_still_applies_under_the_margin():
     """The margin is relative, so a uniformly terrible retrieval would keep
     everything. The floor is the backstop — and the never-empty guarantee still
     wins over it."""
-    from src.rag.groundedness import attribute_sources
-
     import math
+
+    from src.rag.groundedness import attribute_sources
 
     def vec(cos):
         return [cos, math.sqrt(1 - cos * cos)]

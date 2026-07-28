@@ -104,7 +104,7 @@ def attribute_sources(
         reverse=True,
     )
     best = scored[0][0]
-    kept = [
-        c for sim, c in scored if sim >= best - margin and sim >= min_similarity
-    ][:max_sources]
+    kept = [c for sim, c in scored if sim >= best - margin and sim >= min_similarity][
+        :max_sources
+    ]
     return kept or [scored[0][1]]
