@@ -276,6 +276,9 @@ def _prepare(
         "sensitive": sensitive,
         "topic_note": topic_note,
         "fallback_note": fallback_note,
+        # The item the reader named, when they named one. Carried so the answer
+        # can show the passage itself, not just a chip to click.
+        "direct_chunks": direct_chunks,
     }
 
 
@@ -409,6 +412,22 @@ def _postprocess(
     return answer, chunks, suggested_questions, inline_refs
 
 
+def _studied_item(ctx: dict) -> dict | None:
+    """The named item's own text and reference, or None when the question did
+    not name one. Subchunks are rejoined so the reader sees the whole item."""
+    chunks = ctx.get("direct_chunks") or []
+    if not chunks:
+        return None
+    meta = chunks[0]["metadata"]
+    return {
+        "book": meta["book"],
+        "chapter_title": meta.get("chapter_title") or None,
+        "chapter_ref": meta.get("chapter") or None,
+        "item_number": meta.get("item_number"),
+        "excerpt": "\n\n".join(c["content"] for c in chunks),
+    }
+
+
 def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
     """Assembles the response body from the model's text. The single place both
     POST /chat and the stream's `done` event go through, so the two can never
@@ -466,6 +485,13 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
 
     return {
         "answer": answer,
+        # The studied passage, when the question named a specific item. /study
+        # renders this as the "Da Obra" block — Kardec's own words, above the
+        # explanation and visibly apart from it. Free study moving to /chat must
+        # not lose that: the separation between source and AI is the project's
+        # central rule made structural, and a source chip someone has to click
+        # is not the same thing.
+        "studied_item": _studied_item(ctx) if not generation_failed else None,
         # Dropped along with the sources on a failed generation: a reference
         # into text that was replaced by an error message points nowhere.
         "inline_refs": [] if generation_failed else inline_refs,

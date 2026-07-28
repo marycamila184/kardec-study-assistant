@@ -43,9 +43,21 @@ export function parseItemRef(itemString) {
 // ── Response mapping functions ────────────────────────────────────────────────
 
 function mapChat(data) {
+  // When the question named a specific item, the answer carries the passage
+  // itself and it renders as the "Da Obra" block — Kardec's words above the
+  // explanation and visibly apart from it. Free study runs through /chat now,
+  // and a source chip you have to click is not the same separation.
+  const studied = data.studied_item || null;
   return {
-    hasDaObra: false,
-    obra: null,
+    hasDaObra: !!studied,
+    obra: studied ? {
+      title: [studied.book, studied.chapter_title,
+        studied.item_number ? formatItemRef(studied.book, studied.item_number) : null]
+        .filter(Boolean).join(' — '),
+      quote: studied.excerpt,
+      citation: studied.book + ' — Allan Kardec',
+      context: studied.chapter_title || studied.book,
+    } : null,
     ia: data.answer,
     suggestedMode: data.suggested_mode || null,
     suggestedItemNumber: data.suggested_item_number || null,

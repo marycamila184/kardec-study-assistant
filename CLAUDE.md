@@ -23,7 +23,8 @@ This file is the orientation + the rules. Everything else lives in `docs/`:
 
 | Mode | Endpoint | State |
 |---|---|---|
-| **Estudar uma Obra** | `POST /study` | Live. Requires `book` + `item_number`. `POST /study/stream` returns the same answer over SSE (`source` / `token` / `done`); `/study` keeps its contract and stays the recovery path |
+| **Estudar uma Obra** | `POST /study` | Live, for the paths where the chapter is known: **trilhas**, the daily passage, the source handoff and the related-items modal. Requires `book` + `item_number`. `POST /study/stream` returns the same answer over SSE (`source` / `token` / `done`); `/study` keeps its contract and stays the recovery path |
+| **Estudo livre** (digitar em Explorar) | `POST /chat` | Live. `_direct_item_chunks` resolves a named item and the response carries `studied_item`, which the frontend renders as the **Da Obra** block — free study keeps the source/AI separation while gaining the guards and the profile axes `/study` lacks. Item lookup is skipped for Evangelho, whose numbering repeats per chapter; that case belongs to `/study`, which is given the chapter |
 | **Tirar uma Dúvida** | `POST /chat` | Live. `POST /chat/stream` returns the same answer over SSE (`token` / `done`); `/chat` keeps its contract and stays the recovery path |
 | **Refletir sobre uma Situação** | ~~`POST /reflect`~~ | ⚠️ **Switched off.** Retrieval eval showed it answers lived suffering with reincarnation passages, unfixable by embedding-model swap. Code disconnected, not deleted; the route is commented out, so it 404s by absence rather than a deliberate 503. See [the design](docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md) |
 | **Abrir o Evangelho** | `GET /evangelho` | Live. Deterministic, no LLM (503 if the file can't be read) |

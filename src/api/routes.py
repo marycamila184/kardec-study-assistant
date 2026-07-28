@@ -266,6 +266,7 @@ def _chat_response(
         )
     return ChatResponse(
         answer=result["answer"],
+        studied_item=result.get("studied_item"),
         profile=_profile_state(profile) if profile else None,
         inline_refs=result.get("inline_refs", []),
         sources=[Source(**s) for s in result["sources"]],

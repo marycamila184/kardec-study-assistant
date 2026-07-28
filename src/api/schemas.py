@@ -55,8 +55,21 @@ class InlineRef(BaseModel):
     excerpt: str | None = None
 
 
+class StudiedItem(BaseModel):
+    """The passage a question named, when it named one. Rendered as the "Da
+    Obra" block — the source text visibly apart from the explanation, which is
+    the rule the study modes exist to make structural."""
+
+    book: str
+    chapter_title: str | None = None
+    chapter_ref: str | None = None
+    item_number: str | None = None
+    excerpt: str
+
+
 class ChatResponse(BaseModel):
     answer: str
+    studied_item: StudiedItem | None = None
     # The profile this answer was written with, for the client to carry into the
     # next turn. Echoed rather than assumed: a request that changed the shape
     # must be able to tell the client what it changed to.

@@ -788,3 +788,35 @@ def test_trimming_never_leaves_a_reply_without_its_question():
 
     assert kept, "some history should survive"
     assert kept[0]["role"] == "user"
+
+
+def test_chat_returns_the_studied_item_when_the_question_names_one():
+    """Free study runs through /chat now, and the 'Da Obra' block has to
+    survive: a source chip someone must click is not the same separation
+    between Kardec's words and the explanation."""
+    from unittest.mock import patch
+
+    result = {
+        **_ANSWER_RESULT,
+        "studied_item": {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Encarnação",
+            "chapter_ref": "CAPÍTULO II",
+            "item_number": "132",
+            "excerpt": "132. Qual o objetivo da encarnação dos Espíritos?",
+        },
+    }
+    with patch("src.api.routes.generate", return_value=result):
+        data = client.post("/chat", json={"question": "explique a questão 132"}).json()
+
+    assert data["studied_item"]["item_number"] == "132"
+    assert data["studied_item"]["excerpt"].startswith("132.")
+
+
+def test_chat_has_no_studied_item_for_a_general_question():
+    from unittest.mock import patch
+
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+        data = client.post("/chat", json={"question": "o que é a prece?"}).json()
+
+    assert data["studied_item"] is None

@@ -38,7 +38,7 @@ import {
   // production — the mode is disconnected, not deleted. See
   // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
   getEvangelho, getPaths, getPath,
-  BOOK_NAME_MAP, parseItemRef,
+  BOOK_NAME_MAP,
 } from './services/api';
 
 const QUICK_ACTIONS = [
@@ -574,20 +574,15 @@ export default function App() {
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
 
     const bookName = BOOK_NAME_MAP[obraId];
-    const { item_number, chapter } = parseItemRef(query);
-
-    const showPartial = (partial) => {
-      setExplorarLoad(false);
-      setExplorarMsgs([userMsg, { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...partial }]);
-    };
 
     let reply;
     try {
-      if (item_number && bookName) {
-        reply = await streamStudy(bookName, item_number, chapter, showPartial);
-      } else {
-        reply = await chatMessage(query, [], bookName || null);
-      }
+      // Free study runs through /chat: it resolves a named item directly and
+      // returns the passage, so the "Da Obra" block survives — and the answer
+      // gets the guards and the profile axes that /study does not have. The
+      // trilhas and the daily passage keep /study, where the chapter is known
+      // and the prompt is deliberately tighter.
+      reply = await chatMessage(query, [], bookName || null, null, profile);
     } catch (err) {
       console.error('handleAskTopic failed:', err);
       if (err.status === 404) {
@@ -622,7 +617,6 @@ export default function App() {
     setExplorarLoad(true);
 
     const bookName = BOOK_NAME_MAP[obraId];
-    const { item_number, chapter } = parseItemRef(query);
 
     // buildChatHistoryContent (not m.ia) so /study replies keep the studied
     // passage in history — see the grounding note above sendText.
@@ -634,18 +628,12 @@ export default function App() {
 
     let reply;
     try {
-      if (item_number && bookName) {
-        reply = await streamStudy(bookName, item_number, chapter, (partial) => {
-          setExplorarLoad(false);
-          setExplorarMsgs([...prevMsgs, userMsg,
-            { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...partial }]);
-        });
-      } else {
-        // 'estudar_obra' so the orchestrator does not nudge a reader who is
-        // already inside Estudar toward Estudar. Omitting it sends
-        // current_mode: undefined, which silently re-enables self-nudging.
-        reply = await chatMessage(query, history, bookName || null, 'estudar_obra');
-      }
+      // 'estudar_obra' so the orchestrator does not nudge a reader who is
+      // already inside Estudar toward Estudar. Omitting it sends
+      // current_mode: undefined, which silently re-enables self-nudging.
+      reply = await chatMessage(
+        query, history, bookName || null, 'estudar_obra', profile,
+      );
     } catch (err) {
       console.error('handleExplorarChat failed:', err);
       reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
