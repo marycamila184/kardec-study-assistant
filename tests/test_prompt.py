@@ -57,7 +57,7 @@ def test_system_prohibits_personifying_espiritismo():
 
 def test_system_forbids_closing_with_inline_question():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
-    assert "Não encerre o texto da resposta com uma pergunta" in system
+    assert "sem pergunta de encerramento" in system
 
 
 def test_system_forbids_repeating_asked_questions_in_seguir():
@@ -187,7 +187,7 @@ def test_the_prompt_forbids_announcing_but_allows_correcting():
     from src.rag.prompt import build_messages
 
     system, _ = build_messages("q", [], [])
-    assert "Não anuncie o que vai fazer" in system
+    assert "sem preâmbulo" in system
     assert "Corrigir-se é diferente" in system
 
 
@@ -211,9 +211,9 @@ def test_the_near_miss_rule_states_its_exception():
     from src.rag.prompt import build_messages
 
     system, _ = build_messages("q", [], [])
-    assert "não encontrou exatamente" in system
-    assert "PODE terminar" in system
-    assert "Não encerre o texto da resposta com uma pergunta" in system
+    assert "não encontrou exatamente aquilo" in system
+    assert "único caso em que a resposta pode terminar com uma pergunta" in system
+    assert "sem pergunta de encerramento" in system
 
 
 def test_the_prompts_come_from_their_files_and_ship_with_the_package():
@@ -227,7 +227,7 @@ def test_the_prompts_come_from_their_files_and_ship_with_the_package():
     from src.rag.prompt_files import _DIR, load
 
     assert (_DIR / "chat-system.md").exists()
-    assert load("chat-system").startswith("Você é um assistente de estudos")
+    assert load("chat-system").startswith("# Quem você é")
 
     with pytest.raises(FileNotFoundError):
         load("this-prompt-does-not-exist")

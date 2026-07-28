@@ -49,15 +49,24 @@ followed the first and the second did nothing at all. If a new rule carves out
 an exception, say so where the original rule is, in its own words — see how
 `near-miss.md` names the exception to "never end on a question".
 
+## Examples earn their length
+
+`chat-system.md` carries two worked examples — a normal answer and one where the
+passages do not cover the question. They were measured on 2026-07-28: with them,
+the prompt is 18% SHORTER than the version without them (1289 tokens against
+1563), because an example replaces several paragraphs of description, and the
+answers got shorter and better delimited too.
+
+That is the same lesson as the rest of this file from the other direction. A rule
+in prose is a request; an example is a demonstration, and this model follows what
+it is shown far more reliably than what it is told.
+
 ## The files
 
 | File | What it is |
 |---|---|
-| `chat-system.md` | The `/chat` system prompt. Holds the `{placeholders}` the others fill |
-| `chat-passage-marker.md` | The `[fonte N]` contract — parsed in code, so its SHAPE is load-bearing |
-| `chat-seguir.md` | The `[SEGUIR]` follow-up contract, and when to leave it empty |
-| `chat-no-self-reference.md` | Do not announce what you are about to do; correcting yourself is fine |
-| `chat-near-miss.md` | Nothing exact was found, but something close was — the one place an answer may end on a question |
+| `chat-system.md` | The `/chat` system prompt. Holds the `{placeholders}` the others fill, and carries the marker contract, the voice rules and two worked examples inline |
+| `chat-seguir.md` | The `[SEGUIR]` follow-up contract, and when to leave it empty. A SLOT rather than inline prose because `scripts/compare_generators.py` swaps this constant to A/B follow-up variants — inline it and that harness silently stops testing anything |
 | `chat-caveat.md` | The medical/mediumship caveat, added when `crisis.py` asks for it |
 | `chat-sensitive.md` | Gentler handling on the `abalo` tier — never lowered by anything |
 | `study-system.md` | The `/study` (Explicador) system prompt, JSON output |

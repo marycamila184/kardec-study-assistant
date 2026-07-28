@@ -96,7 +96,7 @@ def test_citation_precision_does_not_touch_the_prompt_at_all():
     full_prompt, _ = build_messages("q", [], [], profile=full)
 
     assert short_prompt == full_prompt
-    assert "Não escreva a REFERÊNCIA" in short_prompt
+    assert "Não escreva referências bibliográficas" in short_prompt
 
 
 def test_a_profile_is_immutable():

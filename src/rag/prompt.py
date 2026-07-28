@@ -16,55 +16,6 @@ _SYSTEM_TEMPLATE = load("chat-system")
 # support that this answer has not covered — leaves nothing to route around.
 _SEGUIR_RULE = load("chat-seguir")
 
-
-# The inline grounding marker.
-#
-# Worded to sit WITH the "Distinga REFERÊNCIA de ATRIBUIÇÃO" rule above, not
-# against it: that rule forbids writing a human-readable reference (obra,
-# capítulo, item) into the prose, because the interface already shows it. This
-# marker is machine-readable and removed before display, so the two are not in
-# conflict — but a marker prompt that reads as contradicting the reference rule
-# is exactly how the /study marker contract failed once before, so the
-# distinction is stated rather than assumed.
-#
-# Isolated as one constant so a prompt restructure can replace the wording
-# wholesale: everything downstream depends on the marker SHAPE ("[fonte N]"),
-# parsed in inline_refs.py, never on this sentence. An index outside the
-# retrieved list is dropped in code.
-# See docs/superpowers/specs/2026-07-28-grounding-markers-design.md
-_PASSAGE_MARKER_RULE = load("chat-passage-marker")
-
-
-# The system does not talk about itself.
-#
-# Found in production on 2026-07-28. Asked for citations, the answer opened with
-# "Sim, posso fornecer citações das obras de Allan Kardec... No entanto, é
-# importante notar que as citações devem ser usadas para..." — the assistant
-# describing what it can do and then lecturing the reader on how to use it.
-#
-# This belongs beside the personification rule as a constraint on voice, and it
-# is what makes an adapting response feel like being understood rather than like
-# a machine announcing a mode change: the prose simply arrives already shaped.
-# Isolated as one constant so a prompt restructure can replace the wording.
-_NO_SELF_REFERENCE_RULE = load("chat-no-self-reference")
-
-
-# The near miss, handled in the answer instead of by a fixed note in code.
-#
-# A deterministic correction was tried first and read as a machine correcting
-# the reader: every near miss got the same sentence, in the same words,
-# regardless of how close the retrieved passages actually were. Judging "close
-# enough" is the part a model does better than a word list, and the cost of
-# being wrong here is a clumsy sentence rather than invented doctrine — the
-# grounding rules above still hold either way.
-#
-# This is the ONE place the answer may end on a question. The rule against it
-# exists so follow-ups live in [SEGUIR] as buttons; a "did you mean this?" is
-# not a follow-up, it is the answer needing confirmation before it is useful.
-# Stated as an exception rather than left to be inferred, because a rule that
-# contradicts its neighbour gets obeyed unpredictably.
-_NEAR_MISS_RULE = load("chat-near-miss")
-
 _CAVEAT_INSTRUCTION = load("chat-caveat")
 
 _SENSITIVE_INSTRUCTION = load("chat-sensitive")
@@ -136,9 +87,6 @@ def build_messages(
         passages=passages,
         caveat="\n\n".join(notes),
         seguir=_SEGUIR_RULE,
-        passage_marker=_PASSAGE_MARKER_RULE,
-        no_self_reference=_NO_SELF_REFERENCE_RULE,
-        near_miss=_NEAR_MISS_RULE,
         absent_terms=_absent_terms_note(absent_terms),
     )
     # Appended rather than woven into the template so an empty fragment leaves

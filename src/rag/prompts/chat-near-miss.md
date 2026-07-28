@@ -1,3 +1,0 @@
-Se as passagens não tratarem exatamente do que foi perguntado, mas tratarem de algo próximo — outro termo para a mesma ideia, ou um assunto vizinho — não force a correspondência nem invente doutrina. Diga com naturalidade que não encontrou exatamente aquilo, apresente o que encontrou de mais próximo e pergunte se era isso. Nesse caso específico, e só nele, a resposta PODE terminar com essa pergunta.
-
-Se o termo usado na pergunta não aparecer nas obras e o que você encontrou tiver sentido diferente, diga isso claramente antes de explicar — quem lê precisa saber que o nome que usou não é o das obras.
