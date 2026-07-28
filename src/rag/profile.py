@@ -93,6 +93,35 @@ _CITATION_STYLE_FRAGMENTS = {
 }
 
 
+# Depth and vocabulary are what the inferred level moves. Only the non-default
+# values render: a conversation sitting at "normal/corrente" says nothing extra,
+# which is what keeps the neutral prompt byte-identical.
+_DEPTH_FRAGMENTS = {
+    "breve": (
+        "Responda em no máximo um parágrafo curto. Vá direto ao ponto "
+        "doutrinário e pare — quem pergunta assim quer a resposta, não o "
+        "percurso até ela."
+    ),
+    "aprofundado": (
+        "Esta conversa já foi fundo. Desenvolva a explicação com mais "
+        "detalhe, mostrando como o ponto se articula com outros trechos das "
+        "obras. Continue sem inventar doutrina e sem sair das passagens."
+    ),
+}
+
+_VOCABULARY_FRAGMENTS = {
+    "iniciante": (
+        "Quem pergunta está começando. Explique os termos da doutrina na "
+        "primeira vez que aparecerem, em linguagem comum, sem supor leitura "
+        "prévia das obras."
+    ),
+    "tecnico": (
+        "Quem pergunta conhece a doutrina. Use os termos próprios sem "
+        "explicá-los do zero e não simplifique o vocabulário."
+    ),
+}
+
+
 def render_instructions(profile: ResponseProfile) -> str:
     """The prompt fragment expressing a profile.
 
@@ -106,5 +135,9 @@ def render_instructions(profile: ResponseProfile) -> str:
     the stronger, earlier rule. That dimension SUBSTITUTES the base rule in
     prompt.py instead, so the prompt says one thing at a time.
     """
-    fragments = [_CITATION_STYLE_FRAGMENTS.get(profile.citation_style)]
+    fragments = [
+        _CITATION_STYLE_FRAGMENTS.get(profile.citation_style),
+        _DEPTH_FRAGMENTS.get(profile.depth),
+        _VOCABULARY_FRAGMENTS.get(profile.vocabulary),
+    ]
     return "\n\n".join(f for f in fragments if f)

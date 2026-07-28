@@ -98,6 +98,8 @@ def _resolve_profile(question: str, state: ProfileState | None) -> ResponseProfi
         incoming = ResponseProfile(
             citation_style=state.citation_style,
             citation_precision=state.citation_precision,
+            depth=state.depth,
+            vocabulary=state.vocabulary,
             sections=CHAT_DEFAULT.sections,
             pinned=frozenset(state.pinned),
         )
@@ -117,6 +119,8 @@ def _profile_state(profile: ResponseProfile) -> ProfileState:
     return ProfileState(
         citation_style=profile.citation_style,
         citation_precision=profile.citation_precision,
+        depth=profile.depth,
+        vocabulary=profile.vocabulary,
         pinned=sorted(profile.pinned),
     )
 

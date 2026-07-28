@@ -53,9 +53,20 @@ def test_render_instructions_is_empty_for_both_presets():
 
 def test_a_dimension_at_its_default_renders_nothing():
     """The base prompt already says what the default means; a second,
-    differently-worded copy of a rule the model already has is a liability."""
-    quiet = ResponseProfile(depth="aprofundado", vocabulary="tecnico")
+    differently-worded copy of a rule the model already has is a liability.
+
+    Written with the actual defaults: the earlier version used non-default depth
+    and vocabulary and passed only because neither rendered anything yet.
+    """
+    quiet = ResponseProfile(depth="normal", vocabulary="corrente")
     assert render_instructions(quiet) == ""
+
+
+def test_each_dimension_renders_only_its_own_instruction():
+    assert "parágrafo curto" in render_instructions(ResponseProfile(depth="breve"))
+    assert "parágrafo curto" not in render_instructions(
+        ResponseProfile(vocabulary="iniciante")
+    )
 
 
 def test_leaving_the_default_renders_an_instruction():

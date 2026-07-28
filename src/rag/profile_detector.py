@@ -48,11 +48,16 @@ _SYSTEM_PROMPT = (
     '- "referencia": "full" quando pedirem a referência completa (obra, '
     'capítulo e item), ex.: "com a referência completa", "preciso citar em '
     'aula"; "short" quando pedirem referência curta.\n\n'
-    "Uma pergunta comum sobre a doutrina não pede nada disso: responda {}.\n"
-    'Exemplos: "o que é o perispírito?" -> {}. '
-    '"traga as citações" -> {"citacao": "inline"}. '
-    '"pode me dar a referência completa pra usar na aula?" -> '
-    '{"citacao": "inline", "referencia": "full"}.'
+    '- "nivel": "leve" quando a mensagem for simples, curta ou de quem está '
+    'começando; "denso" quando for elaborada, técnica, ou usar termos da '
+    'doutrina com familiaridade; "medio" no caso comum. Sempre responda este '
+    "campo.\n\n"
+    "Uma pergunta comum sobre a doutrina não pede os dois primeiros: responda "
+    'apenas {"nivel": "medio"}.\n'
+    'Exemplos: "o que é o perispírito?" -> {"nivel": "medio"}. '
+    '"traga as citações" -> {"citacao": "inline", "nivel": "medio"}. '
+    '"o que acontece quando a gente morre?" -> {"nivel": "leve"}. '
+    '"como a lei de afinidade opera na erraticidade?" -> {"nivel": "denso"}.'
 )
 
 _JSON_RE = re.compile(r"\{.*\}", re.DOTALL)
@@ -85,7 +90,11 @@ def detect_profile_changes(message: str, profile: ResponseProfile) -> ResponsePr
         logger.exception("detect_profile_changes failed; profile unchanged")
         return profile
 
-    return apply_changes(profile, asked)
+    updated = apply_changes(profile, asked)
+    level = _LEVEL_NAMES.get(asked.get("nivel"))
+    if level is not None:
+        updated = apply_level(updated, level)
+    return updated
 
 
 def apply_changes(profile: ResponseProfile, asked: dict) -> ResponseProfile:
@@ -108,3 +117,64 @@ def apply_changes(profile: ResponseProfile, asked: dict) -> ResponseProfile:
 
     logger.info("profile changed by request: %s", sorted(changes))
     return dataclasses.replace(profile, **changes, pinned=frozenset(pinned))
+
+
+# The inferred level, and the only thing the classifier estimates on its own.
+#
+# One reading — how dense this conversation has become — fills two dimensions at
+# once with values that cohere. Inferring depth and vocabulary independently
+# would be two chances to be wrong and a combination nobody chose: "aprofundado
+# + iniciante" is not a reader, it is a contradiction.
+_LEVELS = (
+    ("breve", "iniciante"),
+    ("normal", "corrente"),
+    ("aprofundado", "tecnico"),
+)
+_NEUTRAL_LEVEL = 1
+
+_LEVEL_NAMES = {"leve": 0, "medio": 1, "denso": 2}
+
+
+def current_level(profile: ResponseProfile) -> int:
+    """Where the profile sits today, read back from its dimensions.
+
+    Derived rather than stored: a `level` field could disagree with the depth
+    and vocabulary it is supposed to describe, and then two things would claim
+    to be the truth.
+    """
+    pair = (profile.depth, profile.vocabulary)
+    for index, values in enumerate(_LEVELS):
+        if pair == values:
+            return index
+    return _NEUTRAL_LEVEL
+
+
+def apply_level(profile: ResponseProfile, target: int) -> ResponseProfile:
+    """Moves the profile ONE step toward `target`, never further.
+
+    One step at a time is what makes the change unnoticeable, which is the whole
+    requirement: a jump from neutral to technical between two turns is exactly
+    the seam this is meant not to have. It also means a single odd message
+    cannot reshape a conversation — it takes a consistent direction to travel.
+
+    A pinned dimension does not move. The reader asked for it, and an inference
+    is not an argument against a request.
+    """
+    target = max(0, min(len(_LEVELS) - 1, target))
+    now = current_level(profile)
+    if target == now:
+        return profile
+
+    step = now + (1 if target > now else -1)
+    depth, vocabulary = _LEVELS[step]
+
+    changes = {}
+    if "depth" not in profile.pinned:
+        changes["depth"] = depth
+    if "vocabulary" not in profile.pinned:
+        changes["vocabulary"] = vocabulary
+    if not changes:
+        return profile
+
+    logger.info("profile level %d -> %d", now, step)
+    return dataclasses.replace(profile, **changes)

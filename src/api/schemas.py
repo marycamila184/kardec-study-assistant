@@ -29,6 +29,8 @@ class ProfileState(BaseModel):
 
     citation_style: str = "chips"  # none | chips | inline
     citation_precision: str = "short"  # short | full
+    depth: str = "normal"  # breve | normal | aprofundado
+    vocabulary: str = "corrente"  # iniciante | corrente | tecnico
     pinned: list[str] = []
 
 
