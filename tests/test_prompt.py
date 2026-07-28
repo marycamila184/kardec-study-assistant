@@ -119,12 +119,22 @@ _PROMPT_CHUNK = {
 
 def test_build_messages_sensitive_adds_gentle_instruction():
     system, _ = build_messages("estou mal", [_PROMPT_CHUNK], [], sensitive=True)
-    assert "acolhimento" in system
+    assert "abalo emocional" in system
+    assert "acolher vem primeiro" in system
+
+
+def test_the_abalo_text_declares_precedence_over_the_voice_rule():
+    """It tells the model to acknowledge feeling BEFORE doctrine, while the
+    voice rule says to start on substance. Left implicit, that contradiction
+    gets resolved unpredictably — measured on 2026-07-28, when a rule
+    contradicting an earlier one produced no effect at all."""
+    system, _ = build_messages("estou mal", [_PROMPT_CHUNK], [], sensitive=True)
+    assert "exceção à regra de começar pela substância" in system
 
 
 def test_build_messages_not_sensitive_omits_gentle_instruction():
     system, _ = build_messages("o que é X?", [_PROMPT_CHUNK], [], sensitive=False)
-    assert "acolhimento" not in system
+    assert "abalo emocional" not in system
 
 
 def test_the_passage_header_carries_the_canonical_reference():

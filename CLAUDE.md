@@ -13,6 +13,7 @@ This file is the orientation + the rules. Everything else lives in `docs/`:
 | Onde | O quê | Quando ler |
 |---|---|---|
 | [docs/architecture.md](docs/architecture.md) | Referência profunda: formas de saída por agente, internos do parsing, schemas, as duas vias de provedor, limiares calibrados | Ao mexer numa camada específica |
+| [src/rag/prompts/](src/rag/prompts/README.md) | **Os prompts**, um arquivo `.md` por peça, carregados em tempo de execução. O README de lá diz o que pode virar regra de prompt e o que tem de ser código | Ao ajustar tom, formato ou o que o modelo deve dizer |
 | [docs/superpowers/specs/README.md](docs/superpowers/specs/README.md) | **Índice das 42 specs** por assunto, marcando as superadas e as declinadas | Antes de refazer uma decisão — para saber se ela já foi tomada, e por quê |
 | [docs/superpowers/plans/](docs/superpowers/plans/) | Planos de implementação, um por lote de trabalho | Ao executar um plano existente |
 | [docs/deploy.md](docs/deploy.md) | Comandos e restrições de deploy (Cloud Run + Vercel) | Ao publicar |
@@ -62,6 +63,7 @@ PDFs → (LlamaCloud) → data/markdown_files/*.md
 
 - **`src/parsing/`** — cleans LlamaCloud artifacts and parses Markdown into structured chunks. Numbered items (`123. text`) are the primary unit.
 - **`src/ingestion/`** — embeds and indexes into ChromaDB. `encode()` in `embeddings.py` is the single seam every embedding passes through, dispatching on `EMBEDDING_PROVIDER` between the in-process model (dev) and **the same model** over HTTP (production). **Do not hoist the `sentence_transformers` import out of `_get_model()`** — that pulls torch into the container image and undoes the 4.7 GB the hosted lane exists to save.
+- **`src/rag/prompts/*.md`** — every prompt, loaded at runtime by `prompt_files.load()`. Edit the file, restart the API; there is no second copy in the Python. `crisis.py` is deliberately NOT here — that text is decided in code before any model call.
 - **`src/rag/`** — one prompt file + one pipeline file per mode. Agents: **Explicador** (`/study`), **Reflexivo** (intact but **not routed**), **Curador**, **Generator** (`/chat`), **Orchestrator** (mode-nudge classifier). Shared: `retriever.py`, `mode_detector.py`, `query_condenser.py`, `evangelho.py`, `stream_buffer.py`, `json_stream.py`, `crisis.py` (see Rules below).
 - **`src/api/`** — FastAPI routes (`routes.py`), pydantic schemas (`schemas.py`). Stateless: clients own conversation history; `/chat` accepts it but nothing is stored.
 
