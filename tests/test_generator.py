@@ -1016,12 +1016,16 @@ def test_an_answer_quoting_the_retrieved_text_is_untouched(
     assert result["not_found"] is False
 
 
-def test_an_absent_premise_is_corrected_before_the_answer(
+def test_an_absent_premise_is_left_to_the_answer_not_prepended(
     monkeypatch, mock_client, mock_retrieve
 ):
-    """Reported from real use: 'isso influencia o meu ectoplasma' got a
-    confident doctrinal answer. The correction comes first — after it, the
-    explanation would read as confirming the premise."""
+    """A fixed note in code was tried first and read as a machine correcting the
+    reader: the same sentence, in the same words, however close the passages
+    actually were. Judging "close enough" is the part a model does better, and
+    the cost of being wrong is a clumsy sentence rather than invented doctrine.
+
+    Detection stays as measurement — the log still records it.
+    """
     monkeypatch.setattr(
         "src.rag.generator.prose_completion",
         lambda s, m, **kw: "Uma explicação qualquer.[FONTES: 1][SEGUIR:]",
@@ -1031,14 +1035,5 @@ def test_an_absent_premise_is_corrected_before_the_answer(
     )
     result = generate("isso influencia o meu ectoplasma?", [])
 
-    assert result["answer"].startswith("As obras de Allan Kardec não usam")
-    assert "Uma explicação qualquer." in result["answer"]
-
-
-def test_an_ordinary_question_gets_no_note(monkeypatch, mock_client, mock_retrieve):
-    monkeypatch.setattr(
-        "src.rag.generator.prose_completion",
-        lambda s, m, **kw: "Uma explicação qualquer.[FONTES: 1][SEGUIR:]",
-    )
-    result = generate("o que é a encarnação?", [])
-    assert not result["answer"].startswith("As obras de Allan Kardec não usam")
+    assert result["answer"].startswith("Uma explicação qualquer.")
+    assert "As obras de Allan Kardec não usam" not in result["answer"]

@@ -227,6 +227,19 @@ def corpus_vocabulary() -> str:
     return _vocabulary
 
 
+def _build_index(vocabulary: str) -> dict[str, set[str]]:
+    index: dict[str, set[str]] = {}
+    # The stopwords go in alongside the corpus. They are the words a reader
+    # uses to ASK, which the works have no reason to contain — so a typo of
+    # one has nothing in Kardec to be matched against. "exlique" is one edit
+    # from "explique" and zero edits from nothing at all, which is exactly
+    # how it reached production as a flagged premise.
+    for word in set(_WORD.findall(vocabulary)) | _STOPWORDS:
+        if len(word) >= 2:
+            index.setdefault(word[:2], set()).add(word)
+    return index
+
+
 def _prefix_index() -> dict[str, set[str]]:
     """Corpus words grouped by their first two letters.
 
@@ -237,16 +250,7 @@ def _prefix_index() -> dict[str, set[str]]:
     """
     global _words_by_prefix
     if _words_by_prefix is None:
-        index: dict[str, set[str]] = {}
-        # The stopwords go in alongside the corpus. They are the words a reader
-        # uses to ASK, which the works have no reason to contain — so a typo of
-        # one has nothing in Kardec to be matched against. "exlique" is one edit
-        # from "explique" and zero edits from nothing at all, which is exactly
-        # how it reached production as a flagged premise.
-        for word in set(_WORD.findall(corpus_vocabulary())) | _STOPWORDS:
-            if len(word) >= 2:
-                index.setdefault(word[:2], set()).add(word)
-        _words_by_prefix = index
+        _words_by_prefix = _build_index(corpus_vocabulary())
     return _words_by_prefix
 
 
@@ -269,7 +273,7 @@ def _within(a: str, b: str, limit: int) -> bool:
     return previous[-1] <= limit
 
 
-def looks_like_a_typo(term: str) -> bool:
+def looks_like_a_typo(term: str, index: dict[str, set[str]] | None = None) -> bool:
     """Whether some word in the works is a plausible correction of `term`.
 
     One edit, not two. Two was tried and it swallowed real findings: "chakras"
@@ -278,9 +282,10 @@ def looks_like_a_typo(term: str) -> bool:
     what people actually mistype — "exlique" for "explique", "espeiritos" for
     "espíritos" — because a slip is usually a single key.
     """
+    index = _prefix_index() if index is None else index
     return any(
         _within(term, candidate, _MAX_TYPO_DISTANCE)
-        for candidate in _prefix_index().get(term[:2], ())
+        for candidate in index.get(term[:2], ())
     )
 
 
@@ -307,13 +312,19 @@ def unsupported_terms(
     if not question or not chunks:
         return []
 
-    vocabulary = corpus_vocabulary() if vocabulary is None else vocabulary
+    # The typo index is built from the SAME vocabulary, so an injected one is
+    # honoured end to end. They used to disagree: the caller could pass a
+    # stand-in corpus and still be measured against the real books.
+    if vocabulary is None:
+        vocabulary, index = corpus_vocabulary(), _prefix_index()
+    else:
+        index = _build_index(vocabulary)
     if not vocabulary:
         return []
     return [
         t
         for t in _terms(question)
-        if t[:6] not in vocabulary and not looks_like_a_typo(t)
+        if t[:6] not in vocabulary and not looks_like_a_typo(t, index)
     ]
 
 

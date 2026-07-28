@@ -58,6 +58,8 @@ Termine a resposta na substância.
 
 {no_self_reference}
 
+{near_miss}
+
 Ao final da resposta, acrescente duas linhas técnicas (ambas são removidas \
 automaticamente antes de o usuário ver a resposta — nunca as mencione no texto):
 1. [FONTES: ...] com os números das passagens que você realmente usou para \
@@ -146,6 +148,32 @@ quem lê sobre como usar o que você entregou. Comece pela substância: se pedir
 citações, a resposta começa na primeira citação."""
 
 
+# The near miss, handled in the answer instead of by a fixed note in code.
+#
+# A deterministic correction was tried first and read as a machine correcting
+# the reader: every near miss got the same sentence, in the same words,
+# regardless of how close the retrieved passages actually were. Judging "close
+# enough" is the part a model does better than a word list, and the cost of
+# being wrong here is a clumsy sentence rather than invented doctrine — the
+# grounding rules above still hold either way.
+#
+# This is the ONE place the answer may end on a question. The rule against it
+# exists so follow-ups live in [SEGUIR] as buttons; a "did you mean this?" is
+# not a follow-up, it is the answer needing confirmation before it is useful.
+# Stated as an exception rather than left to be inferred, because a rule that
+# contradicts its neighbour gets obeyed unpredictably.
+_NEAR_MISS_RULE = """\
+Se as passagens não tratarem exatamente do que foi perguntado, mas tratarem de \
+algo próximo — outro termo para a mesma ideia, ou um assunto vizinho — não \
+force a correspondência nem invente doutrina. Diga com naturalidade que não \
+encontrou exatamente aquilo, apresente o que encontrou de mais próximo e \
+pergunte se era isso. Nesse caso específico, e só nele, a resposta PODE \
+terminar com essa pergunta.
+
+Se o termo usado na pergunta não aparecer nas obras e o que você encontrou \
+tiver sentido diferente, diga isso claramente antes de explicar — quem lê \
+precisa saber que o nome que usou não é o das obras."""
+
 _CAVEAT_INSTRUCTION = """\
 Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
 clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \
@@ -204,6 +232,7 @@ def build_messages(
         seguir=_SEGUIR_RULE,
         passage_marker=_PASSAGE_MARKER_RULE,
         no_self_reference=_NO_SELF_REFERENCE_RULE,
+        near_miss=_NEAR_MISS_RULE,
     )
     # Appended rather than woven into the template so an empty fragment leaves
     # the prompt byte-identical. The sensitivity and caveat instructions above

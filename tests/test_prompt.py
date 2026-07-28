@@ -177,3 +177,17 @@ def test_the_prompt_forbids_the_model_talking_about_itself():
 
     system, _ = build_messages("q", [], [])
     assert "Nunca fale de si mesmo" in system
+
+
+def test_the_near_miss_rule_states_its_exception():
+    """A 'did you mean this?' is the one place the answer may end on a question.
+    Left implicit it would contradict the rule that follow-ups live in [SEGUIR],
+    and a rule contradicting its neighbour gets obeyed unpredictably — measured
+    on 2026-07-28, when citation_precision produced nothing at all for exactly
+    that reason."""
+    from src.rag.prompt import build_messages
+
+    system, _ = build_messages("q", [], [])
+    assert "não encontrou exatamente" in system
+    assert "PODE terminar" in system
+    assert "Não encerre o texto da resposta com uma pergunta" in system
