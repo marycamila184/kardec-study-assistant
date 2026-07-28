@@ -112,3 +112,68 @@ def _has_anchor(words: list[str], haystack: str) -> bool:
         if " ".join(words[i : i + MIN_QUOTED_WORDS]) in haystack:
             return True
     return False
+
+
+class StreamingQuoteGuard:
+    """Holds quoted text back until it can be checked against the corpus.
+
+    Found in production on 2026-07-28: the guard ran at the end of generation,
+    so a fabricated quotation streamed onto the screen in full and was only
+    replaced when `done` arrived. The reader watched invented doctrine being
+    written and then saw it vanish. A guard whose whole purpose is that
+    fabricated doctrine is never shown was showing it and taking it back.
+
+    So the check moves into the stream. Prose flows normally; the moment a
+    quotation opens, everything from the opening mark is held. When it closes,
+    the span is verified: supported, it is released whole; unsupported, the
+    caller is told to abandon the answer before a word of it was seen.
+
+    The cost is that quoted text arrives in one piece rather than word by word.
+    That is the right trade: a quotation is the part a reader is most likely to
+    copy, and it is the part that must not be wrong.
+    """
+
+    _OPENING = '"“«'
+    _CLOSING = '"”»'
+
+    def __init__(self, chunks: list[dict]) -> None:
+        self._haystack = " ".join(_normalise(c.get("content", "")) for c in chunks)
+        self._held = ""
+        self.violated = False
+        self.offending: str | None = None
+
+    def feed(self, chunk: str) -> str:
+        """Returns the text safe to show now. Check `violated` after each call:
+        once it is set nothing further may be emitted."""
+        out = []
+        for char in chunk:
+            if self._held:
+                self._held += char
+                if char in self._CLOSING and len(self._held) > 1:
+                    released = self._close()
+                    if self.violated:
+                        return "".join(out)
+                    out.append(released)
+                continue
+            if char in self._OPENING:
+                self._held = char
+                continue
+            out.append(char)
+        return "".join(out)
+
+    def _close(self) -> str:
+        span = self._held
+        self._held = ""
+        inner = span[1:-1]
+        words = _words(inner)
+        if len(words) >= MIN_QUOTED_WORDS and not _has_anchor(words, self._haystack):
+            self.violated = True
+            self.offending = inner.strip()
+            return ""
+        return span
+
+    def flush(self) -> str:
+        """A quotation that never closed was prose after all — withholding it
+        would silently truncate the answer."""
+        held, self._held = self._held, ""
+        return held

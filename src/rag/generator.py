@@ -34,7 +34,7 @@ from src.rag.profile import CHAT_DEFAULT, ResponseProfile
 from src.rag.prompt import build_messages
 from src.rag.prose import prose_completion, prose_completion_stream
 from src.rag.query_condenser import blend_anchor, condense_query
-from src.rag.quote_check import find_unsupported_quotes
+from src.rag.quote_check import StreamingQuoteGuard, find_unsupported_quotes
 from src.rag.retriever import (
     EVANGELHO_BOOK,
     append_chapter_commentary,
@@ -500,17 +500,32 @@ def generate_stream(
     # because a trailer is terminal by contract, and inline markers sit in the
     # middle of prose. Composed after it so the trailer is handled first.
     markers = InlineMarkerFilter("fonte")
+    # Quoted text is held until it can be checked. Without this the guard in
+    # _postprocess only fires after every token has been displayed, so a
+    # fabricated quotation is read and then retracted — which is the one thing
+    # the guard exists to prevent (found in production 2026-07-28).
+    quotes = StreamingQuoteGuard(ctx["chunks"])
     pieces: list[str] = []
     generation_failed = False
     try:
         for piece in prose_completion_stream(ctx["system"], ctx["messages"]):
             pieces.append(piece)
-            safe = markers.feed(buffer.feed(piece))
+            safe = quotes.feed(markers.feed(buffer.feed(piece)))
+            if quotes.violated:
+                # Stop reading the model out loud. _postprocess reaches the same
+                # verdict on the complete text and builds the not-found answer,
+                # so the two lanes still agree.
+                logger.warning(
+                    "fabricated quotation mid-stream, answer abandoned: %s",
+                    quotes.offending,
+                )
+                break
             if safe:
                 yield "token", safe
-        tail = markers.flush()
-        if tail:
-            yield "token", tail
+        if not quotes.violated:
+            tail = quotes.feed(markers.flush()) + quotes.flush()
+            if tail:
+                yield "token", tail
     except Exception:
         # Mid-stream failure: whatever is on screen gets replaced by the
         # `done` payload below, so the reader is never left with half an answer.

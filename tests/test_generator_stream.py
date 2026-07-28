@@ -11,7 +11,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.rag.generator import generate, generate_stream
+from src.rag.generator import NOT_FOUND_MESSAGE, generate, generate_stream
 
 _CHUNKS = [
     {
@@ -171,3 +171,40 @@ def test_a_marker_outside_the_retrieved_list_is_dropped(monkeypatch):
 
     assert done[0]["inline_refs"] == []
     assert "9" not in done[0]["answer"]
+
+
+def test_a_fabricated_quotation_is_never_streamed_to_the_screen(monkeypatch):
+    """Production 2026-07-28: the reader watched invented doctrine being written
+    and then saw it replaced by the not-found message. Nothing of it may reach
+    the screen at all."""
+    answer = (
+        "A aura reflete o estado espiritual. "
+        'Kardec escreve que "a aura é o espelho luminoso do estado do ser". '
+        "Isso mostra que ela importa.[FONTES:][SEGUIR:]"
+    )
+
+    def _fake(system, messages, max_tokens=1024):
+        for i in range(0, len(answer), 6):
+            yield answer[i : i + 6]
+
+    monkeypatch.setattr("src.rag.generator.prose_completion_stream", _fake)
+    tokens, done = _collect(list(generate_stream("o que é a aura?", [])))
+
+    streamed = "".join(tokens)
+    assert "espelho luminoso" not in streamed
+    assert done[0]["not_found"] is True
+    assert done[0]["answer"] == NOT_FOUND_MESSAGE
+
+
+def test_a_grounded_quotation_still_streams(monkeypatch):
+    quoted = _CHUNKS[0]["content"]
+    answer = f'Kardec escreve que "{quoted}" e segue.[FONTES: 1][SEGUIR:]'
+
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion_stream",
+        lambda s, m, max_tokens=1024: iter([answer]),
+    )
+    tokens, done = _collect(list(generate_stream("o que é a encarnação?", [])))
+
+    assert quoted in "".join(tokens)
+    assert done[0]["not_found"] is False
