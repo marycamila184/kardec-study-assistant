@@ -8,7 +8,15 @@ Guidance for Claude Code working in this repo. These instructions override defau
 
 **The core rule that governs everything:** responses must be **strictly retrieval-grounded** (hallucinated doctrine is unacceptable) and must **visibly separate what comes from the source text from what comes from the AI**. Every prompt and pipeline in `src/rag/` exists to enforce this.
 
-This file is the orientation + the rules. Implementation detail — per-agent output shapes, parsing internals, schemas, provider lanes, calibrated thresholds — lives in [docs/architecture.md](docs/architecture.md); read it when you touch a specific layer. Past decisions and their reasoning are indexed in [docs/superpowers/specs/README.md](docs/superpowers/specs/README.md).
+This file is the orientation + the rules. Everything else lives in `docs/`:
+
+| Onde | O quê | Quando ler |
+|---|---|---|
+| [docs/architecture.md](docs/architecture.md) | Referência profunda: formas de saída por agente, internos do parsing, schemas, as duas vias de provedor, limiares calibrados | Ao mexer numa camada específica |
+| [docs/superpowers/specs/README.md](docs/superpowers/specs/README.md) | **Índice das 38 specs** por assunto, marcando as superadas e as declinadas | Antes de refazer uma decisão — para saber se ela já foi tomada, e por quê |
+| [docs/superpowers/plans/](docs/superpowers/plans/) | Planos de implementação, um por lote de trabalho | Ao executar um plano existente |
+| [docs/deploy.md](docs/deploy.md) | Comandos e restrições de deploy (Cloud Run + Vercel) | Ao publicar |
+| [docs/superpowers/2026-07-25-handoff.md](docs/superpowers/2026-07-25-handoff.md) | Handoff de estado do projeto | Ao retomar o contexto de longe |
 
 ### Modes and endpoints
 
