@@ -51,17 +51,20 @@ def test_render_instructions_is_empty_for_both_presets():
     assert render_instructions(STUDY_DEFAULT) == ""
 
 
-def test_render_instructions_is_empty_for_any_profile_today():
-    """Step 1 is inert for every value, not only the presets — the dimensions
-    exist as fields before they do anything."""
-    loud = ResponseProfile(
-        citation_style="inline",
-        depth="aprofundado",
-        vocabulary="tecnico",
-        answer_format="topicos",
-        extra="cite tudo",
-    )
-    assert render_instructions(loud) == ""
+def test_a_dimension_at_its_default_renders_nothing():
+    """The base prompt already says what the default means; a second,
+    differently-worded copy of a rule the model already has is a liability."""
+    quiet = ResponseProfile(depth="aprofundado", vocabulary="tecnico")
+    assert render_instructions(quiet) == ""
+
+
+def test_leaving_the_default_renders_an_instruction():
+    """Step 3 makes the seam do work. Step 1's guarantee survives as the
+    narrower one above: unchanged dimensions still add nothing."""
+    loud = ResponseProfile(citation_style="inline", citation_precision="full")
+    rendered = render_instructions(loud)
+    assert "[fonte N]" in rendered
+    assert "referência completa" in rendered
 
 
 def test_a_profile_is_immutable():

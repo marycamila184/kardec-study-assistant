@@ -51,6 +51,12 @@ class ResponseProfile:
     # surface, and "ignore as fontes" must not work.
     extra: str = ""
 
+    # Dimensions the reader asked for explicitly. They stop following anything
+    # inferred later, so a conversation that lightens does not quietly take back
+    # citations someone asked for. The system never un-pins; only another
+    # explicit request changes a pinned dimension.
+    pinned: frozenset = frozenset()
+
 
 EXTRA_MAX_CHARS = 500
 
@@ -66,16 +72,51 @@ STUDY_DEFAULT = ResponseProfile(
 )
 
 
+# One fragment per non-default value. A dimension sitting at its default
+# renders nothing, because the base prompt already says what the default means —
+# repeating it would only give the model a second, differently-worded copy of a
+# rule it already has.
+_CITATION_STYLE_FRAGMENTS = {
+    "inline": (
+        "Esta pessoa pediu as citações dentro do texto. Traga os trechos "
+        "entre aspas ao longo da explicação, cada um seguido do marcador "
+        "[fonte N] da passagem correspondente. A regra de não escrever "
+        "referências em prosa continua valendo: quem exibe obra, capítulo e "
+        "item é a interface, não você."
+    ),
+    "none": (
+        "Esta pessoa pediu uma resposta sem citações. Explique com suas "
+        "palavras, sem trechos entre aspas. Continue marcando o que vem do "
+        "texto ('Kardec escreve que...') e continue escrevendo a linha "
+        "[FONTES:] normalmente."
+    ),
+}
+
+_CITATION_PRECISION_FRAGMENTS = {
+    "full": (
+        "Ao citar, escreva a referência completa como ela aparece no cabeçalho "
+        "da passagem — obra, capítulo e item, exatamente nessa forma. Esta "
+        "pessoa vai usar a citação fora daqui, onde a interface não existe "
+        "para mostrar a fonte ao lado."
+    ),
+}
+
+
 def render_instructions(profile: ResponseProfile) -> str:
     """The prompt fragment expressing a profile.
 
-    Returns "" for every profile today, on purpose. The existing prompts already
-    say what the neutral defaults mean, so an empty fragment reproduces them
-    character for character — which is what makes this step provable: the seam
-    is either completely inert or obviously broken, with nothing in between.
+    Empty for the presets, which is what keeps the seam provable: the assembled
+    prompt is byte-identical to the pre-profile one until a dimension actually
+    leaves its default.
 
-    Step 3 of the umbrella spec fills this in, one dimension at a time, each
-    with a test that the fragment appears only when the dimension leaves its
-    default.
+    `citation_precision: full` is the one place a profile is allowed to relax a
+    base rule — the "no references in prose" rule exists because the interface
+    shows them beside the answer, and it stops being true when someone is
+    copying the citation into a class handout. The relaxation is stated in the
+    fragment rather than left for the model to infer.
     """
-    return ""
+    fragments = [
+        _CITATION_STYLE_FRAGMENTS.get(profile.citation_style),
+        _CITATION_PRECISION_FRAGMENTS.get(profile.citation_precision),
+    ]
+    return "\n\n".join(f for f in fragments if f)

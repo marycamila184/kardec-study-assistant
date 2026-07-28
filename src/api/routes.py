@@ -26,12 +26,15 @@ from src.rag.explicador import explicar_stream, prepare_study
 from src.rag.generator import generate, generate_stream
 from src.rag.mode_detector import extract_study_reference
 from src.rag.orchestrator import classify_intent
+from src.rag.profile import CHAT_DEFAULT, ResponseProfile
+from src.rag.profile_detector import detect_profile_changes
 
 # ReflectRequest and ReflectResponse are commented out below: Refletir is
 # switched off, see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
 from src.api.schemas import (  # isort: skip
     ChatRequest,
     ChatResponse,
+    ProfileState,
     EvangelhoResponse,
     EvangelhoSource,
     PathDetail,
@@ -80,6 +83,44 @@ def _answer_with_nudge(
     return result, suggested_mode
 
 
+# The shape classifier cannot run concurrently with generation the way
+# classify_intent does: its output shapes the prompt, so it has to finish first.
+# That is serial latency on every turn, capped tightly here and degrading to the
+# profile the client sent — a slow classifier must never be why someone waits.
+_PROFILE_TIMEOUT_S = 3.0
+
+
+def _resolve_profile(question: str, state: ProfileState | None) -> ResponseProfile:
+    """The profile this turn is answered with: what the client carried in, plus
+    anything this message asks to change."""
+    incoming = CHAT_DEFAULT
+    if state is not None:
+        incoming = ResponseProfile(
+            citation_style=state.citation_style,
+            citation_precision=state.citation_precision,
+            sections=CHAT_DEFAULT.sections,
+            pinned=frozenset(state.pinned),
+        )
+
+    executor = ThreadPoolExecutor(max_workers=1)
+    try:
+        future = executor.submit(detect_profile_changes, question, incoming)
+        return future.result(timeout=_PROFILE_TIMEOUT_S)
+    except Exception:
+        logger.exception("profile detection slow or failed; profile unchanged")
+        return incoming
+    finally:
+        executor.shutdown(wait=False)
+
+
+def _profile_state(profile: ResponseProfile) -> ProfileState:
+    return ProfileState(
+        citation_style=profile.citation_style,
+        citation_precision=profile.citation_precision,
+        pinned=sorted(profile.pinned),
+    )
+
+
 def _enforce_rate_limit(http_request: Request) -> None:
     retry_after = check_rate_limit(client_ip(http_request))
     if retry_after is not None:
@@ -106,6 +147,7 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     # message is turned away.
     history = trim_history(request.question, history)
 
+    profile = _resolve_profile(request.question, request.profile)
     result, suggested_mode = _answer_with_nudge(
         request.question,
         "tirar_duvida",
@@ -115,10 +157,16 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
             history,
             book_filter=request.book_filter,
             anchor_text=request.anchor_text,
+            profile=profile,
         ),
     )
     return _chat_response(
-        request.question, result, suggested_mode, started_at=started, log=True
+        request.question,
+        result,
+        suggested_mode,
+        started_at=started,
+        log=True,
+        profile=profile,
     )
 
 
@@ -141,6 +189,8 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
 
     history = trim_history(request.question, history)
 
+    profile = _resolve_profile(request.question, request.profile)
+
     def events():
         executor = ThreadPoolExecutor(max_workers=1)
         try:
@@ -153,6 +203,7 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
                 history,
                 book_filter=request.book_filter,
                 anchor_text=request.anchor_text,
+                profile=profile,
             ):
                 if kind == "token":
                     yield _sse("token", {"text": payload})
@@ -173,7 +224,12 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
             executor.shutdown(wait=False)
 
         response = _chat_response(
-            request.question, result, suggested_mode, started_at=started, log=True
+            request.question,
+            result,
+            suggested_mode,
+            started_at=started,
+            log=True,
+            profile=profile,
         )
         yield _sse("done", response.model_dump())
 
@@ -186,6 +242,7 @@ def _chat_response(
     suggested_mode: str | None,
     started_at: float,
     log: bool,
+    profile: ResponseProfile | None = None,
 ) -> ChatResponse:
     """Builds the /chat body. Shared with the stream's `done` event so the two
     routes cannot drift apart."""
@@ -205,6 +262,7 @@ def _chat_response(
         )
     return ChatResponse(
         answer=result["answer"],
+        profile=_profile_state(profile) if profile else None,
         inline_refs=result.get("inline_refs", []),
         sources=[Source(**s) for s in result["sources"]],
         suggested_questions=result.get("suggested_questions", []),

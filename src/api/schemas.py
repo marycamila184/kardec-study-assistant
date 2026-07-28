@@ -16,12 +16,29 @@ class Source(BaseModel):
     excerpt: str | None = None
 
 
+class ProfileState(BaseModel):
+    """The shape the answer took, carried by the client between turns.
+
+    Stateless by design, exactly like the conversation history: nothing is
+    stored server-side. `pinned` lists the dimensions the reader asked for
+    explicitly — they stop following anything the system infers later.
+
+    Only the dimensions that currently do something are exposed. A field the
+    prompt does not read yet would be a setting that silently fails.
+    """
+
+    citation_style: str = "chips"  # none | chips | inline
+    citation_precision: str = "short"  # short | full
+    pinned: list[str] = []
+
+
 class ChatRequest(BaseModel):
     question: str
     history: list[Message] = []
     book_filter: str | None = None
     current_mode: str | None = None
     anchor_text: str | None = None
+    profile: ProfileState | None = None
 
 
 class InlineRef(BaseModel):
@@ -38,6 +55,10 @@ class InlineRef(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+    # The profile this answer was written with, for the client to carry into the
+    # next turn. Echoed rather than assumed: a request that changed the shape
+    # must be able to tell the client what it changed to.
+    profile: ProfileState | None = None
     inline_refs: list[InlineRef] = []
     sources: list[Source]
     suggested_questions: list[str] = []
