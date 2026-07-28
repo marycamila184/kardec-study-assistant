@@ -18,7 +18,11 @@ from src.rag.crisis import (
     needs_medical_caveat,
 )
 from src.rag.groundedness import attribute_sources
-from src.rag.guardrails import counts_personification, strip_trailing_question
+from src.rag.guardrails import (
+    counts_personification,
+    strip_internal_terms,
+    strip_trailing_question,
+)
 from src.rag.inline_refs import InlineMarkerFilter, extract_passage_refs
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
@@ -321,6 +325,15 @@ def _postprocess(
     else:
         # Current provider: it honors [FONTES:], so keep today's behavior.
         chunks = marker_chunks
+    # System vocabulary the reader cannot make sense of — they do not know a
+    # retrieval step exists. The prompt forbids these by name and the model used
+    # one anyway (2026-07-28), so the rule gets a backstop. Logged rather than
+    # silently fixed: the substitution hides the symptom, and the count is the
+    # only way to tell whether the prompt rule is working at all.
+    answer, internal_terms = strip_internal_terms(answer)
+    if internal_terms:
+        logger.warning("internal vocabulary rewritten: %d", internal_terms)
+
     if ctx["fallback_note"]:
         answer = ctx["fallback_note"] + answer
 
