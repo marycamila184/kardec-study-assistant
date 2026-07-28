@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
+import { Dots } from './LoadingDots';
 // Refletir is switched off for production — the mode is disconnected, not
 // deleted. BRAND_TERRACOTTA was only used for the "🪞 Reflexão" badge below,
 // which is commented out along with it. See
@@ -61,11 +62,16 @@ export default function IABlock({
           the same text. Joined into one block rather than styled to match, so
           the paragraph rhythm is the body's own and reflections already saved
           in a reader's history re-render the new way too. */}
-      <div style={{
-        fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
-      }}>{renderInlineMarkdown(
-        [msg.isReflection && msg.opening, text].filter(Boolean).join('\n\n')
-      )}</div>
+      {/* The passage arrives before the explanation starts, so without this the
+          card would sit empty and silent for the seconds before the first
+          token — the wait moved rather than shrank. */}
+      {isStreaming && !text ? <Dots /> : (
+        <div style={{
+          fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
+        }}>{renderInlineMarkdown(
+          [msg.isReflection && msg.opening, text].filter(Boolean).join('\n\n')
+        )}</div>
+      )}
 
       {/* Refletir is switched off for production — the mode is disconnected,
           not deleted. A legacy conversation can still carry
