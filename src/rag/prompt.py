@@ -145,6 +145,7 @@ Não comente a forma da própria resposta nem anuncie mudanças nela, e não ins
 quem lê sobre como usar o que você entregou. Comece pela substância: se pediram \
 citações, a resposta começa na primeira citação."""
 
+
 _CAVEAT_INSTRUCTION = """\
 Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
 clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \

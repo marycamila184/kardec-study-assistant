@@ -65,9 +65,22 @@ def extract_item_refs(text: str, allowed: list[dict]) -> tuple[str, list[dict]]:
     return _extract(text, _ITEM_MARKER, _resolve)
 
 
-def extract_passage_refs(text: str, chunks: list[dict]) -> tuple[str, list[dict]]:
-    """Pulls `[N]` out of /chat prose, where N is the 1-based passage index the
-    prompt printed. Indices outside the retrieved list are removed."""
+def extract_passage_refs(
+    text: str, chunks: list[dict], render: bool = False
+) -> tuple[str, list[dict]]:
+    """Pulls `[fonte N]` out of /chat prose, where N is the 1-based passage index
+    the prompt printed. Indices outside the retrieved list are removed.
+
+    With `render`, the marker is replaced by the canonical reference instead of
+    being deleted — "(A Gênese, CAPÍTULO XIV, item 22)".
+
+    That is how `citation_precision: full` is actually delivered. Asking the
+    model to write references does not work: the 2026-07-28 A/B measured zero
+    prose references even after the contradicting base rule was removed. But the
+    model does not need to write them — it already marks where they go, and the
+    marker resolves to metadata. Written in code, the reference cannot be
+    invented, cannot drift from the source chip, and cannot be forgotten.
+    """
 
     def _resolve(body: str) -> list[dict]:
         out = []
@@ -81,13 +94,29 @@ def extract_passage_refs(text: str, chunks: list[dict]) -> tuple[str, list[dict]
                     {
                         "book": meta["book"],
                         "chapter_title": meta.get("chapter_title") or None,
+                        "chapter_ref": meta.get("chapter") or None,
                         "item_number": meta.get("item_number"),
                         "excerpt": chunks[index - 1]["content"],
                     }
                 )
         return out
 
-    return _extract(text, _PASSAGE_MARKER, _resolve)
+    return _extract(
+        text, _PASSAGE_MARKER, _resolve, format_reference if render else None
+    )
+
+
+def format_reference(ref: dict) -> str:
+    """The canonical form, built from metadata and identical to what the
+    source chip shows. Chapter first when it exists: item numbers restart
+    every chapter in Evangelho and Céu e Inferno, so an item alone is
+    ambiguous there — the same reason Curador has to carry `chapter`."""
+    parts = [ref["book"]]
+    if ref.get("chapter_ref"):
+        parts.append(ref["chapter_ref"])
+    if ref.get("item_number"):
+        parts.append(f"item {ref['item_number']}")
+    return " (" + ", ".join(parts) + ")"
 
 
 # A private-use codepoint, which cannot occur in the works or in model prose.
@@ -97,7 +126,9 @@ def extract_passage_refs(text: str, chunks: list[dict]) -> tuple[str, list[dict]
 _SENTINEL = "\ue000"
 
 
-def _extract(text: str, pattern: re.Pattern, resolve) -> tuple[str, list[dict]]:
+def _extract(
+    text: str, pattern: re.Pattern, resolve, render=None
+) -> tuple[str, list[dict]]:
     """Shared walk: rebuild the text without markers, recording where each
     resolved one stood.
 
@@ -117,6 +148,8 @@ def _extract(text: str, pattern: re.Pattern, resolve) -> tuple[str, list[dict]]:
         resolved = resolve(match.group(1))
         if resolved:
             parts.append(_SENTINEL)
+            if render:
+                parts.append("".join(render(r) for r in resolved))
             refs.extend(resolved)
         # Unresolved markers vanish exactly like resolved ones: the reader never
         # sees a bracket either way, and a dropped reference must not leave a

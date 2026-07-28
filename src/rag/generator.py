@@ -256,6 +256,7 @@ def _prepare(
     return None, {
         "system": system,
         "messages": messages,
+        "profile": profile,
         "chunks": chunks,
         "level": level,
         "sensitive": sensitive,
@@ -340,7 +341,13 @@ def _postprocess(
     # Resolved against what was actually retrieved; an index outside that list
     # is dropped here rather than shown. Last, so positions index into the text
     # the reader really sees — including the fallback note prepended above.
-    answer, inline_refs = extract_passage_refs(answer, ctx["chunks"])
+    # Under `full` the marker becomes the reference itself, written from
+    # metadata. The model was asked to write references and measurably does not
+    # (2026-07-28 A/B); it does reliably mark WHERE they go, which is the part
+    # only it can do. The canonical form is the part only code can guarantee.
+    answer, inline_refs = extract_passage_refs(
+        answer, ctx["chunks"], render=ctx["profile"].citation_precision == "full"
+    )
 
     # A quotation attributed to the works that is in none of the retrieved
     # passages is fabricated doctrine, which this project treats as

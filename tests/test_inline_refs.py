@@ -170,3 +170,53 @@ def test_the_literal_placeholder_is_stripped_for_study_too():
     clean, refs = extract_item_refs("Texto [item N] fim.", _ALLOWED)
     assert clean == "Texto fim."
     assert refs == []
+
+
+# ── Rendering the reference from metadata (citation_precision: full) ──────────
+
+
+def test_the_marker_becomes_the_canonical_reference():
+    """Asking the model to write references does not work — the 2026-07-28 A/B
+    measured zero even after the contradicting rule was removed. It does mark
+    where they go, which is the half only it can do."""
+    chunks = [
+        {
+            "content": "texto",
+            "metadata": {
+                "book": "A Gênese",
+                "chapter": "CAPÍTULO XIV",
+                "chapter_title": "OS FLUIDOS",
+                "item_number": "22",
+            },
+        }
+    ]
+    clean, refs = extract_passage_refs(
+        "A prece é um ato de adoração [fonte 1].", chunks, render=True
+    )
+    assert clean == "A prece é um ato de adoração (A Gênese, CAPÍTULO XIV, item 22)."
+    assert refs[0]["chapter_ref"] == "CAPÍTULO XIV"
+
+
+def test_without_render_the_marker_is_still_removed():
+    clean, _ = extract_passage_refs("Texto [fonte 1].", _CHUNKS, render=False)
+    assert clean == "Texto."
+
+
+def test_a_rendered_reference_is_never_invented():
+    """An index outside the retrieved list renders nothing at all, exactly as it
+    resolves to nothing — a reference written in code must not be reachable by a
+    marker the model made up."""
+    clean, refs = extract_passage_refs("Texto [fonte 9].", _CHUNKS, render=True)
+    assert clean == "Texto."
+    assert refs == []
+
+
+def test_a_book_without_a_chapter_reference_still_renders():
+    chunks = [
+        {
+            "content": "texto",
+            "metadata": {"book": "O Livro dos Espíritos", "item_number": "132"},
+        }
+    ]
+    clean, _ = extract_passage_refs("Texto [fonte 1].", chunks, render=True)
+    assert clean == "Texto (O Livro dos Espíritos, item 132)."

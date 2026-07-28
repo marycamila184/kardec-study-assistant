@@ -92,15 +92,6 @@ _CITATION_STYLE_FRAGMENTS = {
     ),
 }
 
-_CITATION_PRECISION_FRAGMENTS = {
-    "full": (
-        "Ao citar, escreva a referência completa como ela aparece no cabeçalho "
-        "da passagem — obra, capítulo e item, exatamente nessa forma. Esta "
-        "pessoa vai usar a citação fora daqui, onde a interface não existe "
-        "para mostrar a fonte ao lado."
-    ),
-}
-
 
 def render_instructions(profile: ResponseProfile) -> str:
     """The prompt fragment expressing a profile.
@@ -109,14 +100,11 @@ def render_instructions(profile: ResponseProfile) -> str:
     prompt is byte-identical to the pre-profile one until a dimension actually
     leaves its default.
 
-    `citation_precision: full` is the one place a profile is allowed to relax a
-    base rule — the "no references in prose" rule exists because the interface
-    shows them beside the answer, and it stops being true when someone is
-    copying the citation into a class handout. The relaxation is stated in the
-    fragment rather than left for the model to infer.
+    `citation_precision` is deliberately NOT here. Adding a fragment that
+    contradicts a base rule does not work — the 2026-07-28 A/B measured zero
+    prose references even in the lane asking for them, because the model obeyed
+    the stronger, earlier rule. That dimension SUBSTITUTES the base rule in
+    prompt.py instead, so the prompt says one thing at a time.
     """
-    fragments = [
-        _CITATION_STYLE_FRAGMENTS.get(profile.citation_style),
-        _CITATION_PRECISION_FRAGMENTS.get(profile.citation_precision),
-    ]
+    fragments = [_CITATION_STYLE_FRAGMENTS.get(profile.citation_style)]
     return "\n\n".join(f for f in fragments if f)

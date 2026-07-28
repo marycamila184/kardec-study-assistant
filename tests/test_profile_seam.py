@@ -61,10 +61,31 @@ def test_a_dimension_at_its_default_renders_nothing():
 def test_leaving_the_default_renders_an_instruction():
     """Step 3 makes the seam do work. Step 1's guarantee survives as the
     narrower one above: unchanged dimensions still add nothing."""
-    loud = ResponseProfile(citation_style="inline", citation_precision="full")
-    rendered = render_instructions(loud)
+    rendered = render_instructions(ResponseProfile(citation_style="inline"))
     assert "[fonte N]" in rendered
-    assert "referência completa" in rendered
+
+
+def test_citation_precision_does_not_touch_the_prompt_at_all():
+    """It is not a prompt concern. Asking the model to write references failed
+    twice on 2026-07-28 — once contradicted by a stronger rule, and once with
+    that contradiction removed, still zero. What works is the model marking
+    WHERE the reference goes and code writing the canonical form from metadata.
+
+    So the prompt is identical for both values, and the model is told the same
+    thing in every profile: never write a reference into the prose.
+    """
+    import dataclasses
+
+    from src.rag.prompt import build_messages
+
+    full = dataclasses.replace(CHAT_DEFAULT, citation_precision="full")
+    assert render_instructions(full) == ""
+
+    short_prompt, _ = build_messages("q", [], [], profile=CHAT_DEFAULT)
+    full_prompt, _ = build_messages("q", [], [], profile=full)
+
+    assert short_prompt == full_prompt
+    assert "Não escreva a REFERÊNCIA" in short_prompt
 
 
 def test_a_profile_is_immutable():
