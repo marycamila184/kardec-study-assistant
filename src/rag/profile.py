@@ -87,8 +87,10 @@ _CITATION_STYLE_FRAGMENTS = {
     "none": (
         "Esta pessoa pediu uma resposta sem citações. Explique com suas "
         "palavras, sem trechos entre aspas. Continue marcando o que vem do "
-        "texto ('Kardec escreve que...') e continue escrevendo a linha "
-        "[FONTES:] normalmente."
+        "texto ('Kardec escreve que...'), continue escrevendo [fonte N] "
+        "depois de cada afirmação que se apoia numa passagem, e continue "
+        "escrevendo a linha [FONTES:] normalmente — o que muda é só o que "
+        "aparece na tela, nunca o que sustenta a resposta."
     ),
 }
 
@@ -98,14 +100,15 @@ _CITATION_STYLE_FRAGMENTS = {
 # which is what keeps the neutral prompt byte-identical.
 _DEPTH_FRAGMENTS = {
     "breve": (
-        "Responda em no máximo um parágrafo curto. Vá direto ao ponto "
-        "doutrinário e pare — quem pergunta assim quer a resposta, não o "
-        "percurso até ela."
+        "Responda em no máximo um parágrafo curto, com um trecho citado ou "
+        "nenhum. Vá direto ao ponto doutrinário e pare — quem pergunta assim "
+        "quer a resposta, não o percurso até ela."
     ),
     "aprofundado": (
         "Esta conversa já foi fundo. Desenvolva a explicação com mais "
-        "detalhe, mostrando como o ponto se articula com outros trechos das "
-        "obras. Continue sem inventar doutrina e sem sair das passagens."
+        "detalhe, citando quantos trechos forem necessários e mostrando como "
+        "o ponto se articula com outras passagens das obras. Continue sem "
+        "inventar doutrina e sem sair das passagens."
     ),
 }
 
