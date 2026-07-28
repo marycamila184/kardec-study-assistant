@@ -32,16 +32,25 @@ export default function AIMessage({
   // o trecho do dia aparecia inteiro e a explicação vinha devagar logo abaixo.
   // Agora as duas usam o mesmo relógio, em sequência: primeiro a passagem,
   // depois o que a IA diz sobre ela — que é a ordem em que se lê.
+  // A resposta do /chat agora chega em pedaços pelo stream, então o texto já
+  // aparece progressivamente por conta própria: revelá-lo de novo com o
+  // temporizador o faria começar do zero quando o `done` substitui o texto.
+  // Histórico (fromCache) continua aparecendo inteiro, como antes.
+  const noReveal = !!msg.fromCache || !!msg.streaming || !!msg.streamed;
+
   const quote = msg.obra?.quote || '';
-  const revealedQuote = useTypewriter(quote, { key: msg.id, skip: !!msg.fromCache });
+  const revealedQuote = useTypewriter(quote, { key: msg.id, skip: noReveal });
   const quoteDone = revealedQuote.length >= quote.length;
 
   const revealedText = useTypewriter(msg.ia, {
     key: msg.id,
-    skip: !!msg.fromCache,
+    skip: noReveal,
     start: quoteDone,
   });
-  const isRevealing = !quoteDone || revealedText.length < (msg.ia || '').length;
+  // Enquanto o stream corre a mensagem ainda está chegando: compartilhar ou
+  // oferecer os botões de seguimento em cima de meia resposta seria errado.
+  const isRevealing =
+    !!msg.streaming || !quoteDone || revealedText.length < (msg.ia || '').length;
 
   return (
     <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', animation: 'fade-up .3s ease' }}>

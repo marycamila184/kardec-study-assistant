@@ -33,7 +33,7 @@ import { dayLabel, startsNewDay } from './utils/day';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
-  chatMessage, studyItem,
+  chatMessage, chatMessageStream, studyItem,
   // reflectSituation intentionally not imported — Refletir is switched off for
   // production — the mode is disconnected, not deleted. See
   // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
@@ -270,10 +270,37 @@ export default function App() {
         role: m.isUser ? 'user' : 'assistant',
         content: m.isUser ? m.text : buildChatHistoryContent(m),
       }));
-      reply = await chatMessage(txt, history, null, MODE_TO_INTENT[requestMode] || null);
+      // The answer streams in: the first words show up in a second or two
+      // instead of after the whole generation. If anything goes wrong on the
+      // way, fall back to POST /chat rather than leave half a response on
+      // screen. See docs/superpowers/specs/2026-07-27-streaming-design.md
+      const streamMsgId = 'a' + Date.now();
+      let streamedText = '';
+      const onToken = (text) => {
+        if (requestId !== requestIdRef.current) return;
+        streamedText += text;
+        setLoading(false);
+        setMsgs([...newMsgs, {
+          id: streamMsgId, ts: Date.now(), isUser: false, isAI: true,
+          hasDaObra: false, obra: null, ia: streamedText, sources: [],
+          suggestedQuestions: [], streaming: true,
+        }]);
+      };
+      const intent = MODE_TO_INTENT[requestMode] || null;
+      try {
+        reply = await chatMessageStream(txt, history, null, intent, onToken);
+      } catch (err) {
+        console.warn('stream failed; falling back to /chat', err);
+        streamedText = '';
+        reply = await chatMessage(txt, history, null, intent);
+      }
       // }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
-      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
+      const aiMsg = {
+        id: streamMsgId, ts: Date.now(), isUser: false, isAI: true, ...reply,
+        // Already revealed by the stream — don't re-type it from the start.
+        streamed: streamedText.length > 0,
+      };
       const finalMsgs = [...newMsgs, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, txt.slice(0, 48), mode, finalMsgs);

@@ -156,6 +156,55 @@ export async function chatMessage(question, history = [], bookFilter = null, cur
   return mapChat(data);
 }
 
+// Same answer as chatMessage, but calls onToken(text) as the prose arrives.
+// The `done` event is the source of truth: whatever was accumulated from the
+// tokens gets replaced by it, so the displayed answer always ends up identical
+// to what POST /chat would have returned.
+//
+// Throws on any transport problem, so callers can fall back to chatMessage —
+// nobody may be left holding half an answer.
+export async function chatMessageStream(
+  question, history = [], bookFilter = null, currentMode = null, onToken = () => {},
+) {
+  const res = await fetch(BASE + '/chat/stream', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      question,
+      history,
+      book_filter: bookFilter || undefined,
+      current_mode: currentMode || undefined,
+    }),
+  });
+  if (!res.ok) throw new ApiError(res.status, await res.json().catch(() => ({})));
+  if (!res.body) throw new Error('streaming not supported by this browser');
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let done = null;
+
+  for (;;) {
+    const { value, done: finished } = await reader.read();
+    if (finished) break;
+    buffer += decoder.decode(value, { stream: true });
+    // SSE frames are separated by a blank line; the tail may be a partial frame.
+    const frames = buffer.split('\n\n');
+    buffer = frames.pop();
+    for (const frame of frames) {
+      const event = frame.match(/^event: (.+)$/m)?.[1];
+      const data = frame.match(/^data: (.+)$/m)?.[1];
+      if (!event || !data) continue;
+      const payload = JSON.parse(data);
+      if (event === 'token') onToken(payload.text);
+      else if (event === 'done') done = payload;
+    }
+  }
+
+  if (!done) throw new Error('stream ended without a done event');
+  return mapChat(done);
+}
+
 export async function studyItem(book, item_number, chapter = null) {
   const data = await request('/study', {
     method: 'POST',
