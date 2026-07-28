@@ -124,7 +124,7 @@ def test_an_oversized_message_never_opens_a_stream():
         raise AssertionError("the size cap must answer before generation")
 
     with patch("src.api.routes.generate_stream", _boom):
-        _, events = _stream("palavra " * 1200)
+        _, events = _stream("palavra " * 2500)
 
     assert [name for name, _ in events] == ["done"]
     assert events[0][1]["answer"] == TOO_LONG_MESSAGE

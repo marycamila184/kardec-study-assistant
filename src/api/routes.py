@@ -13,6 +13,7 @@ from src.api.limits import (
     check_rate_limit,
     client_ip,
     exceeds_size_limit,
+    trim_history,
 )
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
@@ -98,10 +99,12 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     # Crisis outranks the size cap, always. Someone writing at length about
     # wanting to die must get the CVV number, never "your message is too long"
     # — the guard that saves money can never be the one that answers that.
-    if not needs_crisis_note(request.question) and exceeds_size_limit(
-        request.question, history
-    ):
+    if not needs_crisis_note(request.question) and exceeds_size_limit(request.question):
         return _too_long_response()
+
+    # A long conversation is trimmed, not refused. Only a single over-long
+    # message is turned away.
+    history = trim_history(request.question, history)
 
     result, suggested_mode = _answer_with_nudge(
         request.question,
@@ -133,10 +136,10 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
 
     # Same ordering as POST /chat: crisis outranks the size cap, and the cap
     # answers before any stream is opened.
-    if not needs_crisis_note(request.question) and exceeds_size_limit(
-        request.question, history
-    ):
+    if not needs_crisis_note(request.question) and exceeds_size_limit(request.question):
         return _sse_response(_only_done(_too_long_response()))
+
+    history = trim_history(request.question, history)
 
     def events():
         executor = ThreadPoolExecutor(max_workers=1)

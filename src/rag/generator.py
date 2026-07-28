@@ -26,6 +26,7 @@ from src.rag.profile import CHAT_DEFAULT, ResponseProfile
 from src.rag.prompt import build_messages
 from src.rag.prose import prose_completion, prose_completion_stream
 from src.rag.query_condenser import blend_anchor, condense_query
+from src.rag.quote_check import find_unsupported_quotes
 from src.rag.retriever import (
     EVANGELHO_BOOK,
     append_chapter_commentary,
@@ -63,6 +64,14 @@ SMALLTALK_REPLIES = (
     "Por nada! Que bom poder acompanhar seus estudos.",
     "De nada! Sempre que quiser aprofundar, é só chamar.",
 )
+
+
+class UnsupportedQuoteError(Exception):
+    """The answer quoted something that is in no retrieved passage."""
+
+    def __init__(self, quotes: list[str]) -> None:
+        super().__init__("answer contains unsupported quotations")
+        self.quotes = quotes
 
 
 def _crisis_exit() -> dict:
@@ -260,6 +269,24 @@ def _postprocess(
     generation."""
     chunks = ctx["chunks"]
 
+    # A quotation attributed to the works that is in none of the retrieved
+    # passages is fabricated doctrine, which this project treats as
+    # unacceptable — so the answer does not get shown, on any lane.
+    #
+    # Deliberately NOT behind the prose-lane gate below. That gate exists to
+    # keep the current provider's output identical, and it is exactly why this
+    # failure reached production untouched on 2026-07-28: everything that could
+    # have caught it was switched off for the lane actually running.
+    #
+    # The whole answer goes, not just the sentence: the same improvisation that
+    # invented a quotation wrote the paragraphs around it. In the case this was
+    # built from, three paragraphs about "duplo etéreo" preceded the fake quote
+    # and none of them came from the works either.
+    unsupported = find_unsupported_quotes(answer, chunks)
+    if unsupported:
+        logger.warning("fabricated quotation, answer withheld: %s", unsupported[:3])
+        raise UnsupportedQuoteError(unsupported)
+
     # Log-only monitors. These run on both lanes because they mutate
     # nothing — they only record what the model did. Wrapped so a monitor
     # can never fail an otherwise-good request. Citations are extracted
@@ -329,11 +356,19 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
     chunks: list[dict] = []
     suggested_questions: list[str] = []
     inline_refs: list[dict] = []
+    not_found_override = False
     if generation_failed:
         answer = GENERATION_FAILED_MESSAGE
     else:
         try:
             answer, chunks, suggested_questions, inline_refs = _postprocess(answer, ctx)
+        except UnsupportedQuoteError:
+            # Not a generation failure — the model answered, and what it said
+            # cannot be shown. "I did not find this in the works" is both the
+            # honest thing and, for a question like "duplo etéreo", the true one.
+            answer = NOT_FOUND_MESSAGE
+            chunks, suggested_questions, inline_refs = [], [], []
+            not_found_override = True
         except Exception:
             logger.exception("chat answer post-processing failed")
             answer = GENERATION_FAILED_MESSAGE
@@ -376,7 +411,7 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
         "inline_refs": [] if generation_failed else inline_refs,
         "sources": [] if generation_failed else sources,
         "suggested_questions": suggested_questions,
-        "not_found": False,
+        "not_found": not_found_override,
         "generation_failed": generation_failed,
         "safety_level": ctx["level"],
     }

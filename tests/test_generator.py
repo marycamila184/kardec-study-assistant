@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.rag.generator import generate
+from src.rag.generator import NOT_FOUND_MESSAGE, generate
 
 _CHUNKS = [
     {
@@ -973,3 +973,44 @@ def test_marker_lane_still_filters_by_fontes(monkeypatch):
 
     out = gen.generate("pergunta?", [])
     assert [s["item_number"] for s in out["sources"]] == ["886"]
+
+
+# ── Fabricated quotations (found in production 2026-07-28) ──────────────────
+
+
+def test_a_fabricated_quotation_withholds_the_whole_answer(
+    monkeypatch, mock_client, mock_retrieve
+):
+    """Asked about "duplo etéreo" — not Kardec's vocabulary — the model invented
+    a sentence, quoted it and attributed it to Kardec with a chapter and item.
+    The answer must not be shown: the same improvisation wrote the paragraphs
+    around it."""
+    fabricated = (
+        "O duplo etéreo é uma extensão do perispírito. "
+        'Kardec escreve que "o duplo etéreo é uma espécie de envoltório '
+        'fluídico que envolve o corpo físico e o penetra inteiramente" '
+        "(A Gênese, capítulo OS FLUIDOS, item 18).[FONTES: 1][SEGUIR:]"
+    )
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion", lambda s, m, **kw: fabricated
+    )
+    result = generate("e o duplo etéreo ou aura?", [])
+
+    assert result["answer"] == NOT_FOUND_MESSAGE
+    assert result["not_found"] is True
+    assert result["sources"] == []
+    # Not a crash: the model answered, and what it said cannot be shown.
+    assert result["generation_failed"] is False
+
+
+def test_an_answer_quoting_the_retrieved_text_is_untouched(
+    monkeypatch, mock_client, mock_retrieve
+):
+    grounded = 'Kardec escreve que "' + _CHUNKS[0]["content"] + '".[FONTES: 1][SEGUIR:]'
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion", lambda s, m, **kw: grounded
+    )
+    result = generate("o que é a encarnação?", [])
+
+    assert result["answer"] != NOT_FOUND_MESSAGE
+    assert result["not_found"] is False
