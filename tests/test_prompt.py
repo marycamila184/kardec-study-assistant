@@ -125,3 +125,55 @@ def test_build_messages_sensitive_adds_gentle_instruction():
 def test_build_messages_not_sensitive_omits_gentle_instruction():
     system, _ = build_messages("o que é X?", [_PROMPT_CHUNK], [], sensitive=False)
     assert "acolhimento" not in system
+
+
+def test_the_passage_header_carries_the_canonical_reference():
+    """Found in production 2026-07-28: the header showed the chapter TITLE while
+    the source chip showed the chapter NUMBER, so a reader who asked for
+    citations got two different-looking references to the same passage."""
+    from src.rag.prompt import build_messages
+
+    chunks = [
+        {
+            "content": "texto",
+            "metadata": {
+                "book": "A Gênese",
+                "chapter": "CAPÍTULO XIV",
+                "chapter_title": "OS FLUIDOS",
+                "item_number": "18",
+            },
+        }
+    ]
+    system, _ = build_messages("q", chunks, [])
+    header = next(l for l in system.splitlines() if l.startswith("[1]"))
+
+    assert "CAPÍTULO XIV" in header
+    assert "OS FLUIDOS" in header
+    assert "18" in header
+
+
+def test_the_header_survives_a_chunk_with_no_chapter_reference():
+    from src.rag.prompt import build_messages
+
+    chunks = [
+        {
+            "content": "texto",
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "chapter_title": "Da Encarnação",
+                "item_number": "132",
+            },
+        }
+    ]
+    system, _ = build_messages("q", chunks, [])
+    header = next(l for l in system.splitlines() if l.startswith("[1]"))
+    assert "Da Encarnação" in header
+
+
+def test_the_prompt_forbids_the_model_talking_about_itself():
+    """Production 2026-07-28: 'Sim, posso fornecer citações... é importante
+    notar que as citações devem ser usadas para...'"""
+    from src.rag.prompt import build_messages
+
+    system, _ = build_messages("q", [], [])
+    assert "Nunca fale de si mesmo" in system

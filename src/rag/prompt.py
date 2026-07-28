@@ -56,6 +56,8 @@ perguntar...", "O que isso significa para..."). As sugestões de continuação t
 lugar próprio: a linha [SEGUIR] descrita abaixo, que a interface exibe como botões. \
 Termine a resposta na substância.
 
+{no_self_reference}
+
 Ao final da resposta, acrescente duas linhas técnicas (ambas são removidas \
 automaticamente antes de o usuário ver a resposta — nunca as mencione no texto):
 1. [FONTES: ...] com os números das passagens que você realmente usou para \
@@ -125,6 +127,24 @@ que aparecem nessa lista. O marcador fica junto da afirmação que ele sustenta 
 — não o acumule no fim, que é onde mora a linha [FONTES:]."""
 
 
+# The system does not talk about itself.
+#
+# Found in production on 2026-07-28. Asked for citations, the answer opened with
+# "Sim, posso fornecer citações das obras de Allan Kardec... No entanto, é
+# importante notar que as citações devem ser usadas para..." — the assistant
+# describing what it can do and then lecturing the reader on how to use it.
+#
+# This belongs beside the personification rule as a constraint on voice, and it
+# is what makes an adapting response feel like being understood rather than like
+# a machine announcing a mode change: the prose simply arrives already shaped.
+# Isolated as one constant so a prompt restructure can replace the wording.
+_NO_SELF_REFERENCE_RULE = """\
+Nunca fale de si mesmo, do seu funcionamento ou do que você pode ou não fazer \
+(ex.: "sim, posso fornecer...", "vou trazer as citações", "como assistente..."). \
+Não comente a forma da própria resposta nem anuncie mudanças nela, e não instrua \
+quem lê sobre como usar o que você entregou. Comece pela substância: se pediram \
+citações, a resposta começa na primeira citação."""
+
 _CAVEAT_INSTRUCTION = """\
 Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
 clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \
@@ -138,10 +158,25 @@ introduza temas de suicídio ou morte voluntária que a pessoa não mencionou.""
 
 
 def _format_passage(index: int, chunk: dict) -> str:
+    """The header carries the CANONICAL reference, not just the chapter title.
+
+    The two used to disagree: this header printed "Capítulo: OS FLUIDOS" while
+    the source chip beside the answer printed "cap. XIV". A model can only echo
+    what it is shown, so when a reader asked for citations in the text they got
+    the title in the prose and the number in the chip — two references to the
+    same passage, looking like two different places. For someone copying it into
+    a class handout, that is the difference between a usable citation and a
+    wrong one.
+    """
     m = chunk["metadata"]
     header = f"[{index}] Obra: {m['book']}"
-    if m.get("chapter_title"):
-        header += f" | Capítulo: {m['chapter_title']}"
+    chapter_ref, chapter_title = m.get("chapter"), m.get("chapter_title")
+    if chapter_ref and chapter_title:
+        header += f" | {chapter_ref} — {chapter_title}"
+    elif chapter_title:
+        header += f" | Capítulo: {chapter_title}"
+    elif chapter_ref:
+        header += f" | {chapter_ref}"
     if has_real_item_number(m.get("item_number")):
         header += f" | {item_word(m['book'])}: {m['item_number']}"
     return f"{header}\n    \"{chunk['content']}\""
@@ -167,6 +202,7 @@ def build_messages(
         caveat="\n\n".join(notes),
         seguir=_SEGUIR_RULE,
         passage_marker=_PASSAGE_MARKER_RULE,
+        no_self_reference=_NO_SELF_REFERENCE_RULE,
     )
     # Appended rather than woven into the template so an empty fragment leaves
     # the prompt byte-identical. The sensitivity and caveat instructions above

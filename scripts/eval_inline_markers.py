@@ -36,6 +36,7 @@ import json
 import os
 import re
 
+from src.core.config import settings
 from src.rag import explicador
 from src.rag.explicador_prompt import parse_explicador_json
 from src.rag.inline_refs import _ITEM_MARKER, extract_item_refs
@@ -161,6 +162,15 @@ def _load(lane: str) -> dict | None:
         return None
 
 
+def _model_for(lane: str) -> str:
+    """The lane name is a provider:model pair, or "default" — which means
+    whatever the current configuration resolves to, not a model called
+    "default". Passing the literal lane name is a 404 from the provider."""
+    if lane == "default":
+        return settings.resolved_chat_model
+    return lane.split(":", 1)[1] if ":" in lane else lane
+
+
 def run_lane(lane: str) -> list[dict]:
     rows: list[dict] = []
     for case in CASES:
@@ -172,7 +182,7 @@ def run_lane(lane: str) -> list[dict]:
             continue
 
         response = explicador.get_client("json").chat.completions.create(
-            model=lane.split(":", 1)[1] if ":" in lane else lane,
+            model=_model_for(lane),
             max_tokens=1024,
             messages=[{"role": "system", "content": ctx["system"]}] + ctx["messages"],
             temperature=0,

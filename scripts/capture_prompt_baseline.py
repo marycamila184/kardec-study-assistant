@@ -41,6 +41,20 @@ _CHUNKS = [
     },
 ]
 
+# Carries the canonical chapter reference as well as the title — the case the
+# source chips use, and the one where the header used to disagree with them.
+_CHUNKS_WITH_CHAPTER_REF = [
+    {
+        "content": "O perispírito é o traço de união entre a vida corpórea e a espiritual.",
+        "metadata": {
+            "book": "A Gênese",
+            "chapter": "CAPÍTULO XIV",
+            "chapter_title": "OS FLUIDOS",
+            "item_number": "22",
+        },
+    }
+]
+
 _HISTORY = [
     {"role": "user", "content": "o que é o perispírito?"},
     {"role": "assistant", "content": "É o envoltório semimaterial do espírito."},
@@ -92,6 +106,12 @@ def capture() -> dict[str, str]:
         )
         out[name] = system
         out[name + ".messages"] = repr(messages)
+
+    system, messages = build_messages(
+        "o que é o perispírito?", _CHUNKS_WITH_CHAPTER_REF, [], 10
+    )
+    out["chat_chapter_ref"] = system
+    out["chat_chapter_ref.messages"] = repr(messages)
 
     for name, kwargs in STUDY_CASES.items():
         system, messages = build_explicador_messages(

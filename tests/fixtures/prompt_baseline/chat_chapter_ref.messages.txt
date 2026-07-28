@@ -1,0 +1,1 @@
+[{'role': 'user', 'content': 'o que é o perispírito?'}]
