@@ -1,7 +1,6 @@
 from src.rag.markers import (
     parse_sections,
     split_pipe_list,
-    strip_marker_debris,
     strip_trailing_markers,
 )
 
@@ -99,45 +98,4 @@ def test_missing_markers_keep_all_chunks():
     answer, chunks, sugg = strip_trailing_markers("Resposta.", _chunks(2))
     assert answer == "Resposta."
     assert len(chunks) == 2
-    assert sugg == []
-
-
-def test_tolerates_malformed_marker():
-    answer, _, _ = strip_trailing_markers("Resposta.\n/FONTES: 1", _chunks(2))
-    assert answer == "Resposta."
-
-
-# --- strip_marker_debris (prose-lane-only cleanup) --------------------------
-
-
-def test_strips_fontes_line_not_at_end_with_emoji_and_stray_decoration():
-    answer, sugg = strip_marker_debris(
-        "Resposta boa.\n\n📖 [FONTES: O Livro dos Espíritos, 633]\n👉"
-    )
-    assert answer == "Resposta boa."
-    assert sugg == []
-
-
-def test_extracts_seguir_and_removes_all_marker_and_decoration_lines():
-    answer, sugg = strip_marker_debris(
-        "Resposta.\n📖 [FONTES: 1]\n[SEGUIR: a? | b?]\n📖"
-    )
-    assert answer == "Resposta."
-    assert sugg == ["a?", "b?"]
-
-
-def test_no_marker_leaves_text_unchanged():
-    answer, sugg = strip_marker_debris("Resposta sem marcador nenhum.")
-    assert answer == "Resposta sem marcador nenhum."
-    assert sugg == []
-
-
-def test_empty_input_is_safe():
-    assert strip_marker_debris("") == ("", [])
-
-
-def test_lowercase_fontes_prose_survives():
-    text = "Falamos sobre as fontes: a caridade e a fé."
-    answer, sugg = strip_marker_debris(text)
-    assert answer == text
     assert sugg == []

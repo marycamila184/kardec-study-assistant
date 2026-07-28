@@ -211,42 +211,6 @@ def validate_model_citations(cited: set[str], retrieved: set[str]) -> dict:
     }
 
 
-def strip_model_citations(text: str) -> str:
-    """Removes model-written references so they never compete with the real
-    source chips. The model's own "Fonte:" line is dropped whole (it carries
-    invented question numbers); parentheticals naming a work are dropped whole;
-    bare sigla refs are dropped in place."""
-    text = _SOURCE_LINE.sub(
-        lambda m: "" if _is_citation_fragment(m.group("content")) else m.group("full"),
-        text,
-    )
-    text = _PAREN_REF.sub(
-        lambda m: "" if _is_citation_fragment(m.group(1)) else m.group(0), text
-    )
-    text = _SIGLA_REF.sub("", text)
-    # Tidy the punctuation the removals leave behind.
-    text = re.sub(r"[ \t]{2,}", " ", text)
-    text = re.sub(r"\s+([,.;:])", r"\1", text)
-    return text.strip()
-
-
-# --- attribution checks (evaluation only) ------------------------------------
-#
-# A second failure mode, distinct from writing a wrong citation: naming the
-# WRONG WORK for the passage under study. Observed 2026-07-25 on riv-ai-v2,
-# which wrote "o trecho é extraído da obra 'O Evangelho Segundo o Espiritismo'"
-# for O Livro dos Espíritos 886. /study is now pinned to the large model, and
-# whether that model has the same habit was never measured — these two checks
-# are how it gets measured.
-#
-# Evaluation instruments, not request-path filters. Both report the matched
-# text so a human can overrule them.
-
-# An explicit COPULA is required. A first version allowed a bare preposition,
-# which fired on "Item 14 do Evangelho Segundo o Espiritismo" — a legitimate
-# cross-reference to a related passage, not a claim about the passage under
-# study. Attribution needs a verb asserting it ("é parte do", "foi extraída
-# de"); a reference does not.
 _ATTRIBUTION_PHRASE = re.compile(
     r"(?:trecho|passagem|item|quest[ãa]o|texto)\b[^.;\n]{0,40}?"
     r"\b(?:[ée]|foi|est[áa]|pertence)\s+"

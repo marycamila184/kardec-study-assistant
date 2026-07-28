@@ -18,14 +18,6 @@ _PERSONIFICATION = re.compile(
 )
 
 
-def strip_trailing_question(text: str) -> str:
-    """Removes a closing question. /chat answers must never end with one —
-    follow-ups belong in [SEGUIR]. Never strips the text to empty: a
-    single-sentence answer is returned unchanged."""
-    stripped = _TRAILING_QUESTION.sub("", text).strip()
-    return stripped if stripped else text
-
-
 def counts_personification(text: str) -> int:
     """Occurrences of "o Espiritismo" acting as an agent. Log-only: doctrine
     prose is never rewritten automatically."""

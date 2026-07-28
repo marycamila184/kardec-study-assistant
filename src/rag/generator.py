@@ -7,7 +7,6 @@ from src.core.config import settings
 from src.rag.citations import (
     extract_model_citations,
     retrieved_ids,
-    strip_model_citations,
     validate_model_citations,
 )
 from src.rag.crisis import (
@@ -17,18 +16,13 @@ from src.rag.crisis import (
     needs_crisis_note,
     needs_medical_caveat,
 )
-from src.rag.groundedness import attribute_sources
-from src.rag.guardrails import (
-    counts_personification,
-    strip_internal_terms,
-    strip_trailing_question,
-)
+from src.rag.guardrails import counts_personification, strip_internal_terms
 from src.rag.inline_refs import (
     InlineMarkerFilter,
     extract_passage_refs,
     render_references,
 )
-from src.rag.markers import strip_marker_debris, strip_trailing_markers
+from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.premise_check import unsupported_terms
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile
@@ -316,39 +310,14 @@ def _postprocess(
     except Exception:
         logger.exception("log-only citation/personification monitor failed")
 
-    # Everything that MUTATES the answer or its sources is gated on the
-    # prose lane, so Tasks 1-6 leave the current provider's output identical.
-    prose_lane = settings.prose_provider is not None
-    debris_suggestions: list[str] = []
-    if prose_lane:
-        answer = strip_model_citations(answer)
-        if not answer.strip():
-            # The model's entire reply was a citation; there is nothing
-            # left to show. Treat it as a generation failure rather than
-            # returning an empty bubble.
-            raise ValueError("answer emptied by strip_model_citations")
-        # riv-ai-v2 scatters marker lines mid-text (emoji-prefixed, not
-        # anchored to the end), which strip_trailing_markers below cannot
-        # see. Clear that debris first so the end-anchored pass only has
-        # to catch a well-formed trailer, if any remains.
-        answer, debris_suggestions = strip_marker_debris(answer)
-    answer, marker_chunks, suggested_questions = strip_trailing_markers(answer, chunks)
-    if prose_lane and not suggested_questions:
-        suggested_questions = debris_suggestions
-    if prose_lane:
-        # riv-ai-v2 does not honor [FONTES:] — it emits question numbers or
-        # invents references. Attribution is computed from the vector store
-        # instead, so the model never decides its own citations.
-        try:
-            chunks = attribute_sources(answer, chunks)
-        except Exception:
-            logger.exception("attribute_sources failed; falling back to marker chunks")
-            chunks = marker_chunks
-        # Backstop for the prompt rule: follow-ups live in [SEGUIR] only.
-        answer = strip_trailing_question(answer)
-    else:
-        # Current provider: it honors [FONTES:], so keep today's behavior.
-        chunks = marker_chunks
+    # These four steps were gated on `prose_lane`, which is off by default, so
+    # none of them had run in production for months — strip_model_citations,
+    # strip_marker_debris, attribute_sources and strip_trailing_question. They
+    # existed for riv-ai-v2, a generator declined on the evidence in July 2026.
+    # Removed rather than left dormant: a guard that looks present and never
+    # runs is how the fabricated-quotation failure survived this long, because
+    # everything that could have caught it sat behind this same gate.
+    answer, chunks, suggested_questions = strip_trailing_markers(answer, chunks)
     # System vocabulary the reader cannot make sense of — they do not know a
     # retrieval step exists. The prompt forbids these by name and the model used
     # one anyway (2026-07-28), so the rule gets a backstop. Logged rather than
