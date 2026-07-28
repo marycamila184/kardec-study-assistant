@@ -117,6 +117,56 @@ _STOPWORDS = {
     "gente",
     "pessoa",
     "pessoas",
+    # Words a reader uses to ASK, which 19th-century doctrine prose has no
+    # reason to contain. "exlique" reached production as a flagged premise
+    # because "explique" is not in the works either, so the typo check had
+    # nothing to match it against. These are about the request, never about
+    # doctrine, so they can never be a premise worth correcting.
+    "explique",
+    "explica",
+    "explicar",
+    "explicacao",
+    "mostre",
+    "mostrar",
+    "conte",
+    "contar",
+    "cite",
+    "citar",
+    "citacao",
+    "citacoes",
+    "referencia",
+    "referencias",
+    "resuma",
+    "resumo",
+    "detalhe",
+    "detalhes",
+    "melhor",
+    "preciso",
+    "queria",
+    "quero",
+    "gostaria",
+    "entendi",
+    "obrigada",
+    "obrigado",
+    "ajuda",
+    "ajudar",
+    "sabe",
+    "saber",
+    "conhece",
+    "outras",
+    "exemplo",
+    "exemplos",
+    "sobre",
+    "trecho",
+    "trechos",
+    "texto",
+    "textos",
+    "parte",
+    "partes",
+    "coisa",
+    "coisas",
+    "assunto",
+    "tema",
 }
 
 logger = logging.getLogger(__name__)
@@ -145,6 +195,17 @@ def _terms(text: str) -> list[str]:
 
 _CORPUS_DIR = pathlib.Path("data/markdown_files")
 _vocabulary: str | None = None
+_words_by_prefix: dict[str, set[str]] | None = None
+
+# A typo sits one or two edits from a real word; a foreign concept sits far from
+# everything. "exlique" is one edit from "explique"; "ectoplasma" is nowhere
+# near anything Kardec wrote.
+#
+# This exists because the check went to production and told a reader "as obras
+# não usam o termo *exlique*". The 44 curated study-path labels that justified
+# shipping it were hand-reviewed prose — nobody misspells anything in those, and
+# real people misspell constantly.
+_MAX_TYPO_DISTANCE = 1
 
 
 def corpus_vocabulary() -> str:
@@ -164,6 +225,63 @@ def corpus_vocabulary() -> str:
             logger.exception("corpus vocabulary unavailable; premise check off")
         _vocabulary = " ".join(parts)
     return _vocabulary
+
+
+def _prefix_index() -> dict[str, set[str]]:
+    """Corpus words grouped by their first two letters.
+
+    Edit distance against every word in five books, per term, per request would
+    be absurd. A typo almost always keeps its opening — "exlique"/"explique",
+    "espeiritos"/"espiritos" — so comparing only against words that start the
+    same way is both far cheaper and about as accurate.
+    """
+    global _words_by_prefix
+    if _words_by_prefix is None:
+        index: dict[str, set[str]] = {}
+        # The stopwords go in alongside the corpus. They are the words a reader
+        # uses to ASK, which the works have no reason to contain — so a typo of
+        # one has nothing in Kardec to be matched against. "exlique" is one edit
+        # from "explique" and zero edits from nothing at all, which is exactly
+        # how it reached production as a flagged premise.
+        for word in set(_WORD.findall(corpus_vocabulary())) | _STOPWORDS:
+            if len(word) >= 2:
+                index.setdefault(word[:2], set()).add(word)
+        _words_by_prefix = index
+    return _words_by_prefix
+
+
+def _within(a: str, b: str, limit: int) -> bool:
+    """Levenshtein, abandoned as soon as it cannot come in under `limit`."""
+    if abs(len(a) - len(b)) > limit:
+        return False
+    previous = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        current = [i]
+        for j, cb in enumerate(b, 1):
+            current.append(
+                previous[j - 1]
+                if ca == cb
+                else 1 + min(previous[j - 1], previous[j], current[j - 1])
+            )
+        if min(current) > limit:
+            return False
+        previous = current
+    return previous[-1] <= limit
+
+
+def looks_like_a_typo(term: str) -> bool:
+    """Whether some word in the works is a plausible correction of `term`.
+
+    One edit, not two. Two was tried and it swallowed real findings: "chakras"
+    is two edits from "chamas" and "energéticos" two from "energéticas", so the
+    check stopped catching the very terms it exists for. One edit still catches
+    what people actually mistype — "exlique" for "explique", "espeiritos" for
+    "espíritos" — because a slip is usually a single key.
+    """
+    return any(
+        _within(term, candidate, _MAX_TYPO_DISTANCE)
+        for candidate in _prefix_index().get(term[:2], ())
+    )
 
 
 def unsupported_terms(
@@ -192,7 +310,11 @@ def unsupported_terms(
     vocabulary = corpus_vocabulary() if vocabulary is None else vocabulary
     if not vocabulary:
         return []
-    return [t for t in _terms(question) if t[:6] not in vocabulary]
+    return [
+        t
+        for t in _terms(question)
+        if t[:6] not in vocabulary and not looks_like_a_typo(t)
+    ]
 
 
 def premise_note(terms: list[str]) -> str:

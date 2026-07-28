@@ -97,3 +97,31 @@ def test_no_terms_means_no_note():
     from src.rag.premise_check import premise_note
 
     assert premise_note([]) == ""
+
+
+# ── Typos are not foreign concepts (reached production 2026-07-28) ────────────
+
+
+def test_a_misspelling_is_not_treated_as_a_premise():
+    """'me exlique esse' was answered with 'as obras não usam o termo
+    *exlique*'. A typo sits one edit from a real word; a foreign concept sits
+    far from everything."""
+    from src.rag.premise_check import looks_like_a_typo
+
+    assert looks_like_a_typo("exlique")
+    assert looks_like_a_typo("espeiritos")
+
+
+def test_a_foreign_concept_is_not_mistaken_for_a_typo():
+    from src.rag.premise_check import looks_like_a_typo
+
+    for term in ("ectoplasma", "chakras", "apometria", "akashicos"):
+        assert not looks_like_a_typo(term), term
+
+
+def test_two_edits_was_too_permissive():
+    """At distance two, 'chakras' reaches 'chamas' and the check stopped
+    catching the terms it exists for."""
+    from src.rag.premise_check import _MAX_TYPO_DISTANCE
+
+    assert _MAX_TYPO_DISTANCE == 1

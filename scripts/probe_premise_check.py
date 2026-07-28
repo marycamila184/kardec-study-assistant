@@ -53,6 +53,19 @@ OUT_OF_DOCTRINE = [
 ]
 
 
+# Real messages, with the spelling people actually use. Reported from live use
+# on 2026-07-28, where "me exlique esse" was answered with "as obras não usam o
+# termo *exlique*". Every flag here is a false positive of the worst kind: it
+# tells the reader something confidently wrong about their own words.
+TYPOS = [
+    "me exlique esse trecho do perispirito",
+    "preciso das referencias que falam de perispirto no livro dos espeiritos",
+    "o que kardec fala sobre reencarnaao",
+    "fale sobre a mediunidad",
+    "quero entender a lei de causa e efeeito",
+]
+
+
 def run(questions: list[str], label: str) -> int:
     print(f"\n=== {label} ===\n")
     fired = 0
@@ -76,7 +89,10 @@ def main() -> None:
     false_positives = run(legitimate, "LEGÍTIMAS — cada FLAG aqui é falso positivo")
     caught = run(OUT_OF_DOCTRINE, "FORA DA DOUTRINA — cada 'ok' aqui é uma falha")
 
+    typo_flags = run(TYPOS, "COM ERRO DE DIGITAÇÃO — cada FLAG aqui é falso positivo")
+
     print("\n=== resumo ===")
+    print(f"falsos positivos (digitação): {typo_flags}/{len(TYPOS)}")
     print(f"falsos positivos: {false_positives}/{len(legitimate)}")
     print(f"detectadas:       {caught}/{len(OUT_OF_DOCTRINE)}")
 
