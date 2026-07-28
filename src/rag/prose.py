@@ -76,7 +76,7 @@ def prose_completion_stream(
             **extra,
         )
         for chunk in stream:
-            text = _delta_text(chunk)
+            text = delta_text(chunk)
             if text:
                 started = True
                 yield text
@@ -93,14 +93,19 @@ def prose_completion_stream(
         stream=True,
     )
     for chunk in stream:
-        text = _delta_text(chunk)
+        text = delta_text(chunk)
         if text:
             yield text
 
 
-def _delta_text(chunk) -> str:
+def delta_text(chunk) -> str:
     """Pulls the text out of one streamed chunk. Providers send keep-alive and
-    role-only chunks with no content, and a final chunk with no choices at all."""
+    role-only chunks with no content, and a final chunk with no choices at all.
+
+    Public because explicador.py streams on the JSON lane and needs the same
+    chunk-shape tolerance; the quirks it absorbs are the provider's, not this
+    module's.
+    """
     if not getattr(chunk, "choices", None):
         return ""
     return getattr(chunk.choices[0].delta, "content", None) or ""

@@ -156,25 +156,20 @@ export async function chatMessage(question, history = [], bookFilter = null, cur
   return mapChat(data);
 }
 
-// Same answer as chatMessage, but calls onToken(text) as the prose arrives.
-// The `done` event is the source of truth: whatever was accumulated from the
-// tokens gets replaced by it, so the displayed answer always ends up identical
-// to what POST /chat would have returned.
+// POSTs to an SSE endpoint and returns the `done` payload, calling
+// onEvent(name, payload) for every event that arrives before it.
 //
-// Throws on any transport problem, so callers can fall back to chatMessage —
-// nobody may be left holding half an answer.
-export async function chatMessageStream(
-  question, history = [], bookFilter = null, currentMode = null, onToken = () => {},
-) {
-  const res = await fetch(BASE + '/chat/stream', {
+// The `done` event is the source of truth: whatever was accumulated from the
+// tokens gets replaced by it, so what ends up on screen is always identical to
+// what the non-streaming endpoint would have returned.
+//
+// Throws on any transport problem, so callers can fall back to the plain
+// endpoint — nobody may be left holding half an answer.
+async function streamSSE(path, body, onEvent) {
+  const res = await fetch(BASE + path, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      question,
-      history,
-      book_filter: bookFilter || undefined,
-      current_mode: currentMode || undefined,
-    }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) throw new ApiError(res.status, await res.json().catch(() => ({})));
   if (!res.body) throw new Error('streaming not supported by this browser');
@@ -196,12 +191,25 @@ export async function chatMessageStream(
       const data = frame.match(/^data: (.+)$/m)?.[1];
       if (!event || !data) continue;
       const payload = JSON.parse(data);
-      if (event === 'token') onToken(payload.text);
-      else if (event === 'done') done = payload;
+      if (event === 'done') done = payload;
+      else onEvent(event, payload);
     }
   }
 
   if (!done) throw new Error('stream ended without a done event');
+  return done;
+}
+
+// Same answer as chatMessage, streamed. Falls to the caller to recover.
+export async function chatMessageStream(
+  question, history = [], bookFilter = null, currentMode = null, onToken = () => {},
+) {
+  const done = await streamSSE('/chat/stream', {
+    question,
+    history,
+    book_filter: bookFilter || undefined,
+    current_mode: currentMode || undefined,
+  }, (event, payload) => { if (event === 'token') onToken(payload.text); });
   return mapChat(done);
 }
 
@@ -211,6 +219,31 @@ export async function studyItem(book, item_number, chapter = null) {
     body: JSON.stringify({ book, item_number, chapter }),
   });
   return mapStudy(data, book, item_number);
+}
+
+// Same answer as studyItem, streamed. The tokens carry the `contexto` field
+// only — conceitos-chave, related items and sources arrive whole with `done`,
+// which is also what mapStudy runs on, so a streamed study is identical to
+// POST /study.
+//
+// onSource fires once, before any token: the passage itself is known from
+// retrieval, so it can be on screen while the explanation is still being
+// written. onSource receives what mapStudy would have produced for the passage
+// alone, so the caller renders it the same way in both lanes.
+export async function studyItemStream(
+  book, item_number, chapter = null, onToken = () => {}, onSource = () => {},
+) {
+  const done = await streamSSE('/study/stream', { book, item_number, chapter },
+    (event, payload) => {
+      if (event === 'token') onToken(payload.text);
+      else if (event === 'source') {
+        onSource(mapStudy({
+          ...payload, contexto: '', conceitos_chave: [], perguntas: [],
+          related_items: [], generation_failed: false,
+        }, book, item_number));
+      }
+    });
+  return mapStudy(done, book, item_number);
 }
 
 // Unused now — Refletir is switched off for production — the mode is

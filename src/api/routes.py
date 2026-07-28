@@ -19,7 +19,9 @@ from src.core.config import settings
 from src.rag.conversation_log import log_chat_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
+from src.rag.explicador import build_sources
 from src.rag.explicador import explicar as study_item_fn
+from src.rag.explicador import explicar_stream, prepare_study
 from src.rag.generator import generate, generate_stream
 from src.rag.mode_detector import extract_study_reference
 from src.rag.orchestrator import classify_intent
@@ -269,11 +271,49 @@ def get_path(path_id: str) -> PathDetail:
 def study(request: StudyRequest) -> StudyResponse:
     result = study_item_fn(request.book, request.item_number, request.chapter)
     if result is None:
-        raise HTTPException(
-            status_code=404,
-            detail={"error": "item_not_found", "item_number": request.item_number},
-        )
+        raise _item_not_found(request.item_number)
     return StudyResponse(**result)
+
+
+@router.post("/study/stream")
+def study_stream(request: StudyRequest) -> StreamingResponse:
+    """Same answer as POST /study, delivered as Server-Sent Events.
+
+    POST /study is unchanged and remains the recovery path. The daily passage
+    comes through here too: `handleStudyTrecho` studies the item when it is
+    numbered, which is the normal case.
+    See docs/superpowers/specs/2026-07-28-study-trecho-streaming-design.md
+    """
+    # Prepared before the stream opens so a missing item is still an HTTP 404.
+    # Once the response starts streaming the status code is already sent, and a
+    # not-found would have to masquerade as a successful empty answer.
+    ctx = prepare_study(request.book, request.item_number, request.chapter)
+    if ctx is None:
+        raise _item_not_found(request.item_number)
+
+    def events():
+        # The passage first. It is known from retrieval, so the reader has the
+        # text in front of them before the explanation of it starts arriving —
+        # the order in which one reads. Waiting for `done` would put the
+        # explanation on screen above the passage it explains.
+        yield _sse(
+            "source",
+            {"original_text": ctx["original_text"], "sources": build_sources(ctx)},
+        )
+        for kind, payload in explicar_stream(ctx):
+            if kind == "token":
+                yield _sse("token", {"text": payload})
+            else:
+                yield _sse("done", StudyResponse(**payload).model_dump())
+
+    return _sse_response(events())
+
+
+def _item_not_found(item_number: str) -> HTTPException:
+    return HTTPException(
+        status_code=404,
+        detail={"error": "item_not_found", "item_number": item_number},
+    )
 
 
 # Refletir is switched off for production: the mode answers lived suffering with

@@ -33,7 +33,7 @@ import { dayLabel, startsNewDay } from './utils/day';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
-  chatMessage, chatMessageStream, studyItem,
+  chatMessage, chatMessageStream, studyItem, studyItemStream,
   // reflectSituation intentionally not imported — Refletir is switched off for
   // production — the mode is disconnected, not deleted. See
   // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
@@ -88,6 +88,43 @@ const ERROR_MSG = {
 // deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
 // ('refletir: 'refletir'' removed from the map below)
 const MODE_TO_INTENT = { duvida: 'tirar_duvida', estudar: 'estudar_obra' };
+
+// Appends a message, or replaces the one already carrying its id. A streaming
+// answer is written many times under one id; every other caller passes a fresh
+// id, for which this is a plain append.
+const upsertById = (list, msg) => {
+  const i = list.findIndex(m => m.id === msg.id);
+  if (i === -1) return [...list, msg];
+  const next = [...list];
+  next[i] = msg;
+  return next;
+};
+
+// Streams a study item, calling onPartial(reply) as it arrives: first with the
+// passage alone — known from retrieval, so the reader has the text in front of
+// them before the explanation of it starts — then with the explanation as it
+// grows. Returns the same reply POST /study would have.
+//
+// Any streaming failure falls back to POST /study, so a broken stream costs the
+// wait for a whole answer, never half of one left on screen. A 404 still comes
+// out of the fallback as an ApiError, which is what callers already handle.
+// See docs/superpowers/specs/2026-07-28-study-trecho-streaming-design.md
+async function streamStudy(book, itemNumber, chapter, onPartial) {
+  try {
+    let passage = null;
+    let text = '';
+    return await studyItemStream(book, itemNumber, chapter,
+      (piece) => {
+        text += piece;
+        if (passage) onPartial({ ...passage, ia: text, streaming: true });
+      },
+      (p) => { passage = p; onPartial({ ...p, ia: '', streaming: true }); },
+    );
+  } catch (err) {
+    console.warn('study stream failed; falling back to /study', err);
+    return studyItem(book, itemNumber, chapter);
+  }
+}
 
 export default function App() {
 
@@ -416,11 +453,11 @@ export default function App() {
   };
 
   const handleQuickAction       = (label, msg) =>
-    runQuickAction(label, msg, m => setMsgs(prev => [...prev, m]), setLoading);
+    runQuickAction(label, msg, m => setMsgs(prev => upsertById(prev, m)), setLoading);
   const handleGuidedQuickAction = (label, msg) =>
-    runQuickAction(label, msg, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
+    runQuickAction(label, msg, m => setGuidedMsgs(prev => upsertById(prev, m)), setGuidedLoading);
   const handleExplorarQuickAction = (label, msg) =>
-    runQuickAction(label, msg, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
+    runQuickAction(label, msg, m => setExplorarMsgs(prev => upsertById(prev, m)), setExplorarLoad);
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
   const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
@@ -441,7 +478,7 @@ export default function App() {
     }
   };
   const handleGuidedDuvida = (displayText, queryText) =>
-    askDuvida(displayText, queryText, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
+    askDuvida(displayText, queryText, m => setGuidedMsgs(prev => upsertById(prev, m)), setGuidedLoading);
   const handleExplorarDuvida = (displayText, queryText, bookFilter) => askDuvida(displayText, queryText, m => {
     setExplorarMsgs(prev => {
       const updated = [...prev, m];
@@ -469,18 +506,28 @@ export default function App() {
   const presentGuidedStep = async (trilha, stepIdx, existingMsgs) => {
     setGuidedLoading(true);
     const step = trilha.steps[stepIdx];
+    // The step's own title replaces the passage's in both lanes, so a streaming
+    // step is labelled "Passo 2 de 5" from its first frame, not only at the end.
+    const asStepMsg = (reply) => ({
+      id: 'tutor_' + stepIdx,
+      ts: Date.now(),
+      isUser: false, isAI: true,
+      ...reply,
+      obra: reply.obra
+        ? { ...reply.obra, title: `${step.book} — ${step.label} · Passo ${stepIdx + 1} de ${trilha.steps.length}` }
+        : null,
+    });
+
     let tutorMsg;
     try {
-      const reply = await studyItem(step.book, step.item_number, step.chapter || null);
-      tutorMsg = {
-        id: 'tutor_' + stepIdx,
-        ts: Date.now(),
-        isUser: false, isAI: true,
-        ...reply,
-        obra: reply.obra
-          ? { ...reply.obra, title: `${step.book} — ${step.label} · Passo ${stepIdx + 1} de ${trilha.steps.length}` }
-          : null,
-      };
+      const reply = await streamStudy(
+        step.book, step.item_number, step.chapter || null,
+        (partial) => {
+          setGuidedLoading(false); // the passage is on screen; the spinner would sit under it
+          setGuidedMsgs([...existingMsgs, asStepMsg(partial)]);
+        },
+      );
+      tutorMsg = asStepMsg(reply);
     } catch (err) {
       console.error('presentGuidedStep failed:', err);
       tutorMsg = {
@@ -517,10 +564,15 @@ export default function App() {
     const bookName = BOOK_NAME_MAP[obraId];
     const { item_number, chapter } = parseItemRef(query);
 
+    const showPartial = (partial) => {
+      setExplorarLoad(false);
+      setExplorarMsgs([userMsg, { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...partial }]);
+    };
+
     let reply;
     try {
       if (item_number && bookName) {
-        reply = await studyItem(bookName, item_number, chapter);
+        reply = await streamStudy(bookName, item_number, chapter, showPartial);
       } else {
         reply = await chatMessage(query, [], bookName || null);
       }
@@ -571,7 +623,11 @@ export default function App() {
     let reply;
     try {
       if (item_number && bookName) {
-        reply = await studyItem(bookName, item_number, chapter);
+        reply = await streamStudy(bookName, item_number, chapter, (partial) => {
+          setExplorarLoad(false);
+          setExplorarMsgs([...prevMsgs, userMsg,
+            { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...partial }]);
+        });
       } else {
         // 'estudar_obra' so the orchestrator does not nudge a reader who is
         // already inside Estudar toward Estudar. Omitting it sends
@@ -677,7 +733,14 @@ export default function App() {
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
     try {
-      const reply = await studyItem(source.book, source.item_number, source.chapter || null);
+      const reply = await streamStudy(
+        source.book, source.item_number, source.chapter || null,
+        (partial) => {
+          setExplorarLoad(false);
+          setExplorarMsgs([userMsg,
+            { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...partial }]);
+        },
+      );
       const aiMsg = { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const meta = { id: 'explorar_' + Date.now(), title: label };
       setExplorarConvoMeta(meta); explorarConvoMetaRef.current = meta;
@@ -852,12 +915,29 @@ export default function App() {
     setConvoId(id);
     setMsgs([userMsg]); setLoading(true); scrollToBottom();
 
+    // The passage of the day is numbered per chapter, so the normal path here
+    // is /study, not /chat — streaming it is what makes this screen, the one a
+    // reader opens daily, stop waiting on a blank panel.
+    const trechoMsgId = 'a' + Date.now();
+    const showPartial = (partial) => {
+      if (epoch !== threadEpochRef.current) return;
+      setLoading(false);
+      setMsgs([userMsg, { id: trechoMsgId, ts: Date.now(), isUser: false, isAI: true, isTrecho: true, ...partial }]);
+    };
+
     let reply;
     try {
       if (source.item_number) {
-        reply = await studyItem(source.book, source.item_number, source.chapter || null);
+        reply = await streamStudy(
+          source.book, source.item_number, source.chapter || null, showPartial,
+        );
       } else {
-        reply = await chatMessage(`Explique este trecho do Evangelho: "${content.slice(0, 300)}"`);
+        let streamed = '';
+        reply = await chatMessageStream(
+          `Explique este trecho do Evangelho: "${content.slice(0, 300)}"`,
+          [], null, null,
+          (piece) => { streamed += piece; showPartial({ hasDaObra: false, obra: null, ia: streamed, streaming: true }); },
+        );
       }
     } catch (err) {
       console.error('handleStudyTrecho failed:', err);
@@ -868,7 +948,7 @@ export default function App() {
 
     // User may have switched threads while /study ran — don't clobber the new one.
     if (epoch !== threadEpochRef.current) return;
-    const finalMsgs = [userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
+    const finalMsgs = [userMsg, { id: trechoMsgId, ts: Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
     setMsgs(finalMsgs);
     saveConvo(id, 'Trecho do dia', 'duvida', finalMsgs);
     scrollToBottom();
@@ -1195,8 +1275,18 @@ export default function App() {
             setLoad(true);
             scrollToBottom();
             try {
-              const reply = await studyItem(item.book, item.item_number, item.chapter || null);
-              appendMsg({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
+              // One id for every frame: appendMsg upserts, so the streaming
+              // answer is rewritten in place instead of stacking one message
+              // per token.
+              const msgId = 'a' + Date.now();
+              const reply = await streamStudy(
+                item.book, item.item_number, item.chapter || null,
+                (partial) => {
+                  setLoad(false);
+                  appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...partial });
+                },
+              );
+              appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...reply });
             } catch (err) {
               console.error('RelatedItemsModal onSelectItem failed:', err);
               appendMsg({
