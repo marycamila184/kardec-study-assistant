@@ -13,7 +13,13 @@ from src.rag.json_stream import JsonFieldStreamer
 from src.rag.llm_client import get_client
 from src.rag.profile import STUDY_DEFAULT, ResponseProfile
 from src.rag.prose import delta_text
-from src.rag.retriever import chapter_commentary, retrieve, retrieve_by_item
+from src.rag.quote_check import find_unsupported_quotes
+from src.rag.retriever import (
+    chapter_commentary,
+    filter_sensitive_chunks,
+    retrieve,
+    retrieve_by_item,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -51,9 +57,17 @@ def prepare_study(
     except Exception:
         logger.exception("related-items retrieve failed in explicador")
         all_related = []
+    # The darkest O Céu e o Inferno testimony is filtered out of the RELATED
+    # items unconditionally, without waiting for a sensitivity tier.
+    #
+    # The studied item is not filtered: opening it is a deliberate act, and
+    # someone who navigates to that chapter has chosen it. A related item is the
+    # opposite — the system offering something nobody asked for. Suggesting a
+    # suicide testimony beside a passage about suffering is a choice this code
+    # makes, and the daily passage opens through here every morning.
     related = [
         r
-        for r in all_related
+        for r in filter_sensitive_chunks(all_related)
         if not (
             r["metadata"]["item_number"] == item_number
             and r["metadata"]["book"] == book
@@ -181,6 +195,21 @@ def _finalize(
     # text is what the reader sees, in both lanes.
     chapter_context = build_chapter_context(ctx)
     contexto, inline_refs = extract_item_refs(contexto, chapter_context)
+
+    # A quotation attributed to the works that is in none of the retrieved text
+    # is fabricated doctrine — and /study is where a reader goes to CHECK what a
+    # work says, so a wrong attribution here contaminates the study itself. The
+    # guard ran only on /chat until now; the reasoning applies harder here.
+    #
+    # Checked after the markers are stripped, on the text the reader will see:
+    # running it on marked-up text compares code's own output against the corpus
+    # and withholds correct answers, which is how this went wrong on /chat.
+    available = ctx["chunks"] + (ctx.get("commentary") or []) + ctx.get("related", [])
+    unsupported = find_unsupported_quotes(contexto, available)
+    if unsupported:
+        logger.warning("fabricated quotation in /study, withheld: %s", unsupported[:2])
+        contexto, conceitos_chave, perguntas, inline_refs = "", [], [], []
+        generation_failed = True
 
     return {
         "original_text": ctx["original_text"],

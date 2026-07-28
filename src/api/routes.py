@@ -335,7 +335,11 @@ def get_path(path_id: str) -> PathDetail:
 
 
 @router.post("/study", response_model=StudyResponse)
-def study(request: StudyRequest) -> StudyResponse:
+def study(request: StudyRequest, http_request: Request) -> StudyResponse:
+    # /study was missed when the abuse guards went in, and it is the more
+    # expensive route: two model calls per request (Explicador and Curador),
+    # public and unauthenticated.
+    _enforce_rate_limit(http_request)
     result = study_item_fn(request.book, request.item_number, request.chapter)
     if result is None:
         raise _item_not_found(request.item_number)
@@ -343,7 +347,7 @@ def study(request: StudyRequest) -> StudyResponse:
 
 
 @router.post("/study/stream")
-def study_stream(request: StudyRequest) -> StreamingResponse:
+def study_stream(request: StudyRequest, http_request: Request) -> StreamingResponse:
     """Same answer as POST /study, delivered as Server-Sent Events.
 
     POST /study is unchanged and remains the recovery path. The daily passage
@@ -351,6 +355,8 @@ def study_stream(request: StudyRequest) -> StreamingResponse:
     numbered, which is the normal case.
     See docs/superpowers/specs/2026-07-28-study-trecho-streaming-design.md
     """
+    _enforce_rate_limit(http_request)
+
     # Prepared before the stream opens so a missing item is still an HTTP 404.
     # Once the response starts streaming the status code is already sent, and a
     # not-found would have to masquerade as a successful empty answer.

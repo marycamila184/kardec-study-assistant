@@ -390,3 +390,87 @@ def test_explicador_marks_failure_on_unparseable_output(monkeypatch):
     out = exp.explicar("O Livro dos Espíritos", "625")
     assert out["generation_failed"] is True
     assert out["contexto"] == ""
+
+
+# ── The three gaps /chat had covered and /study did not (closed 2026-07-28) ───
+
+
+def test_related_items_never_carry_the_darkest_testimony():
+    """The studied item is a deliberate choice; a related item is the system
+    offering something nobody asked for. The daily passage opens through here
+    every morning."""
+    from src.rag.retriever import SENSITIVE_CHAPTERS
+
+    sensitive = {
+        "content": "Relato de um suicida.",
+        "footnote_context": "",
+        "metadata": {
+            "book": "O Céu e o Inferno",
+            "chapter_title": sorted(SENSITIVE_CHAPTERS)[0],
+            "item_number": "5",
+        },
+        "distance": 0.1,
+    }
+    ordinary = {
+        "content": "A prece é um ato de adoração.",
+        "footnote_context": "",
+        "metadata": {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Prece",
+            "item_number": "659",
+        },
+        "distance": 0.2,
+    }
+    with (
+        patch(
+            "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
+        ),
+        patch("src.rag.explicador.retrieve", return_value=[sensitive, ordinary]),
+        patch("src.rag.explicador.chapter_commentary", return_value=[]),
+    ):
+        from src.rag.explicador import prepare_study
+
+        ctx = prepare_study("O Livro dos Espíritos", "1")
+
+    books = [r["metadata"]["chapter_title"] for r in ctx["related"]]
+    assert sorted(SENSITIVE_CHAPTERS)[0] not in books
+    assert "Da Prece" in books
+
+
+def test_a_fabricated_quotation_in_study_is_withheld():
+    """/study is where a reader goes to CHECK what a work says — a wrong
+    attribution here contaminates the study itself."""
+    fabricated = json.dumps(
+        {
+            "contexto": (
+                'Kardec escreve que "o duplo etéreo envolve o corpo físico e o '
+                'penetra inteiramente, formando a aura visível".'
+            ),
+            "conceitos_chave": ["aura: o campo que rodeia o corpo"],
+        }
+    )
+    with (
+        patch(
+            "src.rag.explicador.retrieve_by_item", return_value=[_CHUNK_WITH_FOOTNOTE]
+        ),
+        patch("src.rag.explicador.retrieve", return_value=[]),
+        patch("src.rag.explicador.chapter_commentary", return_value=[]),
+        patch("src.rag.explicador.curar", return_value=[]),
+        patch(
+            "src.rag.explicador.get_client",
+            return_value=MagicMock(
+                **{
+                    "chat.completions.create.return_value": _make_llm_response(
+                        fabricated
+                    )
+                }
+            ),
+        ),
+    ):
+        from src.rag.explicador import explicar
+
+        result = explicar("O Livro dos Espíritos", "1")
+
+    assert result["generation_failed"] is True
+    assert result["contexto"] == ""
+    assert result["conceitos_chave"] == []

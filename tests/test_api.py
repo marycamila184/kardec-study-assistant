@@ -820,3 +820,18 @@ def test_chat_has_no_studied_item_for_a_general_question():
         data = client.post("/chat", json={"question": "o que é a prece?"}).json()
 
     assert data["studied_item"] is None
+
+
+def test_study_is_rate_limited_like_chat():
+    """It was missed when the abuse guards went in, and it is the more expensive
+    route: two model calls per request, public and unauthenticated."""
+    from unittest.mock import patch
+
+    with patch("src.api.routes.check_rate_limit", return_value=42):
+        for path, body in (
+            ("/study", {"book": "O Livro dos Espíritos", "item_number": "1"}),
+            ("/study/stream", {"book": "O Livro dos Espíritos", "item_number": "1"}),
+        ):
+            response = client.post(path, json=body)
+            assert response.status_code == 429, path
+            assert response.headers["Retry-After"] == "42"
