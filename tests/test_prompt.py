@@ -204,3 +204,25 @@ def test_the_near_miss_rule_states_its_exception():
     assert "não encontrou exatamente" in system
     assert "PODE terminar" in system
     assert "Não encerre o texto da resposta com uma pergunta" in system
+
+
+def test_the_prompts_come_from_their_files_and_ship_with_the_package():
+    """They live as Markdown so they can be refined without going through
+    Python string escaping. A missing file must raise rather than silently
+    remove a rule and leave everything running."""
+    import pathlib
+
+    import pytest
+
+    from src.rag.prompt_files import _DIR, load
+
+    assert (_DIR / "chat-system.md").exists()
+    assert load("chat-system").startswith("Você é um assistente de estudos")
+
+    with pytest.raises(FileNotFoundError):
+        load("this-prompt-does-not-exist")
+
+    # Every file is reachable by the name the code uses.
+    for path in _DIR.glob("*.md"):
+        if path.stem != "README":
+            assert load(path.stem)

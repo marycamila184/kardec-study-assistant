@@ -1,0 +1,1 @@
+Quando uma afirmação se apoiar num item do comentário doutrinário deste capítulo, escreva o marcador [item N] logo depois dela, com N sendo o número do item. Use apenas números que aparecem em [COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO]. Não escreva o marcador para o próprio trecho principal, nem invente números.

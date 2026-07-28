@@ -1,0 +1,1 @@
+Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional de saúde é também valioso — sem substituir a visão espírita e sem fazer diagnósticos.
