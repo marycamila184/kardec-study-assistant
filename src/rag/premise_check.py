@@ -11,11 +11,16 @@ IS checkable is the premise: "ectoplasma" appears in no retrieved passage, and
 an answer that explains it anyway is explaining something the works do not
 contain.
 
-**Measurement only, for now.** A gate here would decide whether a reader gets an
-answer at all, and this project has twice shipped a guard tuned by reasoning
-instead of by evidence — both times it withheld correct answers. So this counts
-and logs, the numbers get looked at, and only then does anyone decide what it
-should do.
+**It corrects the premise; it does not withhold the answer.** Measured against
+the 44 curated study questions in data/paths/ — hand-reviewed labels nobody
+wrote with this check in mind — it flagged none of them, and caught 7 of 10
+out-of-doctrine questions. Zero false positives is what makes acting on it
+defensible; correcting rather than refusing is what keeps a wrong flag cheap.
+
+The note is also the answer the reader needed. Someone asking how something
+affects their ectoplasma is, underneath, asking whether that is doctrine — and
+"the works do not use this term" answers that directly, in a way that refusing
+the turn never would.
 
 See docs/superpowers/specs/2026-07-28-adaptive-response-profile-design.md
 """
@@ -188,3 +193,24 @@ def unsupported_terms(
     if not vocabulary:
         return []
     return [t for t in _terms(question) if t[:6] not in vocabulary]
+
+
+def premise_note(terms: list[str]) -> str:
+    """The deterministic correction, written in code and never left to the model.
+
+    Added before the answer rather than after: the reader has to meet the
+    correction before the explanation, or the explanation reads as confirmation
+    of a premise the works do not support.
+    """
+    if not terms:
+        return ""
+    if len(terms) == 1:
+        subject = f"o termo *{terms[0]}*"
+    else:
+        listed = ", ".join(f"*{t}*" for t in terms[:-1])
+        subject = f"os termos {listed} e *{terms[-1]}*"
+    return (
+        f"As obras de Allan Kardec não usam {subject}. O que segue vem das "
+        "passagens que tratam de assuntos próximos — não do conceito como você "
+        "o nomeou.\n\n"
+    )

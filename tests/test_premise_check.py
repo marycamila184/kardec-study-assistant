@@ -76,3 +76,24 @@ def test_no_chunks_reports_nothing():
     """With nothing retrieved the not-found path already handles it; flagging
     every word here would just be noise."""
     assert unsupported_terms("qualquer coisa", [], _VOCABULARY) == []
+
+
+def test_the_note_names_a_single_term():
+    from src.rag.premise_check import premise_note
+
+    note = premise_note(["ectoplasma"])
+    assert "não usam o termo *ectoplasma*" in note
+    assert note.endswith("\n\n")
+
+
+def test_the_note_lists_several_terms_readably():
+    from src.rag.premise_check import premise_note
+
+    note = premise_note(["chakras", "aura", "carma"])
+    assert "*chakras*, *aura* e *carma*" in note
+
+
+def test_no_terms_means_no_note():
+    from src.rag.premise_check import premise_note
+
+    assert premise_note([]) == ""

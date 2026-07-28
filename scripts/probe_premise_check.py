@@ -14,31 +14,42 @@ Usage:
     uv run python -m scripts.probe_premise_check
 """
 
+import json
+import pathlib
+
 from src.rag.premise_check import unsupported_terms
 from src.rag.retriever import retrieve
 
-# Ordinary doctrinal questions. Every flag here is a false positive, and enough
-# of them means this can never be a gate.
-LEGITIMATE = [
-    "o que é o perispírito?",
-    "qual a diferença entre alma e espírito?",
-    "o que Kardec diz sobre a prece?",
-    "o que é a reencarnação?",
-    "o que acontece depois da morte?",
-    "por que existe sofrimento no mundo?",
-    "o que são os espíritos protetores?",
-    "como funciona a lei de causa e efeito?",
-    "o que Kardec fala sobre o perdão?",
-    "qual o papel da caridade na doutrina?",
-]
 
-# Concepts the works do not carry. Every miss here is the failure reproducing.
+# Real study questions, taken from the curated learning paths in data/paths/.
+# Their labels ARE the works' own subject lines, hand-reviewed — a far better
+# sample than anything invented to test with, because nobody wrote them with
+# this check in mind. Every flag here is a false positive.
+def legitimate_questions() -> list[str]:
+    labels: list[str] = []
+    for path in sorted(pathlib.Path("data/paths").glob("*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for step in data.get("steps", []):
+            label = (step.get("label") or "").strip()
+            if label and label not in labels:
+                labels.append(label)
+    return labels
+
+
+# Concepts the works do not carry — the failures reported from real use, plus
+# neighbouring ones from the same families (theosophy, later spiritist authors,
+# new age). Every miss here is the failure reproducing.
 OUT_OF_DOCTRINE = [
     "isso influencia o meu ectoplasma e a minha aura",
     "e o duplo etéreo?",
     "o que ele diz sobre a colônia nosso lar",
     "como os chakras se relacionam com o perispírito?",
     "qual a posição sobre cristais energéticos?",
+    "o que Kardec fala sobre apometria?",
+    "e sobre os cordões energéticos entre as pessoas?",
+    "como funciona o carma segundo Kardec?",
+    "o que ele diz sobre os registros akáshicos?",
+    "qual a visão sobre terapia de vidas passadas?",
 ]
 
 
@@ -61,11 +72,12 @@ def run(questions: list[str], label: str) -> int:
 
 
 def main() -> None:
-    false_positives = run(LEGITIMATE, "LEGÍTIMAS — cada FLAG aqui é falso positivo")
+    legitimate = legitimate_questions()
+    false_positives = run(legitimate, "LEGÍTIMAS — cada FLAG aqui é falso positivo")
     caught = run(OUT_OF_DOCTRINE, "FORA DA DOUTRINA — cada 'ok' aqui é uma falha")
 
     print("\n=== resumo ===")
-    print(f"falsos positivos: {false_positives}/{len(LEGITIMATE)}")
+    print(f"falsos positivos: {false_positives}/{len(legitimate)}")
     print(f"detectadas:       {caught}/{len(OUT_OF_DOCTRINE)}")
 
 

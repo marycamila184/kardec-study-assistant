@@ -30,7 +30,7 @@ from src.rag.inline_refs import (
 )
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
-from src.rag.premise_check import unsupported_terms
+from src.rag.premise_check import premise_note, unsupported_terms
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile
 from src.rag.prompt import build_messages
 from src.rag.prose import prose_completion, prose_completion_stream
@@ -349,6 +349,13 @@ def _postprocess(
     answer, internal_terms = strip_internal_terms(answer)
     if internal_terms:
         logger.warning("internal vocabulary rewritten: %d", internal_terms)
+
+    # The premise correction, written in code. Prepended: the reader has to meet
+    # it before the explanation, or the explanation reads as confirming a
+    # premise the works do not support.
+    absent_terms = unsupported_terms(ctx["question"], chunks)
+    if absent_terms:
+        answer = premise_note(absent_terms) + answer
 
     if ctx["fallback_note"]:
         answer = ctx["fallback_note"] + answer

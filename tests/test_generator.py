@@ -1014,3 +1014,31 @@ def test_an_answer_quoting_the_retrieved_text_is_untouched(
 
     assert result["answer"] != NOT_FOUND_MESSAGE
     assert result["not_found"] is False
+
+
+def test_an_absent_premise_is_corrected_before_the_answer(
+    monkeypatch, mock_client, mock_retrieve
+):
+    """Reported from real use: 'isso influencia o meu ectoplasma' got a
+    confident doctrinal answer. The correction comes first — after it, the
+    explanation would read as confirming the premise."""
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion",
+        lambda s, m, **kw: "Uma explicação qualquer.[FONTES: 1][SEGUIR:]",
+    )
+    monkeypatch.setattr(
+        "src.rag.generator.unsupported_terms", lambda q, c: ["ectoplasma"]
+    )
+    result = generate("isso influencia o meu ectoplasma?", [])
+
+    assert result["answer"].startswith("As obras de Allan Kardec não usam")
+    assert "Uma explicação qualquer." in result["answer"]
+
+
+def test_an_ordinary_question_gets_no_note(monkeypatch, mock_client, mock_retrieve):
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion",
+        lambda s, m, **kw: "Uma explicação qualquer.[FONTES: 1][SEGUIR:]",
+    )
+    result = generate("o que é a encarnação?", [])
+    assert not result["answer"].startswith("As obras de Allan Kardec não usam")
