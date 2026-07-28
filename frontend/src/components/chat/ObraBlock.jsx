@@ -18,12 +18,19 @@ export default function ObraBlock({ obra, theme, onShare, compact = false }) {
   if (!obra) return null;
   return (
     <>
+      {/* O trecho chega inteiro, antes da explicação começar, e aparecia de
+          supetão sobre um cartão ainda vazio. A entrada suave tira a brusquidão
+          sem fingir que as palavras de Kardec estão sendo escritas na hora:
+          o texto está completo desde o primeiro quadro, só a opacidade anima.
+          Datilografá-lo simularia o modelo produzindo a fonte — que é
+          exatamente a separação que o modo existe para deixar visível. */}
       <div style={{
         background: theme.obraBg,
         border: `1px solid ${theme.obraBorder}`,
         borderBottom: 'none',
         borderRadius: '10px 10px 0 0',
         padding: '14px 16px',
+        animation: 'fade-up .6s ease',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
           <span style={{
