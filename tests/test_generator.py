@@ -605,7 +605,9 @@ def test_generate_abalo_filters_dark_chunks_and_suppresses_chips(
 def test_generate_normal_unchanged(monkeypatch, mock_client):
     captured = {}
 
-    def _capture(question, chunks, history, mht, add_caveat=False, sensitive=False):
+    def _capture(
+        question, chunks, history, mht, add_caveat=False, sensitive=False, **kw
+    ):
         captured["sensitive"] = sensitive
         return "SYS", [{"role": "user", "content": question}]
 

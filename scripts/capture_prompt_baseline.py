@@ -18,7 +18,9 @@ import pathlib
 from src.rag.explicador_prompt import build_explicador_messages
 from src.rag.prompt import build_messages
 
-FIXTURES = pathlib.Path(__file__).parent.parent / "tests" / "fixtures" / "prompt_baseline"
+FIXTURES = (
+    pathlib.Path(__file__).parent.parent / "tests" / "fixtures" / "prompt_baseline"
+)
 
 _CHUNKS = [
     {

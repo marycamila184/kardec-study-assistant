@@ -10,6 +10,7 @@ from src.rag.explicador_prompt import (
 )
 from src.rag.json_stream import JsonFieldStreamer
 from src.rag.llm_client import get_client
+from src.rag.profile import STUDY_DEFAULT, ResponseProfile
 from src.rag.prose import delta_text
 from src.rag.retriever import chapter_commentary, retrieve, retrieve_by_item
 
@@ -17,7 +18,10 @@ logger = logging.getLogger(__name__)
 
 
 def prepare_study(
-    book: str, item_number: str, chapter: str | None = None
+    book: str,
+    item_number: str,
+    chapter: str | None = None,
+    profile: ResponseProfile = STUDY_DEFAULT,
 ) -> dict | None:
     """Everything before the model call: retrieval, related items, chapter
     commentary, prompt build. Returns None when the item does not exist.
@@ -81,6 +85,7 @@ def prepare_study(
         footnote_context=footnote_context,
         chapter_commentary_chunks=commentary,
         markers=False,
+        profile=profile,
     )
 
     return {
@@ -182,8 +187,13 @@ def _finalize(
     }
 
 
-def explicar(book: str, item_number: str, chapter: str | None = None) -> dict | None:
-    ctx = prepare_study(book, item_number, chapter)
+def explicar(
+    book: str,
+    item_number: str,
+    chapter: str | None = None,
+    profile: ResponseProfile = STUDY_DEFAULT,
+) -> dict | None:
+    ctx = prepare_study(book, item_number, chapter, profile)
     if ctx is None:
         return None
 

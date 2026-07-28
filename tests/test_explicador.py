@@ -179,6 +179,7 @@ def test_explicar_passes_chapter_commentary_to_prompt(monkeypatch):
         footnote_context="",
         chapter_commentary_chunks=None,
         markers=False,
+        **kw,
     ):
         captured["commentary"] = chapter_commentary_chunks
         return "SYS", [{"role": "user", "content": "x"}]
@@ -228,6 +229,7 @@ def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
         footnote_context="",
         chapter_commentary_chunks=None,
         markers=False,
+        **kw,
     ):
         captured["commentary"] = chapter_commentary_chunks
         return "SYS", [{"role": "user", "content": "x"}]

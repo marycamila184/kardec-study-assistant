@@ -21,6 +21,7 @@ from src.rag.groundedness import attribute_sources
 from src.rag.guardrails import counts_personification, strip_trailing_question
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
+from src.rag.profile import CHAT_DEFAULT, ResponseProfile
 from src.rag.prompt import build_messages
 from src.rag.prose import prose_completion, prose_completion_stream
 from src.rag.query_condenser import blend_anchor, condense_query
@@ -103,6 +104,7 @@ def _prepare(
     history: list[dict],
     book_filter: str | None = None,
     anchor_text: str | None = None,
+    profile: ResponseProfile = CHAT_DEFAULT,
 ) -> tuple[dict | None, dict | None]:
     """Everything that happens before the model call: the short-circuits, the
     sensitivity tier, retrieval, and the prompt.
@@ -235,6 +237,7 @@ def _prepare(
         settings.max_history_turns,
         add_caveat=add_caveat,
         sensitive=sensitive,
+        profile=profile,
     )
     return None, {
         "system": system,
@@ -372,8 +375,9 @@ def generate(
     history: list[dict],
     book_filter: str | None = None,
     anchor_text: str | None = None,
+    profile: ResponseProfile = CHAT_DEFAULT,
 ) -> dict:
-    early, ctx = _prepare(question, history, book_filter, anchor_text)
+    early, ctx = _prepare(question, history, book_filter, anchor_text, profile)
     if early is not None:
         return early
 
@@ -392,6 +396,7 @@ def generate_stream(
     history: list[dict],
     book_filter: str | None = None,
     anchor_text: str | None = None,
+    profile: ResponseProfile = CHAT_DEFAULT,
 ) -> Iterator[tuple[str, object]]:
     """The same answer as generate(), yielded as ("token", text) pairs followed
     by exactly one ("done", result).
@@ -405,7 +410,7 @@ def generate_stream(
     is the source of truth: a client that replaces its accumulated text with it
     ends up byte-identical to POST /chat.
     """
-    early, ctx = _prepare(question, history, book_filter, anchor_text)
+    early, ctx = _prepare(question, history, book_filter, anchor_text, profile)
     if early is not None:
         yield "done", early
         return

@@ -1,3 +1,4 @@
+from src.rag.profile import CHAT_DEFAULT, ResponseProfile, render_instructions
 from src.rag.retriever import has_real_item_number, item_word
 
 _SYSTEM_TEMPLATE = """\
@@ -126,6 +127,7 @@ def build_messages(
     max_history_turns: int = 10,
     add_caveat: bool = False,
     sensitive: bool = False,
+    profile: ResponseProfile = CHAT_DEFAULT,
 ) -> tuple[str, list[dict]]:
     passages = "\n\n".join(_format_passage(i + 1, c) for i, c in enumerate(chunks))
     notes = []
@@ -138,6 +140,13 @@ def build_messages(
         caveat="\n\n".join(notes),
         seguir=_SEGUIR_RULE,
     )
+    # Appended rather than woven into the template so an empty fragment leaves
+    # the prompt byte-identical. The sensitivity and caveat instructions above
+    # keep their position: they are not presentation, and a profile must never
+    # be able to displace them.
+    instructions = render_instructions(profile)
+    if instructions:
+        system += "\n\n" + instructions
 
     messages = [
         {"role": t["role"], "content": t["content"]}

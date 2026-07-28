@@ -3,6 +3,7 @@ import re
 
 from src.rag.json_extract import extract_outermost, strip_code_fence
 from src.rag.markers import parse_sections, split_pipe_list
+from src.rag.profile import STUDY_DEFAULT, ResponseProfile, render_instructions
 from src.rag.retriever import item_word
 
 _MARKER_FORMAT = """\
@@ -139,6 +140,7 @@ def build_explicador_messages(
     footnote_context: str = "",
     chapter_commentary_chunks: list[dict] | None = None,
     markers: bool = False,
+    profile: ResponseProfile = STUDY_DEFAULT,
 ) -> tuple[str, list[dict]]:
     template = _MARKER_SYSTEM_TEMPLATE if markers else _SYSTEM_TEMPLATE
     system = template.format(
@@ -147,6 +149,12 @@ def build_explicador_messages(
         chapter_commentary=_format_related(chapter_commentary_chunks or []),
         related_passages=_format_related(related_chunks),
     )
+    # Appended, so an empty fragment leaves the prompt byte-identical. It lands
+    # after the format rules on purpose: the JSON contract above is absolute and
+    # nothing a profile says may read as loosening it.
+    instructions = render_instructions(profile)
+    if instructions:
+        system += "\n\n" + instructions
     messages = [
         {"role": "user", "content": "Analise o trecho acima de forma socrática."}
     ]
