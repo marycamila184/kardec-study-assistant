@@ -133,12 +133,13 @@ export default function IABlock({
         </div>
       )}
 
-      {/* Os outros itens do capítulo que serviram de base à explicação. A
-          resposta se apoia neles e às vezes os cita ("o comentário doutrinário
-          de Kardec sobre este capítulo…"); sem isto, quem lê teria de aceitar a
-          citação sem poder conferi-la. Rotulados de forma neutra porque são o
-          capítulo como veio da busca — versículos e comentário misturados, e
-          nada nos metadados os separa. */}
+      {/* The chapter's other items, the ones the explanation was built on. The
+          answer leans on them and sometimes cites them ("o comentário
+          doutrinário de Kardec sobre este capítulo…"); without this the reader
+          would have to accept that citation with no way to check it. Labelled
+          neutrally because these are the chapter as retrieval returned it —
+          verses and commentary mixed, and nothing in the metadata separates
+          them. */}
       {!isStreaming && msg.chapterContext?.length > 0 && (
         <div style={{ marginTop: 10 }}>
           <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>

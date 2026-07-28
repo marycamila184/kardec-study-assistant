@@ -108,10 +108,10 @@ export default function SettingsPanel({
             </div>
           </Section>
 
-          {/* Privacidade — saiu do onboarding, onde competia com a
-              apresentação do projeto e era lida no pior momento: antes de a
-              pessoa ter qualquer motivo para se importar. Aqui ela é
-              encontrada por quem procura. */}
+          {/* Privacy — moved out of onboarding, where it competed with the
+              introduction to the project and was read at the worst moment:
+              before the reader had any reason to care. Here it is found by
+              whoever goes looking for it. */}
           <Section title="Privacidade" theme={theme}>
             <div style={{ background: 'rgba(107,155,184,.07)', border: '1px solid rgba(107,155,184,.2)', borderRadius: 8, padding: 14 }}>
               <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: '0 0 10px' }}>

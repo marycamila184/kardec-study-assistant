@@ -34,10 +34,10 @@ export default function TopBar({ mode, theme, onOpenSettings, onOpenDrawer, isMo
           ))}
         </button>
       ) : (
-        // Some na home junto com o texto: o HomeLauncher já traz a marca logo
-        // abaixo, e uma logo repetida a 58px de distância da outra só ocupa
-        // espaço. Quando o menu do celular ocupa este lugar, ele fica — é
-        // navegação, não identidade.
+        // Hidden on the home screen along with the text: HomeLauncher already
+        // carries the brand just below, and a logo repeated 58px from another
+        // one only takes up room. When the mobile menu occupies this spot it
+        // stays — that is navigation, not identity.
         !isHome && (
           <div style={{
             width: 34, height: 34, borderRadius: '50%', background: '#6B9BB8',

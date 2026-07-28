@@ -32,12 +32,12 @@ html, body { margin: 0; height: 100%; overflow: hidden; font-family: 'DM Sans', 
 .slide-right{ animation: slide-in-right .24s ease; }
 .slide-left { animation: slide-in-left .24s ease; }
 
-/* A casca do app.
-   100vh no celular e a altura da viewport COM a barra de endereco escondida,
-   entao com ela visivel o layout fica mais alto que a tela e a barra inferior
-   e empurrada para baixo da dobra — sobra uma fatia azul, que parece uma linha
-   solta sob o campo de mensagem. 100dvh acompanha a area de fato visivel; o
-   100vh acima fica como fallback para navegador que nao conhece dvh. */
+/* The app shell.
+   On a phone, 100vh is the viewport height WITH the address bar hidden, so with
+   the bar visible the layout is taller than the screen and the bottom bar is
+   pushed below the fold — leaving a blue sliver that reads as a stray line
+   under the message field. 100dvh follows the area actually visible; the 100vh
+   above stays as a fallback for browsers that do not know dvh. */
 .app-shell {
   height: 100vh;
   height: 100dvh;

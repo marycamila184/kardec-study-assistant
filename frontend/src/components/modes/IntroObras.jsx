@@ -21,7 +21,7 @@ export default function IntroObras({ theme, onBack }) {
         background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
         borderRadius: 10, overflow: 'hidden', marginBottom: 24,
       }}>
-        {/* Retrato centralizado */}
+        {/* Centred portrait */}
         <div style={{
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           padding: '22px 18px 16px', borderBottom: `1px solid ${theme.cardBorder}`,
@@ -79,7 +79,7 @@ export default function IntroObras({ theme, onBack }) {
             Faleceu em 31 de março de 1869 — no mesmo dia em que inaugurava a nova sede da Sociedade.
           </p>
 
-          {/* Citação */}
+          {/* Quote */}
           <div style={{
             padding: '10px 13px', background: 'rgba(107,155,184,.07)',
             borderLeft: '3px solid #6B9BB8', borderRadius: '0 6px 6px 0',

@@ -1,15 +1,16 @@
-// Canal público de contato. Formulário do Google em vez de e-mail: nenhum
-// endereço fica exposto na página, e as respostas caem no Drive dela.
+// Public contact channel. A Google form rather than an email address: no
+// address is exposed on the page, and the replies land in her Drive.
 //
-// Sem o `?usp=publish-editor` que o Google acrescenta ao copiar de dentro do
-// editor: aquele sufixo é contexto de edição, não faz parte do link público.
-// Verificado em 2026-07-27 — abre sem login e não coleta e-mail automaticamente.
+// Without the `?usp=publish-editor` Google appends when the link is copied from
+// inside the editor: that suffix is editing context, not part of the public
+// link. Checked 2026-07-27 — opens without a login and does not collect the
+// respondent's email automatically.
 export const CONTACT_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSf1d5lIjIkwgtABM6P6VuSzraeafEd9uhxtDUERYf4feV61fQ/viewform';
 
-// Aviso de registro anônimo. "podem ser registradas", não "são": em turnos de
-// crise e abalo o texto não é registrado, por decisão de desenho — prometer
-// menos do que se faz é seguro, prometer mais não é.
+// The anonymous-logging notice. "may be recorded", not "are": on crisis and
+// abalo turns the text is not logged at all, by design — promising less than
+// you do is safe, promising more is not.
 export const PRIVACY_NOTICE =
   'As conversas podem ser registradas de forma anônima para melhorar as respostas. ' +
   'Nada é associado a você: não guardamos identificação, nem o histórico da conversa.';
@@ -17,9 +18,9 @@ export const PRIVACY_NOTICE =
 export const LOCAL_STORAGE_NOTICE =
   'Suas conversas ficam salvas apenas no seu navegador.';
 
-// Métricas de acesso da Vercel: página, país, dispositivo. Sem cookies e sem
-// identificação — mas é coleta que antes não existia, e a seção de privacidade
-// deixaria de ser completa sem dizê-lo.
+// Vercel's traffic metrics: page, country, device. No cookies and no
+// identification — but it is collection that did not exist before, and the
+// privacy section would stop being complete without saying so.
 export const ANALYTICS_NOTICE =
   'Também medimos acessos de forma agregada (página, país, tipo de aparelho), ' +
   'sem cookies e sem ligar isso às suas conversas.';

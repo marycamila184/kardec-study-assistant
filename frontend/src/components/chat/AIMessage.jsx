@@ -27,11 +27,12 @@ export default function AIMessage({
   footerAction = null,
   children,
 }) {
-  // Não há mais revelação simulada: o texto que aparece progressivamente é o
-  // que o modelo produziu, palavra a palavra, pelo stream. O que não vem pelo
-  // stream aparece inteiro, que é a verdade sobre como chegou.
-  // Enquanto o stream corre a mensagem ainda está chegando: compartilhar ou
-  // oferecer os botões de seguimento em cima de meia resposta seria errado.
+  // No simulated reveal any more: text that appears gradually is text the
+  // model is actually still producing, word by word, over the stream. Anything
+  // that does not stream appears whole, which is the truth about how it
+  // arrived.
+  // While the stream runs the message is still on its way: sharing it, or
+  // offering the follow-up buttons over half an answer, would be wrong.
   const isStreaming = !!msg.streaming;
 
   return (
