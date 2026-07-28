@@ -45,6 +45,14 @@ _BODY = {
             "item_number": "132",
         }
     ],
+    "chapter_context": [
+        {
+            "book": "O Evangelho Segundo o Espiritismo",
+            "chapter_title": "Da Encarnação",
+            "item_number": "133",
+            "excerpt": "133. O comentário do capítulo.",
+        }
+    ],
     "generation_failed": False,
 }
 

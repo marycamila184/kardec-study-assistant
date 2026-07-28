@@ -92,6 +92,14 @@ function mapStudy(data, bookLabel, itemNumber) {
       preview: r.preview,
       conexao: r.conexao || null,
     })),
+    // The chapter's other items, when they were used as grounding. Shaped for
+    // SourceModal, which reads `chapter` as the chapter *title*.
+    chapterContext: (data.chapter_context || []).map(c => ({
+      book: c.book,
+      chapter: c.chapter_title || null,
+      item_number: c.item_number,
+      excerpt: c.excerpt,
+    })),
   };
 }
 

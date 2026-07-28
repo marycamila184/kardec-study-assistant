@@ -88,6 +88,12 @@ class StudyResponse(BaseModel):
     perguntas: list[str]
     related_items: list[RelatedItem]
     sources: list[StudySource]
+    # The chapter's other items, when they were used as grounding. Evangelho
+    # only — see chapter_commentary() in retriever.py. Exposed because the
+    # explanation draws on them and says so ("o comentário doutrinário de
+    # Kardec sobre este capítulo…"); a reader who cannot open what was cited
+    # is being asked to take the attribution on trust.
+    chapter_context: list[StudySource] = []
     generation_failed: bool = False
 
 

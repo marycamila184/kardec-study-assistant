@@ -12,7 +12,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.rag.explicador import explicar_stream, prepare_study
+from src.rag.explicador import build_chapter_context, explicar_stream, prepare_study
+
+EVANGELHO = "O Evangelho Segundo o Espiritismo"
 
 _CHUNK = {
     "content": "132. A encarnação tem por fim fazê-los progredir.",
@@ -156,3 +158,66 @@ def test_related_items_come_from_curador(_ctx):
         events = list(explicar_stream(_ctx))
     done = [p for kind, p in events if kind == "done"][0]
     assert done["related_items"] == related
+
+
+def test_chapter_context_exposes_the_grounding_items():
+    """The explanation cites the chapter's other items, so they must be
+    openable — grouped per item, subchunks rejoined in order."""
+    ctx = {
+        "commentary": [
+            {
+                "content": "2. O incrédulo sorri a esta parábola,",
+                "metadata": {
+                    "book": EVANGELHO,
+                    "chapter_title": "MUITOS OS CHAMADOS",
+                    "item_number": "2",
+                },
+            },
+            {
+                "content": "que lhe parece de pueril ingenuidade.",
+                "metadata": {
+                    "book": EVANGELHO,
+                    "chapter_title": "MUITOS OS CHAMADOS",
+                    "item_number": "2",
+                },
+            },
+            {
+                "content": "5. Larga é a porta da perdição.",
+                "metadata": {
+                    "book": EVANGELHO,
+                    "chapter_title": "MUITOS OS CHAMADOS",
+                    "item_number": "5",
+                },
+            },
+        ]
+    }
+    out = build_chapter_context(ctx)
+
+    assert [c["item_number"] for c in out] == ["2", "5"]
+    assert out[0]["excerpt"] == (
+        "2. O incrédulo sorri a esta parábola, que lhe parece de pueril ingenuidade."
+    )
+    assert out[0]["chapter_title"] == "MUITOS OS CHAMADOS"
+
+
+def test_chapter_context_drops_section_placeholders():
+    """'section-N' is the parser's marker for an unnumbered heading — not an
+    item anyone can look up."""
+    ctx = {
+        "commentary": [
+            {
+                "content": "Instruções dos Espíritos",
+                "metadata": {"book": EVANGELHO, "item_number": "section-3"},
+            },
+            {
+                "content": "12. Principalmente ao ensino dos Espíritos.",
+                "metadata": {"book": EVANGELHO, "item_number": "12"},
+            },
+        ]
+    }
+    assert [c["item_number"] for c in build_chapter_context(ctx)] == ["12"]
+
+
+def test_chapter_context_is_empty_without_commentary():
+    assert build_chapter_context({}) == []
+    assert build_chapter_context({"commentary": []}) == []

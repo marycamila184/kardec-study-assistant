@@ -133,6 +133,33 @@ export default function IABlock({
         </div>
       )}
 
+      {/* Os outros itens do capítulo que serviram de base à explicação. A
+          resposta se apoia neles e às vezes os cita ("o comentário doutrinário
+          de Kardec sobre este capítulo…"); sem isto, quem lê teria de aceitar a
+          citação sem poder conferi-la. Rotulados de forma neutra porque são o
+          capítulo como veio da busca — versículos e comentário misturados, e
+          nada nos metadados os separa. */}
+      {!isStreaming && msg.chapterContext?.length > 0 && (
+        <div style={{ marginTop: 10 }}>
+          <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
+            Outros itens deste capítulo usados na explicação
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+            {msg.chapterContext.map((c, i) => (
+              <button key={i} onClick={() => setOpenSource(c)} style={{
+                background: 'transparent',
+                border: `1px solid ${theme.cardBorder}`,
+                color: theme.subtext, fontSize: 11,
+                padding: '3px 10px', borderRadius: 12,
+                cursor: 'pointer', fontWeight: 500,
+              }}>
+                📖 {formatSourceRef({ book: c.book, itemNumber: c.item_number })}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {!isStreaming && showQuickActions && quickActions.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 10 }}>
           {quickActions.map((qa) => (

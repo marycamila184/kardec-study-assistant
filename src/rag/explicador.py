@@ -87,9 +87,50 @@ def prepare_study(
         "chunks": chunks,
         "original_text": original_text,
         "related": related,
+        "commentary": commentary,
         "system": system,
         "messages": messages,
     }
+
+
+def build_chapter_context(ctx: dict) -> list[dict]:
+    """The chapter siblings that went into the prompt, as references a reader
+    can open — one entry per item, subchunks rejoined in order.
+
+    Neutral by construction: these are the chapter's other items as retrieved,
+    verses and Kardec's commentary alike, with no claim about which is which.
+    Nothing in the metadata separates them, and guessing would risk presenting
+    a gospel verse as Kardec's own words.
+
+    Section placeholders ('section-N', the parser's marker for unnumbered
+    chapter headings) are dropped: they are not items anyone can look up.
+    """
+    grouped: dict[str, dict] = {}
+    for chunk in ctx.get("commentary") or []:
+        meta = chunk["metadata"]
+        item = meta.get("item_number") or ""
+        if not item.isdigit():
+            continue
+        entry = grouped.setdefault(
+            item,
+            {
+                "book": meta["book"],
+                "chapter_title": meta.get("chapter_title") or None,
+                "item_number": item,
+                "parts": [],
+            },
+        )
+        entry["parts"].append(chunk["content"])
+
+    return [
+        {
+            "book": e["book"],
+            "chapter_title": e["chapter_title"],
+            "item_number": e["item_number"],
+            "excerpt": " ".join(e["parts"]),
+        }
+        for e in grouped.values()
+    ]
 
 
 def _parse(raw: str | None) -> tuple[str, list[str], list[str]]:
@@ -136,6 +177,7 @@ def _finalize(
         "perguntas": perguntas,
         "related_items": related_items,
         "sources": sources,
+        "chapter_context": build_chapter_context(ctx),
         "generation_failed": generation_failed,
     }
 
