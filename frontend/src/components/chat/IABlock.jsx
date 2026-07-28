@@ -10,13 +10,14 @@ import { formatSourceRef } from '../../utils/format';
 
 /**
  * The "Da IA" block containing the explanation text, historical context,
- * and optional quick action pills. Reveal state (`revealedText`/`isRevealing`)
- * is owned by AIMessage and passed down so follow-up buttons (rendered as
- * AIMessage's `children`) can gate on it too.
+ * and optional quick action pills. `isStreaming` is owned by AIMessage and
+ * passed down so follow-up buttons (rendered as AIMessage's `children`) can
+ * gate on it too: sources, chips and sharing stay hidden until the answer is
+ * whole, since offering them over half a response would be wrong.
  */
 export default function IABlock({
   msg, theme, fontSize = '13px',
-  revealedText, isRevealing,
+  text, isStreaming,
   showQuickActions = true,
   quickActions = [],
   onQuickAction,
@@ -63,7 +64,7 @@ export default function IABlock({
       <div style={{
         fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
       }}>{renderInlineMarkdown(
-        [msg.isReflection && msg.opening, revealedText].filter(Boolean).join('\n\n')
+        [msg.isReflection && msg.opening, text].filter(Boolean).join('\n\n')
       )}</div>
 
       {/* Refletir is switched off for production — the mode is disconnected,
@@ -73,7 +74,7 @@ export default function IABlock({
           without this guard these buttons would render and silently do
           nothing when clicked. Suppressed entirely rather than left dead. See
           docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md */}
-      {/* {!isRevealing && msg.isReflection && !msg.isClosing && msg.reflectionQuestions?.length > 0 && (
+      {/* {!isStreaming && msg.isReflection && !msg.isClosing && msg.reflectionQuestions?.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
           {msg.reflectionQuestions.map((q, i) => (
             <button
@@ -90,7 +91,7 @@ export default function IABlock({
       )} */}
 
       {/* Follow-up question chips (Tirar uma Dúvida) — tap sends the question */}
-      {!isRevealing && suggestedQuestions.length > 0 && (
+      {!isStreaming && suggestedQuestions.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 12 }}>
           {suggestedQuestions.map((q, i) => (
             <button
@@ -106,7 +107,7 @@ export default function IABlock({
         </div>
       )}
 
-      {!isRevealing && msg.sources?.length > 0 && (
+      {!isStreaming && msg.sources?.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>
           {msg.sources.map((s, i) => (
             <button key={i} onClick={() => setOpenSource(s)} style={{
@@ -126,7 +127,7 @@ export default function IABlock({
         </div>
       )}
 
-      {!isRevealing && showQuickActions && quickActions.length > 0 && (
+      {!isStreaming && showQuickActions && quickActions.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 10 }}>
           {quickActions.map((qa) => (
             <button key={qa.label} onClick={() => onQuickAction?.(qa.label)} style={{
@@ -145,7 +146,7 @@ export default function IABlock({
       {/* Cross-mode action attached as the card's footer strip; negative
           margins cancel the card's 13px 16px padding so it spans edge-to-edge
           and its corners close the card's bottom radius. */}
-      {!isRevealing && footerAction && (
+      {!isStreaming && footerAction && (
         <button
           onClick={footerAction.onClick}
           onMouseEnter={() => setFooterHover(true)}

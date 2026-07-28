@@ -1,7 +1,6 @@
 import React from 'react';
 import ObraBlock from './ObraBlock';
 import IABlock from './IABlock';
-import { useTypewriter } from '../../hooks/useTypewriter';
 
 const BookIcon = ({ size = 11, color = 'white' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -28,29 +27,12 @@ export default function AIMessage({
   footerAction = null,
   children,
 }) {
-  // A citação da obra revelava de uma vez enquanto a resposta digitava, então
-  // o trecho do dia aparecia inteiro e a explicação vinha devagar logo abaixo.
-  // Agora as duas usam o mesmo relógio, em sequência: primeiro a passagem,
-  // depois o que a IA diz sobre ela — que é a ordem em que se lê.
-  // A resposta do /chat agora chega em pedaços pelo stream, então o texto já
-  // aparece progressivamente por conta própria: revelá-lo de novo com o
-  // temporizador o faria começar do zero quando o `done` substitui o texto.
-  // Histórico (fromCache) continua aparecendo inteiro, como antes.
-  const noReveal = !!msg.fromCache || !!msg.streaming || !!msg.streamed;
-
-  const quote = msg.obra?.quote || '';
-  const revealedQuote = useTypewriter(quote, { key: msg.id, skip: noReveal });
-  const quoteDone = revealedQuote.length >= quote.length;
-
-  const revealedText = useTypewriter(msg.ia, {
-    key: msg.id,
-    skip: noReveal,
-    start: quoteDone,
-  });
+  // Não há mais revelação simulada: o texto que aparece progressivamente é o
+  // que o modelo produziu, palavra a palavra, pelo stream. O que não vem pelo
+  // stream aparece inteiro, que é a verdade sobre como chegou.
   // Enquanto o stream corre a mensagem ainda está chegando: compartilhar ou
   // oferecer os botões de seguimento em cima de meia resposta seria errado.
-  const isRevealing =
-    !!msg.streaming || !quoteDone || revealedText.length < (msg.ia || '').length;
+  const isStreaming = !!msg.streaming;
 
   return (
     <div style={{ display: 'flex', gap: 9, alignItems: 'flex-start', animation: 'fade-up .3s ease' }}>
@@ -63,14 +45,14 @@ export default function AIMessage({
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         {msg.hasDaObra && (
-          <ObraBlock obra={{ ...msg.obra, quote: revealedQuote }} theme={theme}
-            onShare={onShare && !isRevealing ? onShare : undefined}
+          <ObraBlock obra={msg.obra} theme={theme}
+            onShare={onShare && !isStreaming ? onShare : undefined}
             compact={isMobile}
           />
         )}
         <IABlock
           msg={msg} theme={theme} fontSize={fontSize}
-          revealedText={revealedText} isRevealing={isRevealing}
+          text={msg.ia} isStreaming={isStreaming}
           showQuickActions={showQuickActions} quickActions={quickActions}
           onQuickAction={onQuickAction}
           // Forwarded as always-undefined; see comment on the prop above.
@@ -79,7 +61,7 @@ export default function AIMessage({
           onSuggestedQuestionClick={onSuggestedQuestionClick}
           footerAction={footerAction}
         />
-        {!isRevealing && children}
+        {!isStreaming && children}
       </div>
     </div>
   );

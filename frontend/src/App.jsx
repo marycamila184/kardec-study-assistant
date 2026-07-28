@@ -296,11 +296,7 @@ export default function App() {
       }
       // }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
-      const aiMsg = {
-        id: streamMsgId, ts: Date.now(), isUser: false, isAI: true, ...reply,
-        // Already revealed by the stream — don't re-type it from the start.
-        streamed: streamedText.length > 0,
-      };
+      const aiMsg = { id: streamMsgId, ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, txt.slice(0, 48), mode, finalMsgs);
@@ -759,13 +755,11 @@ export default function App() {
     }
   };
 
-  const markFromCache = (msgs) => msgs.map(m => m.isAI ? { ...m, fromCache: true } : m);
-
   // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
   const handleLoadConvo = async (c) => {
     threadEpochRef.current += 1; // replaces a thread — drop stale async replies
     setConvoId(c.id);
-    const msgs = markFromCache(c.msgs);
+    const msgs = c.msgs;
     // `sub` is stored explicitly on conversations saved after this field was
     // added; fall back to the old id-prefix convention for older entries
     // already sitting in a user's localStorage.
