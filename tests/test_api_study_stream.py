@@ -35,6 +35,15 @@ _CTX = {
 _BODY = {
     "original_text": _CTX["original_text"],
     "contexto": "Kardec responde que a encarnação existe para o progresso.",
+    "inline_refs": [
+        {
+            "position": 20,
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Encarnação",
+            "item_number": "133",
+            "excerpt": "133. O comentário do capítulo.",
+        }
+    ],
     "conceitos_chave": ["encarnação"],
     "perguntas": ["Por que o espírito progride encarnado?"],
     "related_items": [],

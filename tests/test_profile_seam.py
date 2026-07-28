@@ -28,13 +28,15 @@ def _cases():
     return sorted(capture().items())
 
 
-@pytest.mark.parametrize(
-    "name,assembled", _cases(), ids=lambda v: v if isinstance(v, str) else ""
-)
-def test_assembled_prompt_matches_the_recorded_baseline(name, assembled):
-    """Byte-identical to what the code produced before the profile existed."""
+@pytest.mark.parametrize("name", sorted(capture()))
+def test_assembled_prompt_matches_the_recorded_baseline(name):
+    """Byte-identical to the recorded baseline.
+
+    Parametrised over names alone: the assembled prompt is a whole system
+    prompt, and putting it in the test id makes a failure unreadable.
+    """
     recorded = (FIXTURES / f"{name}.txt").read_text(encoding="utf-8")
-    assert assembled == recorded
+    assert capture()[name] == recorded
 
 
 def test_no_baseline_case_disappeared():

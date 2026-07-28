@@ -8,6 +8,7 @@ from src.rag.explicador_prompt import (
     build_explicador_messages,
     parse_explicador_json,
 )
+from src.rag.inline_refs import InlineMarkerFilter, extract_item_refs
 from src.rag.json_stream import JsonFieldStreamer
 from src.rag.llm_client import get_client
 from src.rag.profile import STUDY_DEFAULT, ResponseProfile
@@ -175,14 +176,21 @@ def _finalize(
     stream's `done` event cannot describe the same item differently."""
     sources = build_sources(ctx)
 
+    # Inline markers are resolved against what was actually retrieved; anything
+    # naming an item outside it is dropped here rather than shown. The clean
+    # text is what the reader sees, in both lanes.
+    chapter_context = build_chapter_context(ctx)
+    contexto, inline_refs = extract_item_refs(contexto, chapter_context)
+
     return {
         "original_text": ctx["original_text"],
         "contexto": contexto,
+        "inline_refs": inline_refs,
         "conceitos_chave": conceitos_chave,
         "perguntas": perguntas,
         "related_items": related_items,
         "sources": sources,
-        "chapter_context": build_chapter_context(ctx),
+        "chapter_context": chapter_context,
         "generation_failed": generation_failed,
     }
 
@@ -249,6 +257,10 @@ def explicar_stream(ctx: dict) -> Iterator[tuple[str, object]]:
         contexto, conceitos_chave, perguntas = "", [], []
         generation_failed = False
         streamer = JsonFieldStreamer("contexto")
+        # The streamed contexto carries the inline markers; they must never
+        # flash on screen, and the text a reader watches arrive has to end up
+        # identical to the clean text `done` carries.
+        markers = InlineMarkerFilter()
 
         try:
             stream = get_client("json").chat.completions.create(
@@ -263,9 +275,12 @@ def explicar_stream(ctx: dict) -> Iterator[tuple[str, object]]:
                 if not text:
                     continue
                 raw += text
-                piece = streamer.feed(text)
+                piece = markers.feed(streamer.feed(text))
                 if piece:
                     yield "token", piece
+            tail = markers.flush()
+            if tail:
+                yield "token", tail
             contexto, conceitos_chave, perguntas = _parse(raw)
         except Exception:
             # Same outcome as the non-streaming lane: an unusable response is

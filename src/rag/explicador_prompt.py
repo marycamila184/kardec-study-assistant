@@ -58,6 +58,19 @@ afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passage
 mostra que...", "o texto indica que...")."""
 
 _JSON_RULES = _SHARED_RULES.format(ctx='"contexto"', con='"conceitos_chave"')
+
+# The inline grounding marker. Isolated as one constant so a prompt restructure
+# can replace the wording wholesale: everything downstream depends on the marker
+# SHAPE ("[item N]"), parsed in inline_refs.py, never on this sentence.
+# An item not listed in [COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO] is dropped in
+# code, so a marker invented here costs the reference, not the reader's trust.
+# See docs/superpowers/specs/2026-07-28-grounding-markers-design.md
+_ITEM_MARKER_RULE = """\
+Quando uma afirmação se apoiar num item do comentário doutrinário deste \
+capítulo, escreva o marcador [item N] logo depois dela, com N sendo o número do \
+item. Use apenas números que aparecem em [COMENTÁRIO DOUTRINÁRIO DESTE \
+CAPÍTULO]. Não escreva o marcador para o próprio trecho principal, nem invente \
+números."""
 _MARKER_RULES = _SHARED_RULES.format(ctx="CONTEXTO", con="CONCEITOS")
 
 _SYSTEM_TEMPLATE = (
@@ -81,6 +94,10 @@ breve explicação esclarecedora>"
 
 """
     + _JSON_RULES
+    + """
+
+"""
+    + _ITEM_MARKER_RULE
     + """
 
 [TRECHO PRINCIPAL]

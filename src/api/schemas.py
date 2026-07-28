@@ -24,6 +24,18 @@ class ChatRequest(BaseModel):
     anchor_text: str | None = None
 
 
+class InlineRef(BaseModel):
+    """Where in the prose a claim rests on a retrieved passage. `position` is an
+    index into the clean text, so a client that ignores this field displays
+    exactly what it displayed before inline markers existed."""
+
+    position: int
+    book: str
+    chapter_title: str | None = None
+    item_number: str | None = None
+    excerpt: str | None = None
+
+
 class ChatResponse(BaseModel):
     answer: str
     sources: list[Source]
@@ -84,6 +96,7 @@ class StudyRequest(BaseModel):
 class StudyResponse(BaseModel):
     original_text: str
     contexto: str
+    inline_refs: list[InlineRef] = []
     conceitos_chave: list[str]
     perguntas: list[str]
     related_items: list[RelatedItem]

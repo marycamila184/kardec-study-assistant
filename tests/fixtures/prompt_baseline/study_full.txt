@@ -16,6 +16,8 @@ Regras estritas:
 - É proibido resumir ou parafrasear o trecho no lugar do "contexto" — o estudante já leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
 - Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo (ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", "o texto indica que...").
 
+Quando uma afirmação se apoiar num item do comentário doutrinário deste capítulo, escreva o marcador [item N] logo depois dela, com N sendo o número do item. Use apenas números que aparecem em [COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO]. Não escreva o marcador para o próprio trecho principal, nem invente números.
+
 [TRECHO PRINCIPAL]
 14. Tende muito cuidado com o que ouvis.
 

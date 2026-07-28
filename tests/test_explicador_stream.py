@@ -221,3 +221,56 @@ def test_chapter_context_drops_section_placeholders():
 def test_chapter_context_is_empty_without_commentary():
     assert build_chapter_context({}) == []
     assert build_chapter_context({"commentary": []}) == []
+
+
+def _payload_with_markers(contexto: str) -> str:
+    return json.dumps(
+        {"contexto": contexto, "conceitos_chave": [], "perguntas": []},
+        ensure_ascii=False,
+    )
+
+
+@pytest.fixture
+def _ctx_with_chapter(_ctx):
+    """The studied item plus one sibling item that markers may name."""
+    _ctx["commentary"] = [
+        {
+            "content": "133. O comentário do capítulo.",
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "chapter_title": "Da Encarnação",
+                "item_number": "133",
+            },
+        }
+    ]
+    return _ctx
+
+
+def test_a_resolved_marker_becomes_an_inline_ref(_ctx_with_chapter):
+    raw = _payload_with_markers("O progresso é a finalidade [item 133].")
+    tokens, done = _run(_ctx_with_chapter, raw=raw, size=200)
+
+    assert done[0]["contexto"] == "O progresso é a finalidade."
+    assert len(done[0]["inline_refs"]) == 1
+    assert done[0]["inline_refs"][0]["item_number"] == "133"
+
+
+def test_a_marker_for_an_unretrieved_item_is_dropped(_ctx_with_chapter):
+    """The invariant: an inline citation must never point at something that was
+    not retrieved."""
+    raw = _payload_with_markers("Uma afirmação inventada [item 999].")
+    _, done = _run(_ctx_with_chapter, raw=raw, size=200)
+
+    assert done[0]["contexto"] == "Uma afirmação inventada."
+    assert done[0]["inline_refs"] == []
+
+
+@pytest.mark.parametrize("size", [1, 2, 3, 7, 200])
+def test_no_token_ever_shows_a_marker_even_half_written(_ctx_with_chapter, size):
+    raw = _payload_with_markers("O progresso é a finalidade [item 133] do espírito.")
+    tokens, done = _run(_ctx_with_chapter, raw=raw, size=size)
+
+    streamed = "".join(tokens)
+    assert "[" not in streamed and "item 133" not in streamed
+    # What was watched arriving must match what stands as the answer.
+    assert streamed.split() == done[0]["contexto"].split()
