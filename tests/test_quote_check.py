@@ -145,3 +145,14 @@ def test_two_quoted_terms_do_not_pair_across_the_prose_between_them():
         'mas não faz referência específica aos "chakras".'
     )
     assert find_unsupported_quotes(answer, _CHUNKS) == []
+
+
+def test_a_short_quoted_term_does_not_break_the_pairing():
+    """From the 2026-07-28 probe: a 20-character minimum meant a short quoted
+    term was not matched as a span, so its closing quote paired with the next
+    term's opening quote and swallowed the prose between them."""
+    answer = (
+        'As obras não trazem "glândula pineal" como termo. No entanto, o texto '
+        'indica que "O perispírito desempenha preponderante papel no organismo".'
+    )
+    assert find_unsupported_quotes(answer, _CHUNKS) == []

@@ -170,13 +170,26 @@ def test_the_header_survives_a_chunk_with_no_chapter_reference():
     assert "Da Encarnação" in header
 
 
-def test_the_prompt_forbids_the_model_talking_about_itself():
-    """Production 2026-07-28: 'Sim, posso fornecer citações... é importante
-    notar que as citações devem ser usadas para...'"""
+def test_the_prompt_forbids_announcing_but_allows_correcting():
+    """Announcing configuration is what grates ('sim, posso fornecer
+    citações...'). Apologising for a wrong answer is honesty, and the reader
+    asked for it to stay."""
     from src.rag.prompt import build_messages
 
     system, _ = build_messages("q", [], [])
-    assert "Nunca fale de si mesmo" in system
+    assert "Não anuncie o que vai fazer" in system
+    assert "Corrigir-se é diferente" in system
+
+
+def test_absent_terms_reach_the_model_when_there_are_any():
+    from src.rag.prompt import build_messages
+
+    plain, _ = build_messages("q", [], [])
+    assert "AVISO:" not in plain
+
+    warned, _ = build_messages("q", [], [], absent_terms=["pineal"])
+    assert '"pineal" não aparece' in warned
+    assert "Não trate esse termo como doutrina" in warned
 
 
 def test_the_near_miss_rule_states_its_exception():

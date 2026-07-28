@@ -42,8 +42,13 @@ MIN_QUOTED_WORDS = 6
 # probe that captured the model's own honest sentence about chakras, spanning a
 # paragraph break, and withheld a correct answer over it. A real quotation from
 # these works does not cross a blank line.
+# No minimum length. There used to be one, and it broke the pairing: a short
+# quoted term like "glândula pineal" fell below it, so its closing quote paired
+# with the NEXT term's opening quote and swallowed the prose between them —
+# withholding a correct answer. Every quoted span is matched so the alternation
+# stays right; MIN_QUOTED_WORDS then decides which spans are worth checking.
 _QUOTED = re.compile(
-    r"[\"“”«]([^\"“”«»\n]{20,600})[\"“”»]",
+    r"[\"“”«]([^\"“”«»\n]{1,600})[\"“”»]",
 )
 
 

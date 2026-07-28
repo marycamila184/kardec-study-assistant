@@ -249,6 +249,13 @@ def _prepare(
 
     sensitive = level == "abalo"
     add_caveat = needs_medical_caveat(question) or sensitive
+    # Deterministic signal, model's wording: the check knows which words the
+    # works never use, and the model decides how to say it. A fixed sentence in
+    # code was tried and read as a machine correcting the reader.
+    absent = unsupported_terms(question, chunks)
+    if absent:
+        logger.info("question premise absent from the works: %s", absent)
+
     system, messages = build_messages(
         question,
         chunks,
@@ -257,6 +264,7 @@ def _prepare(
         add_caveat=add_caveat,
         sensitive=sensitive,
         profile=profile,
+        absent_terms=absent,
     )
     return None, {
         "system": system,
@@ -302,9 +310,6 @@ def _postprocess(
         # instead of evidence — both times it withheld correct answers. The
         # numbers get looked at first. Measured 2026-07-28: 0 false positives
         # in 10 legitimate questions, 3 of 5 out-of-doctrine ones caught.
-        absent = unsupported_terms(ctx["question"], chunks)
-        if absent:
-            logger.warning("question premise absent from the works: %s", absent)
     except Exception:
         logger.exception("log-only citation/personification monitor failed")
 

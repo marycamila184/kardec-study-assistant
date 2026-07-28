@@ -60,6 +60,8 @@ Termine a resposta na substância.
 
 {near_miss}
 
+{absent_terms}
+
 Ao final da resposta, acrescente duas linhas técnicas (ambas são removidas \
 automaticamente antes de o usuário ver a resposta — nunca as mencione no texto):
 1. [FONTES: ...] com os números das passagens que você realmente usou para \
@@ -141,11 +143,11 @@ que aparecem nessa lista. O marcador fica junto da afirmação que ele sustenta 
 # a machine announcing a mode change: the prose simply arrives already shaped.
 # Isolated as one constant so a prompt restructure can replace the wording.
 _NO_SELF_REFERENCE_RULE = """\
-Nunca fale de si mesmo, do seu funcionamento ou do que você pode ou não fazer \
-(ex.: "sim, posso fornecer...", "vou trazer as citações", "como assistente..."). \
-Não comente a forma da própria resposta nem anuncie mudanças nela, e não instrua \
-quem lê sobre como usar o que você entregou. Comece pela substância: se pediram \
-citações, a resposta começa na primeira citação."""
+Não anuncie o que vai fazer nem comente a forma da resposta (ex.: "sim, posso \
+fornecer...", "vou trazer as citações"), e não instrua quem lê sobre como usar o \
+que você entregou. Comece pela substância: se pediram citações, a resposta \
+começa na primeira citação. Corrigir-se é diferente e é bem-vindo: se disse algo \
+errado antes, diga isso com naturalidade."""
 
 
 # The near miss, handled in the answer instead of by a fixed note in code.
@@ -186,6 +188,27 @@ sereno em toda a resposta. Não invente doutrina nem faça diagnósticos. Não \
 introduza temas de suicídio ou morte voluntária que a pessoa não mencionou."""
 
 
+def _absent_terms_note(terms: list[str] | None) -> str:
+    """Tells the model which words of the question the works never use.
+
+    The signal is deterministic — checked against the corpus in
+    premise_check.py — and the wording is left to the model, which is the
+    division that keeps the answer conversational without letting it invent.
+    A fixed sentence in code was tried first and read as a machine correcting
+    the reader.
+
+    Empty when there is nothing to say, so the neutral prompt is unchanged.
+    """
+    if not terms:
+        return ""
+    listed = ", ".join(f'"{t}"' for t in terms)
+    return (
+        f"AVISO: {listed} não aparece(m) em nenhuma das obras de Kardec. Diga "
+        "isso a quem perguntou, com suas palavras, antes de explicar o que as "
+        "passagens de fato trazem. Não trate esse termo como doutrina."
+    )
+
+
 def _format_passage(index: int, chunk: dict) -> str:
     """The header carries the CANONICAL reference, not just the chapter title.
 
@@ -219,6 +242,7 @@ def build_messages(
     add_caveat: bool = False,
     sensitive: bool = False,
     profile: ResponseProfile = CHAT_DEFAULT,
+    absent_terms: list[str] | None = None,
 ) -> tuple[str, list[dict]]:
     passages = "\n\n".join(_format_passage(i + 1, c) for i, c in enumerate(chunks))
     notes = []
@@ -233,6 +257,7 @@ def build_messages(
         passage_marker=_PASSAGE_MARKER_RULE,
         no_self_reference=_NO_SELF_REFERENCE_RULE,
         near_miss=_NEAR_MISS_RULE,
+        absent_terms=_absent_terms_note(absent_terms),
     )
     # Appended rather than woven into the template so an empty fragment leaves
     # the prompt byte-identical. The sensitivity and caveat instructions above
