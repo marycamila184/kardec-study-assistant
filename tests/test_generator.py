@@ -3,7 +3,11 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.rag.generator import NOT_FOUND_MESSAGE, generate
+from src.rag.generator import (
+    GENERATION_FAILED_MESSAGE,
+    NOT_FOUND_MESSAGE,
+    generate,
+)
 
 _CHUNKS = [
     {
@@ -1037,3 +1041,20 @@ def test_an_absent_premise_is_left_to_the_answer_not_prepended(
 
     assert result["answer"].startswith("Uma explicação qualquer.")
     assert "As obras de Allan Kardec não usam" not in result["answer"]
+
+
+def test_an_answer_emptied_by_post_processing_is_a_failure_not_a_blank_bubble(
+    monkeypatch, mock_client, mock_retrieve
+):
+    """Reported from live use: a turn came back empty with source chips under
+    it, which reads as the app having said something the reader missed. Any step
+    can empty an answer, so the check is on the result."""
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion",
+        lambda s, m, **kw: "[FONTES: 1][SEGUIR:]",
+    )
+    result = generate("e as referências?", [])
+
+    assert result["answer"] == GENERATION_FAILED_MESSAGE
+    assert result["generation_failed"] is True
+    assert result["sources"] == [], "no chips under a failure"

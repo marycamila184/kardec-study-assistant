@@ -390,6 +390,17 @@ def _postprocess(
     if ctx["profile"].citation_precision == "full":
         answer, inline_refs = render_references(answer, inline_refs)
 
+    # An answer that post-processing emptied is not an answer. Reported from
+    # live use: a turn came back as an empty bubble with source chips under it,
+    # which reads as the app having said something the reader missed. The
+    # prose lane had this guard; the lane actually running did not.
+    #
+    # Anything can empty it — a reply that was only a trailer, only markers,
+    # only a citation — so the check is on the RESULT rather than on any of the
+    # steps that could produce it.
+    if not answer.strip():
+        raise ValueError("answer emptied by post-processing")
+
     return answer, chunks, suggested_questions, inline_refs
 
 
