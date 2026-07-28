@@ -30,6 +30,7 @@ from src.rag.inline_refs import (
 )
 from src.rag.markers import strip_marker_debris, strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
+from src.rag.premise_check import unsupported_terms
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile
 from src.rag.prompt import build_messages
 from src.rag.prose import prose_completion, prose_completion_stream
@@ -261,6 +262,7 @@ def _prepare(
         "system": system,
         "messages": messages,
         "profile": profile,
+        "question": question,
         "chunks": chunks,
         "level": level,
         "sensitive": sensitive,
@@ -294,6 +296,15 @@ def _postprocess(
         personifications = counts_personification(answer)
         if personifications:
             logger.warning("personification of 'o Espiritismo': %d", personifications)
+        # A term the works never use, asked about as though they did. Log-only
+        # on purpose: gating here decides whether a reader gets an answer at
+        # all, and this project has twice shipped a guard tuned by reasoning
+        # instead of evidence — both times it withheld correct answers. The
+        # numbers get looked at first. Measured 2026-07-28: 0 false positives
+        # in 10 legitimate questions, 3 of 5 out-of-doctrine ones caught.
+        absent = unsupported_terms(ctx["question"], chunks)
+        if absent:
+            logger.warning("question premise absent from the works: %s", absent)
     except Exception:
         logger.exception("log-only citation/personification monitor failed")
 
