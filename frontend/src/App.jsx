@@ -1277,6 +1277,7 @@ export default function App() {
         reminderOn={reminderOn} onToggleReminder={() => setReminderOn(r => !r)}
         reminderTime={reminderTime} onReminderTime={setReminderTime}
         notifPermission={notifPerm} onRequestNotif={requestNotif}
+        profile={profile} onResetProfile={() => setProfile(null)}
         theme={theme}
       />
       {shareMsg && <ShareModal
