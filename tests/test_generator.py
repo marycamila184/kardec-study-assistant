@@ -879,7 +879,7 @@ def test_full_precision_does_not_write_the_reference_into_the_prose():
     deixa de ser chamado, não de existir. É o caminho de volta para o dia em
     que um cliente não puder renderizar links.
     """
-    from src.rag.profile import CHAT_DEFAULT, ResponseProfile
+    from src.rag.profile import CHAT_DEFAULT
 
     profile = dataclasses.replace(CHAT_DEFAULT, citation_precision="full")
     ctx = {
