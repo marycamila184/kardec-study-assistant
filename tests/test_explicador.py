@@ -499,3 +499,27 @@ def test_chapter_context_carries_the_chapter_id_for_disambiguation():
     (entry,) = build_chapter_context(ctx)
     assert entry["chapter_ref"] == "CAPÍTULO XII"
     assert entry["chapter_title"] == "AMAI OS VOSSOS INIMIGOS"
+
+
+def test_sources_carry_the_chapter_id_too():
+    """`StudySource.chapter_ref` exists in the schema and `build_chapter_context`
+    already fills it; `build_sources` was the one producer that left it null,
+    so /study's `sources[].chapter_ref` was always missing even though the
+    chapter id sits right there in the chunk's metadata."""
+    from src.rag.explicador import build_sources
+
+    ctx = {
+        "chunks": [
+            {
+                "content": "3. Se o amor do próximo…",
+                "metadata": {
+                    "book": "O Evangelho Segundo o Espiritismo",
+                    "chapter": "CAPÍTULO XII",
+                    "chapter_title": "AMAI OS VOSSOS INIMIGOS",
+                    "item_number": "3",
+                },
+            }
+        ]
+    }
+    (source,) = build_sources(ctx)
+    assert source["chapter_ref"] == "CAPÍTULO XII"

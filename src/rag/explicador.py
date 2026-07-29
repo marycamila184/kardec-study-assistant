@@ -180,6 +180,7 @@ def build_sources(ctx: dict) -> list[dict]:
         {
             "book": c["metadata"]["book"],
             "chapter_title": c["metadata"].get("chapter_title") or None,
+            "chapter_ref": c["metadata"].get("chapter") or None,
             "item_number": c["metadata"]["item_number"],
         }
         for c in ctx["chunks"]
