@@ -141,6 +141,20 @@ def _enforce_rate_limit(http_request: Request) -> None:
         )
 
 
+def session_id_from(http_request: Request) -> str | None:
+    """The reader's consent, as the presence of a header.
+
+    Absence IS the refusal — there is no boolean flag that could be sent as
+    true by mistake, and no request schema had to change. The backend never
+    generates this and never falls back to IP, cookie or user-agent: if the
+    header did not arrive, there is no session, so a frontend bug errs safe.
+    The `or None` collapses a header that arrived blank into refusal too.
+
+    See docs/superpowers/specs/2026-07-28-log-de-sessao-e-feedback-design.md
+    """
+    return http_request.headers.get("X-Session-Id") or None
+
+
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     _enforce_rate_limit(http_request)
@@ -177,6 +191,8 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
         started_at=started,
         log=True,
         profile=profile,
+        session_id=session_id_from(http_request),
+        n_history=len(history),
     )
 
 
@@ -200,6 +216,10 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
     history = trim_history(request.question, history)
 
     profile = _resolve_profile(request.question, request.profile, request.current_mode)
+    # Read before the stream opens: inside the generator the request may already
+    # be gone by the time the body starts being consumed.
+    session_id = session_id_from(http_request)
+    n_history = len(history)
 
     def events():
         executor = ThreadPoolExecutor(max_workers=1)
@@ -240,6 +260,8 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
             started_at=started,
             log=True,
             profile=profile,
+            session_id=session_id,
+            n_history=n_history,
         )
         yield _sse("done", response.model_dump())
 
@@ -253,6 +275,9 @@ def _chat_response(
     started_at: float,
     log: bool,
     profile: ResponseProfile | None = None,
+    session_id: str | None = None,
+    n_history: int = 0,
+    mode: str = "chat",
 ) -> ChatResponse:
     """Builds the /chat body. Shared with the stream's `done` event so the two
     routes cannot drift apart."""
@@ -263,15 +288,20 @@ def _chat_response(
         if suggested_mode == "estudar_obra"
         else {"item_number": None, "book": None}
     )
+    turn_id = None
     if log:
-        log_chat_turn(
+        turn_id = log_chat_turn(
             question,
             result,
             latency_ms=int((time.monotonic() - started_at) * 1000),
             suggested_mode=suggested_mode,
+            session_id=session_id,
+            mode=mode,
+            n_history=n_history,
         )
     return ChatResponse(
         answer=result["answer"],
+        turn_id=turn_id,
         studied_item=result.get("studied_item"),
         profile=_profile_state(profile) if profile else None,
         inline_refs=result.get("inline_refs", []),

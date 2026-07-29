@@ -28,6 +28,8 @@ import re
 import sys
 import uuid
 
+from src.core.config import settings
+
 # Levels whose text is never recorded. `crise` means someone wrote about wanting
 # to die; `abalo` means distress. Both are health data, the strictest category
 # there is. The cost is real and accepted: crisis detection cannot be audited
@@ -81,6 +83,8 @@ def log_chat_turn(
     suggested_mode: str | None = None,
     session_id: str | None = None,
     turn_id: str | None = None,
+    mode: str = "chat",
+    n_history: int = 0,
 ) -> str:
     """One JSON line per turn. Never raises: observability must not be able to
     break an answer that already worked.
@@ -101,6 +105,21 @@ def log_chat_turn(
             "event": "chat_turn",
             "severity": "INFO",
             "turn_id": turn_id,
+            "mode": mode,
+            # How many previous turns the client sent, never one word of them.
+            # Rule nº2 of 2026-07-27 is about the content: a count cannot
+            # rebuild a conversation.
+            "n_history": n_history,
+            # The lane that actually wrote the prose, which is not always the
+            # one that answers structured JSON. With PROSE_PROVIDER unset the
+            # two coincide; when they do not, the log has to say who answered —
+            # that is the whole point of the field. A missing CHAT_MODEL once
+            # cost a deploy with every /chat returning 503.
+            "model": settings.resolved_prose_model,
+            "provider": settings.prose_provider_name,
+            # Everything retrieval returned, not just what was cited. `sources`
+            # below is the cited subset.
+            "retrieved": result.get("retrieved") or [],
             "n_sources": len(sources),
             "sources": [
                 {

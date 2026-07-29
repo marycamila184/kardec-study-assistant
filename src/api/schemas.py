@@ -69,6 +69,10 @@ class StudiedItem(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+    # The id of the logged turn, so the client can attach a vote to it. Not an
+    # identifier of a person: it names one line, never repeats, and links
+    # nothing to anything. None when the turn was not logged.
+    turn_id: str | None = None
     studied_item: StudiedItem | None = None
     # The profile this answer was written with, for the client to carry into the
     # next turn. Echoed rather than assumed: a request that changed the shape

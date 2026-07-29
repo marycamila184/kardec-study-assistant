@@ -134,7 +134,9 @@ def test_the_turn_is_logged_once_with_the_final_answer():
     with (
         patch("src.api.routes.generate_stream", _fake_generate_stream),
         patch("src.api.routes.classify_intent", return_value={"mode": None}),
-        patch("src.api.routes.log_chat_turn") as mock_log,
+        # A string, não o MagicMock padrão: log_chat_turn devolve o turn_id que
+        # vai para o corpo tipado da resposta desde 2026-07-28.
+        patch("src.api.routes.log_chat_turn", return_value="turn-1") as mock_log,
     ):
         _stream("o que acontece após a morte?")
 
