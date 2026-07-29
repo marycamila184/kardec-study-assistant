@@ -8,23 +8,27 @@
 export const CONTACT_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSf1d5lIjIkwgtABM6P6VuSzraeafEd9uhxtDUERYf4feV61fQ/viewform';
 
-// The logging notice. "may be recorded", not "are": on crisis and abalo turns
-// the text is not logged at all, by design — promising less than you do is
-// safe, promising more is not.
+// The logging notice.
 //
 // Rewritten 2026-07-28: the previous wording promised "não guardamos o
 // histórico da conversa", which stopped being true for readers who opt in —
 // their turns are linked by a session id for as long as the tab is open. A
 // privacy notice describing the previous behaviour is worse than none, so this
-// text now names both regimes and which one the reader is in.
+// text names the linking and ties it to the reader's authorisation.
+//
+// It deliberately says LESS than the app does: direct identifiers (e-mail,
+// phone, CPF, CEP) are scrubbed before writing, and turns marked `crise` or
+// `abalo` record no text at all — neither is mentioned. That asymmetry is the
+// safe one and is the standing rule for this file: promising less than you do
+// costs nothing, promising more is a false statement about someone's data.
+// Anyone tightening what the code does may edit freely here; anyone loosening
+// it must check this text first.
 export const PRIVACY_NOTICE =
   'Guardo as conversas de forma anônima, só para entender o que precisa ' +
-  'melhorar. Não fica nada que identifique você — nem nome, nem IP, nem ' +
-  'cookie —, e e-mails, telefones, CPFs e CEPs digitados são apagados antes. ' +
-  'Se você autorizar, as perguntas de uma mesma conversa ficam ligadas entre ' +
-  'si enquanto a aba estiver aberta; isso ajuda quando uma resposta ruim só ' +
-  'faz sentido junto com o que veio antes. Momentos de sofrimento nunca têm o ' +
-  'texto guardado, autorizado ou não. Depois de 12 meses, apago.';
+  'melhorar. Não fica nada que identifique você. Se você autorizar, as ' +
+  'perguntas de uma mesma conversa ficam ligadas entre si enquanto a aba ' +
+  'estiver aberta; isso ajuda quando uma resposta ruim só faz sentido junto ' +
+  'com o que veio antes. Depois de 12 meses as mensagens serão apagadas.';
 
 export const LOCAL_STORAGE_NOTICE =
   'Suas conversas ficam salvas apenas no seu navegador.';
