@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
+import FeedbackButtons from './FeedbackButtons';
 import { Dots } from './LoadingDots';
 // Refletir is switched off for production — the mode is disconnected, not
 // deleted. BRAND_TERRACOTTA was only used for the "🪞 Reflexão" badge below,
@@ -160,6 +161,12 @@ export default function IABlock({
           </div>
         </div>
       )}
+
+      {/* Um voto na resposta. Este componente rende a resposta da IA tanto no
+          chat quanto no estudo livre, então cobre os dois lugares de uma vez.
+          Guardado por !isStreaming como os vizinhos: votar numa resposta que
+          ainda está sendo escrita não faz sentido. */}
+      {!isStreaming && <FeedbackButtons turnId={msg.turnId} theme={theme} />}
 
       {!isStreaming && showQuickActions && quickActions.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 10 }}>
