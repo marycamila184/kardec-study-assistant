@@ -44,19 +44,20 @@ export default function ConsentBanner({ theme }) {
         position: 'fixed', bottom: 12, left: 12, right: 12, zIndex: 1000,
         maxWidth: 460, margin: '0 auto', padding: 16, borderRadius: 12,
         background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
-        boxShadow: '0 8px 28px rgba(0,0,0,.18)',
+        boxShadow: '0 4px 18px rgba(0,0,0,.10)',
       }}
     >
-      <p style={{ fontSize: 13, lineHeight: 1.6, color: theme.text, margin: '0 0 12px' }}>
-        Posso guardar as perguntas e respostas desta conversa, sem identificar
-        você, para melhorar a qualidade das respostas?
+      <p style={{ fontSize: 13, lineHeight: 1.65, color: theme.text, margin: '0 0 10px' }}>
+        Posso guardar nossas conversas, sem identificar você, para ir
+        melhorando as respostas?
       </p>
+      {/* O detalhe todo — o que é guardado, por quanto tempo, o que nunca é
+          registrado — vive no PRIVACY_NOTICE, em Configurações → Privacidade.
+          Esta linha existe para que a escolha continue informada: sem um
+          caminho nomeado para o texto completo, o consentimento deixa de ser
+          específico, que é a base legal inteira. É o mínimo, não decoração. */}
       <p style={{ fontSize: 11.5, lineHeight: 1.6, color: theme.subtext, margin: '0 0 14px' }}>
-        As perguntas de uma mesma conversa ficam ligadas entre si enquanto esta
-        aba estiver aberta, e nada liga essa conversa a você. Guardo por 12
-        meses. Momentos de sofrimento nunca têm o texto registrado, com ou sem
-        sua autorização. Você pode mudar de ideia quando quiser em
-        Configurações&nbsp;→&nbsp;Privacidade.
+        Você muda de ideia quando quiser em Configurações&nbsp;→&nbsp;Privacidade.
       </p>
       <div style={{ display: 'flex', gap: 8 }}>
         <button style={button} onClick={decide(revokeConsent)}>Agora não</button>

@@ -18,13 +18,13 @@ export const CONTACT_FORM_URL =
 // privacy notice describing the previous behaviour is worse than none, so this
 // text now names both regimes and which one the reader is in.
 export const PRIVACY_NOTICE =
-  'As conversas podem ser registradas de forma anônima para melhorar as ' +
-  'respostas. Não guardamos identificação, IP nem cookie, e e-mails, ' +
-  'telefones, CPFs e CEPs digitados são apagados antes do registro. ' +
+  'Guardo as conversas de forma anônima, só para entender o que precisa ' +
+  'melhorar. Não fica nada que identifique você — nem nome, nem IP, nem ' +
+  'cookie —, e e-mails, telefones, CPFs e CEPs digitados são apagados antes. ' +
   'Se você autorizar, as perguntas de uma mesma conversa ficam ligadas entre ' +
-  'si enquanto a aba estiver aberta — o que ajuda a entender respostas ruins ' +
-  'que só fazem sentido no contexto da conversa. Momentos de sofrimento nunca ' +
-  'têm o texto registrado, autorizado ou não. Guardamos por 12 meses.';
+  'si enquanto a aba estiver aberta; isso ajuda quando uma resposta ruim só ' +
+  'faz sentido junto com o que veio antes. Momentos de sofrimento nunca têm o ' +
+  'texto guardado, autorizado ou não. Depois de 12 meses, apago.';
 
 export const LOCAL_STORAGE_NOTICE =
   'Suas conversas ficam salvas apenas no seu navegador.';
