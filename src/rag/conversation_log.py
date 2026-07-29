@@ -1,11 +1,18 @@
 """Anonymous per-turn logging, so answer quality can be judged from real use.
 
-Design constraint, decided 2026-07-27: nothing here may allow reconstructing one
-person's session. An identifier is not only a name or an email — a random
-session id would be pseudonymisation, not anonymisation, and it is exactly what
-lets "perdi meu pai" + "moro em Belém" + "sou enfermeira" be joined back into a
-person. So turns are logged loose, with no id of any kind and without the
-history that would rebuild the thread anyway.
+Design constraint, decided 2026-07-27 and RELAXED — only under consent — on
+2026-07-28: without consent, nothing here may allow reconstructing one person's
+session. An identifier is not only a name or an email; a random session id would
+be pseudonymisation, not anonymisation, and it is exactly what lets "perdi meu
+pai" + "moro em Belém" + "sou enfermeira" be joined back into a person. So by
+default turns are still logged loose, with no linking id and without the history
+that would rebuild the thread anyway.
+
+`session_id` is written only when the caller passes one, which happens only when
+the reader opted in through the banner (the frontend sends `X-Session-Id`; its
+absence IS the refusal). This module never generates a session id and never
+derives one from anything — see
+docs/superpowers/specs/2026-07-28-log-de-sessao-e-feedback-design.md.
 
 Two categories are sensitive under the LGPD and both apply to this app:
 religious conviction (an app about Kardec logs it by nature) and health — which
@@ -19,6 +26,7 @@ import json
 import logging
 import re
 import sys
+import uuid
 
 # Levels whose text is never recorded. `crise` means someone wrote about wanting
 # to die; `abalo` means distress. Both are health data, the strictest category
@@ -71,15 +79,28 @@ def log_chat_turn(
     result: dict,
     latency_ms: int,
     suggested_mode: str | None = None,
-) -> None:
+    session_id: str | None = None,
+    turn_id: str | None = None,
+) -> str:
     """One JSON line per turn. Never raises: observability must not be able to
-    break an answer that already worked."""
+    break an answer that already worked.
+
+    Returns the turn_id on the line, so the route can hand the same id to the
+    client without generating a second one. Generated OUTSIDE the try: even if
+    logging fails, the route still needs an id to return.
+
+    `session_id` arrives only when the reader consented — see
+    docs/superpowers/specs/2026-07-28-log-de-sessao-e-feedback-design.md. This
+    function never invents one.
+    """
+    turn_id = turn_id or str(uuid.uuid4())
     try:
         level = result.get("safety_level", "normal")
         sources = result.get("sources") or []
         payload: dict = {
             "event": "chat_turn",
             "severity": "INFO",
+            "turn_id": turn_id,
             "n_sources": len(sources),
             "sources": [
                 {
@@ -96,6 +117,12 @@ def log_chat_turn(
             "suggested_mode": suggested_mode,
             "latency_ms": latency_ms,
         }
+        # Absent, not null. A null would read as "session unknown" and invite
+        # queries to treat it as a field that is meant to be there; an empty
+        # string is a header that arrived blank, which is refusal, not a
+        # session named "".
+        if session_id:
+            payload["session_id"] = session_id
         # Absent, not empty: a null or "" would read as "there was no question",
         # and any future query would treat the field as present-but-blank.
         if level not in _TEXT_FREE_LEVELS:
@@ -104,3 +131,4 @@ def log_chat_turn(
         _logger.info(json.dumps(payload, ensure_ascii=False))
     except Exception:  # noqa: BLE001 - logging must never break a good answer
         logging.getLogger(__name__).exception("conversation logging failed")
+    return turn_id
