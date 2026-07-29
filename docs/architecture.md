@@ -167,6 +167,12 @@ Two properties this diagram exists to make unmissable:
 
 On `abalo`, `filter_sensitive_chunks` drops both the darkest O Céu e o Inferno testimony chapters (`SENSITIVE_CHAPTERS`) and **any chunk whose content matches suicide-adjacent language** (`_SENSITIVE_CONTENT_RE`, book-agnostic — it catches ESE's "abreviar as misérias"), so such passages are never introduced to a distressed reader unprompted.
 
+Three properties of the keyword layer that the diagram cannot show:
+
+- **Every pattern is accent-tolerant.** People in distress type without accents, and a floor that misses "suicidio" is not a floor.
+- **Ordering inside `CRISIS_KEYWORDS` is load-bearing.** An ideation phrasing that happens to contain a topic word ("penso em suicídio") must be listed there, so the exit catches it *before* the topic path turns it into an ordinary answered question. When adding a phrasing, check which of the two paths claims it first.
+- **`CLINICAL_KEYWORDS` / `needs_medical_caveat()` live in `crisis.py`, not in Reflexivo.** They trigger the medical/mediumship caveat, and **`/chat` calls them today** — the Reflexivo section below mentions `CLINICAL_KEYWORDS` because that mode used them too, not because it owns them. Reconnecting or deleting Reflexivo must not touch this.
+
 ### Agents
 
 **Explicador** (`/study`) — `explicador_prompt.py` + `explicador.py`:
