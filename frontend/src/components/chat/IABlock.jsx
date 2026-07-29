@@ -143,7 +143,7 @@ export default function IABlock({
       {!isStreaming && msg.chapterContext?.length > 0 && (
         <div style={{ marginTop: 10 }}>
           <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
-            Itens do capítulo citados nesta explicação
+            Outros itens deste capítulo
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
             {msg.chapterContext.map((c, i) => (

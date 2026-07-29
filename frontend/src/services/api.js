@@ -109,27 +109,30 @@ function mapStudy(data, bookLabel, itemNumber) {
       preview: r.preview,
       conexao: r.conexao || null,
     })),
-    // Only the chapter items the answer actually CITED, from the [item N]
-    // markers — not every item that was fed to the prompt.
+    // The chapter's other items, with the ones the answer cited first.
     //
-    // The row used to be built from chapter_context, which is what was
-    // available, under a heading that said "usados na explicação". On the daily
-    // passage of 2026-07-28 that promised two items the answer never marked.
-    // Offered and used are different things, and only one of them is worth a
-    // reader's click.
+    // Two corrections layered here, both from live use. The heading used to say
+    // "usados na explicação" while listing everything fed to the prompt — on
+    // the daily passage of 2026-07-28 that promised two items the answer had
+    // never marked. Showing only the cited ones fixed the honesty and left a
+    // study screen bare on most turns, which is its own kind of wrong: having
+    // more of the chapter within reach is useful whether or not this particular
+    // answer leaned on it.
     //
-    // Deduped by item: a passage cited three times is one item to open.
-    chapterContext: Object.values(
-      (data.inline_refs || []).reduce((acc, r) => {
-        acc[r.item_number] = {
-          book: r.book,
-          chapter: r.chapter_title || null,
-          item_number: r.item_number,
-          excerpt: r.excerpt,
-        };
-        return acc;
-      }, {}),
-    ),
+    // So: everything is listed, the label promises nothing about use, and what
+    // the [item N] markers point at comes first — the ordering carries the
+    // information the heading used to claim.
+    chapterContext: (() => {
+      const cited = new Set((data.inline_refs || []).map(r => r.item_number));
+      return (data.chapter_context || [])
+        .map(c => ({
+          book: c.book,
+          chapter: c.chapter_title || null,
+          item_number: c.item_number,
+          excerpt: c.excerpt,
+        }))
+        .sort((a, b) => (cited.has(b.item_number) ? 1 : 0) - (cited.has(a.item_number) ? 1 : 0));
+    })(),
   };
 }
 
