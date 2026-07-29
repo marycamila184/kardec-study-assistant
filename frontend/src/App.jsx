@@ -454,7 +454,12 @@ export default function App() {
       // const reply = label === '🪞 Reflexão'
       //   ? await reflectSituation(snippet)
       //   : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
-      const reply = await chatMessage(`Explique de forma mais simples: "${snippet}"`);
+      // 'estudar_obra': as quick actions só existem dentro de Estudar (trilhas
+      // e Explorar), e sem o modo o orchestrator oferece ao leitor estudar a
+      // passagem que ele já tem aberta na frente.
+      const reply = await chatMessage(
+        `Explique de forma mais simples: "${snippet}"`, [], null, 'estudar_obra',
+      );
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('runQuickAction failed:', err);
@@ -480,7 +485,10 @@ export default function App() {
     setLoad(true);
     scrollToBottom();
     try {
-      const reply = await chatMessage(queryText, [], bookFilter);
+      // 'estudar_obra': "Tenho uma dúvida" nasce dentro de Estudar, em trilhas
+      // ou no Explorar. Sem o modo, o orchestrator sugere Estudar a quem já
+      // está lá.
+      const reply = await chatMessage(queryText, [], bookFilter, 'estudar_obra');
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
     } catch (err) {
       console.error('askDuvida failed:', err);
@@ -590,7 +598,9 @@ export default function App() {
     } catch (err) {
       console.error('handleAskTopic failed:', err);
       if (err.status === 404) {
-        try { reply = await chatMessage(query); }
+        // Sem filtro de livro (é a repescagem do 404), mas o modo continua
+        // sendo Estudar — a tela não mudou por causa do retry.
+        try { reply = await chatMessage(query, [], null, 'estudar_obra'); }
         catch (err2) {
           console.error('handleAskTopic fallback failed:', err2);
           reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
