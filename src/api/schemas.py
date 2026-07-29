@@ -136,6 +136,9 @@ class StudyRequest(BaseModel):
 
 class StudyResponse(BaseModel):
     original_text: str
+    # Same meaning as on ChatResponse: names one logged line, so a vote can be
+    # attached to it. Never repeats, links nothing to anyone.
+    turn_id: str | None = None
     contexto: str
     inline_refs: list[InlineRef] = []
     conceitos_chave: list[str]

@@ -17,7 +17,7 @@ from src.api.limits import (
 )
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
-from src.rag.conversation_log import log_chat_turn
+from src.rag.conversation_log import log_chat_turn, log_study_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import build_sources
@@ -376,10 +376,13 @@ def study(request: StudyRequest, http_request: Request) -> StudyResponse:
     # expensive route: two model calls per request (Explicador and Curador),
     # public and unauthenticated.
     _enforce_rate_limit(http_request)
+    started = time.monotonic()
     result = study_item_fn(request.book, request.item_number, request.chapter)
     if result is None:
         raise _item_not_found(request.item_number)
-    return StudyResponse(**result)
+    return _study_response(
+        request, result, started_at=started, session_id=session_id_from(http_request)
+    )
 
 
 @router.post("/study/stream")
@@ -396,6 +399,11 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
     # Prepared before the stream opens so a missing item is still an HTTP 404.
     # Once the response starts streaming the status code is already sent, and a
     # not-found would have to masquerade as a successful empty answer.
+    started = time.monotonic()
+    # Read before the stream opens, like /chat/stream: inside the generator the
+    # request may already be gone.
+    session_id = session_id_from(http_request)
+
     ctx = prepare_study(request.book, request.item_number, request.chapter)
     if ctx is None:
         raise _item_not_found(request.item_number)
@@ -413,9 +421,39 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
             if kind == "token":
                 yield _sse("token", {"text": payload})
             else:
-                yield _sse("done", StudyResponse(**payload).model_dump())
+                # Logged here, with the post-processed payload — the same
+                # object POST /study logs, so both lanes produce one identical
+                # line.
+                response = _study_response(
+                    request, payload, started_at=started, session_id=session_id
+                )
+                yield _sse("done", response.model_dump())
 
     return _sse_response(events())
+
+
+def _study_response(
+    request: StudyRequest,
+    result: dict,
+    started_at: float,
+    session_id: str | None,
+) -> StudyResponse:
+    """Logs the studied turn and builds the body. Shared by POST /study and the
+    stream's `done` event so the two cannot describe the same item differently
+    — the same reason `_chat_response` exists.
+
+    `result` carries a log-only `retrieved` key. StudyResponse is built from
+    named fields, so pydantic drops it and it never reaches the client.
+    """
+    turn_id = log_study_turn(
+        request.book,
+        request.item_number,
+        request.chapter,
+        result,
+        latency_ms=int((time.monotonic() - started_at) * 1000),
+        session_id=session_id,
+    )
+    return StudyResponse(**{**result, "turn_id": turn_id})
 
 
 def _item_not_found(item_number: str) -> HTTPException:

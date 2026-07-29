@@ -151,3 +151,38 @@ def log_chat_turn(
     except Exception:  # noqa: BLE001 - logging must never break a good answer
         logging.getLogger(__name__).exception("conversation logging failed")
     return turn_id
+
+
+def log_study_turn(
+    book: str,
+    item_number: str,
+    chapter: str | None,
+    result: dict,
+    latency_ms: int,
+    session_id: str | None = None,
+) -> str:
+    """A studied item, on the same event as a chat turn.
+
+    Same event name on purpose: reading quality should be one query, not a
+    union of two. What differs is `mode`, and that `question` names the item
+    studied — there is no typed question in a study.
+
+    /study logged nothing at all until 2026-07-28, which is why the daily
+    passage that motivated the spec left no trace to look at.
+    """
+    ref = " — ".join(filter(None, [book, chapter, f"item {item_number}"]))
+    return log_chat_turn(
+        ref,
+        {
+            "answer": result.get("contexto", ""),
+            "sources": result.get("sources") or [],
+            "not_found": False,
+            "generation_failed": bool(result.get("generation_failed")),
+            "suggested_questions": [],
+            "safety_level": "normal",
+            "retrieved": result.get("retrieved") or [],
+        },
+        latency_ms=latency_ms,
+        session_id=session_id,
+        mode="study",
+    )
