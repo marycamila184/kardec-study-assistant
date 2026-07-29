@@ -11,6 +11,24 @@ import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
 import { formatSourceRef } from '../../utils/format';
 import CitedText from './CitedText';
 
+// Identity of a passage, for matching an inline citation against a chip.
+//
+// The chapter is part of it: item numbers restart every chapter in O Evangelho
+// Segundo o Espiritismo, O Céu e o Inferno and A Gênese, so book+item alone
+// collapses two different passages into one key — and /chat retrieval is not
+// chapter-scoped. The backend keeps them apart for the same reason.
+//
+// A passage with no real item number (the parser's "section-N" placeholders,
+// which reach one side raw and the other as null) gets NO key and is never
+// filtered. That asymmetry is chosen: showing a chip twice is untidy, while
+// dropping a passage the answer actually used is the failure this whole
+// feature exists to prevent.
+const passageKey = (p) => {
+  const item = String(p.item_number ?? '');
+  if (!/^\d+$/.test(item)) return null;
+  return `${p.book}|${p.chapter_ref ?? ''}|${item}`;
+};
+
 /**
  * The "Da IA" block containing the explanation text, historical context,
  * and optional quick action pills. `isStreaming` is owned by AIMessage and
@@ -148,18 +166,19 @@ export default function IABlock({
         </div>
       )}
 
-      {/* O que a prosa apontou virou link no texto; embaixo fica só o que
-          sustentou a resposta sem ser apontado numa frase específica. Sem o
-          filtro, cada fonte apareceria duas vezes. O rótulo existe porque uma
-          fileira sem explicação, ao lado de links que se explicam, lê como
-          sobra. */}
+      {/* What the prose pointed at became a link in the text; below stays only
+          what backed the answer without being pointed at from a specific
+          sentence. Without the filter, every source would appear twice. The
+          label exists because a row with no explanation, next to links that
+          explain themselves, reads as leftovers. */}
       {!isStreaming && (() => {
         const citados = new Set(
-          (msg.inlineRefs || []).map((r) => `${r.book}|${r.item_number}`)
+          (msg.inlineRefs || []).map(passageKey).filter(Boolean)
         );
-        const restantes = (msg.sources || []).filter(
-          (s) => !citados.has(`${s.book}|${s.item_number}`)
-        );
+        const restantes = (msg.sources || []).filter((s) => {
+          const key = passageKey(s);
+          return key === null || !citados.has(key);
+        });
         if (!restantes.length) return null;
         return (
           <div style={{ marginTop: 10 }}>
@@ -188,10 +207,17 @@ export default function IABlock({
       })()}
 
       {!isStreaming && msg.chapterContext?.length > 0 && (() => {
-        // O que a explicação citou virou link no texto e sai daqui. O rótulo
-        // "Outros itens deste capítulo" passa a ser literalmente verdade — e a
-        // ordenação citados-primeiro perde a função, porque citado nenhum
-        // sobra nesta lista.
+        // What the explanation cited became a link in the text and leaves this
+        // row. The heading "Outros itens deste capítulo" becomes literally
+        // true — and the cited-first ordering loses its purpose, since no
+        // cited item is left in this list.
+        //
+        // Keyed on item_number alone, not the full passageKey above: this
+        // list is chapter_context, which src/rag/explicador.py's
+        // build_chapter_context always scopes to one book and one chapter by
+        // construction (chapter_commentary in retriever.py filters by book AND
+        // chapter), so item_number can't collide here the way it can across
+        // /chat's unscoped retrieval.
         const citados = new Set((msg.inlineRefs || []).map((r) => r.item_number));
         const restantes = msg.chapterContext.filter(
           (c) => !citados.has(c.item_number)
