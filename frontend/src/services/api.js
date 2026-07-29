@@ -109,14 +109,27 @@ function mapStudy(data, bookLabel, itemNumber) {
       preview: r.preview,
       conexao: r.conexao || null,
     })),
-    // The chapter's other items, when they were used as grounding. Shaped for
-    // SourceModal, which reads `chapter` as the chapter *title*.
-    chapterContext: (data.chapter_context || []).map(c => ({
-      book: c.book,
-      chapter: c.chapter_title || null,
-      item_number: c.item_number,
-      excerpt: c.excerpt,
-    })),
+    // Only the chapter items the answer actually CITED, from the [item N]
+    // markers — not every item that was fed to the prompt.
+    //
+    // The row used to be built from chapter_context, which is what was
+    // available, under a heading that said "usados na explicação". On the daily
+    // passage of 2026-07-28 that promised two items the answer never marked.
+    // Offered and used are different things, and only one of them is worth a
+    // reader's click.
+    //
+    // Deduped by item: a passage cited three times is one item to open.
+    chapterContext: Object.values(
+      (data.inline_refs || []).reduce((acc, r) => {
+        acc[r.item_number] = {
+          book: r.book,
+          chapter: r.chapter_title || null,
+          item_number: r.item_number,
+          excerpt: r.excerpt,
+        };
+        return acc;
+      }, {}),
+    ),
   };
 }
 

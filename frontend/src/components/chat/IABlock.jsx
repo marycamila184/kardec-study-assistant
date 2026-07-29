@@ -133,17 +133,17 @@ export default function IABlock({
         </div>
       )}
 
-      {/* The chapter's other items, the ones the explanation was built on. The
-          answer leans on them and sometimes cites them ("o comentário
-          doutrinário de Kardec sobre este capítulo…"); without this the reader
-          would have to accept that citation with no way to check it. Labelled
-          neutrally because these are the chapter as retrieval returned it —
-          verses and commentary mixed, and nothing in the metadata separates
-          them. */}
+      {/* The chapter items the answer actually cited, resolved from its
+          [item N] markers. When it cited none — which is most turns — the row
+          is simply absent, and that is the honest outcome: the earlier version
+          listed everything fed to the prompt under a heading claiming it had
+          been used. Labelled neutrally as "itens do capítulo" because these are
+          the chapter as retrieval returned it, verses and Kardec's commentary
+          mixed, and nothing in the metadata separates the two. */}
       {!isStreaming && msg.chapterContext?.length > 0 && (
         <div style={{ marginTop: 10 }}>
           <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
-            Outros itens deste capítulo usados na explicação
+            Itens do capítulo citados nesta explicação
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
             {msg.chapterContext.map((c, i) => (
