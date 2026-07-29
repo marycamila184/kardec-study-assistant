@@ -77,7 +77,15 @@ def test_generate_returns_deduplicated_sources(mock_retrieve, mock_client):
     assert result["sources"][0]["item_number"] == "132"
 
 
-def test_generate_masks_placeholder_item_number_in_sources(monkeypatch, mock_client):
+def test_an_unnumbered_chunk_never_becomes_a_source(monkeypatch, mock_client):
+    """A chunk with no item number cannot become a citation a reader can look
+    up — the chip would read "cap. VIII" with nothing behind it. Two thirds of
+    O Céu e o Inferno is testimony of exactly this kind, and it wins on
+    similarity whenever the message is personal.
+
+    Retrieval drops them now, so a turn that matches only testimony returns
+    not_found rather than an answer built from it.
+    """
     chunks = [
         {
             "content": "Trecho introdutório sem item numerado.",
@@ -91,7 +99,8 @@ def test_generate_masks_placeholder_item_number_in_sources(monkeypatch, mock_cli
     ]
     monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: chunks)
     result = generate("O que é reencarnação?", [])
-    assert result["sources"][0]["item_number"] is None
+    assert result["sources"] == []
+    assert result["not_found"] is True
 
 
 def test_generate_not_found_when_no_chunks(monkeypatch, mock_client):

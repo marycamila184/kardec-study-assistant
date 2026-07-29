@@ -35,6 +35,7 @@ from src.rag.retriever import (
     EVANGELHO_BOOK,
     append_chapter_commentary,
     filter_sensitive_chunks,
+    filter_uncitable_chunks,
     has_real_item_number,
     retrieve,
     retrieve_by_item,
@@ -168,7 +169,9 @@ def _prepare(
         direct_chunks = _direct_item_chunks(question, book_filter)
 
         try:
-            chunks = retrieve(search_query, book_filter=book_filter)
+            chunks = filter_uncitable_chunks(
+                retrieve(search_query, book_filter=book_filter)
+            )
         except Exception:
             logger.exception("retrieve failed in /chat generate")
             if not direct_chunks:
@@ -213,7 +216,7 @@ def _prepare(
         fallback_note: str | None = None
         if not chunks and book_filter:
             try:
-                fallback_chunks = retrieve(search_query)
+                fallback_chunks = filter_uncitable_chunks(retrieve(search_query))
             except Exception:
                 logger.exception("book-filter fallback retrieve failed")
                 fallback_chunks = []

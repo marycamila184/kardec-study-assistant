@@ -17,6 +17,7 @@ from src.rag.quote_check import find_unsupported_quotes
 from src.rag.retriever import (
     chapter_commentary,
     filter_sensitive_chunks,
+    filter_uncitable_chunks,
     retrieve,
     retrieve_by_item,
 )
@@ -67,7 +68,7 @@ def prepare_study(
     # makes, and the daily passage opens through here every morning.
     related = [
         r
-        for r in filter_sensitive_chunks(all_related)
+        for r in filter_uncitable_chunks(filter_sensitive_chunks(all_related))
         if not (
             r["metadata"]["item_number"] == item_number
             and r["metadata"]["book"] == book
