@@ -177,14 +177,23 @@ def test_the_bug_that_started_this_is_a_case():
     assert "DA VOLTA DO ESPÍRITO À VIDA CORPORAL" in by_id["ansiedade-nua"]["avoid"]
 
 
-def test_lane_names_are_stable_and_cover_all_four():
+def test_lane_names_are_stable_and_cover_every_lane():
     """The report's lane labels end up in the log that the decision cites."""
     assert list(cr.LANES) == [
         "bge-m3 (atual)",
         "e5-instruct (Together)",
         "gemini-2 @1024",
         "gemini-2 @3072",
+        "qwen3-8b @1024",
+        "qwen3-8b @4096",
     ]
+
+
+def test_every_lane_declares_the_collection_it_reads():
+    """`report()` skips un-indexed lanes by looking them up here. A lane missing
+    from the map would count as never indexed and vanish from the comparison
+    without ever being queried."""
+    assert set(cr.LANE_COLLECTIONS) == set(cr.LANES)
 
 
 def test_gemini_lanes_query_their_own_collection(monkeypatch):
@@ -215,6 +224,108 @@ def test_index_choices_are_the_three_lanes():
     assert args.index == "gemini-1024"
     with pytest.raises(SystemExit):
         parser.parse_args(["--index", "gemini-2048"])
+
+
+class FakeEmbeddings:
+    """Stands in for the OpenAI-compatible embeddings endpoint."""
+
+    def __init__(self, shuffle: bool = False):
+        self.calls: list[dict] = []
+        self.shuffle = shuffle
+
+    def create(self, model, input, dimensions):
+        self.calls.append({"model": model, "input": list(input), "dims": dimensions})
+        items = [
+            type("D", (), {"index": i, "embedding": [float(i)] * dimensions})()
+            for i in range(len(input))
+        ]
+        return type(
+            "R", (), {"data": list(reversed(items)) if self.shuffle else items}
+        )()
+
+
+class FakeClient:
+    def __init__(self, embeddings):
+        self.embeddings = embeddings
+
+
+def test_qwen_instructs_queries_and_leaves_documents_bare(monkeypatch):
+    """The asymmetry trap: Qwen3-Embedding expects the task instruction on the
+    query only. Prefixing documents, or omitting it on queries, degrades the
+    lane for a reason that is not the model."""
+    api = FakeEmbeddings()
+    monkeypatch.setattr(cr, "_openrouter_client", lambda: FakeClient(api))
+
+    cr.encode_qwen(["um documento"], dim=1024)
+    cr.encode_qwen(["uma consulta"], dim=1024, is_query=True)
+
+    assert api.calls[0]["input"] == ["um documento"]
+    assert api.calls[1]["input"] == [
+        "Instruct: " + cr.QWEN_TASK + "\nQuery: uma consulta"
+    ]
+
+
+def test_qwen_reorders_vectors_by_returned_index(monkeypatch):
+    """A batch returned out of order would store every document against another
+    document's vector. Chroma accepts that silently; the only symptom is worse
+    retrieval, which is exactly what this harness claims to measure."""
+    api = FakeEmbeddings(shuffle=True)
+    monkeypatch.setattr(cr, "_openrouter_client", lambda: FakeClient(api))
+
+    vectors = cr.encode_qwen(["a", "b", "c"], dim=8)
+
+    assert [v[0] for v in vectors] == [0.0, 1.0, 2.0]
+
+
+def test_qwen_batches_at_the_pipeline_batch_size(monkeypatch):
+    api = FakeEmbeddings()
+    monkeypatch.setattr(cr, "_openrouter_client", lambda: FakeClient(api))
+
+    vectors = cr.encode_qwen([f"t{i}" for i in range(150)], dim=1024)
+
+    assert len(vectors) == 150
+    assert [len(c["input"]) for c in api.calls] == [64, 64, 22]
+
+
+def test_qwen_rejects_a_vector_of_the_wrong_width(monkeypatch):
+    """MRL truncation is requested per call; a provider ignoring `dimensions`
+    would fill the collection with vectors Chroma cannot match against."""
+
+    class WrongWidth(FakeEmbeddings):
+        def create(self, model, input, dimensions):
+            return type(
+                "R",
+                (),
+                {"data": [type("D", (), {"index": 0, "embedding": [0.0] * 4096})()]},
+            )()
+
+    monkeypatch.setattr(cr, "_openrouter_client", lambda: FakeClient(WrongWidth()))
+
+    with pytest.raises(RuntimeError, match="4096"):
+        cr.encode_qwen(["t"], dim=1024)
+
+
+def test_report_skips_lanes_that_were_never_indexed(monkeypatch, capsys):
+    """`VectorStore` opens with get_or_create_collection, so an un-indexed lane
+    returns no hits instead of raising — and `summarize()` would print that as a
+    genuine `hit_rate@5: 0.0`. Absent must read as absent, never as a score."""
+    called: list[str] = []
+
+    def fake_counts():
+        return {name: (7347 if "bge" in name else None) for name in cr.LANES}
+
+    monkeypatch.setattr(cr, "_collection_counts", fake_counts)
+    for name in cr.LANES:
+        monkeypatch.setitem(
+            cr.LANES, name, lambda q, w, _n=name: called.append(_n) or []
+        )
+
+    cr.report()
+
+    assert set(called) == {"bge-m3 (atual)"}
+    out = capsys.readouterr().out
+    assert "Vias não indexadas" in out
+    assert "qwen3-8b @1024" in out
 
 
 def test_summarize_reports_case_count_and_distance_to_cutoff():

@@ -469,6 +469,107 @@ def index_gemini(dim: int) -> None:
     print(f"Indexado: {total} chunks em {collection}, 0 truncados")
 
 
+# --- qwen lane ---------------------------------------------------------------
+
+QWEN_MODEL = "qwen/qwen3-embedding-8b"
+# 4096 is the native width; 1024 is the MRL truncation that matches bge-m3
+# exactly, so that a win at 1024 is a win on model quality and not on having
+# four times the room. 1024 is also the production candidate — at 7347 chunks
+# the 4096 index is ~120 MB against ~30 MB, and that memory is paid on every
+# cold start of a scale-to-zero instance.
+QWEN_DIMS = (1024, 4096)
+# Verified against the API: 100 is accepted. 64 matches the ingestion pipeline's
+# BATCH_SIZE, so the lane sends exactly the batches production would.
+QWEN_BATCH_MAX = 64
+
+# Qwen3-Embedding is instruction-aware and ASYMMETRIC: the query carries a task
+# instruction, the document carries none. This is the same trap documented for
+# the e5 lane above — indexing documents with a prefix, or querying without one,
+# degrades the model for a reason that has nothing to do with the model.
+#
+# One instruction serves both case sets on purpose. Tuning a separate prompt for
+# `reflexivo` and for `chat` would make the lane's advantage partly a prompt
+# result, and the question here is whether the *model* retrieves this corpus
+# better. Per-mode instructions are a follow-up, not something this run measures.
+QWEN_TASK = (
+    "Given a question or a situation, retrieve passages from the Spiritist "
+    "works of Allan Kardec that address it"
+)
+
+
+def qwen_query(text: str) -> str:
+    return f"Instruct: {QWEN_TASK}\nQuery: {text}"
+
+
+def qwen_collection(dim: int) -> str:
+    return f"kardec_docs_qwen_{dim}"
+
+
+def _openrouter_client():
+    from openai import OpenAI
+
+    key = settings.openrouter_api_key
+    if not key:
+        raise SystemExit("OPENROUTER_API_KEY não está no ambiente/.env")
+    # max_retries covers the 429/5xx that a 115-batch corpus run will hit; the
+    # SDK backs off exponentially and does NOT retry 4xx other than 429, so an
+    # oversize document still fails loudly instead of being quietly dropped.
+    return OpenAI(
+        api_key=key,
+        base_url="https://openrouter.ai/api/v1",
+        max_retries=6,
+        timeout=120.0,
+    )
+
+
+def encode_qwen(
+    texts: list[str], dim: int, is_query: bool = False
+) -> list[list[float]]:
+    """Embeds texts, no truncation anywhere by design.
+
+    Qwen3-Embedding takes 32k tokens against a corpus p90 of 775 chars, so a
+    document that does not fit is a broken assumption rather than an edge to
+    absorb — the e5 lane's silent 1500-char cut is what this avoids.
+
+    Results are reordered by the `index` the API returns rather than trusted to
+    arrive in order. Nothing downstream would notice the difference: a shuffled
+    batch stores every document against another document's vector, Chroma
+    accepts it, and the only symptom is retrieval quietly getting worse.
+    """
+    client = _openrouter_client()
+    payload = [qwen_query(t) for t in texts] if is_query else list(texts)
+    vectors: list[list[float]] = []
+    for start in range(0, len(payload), QWEN_BATCH_MAX):
+        batch = payload[start : start + QWEN_BATCH_MAX]
+        response = client.embeddings.create(
+            model=QWEN_MODEL, input=batch, dimensions=dim
+        )
+        ordered = sorted(response.data, key=lambda d: d.index)
+        if len(ordered) != len(batch):
+            raise RuntimeError(
+                f"a API devolveu {len(ordered)} vetores para {len(batch)} textos"
+            )
+        for d in ordered:
+            if len(d.embedding) != dim:
+                raise RuntimeError(
+                    f"a API devolveu vetor de {len(d.embedding)} dims, esperado {dim}"
+                )
+        vectors.extend(d.embedding for d in ordered)
+    return vectors
+
+
+def index_qwen(dim: int) -> None:
+    """Re-indexes the corpus with qwen3-embedding-8b at `dim` dimensions.
+
+    Reuses the production document builder so the only variable is the model.
+    Nothing is truncated: a document the API refuses raises, because a silent
+    cut is the failure mode this whole comparison exists to avoid.
+    """
+    collection = qwen_collection(dim)
+    total = _index_corpus(collection, lambda docs: encode_qwen(docs, dim=dim))
+    print(f"Indexado: {total} chunks em {collection}, 0 truncados")
+
+
 # --- querying ----------------------------------------------------------------
 
 
@@ -491,6 +592,13 @@ def top_gemini(query: str, where: dict | None, dim: int, k: int = 5) -> list[dic
     )
 
 
+def top_qwen(query: str, where: dict | None, dim: int, k: int = 5) -> list[dict]:
+    store = VectorStore(settings.chroma_path, qwen_collection(dim))
+    return store.query(
+        encode_qwen([query], dim=dim, is_query=True)[0], n_results=k, where=where
+    )
+
+
 # Displayed name -> fn(query, where). Order and labels are contractual: they
 # end up verbatim in the report the deployment decision cites.
 LANES = {
@@ -502,6 +610,23 @@ LANES = {
     f"gemini-2 @{GEMINI_DIMS[1]}": lambda query, where: top_gemini(
         query, where, dim=GEMINI_DIMS[1]
     ),
+    f"qwen3-8b @{QWEN_DIMS[0]}": lambda query, where: top_qwen(
+        query, where, dim=QWEN_DIMS[0]
+    ),
+    f"qwen3-8b @{QWEN_DIMS[1]}": lambda query, where: top_qwen(
+        query, where, dim=QWEN_DIMS[1]
+    ),
+}
+
+# Lane -> the collection it reads. Single source of truth: the report uses it to
+# skip lanes that were never indexed, and `_collection_counts` to size them.
+LANE_COLLECTIONS = {
+    "bge-m3 (atual)": settings.chroma_collection,
+    "e5-instruct (Together)": E5_COLLECTION,
+    f"gemini-2 @{GEMINI_DIMS[0]}": gemini_collection(GEMINI_DIMS[0]),
+    f"gemini-2 @{GEMINI_DIMS[1]}": gemini_collection(GEMINI_DIMS[1]),
+    f"qwen3-8b @{QWEN_DIMS[0]}": qwen_collection(QWEN_DIMS[0]),
+    f"qwen3-8b @{QWEN_DIMS[1]}": qwen_collection(QWEN_DIMS[1]),
 }
 
 
@@ -560,14 +685,8 @@ def _collection_counts() -> dict[str, int | None]:
     import chromadb
 
     client = chromadb.PersistentClient(path=settings.chroma_path)
-    names = {
-        "bge-m3 (atual)": settings.chroma_collection,
-        "e5-instruct (Together)": E5_COLLECTION,
-        f"gemini-2 @{GEMINI_DIMS[0]}": gemini_collection(GEMINI_DIMS[0]),
-        f"gemini-2 @{GEMINI_DIMS[1]}": gemini_collection(GEMINI_DIMS[1]),
-    }
     counts: dict[str, int | None] = {}
-    for lane, collection in names.items():
+    for lane, collection in LANE_COLLECTIONS.items():
         try:
             counts[lane] = client.get_collection(collection).count()
         except Exception:
@@ -580,7 +699,23 @@ def report() -> None:
     print("# Documentos por coleção\n")
     for lane, count in counts.items():
         print(f"- {lane}: {count if count is not None else 'ausente'}")
-    if len(set(counts.values())) > 1:
+
+    # A lane whose collection is absent or empty is SKIPPED, not queried.
+    # `VectorStore` opens with get_or_create_collection, so querying an
+    # un-indexed lane silently creates an empty collection and returns no hits —
+    # which `score()` records as a real miss and `summarize()` prints as
+    # `hit_rate@5: 0.0`. That number is indistinguishable from a model that
+    # genuinely retrieved nothing, in a report whose only purpose is to decide a
+    # production swap. Absent must read as absent.
+    active = {name: fn for name, fn in LANES.items() if counts.get(name)}
+    skipped = [name for name in LANES if not counts.get(name)]
+    if skipped:
+        print("\nVias não indexadas, fora da comparação: " + ", ".join(skipped))
+    if not active:
+        raise SystemExit("nenhuma via indexada — rode --index antes de --report")
+
+    sizes = {counts[name] for name in active}
+    if len(sizes) > 1:
         print(
             "\n⚠️  ATENÇÃO: as coleções indexadas não têm o mesmo número de "
             "documentos — uma reindexação pode ter parado no meio.\n"
@@ -588,11 +723,11 @@ def report() -> None:
 
     for case_set in CASE_SETS:
         print(f"\n# Conjunto: {case_set['name']}\n")
-        results: dict[str, list[dict]] = {name: [] for name in LANES}
+        results: dict[str, list[dict]] = {name: [] for name in active}
 
         for case in case_set["cases"]:
             print(f"\n## [{case['id']}] {case['query']}\n")
-            for name, fn in LANES.items():
+            for name, fn in active.items():
                 try:
                     hits = fn(case["query"], case_set["where"])
                 except (Exception, SystemExit) as exc:
@@ -631,8 +766,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--index",
-        choices=["e5"] + [f"gemini-{dim}" for dim in GEMINI_DIMS],
-        help="re-index the corpus with the given lane (one-off, ~US$0.25 for gemini)",
+        choices=(
+            ["e5"]
+            + [f"gemini-{dim}" for dim in GEMINI_DIMS]
+            + [f"qwen-{dim}" for dim in QWEN_DIMS]
+        ),
+        help="re-index the corpus with the given lane "
+        "(one-off, ~US$0.25 for gemini, ~US$0.01 for qwen)",
     )
     parser.add_argument("--report", action="store_true", help="compare and print")
     return parser
@@ -643,8 +783,10 @@ def main() -> None:
 
     if args.index == "e5":
         index_e5()
-    elif args.index in ("gemini-1024", "gemini-3072"):
+    elif args.index and args.index.startswith("gemini-"):
         index_gemini(int(args.index.split("-")[1]))
+    elif args.index and args.index.startswith("qwen-"):
+        index_qwen(int(args.index.split("-")[1]))
     if args.report or not args.index:
         report()
 
