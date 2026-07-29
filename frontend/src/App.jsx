@@ -31,6 +31,7 @@ import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { formatItemRef, formatSourceRef } from './utils/format';
 import { dayLabel, startsNewDay } from './utils/day';
+import { asFollowUp } from './utils/followUpReply';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
@@ -460,7 +461,9 @@ export default function App() {
       const reply = await chatMessage(
         `Explique de forma mais simples: "${snippet}"`, [], null, 'estudar_obra',
       );
-      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
+      // asFollowUp: a pergunta cita o trecho, o backend reconhece o item e
+      // devolve studied_item — a mesma passagem que já está na tela acima.
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...asFollowUp(reply) });
     } catch (err) {
       console.error('runQuickAction failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
@@ -489,7 +492,10 @@ export default function App() {
       // ou no Explorar. Sem o modo, o orchestrator sugere Estudar a quem já
       // está lá.
       const reply = await chatMessage(queryText, [], bookFilter, 'estudar_obra');
-      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
+      // asFollowUp: "Como aplicar" e "Explicar mais simples" citam o trecho do
+      // passo, então studied_item volta apontando para o item que o card já
+      // exibe. Sem isto o bloco "Da Obra" aparece duas vezes seguidas.
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...asFollowUp(reply) });
     } catch (err) {
       console.error('askDuvida failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
