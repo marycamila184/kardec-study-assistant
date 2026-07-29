@@ -1,7 +1,6 @@
 from src.rag.citations import (
     extract_model_citations,
     retrieved_ids,
-    strip_model_citations,
     validate_model_citations,
 )
 
@@ -88,121 +87,6 @@ def test_no_citations_is_trustworthy():
 # --- stripping --------------------------------------------------------------
 
 
-def test_strips_parenthetical_citation():
-    text = "A caridade é o essencial (O Livro dos Espíritos, questão 886)."
-    assert strip_model_citations(text) == "A caridade é o essencial."
-
-
-def test_leaves_parenthetical_that_merely_mentions_a_book():
-    """A parenthetical that names a work but has no citation shape (no
-    number, no questão/item/capítulo word) is clarifying prose, not a
-    citation, and must not be stripped."""
-    text = "Kardec organizou a obra (o Livro dos Espíritos foi o primeiro) com base nas respostas."
-    assert strip_model_citations(text) == text
-
-
-def test_strips_sigla_reference():
-    assert strip_model_citations("Conforme LE-625, a alma persiste.") == (
-        "Conforme, a alma persiste."
-    )
-
-
-def test_leaves_clean_text_untouched():
-    text = "A caridade é o essencial da doutrina."
-    assert strip_model_citations(text) == text
-
-
-def test_strips_the_models_own_source_line():
-    """Observed verbatim in the smoke test — including invented question
-    numbers for passages supplied with no numbers at all."""
-    text = (
-        "A caridade é a benevolência para com todos.\n\n"
-        "📖 Fonte: O Livro dos Espíritos, questões 887-889."
-    )
-    assert strip_model_citations(text) == "A caridade é a benevolência para com todos."
-
-
-def test_strips_source_line_without_emoji():
-    text = "A alma persiste.\nFonte: O Livro dos Espíritos, Capítulo I."
-    assert strip_model_citations(text) == "A alma persiste."
-
-
-def test_leaves_source_line_that_names_no_work():
-    """A line starting with 'Fonte:' that does not name one of the five
-    canonical works is legitimate prose, not a model citation trailer."""
-    text = (
-        "A fonte principal é a razão.\n"
-        "Fonte: inspiração divina, segundo os espíritos superiores."
-    )
-    assert strip_model_citations(text) == text
-
-
-def test_strips_book_only_parenthetical_citation():
-    """A parenthetical naming a work with no locator number is still a
-    citation and must be stripped, not merely a mention in passing."""
-    text = "A doutrina se apoia (O Livro dos Espíritos) nas respostas dos espíritos."
-    assert (
-        strip_model_citations(text)
-        == "A doutrina se apoia nas respostas dos espíritos."
-    )
-
-
-def test_strips_book_only_source_line():
-    """A 'Fonte:' line naming a work with no question number is still a
-    model citation trailer and must be stripped whole."""
-    text = "A alma persiste.\nFonte: O Evangelho Segundo o Espiritismo."
-    assert strip_model_citations(text) == "A alma persiste."
-
-
-# --- unified predicate: new coverage --------------------------------------
-
-
-def test_strips_parenthetical_with_question_range():
-    text = "A caridade é central (O Livro dos Espíritos, questões 887-889)."
-    assert strip_model_citations(text) == "A caridade é central."
-
-
-def test_strips_parenthetical_with_capitulo_abbreviation():
-    text = "A doutrina (O Livro dos Espíritos, cap. IV) trata disso."
-    assert strip_model_citations(text) == "A doutrina trata disso."
-
-
-def test_strips_parenthetical_with_multiple_locators():
-    text = "A questão trata da alma (O Livro dos Espíritos, questão 625, cap. II)."
-    assert strip_model_citations(text) == "A questão trata da alma."
-
-
-def test_strips_book_only_parenthetical_no_locator_duplicate_shape():
-    text = "A doutrina se apoia (O Livro dos Espíritos) nas respostas dos espíritos."
-    assert (
-        strip_model_citations(text)
-        == "A doutrina se apoia nas respostas dos espíritos."
-    )
-
-
-def test_strips_source_line_with_question_range_and_emoji():
-    text = "A alma persiste.\n📖 Fonte: O Livro dos Espíritos, questões 887-889."
-    assert strip_model_citations(text) == "A alma persiste."
-
-
-def test_strips_sigla_ref_conforme():
-    assert strip_model_citations("Conforme LE-625, a alma persiste.") == (
-        "Conforme, a alma persiste."
-    )
-
-
-def test_leaves_parenthetical_that_is_pure_mention_not_citation_shape():
-    text = "Kardec organizou a obra (o Livro dos Espíritos foi o primeiro) com base nas respostas."
-    assert strip_model_citations(text) == text
-
-
-def test_leaves_parenthetical_with_locator_words_but_no_book():
-    """A parenthetical with locator-shaped words but no book name is not a
-    citation — book presence is required by the unified predicate."""
-    text = "Isso é claro (questão 42, item 3)."
-    assert strip_model_citations(text) == text
-
-
 def test_extracts_plural_questoes_range_from_prose():
     result = extract_model_citations(
         "conforme as questões 887-889 do Livro dos Espíritos"
@@ -212,21 +96,6 @@ def test_extracts_plural_questoes_range_from_prose():
 
 
 # --- order-agnostic shape predicate (locator-first citations) --------------
-
-
-def test_strips_parenthetical_with_locator_before_book():
-    """The model may write the locator before the book name — the shape
-    predicate must strip this order too, not just 'book then locator'."""
-    text = "A caridade é central (questão 625 do Livro dos Espíritos)."
-    assert strip_model_citations(text) == "A caridade é central."
-
-
-def test_strips_source_line_with_locator_before_book():
-    text = "A alma persiste.\nFonte: questão 625 do Livro dos Espíritos."
-    assert strip_model_citations(text) == "A alma persiste."
-
-
-# --- attribution checks ------------------------------------------------------
 
 
 def test_books_mentioned_finds_each_work_by_any_spelling():

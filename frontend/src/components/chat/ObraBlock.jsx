@@ -18,12 +18,20 @@ export default function ObraBlock({ obra, theme, onShare, compact = false }) {
   if (!obra) return null;
   return (
     <>
+      {/* The passage arrives whole, before the explanation starts, and used to
+          land all at once over a card that was still empty. Easing it in takes
+          the abruptness away without pretending Kardec's words are being
+          written on the spot: the text is complete from the first frame, and
+          only its opacity animates. Typing it out would simulate the model
+          producing the source — which is exactly the separation this mode
+          exists to keep visible. */}
       <div style={{
         background: theme.obraBg,
         border: `1px solid ${theme.obraBorder}`,
         borderBottom: 'none',
         borderRadius: '10px 10px 0 0',
         padding: '14px 16px',
+        animation: 'fade-up .6s ease',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
           <span style={{
@@ -33,11 +41,11 @@ export default function ObraBlock({ obra, theme, onShare, compact = false }) {
           }}>Da Obra</span>
           <span style={{
             fontSize: 12, color: '#907060',
-            // minWidth: 0 é o que faz as reticências funcionarem aqui. Item de
-            // flex não encolhe abaixo do próprio conteúdo por padrão
-            // (min-width: auto), então sem isto o texto ignora o overflow e
-            // estoura o card em vez de cortar — visível no mobile, onde a
-            // referência da obra não cabe na largura.
+            // minWidth: 0 is what makes the ellipsis work here. A flex item
+            // does not shrink below its own content by default
+            // (min-width: auto), so without this the text ignores the overflow
+            // and bursts the card instead of truncating — visible on mobile,
+            // where the work's reference does not fit the width.
             minWidth: 0,
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>{obra.title}</span>

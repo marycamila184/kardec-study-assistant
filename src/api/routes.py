@@ -1,9 +1,11 @@
+import json
 import logging
 import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 
 from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import StreamingResponse
 
 from src.api.limits import (
     RATE_LIMITED_MESSAGE,
@@ -11,22 +13,28 @@ from src.api.limits import (
     check_rate_limit,
     client_ip,
     exceeds_size_limit,
+    trim_history,
 )
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
 from src.rag.conversation_log import log_chat_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
+from src.rag.explicador import build_sources
 from src.rag.explicador import explicar as study_item_fn
-from src.rag.generator import generate
+from src.rag.explicador import explicar_stream, prepare_study
+from src.rag.generator import generate, generate_stream
 from src.rag.mode_detector import extract_study_reference
 from src.rag.orchestrator import classify_intent
+from src.rag.profile import CHAT_DEFAULT, MODE_DEFAULTS, ResponseProfile
+from src.rag.profile_detector import detect_profile_changes
 
 # ReflectRequest and ReflectResponse are commented out below: Refletir is
 # switched off, see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
 from src.api.schemas import (  # isort: skip
     ChatRequest,
     ChatResponse,
+    ProfileState,
     EvangelhoResponse,
     EvangelhoSource,
     PathDetail,
@@ -75,6 +83,54 @@ def _answer_with_nudge(
     return result, suggested_mode
 
 
+# The shape classifier cannot run concurrently with generation the way
+# classify_intent does: its output shapes the prompt, so it has to finish first.
+# That is serial latency on every turn, capped tightly here and degrading to the
+# profile the client sent — a slow classifier must never be why someone waits.
+_PROFILE_TIMEOUT_S = 3.0
+
+
+def _resolve_profile(
+    question: str, state: ProfileState | None, current_mode: str | None = None
+) -> ResponseProfile:
+    """The profile this turn is answered with: what the client carried in, plus
+    anything this message asks to change.
+
+    With nothing carried in, the mode decides the starting point — a first
+    question in Estudar is not the same as a first question in Dialogar.
+    """
+    incoming = MODE_DEFAULTS.get(current_mode or "", CHAT_DEFAULT)
+    if state is not None:
+        incoming = ResponseProfile(
+            citation_style=state.citation_style,
+            citation_precision=state.citation_precision,
+            depth=state.depth,
+            vocabulary=state.vocabulary,
+            sections=CHAT_DEFAULT.sections,
+            pinned=frozenset(state.pinned),
+        )
+
+    executor = ThreadPoolExecutor(max_workers=1)
+    try:
+        future = executor.submit(detect_profile_changes, question, incoming)
+        return future.result(timeout=_PROFILE_TIMEOUT_S)
+    except Exception:
+        logger.exception("profile detection slow or failed; profile unchanged")
+        return incoming
+    finally:
+        executor.shutdown(wait=False)
+
+
+def _profile_state(profile: ResponseProfile) -> ProfileState:
+    return ProfileState(
+        citation_style=profile.citation_style,
+        citation_precision=profile.citation_precision,
+        depth=profile.depth,
+        vocabulary=profile.vocabulary,
+        pinned=sorted(profile.pinned),
+    )
+
+
 def _enforce_rate_limit(http_request: Request) -> None:
     retry_after = check_rate_limit(client_ip(http_request))
     if retry_after is not None:
@@ -94,21 +150,14 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     # Crisis outranks the size cap, always. Someone writing at length about
     # wanting to die must get the CVV number, never "your message is too long"
     # — the guard that saves money can never be the one that answers that.
-    if not needs_crisis_note(request.question) and exceeds_size_limit(
-        request.question, history
-    ):
-        return ChatResponse(
-            answer=TOO_LONG_MESSAGE,
-            sources=[],
-            suggested_questions=[],
-            not_found=False,
-            suggested_mode=None,
-            suggested_item_number=None,
-            suggested_book=None,
-            generation_failed=False,
-            safety_level="normal",
-        )
+    if not needs_crisis_note(request.question) and exceeds_size_limit(request.question):
+        return _too_long_response()
 
+    # A long conversation is trimmed, not refused. Only a single over-long
+    # message is turned away.
+    history = trim_history(request.question, history)
+
+    profile = _resolve_profile(request.question, request.profile, request.current_mode)
     result, suggested_mode = _answer_with_nudge(
         request.question,
         "tirar_duvida",
@@ -118,23 +167,114 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
             history,
             book_filter=request.book_filter,
             anchor_text=request.anchor_text,
+            profile=profile,
         ),
     )
+    return _chat_response(
+        request.question,
+        result,
+        suggested_mode,
+        started_at=started,
+        log=True,
+        profile=profile,
+    )
+
+
+@router.post("/chat/stream")
+def chat_stream(request: ChatRequest, http_request: Request) -> StreamingResponse:
+    """Same answer as POST /chat, delivered as Server-Sent Events.
+
+    POST /chat is unchanged and remains the recovery path: a client whose
+    connection drops mid-stream can re-ask there rather than keep half a
+    response. See docs/superpowers/specs/2026-07-27-streaming-design.md
+    """
+    _enforce_rate_limit(http_request)
+    started = time.monotonic()
+    history = [m.model_dump() for m in request.history]
+
+    # Same ordering as POST /chat: crisis outranks the size cap, and the cap
+    # answers before any stream is opened.
+    if not needs_crisis_note(request.question) and exceeds_size_limit(request.question):
+        return _sse_response(_only_done(_too_long_response()))
+
+    history = trim_history(request.question, history)
+
+    profile = _resolve_profile(request.question, request.profile, request.current_mode)
+
+    def events():
+        executor = ThreadPoolExecutor(max_workers=1)
+        try:
+            intent_future = executor.submit(
+                classify_intent, request.question, "tirar_duvida", history
+            )
+            result: dict = {}
+            for kind, payload in generate_stream(
+                request.question,
+                history,
+                book_filter=request.book_filter,
+                anchor_text=request.anchor_text,
+                profile=profile,
+            ):
+                if kind == "token":
+                    yield _sse("token", {"text": payload})
+                else:
+                    result = payload
+
+            try:
+                suggested_mode = intent_future.result(timeout=_CLASSIFY_TIMEOUT_S)[
+                    "mode"
+                ]
+            except Exception:
+                logger.exception(
+                    "classify_intent slow or failed; proceeding with no nudge"
+                )
+                suggested_mode = None
+        finally:
+            # Don't join a stuck classifier thread; let it finish in the background.
+            executor.shutdown(wait=False)
+
+        response = _chat_response(
+            request.question,
+            result,
+            suggested_mode,
+            started_at=started,
+            log=True,
+            profile=profile,
+        )
+        yield _sse("done", response.model_dump())
+
+    return _sse_response(events())
+
+
+def _chat_response(
+    question: str,
+    result: dict,
+    suggested_mode: str | None,
+    started_at: float,
+    log: bool,
+    profile: ResponseProfile | None = None,
+) -> ChatResponse:
+    """Builds the /chat body. Shared with the stream's `done` event so the two
+    routes cannot drift apart."""
     if result.get("safety_level") == "crise":
         suggested_mode = None
     study_ref = (
-        extract_study_reference(request.question)
+        extract_study_reference(question)
         if suggested_mode == "estudar_obra"
         else {"item_number": None, "book": None}
     )
-    log_chat_turn(
-        request.question,
-        result,
-        latency_ms=int((time.monotonic() - started) * 1000),
-        suggested_mode=suggested_mode,
-    )
+    if log:
+        log_chat_turn(
+            question,
+            result,
+            latency_ms=int((time.monotonic() - started_at) * 1000),
+            suggested_mode=suggested_mode,
+        )
     return ChatResponse(
         answer=result["answer"],
+        studied_item=result.get("studied_item"),
+        profile=_profile_state(profile) if profile else None,
+        inline_refs=result.get("inline_refs", []),
         sources=[Source(**s) for s in result["sources"]],
         suggested_questions=result.get("suggested_questions", []),
         not_found=result["not_found"],
@@ -143,6 +283,43 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
         suggested_book=study_ref["book"],
         generation_failed=result.get("generation_failed", False),
         safety_level=result.get("safety_level"),
+    )
+
+
+def _too_long_response() -> ChatResponse:
+    return ChatResponse(
+        answer=TOO_LONG_MESSAGE,
+        sources=[],
+        suggested_questions=[],
+        not_found=False,
+        suggested_mode=None,
+        suggested_item_number=None,
+        suggested_book=None,
+        generation_failed=False,
+        safety_level="normal",
+    )
+
+
+def _sse(event: str, data: dict) -> str:
+    # ensure_ascii=False keeps the accented Portuguese readable on the wire;
+    # the payload is JSON on one line, as the SSE framing requires.
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+def _only_done(response: ChatResponse):
+    yield _sse("done", response.model_dump())
+
+
+def _sse_response(events) -> StreamingResponse:
+    return StreamingResponse(
+        events,
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-store",
+            # Nginx and the proxies derived from it honor this header and stop
+            # accumulating the body before passing it on.
+            "X-Accel-Buffering": "no",
+        },
     )
 
 
@@ -164,14 +341,58 @@ def get_path(path_id: str) -> PathDetail:
 
 
 @router.post("/study", response_model=StudyResponse)
-def study(request: StudyRequest) -> StudyResponse:
+def study(request: StudyRequest, http_request: Request) -> StudyResponse:
+    # /study was missed when the abuse guards went in, and it is the more
+    # expensive route: two model calls per request (Explicador and Curador),
+    # public and unauthenticated.
+    _enforce_rate_limit(http_request)
     result = study_item_fn(request.book, request.item_number, request.chapter)
     if result is None:
-        raise HTTPException(
-            status_code=404,
-            detail={"error": "item_not_found", "item_number": request.item_number},
-        )
+        raise _item_not_found(request.item_number)
     return StudyResponse(**result)
+
+
+@router.post("/study/stream")
+def study_stream(request: StudyRequest, http_request: Request) -> StreamingResponse:
+    """Same answer as POST /study, delivered as Server-Sent Events.
+
+    POST /study is unchanged and remains the recovery path. The daily passage
+    comes through here too: `handleStudyTrecho` studies the item when it is
+    numbered, which is the normal case.
+    See docs/superpowers/specs/2026-07-28-study-trecho-streaming-design.md
+    """
+    _enforce_rate_limit(http_request)
+
+    # Prepared before the stream opens so a missing item is still an HTTP 404.
+    # Once the response starts streaming the status code is already sent, and a
+    # not-found would have to masquerade as a successful empty answer.
+    ctx = prepare_study(request.book, request.item_number, request.chapter)
+    if ctx is None:
+        raise _item_not_found(request.item_number)
+
+    def events():
+        # The passage first. It is known from retrieval, so the reader has the
+        # text in front of them before the explanation of it starts arriving —
+        # the order in which one reads. Waiting for `done` would put the
+        # explanation on screen above the passage it explains.
+        yield _sse(
+            "source",
+            {"original_text": ctx["original_text"], "sources": build_sources(ctx)},
+        )
+        for kind, payload in explicar_stream(ctx):
+            if kind == "token":
+                yield _sse("token", {"text": payload})
+            else:
+                yield _sse("done", StudyResponse(**payload).model_dump())
+
+    return _sse_response(events())
+
+
+def _item_not_found(item_number: str) -> HTTPException:
+    return HTTPException(
+        status_code=404,
+        detail={"error": "item_not_found", "item_number": item_number},
+    )
 
 
 # Refletir is switched off for production: the mode answers lived suffering with

@@ -653,10 +653,10 @@ def test_long_message_never_reaches_the_model():
     from unittest.mock import patch
 
     with patch("src.api.routes.generate") as generate:
-        response = client.post("/chat", json={"question": "palavra " * 1001})
+        response = client.post("/chat", json={"question": "palavra " * 2001})
 
     assert response.status_code == 200
-    assert "mil palavras" in response.json()["answer"]
+    assert "duas mil palavras" in response.json()["answer"]
     assert response.json()["sources"] == []
     generate.assert_not_called()
 
@@ -665,24 +665,52 @@ def test_message_just_under_the_ceiling_flows_normally():
     from unittest.mock import patch
 
     with patch("src.api.routes.generate", return_value=_ANSWER_RESULT) as generate:
-        response = client.post("/chat", json={"question": "palavra " * 999})
+        response = client.post("/chat", json={"question": "palavra " * 1999})
 
     assert response.status_code == 200
     generate.assert_called_once()
 
 
-def test_history_counts_toward_the_same_ceiling():
-    """max_history_turns caps how many turns, not how big — ten turns of 900
-    words would pass the turn cap and cost more than the message this blocks."""
+def test_a_long_conversation_is_trimmed_not_refused():
+    """Found in production 2026-07-28: history counted toward the ceiling, so a
+    long conversation refused an eight-word question — and every question after
+    it, since history only grows. The refusal was permanent."""
     from unittest.mock import patch
 
-    history = [{"role": "user", "content": "palavra " * 600} for _ in range(2)]
+    # Over 2000 words of the reader's own text, which is what the ceiling counts.
+    history = [{"role": "user", "content": "palavra " * 800} for _ in range(4)]
     with patch("src.api.routes.generate") as generate:
+        generate.return_value = {
+            "answer": "resposta",
+            "sources": [],
+            "suggested_questions": [],
+            "not_found": False,
+            "generation_failed": False,
+            "safety_level": "normal",
+        }
         response = client.post(
             "/chat", json={"question": "e sobre isso?", "history": history}
         )
 
-    assert "mil palavras" in response.json()["answer"]
+    assert response.status_code == 200
+    assert "duas mil palavras" not in response.json()["answer"]
+    generate.assert_called_once()
+
+    # The oldest turns were dropped to fit the budget, not the newest.
+    passed_history = generate.call_args[0][1]
+    assert len(passed_history) < len(history)
+
+
+def test_a_single_over_long_message_is_still_refused():
+    """The cost guard the ceiling exists for is unchanged."""
+    from unittest.mock import patch
+
+    with patch("src.api.routes.generate") as generate:
+        response = client.post(
+            "/chat", json={"question": "palavra " * 2500, "history": []}
+        )
+
+    assert "duas mil palavras" in response.json()["answer"]
     generate.assert_not_called()
 
 
@@ -694,12 +722,12 @@ def test_crisis_outranks_the_size_cap():
     """
     from unittest.mock import patch
 
-    question = "palavra " * 1200 + " eu quero morrer"
+    question = "palavra " * 2500 + " eu quero morrer"
     with patch("src.api.routes.generate", return_value=_CRISIS_ANSWER_RESULT) as gen:
         response = client.post("/chat", json={"question": question})
 
     assert response.status_code == 200
-    assert "mil palavras" not in response.json()["answer"]
+    assert "duas mil palavras" not in response.json()["answer"]
     assert "188" in response.json()["answer"]
     gen.assert_called_once()
 
@@ -725,3 +753,85 @@ def test_cheap_routes_are_not_rate_limited():
     for _ in range(limits.RATE_LIMIT_REQUESTS + 5):
         assert client.get("/health").status_code == 200
     assert client.get("/paths").status_code == 200
+
+
+def test_only_the_readers_own_words_count_toward_the_ceiling():
+    """The assistant's turns are generated here and already bounded by
+    max_tokens; counting them against the reader's budget is what made a long
+    conversation refuse an eight-word question."""
+    from unittest.mock import patch
+
+    from src.api.limits import trim_history
+
+    history = []
+    for i in range(4):
+        history.append({"role": "user", "content": f"u{i} " + "palavra " * 400})
+        history.append({"role": "assistant", "content": f"a{i} " + "resposta " * 900})
+
+    kept = trim_history("e sobre isso?", history)
+
+    user_words = sum(len(m["content"].split()) for m in kept if m["role"] == "user")
+    assert user_words <= 2000
+    # Long assistant turns did not push the reader's turns out.
+    assert len([m for m in kept if m["role"] == "user"]) == 4
+
+
+def test_trimming_never_leaves_a_reply_without_its_question():
+    from src.api.limits import trim_history
+
+    history = []
+    for i in range(5):
+        history.append({"role": "user", "content": f"u{i} " + "palavra " * 700})
+        history.append({"role": "assistant", "content": f"a{i} " + "resposta " * 50})
+
+    kept = trim_history("pergunta", history)
+
+    assert kept, "some history should survive"
+    assert kept[0]["role"] == "user"
+
+
+def test_chat_returns_the_studied_item_when_the_question_names_one():
+    """Free study runs through /chat now, and the 'Da Obra' block has to
+    survive: a source chip someone must click is not the same separation
+    between Kardec's words and the explanation."""
+    from unittest.mock import patch
+
+    result = {
+        **_ANSWER_RESULT,
+        "studied_item": {
+            "book": "O Livro dos Espíritos",
+            "chapter_title": "Da Encarnação",
+            "chapter_ref": "CAPÍTULO II",
+            "item_number": "132",
+            "excerpt": "132. Qual o objetivo da encarnação dos Espíritos?",
+        },
+    }
+    with patch("src.api.routes.generate", return_value=result):
+        data = client.post("/chat", json={"question": "explique a questão 132"}).json()
+
+    assert data["studied_item"]["item_number"] == "132"
+    assert data["studied_item"]["excerpt"].startswith("132.")
+
+
+def test_chat_has_no_studied_item_for_a_general_question():
+    from unittest.mock import patch
+
+    with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+        data = client.post("/chat", json={"question": "o que é a prece?"}).json()
+
+    assert data["studied_item"] is None
+
+
+def test_study_is_rate_limited_like_chat():
+    """It was missed when the abuse guards went in, and it is the more expensive
+    route: two model calls per request, public and unauthenticated."""
+    from unittest.mock import patch
+
+    with patch("src.api.routes.check_rate_limit", return_value=42):
+        for path, body in (
+            ("/study", {"book": "O Livro dos Espíritos", "item_number": "1"}),
+            ("/study/stream", {"book": "O Livro dos Espíritos", "item_number": "1"}),
+        ):
+            response = client.post(path, json=body)
+            assert response.status_code == 429, path
+            assert response.headers["Retry-After"] == "42"

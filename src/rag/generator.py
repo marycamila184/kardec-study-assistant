@@ -1,12 +1,12 @@
 import logging
 import random
 from concurrent.futures import ThreadPoolExecutor
+from typing import Iterator
 
 from src.core.config import settings
 from src.rag.citations import (
     extract_model_citations,
     retrieved_ids,
-    strip_model_citations,
     validate_model_citations,
 )
 from src.rag.crisis import (
@@ -16,22 +16,32 @@ from src.rag.crisis import (
     needs_crisis_note,
     needs_medical_caveat,
 )
-from src.rag.groundedness import attribute_sources
-from src.rag.guardrails import counts_personification, strip_trailing_question
-from src.rag.markers import strip_marker_debris, strip_trailing_markers
+from src.rag.guardrails import counts_personification, strip_internal_terms
+from src.rag.inline_refs import (
+    InlineMarkerFilter,
+    extract_passage_refs,
+    render_references,
+)
+from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
+from src.rag.pasted_quote import find_pasted_source
+from src.rag.premise_check import unsupported_terms
+from src.rag.profile import CHAT_DEFAULT, ResponseProfile
 from src.rag.prompt import build_messages
-from src.rag.prose import prose_completion
+from src.rag.prose import prose_completion, prose_completion_stream
 from src.rag.query_condenser import blend_anchor, condense_query
+from src.rag.quote_check import StreamingQuoteGuard, find_unsupported_quotes
 from src.rag.retriever import (
     EVANGELHO_BOOK,
     append_chapter_commentary,
     filter_sensitive_chunks,
+    filter_uncitable_chunks,
     has_real_item_number,
     retrieve,
     retrieve_by_item,
 )
 from src.rag.sensitivity import classify_sensitivity
+from src.rag.stream_buffer import StreamBuffer
 
 logger = logging.getLogger(__name__)
 
@@ -59,6 +69,14 @@ SMALLTALK_REPLIES = (
     "Por nada! Que bom poder acompanhar seus estudos.",
     "De nada! Sempre que quiser aprofundar, é só chamar.",
 )
+
+
+class UnsupportedQuoteError(Exception):
+    """The answer quoted something that is in no retrieved passage."""
+
+    def __init__(self, quotes: list[str]) -> None:
+        super().__init__("answer contains unsupported quotations")
+        self.quotes = quotes
 
 
 def _crisis_exit() -> dict:
@@ -96,12 +114,21 @@ def _direct_item_chunks(question: str, book_filter: str | None) -> list[dict]:
         return []
 
 
-def generate(
+def _prepare(
     question: str,
     history: list[dict],
     book_filter: str | None = None,
     anchor_text: str | None = None,
-) -> dict:
+    profile: ResponseProfile = CHAT_DEFAULT,
+) -> tuple[dict | None, dict | None]:
+    """Everything that happens before the model call: the short-circuits, the
+    sensitivity tier, retrieval, and the prompt.
+
+    Returns (early_result, context). Exactly one of the two is set: an
+    early_result is a finished response that must be returned as-is — small
+    talk, the crisis exit, a retrieval failure, no chunks — and it is what keeps
+    those paths from ever opening a stream.
+    """
     # A pure "obrigada / entendi / valeu" needs a warm closing, not a doctrinal
     # answer with source chips. Short-circuit before any retrieval or LLM call.
     if is_smalltalk(question) and not needs_crisis_note(question):
@@ -112,12 +139,12 @@ def generate(
             "not_found": False,
             "generation_failed": False,
             "safety_level": "normal",
-        }
+        }, None
 
     # Deterministic crisis floor: a keyword hit short-circuits to the fixed exit
     # before any retrieval or classifier call — never gated on the LLM.
     if needs_crisis_note(question):
-        return _crisis_exit()
+        return _crisis_exit(), None
 
     # Topic-level mention (no ideation — that exited above): answer normally,
     # but always carry the CVV note, appended in code before returning. The
@@ -142,7 +169,9 @@ def generate(
         direct_chunks = _direct_item_chunks(question, book_filter)
 
         try:
-            chunks = retrieve(search_query, book_filter=book_filter)
+            chunks = filter_uncitable_chunks(
+                retrieve(search_query, book_filter=book_filter)
+            )
         except Exception:
             logger.exception("retrieve failed in /chat generate")
             if not direct_chunks:
@@ -153,8 +182,22 @@ def generate(
                     "not_found": False,
                     "generation_failed": True,
                     "safety_level": "normal",
-                }
+                }, None
             chunks = []
+
+        # A pasted passage reaches the same place as a named item. The reader
+        # is holding text and asking about it; verifying it against the corpus
+        # answers "is this really Kardec, and where?" — a teacher's question —
+        # and puts the passage in front of them instead of a chip to click.
+        if not direct_chunks:
+            pasted = find_pasted_source(question, chunks)
+            if pasted is not None:
+                logger.info(
+                    "pasted passage resolved to %s %s",
+                    pasted["metadata"].get("book"),
+                    pasted["metadata"].get("item_number"),
+                )
+                direct_chunks = [pasted]
 
         if direct_chunks:
             # The referenced item leads the passage list; drop any semantic
@@ -173,7 +216,7 @@ def generate(
         fallback_note: str | None = None
         if not chunks and book_filter:
             try:
-                fallback_chunks = retrieve(search_query)
+                fallback_chunks = filter_uncitable_chunks(retrieve(search_query))
             except Exception:
                 logger.exception("book-filter fallback retrieve failed")
                 fallback_chunks = []
@@ -196,7 +239,7 @@ def generate(
         executor.shutdown(wait=False)
 
     if level == "crise":
-        return _crisis_exit()
+        return _crisis_exit(), None
 
     if level == "abalo":
         chunks = filter_sensitive_chunks(chunks)
@@ -214,10 +257,17 @@ def generate(
             "not_found": True,
             "generation_failed": False,
             "safety_level": level,
-        }
+        }, None
 
     sensitive = level == "abalo"
     add_caveat = needs_medical_caveat(question) or sensitive
+    # Deterministic signal, model's wording: the check knows which words the
+    # works never use, and the model decides how to say it. A fixed sentence in
+    # code was tried and read as a machine correcting the reader.
+    absent = unsupported_terms(question, chunks)
+    if absent:
+        logger.info("question premise absent from the works: %s", absent)
+
     system, messages = build_messages(
         question,
         chunks,
@@ -225,82 +275,177 @@ def generate(
         settings.max_history_turns,
         add_caveat=add_caveat,
         sensitive=sensitive,
+        profile=profile,
+        absent_terms=absent,
     )
+    return None, {
+        "system": system,
+        "messages": messages,
+        "profile": profile,
+        "question": question,
+        "chunks": chunks,
+        "level": level,
+        "sensitive": sensitive,
+        "topic_note": topic_note,
+        "fallback_note": fallback_note,
+        # The item the reader named, when they named one. Carried so the answer
+        # can show the passage itself, not just a chip to click.
+        "direct_chunks": direct_chunks,
+    }
+
+
+def _postprocess(
+    answer: str, ctx: dict
+) -> tuple[str, list[dict], list[str], list[dict]]:
+    """Turns the model's raw text into what gets displayed and cited. Shared by
+    both lanes, and the reason a streamed `done` payload is identical to what
+    POST /chat returns. May raise — the caller treats that as a failed
+    generation."""
+    chunks = ctx["chunks"]
+
+    # Log-only monitors. These run on both lanes because they mutate
+    # nothing — they only record what the model did. Wrapped so a monitor
+    # can never fail an otherwise-good request. Citations are extracted
+    # BEFORE any stripping below.
     try:
-        answer = prose_completion(system, messages)
-
-        # Log-only monitors. These run on both lanes because they mutate
-        # nothing — they only record what the model did. Wrapped so a monitor
-        # can never fail an otherwise-good request. Citations are extracted
-        # BEFORE any stripping below.
-        try:
-            report = validate_model_citations(
-                extract_model_citations(answer), retrieved_ids(chunks)
-            )
-            if not report["confiavel"]:
-                logger.warning(
-                    "model cited ids outside the retrieved set: %s",
-                    report["alucinadas"],
-                )
-            personifications = counts_personification(answer)
-            if personifications:
-                logger.warning(
-                    "personification of 'o Espiritismo': %d", personifications
-                )
-        except Exception:
-            logger.exception("log-only citation/personification monitor failed")
-
-        # Everything that MUTATES the answer or its sources is gated on the
-        # prose lane, so Tasks 1-6 leave the current provider's output identical.
-        prose_lane = settings.prose_provider is not None
-        debris_suggestions: list[str] = []
-        if prose_lane:
-            answer = strip_model_citations(answer)
-            if not answer.strip():
-                # The model's entire reply was a citation; there is nothing
-                # left to show. Treat it as a generation failure rather than
-                # returning an empty bubble.
-                raise ValueError("answer emptied by strip_model_citations")
-            # riv-ai-v2 scatters marker lines mid-text (emoji-prefixed, not
-            # anchored to the end), which strip_trailing_markers below cannot
-            # see. Clear that debris first so the end-anchored pass only has
-            # to catch a well-formed trailer, if any remains.
-            answer, debris_suggestions = strip_marker_debris(answer)
-        answer, marker_chunks, suggested_questions = strip_trailing_markers(
-            answer, chunks
+        report = validate_model_citations(
+            extract_model_citations(answer), retrieved_ids(chunks)
         )
-        if prose_lane and not suggested_questions:
-            suggested_questions = debris_suggestions
-        if prose_lane:
-            # riv-ai-v2 does not honor [FONTES:] — it emits question numbers or
-            # invents references. Attribution is computed from the vector store
-            # instead, so the model never decides its own citations.
-            try:
-                chunks = attribute_sources(answer, chunks)
-            except Exception:
-                logger.exception(
-                    "attribute_sources failed; falling back to marker chunks"
-                )
-                chunks = marker_chunks
-            # Backstop for the prompt rule: follow-ups live in [SEGUIR] only.
-            answer = strip_trailing_question(answer)
-        else:
-            # Current provider: it honors [FONTES:], so keep today's behavior.
-            chunks = marker_chunks
-        if fallback_note:
-            answer = fallback_note + answer
-        generation_failed = False
+        if not report["confiavel"]:
+            logger.warning(
+                "model cited ids outside the retrieved set: %s",
+                report["alucinadas"],
+            )
+        personifications = counts_personification(answer)
+        if personifications:
+            logger.warning("personification of 'o Espiritismo': %d", personifications)
+        # A term the works never use, asked about as though they did. Log-only
+        # on purpose: gating here decides whether a reader gets an answer at
+        # all, and this project has twice shipped a guard tuned by reasoning
+        # instead of evidence — both times it withheld correct answers. The
+        # numbers get looked at first. Measured 2026-07-28: 0 false positives
+        # in 10 legitimate questions, 3 of 5 out-of-doctrine ones caught.
     except Exception:
-        logger.exception("chat generation LLM call failed")
-        answer = GENERATION_FAILED_MESSAGE
-        suggested_questions = []
-        generation_failed = True
+        logger.exception("log-only citation/personification monitor failed")
 
-    if sensitive:
+    # These four steps were gated on `prose_lane`, which is off by default, so
+    # none of them had run in production for months — strip_model_citations,
+    # strip_marker_debris, attribute_sources and strip_trailing_question. They
+    # existed for riv-ai-v2, a generator declined on the evidence in July 2026.
+    # Removed rather than left dormant: a guard that looks present and never
+    # runs is how the fabricated-quotation failure survived this long, because
+    # everything that could have caught it sat behind this same gate.
+    answer, chunks, suggested_questions = strip_trailing_markers(answer, chunks)
+    # System vocabulary the reader cannot make sense of — they do not know a
+    # retrieval step exists. The prompt forbids these by name and the model used
+    # one anyway (2026-07-28), so the rule gets a backstop. Logged rather than
+    # silently fixed: the substitution hides the symptom, and the count is the
+    # only way to tell whether the prompt rule is working at all.
+    answer, internal_terms = strip_internal_terms(answer)
+    if internal_terms:
+        logger.warning("internal vocabulary rewritten: %d", internal_terms)
+
+    if ctx["fallback_note"]:
+        answer = ctx["fallback_note"] + answer
+
+    # Resolved against what was actually retrieved; an index outside that list
+    # is dropped here rather than shown. Last, so positions index into the text
+    # the reader really sees — including the fallback note prepended above.
+    # Under `full` the marker becomes the reference itself, written from
+    # metadata. The model was asked to write references and measurably does not
+    # (2026-07-28 A/B); it does reliably mark WHERE they go, which is the part
+    # only it can do. The canonical form is the part only code can guarantee.
+    answer, inline_refs = extract_passage_refs(answer, ctx["chunks"])
+
+    # A quotation attributed to the works that is in none of the retrieved
+    # passages is fabricated doctrine, which this project treats as
+    # unacceptable — so the answer does not get shown, on any lane.
+    #
+    # Deliberately NOT behind the prose-lane gate above. That gate exists to
+    # keep the current provider's output identical, and it is exactly why this
+    # failure reached production untouched on 2026-07-28: everything that could
+    # have caught it was switched off for the lane actually running.
+    #
+    # Runs LAST, on the finished text. Running it first cost a correct answer in
+    # the 2026-07-28 probe: the model had written "[fonte 3]" inside a
+    # quotation, and comparing a marker against the corpus can only ever fail.
+    # The check belongs on what the reader will actually see.
+    #
+    # The whole answer goes, not just the sentence: the same improvisation that
+    # invented a quotation wrote the paragraphs around it. In the case this was
+    # built from, three paragraphs about "duplo etéreo" preceded the fake quote
+    # and none of them came from the works either.
+    unsupported = find_unsupported_quotes(answer, ctx["chunks"])
+    if unsupported:
+        logger.warning("fabricated quotation, answer withheld: %s", unsupported[:3])
+        raise UnsupportedQuoteError(unsupported)
+
+    # Only now, with the guard satisfied on what the MODEL wrote, does code
+    # write the references in. Doing it earlier fed the guard its own output.
+    if ctx["profile"].citation_precision == "full":
+        answer, inline_refs = render_references(answer, inline_refs)
+
+    # An answer that post-processing emptied is not an answer. Reported from
+    # live use: a turn came back as an empty bubble with source chips under it,
+    # which reads as the app having said something the reader missed. The
+    # prose lane had this guard; the lane actually running did not.
+    #
+    # Anything can empty it — a reply that was only a trailer, only markers,
+    # only a citation — so the check is on the RESULT rather than on any of the
+    # steps that could produce it.
+    if not answer.strip():
+        raise ValueError("answer emptied by post-processing")
+
+    return answer, chunks, suggested_questions, inline_refs
+
+
+def _studied_item(ctx: dict) -> dict | None:
+    """The named item's own text and reference, or None when the question did
+    not name one. Subchunks are rejoined so the reader sees the whole item."""
+    chunks = ctx.get("direct_chunks") or []
+    if not chunks:
+        return None
+    meta = chunks[0]["metadata"]
+    return {
+        "book": meta["book"],
+        "chapter_title": meta.get("chapter_title") or None,
+        "chapter_ref": meta.get("chapter") or None,
+        "item_number": meta.get("item_number"),
+        "excerpt": "\n\n".join(c["content"] for c in chunks),
+    }
+
+
+def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
+    """Assembles the response body from the model's text. The single place both
+    POST /chat and the stream's `done` event go through, so the two can never
+    drift apart."""
+    chunks: list[dict] = []
+    suggested_questions: list[str] = []
+    inline_refs: list[dict] = []
+    not_found_override = False
+    if generation_failed:
+        answer = GENERATION_FAILED_MESSAGE
+    else:
+        try:
+            answer, chunks, suggested_questions, inline_refs = _postprocess(answer, ctx)
+        except UnsupportedQuoteError:
+            # Not a generation failure — the model answered, and what it said
+            # cannot be shown. "I did not find this in the works" is both the
+            # honest thing and, for a question like "duplo etéreo", the true one.
+            answer = NOT_FOUND_MESSAGE
+            chunks, suggested_questions, inline_refs = [], [], []
+            not_found_override = True
+        except Exception:
+            logger.exception("chat answer post-processing failed")
+            answer = GENERATION_FAILED_MESSAGE
+            chunks, suggested_questions, inline_refs = [], [], []
+            generation_failed = True
+
+    if ctx["sensitive"]:
         # A distressed turn is not steered toward "explore more" chips.
         suggested_questions = []
 
-    if topic_note:
+    if ctx["topic_note"]:
         # Deterministic: any suicide-topic question carries the CVV note.
         answer = answer + "\n\n" + CRISIS_NOTE
 
@@ -327,9 +472,104 @@ def generate(
 
     return {
         "answer": answer,
+        # The studied passage, when the question named a specific item. /study
+        # renders this as the "Da Obra" block — Kardec's own words, above the
+        # explanation and visibly apart from it. Free study moving to /chat must
+        # not lose that: the separation between source and AI is the project's
+        # central rule made structural, and a source chip someone has to click
+        # is not the same thing.
+        "studied_item": _studied_item(ctx) if not generation_failed else None,
+        # Dropped along with the sources on a failed generation: a reference
+        # into text that was replaced by an error message points nowhere.
+        "inline_refs": [] if generation_failed else inline_refs,
         "sources": [] if generation_failed else sources,
         "suggested_questions": suggested_questions,
-        "not_found": False,
+        "not_found": not_found_override,
         "generation_failed": generation_failed,
-        "safety_level": level,
+        "safety_level": ctx["level"],
     }
+
+
+def generate(
+    question: str,
+    history: list[dict],
+    book_filter: str | None = None,
+    anchor_text: str | None = None,
+    profile: ResponseProfile = CHAT_DEFAULT,
+) -> dict:
+    early, ctx = _prepare(question, history, book_filter, anchor_text, profile)
+    if early is not None:
+        return early
+
+    try:
+        answer = prose_completion(ctx["system"], ctx["messages"])
+        generation_failed = False
+    except Exception:
+        logger.exception("chat generation LLM call failed")
+        answer, generation_failed = None, True
+
+    return _finalize(answer, ctx, generation_failed)
+
+
+def generate_stream(
+    question: str,
+    history: list[dict],
+    book_filter: str | None = None,
+    anchor_text: str | None = None,
+    profile: ResponseProfile = CHAT_DEFAULT,
+) -> Iterator[tuple[str, object]]:
+    """The same answer as generate(), yielded as ("token", text) pairs followed
+    by exactly one ("done", result).
+
+    Every short-circuit — small talk, the crisis exit, a retrieval failure, no
+    chunks — yields its `done` and nothing else: those responses are decided in
+    code and arrive whole, never letter by letter.
+
+    Tokens pass through StreamBuffer, so a trailer marker can never reach the
+    screen. The `done` payload is built by _finalize from the complete text, and
+    is the source of truth: a client that replaces its accumulated text with it
+    ends up byte-identical to POST /chat.
+    """
+    early, ctx = _prepare(question, history, book_filter, anchor_text, profile)
+    if early is not None:
+        yield "done", early
+        return
+
+    buffer = StreamBuffer()
+    # The trailer buffer cannot do this job: it seals on the first opening,
+    # because a trailer is terminal by contract, and inline markers sit in the
+    # middle of prose. Composed after it so the trailer is handled first.
+    markers = InlineMarkerFilter("fonte")
+    # Quoted text is held until it can be checked. Without this the guard in
+    # _postprocess only fires after every token has been displayed, so a
+    # fabricated quotation is read and then retracted — which is the one thing
+    # the guard exists to prevent (found in production 2026-07-28).
+    quotes = StreamingQuoteGuard(ctx["chunks"])
+    pieces: list[str] = []
+    generation_failed = False
+    try:
+        for piece in prose_completion_stream(ctx["system"], ctx["messages"]):
+            pieces.append(piece)
+            safe = quotes.feed(markers.feed(buffer.feed(piece)))
+            if quotes.violated:
+                # Stop reading the model out loud. _postprocess reaches the same
+                # verdict on the complete text and builds the not-found answer,
+                # so the two lanes still agree.
+                logger.warning(
+                    "fabricated quotation mid-stream, answer abandoned: %s",
+                    quotes.offending,
+                )
+                break
+            if safe:
+                yield "token", safe
+        if not quotes.violated:
+            tail = quotes.feed(markers.flush()) + quotes.flush()
+            if tail:
+                yield "token", tail
+    except Exception:
+        # Mid-stream failure: whatever is on screen gets replaced by the
+        # `done` payload below, so the reader is never left with half an answer.
+        logger.exception("chat streaming LLM call failed")
+        generation_failed = True
+
+    yield "done", _finalize("".join(pieces), ctx, generation_failed)

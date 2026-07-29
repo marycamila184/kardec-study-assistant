@@ -216,3 +216,38 @@ def filter_sensitive_chunks(chunks: list[dict]) -> list[dict]:
         if c["metadata"].get("chapter_title") not in SENSITIVE_CHAPTERS
         and not _SENSITIVE_CONTENT_RE.search(c["content"])
     ]
+
+
+def filter_uncitable_chunks(chunks: list[dict]) -> list[dict]:
+    """Drops chunks with no item number — text nobody can look up.
+
+    Two thirds of O Céu e o Inferno is spirit testimony rather than doctrinal
+    exposition, and the parser numbers none of it: 65% of that book's chunks
+    against 0-12% everywhere else.
+
+    They are removed for two reasons that point the same way. A chunk with no
+    number cannot become a usable citation — the source chip reads "cap. VIII"
+    with nothing to look up, which is the opposite of what a study companion
+    owes a reader. And testimony is personal language, so it wins on similarity
+    exactly when the message is personal and loses on usefulness: on 2026-07-28,
+    "não posso fazer fofoca sobre o meu irmão" retrieved "não ter sido esquecido
+    entre os meus irmãos espíritas" and produced an answer about collective
+    calamities.
+
+    Measured before adopting (scripts/probe_unnumbered_chunks.py): on ordinary
+    doctrine only 10% of retrieved chunks are unnumbered and nothing is lost; on
+    personal messages it is 70%; and on the questions only the doctrinal half of
+    Céu e Inferno answers — the future life, the penalties, expiation — not one
+    is emptied, because the numbered items still rank.
+
+    The consequence to know: a message that retrieves ONLY testimony now
+    retrieves nothing, and the reader gets "não encontrei" instead of an answer.
+    For "estou preocupado com meu pai que está doente" that is the honest
+    outcome — it is the Refletir case, which this project already decided
+    retrieval answers badly.
+
+    Deliberately NOT applied to retrieve_by_item or retrieve_by_chapter: someone
+    studying a chapter should see all of it, testimony included. This is about
+    what the system offers unprompted.
+    """
+    return [c for c in chunks if str(c["metadata"].get("item_number", "")).isdigit()]

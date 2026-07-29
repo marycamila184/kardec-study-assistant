@@ -386,3 +386,19 @@ def test_filter_sensitive_chunks_drops_suicide_content_regardless_of_book():
     ]
     out = filter_sensitive_chunks(chunks)
     assert [c["content"] for c in out] == ["A caridade é a virtude suprema."]
+
+
+def test_filter_uncitable_drops_only_the_unnumbered():
+    """Measured 2026-07-28: 65% of O Céu e o Inferno's chunks have no item
+    number — it is testimony, not exposition — against 0-12% elsewhere."""
+    from src.rag.retriever import filter_uncitable_chunks
+
+    chunks = [
+        {"metadata": {"book": "O Céu e o Inferno", "item_number": "section-195"}},
+        {"metadata": {"book": "O Céu e o Inferno", "item_number": "12"}},
+        {"metadata": {"book": "O Livro dos Espíritos", "item_number": "132"}},
+        {"metadata": {"book": "A Gênese"}},
+    ]
+    kept = filter_uncitable_chunks(chunks)
+
+    assert [c["metadata"]["item_number"] for c in kept] == ["12", "132"]
