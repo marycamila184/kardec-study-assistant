@@ -143,6 +143,25 @@ def test_a_partly_valid_marker_keeps_only_what_was_retrieved():
     assert [r["item_number"] for r in refs] == ["132"]
 
 
+def test_a_placeholder_item_number_never_reaches_a_reference():
+    """ "section-N" is the parser's internal id for unnumbered content (a
+    chapter's preamble), never a citation a reader would recognize.
+    generator.py's `sources` already drops it via `has_real_item_number`; a ref
+    built here must agree, or a response could show "item section-2"."""
+    chunks = [
+        {
+            "content": "Texto de abertura do capítulo.",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "chapter_title": "Fora da Caridade",
+                "item_number": "section-3",
+            },
+        },
+    ]
+    _, refs = extract_passage_refs("Um trecho de abertura [fonte 1].", chunks)
+    assert refs[0]["item_number"] is None
+
+
 def test_a_bare_bracketed_number_is_not_a_passage_marker():
     """The reason the word is there: brackets around numbers occur in ordinary
     prose and in the works."""

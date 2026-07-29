@@ -25,6 +25,8 @@ See docs/superpowers/specs/2026-07-28-grounding-markers-design.md
 import logging
 import re
 
+from src.rag.retriever import has_real_item_number
+
 logger = logging.getLogger(__name__)
 
 # "[item 11]", "[ITEM 11]", "[item11]" — the mangling worth tolerating, and no
@@ -109,12 +111,19 @@ def extract_passage_refs(text: str, chunks: list[dict]) -> tuple[str, list[dict]
             index = int(part)
             if 1 <= index <= len(chunks):
                 meta = chunks[index - 1]["metadata"]
+                item_number = meta.get("item_number")
                 out.append(
                     {
                         "book": meta["book"],
                         "chapter_title": meta.get("chapter_title") or None,
                         "chapter_ref": meta.get("chapter") or None,
-                        "item_number": meta.get("item_number"),
+                        # The parser's "section-N" placeholder is not an item
+                        # a reader can look up. generator.py's `sources` drops
+                        # it the same way — both halves of one response must
+                        # agree on what counts as a real item number.
+                        "item_number": (
+                            item_number if has_real_item_number(item_number) else None
+                        ),
                         "excerpt": chunks[index - 1]["content"],
                     }
                 )
