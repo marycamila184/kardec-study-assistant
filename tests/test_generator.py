@@ -1,8 +1,10 @@
+import dataclasses
 import logging
 from unittest.mock import MagicMock, patch
 
 import pytest
 
+from src.rag import generator
 from src.rag.generator import (
     GENERATION_FAILED_MESSAGE,
     NOT_FOUND_MESSAGE,
@@ -866,3 +868,46 @@ def test_an_answer_emptied_by_post_processing_is_a_failure_not_a_blank_bubble(
     assert result["answer"] == GENERATION_FAILED_MESSAGE
     assert result["generation_failed"] is True
     assert result["sources"] == [], "no chips under a failure"
+
+
+def test_full_precision_does_not_write_the_reference_into_the_prose():
+    """A referência virou o rótulo do link, renderizado pelo cliente na
+    `position`. Escrevê-la também no texto mostraria a citação duas vezes —
+    uma como texto e outra como o link ao lado dela.
+
+    `render_references` continua em inline_refs.py e continua testado ali: ele
+    deixa de ser chamado, não de existir. É o caminho de volta para o dia em
+    que um cliente não puder renderizar links.
+    """
+    from src.rag.profile import CHAT_DEFAULT, ResponseProfile
+
+    profile = dataclasses.replace(CHAT_DEFAULT, citation_precision="full")
+    ctx = {
+        "chunks": [
+            {
+                "content": "A prece é um ato de adoração.",
+                "metadata": {
+                    "book": "O Evangelho Segundo o Espiritismo",
+                    "chapter": "CAPÍTULO XXVII",
+                    "chapter_title": "PEDI E OBTEREIS",
+                    "item_number": "9",
+                },
+            }
+        ],
+        "profile": profile,
+        "level": "normal",
+        "sensitive": False,
+        "topic_note": False,
+        "fallback_note": False,
+        "direct_chunks": [],
+    }
+    answer = "Kardec escreve que a prece é um ato de adoração [fonte 1]."
+    result = generator._finalize(answer, ctx, generation_failed=False)
+
+    assert "[fonte 1]" not in result["answer"]
+    # A referência canônica NÃO foi inserida no texto…
+    assert "CAPÍTULO XXVII" not in result["answer"]
+    assert "item 9" not in result["answer"]
+    # …mas a posição onde ela vai continua viajando.
+    assert result["inline_refs"], "a posição é o que o link usa"
+    assert result["inline_refs"][0]["item_number"] == "9"

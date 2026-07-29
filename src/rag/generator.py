@@ -17,11 +17,7 @@ from src.rag.crisis import (
     needs_medical_caveat,
 )
 from src.rag.guardrails import counts_personification, strip_internal_terms
-from src.rag.inline_refs import (
-    InlineMarkerFilter,
-    extract_passage_refs,
-    render_references,
-)
+from src.rag.inline_refs import InlineMarkerFilter, extract_passage_refs
 from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.pasted_quote import find_pasted_source
@@ -381,10 +377,11 @@ def _postprocess(
         logger.warning("fabricated quotation, answer withheld: %s", unsupported[:3])
         raise UnsupportedQuoteError(unsupported)
 
-    # Only now, with the guard satisfied on what the MODEL wrote, does code
-    # write the references in. Doing it earlier fed the guard its own output.
-    if ctx["profile"].citation_precision == "full":
-        answer, inline_refs = render_references(answer, inline_refs)
+    # The reference is no longer written into the prose: since 2026-07-29 it is
+    # the label of the inline link, which the client renders at `position`.
+    # Writing it here too would show the citation twice — once as text and once
+    # as the link beside it. `render_references` stays in inline_refs.py,
+    # tested, for the day a client cannot render links.
 
     # An answer that post-processing emptied is not an answer. Reported from
     # live use: a turn came back as an empty bubble with source chips under it,
