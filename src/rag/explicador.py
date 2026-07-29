@@ -20,6 +20,7 @@ from src.rag.retriever import (
     filter_uncitable_chunks,
     retrieve,
     retrieve_by_item,
+    retrieved_summary,
 )
 
 logger = logging.getLogger(__name__)
@@ -222,6 +223,12 @@ def _finalize(
         "sources": sources,
         "chapter_context": chapter_context,
         "generation_failed": generation_failed,
+        # Log-only; `StudyResponse` is built from named fields, so this never
+        # reaches the client. `available` and not `ctx["chunks"]` because all
+        # three sets go to the prompt — and it was exactly that mixture that
+        # produced, on 2026-07-28, a citation to an item from another chapter
+        # presented as belonging to this one.
+        "retrieved": retrieved_summary(available),
     }
 
 

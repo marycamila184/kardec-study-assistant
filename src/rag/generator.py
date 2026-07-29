@@ -39,6 +39,7 @@ from src.rag.retriever import (
     has_real_item_number,
     retrieve,
     retrieve_by_item,
+    retrieved_summary,
 )
 from src.rag.sensitivity import classify_sensitivity
 from src.rag.stream_buffer import StreamBuffer
@@ -487,6 +488,10 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
         "not_found": not_found_override,
         "generation_failed": generation_failed,
         "safety_level": ctx["level"],
+        # Log-only. `_chat_response` builds the body from named fields, so this
+        # never reaches the client — it exists so the turn log can record what
+        # retrieval offered, not just what the answer used.
+        "retrieved": retrieved_summary(ctx["chunks"]),
     }
 
 
