@@ -57,7 +57,7 @@ def test_system_prohibits_personifying_espiritismo():
 
 def test_system_forbids_closing_with_inline_question():
     system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
-    assert "Não encerre o texto da resposta com uma pergunta" in system
+    assert "sem pergunta de encerramento" in system
 
 
 def test_system_forbids_repeating_asked_questions_in_seguir():
@@ -119,9 +119,120 @@ _PROMPT_CHUNK = {
 
 def test_build_messages_sensitive_adds_gentle_instruction():
     system, _ = build_messages("estou mal", [_PROMPT_CHUNK], [], sensitive=True)
-    assert "acolhimento" in system
+    assert "abalo emocional" in system
+    assert "acolher vem primeiro" in system
+
+
+def test_the_abalo_text_declares_precedence_over_the_voice_rule():
+    """It tells the model to acknowledge feeling BEFORE doctrine, while the
+    voice rule says to start on substance. Left implicit, that contradiction
+    gets resolved unpredictably — measured on 2026-07-28, when a rule
+    contradicting an earlier one produced no effect at all."""
+    system, _ = build_messages("estou mal", [_PROMPT_CHUNK], [], sensitive=True)
+    assert "exceção à regra de começar pela substância" in system
 
 
 def test_build_messages_not_sensitive_omits_gentle_instruction():
     system, _ = build_messages("o que é X?", [_PROMPT_CHUNK], [], sensitive=False)
-    assert "acolhimento" not in system
+    assert "abalo emocional" not in system
+
+
+def test_the_passage_header_carries_the_canonical_reference():
+    """Found in production 2026-07-28: the header showed the chapter TITLE while
+    the source chip showed the chapter NUMBER, so a reader who asked for
+    citations got two different-looking references to the same passage."""
+    from src.rag.prompt import build_messages
+
+    chunks = [
+        {
+            "content": "texto",
+            "metadata": {
+                "book": "A Gênese",
+                "chapter": "CAPÍTULO XIV",
+                "chapter_title": "OS FLUIDOS",
+                "item_number": "18",
+            },
+        }
+    ]
+    system, _ = build_messages("q", chunks, [])
+    header = next(l for l in system.splitlines() if l.startswith("[1]"))
+
+    assert "CAPÍTULO XIV" in header
+    assert "OS FLUIDOS" in header
+    assert "18" in header
+
+
+def test_the_header_survives_a_chunk_with_no_chapter_reference():
+    from src.rag.prompt import build_messages
+
+    chunks = [
+        {
+            "content": "texto",
+            "metadata": {
+                "book": "O Livro dos Espíritos",
+                "chapter_title": "Da Encarnação",
+                "item_number": "132",
+            },
+        }
+    ]
+    system, _ = build_messages("q", chunks, [])
+    header = next(l for l in system.splitlines() if l.startswith("[1]"))
+    assert "Da Encarnação" in header
+
+
+def test_the_prompt_forbids_announcing_but_allows_correcting():
+    """Announcing configuration is what grates ('sim, posso fornecer
+    citações...'). Apologising for a wrong answer is honesty, and the reader
+    asked for it to stay."""
+    from src.rag.prompt import build_messages
+
+    system, _ = build_messages("q", [], [])
+    assert "sem preâmbulo" in system
+    assert "Corrigir-se é diferente" in system
+
+
+def test_absent_terms_reach_the_model_when_there_are_any():
+    from src.rag.prompt import build_messages
+
+    plain, _ = build_messages("q", [], [])
+    assert "AVISO:" not in plain
+
+    warned, _ = build_messages("q", [], [], absent_terms=["pineal"])
+    assert '"pineal" não aparece' in warned
+    assert "Não trate esse termo como doutrina" in warned
+
+
+def test_the_near_miss_rule_states_its_exception():
+    """A 'did you mean this?' is the one place the answer may end on a question.
+    Left implicit it would contradict the rule that follow-ups live in [SEGUIR],
+    and a rule contradicting its neighbour gets obeyed unpredictably — measured
+    on 2026-07-28, when citation_precision produced nothing at all for exactly
+    that reason."""
+    from src.rag.prompt import build_messages
+
+    system, _ = build_messages("q", [], [])
+    assert "não encontrou exatamente aquilo" in system
+    assert "único caso em que a resposta pode terminar com uma pergunta" in system
+    assert "sem pergunta de encerramento" in system
+
+
+def test_the_prompts_come_from_their_files_and_ship_with_the_package():
+    """They live as Markdown so they can be refined without going through
+    Python string escaping. A missing file must raise rather than silently
+    remove a rule and leave everything running."""
+    import pathlib
+
+    import pytest
+
+    from src.rag.prompt_files import _DIR, load
+
+    assert (_DIR / "chat-system.md").exists()
+    assert load("chat-system").startswith("# Quem você é")
+
+    with pytest.raises(FileNotFoundError):
+        load("this-prompt-does-not-exist")
+
+    # Every file is reachable by the name the code uses.
+    for path in _DIR.glob("*.md"):
+        if path.stem != "README":
+            assert load(path.stem)

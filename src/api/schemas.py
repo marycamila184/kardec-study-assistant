@@ -16,16 +16,65 @@ class Source(BaseModel):
     excerpt: str | None = None
 
 
+class ProfileState(BaseModel):
+    """The shape the answer took, carried by the client between turns.
+
+    Stateless by design, exactly like the conversation history: nothing is
+    stored server-side. `pinned` lists the dimensions the reader asked for
+    explicitly — they stop following anything the system infers later.
+
+    Only the dimensions that currently do something are exposed. A field the
+    prompt does not read yet would be a setting that silently fails.
+    """
+
+    citation_style: str = "chips"  # none | chips | inline
+    citation_precision: str = "short"  # short | full
+    depth: str = "normal"  # breve | normal | aprofundado
+    vocabulary: str = "corrente"  # iniciante | corrente | tecnico
+    pinned: list[str] = []
+
+
 class ChatRequest(BaseModel):
     question: str
     history: list[Message] = []
     book_filter: str | None = None
     current_mode: str | None = None
     anchor_text: str | None = None
+    profile: ProfileState | None = None
+
+
+class InlineRef(BaseModel):
+    """Where in the prose a claim rests on a retrieved passage. `position` is an
+    index into the clean text, so a client that ignores this field displays
+    exactly what it displayed before inline markers existed."""
+
+    position: int
+    book: str
+    chapter_title: str | None = None
+    item_number: str | None = None
+    excerpt: str | None = None
+
+
+class StudiedItem(BaseModel):
+    """The passage a question named, when it named one. Rendered as the "Da
+    Obra" block — the source text visibly apart from the explanation, which is
+    the rule the study modes exist to make structural."""
+
+    book: str
+    chapter_title: str | None = None
+    chapter_ref: str | None = None
+    item_number: str | None = None
+    excerpt: str
 
 
 class ChatResponse(BaseModel):
     answer: str
+    studied_item: StudiedItem | None = None
+    # The profile this answer was written with, for the client to carry into the
+    # next turn. Echoed rather than assumed: a request that changed the shape
+    # must be able to tell the client what it changed to.
+    profile: ProfileState | None = None
+    inline_refs: list[InlineRef] = []
     sources: list[Source]
     suggested_questions: list[str] = []
     not_found: bool = False
@@ -84,10 +133,17 @@ class StudyRequest(BaseModel):
 class StudyResponse(BaseModel):
     original_text: str
     contexto: str
+    inline_refs: list[InlineRef] = []
     conceitos_chave: list[str]
     perguntas: list[str]
     related_items: list[RelatedItem]
     sources: list[StudySource]
+    # The chapter's other items, when they were used as grounding. Evangelho
+    # only — see chapter_commentary() in retriever.py. Exposed because the
+    # explanation draws on them and says so ("o comentário doutrinário de
+    # Kardec sobre este capítulo…"); a reader who cannot open what was cited
+    # is being asked to take the attribution on trust.
+    chapter_context: list[StudySource] = []
     generation_failed: bool = False
 
 

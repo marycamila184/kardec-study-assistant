@@ -108,6 +108,7 @@ Each mode has a dedicated prompt file + pipeline file.
 - `embeddings.py` — `encode(texts)`, the single seam every embedding passes through, dispatching on `EMBEDDING_PROVIDER`: unset = `BAAI/bge-m3` in-process (dev), or `openrouter`/`deepinfra`/`novita` to call **the same model** over HTTP (production). Parity measured 2026-07-27 — cosine 0.999994 against the stored vectors, 100% top-5 overlap, distance shift 0.0001 — so the index and the calibrated thresholds (`max_distance` 0.55, `source_min_similarity` 0.35, `source_relative_margin` 0.10) survive the switch untouched. `sentence_transformers` is imported **inside** `_get_model()`: hoisting it back to module level would pull torch into the container image and undo the ~4.7 GB the hosted lane exists to save. Hosted calls batch at `HOSTED_BATCH_MAX` and fail loudly, because a wrong vector raises nothing downstream — Chroma stores it and retrieval merely gets worse.
 - `guardrails.py` — post-hoc backstops for prompt-only rules that an 8B holds less reliably: `strip_trailing_question` (the "never end with a question" rule) and `counts_personification` (log-only counter; **no automatic rewriting of doctrine prose**). Reflect's no-advice constraint deliberately has no code check — it cannot be detected reliably, and a check that half-works is worse than none.
 - `sensitivity.py` — `classify_sensitivity(text)` → `normal | abalo | crise`.
+- `stream_buffer.py` — `StreamBuffer.feed(chunk)` returns the slice of model output that is safe to display, holding back anything that could still grow into a `[FONTES:` / `[SEGUIR:` opening; `flush()` returns the tail. Content-aware rather than a fixed-size window, because the follow-up questions in `[SEGUIR]` are arbitrarily long and would push `[FONTES]` out of any window sized in advance. Sealing on the first opening is safe because the markers are trailer-only by contract. Openings are uppercase-only, so ordinary prose ("as fontes citadas") is never retained.
 
 **Deployment shape:** the backend ships as a container to Cloud Run in a US
 region with the index baked in (`data/embeddings/` copied into the image, no
@@ -373,6 +374,17 @@ Stateless. Clients own conversation history; `/chat` accepts it but the server s
 **`suggested_mode`** (on `/chat`, and historically `/reflect`): a hint for the client to surface a cross-mode nudge button, produced by `orchestrator.classify_intent`. For `estudar_obra` the response also carries `suggested_item_number` / `suggested_book` (from `extract_study_reference`; book `null` unless named) so the client opens `/study` pre-filled. `null` when no nudge applies (the `refletir` target is disconnected, see `orchestrator.py`). The client sends `current_mode` so the orchestrator never nudges toward the current mode. Suppressed on `crise`.
 
 **`safety_level`** (on `/chat`, and historically `/reflect`): `normal | abalo | crise`, so the client can adapt presentation.
+
+**`POST /chat/stream`** — the same answer as `POST /chat`, delivered as Server-Sent Events. Two event types:
+
+```
+event: token   data: {"text": "Kardec escreve que"}
+event: done    data: { ...the full ChatResponse body... }
+```
+
+`generator.generate()` is split into `_prepare` (short-circuits, sensitivity tier, retrieval, prompt) → the model call → `_finalize` (post-processing, sources). Both routes share everything but the model call, which is why the `done` payload cannot drift from what `/chat` returns; `_chat_response` in `routes.py` is the matching seam for the nudge and the turn log.
+
+Everything decided in code answers before a stream is opened, yielding its `done` and nothing else: the crisis exit, small talk, the size cap, a retrieval failure, no chunks. The rate limit still raises a 429. `Cache-Control: no-store` and `X-Accel-Buffering: no` keep proxies from accumulating the body (Cloud Run was measured not to buffer on 2026-07-27). The anonymous turn log is written once, at the end, with the final answer. Reasoning in `superpowers/specs/2026-07-27-streaming-design.md`.
 
 **`Source` / `StudySource`** (`/chat` `sources`, and historically `/reflect`):
 ```json

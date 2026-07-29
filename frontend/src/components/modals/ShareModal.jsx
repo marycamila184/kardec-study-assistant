@@ -19,8 +19,8 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
   const citation = msg.obra?.citation || 'Dialogando com a Doutrina';
   const context  = msg.obra?.context  || '';
 
-  // O link fecha o texto pelo mesmo motivo que fecha a imagem: sem ele a
-  // mensagem nomeia o app e não diz onde encontrá-lo.
+  // The link closes the text for the same reason it closes the image: without
+  // it the message names the app and never says where to find it.
   const shareText =
     `"${quote}"\n\n— ${citation}\n\nDialogando com a Doutrina\nhttps://${APP_URL}`;
 
@@ -29,9 +29,9 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
     window.open(url, '_blank', 'noopener');
   };
 
-  // Testa com um arquivo de verdade, não só a existência da função: o Chrome do
-  // desktop tem navigator.canShare mas recusa arquivos, então checar só o
-  // `typeof` fazia o botão prometer "Compartilhar imagem" e baixar.
+  // Tested with a real file, not just the function's existence: desktop Chrome
+  // has navigator.canShare but refuses files, so checking `typeof` alone made
+  // the button promise to share an image and then download one.
   const canShareFile = (() => {
     if (typeof navigator === 'undefined' || typeof navigator.canShare !== 'function') {
       return false;
@@ -46,14 +46,13 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
   })();
 
   const handleDownload = () => {
-    // A imagem é medida antes de ser criada.
+    // The image is measured before it is created.
     //
-    // Antes o canvas tinha altura fixa de 560px e o texto era cortado com "…"
-    // depois de oito linhas — e o trecho do dia quase sempre passa disso, então
-    // o que se compartilhava era uma passagem truncada. Agora as linhas são
-    // quebradas primeiro, num canvas de medição, e a altura final sai do
-    // resultado: a imagem cresce com o texto em vez de o texto encolher para
-    // caber nela.
+    // The canvas used to be a fixed 560px tall, with the text cut off after
+    // eight lines — and the daily passage almost always runs longer, so what
+    // got shared was a truncated passage. Now the lines are wrapped first, on a
+    // measuring canvas, and the final height comes out of that result: the
+    // image grows with the text instead of the text shrinking to fit it.
     const WIDTH = 960;
     const PAD = 52;
     const MAX_TEXT = WIDTH - PAD * 2;
@@ -76,9 +75,9 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
       return lines;
     };
 
-    // Passagens longas encolhem a fonte antes de esticar a imagem: uma foto
-    // muito alta é cortada na pré-visualização do WhatsApp. Abaixo de 20px a
-    // leitura sofre, então aí a altura é que cede.
+    // Long passages shrink the font before stretching the image: a very tall
+    // picture gets cropped in WhatsApp's preview. Below 20px readability
+    // suffers, so past that point the height gives way instead.
     let fontSize = 28;
     let lines = wrap(quote, fontSize);
     while (lines.length > 12 && fontSize > 20) {
@@ -114,22 +113,22 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
     ctx.font = '13px DM Sans, sans-serif';
     ctx.fillText(citation, PAD, y + 38);
 
-    // O link fecha a imagem: quem recebe o trecho e gosta precisa de um lugar
-    // para onde ir.
+    // The link closes the image: someone who receives the passage and likes it
+    // needs somewhere to go.
     ctx.fillStyle = 'rgba(255,255,255,.4)';
     ctx.font = '500 12px DM Sans, sans-serif';
     ctx.fillText(APP_URL, PAD, y + 62);
 
-    // Entrega da imagem, em três degraus.
+    // Delivering the image, in three steps.
     //
-    // O caminho antigo era `link.download` + data URL, e ele simplesmente não
-    // funciona no celular: o Safari do iOS ignora o atributo download, e a data
-    // URL abre na mesma aba ou não faz nada — o botão parecia morto.
+    // The old path was `link.download` plus a data URL, and it simply does not
+    // work on a phone: iOS Safari ignores the download attribute, and the data
+    // URL either opens in the same tab or does nothing — the button looked dead.
     //
-    // 1. navigator.share com arquivo: abre a folha de compartilhamento do
-    //    sistema, que é o que "compartilhar" significa num telefone.
-    // 2. download via blob URL: desktop, onde o atributo download é respeitado.
-    // 3. abrir numa aba: último recurso, a pessoa segura o dedo e salva.
+    // 1. navigator.share with a file: opens the system share sheet, which is
+    //    what "share" means on a phone.
+    // 2. download via blob URL: desktop, where the download attribute is honoured.
+    // 3. open in a tab: last resort, where the reader long-presses and saves.
     canvas.toBlob(async (blob) => {
       if (!blob) return;
       const file = new File([blob], 'trecho-espirita.png', { type: 'image/png' });
@@ -141,9 +140,9 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
           await navigator.share({ files: [file], text: shareText });
           return;
         } catch (err) {
-          // Cancelar a folha de compartilhamento levanta AbortError. Não é
-          // falha: cair no download depois disso reabriria algo que a pessoa
-          // acabou de fechar.
+          // Cancelling the share sheet raises AbortError. That is not a
+          // failure: falling through to the download afterwards would reopen
+          // something the reader just dismissed.
           if (err?.name === 'AbortError') return;
         }
       }
@@ -157,8 +156,8 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
       } else {
         window.open(url, '_blank', 'noopener');
       }
-      // Revoga depois do clique: revogar imediatamente cancela o download em
-      // alguns navegadores.
+      // Revoked after the click: revoking immediately cancels the download in
+      // some browsers.
       setTimeout(() => URL.revokeObjectURL(url), 10000);
     }, 'image/png');
   };
@@ -169,11 +168,11 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: isMobile ? 12 : 24, background: 'rgba(0,0,0,.5)',
     }} onClick={onClose}>
-      {/* O trecho do dia pode ser longo, e sem teto de altura o cartão crescia
-          para fora da tela no celular: o rodapé com os botões ficava abaixo da
-          dobra, sem rolagem, e a pessoa via um cartão cortado sem saída.
-          maxHeight prende o modal na viewport e a rolagem vai para o miolo,
-          deixando cabeçalho e ações sempre visíveis. */}
+      {/* The daily passage can be long, and with no height ceiling the card
+          grew off-screen on a phone: the footer holding the buttons sat below
+          the fold with nothing scrolling, so the reader saw a cropped card and
+          no way out. maxHeight pins the modal to the viewport and moves the
+          scrolling inside, keeping the header and the actions always visible. */}
       <div style={{
         background: theme.headerBg, borderRadius: 14,
         maxWidth: 480, width: '100%', maxHeight: '92vh',
@@ -213,16 +212,17 @@ export default function ShareModal({ msg, theme, onClose, isMobile = false }) {
           )}
         </div>
 
-        {/* Ações.
+        {/* Actions.
 
-            Onde existe folha do sistema, um botão só. Dois botões confundiam:
-            o verde tinha a marca do WhatsApp e mandava apenas texto, enquanto o
-            de imagem — que é o que a pessoa quer compartilhar — parecia
-            secundário. A folha já lista WhatsApp, Instagram e o que mais
-            estiver instalado, e agora leva foto e legenda juntas.
+            Where a system share sheet exists, a single button. Two buttons
+            confused people: the green one carried WhatsApp's branding and sent
+            text only, while the image one — which is what the reader actually
+            wants to share — looked secondary. The sheet already lists WhatsApp,
+            Instagram and whatever else is installed, and now carries the
+            picture and the caption together.
 
-            No desktop os dois continuam, porque lá não há folha: o WhatsApp Web
-            abre com o texto e o outro salva o arquivo. */}
+            On desktop both remain, because there is no sheet there: WhatsApp
+            Web opens with the text and the other saves the file. */}
         <div style={{ padding: '14px 18px', display: 'flex', gap: 8, flexShrink: 0 }}>
           {!canShareFile && (
             <button onClick={handleWhatsApp} style={{

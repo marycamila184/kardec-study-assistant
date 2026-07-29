@@ -19,11 +19,30 @@ import { useEscapeKey } from '../../hooks/useEscapeKey';
  *   onRequestNotif — () => void
  *   theme
  */
+const CITATION_LABELS = {
+  inline: 'no texto',
+  chips: 'ao lado da resposta',
+  none: 'sem citações',
+};
+
+const DEPTH_LABELS = {
+  breve: 'respostas curtas',
+  normal: 'normal',
+  aprofundado: 'mais desenvolvidas',
+};
+
+const VOCABULARY_LABELS = {
+  iniciante: 'explicando os termos',
+  corrente: 'normal',
+  tecnico: 'termos da doutrina sem explicar',
+};
+
 export default function SettingsPanel({
   open, onClose, darkMode, onToggleDark,
   fontSize, onFontSize,
   reminderOn, onToggleReminder, reminderTime, onReminderTime,
   notifPermission, onRequestNotif,
+  profile, onResetProfile,
   theme,
 }) {
   const [justSaved, setJustSaved] = useState(false);
@@ -108,10 +127,39 @@ export default function SettingsPanel({
             </div>
           </Section>
 
-          {/* Privacidade — saiu do onboarding, onde competia com a
-              apresentação do projeto e era lida no pior momento: antes de a
-              pessoa ter qualquer motivo para se importar. Aqui ela é
-              encontrada por quem procura. */}
+          {/* How the answers are currently shaped.
+              Here, and deliberately nowhere else. The conversation never
+              announces a change — the reader asked in their own words and the
+              answer simply arrives already shaped, with no banner and no "modo
+              alterado". But silent AND unfindable is the one combination to
+              avoid: that is how someone ends up unable to undo something they
+              never saw happen. So it lives where a person goes when they wonder
+              why, not in the flow where it would interrupt.
+              See docs/superpowers/specs/2026-07-28-adaptive-response-profile-design.md */}
+          {profile && (
+            <Section title="Como as respostas estão saindo" theme={theme}>
+              <div style={{ fontSize: 13, color: theme.text, lineHeight: 1.8 }}>
+                <div>Citações: {CITATION_LABELS[profile.citation_style] || profile.citation_style}</div>
+                <div>Referência: {profile.citation_precision === 'full' ? 'completa (obra, capítulo e item)' : 'curta'}</div>
+                <div>Profundidade: {DEPTH_LABELS[profile.depth] || profile.depth}</div>
+                <div>Linguagem: {VOCABULARY_LABELS[profile.vocabulary] || profile.vocabulary}</div>
+              </div>
+              <div style={{ fontSize: 11.5, color: theme.subtext, marginTop: 10, lineHeight: 1.6 }}>
+                Isso se ajusta sozinho conforme a conversa, e muda na hora se você
+                pedir — "traga as citações", "explique mais simples".
+              </div>
+              <button onClick={onResetProfile} style={{
+                marginTop: 12, background: 'transparent',
+                border: `1px solid ${theme.cardBorder}`, color: theme.subtext,
+                fontSize: 12, padding: '6px 12px', borderRadius: 7, cursor: 'pointer',
+              }}>Voltar ao padrão</button>
+            </Section>
+          )}
+
+          {/* Privacy — moved out of onboarding, where it competed with the
+              introduction to the project and was read at the worst moment:
+              before the reader had any reason to care. Here it is found by
+              whoever goes looking for it. */}
           <Section title="Privacidade" theme={theme}>
             <div style={{ background: 'rgba(107,155,184,.07)', border: '1px solid rgba(107,155,184,.2)', borderRadius: 8, padding: 14 }}>
               <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: '0 0 10px' }}>

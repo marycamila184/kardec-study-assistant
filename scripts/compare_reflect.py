@@ -50,22 +50,29 @@ from unittest.mock import patch
 # compare_generators: an abstention rate on its own would reward a variant that
 # refuses every situation, which would be useless.
 SITUATIONS = [
-    {"text": "estou passando por uma fase muito difícil no trabalho e me sinto sem valor",
-     "corpus_fit": "bom"},
-    {"text": "briguei com minha mãe e não sei como consertar",
-     "corpus_fit": "bom"},
-    {"text": "tenho muita inveja de uma amiga e isso me envergonha",
-     "corpus_fit": "bom"},
-    {"text": "não consigo perdoar quem me fez mal",
-     "corpus_fit": "bom"},
-    {"text": "perdi meu pai ano passado e ainda sinto uma saudade que não passa",
-     "corpus_fit": "ruim"},
-    {"text": "perdi alguém que eu amava e estou sofrendo muito com essa perda",
-     "corpus_fit": "ruim"},
-    {"text": "meu casamento acabou e eu me sinto um fracasso",
-     "corpus_fit": "ruim"},
-    {"text": "ando ansioso com o futuro e não consigo parar de me preocupar",
-     "corpus_fit": "ruim"},
+    {
+        "text": "estou passando por uma fase muito difícil no trabalho e me sinto sem valor",
+        "corpus_fit": "bom",
+    },
+    {"text": "briguei com minha mãe e não sei como consertar", "corpus_fit": "bom"},
+    {
+        "text": "tenho muita inveja de uma amiga e isso me envergonha",
+        "corpus_fit": "bom",
+    },
+    {"text": "não consigo perdoar quem me fez mal", "corpus_fit": "bom"},
+    {
+        "text": "perdi meu pai ano passado e ainda sinto uma saudade que não passa",
+        "corpus_fit": "ruim",
+    },
+    {
+        "text": "perdi alguém que eu amava e estou sofrendo muito com essa perda",
+        "corpus_fit": "ruim",
+    },
+    {"text": "meu casamento acabou e eu me sinto um fracasso", "corpus_fit": "ruim"},
+    {
+        "text": "ando ansioso com o futuro e não consigo parar de me preocupar",
+        "corpus_fit": "ruim",
+    },
 ]
 
 
@@ -141,7 +148,10 @@ def summarize_by_fit(rows: list[dict]) -> dict:
             continue
         out[fit] = {
             "n": len(group),
-            "abstention_rate": sum(1 for r in group if abstains(r["doctrine_connection"])) / len(group),
+            "abstention_rate": sum(
+                1 for r in group if abstains(r["doctrine_connection"])
+            )
+            / len(group),
             "mean_groundedness": sum(r["groundedness"] for r in group) / len(group),
         }
     return out
@@ -159,7 +169,8 @@ def summarize(rows: list[dict]) -> dict:
         "parse_failure_rate": sum(1 for r in rows if r["generation_failed"]) / n,
         "mean_groundedness": sum(r["groundedness"] for r in rows) / n,
         "mean_questions": sum(len(r["reflection_questions"]) for r in rows) / n,
-        "abstention_rate": sum(1 for r in rows if abstains(r["doctrine_connection"])) / n,
+        "abstention_rate": sum(1 for r in rows if abstains(r["doctrine_connection"]))
+        / n,
     }
 
 
@@ -316,13 +327,15 @@ def _json_shim(temperature: float):
     from src.rag.llm_client import create_json_completion
 
     def shim(client, model, messages, max_tokens, structured=None):
-        return create_json_completion(
-            client, model, messages, max_tokens, structured
-        ) if temperature is None else client.chat.completions.create(
-            model=model,
-            max_tokens=max_tokens,
-            messages=messages,
-            temperature=temperature,
+        return (
+            create_json_completion(client, model, messages, max_tokens, structured)
+            if temperature is None
+            else client.chat.completions.create(
+                model=model,
+                max_tokens=max_tokens,
+                messages=messages,
+                temperature=temperature,
+            )
         )
 
     return shim
@@ -360,9 +373,7 @@ def _run_lane(
         with ExitStack() as stack:
             stack.enter_context(patch("src.rag.reflect.create_json_completion", shim))
             if variant is not None:
-                stack.enter_context(
-                    patch("src.rag.reflect_prompt._NO_ADVICE", variant)
-                )
+                stack.enter_context(patch("src.rag.reflect_prompt._NO_ADVICE", variant))
             if passage_fit is not None:
                 # reflect_prompt has no _PASSAGE_FIT slot any more (the rule was
                 # measured and rejected on 2026-07-26 — see the note above
@@ -472,7 +483,9 @@ def main() -> None:
 
     if args.passage_fit:
         names = [n.strip() for n in args.passage_fit.split(",") if n.strip()]
-        print(f"# /reflect — teste de aptidão da passagem @ temperature={temperature}\n")
+        print(
+            f"# /reflect — teste de aptidão da passagem @ temperature={temperature}\n"
+        )
         results = {}
         for name in names:
             rows = _run_lane(None, temperature, None, PASSAGE_FIT_VARIANTS[name])

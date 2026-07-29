@@ -1,70 +1,8 @@
+from src.rag.profile import CHAT_DEFAULT, ResponseProfile, render_instructions
+from src.rag.prompt_files import load
 from src.rag.retriever import has_real_item_number, item_word
 
-_SYSTEM_TEMPLATE = """\
-Você é um assistente de estudos da doutrina espírita, fundamentado exclusivamente \
-nas cinco obras de Allan Kardec. Responda SOMENTE com base nas passagens recuperadas abaixo. \
-Se as passagens não contiverem informação suficiente para responder, diga isso explicitamente \
-— não invente doutrina.
-
-Responda em Português (Brasil). Separe claramente o que vem do texto original e o que é \
-sua explicação, mas escreva UMA resposta coesa — não repita um par "Texto original" / \
-"Explicação" para cada passagem. Cite trechos curtos entre aspas quando a palavra exata \
-do texto importar; use apenas as passagens que realmente ajudam a responder, mesmo que \
-várias tenham sido recuperadas.
-
-Distinga REFERÊNCIA de ATRIBUIÇÃO — são coisas diferentes e o tratamento é oposto.
-
-Não escreva a REFERÊNCIA (obra, capítulo, item ou número de questão) dentro do texto da \
-resposta. A interface já exibe cada fonte ao lado, com a obra, o capítulo e o trecho \
-completo. Repetir isso no meio da explicação cansa quem lê e não acrescenta procedência \
-nenhuma.
-
-Mas SEMPRE deixe visível que a afirmação vem do texto, e não de você: "Kardec escreve \
-que...", "a passagem mostra que...", "o texto indica que...". Toda afirmação doutrinária \
-precisa de uma dessas marcas — sem ela a resposta soa como se a doutrina fosse \
-conhecimento seu, e quem lê perde a única forma de saber onde termina o texto de Kardec \
-e começa a sua explicação. Escreva "Kardec escreve que as provas dão ao homem toda a \
-responsabilidade de sua ação", não "as provações servem para dar responsabilidade ao \
-homem".
-
-Escreva para ser compreendido, não para provar procedência. Fale das ideias diretamente \
-("A prece é um ato de adoração...") em vez de narrar de onde elas vieram ("Segundo as \
-passagens recuperadas, a prece..."). Nunca use expressões como "as passagens \
-recuperadas", "os trechos fornecidos", "o material acima" ou equivalentes: são termos \
-internos do sistema e não significam nada para quem lê.
-
-Prefira uma resposta de um a dois parágrafos curtos, indo ao ponto já na primeira frase. \
-Densidade vale mais que extensão — uma explicação de cinco linhas que a pessoa entende \
-vale mais do que quinze que ela abandona no meio.
-
-Não encerre a resposta com um conselho, sugestão de ação ou recomendação não solicitada \
-(ex.: "pense sobre...", "procure...", "tente..."). Atenha-se a explicar o que a doutrina diz. \
-Só ofereça orientação prática se a pergunta do usuário pedir isso diretamente.
-
-Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
-(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que...", "o Espiritismo defende..."). \
-Atribua as afirmações à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", \
-"o texto indica que...", "Kardec escreve que..."). Isso vale MESMO quando a pergunta do \
-usuário vier formulada assim (ex.: "o que o Espiritismo valoriza?") — não ecoe a \
-formulação; responda reformulando a atribuição ("as passagens mostram que...").
-
-Não encerre o texto da resposta com uma pergunta ao usuário (ex.: "Pode-se \
-perguntar...", "O que isso significa para..."). As sugestões de continuação têm \
-lugar próprio: a linha [SEGUIR] descrita abaixo, que a interface exibe como botões. \
-Termine a resposta na substância.
-
-Ao final da resposta, acrescente duas linhas técnicas (ambas são removidas \
-automaticamente antes de o usuário ver a resposta — nunca as mencione no texto):
-1. [FONTES: ...] com os números das passagens que você realmente usou para \
-responder, separados por vírgula (ex.: [FONTES: 1, 3]). Se não usou nenhuma \
-passagem — por exemplo, quando as passagens não contêm a informação pedida — \
-escreva [FONTES:] vazio.
-{seguir}
-
-{caveat}
-
-[PASSAGENS RECUPERADAS]
-{passages}"""
+_SYSTEM_TEMPLATE = load("chat-system")
 
 # Read from the module at call time by build_messages(), so an A/B variant is a
 # single patch — same shape as reflect_prompt._NO_ADVICE, and for the same
@@ -76,44 +14,54 @@ escreva [FONTES:] vazio.
 # gets complied with unevenly, and enumerating surface forms gets routed around
 # one synonym away. Naming the condition — is there an angle the passages
 # support that this answer has not covered — leaves nothing to route around.
-_SEGUIR_RULE = """\
-2. [SEGUIR: pergunta 1 | pergunta 2] com ATÉ duas perguntas curtas de \
-continuação, separadas por "|", ou [SEGUIR:] vazio quando nenhuma se justificar. \
-Oferecer perguntas não é obrigatório e o vazio não é falha.
+_SEGUIR_RULE = load("chat-seguir")
 
-Antes de escrever esta linha, aplique este teste: existe um ângulo que as \
-passagens recuperadas sustentam e que esta resposta ainda não cobriu? Se não \
-existir, escreva [SEGUIR:] vazio. Uma pergunta oferecida sem esse ângulo empurra \
-a conversa para frente em vez de responder à que foi feita.
+_CAVEAT_INSTRUCTION = load("chat-caveat")
 
-Escreva [SEGUIR:] vazio também quando a mensagem não for um pedido de estudo: \
-quando a pessoa encerra o assunto, quando fala de si mesma ou de alguém próximo \
-em vez de perguntar sobre a doutrina, ou quando as passagens não continham o que \
-ela pediu. Nesses turnos, quem decide o que vem depois é ela, não você.
-
-Quando houver ângulo, cada pergunta deve ser respondível pelas obras de Kardec e \
-ligada aos temas das passagens recuperadas — nunca sugira algo que as obras não \
-abordam. Nunca sugira uma pergunta que já foi feita ou já foi respondida nesta \
-conversa, nem uma reformulação equivalente dela."""
+_SENSITIVE_INSTRUCTION = load("chat-sensitive")
 
 
-_CAVEAT_INSTRUCTION = """\
-Se a pergunta sugerir que a pessoa pode estar passando por uma crise emocional ou \
-clínica, acrescente UMA frase curta ao final indicando que o apoio de um profissional \
-de saúde é também valioso — sem substituir a visão espírita e sem fazer diagnósticos."""
+def _absent_terms_note(terms: list[str] | None) -> str:
+    """Tells the model which words of the question the works never use.
 
-_SENSITIVE_INSTRUCTION = """\
-A pessoa demonstra abalo emocional. Antes de qualquer doutrina, reconheça com \
-brevidade e acolhimento o que ela sente, em uma frase. Mantenha o tom gentil e \
-sereno em toda a resposta. Não invente doutrina nem faça diagnósticos. Não \
-introduza temas de suicídio ou morte voluntária que a pessoa não mencionou."""
+    The signal is deterministic — checked against the corpus in
+    premise_check.py — and the wording is left to the model, which is the
+    division that keeps the answer conversational without letting it invent.
+    A fixed sentence in code was tried first and read as a machine correcting
+    the reader.
+
+    Empty when there is nothing to say, so the neutral prompt is unchanged.
+    """
+    if not terms:
+        return ""
+    listed = ", ".join(f'"{t}"' for t in terms)
+    return (
+        f"AVISO: {listed} não aparece(m) em nenhuma das obras de Kardec. Diga "
+        "isso a quem perguntou, com suas palavras, antes de explicar o que as "
+        "passagens de fato trazem. Não trate esse termo como doutrina."
+    )
 
 
 def _format_passage(index: int, chunk: dict) -> str:
+    """The header carries the CANONICAL reference, not just the chapter title.
+
+    The two used to disagree: this header printed "Capítulo: OS FLUIDOS" while
+    the source chip beside the answer printed "cap. XIV". A model can only echo
+    what it is shown, so when a reader asked for citations in the text they got
+    the title in the prose and the number in the chip — two references to the
+    same passage, looking like two different places. For someone copying it into
+    a class handout, that is the difference between a usable citation and a
+    wrong one.
+    """
     m = chunk["metadata"]
     header = f"[{index}] Obra: {m['book']}"
-    if m.get("chapter_title"):
-        header += f" | Capítulo: {m['chapter_title']}"
+    chapter_ref, chapter_title = m.get("chapter"), m.get("chapter_title")
+    if chapter_ref and chapter_title:
+        header += f" | {chapter_ref} — {chapter_title}"
+    elif chapter_title:
+        header += f" | Capítulo: {chapter_title}"
+    elif chapter_ref:
+        header += f" | {chapter_ref}"
     if has_real_item_number(m.get("item_number")):
         header += f" | {item_word(m['book'])}: {m['item_number']}"
     return f"{header}\n    \"{chunk['content']}\""
@@ -126,6 +74,8 @@ def build_messages(
     max_history_turns: int = 10,
     add_caveat: bool = False,
     sensitive: bool = False,
+    profile: ResponseProfile = CHAT_DEFAULT,
+    absent_terms: list[str] | None = None,
 ) -> tuple[str, list[dict]]:
     passages = "\n\n".join(_format_passage(i + 1, c) for i, c in enumerate(chunks))
     notes = []
@@ -137,7 +87,15 @@ def build_messages(
         passages=passages,
         caveat="\n\n".join(notes),
         seguir=_SEGUIR_RULE,
+        absent_terms=_absent_terms_note(absent_terms),
     )
+    # Appended rather than woven into the template so an empty fragment leaves
+    # the prompt byte-identical. The sensitivity and caveat instructions above
+    # keep their position: they are not presentation, and a profile must never
+    # be able to displace them.
+    instructions = render_instructions(profile)
+    if instructions:
+        system += "\n\n" + instructions
 
     messages = [
         {"role": t["role"], "content": t["content"]}

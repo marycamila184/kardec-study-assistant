@@ -1,5 +1,23 @@
 import React from 'react';
 
+// The three pulsing dots on their own, without the avatar and card around
+// them. IABlock shows these inside the "Da IA" card while a streamed answer
+// has been asked for but no text has arrived yet — the passage is already on
+// screen at that point, so a whole second bubble below it would be a duplicate.
+export function Dots() {
+  const dotStyle = {
+    width: 6, height: 6, borderRadius: '50%',
+    background: '#C8856A', display: 'inline-block',
+  };
+  return (
+    <div style={{ display: 'flex', gap: 5, alignItems: 'center', padding: '2px 0' }}>
+      <div style={{ ...dotStyle, animation: 'dot-pulse 1.2s infinite 0s' }} />
+      <div style={{ ...dotStyle, animation: 'dot-pulse 1.2s infinite 0.22s' }} />
+      <div style={{ ...dotStyle, animation: 'dot-pulse 1.2s infinite 0.44s' }} />
+    </div>
+  );
+}
+
 export default function LoadingDots({ theme }) {
   const dotStyle = {
     width: 6, height: 6, borderRadius: '50%',

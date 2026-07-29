@@ -3,6 +3,8 @@ import re
 
 from src.rag.json_extract import extract_outermost, strip_code_fence
 from src.rag.markers import parse_sections, split_pipe_list
+from src.rag.profile import STUDY_DEFAULT, ResponseProfile, render_instructions
+from src.rag.prompt_files import load
 from src.rag.retriever import item_word
 
 _MARKER_FORMAT = """\
@@ -29,57 +31,27 @@ sistema adiciona a citação depois, fora da sua resposta."""
 # Resolved in favour of the code-owned citation, which is the project's standing
 # rule: the connection is described by its CONTENT, never by its reference. The
 # reference already reaches the reader through the Curador's related_items cards.
-_SHARED_RULES = """\
-Regras estritas:
-- {ctx}: baseie-se no trecho e nas notas de rodapé para explicar onde este item \
-se encaixa na doutrina. Use também as REFERÊNCIAS RELACIONADAS abaixo para mostrar \
-como este trecho se conecta com outras passagens da doutrina espírita. Descreva a \
-conexão pelo seu CONTEÚDO, nunca por sua referência (ex.: "a mesma ideia reaparece \
-onde Kardec trata da lei de causa e efeito" — e não "ver questão 625"). Você PODE \
-incluir contexto histórico ou cultural geral (ex.: quem eram os fariseus, publicanos, \
-samaritanos; costumes da época) para ajudar a entender a passagem, usando conhecimento \
-histórico amplamente estabelecido. Deixe claro na resposta o que é contexto histórico \
-geral e o que vem do texto/doutrina (ex.: "Historicamente, os fariseus eram... O texto, \
-por sua vez, mostra que..."). Nunca invente ou altere doutrina espírita — isso continua \
-restrito ao trecho e às referências relacionadas fornecidas.
-- Quando o TRECHO PRINCIPAL for um texto evangélico (a citação do Evangelho), \
-baseie a leitura doutrinária no COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO — a exposição \
-de Kardec e dos Espíritos — que traz a interpretação espírita da passagem.
-- {con}: extraia os termos centrais com suas definições baseadas no \
-texto. Entre 1 e 3 conceitos. Pode incluir uma breve explicação esclarecedora além \
-da definição literal, mas nunca invente doutrina. Se o trecho não definir o termo, \
-não o inclua.
-- É proibido resumir ou parafrasear o trecho no lugar do {ctx} — o estudante já \
-leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
-- Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo \
-(ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as \
-afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passagem \
-mostra que...", "o texto indica que...")."""
+_SHARED_RULES = load("study-rules")
 
 _JSON_RULES = _SHARED_RULES.format(ctx='"contexto"', con='"conceitos_chave"')
+
+# The inline grounding marker. Isolated as one constant so a prompt restructure
+# can replace the wording wholesale: everything downstream depends on the marker
+# SHAPE ("[item N]"), parsed in inline_refs.py, never on this sentence.
+# An item not listed in [COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO] is dropped in
+# code, so a marker invented here costs the reference, not the reader's trust.
+# See docs/superpowers/specs/2026-07-28-grounding-markers-design.md
+_ITEM_MARKER_RULE = load("study-item-marker")
 _MARKER_RULES = _SHARED_RULES.format(ctx="CONTEXTO", con="CONCEITOS")
 
 _SYSTEM_TEMPLATE = (
-    """\
-Você é um tutor socrático especializado na obra de Allan Kardec.
-
-REGRA ABSOLUTA: responda SOMENTE com o objeto JSON abaixo — nenhum texto antes, \
-nenhum texto depois, nenhuma observação, nenhum markdown. Qualquer caractere fora \
-do JSON quebrará o sistema.
-
-{{
-  "contexto": "<4 a 8 frases indicando onde este item se encaixa na estrutura da \
-doutrina e, quando relevante, o contexto histórico/cultural em que foi dito, \
-baseando-se no trecho, nas notas de rodapé, nas referências relacionadas e, se \
-necessário, em conhecimento histórico geral>",
-  "conceitos_chave": [
-    "<Termo exato do texto>: <definição baseada no trecho, podendo incluir uma \
-breve explicação esclarecedora>"
-  ]
-}}
+    load("study-system")
+    + "\n\n"
+    + _JSON_RULES
+    + """
 
 """
-    + _JSON_RULES
+    + _ITEM_MARKER_RULE
     + """
 
 [TRECHO PRINCIPAL]
@@ -139,6 +111,7 @@ def build_explicador_messages(
     footnote_context: str = "",
     chapter_commentary_chunks: list[dict] | None = None,
     markers: bool = False,
+    profile: ResponseProfile = STUDY_DEFAULT,
 ) -> tuple[str, list[dict]]:
     template = _MARKER_SYSTEM_TEMPLATE if markers else _SYSTEM_TEMPLATE
     system = template.format(
@@ -147,6 +120,12 @@ def build_explicador_messages(
         chapter_commentary=_format_related(chapter_commentary_chunks or []),
         related_passages=_format_related(related_chunks),
     )
+    # Appended, so an empty fragment leaves the prompt byte-identical. It lands
+    # after the format rules on purpose: the JSON contract above is absolute and
+    # nothing a profile says may read as loosening it.
+    instructions = render_instructions(profile)
+    if instructions:
+        system += "\n\n" + instructions
     messages = [
         {"role": "user", "content": "Analise o trecho acima de forma socrática."}
     ]

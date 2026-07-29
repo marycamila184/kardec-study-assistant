@@ -1,0 +1,1 @@
+[{'role': 'user', 'content': 'o que é o perispírito?'}, {'role': 'assistant', 'content': 'É o envoltório semimaterial do espírito.'}, {'role': 'user', 'content': 'o que Kardec diz sobre julgar os outros?'}]

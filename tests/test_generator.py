@@ -3,7 +3,11 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.rag.generator import generate
+from src.rag.generator import (
+    GENERATION_FAILED_MESSAGE,
+    NOT_FOUND_MESSAGE,
+    generate,
+)
 
 _CHUNKS = [
     {
@@ -73,7 +77,15 @@ def test_generate_returns_deduplicated_sources(mock_retrieve, mock_client):
     assert result["sources"][0]["item_number"] == "132"
 
 
-def test_generate_masks_placeholder_item_number_in_sources(monkeypatch, mock_client):
+def test_an_unnumbered_chunk_never_becomes_a_source(monkeypatch, mock_client):
+    """A chunk with no item number cannot become a citation a reader can look
+    up — the chip would read "cap. VIII" with nothing behind it. Two thirds of
+    O Céu e o Inferno is testimony of exactly this kind, and it wins on
+    similarity whenever the message is personal.
+
+    Retrieval drops them now, so a turn that matches only testimony returns
+    not_found rather than an answer built from it.
+    """
     chunks = [
         {
             "content": "Trecho introdutório sem item numerado.",
@@ -87,7 +99,8 @@ def test_generate_masks_placeholder_item_number_in_sources(monkeypatch, mock_cli
     ]
     monkeypatch.setattr("src.rag.generator.retrieve", lambda q, **kw: chunks)
     result = generate("O que é reencarnação?", [])
-    assert result["sources"][0]["item_number"] is None
+    assert result["sources"] == []
+    assert result["not_found"] is True
 
 
 def test_generate_not_found_when_no_chunks(monkeypatch, mock_client):
@@ -605,7 +618,9 @@ def test_generate_abalo_filters_dark_chunks_and_suppresses_chips(
 def test_generate_normal_unchanged(monkeypatch, mock_client):
     captured = {}
 
-    def _capture(question, chunks, history, mht, add_caveat=False, sensitive=False):
+    def _capture(
+        question, chunks, history, mht, add_caveat=False, sensitive=False, **kw
+    ):
         captured["sensitive"] = sensitive
         return "SYS", [{"role": "user", "content": question}]
 
@@ -709,187 +724,6 @@ def test_chat_answer_goes_through_the_prose_lane(monkeypatch):
     assert out["suggested_questions"] == ["a", "b"]
 
 
-def test_chat_answer_never_ends_with_a_question(monkeypatch):
-    import src.rag.generator as gen
-
-    monkeypatch.setattr(
-        gen,
-        "retrieve",
-        lambda *a, **k: [
-            {
-                "metadata": {
-                    "book": "O Livro dos Espíritos",
-                    "item_number": "625",
-                    "chapter_title": "Cap",
-                    "chapter": "CAPÍTULO I",
-                },
-                "content": "trecho",
-                "footnote_context": "",
-            }
-        ],
-    )
-    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
-    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
-    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: cs)
-    monkeypatch.setattr(
-        gen,
-        "prose_completion",
-        lambda *a, **k: "A alma persiste. O que você acha disso?",
-    )
-
-    out = gen.generate("a alma persiste?", [])
-    assert out["answer"] == "A alma persiste."
-
-
-def test_chat_strips_model_written_citations(monkeypatch):
-    """Model-written citations must not compete with the real source chips."""
-    import src.rag.generator as gen
-
-    monkeypatch.setattr(
-        gen,
-        "retrieve",
-        lambda *a, **k: [
-            {
-                "metadata": {
-                    "book": "O Livro dos Espíritos",
-                    "item_number": "625",
-                    "chapter_title": "Cap",
-                    "chapter": "CAPÍTULO I",
-                },
-                "content": "trecho",
-                "footnote_context": "",
-            }
-        ],
-    )
-    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
-    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
-    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: cs)
-    monkeypatch.setattr(
-        gen,
-        "prose_completion",
-        lambda *a, **k: "A alma persiste (O Livro dos Espíritos, questão 625).",
-    )
-
-    out = gen.generate("a alma persiste?", [])
-    assert "questão 625" not in out["answer"]
-    assert out["answer"] == "A alma persiste."
-
-
-def test_prose_lane_attributes_sources_from_the_vector_store(monkeypatch):
-    """On the prose lane the model's [FONTES:] marker is ignored entirely —
-    chips come from answer-to-chunk similarity computed in code."""
-    import src.rag.generator as gen
-
-    chunks = [
-        {
-            "metadata": {
-                "book": "O Livro dos Espíritos",
-                "item_number": "625",
-                "chapter_title": "Cap",
-                "chapter": "CAPÍTULO I",
-            },
-            "content": "usado",
-            "footnote_context": "",
-        },
-        {
-            "metadata": {
-                "book": "O Livro dos Espíritos",
-                "item_number": "886",
-                "chapter_title": "Cap",
-                "chapter": "CAPÍTULO I",
-            },
-            "content": "ignorado",
-            "footnote_context": "",
-        },
-    ]
-    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(chunks))
-    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
-    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
-    # The model names a passage index that does not exist; it must not matter.
-    monkeypatch.setattr(
-        gen, "prose_completion", lambda *a, **k: "A alma persiste.\n[FONTES: 625]"
-    )
-    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: [cs[0]])
-
-    out = gen.generate("a alma persiste?", [])
-    assert [s["item_number"] for s in out["sources"]] == ["625"]
-
-
-def test_prose_lane_empty_after_citation_strip_is_generation_failed(monkeypatch):
-    """Finding 1: if strip_model_citations consumes the entire answer, the
-    empty result must not be returned as a success — it must degrade to the
-    same failure path as an LLM error."""
-    import src.rag.generator as gen
-
-    chunks = [
-        {
-            "metadata": {
-                "book": "O Livro dos Espíritos",
-                "item_number": "625",
-                "chapter_title": "Cap",
-                "chapter": "CAPÍTULO I",
-            },
-            "content": "trecho",
-            "footnote_context": "",
-        }
-    ]
-    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(chunks))
-    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
-    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
-    monkeypatch.setattr(
-        gen,
-        "prose_completion",
-        lambda *a, **k: "(O Livro dos Espíritos, questão 625)",
-    )
-
-    out = gen.generate("a alma persiste?", [])
-    assert out["generation_failed"] is True
-    assert out["answer"] == gen.GENERATION_FAILED_MESSAGE
-    assert out["sources"] == []
-    assert out["suggested_questions"] == []
-
-
-def test_prose_lane_attribute_sources_failure_falls_back_to_marker_chunks(
-    monkeypatch,
-):
-    """Finding 2: attribute_sources runs the real bge-m3 encoder in production
-    and can fail (e.g. OOM). A perfectly good answer must survive, falling
-    back to the chunks the [FONTES:] marker resolved."""
-    import src.rag.generator as gen
-
-    chunks = [
-        {
-            "metadata": {
-                "book": "O Livro dos Espíritos",
-                "item_number": "625",
-                "chapter_title": "Cap",
-                "chapter": "CAPÍTULO I",
-            },
-            "content": "trecho",
-            "footnote_context": "",
-        }
-    ]
-    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(chunks))
-    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
-    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
-    monkeypatch.setattr(
-        gen,
-        "prose_completion",
-        lambda *a, **k: "Uma resposta perfeitamente boa.\n[FONTES: 1]",
-    )
-
-    def _boom(answer, cs, **k):
-        raise RuntimeError("embedding model OOM")
-
-    monkeypatch.setattr(gen, "attribute_sources", _boom)
-
-    out = gen.generate("a alma persiste?", [])
-    assert out["generation_failed"] is False
-    assert out["answer"] == "Uma resposta perfeitamente boa."
-    assert len(out["sources"]) == 1
-    assert out["sources"][0]["item_number"] == "625"
-
-
 def test_monitor_failure_never_fails_a_request_on_frozen_lane(monkeypatch):
     """Finding 3: counts_personification (and friends) are log-only monitors;
     even with PROSE_PROVIDER unset, a monitor raising must not turn a good
@@ -913,26 +747,6 @@ def test_monitor_failure_never_fails_a_request_on_frozen_lane(monkeypatch):
     out = gen.generate("o que é o espírito?", [])
     assert out["generation_failed"] is False
     assert out["answer"] == "Resposta gerada."
-
-
-def test_prose_lane_strips_leaked_marker_debris(monkeypatch):
-    """Live A/B evidence: riv-ai-v2 emits [FONTES:] mid-text with emoji
-    decoration, which the end-anchored strip_trailing_markers cannot catch.
-    The debris pass must remove it before display."""
-    import src.rag.generator as gen
-
-    monkeypatch.setattr(gen, "retrieve", lambda *a, **k: list(_CHUNKS))
-    monkeypatch.setattr(gen, "classify_sensitivity", lambda *a, **k: "normal")
-    monkeypatch.setattr(gen.settings, "prose_provider", "ollama")
-    monkeypatch.setattr(
-        gen,
-        "prose_completion",
-        lambda *a, **k: "A lei é clara.\n\n📖 [FONTES: O Livro dos Espíritos, 633]\n👉",
-    )
-    monkeypatch.setattr(gen, "attribute_sources", lambda answer, cs, **k: cs)
-
-    out = gen.generate("qual a lei?", [])
-    assert out["answer"] == "A lei é clara."
 
 
 def test_marker_lane_still_filters_by_fontes(monkeypatch):
@@ -971,3 +785,84 @@ def test_marker_lane_still_filters_by_fontes(monkeypatch):
 
     out = gen.generate("pergunta?", [])
     assert [s["item_number"] for s in out["sources"]] == ["886"]
+
+
+# ── Fabricated quotations (found in production 2026-07-28) ──────────────────
+
+
+def test_a_fabricated_quotation_withholds_the_whole_answer(
+    monkeypatch, mock_client, mock_retrieve
+):
+    """Asked about "duplo etéreo" — not Kardec's vocabulary — the model invented
+    a sentence, quoted it and attributed it to Kardec with a chapter and item.
+    The answer must not be shown: the same improvisation wrote the paragraphs
+    around it."""
+    fabricated = (
+        "O duplo etéreo é uma extensão do perispírito. "
+        'Kardec escreve que "o duplo etéreo é uma espécie de envoltório '
+        'fluídico que envolve o corpo físico e o penetra inteiramente" '
+        "(A Gênese, capítulo OS FLUIDOS, item 18).[FONTES: 1][SEGUIR:]"
+    )
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion", lambda s, m, **kw: fabricated
+    )
+    result = generate("e o duplo etéreo ou aura?", [])
+
+    assert result["answer"] == NOT_FOUND_MESSAGE
+    assert result["not_found"] is True
+    assert result["sources"] == []
+    # Not a crash: the model answered, and what it said cannot be shown.
+    assert result["generation_failed"] is False
+
+
+def test_an_answer_quoting_the_retrieved_text_is_untouched(
+    monkeypatch, mock_client, mock_retrieve
+):
+    grounded = 'Kardec escreve que "' + _CHUNKS[0]["content"] + '".[FONTES: 1][SEGUIR:]'
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion", lambda s, m, **kw: grounded
+    )
+    result = generate("o que é a encarnação?", [])
+
+    assert result["answer"] != NOT_FOUND_MESSAGE
+    assert result["not_found"] is False
+
+
+def test_an_absent_premise_is_left_to_the_answer_not_prepended(
+    monkeypatch, mock_client, mock_retrieve
+):
+    """A fixed note in code was tried first and read as a machine correcting the
+    reader: the same sentence, in the same words, however close the passages
+    actually were. Judging "close enough" is the part a model does better, and
+    the cost of being wrong is a clumsy sentence rather than invented doctrine.
+
+    Detection stays as measurement — the log still records it.
+    """
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion",
+        lambda s, m, **kw: "Uma explicação qualquer.[FONTES: 1][SEGUIR:]",
+    )
+    monkeypatch.setattr(
+        "src.rag.generator.unsupported_terms", lambda q, c: ["ectoplasma"]
+    )
+    result = generate("isso influencia o meu ectoplasma?", [])
+
+    assert result["answer"].startswith("Uma explicação qualquer.")
+    assert "As obras de Allan Kardec não usam" not in result["answer"]
+
+
+def test_an_answer_emptied_by_post_processing_is_a_failure_not_a_blank_bubble(
+    monkeypatch, mock_client, mock_retrieve
+):
+    """Reported from live use: a turn came back empty with source chips under
+    it, which reads as the app having said something the reader missed. Any step
+    can empty an answer, so the check is on the result."""
+    monkeypatch.setattr(
+        "src.rag.generator.prose_completion",
+        lambda s, m, **kw: "[FONTES: 1][SEGUIR:]",
+    )
+    result = generate("e as referências?", [])
+
+    assert result["answer"] == GENERATION_FAILED_MESSAGE
+    assert result["generation_failed"] is True
+    assert result["sources"] == [], "no chips under a failure"

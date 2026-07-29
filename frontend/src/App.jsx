@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
-// React + Vite, então o subcaminho é /react — o /next da documentação
-// da Vercel é do Next.js e não resolve aqui.
+// React + Vite, so the subpath is /react — the /next in Vercel's docs is for
+// Next.js and does not resolve here.
 import { Analytics } from '@vercel/analytics/react';
 import HomeLauncher from './components/layout/HomeLauncher';
 import MobileBottomNav from './components/layout/MobileBottomNav';
@@ -33,12 +33,12 @@ import { dayLabel, startsNewDay } from './utils/day';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
-  chatMessage, studyItem,
+  chatMessage, chatMessageStream, studyItem, studyItemStream,
   // reflectSituation intentionally not imported — Refletir is switched off for
   // production — the mode is disconnected, not deleted. See
   // docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md
   getEvangelho, getPaths, getPath,
-  BOOK_NAME_MAP, parseItemRef,
+  BOOK_NAME_MAP,
 } from './services/api';
 
 const QUICK_ACTIONS = [
@@ -89,6 +89,43 @@ const ERROR_MSG = {
 // ('refletir: 'refletir'' removed from the map below)
 const MODE_TO_INTENT = { duvida: 'tirar_duvida', estudar: 'estudar_obra' };
 
+// Appends a message, or replaces the one already carrying its id. A streaming
+// answer is written many times under one id; every other caller passes a fresh
+// id, for which this is a plain append.
+const upsertById = (list, msg) => {
+  const i = list.findIndex(m => m.id === msg.id);
+  if (i === -1) return [...list, msg];
+  const next = [...list];
+  next[i] = msg;
+  return next;
+};
+
+// Streams a study item, calling onPartial(reply) as it arrives: first with the
+// passage alone — known from retrieval, so the reader has the text in front of
+// them before the explanation of it starts — then with the explanation as it
+// grows. Returns the same reply POST /study would have.
+//
+// Any streaming failure falls back to POST /study, so a broken stream costs the
+// wait for a whole answer, never half of one left on screen. A 404 still comes
+// out of the fallback as an ApiError, which is what callers already handle.
+// See docs/superpowers/specs/2026-07-28-study-trecho-streaming-design.md
+async function streamStudy(book, itemNumber, chapter, onPartial) {
+  try {
+    let passage = null;
+    let text = '';
+    return await studyItemStream(book, itemNumber, chapter,
+      (piece) => {
+        text += piece;
+        if (passage) onPartial({ ...passage, ia: text, streaming: true });
+      },
+      (p) => { passage = p; onPartial({ ...p, ia: '', streaming: true }); },
+    );
+  } catch (err) {
+    console.warn('study stream failed; falling back to /study', err);
+    return studyItem(book, itemNumber, chapter);
+  }
+}
+
 export default function App() {
 
   // ── Theme ───────────────────────────────────────────────────────────────
@@ -112,6 +149,11 @@ export default function App() {
   const [mode,          setMode]         = useState(null);
   const [input,         setInput]        = useState('');
   const [msgs,          setMsgs]         = useState([]);
+  // The shape the conversation is currently answered with. Carried between
+  // turns, never shown: the reader asked in their own words and the answer
+  // arrives already shaped, with no announcement. Lives with the thread, so
+  // switching conversations does not carry one reader's request into another's.
+  const [profile,       setProfile]      = useState(null);
   const [loading,       setLoading]      = useState(false);
   const [estudarSub,    setEstudarSub]   = useState('picker');
   // Refletir is switched off for production — the mode is disconnected, not
@@ -188,7 +230,7 @@ export default function App() {
     const isActive = id === convoId || id === explorarConvoMeta?.id;
     if (isActive) {
       threadEpochRef.current += 1;
-      setMsgs([]); setConvoId(null); setLoading(false); setInput('');
+      setMsgs([]); setConvoId(null); setLoading(false); setInput(''); setProfile(null);
       setExplorarMsgs([]); setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
       // Home, not Dialogar: the reader deleted the thread they were reading, so
       // dropping them into an empty chat picks a mode on their behalf.
@@ -201,6 +243,9 @@ export default function App() {
     requestIdRef.current += 1; // invalidate any in-flight sendText for the old mode
     threadEpochRef.current += 1;
     setMode(m); setMsgs([]); setLoading(false); setInput(''); setConvoId(null);
+    // A new thread starts neutral: one reader's request must not shape
+    // another's conversation.
+    setProfile(null);
     if (m === 'estudar') setEstudarSub('picker');
     // Refletir is switched off for production — the mode is disconnected, not
     // deleted (m can never be 'refletir' — no remaining UI path sets it). See
@@ -270,10 +315,37 @@ export default function App() {
         role: m.isUser ? 'user' : 'assistant',
         content: m.isUser ? m.text : buildChatHistoryContent(m),
       }));
-      reply = await chatMessage(txt, history, null, MODE_TO_INTENT[requestMode] || null);
+      // The answer streams in: the first words show up in a second or two
+      // instead of after the whole generation. If anything goes wrong on the
+      // way, fall back to POST /chat rather than leave half a response on
+      // screen. See docs/superpowers/specs/2026-07-27-streaming-design.md
+      const streamMsgId = 'a' + Date.now();
+      let streamedText = '';
+      const onToken = (text) => {
+        if (requestId !== requestIdRef.current) return;
+        streamedText += text;
+        setLoading(false);
+        setMsgs([...newMsgs, {
+          id: streamMsgId, ts: Date.now(), isUser: false, isAI: true,
+          hasDaObra: false, obra: null, ia: streamedText, sources: [],
+          suggestedQuestions: [], streaming: true,
+        }]);
+      };
+      const intent = MODE_TO_INTENT[requestMode] || null;
+      try {
+        reply = await chatMessageStream(txt, history, null, intent, onToken, profile);
+      } catch (err) {
+        console.warn('stream failed; falling back to /chat', err);
+        streamedText = '';
+        reply = await chatMessage(txt, history, null, intent, profile);
+      }
       // }
       if (requestId !== requestIdRef.current) return; // user switched modes meanwhile
-      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
+      // Whatever shape this turn was answered with carries into the next one.
+      // Without this a reader who asks for citations gets them once and then
+      // silently loses them, which reads as the app forgetting.
+      if (reply.profile) setProfile(reply.profile);
+      const aiMsg = { id: streamMsgId, ts: Date.now(), isUser: false, isAI: true, ...reply };
       const finalMsgs = [...newMsgs, aiMsg];
       setMsgs(finalMsgs);
       saveConvo(id, txt.slice(0, 48), mode, finalMsgs);
@@ -393,11 +465,11 @@ export default function App() {
   };
 
   const handleQuickAction       = (label, msg) =>
-    runQuickAction(label, msg, m => setMsgs(prev => [...prev, m]), setLoading);
+    runQuickAction(label, msg, m => setMsgs(prev => upsertById(prev, m)), setLoading);
   const handleGuidedQuickAction = (label, msg) =>
-    runQuickAction(label, msg, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
+    runQuickAction(label, msg, m => setGuidedMsgs(prev => upsertById(prev, m)), setGuidedLoading);
   const handleExplorarQuickAction = (label, msg) =>
-    runQuickAction(label, msg, m => setExplorarMsgs(prev => [...prev, m]), setExplorarLoad);
+    runQuickAction(label, msg, m => setExplorarMsgs(prev => upsertById(prev, m)), setExplorarLoad);
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
   const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
@@ -418,7 +490,7 @@ export default function App() {
     }
   };
   const handleGuidedDuvida = (displayText, queryText) =>
-    askDuvida(displayText, queryText, m => setGuidedMsgs(prev => [...prev, m]), setGuidedLoading);
+    askDuvida(displayText, queryText, m => setGuidedMsgs(prev => upsertById(prev, m)), setGuidedLoading);
   const handleExplorarDuvida = (displayText, queryText, bookFilter) => askDuvida(displayText, queryText, m => {
     setExplorarMsgs(prev => {
       const updated = [...prev, m];
@@ -446,18 +518,28 @@ export default function App() {
   const presentGuidedStep = async (trilha, stepIdx, existingMsgs) => {
     setGuidedLoading(true);
     const step = trilha.steps[stepIdx];
+    // The step's own title replaces the passage's in both lanes, so a streaming
+    // step is labelled "Passo 2 de 5" from its first frame, not only at the end.
+    const asStepMsg = (reply) => ({
+      id: 'tutor_' + stepIdx,
+      ts: Date.now(),
+      isUser: false, isAI: true,
+      ...reply,
+      obra: reply.obra
+        ? { ...reply.obra, title: `${step.book} — ${step.label} · Passo ${stepIdx + 1} de ${trilha.steps.length}` }
+        : null,
+    });
+
     let tutorMsg;
     try {
-      const reply = await studyItem(step.book, step.item_number, step.chapter || null);
-      tutorMsg = {
-        id: 'tutor_' + stepIdx,
-        ts: Date.now(),
-        isUser: false, isAI: true,
-        ...reply,
-        obra: reply.obra
-          ? { ...reply.obra, title: `${step.book} — ${step.label} · Passo ${stepIdx + 1} de ${trilha.steps.length}` }
-          : null,
-      };
+      const reply = await streamStudy(
+        step.book, step.item_number, step.chapter || null,
+        (partial) => {
+          setGuidedLoading(false); // the passage is on screen; the spinner would sit under it
+          setGuidedMsgs([...existingMsgs, asStepMsg(partial)]);
+        },
+      );
+      tutorMsg = asStepMsg(reply);
     } catch (err) {
       console.error('presentGuidedStep failed:', err);
       tutorMsg = {
@@ -492,15 +574,18 @@ export default function App() {
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
 
     const bookName = BOOK_NAME_MAP[obraId];
-    const { item_number, chapter } = parseItemRef(query);
 
     let reply;
     try {
-      if (item_number && bookName) {
-        reply = await studyItem(bookName, item_number, chapter);
-      } else {
-        reply = await chatMessage(query, [], bookName || null);
-      }
+      // Free study runs through /chat: it resolves a named item directly and
+      // returns the passage, so the "Da Obra" block survives — and the answer
+      // gets the guards and the profile axes that /study does not have. The
+      // trilhas and the daily passage keep /study, where the chapter is known
+      // and the prompt is deliberately tighter.
+      // 'estudar_obra' so the mode's own default applies — a first question
+      // here starts deeper than one in Dialogar — and so the orchestrator
+      // does not nudge a reader already inside Estudar toward Estudar.
+      reply = await chatMessage(query, [], bookName || null, 'estudar_obra', profile);
     } catch (err) {
       console.error('handleAskTopic failed:', err);
       if (err.status === 404) {
@@ -535,7 +620,6 @@ export default function App() {
     setExplorarLoad(true);
 
     const bookName = BOOK_NAME_MAP[obraId];
-    const { item_number, chapter } = parseItemRef(query);
 
     // buildChatHistoryContent (not m.ia) so /study replies keep the studied
     // passage in history — see the grounding note above sendText.
@@ -547,14 +631,12 @@ export default function App() {
 
     let reply;
     try {
-      if (item_number && bookName) {
-        reply = await studyItem(bookName, item_number, chapter);
-      } else {
-        // 'estudar_obra' so the orchestrator does not nudge a reader who is
-        // already inside Estudar toward Estudar. Omitting it sends
-        // current_mode: undefined, which silently re-enables self-nudging.
-        reply = await chatMessage(query, history, bookName || null, 'estudar_obra');
-      }
+      // 'estudar_obra' so the orchestrator does not nudge a reader who is
+      // already inside Estudar toward Estudar. Omitting it sends
+      // current_mode: undefined, which silently re-enables self-nudging.
+      reply = await chatMessage(
+        query, history, bookName || null, 'estudar_obra', profile,
+      );
     } catch (err) {
       console.error('handleExplorarChat failed:', err);
       reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
@@ -654,7 +736,14 @@ export default function App() {
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
     try {
-      const reply = await studyItem(source.book, source.item_number, source.chapter || null);
+      const reply = await streamStudy(
+        source.book, source.item_number, source.chapter || null,
+        (partial) => {
+          setExplorarLoad(false);
+          setExplorarMsgs([userMsg,
+            { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...partial }]);
+        },
+      );
       const aiMsg = { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
       const meta = { id: 'explorar_' + Date.now(), title: label };
       setExplorarConvoMeta(meta); explorarConvoMetaRef.current = meta;
@@ -732,13 +821,16 @@ export default function App() {
     }
   };
 
-  const markFromCache = (msgs) => msgs.map(m => m.isAI ? { ...m, fromCache: true } : m);
-
   // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
   const handleLoadConvo = async (c) => {
     threadEpochRef.current += 1; // replaces a thread — drop stale async replies
     setConvoId(c.id);
-    const msgs = markFromCache(c.msgs);
+    // A reopened conversation starts neutral rather than inheriting the shape
+    // of whatever thread was on screen. The profile is not persisted with the
+    // conversation yet — reopening one and asking for citations again is a
+    // small cost; carrying another thread's shape into it silently is not.
+    setProfile(null);
+    const msgs = c.msgs;
     // `sub` is stored explicitly on conversations saved after this field was
     // added; fall back to the old id-prefix convention for older entries
     // already sitting in a user's localStorage.
@@ -831,12 +923,29 @@ export default function App() {
     setConvoId(id);
     setMsgs([userMsg]); setLoading(true); scrollToBottom();
 
+    // The passage of the day is numbered per chapter, so the normal path here
+    // is /study, not /chat — streaming it is what makes this screen, the one a
+    // reader opens daily, stop waiting on a blank panel.
+    const trechoMsgId = 'a' + Date.now();
+    const showPartial = (partial) => {
+      if (epoch !== threadEpochRef.current) return;
+      setLoading(false);
+      setMsgs([userMsg, { id: trechoMsgId, ts: Date.now(), isUser: false, isAI: true, isTrecho: true, ...partial }]);
+    };
+
     let reply;
     try {
       if (source.item_number) {
-        reply = await studyItem(source.book, source.item_number, source.chapter || null);
+        reply = await streamStudy(
+          source.book, source.item_number, source.chapter || null, showPartial,
+        );
       } else {
-        reply = await chatMessage(`Explique este trecho do Evangelho: "${content.slice(0, 300)}"`);
+        let streamed = '';
+        reply = await chatMessageStream(
+          `Explique este trecho do Evangelho: "${content.slice(0, 300)}"`,
+          [], null, null,
+          (piece) => { streamed += piece; showPartial({ hasDaObra: false, obra: null, ia: streamed, streaming: true }); },
+        );
       }
     } catch (err) {
       console.error('handleStudyTrecho failed:', err);
@@ -847,7 +956,7 @@ export default function App() {
 
     // User may have switched threads while /study ran — don't clobber the new one.
     if (epoch !== threadEpochRef.current) return;
-    const finalMsgs = [userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
+    const finalMsgs = [userMsg, { id: trechoMsgId, ts: Date.now(), isUser: false, isAI: true, isTrecho: true, ...reply }];
     setMsgs(finalMsgs);
     saveConvo(id, 'Trecho do dia', 'duvida', finalMsgs);
     scrollToBottom();
@@ -1159,6 +1268,7 @@ export default function App() {
         reminderOn={reminderOn} onToggleReminder={() => setReminderOn(r => !r)}
         reminderTime={reminderTime} onReminderTime={setReminderTime}
         notifPermission={notifPerm} onRequestNotif={requestNotif}
+        profile={profile} onResetProfile={() => setProfile(null)}
         theme={theme}
       />
       {shareMsg && <ShareModal
@@ -1174,8 +1284,18 @@ export default function App() {
             setLoad(true);
             scrollToBottom();
             try {
-              const reply = await studyItem(item.book, item.item_number, item.chapter || null);
-              appendMsg({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
+              // One id for every frame: appendMsg upserts, so the streaming
+              // answer is rewritten in place instead of stacking one message
+              // per token.
+              const msgId = 'a' + Date.now();
+              const reply = await streamStudy(
+                item.book, item.item_number, item.chapter || null,
+                (partial) => {
+                  setLoad(false);
+                  appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...partial });
+                },
+              );
+              appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...reply });
             } catch (err) {
               console.error('RelatedItemsModal onSelectItem failed:', err);
               appendMsg({

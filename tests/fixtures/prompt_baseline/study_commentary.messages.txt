@@ -1,0 +1,1 @@
+[{'role': 'user', 'content': 'Analise o trecho acima de forma socrática.'}]
