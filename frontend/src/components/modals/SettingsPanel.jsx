@@ -1,5 +1,5 @@
 import { ANALYTICS_NOTICE, CONTACT_FORM_URL, LOCAL_STORAGE_NOTICE, PRIVACY_NOTICE } from '../../constants/contact';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 import { grantConsent, hasConsent, revokeConsent } from '../../services/consent';
 
@@ -50,6 +50,15 @@ export default function SettingsPanel({
   // Lido do localStorage, não recebido por prop: o consentimento não é estado
   // do App, e nenhuma outra tela precisa dele.
   const [consent, setConsent] = useState(hasConsent);
+  // Re-read whenever the panel opens. This component is mounted once by App and
+  // never remounts (no key, and `if (!open) return null` sits below the hooks),
+  // so the lazy initializer above runs exactly once — at page load, before the
+  // reader has answered the consent banner. Without this sync, accepting in the
+  // banner and then opening Settings showed the toggle off, which reads as "my
+  // choice was not saved" when in fact only the panel was stale.
+  useEffect(() => {
+    if (open) setConsent(hasConsent());
+  }, [open]);
   useEscapeKey(onClose, open);
 
   if (!open) return null;
@@ -197,7 +206,7 @@ export default function SettingsPanel({
                 <a href={CONTACT_FORM_URL} target="_blank" rel="noopener noreferrer" style={{
                   display: 'inline-block', marginTop: 10, fontSize: 12,
                   color: '#6B9BB8', textDecoration: 'none', fontWeight: 500,
-                }}>Fale comigo →</a>
+                }}>Contato →</a>
               )}
             </div>
           </Section>

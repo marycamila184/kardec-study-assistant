@@ -26,20 +26,34 @@ export default function FeedbackButtons({ turnId, theme }) {
     background: 'transparent',
     border: 'none',
     cursor: voted ? 'default' : 'pointer',
-    fontSize: 14,
-    padding: '2px 6px',
-    lineHeight: 1,
-    opacity: voted && voted !== v ? 0.25 : 1,
+    padding: '2px 5px',
+    lineHeight: 0,
+    color: theme.subtext,
+    // The chosen one stays legible, the other recedes. No colour, no fill: a
+    // vote is a quiet aside, not something competing with the answer.
+    opacity: voted ? (voted === v ? 0.85 : 0.2) : 0.5,
     fontFamily: 'inherit',
   });
 
+  // Outline, not emoji. The emoji 👍/👎 render filled and coloured — on some
+  // platforms in full skin tone — which made a two-pixel aside louder than the
+  // citation links beside it. These inherit `color` and `currentColor`, so they
+  // follow the theme in both modes.
+  const Thumb = ({ down = false }) => (
+    <svg
+      width="14" height="14" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.8"
+      strokeLinecap="round" strokeLinejoin="round"
+      style={down ? { transform: 'rotate(180deg)' } : undefined}
+      aria-hidden="true"
+    >
+      <path d="M7 10v11H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3z" />
+      <path d="M7 10l4.4-7.3a1.6 1.6 0 0 1 2.9 1.1L13.5 9h5.2a1.8 1.8 0 0 1 1.8 2.2l-1.5 7A2 2 0 0 1 17 20H7" />
+    </svg>
+  );
+
   return (
     <div style={{ display: 'flex', gap: 2, marginTop: 8, alignItems: 'center' }}>
-      {voted && (
-        <span style={{ fontSize: 11, color: theme.subtext, marginRight: 6 }}>
-          Obrigada
-        </span>
-      )}
       <button
         style={style('up')}
         onClick={vote('up')}
@@ -47,7 +61,7 @@ export default function FeedbackButtons({ turnId, theme }) {
         aria-label="Resposta útil"
         title="Resposta útil"
       >
-        👍
+        <Thumb />
       </button>
       <button
         style={style('down')}
@@ -56,7 +70,7 @@ export default function FeedbackButtons({ turnId, theme }) {
         aria-label="Resposta ruim"
         title="Resposta ruim"
       >
-        👎
+        <Thumb down />
       </button>
     </div>
   );
