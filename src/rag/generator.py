@@ -17,11 +17,7 @@ from src.rag.crisis import (
     needs_medical_caveat,
 )
 from src.rag.guardrails import counts_personification, strip_internal_terms
-from src.rag.inline_refs import (
-    InlineMarkerFilter,
-    extract_passage_refs,
-    render_references,
-)
+from src.rag.inline_refs import InlineMarkerFilter, extract_passage_refs
 from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
 from src.rag.pasted_quote import find_pasted_source
@@ -39,6 +35,7 @@ from src.rag.retriever import (
     has_real_item_number,
     retrieve,
     retrieve_by_item,
+    retrieved_summary,
 )
 from src.rag.sensitivity import classify_sensitivity
 from src.rag.stream_buffer import StreamBuffer
@@ -351,10 +348,11 @@ def _postprocess(
     # Resolved against what was actually retrieved; an index outside that list
     # is dropped here rather than shown. Last, so positions index into the text
     # the reader really sees — including the fallback note prepended above.
-    # Under `full` the marker becomes the reference itself, written from
-    # metadata. The model was asked to write references and measurably does not
+    # The model was asked to write references and measurably does not
     # (2026-07-28 A/B); it does reliably mark WHERE they go, which is the part
-    # only it can do. The canonical form is the part only code can guarantee.
+    # only it can do. Since 2026-07-29 the canonical form is not inserted into
+    # the prose at all — it is rendered by the client at `position`, from
+    # this same `inline_refs` metadata.
     answer, inline_refs = extract_passage_refs(answer, ctx["chunks"])
 
     # A quotation attributed to the works that is in none of the retrieved
@@ -380,10 +378,11 @@ def _postprocess(
         logger.warning("fabricated quotation, answer withheld: %s", unsupported[:3])
         raise UnsupportedQuoteError(unsupported)
 
-    # Only now, with the guard satisfied on what the MODEL wrote, does code
-    # write the references in. Doing it earlier fed the guard its own output.
-    if ctx["profile"].citation_precision == "full":
-        answer, inline_refs = render_references(answer, inline_refs)
+    # The reference is no longer written into the prose: since 2026-07-29 it is
+    # the label of the inline link, which the client renders at `position`.
+    # Writing it here too would show the citation twice — once as text and once
+    # as the link beside it. `render_references` stays in inline_refs.py,
+    # tested, for the day a client cannot render links.
 
     # An answer that post-processing emptied is not an answer. Reported from
     # live use: a turn came back as an empty bubble with source chips under it,
@@ -487,6 +486,10 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
         "not_found": not_found_override,
         "generation_failed": generation_failed,
         "safety_level": ctx["level"],
+        # Log-only. `_chat_response` builds the body from named fields, so this
+        # never reaches the client — it exists so the turn log can record what
+        # retrieval offered, not just what the answer used.
+        "retrieved": retrieved_summary(ctx["chunks"]),
     }
 
 

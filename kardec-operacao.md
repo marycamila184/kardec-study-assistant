@@ -23,9 +23,51 @@ Arquivo local, fora do repositório. Atualizado em 2026-07-27.
 | Builds | https://console.cloud.google.com/cloud-build/builds?project=dialogando-doutrina |
 | Faturamento | https://console.cloud.google.com/billing?project=dialogando-doutrina |
 
-## Ver como o chat está se saindo
+## Ver conversas inteiras (BigQuery)
 
-Só funciona depois de mergear a branch `logs_implementation` e redeployar.
+Desde 28/07 o log tem `session_id` (só de quem autorizou no banner), `turn_id`,
+o conjunto recuperado e o voto. Um sink despeja tudo no dataset `kardec_logs`,
+com retenção de 12 meses. Comandos de criação em `docs/deploy.md`, seção 7.
+
+O nome da tabela varia com o tipo de log — confira com `bq ls kardec_logs`.
+
+```sql
+-- uma sessão inteira, na ordem. É a consulta que motivou toda a mudança.
+SELECT timestamp, jsonPayload.mode, jsonPayload.question, jsonPayload.answer
+FROM `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout`
+WHERE jsonPayload.session_id = 'COLE-AQUI'
+ORDER BY timestamp;
+
+-- as sessões mais recentes que tiveram mais de um turno: onde há conversa
+-- para ler, e não uma pergunta solta
+SELECT jsonPayload.session_id, COUNT(*) AS turnos, MIN(timestamp) AS inicio
+FROM `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout`
+WHERE jsonPayload.event = 'chat_turn' AND jsonPayload.session_id IS NOT NULL
+GROUP BY 1 HAVING turnos > 1
+ORDER BY inicio DESC LIMIT 20;
+
+-- as respostas que levaram negativo, com a pergunta que as gerou
+SELECT t.timestamp, t.jsonPayload.question, t.jsonPayload.answer
+FROM `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout` t
+JOIN `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout` f
+  ON f.jsonPayload.turn_id = t.jsonPayload.turn_id
+WHERE f.jsonPayload.event = 'feedback' AND f.jsonPayload.vote = 'down'
+ORDER BY t.timestamp DESC;
+
+-- turnos em que o trecho certo pode nem ter sido recuperado: respondeu, mas o
+-- mais próximo estava longe. distance MENOR é mais perto; o limiar da config
+-- é max_distance = 0.55.
+SELECT jsonPayload.question, jsonPayload.retrieved
+FROM `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout`
+WHERE jsonPayload.event = 'chat_turn'
+  AND (SELECT MIN(CAST(r.distance AS FLOAT64))
+       FROM UNNEST(jsonPayload.retrieved) r) > 0.45
+ORDER BY timestamp DESC;
+```
+
+## Ver como o chat está se saindo (Cloud Logging, 30 dias)
+
+Continua valendo, e é a via rápida — não depende do sink.
 
 ```bash
 # turnos onde não encontrei fonte nenhuma — o sinal mais útil de qualidade

@@ -51,6 +51,7 @@ class InlineRef(BaseModel):
     position: int
     book: str
     chapter_title: str | None = None
+    chapter_ref: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -69,6 +70,10 @@ class StudiedItem(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+    # The id of the logged turn, so the client can attach a vote to it. Not an
+    # identifier of a person: it names one line, never repeats, and links
+    # nothing to anything. None when the turn was not logged.
+    turn_id: str | None = None
     studied_item: StudiedItem | None = None
     # The profile this answer was written with, for the client to carry into the
     # next turn. Echoed rather than assumed: a request that changed the shape
@@ -83,6 +88,14 @@ class ChatResponse(BaseModel):
     suggested_book: str | None = None
     generation_failed: bool = False
     safety_level: str | None = None
+
+
+class FeedbackRequest(BaseModel):
+    turn_id: str
+    vote: Literal["up", "down"]
+    # No comment field, deliberately: free text here would reopen the whole
+    # sensitive-data question the 2026-07-28 spec settled. An extra field sent
+    # by a client is ignored by pydantic and never reaches the log.
 
 
 class PathStep(BaseModel):
@@ -119,6 +132,7 @@ class RelatedItem(BaseModel):
 class StudySource(BaseModel):
     book: str
     chapter_title: str | None = None
+    chapter_ref: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -132,6 +146,9 @@ class StudyRequest(BaseModel):
 
 class StudyResponse(BaseModel):
     original_text: str
+    # Same meaning as on ChatResponse: names one logged line, so a vote can be
+    # attached to it. Never repeats, links nothing to anyone.
+    turn_id: str | None = None
     contexto: str
     inline_refs: list[InlineRef] = []
     conceitos_chave: list[str]

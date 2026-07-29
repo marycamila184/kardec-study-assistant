@@ -20,6 +20,7 @@ from src.rag.retriever import (
     filter_uncitable_chunks,
     retrieve,
     retrieve_by_item,
+    retrieved_summary,
 )
 
 logger = logging.getLogger(__name__)
@@ -137,6 +138,11 @@ def build_chapter_context(ctx: dict) -> list[dict]:
             {
                 "book": meta["book"],
                 "chapter_title": meta.get("chapter_title") or None,
+                # The machine chapter id, so a reference can name the chapter.
+                # Item numbers restart every chapter in Evangelho and Céu e
+                # Inferno; without this the modal shows a number that could be
+                # any of a dozen chapters.
+                "chapter_ref": meta.get("chapter") or None,
                 "item_number": item,
                 "parts": [],
             },
@@ -147,6 +153,7 @@ def build_chapter_context(ctx: dict) -> list[dict]:
         {
             "book": e["book"],
             "chapter_title": e["chapter_title"],
+            "chapter_ref": e["chapter_ref"],
             "item_number": e["item_number"],
             "excerpt": " ".join(e["parts"]),
         }
@@ -173,6 +180,7 @@ def build_sources(ctx: dict) -> list[dict]:
         {
             "book": c["metadata"]["book"],
             "chapter_title": c["metadata"].get("chapter_title") or None,
+            "chapter_ref": c["metadata"].get("chapter") or None,
             "item_number": c["metadata"]["item_number"],
         }
         for c in ctx["chunks"]
@@ -222,6 +230,12 @@ def _finalize(
         "sources": sources,
         "chapter_context": chapter_context,
         "generation_failed": generation_failed,
+        # Log-only; `StudyResponse` is built from named fields, so this never
+        # reaches the client. `available` and not `ctx["chunks"]` because all
+        # three sets go to the prompt — and it was exactly that mixture that
+        # produced, on 2026-07-28, a citation to an item from another chapter
+        # presented as belonging to this one.
+        "retrieved": retrieved_summary(available),
     }
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SourceModal from '../modals/SourceModal';
+import FeedbackButtons from './FeedbackButtons';
 import { Dots } from './LoadingDots';
 // Refletir is switched off for production — the mode is disconnected, not
 // deleted. BRAND_TERRACOTTA was only used for the "🪞 Reflexão" badge below,
@@ -8,6 +9,8 @@ import { Dots } from './LoadingDots';
 // import { BRAND_TERRACOTTA } from '../../constants/theme';
 import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
 import { formatSourceRef } from '../../utils/format';
+import { passageKey } from '../../utils/citedText';
+import CitedText from './CitedText';
 
 /**
  * The "Da IA" block containing the explanation text, historical context,
@@ -68,9 +71,42 @@ export default function IABlock({
       {isStreaming && !text ? <Dots /> : (
         <div style={{
           fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
-        }}>{renderInlineMarkdown(
-          [msg.isReflection && msg.opening, text].filter(Boolean).join('\n\n')
-        )}</div>
+        }}>
+          {/* Reflexivo's opening used to be joined into the same string as
+              `text` before markdown rendering, via '\n\n'. inlineRefs'
+              positions are counted into `text` alone, so joining them here
+              would shift every ref by opening.length + 2 — kept as its own
+              paragraph instead. Reflexivo is switched off in production
+              (msg.isReflection is always false today); this only matters if
+              it is reconnected. */}
+          {msg.isReflection && msg.opening && (
+            <div style={{ marginBottom: '1em' }}>{renderInlineMarkdown(msg.opening)}</div>
+          )}
+          {/* Durante o stream as posições ainda não valem: o texto é parcial e
+              os refs chegam só com o `done`. Enquanto isso, texto puro. */}
+          {isStreaming || !msg.inlineRefs?.length ? (
+            renderInlineMarkdown(text)
+          ) : (
+            <CitedText
+              text={text}
+              refs={msg.inlineRefs}
+              precision={msg.profile?.citation_precision}
+              // isStudy, not hasDaObra: hasDaObra is also true on /chat when
+              // free study resolves a named item, but /chat still runs a
+              // normal cross-book retrieval alongside that and can cite
+              // passages outside the resolved chapter — a bare "item N"
+              // there would be ambiguous.
+              insideOneChapter={msg.isStudy}
+              onOpenSource={(ref) => setOpenSource({
+                book: ref.book,
+                chapter: ref.chapter_title,
+                chapter_ref: ref.chapter_ref,
+                item_number: ref.item_number,
+                excerpt: ref.excerpt,
+              })}
+            />
+          )}
+        </div>
       )}
 
       {/* Refletir is switched off for production — the mode is disconnected,
@@ -113,53 +149,94 @@ export default function IABlock({
         </div>
       )}
 
-      {!isStreaming && msg.sources?.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>
-          {msg.sources.map((s, i) => (
-            <button key={i} onClick={() => setOpenSource(s)} style={{
-              background: 'transparent',
-              border: `1px solid ${theme.cardBorder}`,
-              color: theme.subtext, fontSize: 11,
-              padding: '3px 10px', borderRadius: 12,
-              cursor: 'pointer', fontWeight: 500,
-            }}>
-              📖 {formatSourceRef({
-                book: s.book,
-                chapterRef: s.chapter_ref,
-                itemNumber: s.item_number,
-              })}
-            </button>
-          ))}
-        </div>
-      )}
+      {/* What the prose pointed at became a link in the text; below stays only
+          what backed the answer without being pointed at from a specific
+          sentence. Without the filter, every source would appear twice. The
+          label exists because a row with no explanation, next to links that
+          explain themselves, reads as leftovers. */}
+      {!isStreaming && (() => {
+        const citados = new Set(
+          (msg.inlineRefs || []).map(passageKey).filter(Boolean)
+        );
+        const restantes = (msg.sources || []).filter((s) => {
+          const key = passageKey(s);
+          return key === null || !citados.has(key);
+        });
+        if (!restantes.length) return null;
+        return (
+          <div style={{ marginTop: 10 }}>
+            {citados.size > 0 && (
+              <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
+                Outras passagens usadas
+              </div>
+            )}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {restantes.map((s, i) => (
+                <button key={i} onClick={() => setOpenSource(s)} style={{
+                  background: 'transparent',
+                  border: `1px solid ${theme.cardBorder}`,
+                  color: theme.subtext, fontSize: 11,
+                  padding: '3px 10px', borderRadius: 12,
+                  cursor: 'pointer', fontWeight: 500,
+                }}>
+                  📖 {formatSourceRef({
+                    book: s.book, chapterRef: s.chapter_ref, itemNumber: s.item_number,
+                  })}
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
 
-      {/* The chapter items the answer actually cited, resolved from its
-          [item N] markers. When it cited none — which is most turns — the row
-          is simply absent, and that is the honest outcome: the earlier version
-          listed everything fed to the prompt under a heading claiming it had
-          been used. Labelled neutrally as "itens do capítulo" because these are
-          the chapter as retrieval returned it, verses and Kardec's commentary
-          mixed, and nothing in the metadata separates the two. */}
-      {!isStreaming && msg.chapterContext?.length > 0 && (
-        <div style={{ marginTop: 10 }}>
-          <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
-            Outros itens deste capítulo
+      {!isStreaming && msg.chapterContext?.length > 0 && (() => {
+        // What the explanation cited became a link in the text and leaves this
+        // row. The heading "Outros itens deste capítulo" becomes literally
+        // true — and the cited-first ordering loses its purpose, since no
+        // cited item is left in this list.
+        //
+        // Keyed on item_number alone, not the full passageKey above: this
+        // list is chapter_context, which src/rag/explicador.py's
+        // build_chapter_context always scopes to one book and one chapter by
+        // construction (chapter_commentary in retriever.py filters by book AND
+        // chapter), so item_number can't collide here the way it can across
+        // /chat's unscoped retrieval.
+        const citados = new Set((msg.inlineRefs || []).map((r) => r.item_number));
+        const restantes = msg.chapterContext.filter(
+          (c) => !citados.has(c.item_number)
+        );
+        if (!restantes.length) return null;
+        return (
+          <div style={{ marginTop: 10 }}>
+            <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
+              Outros itens deste capítulo
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {restantes.map((c, i) => (
+                <button key={i} onClick={() => setOpenSource(c)} style={{
+                  background: 'transparent',
+                  border: `1px solid ${theme.cardBorder}`,
+                  color: theme.subtext, fontSize: 11,
+                  padding: '3px 10px', borderRadius: 12,
+                  cursor: 'pointer', fontWeight: 500,
+                }}>
+                  📖 {formatSourceRef({
+                    book: c.book,
+                    chapterRef: c.chapter_ref,
+                    itemNumber: c.item_number,
+                  })}
+                </button>
+              ))}
+            </div>
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-            {msg.chapterContext.map((c, i) => (
-              <button key={i} onClick={() => setOpenSource(c)} style={{
-                background: 'transparent',
-                border: `1px solid ${theme.cardBorder}`,
-                color: theme.subtext, fontSize: 11,
-                padding: '3px 10px', borderRadius: 12,
-                cursor: 'pointer', fontWeight: 500,
-              }}>
-                📖 {formatSourceRef({ book: c.book, itemNumber: c.item_number })}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+        );
+      })()}
+
+      {/* Um voto na resposta. Este componente rende a resposta da IA tanto no
+          chat quanto no estudo livre, então cobre os dois lugares de uma vez.
+          Guardado por !isStreaming como os vizinhos: votar numa resposta que
+          ainda está sendo escrita não faz sentido. */}
+      {!isStreaming && <FeedbackButtons turnId={msg.turnId} theme={theme} />}
 
       {!isStreaming && showQuickActions && quickActions.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 10 }}>

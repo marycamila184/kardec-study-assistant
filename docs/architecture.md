@@ -167,6 +167,12 @@ Two properties this diagram exists to make unmissable:
 
 On `abalo`, `filter_sensitive_chunks` drops both the darkest O Céu e o Inferno testimony chapters (`SENSITIVE_CHAPTERS`) and **any chunk whose content matches suicide-adjacent language** (`_SENSITIVE_CONTENT_RE`, book-agnostic — it catches ESE's "abreviar as misérias"), so such passages are never introduced to a distressed reader unprompted.
 
+Three properties of the keyword layer that the diagram cannot show:
+
+- **Every pattern is accent-tolerant.** People in distress type without accents, and a floor that misses "suicidio" is not a floor.
+- **Ordering inside `CRISIS_KEYWORDS` is load-bearing.** An ideation phrasing that happens to contain a topic word ("penso em suicídio") must be listed there, so the exit catches it *before* the topic path turns it into an ordinary answered question. When adding a phrasing, check which of the two paths claims it first.
+- **`CLINICAL_KEYWORDS` / `needs_medical_caveat()` live in `crisis.py`, not in Reflexivo.** They trigger the medical/mediumship caveat, and **`/chat` calls them today** — the Reflexivo section below mentions `CLINICAL_KEYWORDS` because that mode used them too, not because it owns them. Reconnecting or deleting Reflexivo must not touch this.
+
 ### Agents
 
 **Explicador** (`/study`) — `explicador_prompt.py` + `explicador.py`:
@@ -369,7 +375,11 @@ settle a small prompt change on their own.
 
 ## API Layer (`src/api/`)
 
-Stateless. Clients own conversation history; `/chat` accepts it but the server stores nothing. (`/reflect` did too, and its schemas below are kept for reference — Reflexivo is switched off for production, not deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md.)
+Stateless as a service. Clients own conversation history; `/chat` accepts it, and no server-side session or database backs a request. Answered turns *are* recorded, as one JSON line on stdout — see `turn_id` below and the logging rule in CLAUDE.md. (`/reflect` was stateless too, and its schemas below are kept for reference — Reflexivo is switched off for production, not deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md.)
+
+**`turn_id`** (on `ChatResponse` and `StudyResponse`): the id of the line this turn wrote to the log, so `POST /feedback` can attach a vote to it. It names one log line, never repeats, and links nothing to anyone — it is not a session id and not an identifier of a person. `null` when the turn was not logged, and the client then shows no vote buttons. Generated in `log_chat_turn`, which returns it, so the route never mints a second one; generated outside that function's `try`, so a failed write still yields an id.
+
+**`X-Session-Id`** (request header, all answering routes plus `/feedback`): the reader's consent to have the turns of one tab linked, carried as the header's *presence* — its absence is the refusal. Read by `session_id_from` in `routes.py`, which never falls back to IP, cookie or user-agent. It must stay listed in `allow_headers` of the CORS middleware in `main.py`: without it the browser preflight rejects every consented request, and no `TestClient` route test can catch that, because `TestClient` issues no preflight.
 
 **`suggested_mode`** (on `/chat`, and historically `/reflect`): a hint for the client to surface a cross-mode nudge button, produced by `orchestrator.classify_intent`. For `estudar_obra` the response also carries `suggested_item_number` / `suggested_book` (from `extract_study_reference`; book `null` unless named) so the client opens `/study` pre-filled. `null` when no nudge applies (the `refletir` target is disconnected, see `orchestrator.py`). The client sends `current_mode` so the orchestrator never nudges toward the current mode. Suppressed on `crise`.
 
@@ -405,7 +415,7 @@ One JSON per path, served statically (no DB; client owns progress). Schema: `id`
 ## Notes
 
 - **Legacy:** `study.py` / `study_prompt.py` were the original `/study` implementation, superseded by `explicador.py`. Safe to delete.
-- **Ações Rápidas** (client-side quick follow-up buttons) are wired but currently disabled everywhere (`showQuickActions={false}`) pending a UX redesign. Source citations (the clickable `📖` chips → `SourceModal`) are independent and always shown.
+- **Ações Rápidas** (client-side quick follow-up buttons) are wired but currently disabled everywhere (`showQuickActions={false}`) pending a UX redesign. Source citations (the clickable `📖` chips → `SourceModal`) are independent, but the row is no longer unconditional: since 2026-07-29 a passage cited inline renders as a link in the prose instead, and the chip row shows only what was not cited that way — it is absent entirely when every retrieved passage was.
 - The planned **Pesquisador** agent (query expansion before embedding) is not implemented. A HyDE variant was considered: generate a hypothetical answer, retrieve on *that*, then **discard it** and generate only from the retrieved chunks. Generating the final answer from the hypothesis would be self-confirming — a drift toward untrained-on material would steer retrieval toward itself and inflate the groundedness score that exists to detect it. Not built; the 2026-07-25 data showed no retrieval problem to solve.
 - **Known failing tests on `main`** (pre-existing, unrelated to the prose lane): `test_reflect_complementary_items_come_from_chunks_3_to_5` (returns 2 items where 3 are expected) and `test_explicador_marks_failure_on_unparseable_output`.
 - **Multilingual is deferred.** CC0 corpora exist for only 2 of the 5 works (`ia-espirita/livro-dos-espiritos`, `ia-espirita/livro-dos-mediuns` — pt/en/es/fr), and those are exactly the works with a single global numbered sequence. Evangelho and Céu e Inferno, with per-chapter numbering, are both the hard case and the missing case. When picked up it costs no new architecture: `bge-m3` already does cross-lingual retrieval on one index, and the prose lane makes language a routing key.

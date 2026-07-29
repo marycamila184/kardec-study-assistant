@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import ConsentBanner from './components/layout/ConsentBanner';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
 // React + Vite, so the subpath is /react — the /next in Vercel's docs is for
@@ -1322,6 +1323,7 @@ export default function App() {
           setEstudarSub('picker');
         }}
       />
+      <ConsentBanner theme={theme} />
       <Analytics />
     </div>
   );
