@@ -137,3 +137,23 @@ def test_stream_lane_logs_the_same_session(stream):
     # O turn_id do evento `done` é o mesmo que foi para o log.
     done = json.loads(body.rsplit("event: done\ndata: ", 1)[1].strip())
     assert done["turn_id"] == line["turn_id"]
+
+
+def test_preflight_allows_the_consent_header():
+    """O navegador pergunta antes de mandar um header customizado.
+
+    Se X-Session-Id não estiver em allow_headers, o preflight falha e TODA
+    requisição consentida morre no navegador — enquanto os testes de rota
+    passam, porque TestClient não faz preflight. Este é o único teste aqui que
+    exercita o CORS.
+    """
+    res = client.options(
+        "/chat",
+        headers={
+            "Origin": "https://dialogandodoutrina.com.br",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type,x-session-id",
+        },
+    )
+    allowed = res.headers.get("access-control-allow-headers", "").lower()
+    assert "x-session-id" in allowed

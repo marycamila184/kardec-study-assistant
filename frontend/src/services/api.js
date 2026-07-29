@@ -1,4 +1,5 @@
 import { formatItemRef } from '../utils/format';
+import { sessionId } from './consent';
 
 const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
@@ -10,9 +11,21 @@ class ApiError extends Error {
   }
 }
 
+// Os dois caminhos de rede — request e streamSSE — passam por aqui, e são os
+// únicos lugares do app que montam headers. O X-Session-Id só existe quando há
+// consentimento: sessionId() devolve null sem ele, e a ausência do header É a
+// recusa do lado do servidor. Nenhuma função de chamada precisou mudar.
+function headers() {
+  const id = sessionId();
+  return {
+    'Content-Type': 'application/json',
+    ...(id ? { 'X-Session-Id': id } : {}),
+  };
+}
+
 async function request(path, options = {}) {
   const res = await fetch(BASE + path, {
-    headers: { 'Content-Type': 'application/json' },
+    headers: headers(),
     ...options,
   });
   const body = await res.json().catch(() => ({}));
@@ -49,6 +62,9 @@ function mapChat(data) {
   // and a source chip you have to click is not the same separation.
   const studied = data.studied_item || null;
   return {
+    // O turno registrado, para o voto poder se referir a ele. Null quando o
+    // turno não foi logado — e aí os polegares simplesmente não aparecem.
+    turnId: data.turn_id || null,
     hasDaObra: !!studied,
     obra: studied ? {
       title: [studied.book, studied.chapter_title,
@@ -94,6 +110,10 @@ function mapStudy(data, bookLabel, itemNumber) {
   const titleParts = [bookLabel, chapterTitle, itemNumber ? formatItemRef(bookLabel, itemNumber) : null]
     .filter(Boolean);
   return {
+    // Null no evento `source` do stream, que chega com um payload sintético
+    // sem turn_id — e é o certo: o voto só existe depois que a resposta
+    // terminou.
+    turnId: data.turn_id || null,
     hasDaObra: true,
     obra: {
       title: titleParts.join(' — '),
@@ -212,7 +232,7 @@ export async function chatMessage(
 async function streamSSE(path, body, onEvent) {
   const res = await fetch(BASE + path, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: headers(),
     body: JSON.stringify(body),
   });
   if (!res.ok) throw new ApiError(res.status, await res.json().catch(() => ({})));
@@ -305,6 +325,25 @@ export async function reflectSituation(situation, history = [], currentMode = nu
     }),
   });
   return mapReflect(data);
+}
+
+// O voto numa resposta. Não devolve nada e nunca lança para o chamador: um erro
+// de rede aqui não pode virar um alerta na cara de quem só quis dizer que a
+// resposta foi ruim.
+//
+// Funciona com ou sem consentimento — {turn_id, vote} não descreve pessoa —, e
+// por isso não checa nada antes de enviar.
+export async function sendFeedback(turnId, vote) {
+  if (!turnId) return;
+  try {
+    await fetch(BASE + '/feedback', {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify({ turn_id: turnId, vote }),
+    });
+  } catch {
+    /* silencioso por desenho */
+  }
 }
 
 // Returns raw { date, content, source }
