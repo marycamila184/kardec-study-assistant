@@ -51,6 +51,7 @@ class InlineRef(BaseModel):
     position: int
     book: str
     chapter_title: str | None = None
+    chapter_ref: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -131,6 +132,7 @@ class RelatedItem(BaseModel):
 class StudySource(BaseModel):
     book: str
     chapter_title: str | None = None
+    chapter_ref: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 

@@ -138,6 +138,11 @@ def build_chapter_context(ctx: dict) -> list[dict]:
             {
                 "book": meta["book"],
                 "chapter_title": meta.get("chapter_title") or None,
+                # The machine chapter id, so a reference can name the chapter.
+                # Item numbers restart every chapter in Evangelho and Céu e
+                # Inferno; without this the modal shows a number that could be
+                # any of a dozen chapters.
+                "chapter_ref": meta.get("chapter") or None,
                 "item_number": item,
                 "parts": [],
             },
@@ -148,6 +153,7 @@ def build_chapter_context(ctx: dict) -> list[dict]:
         {
             "book": e["book"],
             "chapter_title": e["chapter_title"],
+            "chapter_ref": e["chapter_ref"],
             "item_number": e["item_number"],
             "excerpt": " ".join(e["parts"]),
         }
