@@ -253,7 +253,7 @@ kardec-study-assistant/
 - ✅ Deployment infrastructure — Cloud Run (backend) + Vercel (frontend), index baked into the image, hosted embedding lane
 - **Refletir sobre uma Situação — in development, not shipped.** The mode exists in full (`src/rag/reflect.py`, `reflect_prompt.py`, `RefletirPicker.jsx`) and is disconnected rather than deleted, so re-enabling is wiring rather than rewriting. What keeps it off is measured: the 2026-07-26 retrieval evaluation found that all four embedding models tested answer *"estou me sentindo ansioso"* with the chapter on a Spirit's agony before **reincarnating**. The failure is structural, so the fix is chapter-level filtering, not a model swap. See `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`
 - Deterministic suppression of follow-up chips on sensitive turns — measured 2026-07-26: `gemini-3.6-flash` offered one right below the CVV note, and the current model's silence there is luck, not a guarantee
-- Fix the 20 documents that overwrite each other in the index — `_build_id` omits `part`, so O Céu e o Inferno's two chapter I collide (7327 stored where ingestion reports 7347)
+- ✅ Fixed 2026-07-29: the 20 documents that overwrote each other in the index — `_build_id` omitted `part`, so O Céu e o Inferno's two chapter I collided. The key now carries `part` when present, and ingestion stores all 7347. **Requires a rebuild from empty, not a re-ingestion:** ids change for the three books that have parts (Céu e Inferno, O Livro dos Espíritos, O Livro dos Médiuns), so re-ingesting over the old index leaves ~4451 orphan rows
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
 

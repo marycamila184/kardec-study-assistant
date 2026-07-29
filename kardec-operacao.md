@@ -104,7 +104,7 @@ uv run python -c "
 import chromadb
 for c in chromadb.PersistentClient(path='data/embeddings/').list_collections():
     print(c.name, c.count())
-"   # esperado: kardec_docs 7327 — e mais nada
+"   # esperado: kardec_docs 7347 — e mais nada
 
 # 2. subir (o Cloud Build constrói o Dockerfile; não precisa de docker local)
 gcloud run deploy kardec-api --source . --region us-central1
