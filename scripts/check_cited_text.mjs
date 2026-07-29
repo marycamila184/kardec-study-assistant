@@ -29,10 +29,24 @@ check('ref no fim não gera fragmento vazio',
 
 // O caso que a ordem de renderização exige: o negrito ANTES da citação.
 // splitByRefs corta o texto CRU, com os asteriscos — quem os remove é o
-// componente, depois, em cada fragmento.
-check('negrito antes da citação não desloca o corte',
-  splitByRefs('**Kardec** escreve isso', [r(23, '3')]),
-  [{ type: 'text', value: '**Kardec** escreve isso' }, { type: 'ref', ref: r(23, '3') }]);
+// componente, depois, em cada fragmento. Uma implementação que "corrigisse" a
+// posição por causa dos ** cairia 4 caracteres antes, e é isso que estes dois
+// casos pegam. Uma posição no FIM do texto não pegaria: ali as duas
+// implementações coincidem.
+check('corte logo depois do negrito respeita os asteriscos',
+  splitByRefs('**Kardec** escreve isso', [r(10, '3')]),
+  [{ type: 'text', value: '**Kardec**' }, { type: 'ref', ref: r(10, '3') },
+   { type: 'text', value: ' escreve isso' }]);
+
+check('corte no meio da frase, com negrito antes',
+  splitByRefs('**Kardec** escreve isso', [r(21, '3')]),
+  [{ type: 'text', value: '**Kardec** escreve is' }, { type: 'ref', ref: r(21, '3') },
+   { type: 'text', value: 'so' }]);
+
+check('duas refs na mesma posição não geram fragmento vazio',
+  splitByRefs('abcdef', [r(3, '3'), r(3, '9')]),
+  [{ type: 'text', value: 'abc' }, { type: 'ref', ref: r(3, '3') },
+   { type: 'ref', ref: r(3, '9') }, { type: 'text', value: 'def' }]);
 
 check('refs fora de ordem são ordenadas',
   splitByRefs('abcdef', [r(6, '9'), r(3, '3')]),
