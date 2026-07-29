@@ -165,3 +165,90 @@ curl -s -o /dev/null -w 'cold start: %{time_total}s\n' "$API/health"
 
 Se doer, `--min-instances 1` resolve — mas aí a conta deixa de ser ~US$0, então
 é decisão com número na mão, não por precaução.
+
+## Redeploy: o comando do passo 3 é para a PRIMEIRA vez
+
+`--set-env-vars` **substitui o conjunto inteiro**. O serviço no ar hoje tem
+`CHAT_MODEL`, `CONDENSER_MODEL` e `CORS_ALLOWED_ORIGINS`, que aquele comando não
+lista — rodá-lo cru apaga os três, e perder `CHAT_MODEL` é exatamente a
+armadilha nº 2 lá de cima (todo `/chat` em 503).
+
+Num redeploy, **omita os flags de env**: o Cloud Run preserva a configuração
+existente.
+
+```bash
+gcloud run deploy kardec-api --source . --region us-central1 \
+  --allow-unauthenticated --memory 512Mi --cpu 1 \
+  --min-instances 0 --max-instances 3 --concurrency 20 --timeout 120
+```
+
+Para mudar **uma** variável sem tocar nas outras, `--update-env-vars`. Quando o
+valor contém vírgula (o caso do CORS), o delimitador precisa ser trocado:
+
+```bash
+gcloud run services update kardec-api --region us-central1 \
+  --update-env-vars '^@^CORS_ALLOWED_ORIGINS=https://kardec-study-assistant.vercel.app,https://dialogandodoutrina.com.br,https://www.dialogandodoutrina.com.br'
+```
+
+**Confira o tráfego depois de subir.** Em 2026-07-28 o serviço estava com o
+tráfego preso numa revisão antiga e uma tag `probe` órfã: o deploy do dia
+anterior tinha subido e nunca entrado no ar, servindo 0% — e a saída do gcloud
+reporta a revisão *com tag*, não a que acabou de ser criada, o que faz a
+confusão passar despercebida.
+
+```bash
+gcloud run services describe kardec-api --region us-central1 \
+  --format='yaml(spec.traffic,status.latestReadyRevisionName)'
+gcloud run services update-traffic kardec-api --region us-central1 --to-latest
+```
+
+## 7. Log de conversas: o sink para BigQuery
+
+O stdout do container já vai para o Cloud Logging. O sink dá durabilidade além
+dos 30 dias e uma linguagem de consulta melhor que o Logs Explorer. Nada no app
+muda. Desenho em
+`docs/superpowers/specs/2026-07-28-log-de-sessao-e-feedback-design.md`.
+
+Faça **depois** de o backend novo estar no ar: um sink criado antes de as linhas
+existirem produz uma tabela vazia e a impressão de que não funcionou.
+
+```bash
+PROJECT=dialogando-doutrina
+
+# 31536000s = 12 meses, a retenção declarada na spec. Retenção exercida por
+# configuração, não por inércia.
+bq --location=us-central1 mk --dataset --default_table_expiration 31536000 \
+  "${PROJECT}:kardec_logs"
+
+gcloud logging sinks create kardec-conversas \
+  "bigquery.googleapis.com/projects/${PROJECT}/datasets/kardec_logs" \
+  --log-filter='resource.type="cloud_run_revision"
+    AND resource.labels.service_name="kardec-api"
+    AND (jsonPayload.event="chat_turn" OR jsonPayload.event="feedback")' \
+  --use-partitioned-tables
+```
+
+**A armadilha:** o sink escreve com uma conta de serviço própria, criada junto
+com ele, que **não nasce com permissão**. Sem o passo abaixo o sink existe,
+aparenta estar certo e não escreve nada.
+
+```bash
+SINK_SA=$(gcloud logging sinks describe kardec-conversas --format='value(writerIdentity)')
+gcloud projects add-iam-policy-binding "$PROJECT" \
+  --member="$SINK_SA" --role=roles/bigquery.dataEditor
+```
+
+Verificação (o sink não é instantâneo; espere de 2 a 5 minutos):
+
+```bash
+API=$(gcloud run services describe kardec-api --region us-central1 --format='value(status.url)')
+curl -s -X POST "$API/chat" -H 'Content-Type: application/json' \
+  -H 'X-Session-Id: teste-do-sink' \
+  -d '{"question":"o que é o perispírito?"}' > /dev/null
+
+bq ls kardec_logs   # o nome da tabela varia com o tipo de log
+bq query --use_legacy_sql=false \
+  'SELECT jsonPayload.session_id, jsonPayload.mode, jsonPayload.question
+   FROM `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout`
+   WHERE jsonPayload.session_id = "teste-do-sink"'
+```

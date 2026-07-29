@@ -1,6 +1,7 @@
 import { ANALYTICS_NOTICE, CONTACT_FORM_URL, LOCAL_STORAGE_NOTICE, PRIVACY_NOTICE } from '../../constants/contact';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
+import { grantConsent, hasConsent, revokeConsent } from '../../services/consent';
 
 /**
  * Slide-in settings panel from the right (300px wide).
@@ -46,6 +47,18 @@ export default function SettingsPanel({
   theme,
 }) {
   const [justSaved, setJustSaved] = useState(false);
+  // Lido do localStorage, não recebido por prop: o consentimento não é estado
+  // do App, e nenhuma outra tela precisa dele.
+  const [consent, setConsent] = useState(hasConsent);
+  // Re-read whenever the panel opens. This component is mounted once by App and
+  // never remounts (no key, and `if (!open) return null` sits below the hooks),
+  // so the lazy initializer above runs exactly once — at page load, before the
+  // reader has answered the consent banner. Without this sync, accepting in the
+  // banner and then opening Settings showed the toggle off, which reads as "my
+  // choice was not saved" when in fact only the panel was stale.
+  useEffect(() => {
+    if (open) setConsent(hasConsent());
+  }, [open]);
   useEscapeKey(onClose, open);
 
   if (!open) return null;
@@ -161,6 +174,24 @@ export default function SettingsPanel({
               before the reader had any reason to care. Here it is found by
               whoever goes looking for it. */}
           <Section title="Privacidade" theme={theme}>
+            {/* Um alternador, não um botão de "revogar": um revogar só serve a
+                quem aceitou, e quem recusou no banner ficaria sem caminho de
+                volta. Aqui, ao lado do texto que descreve o que é registrado —
+                separar o controle da promessa é como os dois divergem. */}
+            <Row
+              label="Guardar minhas conversas"
+              sublabel="Ajuda a melhorar as respostas. O vínculo entre as perguntas some quando você fecha a aba."
+              theme={theme}
+            >
+              <Toggle
+                on={consent}
+                onToggle={() => {
+                  const next = !consent;
+                  next ? grantConsent() : revokeConsent();
+                  setConsent(next);
+                }}
+              />
+            </Row>
             <div style={{ background: 'rgba(107,155,184,.07)', border: '1px solid rgba(107,155,184,.2)', borderRadius: 8, padding: 14 }}>
               <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: '0 0 10px' }}>
                 {LOCAL_STORAGE_NOTICE}
@@ -175,7 +206,7 @@ export default function SettingsPanel({
                 <a href={CONTACT_FORM_URL} target="_blank" rel="noopener noreferrer" style={{
                   display: 'inline-block', marginTop: 10, fontSize: 12,
                   color: '#6B9BB8', textDecoration: 'none', fontWeight: 500,
-                }}>Fale comigo →</a>
+                }}>Contato →</a>
               )}
             </div>
           </Section>

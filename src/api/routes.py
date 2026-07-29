@@ -4,7 +4,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Response
 from fastapi.responses import StreamingResponse
 
 from src.api.limits import (
@@ -17,7 +17,7 @@ from src.api.limits import (
 )
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
-from src.rag.conversation_log import log_chat_turn
+from src.rag.conversation_log import log_chat_turn, log_feedback, log_study_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import build_sources
@@ -34,6 +34,7 @@ from src.rag.profile_detector import detect_profile_changes
 from src.api.schemas import (  # isort: skip
     ChatRequest,
     ChatResponse,
+    FeedbackRequest,
     ProfileState,
     EvangelhoResponse,
     EvangelhoSource,
@@ -141,6 +142,20 @@ def _enforce_rate_limit(http_request: Request) -> None:
         )
 
 
+def session_id_from(http_request: Request) -> str | None:
+    """The reader's consent, as the presence of a header.
+
+    Absence IS the refusal — there is no boolean flag that could be sent as
+    true by mistake, and no request schema had to change. The backend never
+    generates this and never falls back to IP, cookie or user-agent: if the
+    header did not arrive, there is no session, so a frontend bug errs safe.
+    The `or None` collapses a header that arrived blank into refusal too.
+
+    See docs/superpowers/specs/2026-07-28-log-de-sessao-e-feedback-design.md
+    """
+    return http_request.headers.get("X-Session-Id") or None
+
+
 @router.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     _enforce_rate_limit(http_request)
@@ -177,6 +192,8 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
         started_at=started,
         log=True,
         profile=profile,
+        session_id=session_id_from(http_request),
+        n_history=len(history),
     )
 
 
@@ -200,6 +217,10 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
     history = trim_history(request.question, history)
 
     profile = _resolve_profile(request.question, request.profile, request.current_mode)
+    # Read before the stream opens: inside the generator the request may already
+    # be gone by the time the body starts being consumed.
+    session_id = session_id_from(http_request)
+    n_history = len(history)
 
     def events():
         executor = ThreadPoolExecutor(max_workers=1)
@@ -240,6 +261,8 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
             started_at=started,
             log=True,
             profile=profile,
+            session_id=session_id,
+            n_history=n_history,
         )
         yield _sse("done", response.model_dump())
 
@@ -253,6 +276,9 @@ def _chat_response(
     started_at: float,
     log: bool,
     profile: ResponseProfile | None = None,
+    session_id: str | None = None,
+    n_history: int = 0,
+    mode: str = "chat",
 ) -> ChatResponse:
     """Builds the /chat body. Shared with the stream's `done` event so the two
     routes cannot drift apart."""
@@ -263,15 +289,20 @@ def _chat_response(
         if suggested_mode == "estudar_obra"
         else {"item_number": None, "book": None}
     )
+    turn_id = None
     if log:
-        log_chat_turn(
+        turn_id = log_chat_turn(
             question,
             result,
             latency_ms=int((time.monotonic() - started_at) * 1000),
             suggested_mode=suggested_mode,
+            session_id=session_id,
+            mode=mode,
+            n_history=n_history,
         )
     return ChatResponse(
         answer=result["answer"],
+        turn_id=turn_id,
         studied_item=result.get("studied_item"),
         profile=_profile_state(profile) if profile else None,
         inline_refs=result.get("inline_refs", []),
@@ -323,6 +354,21 @@ def _sse_response(events) -> StreamingResponse:
     )
 
 
+@router.post("/feedback", status_code=204)
+def feedback(request: FeedbackRequest, http_request: Request) -> Response:
+    """A vote on an answer.
+
+    Works with or without consent: {turn_id, vote} describes no person and
+    links no turns, so refusing the banner does not take away someone's ability
+    to say the answer was bad.
+
+    No rate limit: a vote is one log line, and the cost of abusing that is
+    negligible next to the cost of turning away an honest reader.
+    """
+    log_feedback(request.turn_id, request.vote, session_id_from(http_request))
+    return Response(status_code=204)
+
+
 @router.get("/paths", response_model=list[PathSummary])
 def list_paths() -> list[PathSummary]:
     paths = load_all_paths(settings.paths_dir)
@@ -346,10 +392,13 @@ def study(request: StudyRequest, http_request: Request) -> StudyResponse:
     # expensive route: two model calls per request (Explicador and Curador),
     # public and unauthenticated.
     _enforce_rate_limit(http_request)
+    started = time.monotonic()
     result = study_item_fn(request.book, request.item_number, request.chapter)
     if result is None:
         raise _item_not_found(request.item_number)
-    return StudyResponse(**result)
+    return _study_response(
+        request, result, started_at=started, session_id=session_id_from(http_request)
+    )
 
 
 @router.post("/study/stream")
@@ -366,6 +415,11 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
     # Prepared before the stream opens so a missing item is still an HTTP 404.
     # Once the response starts streaming the status code is already sent, and a
     # not-found would have to masquerade as a successful empty answer.
+    started = time.monotonic()
+    # Read before the stream opens, like /chat/stream: inside the generator the
+    # request may already be gone.
+    session_id = session_id_from(http_request)
+
     ctx = prepare_study(request.book, request.item_number, request.chapter)
     if ctx is None:
         raise _item_not_found(request.item_number)
@@ -383,9 +437,39 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
             if kind == "token":
                 yield _sse("token", {"text": payload})
             else:
-                yield _sse("done", StudyResponse(**payload).model_dump())
+                # Logged here, with the post-processed payload — the same
+                # object POST /study logs, so both lanes produce one identical
+                # line.
+                response = _study_response(
+                    request, payload, started_at=started, session_id=session_id
+                )
+                yield _sse("done", response.model_dump())
 
     return _sse_response(events())
+
+
+def _study_response(
+    request: StudyRequest,
+    result: dict,
+    started_at: float,
+    session_id: str | None,
+) -> StudyResponse:
+    """Logs the studied turn and builds the body. Shared by POST /study and the
+    stream's `done` event so the two cannot describe the same item differently
+    — the same reason `_chat_response` exists.
+
+    `result` carries a log-only `retrieved` key. StudyResponse is built from
+    named fields, so pydantic drops it and it never reaches the client.
+    """
+    turn_id = log_study_turn(
+        request.book,
+        request.item_number,
+        request.chapter,
+        result,
+        latency_ms=int((time.monotonic() - started_at) * 1000),
+        session_id=session_id,
+    )
+    return StudyResponse(**{**result, "turn_id": turn_id})
 
 
 def _item_not_found(item_number: str) -> HTTPException:

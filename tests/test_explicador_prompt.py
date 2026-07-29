@@ -114,7 +114,7 @@ def test_explicador_prompt_renders_chapter_commentary_block():
     system, _ = build_explicador_messages(
         "verso da parábola", [], chapter_commentary_chunks=commentary
     )
-    assert "COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO" in system
+    assert "OUTROS ITENS DESTE CAPÍTULO" in system
     assert "O obreiro da última hora tem direito ao salário." in system
 
 
@@ -126,7 +126,7 @@ def test_explicador_prompt_omits_commentary_block_content_when_empty():
 def test_explicador_prompt_has_evangelical_grounding_rule():
     system, _ = build_explicador_messages("verso", [])
     assert "texto evangélico" in system
-    assert "COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO" in system
+    assert "OUTROS ITENS DESTE CAPÍTULO" in system
 
 
 from src.rag.explicador_prompt import parse_explicador_markers
@@ -175,3 +175,76 @@ def test_conceitos_capped_at_three():
     text = "CONTEXTO: c.\nCONCEITOS: a | b | c | d | e"
     _, conceitos, _ = parse_explicador_markers(text)
     assert len(conceitos) == 3
+
+
+def test_chapter_section_makes_no_claim_about_whose_voice_it_is():
+    """A seção traz versículo e comentário misturados — nada no metadata os
+    separa. Chamá-la de "comentário doutrinário" faz o modelo apresentar
+    escritura como palavra de Kardec, que foi o que aconteceu em 2026-07-28
+    com o item 2 do capítulo AMAI OS VOSSOS INIMIGOS (itens 1 e 2 são
+    Evangelho; Kardec começa no 3).
+
+    build_chapter_context em explicador.py já tinha chegado nessa conclusão e
+    é neutro por escolha; agora o prompt concorda com ele.
+    """
+    system, _ = build_explicador_messages(
+        "1. Aprendestes que foi dito…",
+        [],
+        chapter_commentary_chunks=[
+            {
+                "content": "2. Se somente amardes os que vos amam…",
+                "metadata": {
+                    "book": "O Evangelho Segundo o Espiritismo",
+                    "item_number": "2",
+                },
+            }
+        ],
+    )
+    assert "OUTROS ITENS DESTE CAPÍTULO" in system
+    assert "COMENTÁRIO DOUTRINÁRIO" not in system
+
+
+def test_related_passages_are_not_shaped_like_markable_items():
+    """As relacionadas cruzam capítulos; os itens do capítulo, não.
+
+    Enquanto as duas listas saíam no mesmo formato, "use apenas números desta
+    seção" era uma regra que o modelo tinha de cumprir de memória. Em
+    2026-07-28 o ESE item 50, de "Pelos inimigos do Espiritismo", foi citado
+    como se fosse deste capítulo.
+    """
+    chapter = [
+        {
+            "content": "3. Se o amor do próximo…",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "item_number": "3",
+            },
+        }
+    ]
+    related = [
+        {
+            "content": "50. Bem-aventurados os famintos de justiça…",
+            "metadata": {
+                "book": "O Evangelho Segundo o Espiritismo",
+                "item_number": "50",
+            },
+        }
+    ]
+    system, _ = build_explicador_messages(
+        "1. Aprendestes…",
+        related_chunks=related,
+        chapter_commentary_chunks=chapter,
+    )
+    # rsplit: os dois nomes de seção aparecem antes, dentro das regras — o
+    # bloco de verdade é sempre a ÚLTIMA ocorrência.
+    chapter_block = system.rsplit("[OUTROS ITENS DESTE CAPÍTULO]", 1)[1].rsplit(
+        "[REFERÊNCIAS RELACIONADAS]", 1
+    )[0]
+    related_block = system.rsplit("[REFERÊNCIAS RELACIONADAS]", 1)[1]
+
+    # O item do capítulo sai na forma exata do marcador que se pede: copiar em
+    # vez de lembrar.
+    assert "[item 3]" in chapter_block
+    # A relacionada não traz número em forma citável.
+    assert "[item 50]" not in related_block
+    assert "| item 50]" not in related_block

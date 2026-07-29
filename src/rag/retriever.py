@@ -104,6 +104,39 @@ def retrieve(
     return _strip_footnotes_from_results(filtered)
 
 
+def retrieved_summary(chunks: list[dict]) -> list[dict]:
+    """What retrieval actually returned, for the turn log only.
+
+    `sources` on a response is the subset the answer cited. This is the whole
+    set that reached the prompt, and the difference between the two is the
+    diagnosis: whether the right passage was never retrieved, or was retrieved
+    and ignored.
+
+    `distance` is recorded raw, not inverted into a "score": it is what the
+    chunks carry and what `retrieve()` above compares against
+    `settings.max_distance`, so a logged number can be read against the
+    configured threshold directly. **Smaller is closer.**
+
+    Lives here rather than in either consumer because /chat and /study both
+    need it and both already import from this module.
+
+    Every field is read defensively, `book` included. Not every chunk that
+    reaches a prompt comes from `retrieve()` with full metadata — chapter
+    commentary is one that does not — and a KeyError here would turn a working
+    answer into a 500. Observability may never break a request that already
+    worked.
+    """
+    return [
+        {
+            "book": c.get("metadata", {}).get("book"),
+            "chapter": c.get("metadata", {}).get("chapter_title") or None,
+            "item": c.get("metadata", {}).get("item_number") or None,
+            "distance": c.get("distance"),
+        }
+        for c in chunks
+    ]
+
+
 def retrieve_by_item(
     book: str, item_number: str, chapter: str | None = None
 ) -> list[dict]:

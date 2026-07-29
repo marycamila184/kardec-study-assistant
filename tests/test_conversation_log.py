@@ -6,25 +6,13 @@ without thinking is the realistic failure — hence the sweep over the whole
 payload instead of assertions field by field.
 """
 
-import io
 import json
+import uuid
 
 import pytest
 
 from src.rag import conversation_log
-
-
-@pytest.fixture
-def stream(monkeypatch):
-    """Points the handler at a buffer.
-
-    Neither capsys nor capfd sees these lines: the handler binds `sys.stdout` at
-    import time, so it keeps writing to whatever object existed then. Swapping
-    the handler's own stream is precise and leaves production code alone.
-    """
-    buffer = io.StringIO()
-    monkeypatch.setattr(conversation_log._logger.handlers[0], "stream", buffer)
-    return buffer
+from src.rag.conversation_log import log_chat_turn
 
 
 def _capture(stream, question, result, **kw):
@@ -83,9 +71,16 @@ def test_direct_identifiers_are_scrubbed(stream):
     assert "[email]" in payload["question"] and "[cpf]" in payload["question"]
 
 
-def test_nothing_that_could_rebuild_a_session_is_logged(stream):
-    """Swept over the whole payload, not field by field: the realistic failure
-    is someone adding a field later without thinking about linkage."""
+def test_without_consent_nothing_could_rebuild_a_session(stream):
+    """The 2026-07-27 guarantee, now explicitly scoped to the default regime.
+
+    Without consent the record stays what it was: loose turns with nothing
+    stitching them together. The sibling test below guards the other side —
+    that the link exists ONLY when the header arrived.
+
+    Swept over the whole payload, not field by field: the realistic failure is
+    someone adding a field later without thinking about linkage.
+    """
     payload, line = _capture(stream, "o que é a prece?", NORMAL, suggested_mode=None)
 
     # Token by token, not substring: "n_chips" contains "ip", and a naive `in`
@@ -100,11 +95,57 @@ def test_nothing_that_could_rebuild_a_session_is_logged(stream):
         "cookie",
         "agent",
     }
+    # Counts are exempt, and only counts. `n_history` records how many previous
+    # turns the client sent, never one word of them — rule nº2 of 2026-07-27 is
+    # about the content, and a number cannot rebuild a conversation. The
+    # exemption is spelled out here rather than removed from `forbidden` so
+    # that a future `history` or `history_text` still trips the sweep.
+    counts_only = {"n_history"}
     offending = [
-        k for k in payload if forbidden & set(k.lower().replace("-", "_").split("_"))
+        k
+        for k in payload
+        if k not in counts_only
+        and forbidden & set(k.lower().replace("-", "_").split("_"))
     ]
     assert offending == []
     assert "192.168" not in line and "x-forwarded" not in line.lower()
+
+
+def test_turn_id_is_always_present_and_returned(stream):
+    returned = log_chat_turn("o que é o perispírito?", NORMAL, latency_ms=10)
+    payload = json.loads(stream.getvalue().strip())
+    assert payload["turn_id"] == returned
+    uuid.UUID(payload["turn_id"])  # levanta se não for um UUID válido
+
+
+def test_session_id_absent_without_consent(stream):
+    payload, _ = _capture(stream, "o que é o perispírito?", NORMAL)
+    assert "session_id" not in payload
+
+
+def test_session_id_present_when_given(stream):
+    payload, _ = _capture(
+        stream, "o que é o perispírito?", NORMAL, session_id="abc-123"
+    )
+    assert payload["session_id"] == "abc-123"
+
+
+def test_session_id_absent_not_null_when_empty_string(stream):
+    """Um header vazio é recusa, não uma sessão chamada ""."""
+    payload, _ = _capture(stream, "pergunta", NORMAL, session_id="")
+    assert "session_id" not in payload
+
+
+def test_crisis_keeps_session_but_never_text(stream):
+    """Consent does not unlock crisis text. It never does, in any regime."""
+    result = dict(NORMAL, safety_level="crise", answer="o que ela escreveu")
+    payload, line = _capture(stream, "quero morrer", result, session_id="abc-123")
+
+    assert payload["session_id"] == "abc-123"
+    assert payload["safety_level"] == "crise"
+    assert "question" not in payload
+    assert "answer" not in payload
+    assert "morrer" not in line
 
 
 def test_logging_never_breaks_a_good_answer(stream):

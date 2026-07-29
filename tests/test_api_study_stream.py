@@ -13,6 +13,7 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from src.api.main import app
+from src.api.schemas import StudyResponse
 
 client = TestClient(app)
 
@@ -141,7 +142,10 @@ def test_done_matches_the_study_response_shape():
         events = _parse_sse(_request().text)
 
     done = [payload for name, payload in events if name == "done"][0]
-    assert set(done) == set(_BODY)
+    # Contra o schema, não contra o corpo falso: o `done` é um StudyResponse
+    # completo, e desde 2026-07-28 ele carrega um turn_id que o pipeline não
+    # produz — a rota é que o acrescenta ao registrar o turno.
+    assert set(done) == set(StudyResponse.model_fields)
     assert done["contexto"] == _BODY["contexto"]
     assert done["sources"][0]["item_number"] == "132"
     assert done["generation_failed"] is False
