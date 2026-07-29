@@ -89,9 +89,13 @@ export default function IABlock({
             <CitedText
               text={text}
               refs={msg.inlineRefs}
-              theme={theme}
               precision={msg.profile?.citation_precision}
-              insideOneChapter={msg.hasDaObra}
+              // isStudy, not hasDaObra: hasDaObra is also true on /chat when
+              // free study resolves a named item, but /chat still runs a
+              // normal cross-book retrieval alongside that and can cite
+              // passages outside the resolved chapter — a bare "item N"
+              // there would be ambiguous.
+              insideOneChapter={msg.isStudy}
               onOpenSource={(ref) => setOpenSource({
                 book: ref.book,
                 chapter: ref.chapter_title,

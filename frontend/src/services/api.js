@@ -115,6 +115,15 @@ function mapStudy(data, bookLabel, itemNumber) {
     // terminou.
     turnId: data.turn_id || null,
     hasDaObra: true,
+    // True by construction, never by inference from hasDaObra: hasDaObra is
+    // also true on /chat when free study resolves a named item, but /chat
+    // still runs a normal cross-book retrieval alongside that and can cite
+    // passages outside the resolved chapter. /study's inline refs are
+    // resolved against the chapter context only — chapter_commentary in
+    // src/rag/retriever.py filters by book AND chapter — so every /study ref
+    // is guaranteed to be from the chapter already on screen. Do not fold
+    // this back into hasDaObra.
+    isStudy: true,
     obra: {
       title: titleParts.join(' — '),
       quote: data.original_text,
@@ -122,6 +131,10 @@ function mapStudy(data, bookLabel, itemNumber) {
       context: chapterTitle || bookLabel,
     },
     ia,
+    // Missing on the stream's synthetic `source` payload (no inline_refs key
+    // at all, since the answer hasn't been generated yet) — `|| []` keeps
+    // that an empty array rather than undefined, same as mapChat.
+    inlineRefs: data.inline_refs || [],
     relatedItems: (data.related_items || []).map(r => ({
       book: r.book,
       chapter: r.chapter || null,

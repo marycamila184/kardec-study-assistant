@@ -16,13 +16,17 @@ function label(ref, precision, insideOneChapter) {
   }
   return insideOneChapter
     ? formatItemRef(ref.book, ref.item_number)
-    : formatSourceRef({ book: ref.book, itemNumber: ref.item_number });
+    // Not inside one known chapter (chat's cross-book retrieval): the chapter
+    // ref must ride along, because O Evangelho, O Céu e o Inferno and A
+    // Gênese restart item numbering every chapter — "item 1" alone matches
+    // many passages in those books. See format.js's formatSourceRef docstring.
+    : formatSourceRef({ book: ref.book, chapterRef: ref.chapter_ref, itemNumber: ref.item_number });
 }
 
 // O texto da resposta com as citações no lugar em que a afirmação se apoia
 // nelas. Sem refs, é exatamente o que era antes.
 export default function CitedText({
-  text, refs, theme, onOpenSource, precision = 'short', insideOneChapter = false,
+  text, refs, onOpenSource, precision = 'short', insideOneChapter = false,
 }) {
   const parts = splitByRefs(text, refs);
 
