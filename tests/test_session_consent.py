@@ -27,6 +27,21 @@ _RESULT = {
 }
 
 
+def _offline():
+    """Todo caminho de rede de /chat, mockado.
+
+    São três, e o terceiro é fácil de esquecer: `detect_profile_changes` é uma
+    chamada de LLM que roda antes da geração. Sem ele mockado o teste sai na
+    rede de verdade, falha com 401 e só passa porque a rota degrada com
+    elegância — passando por acidente, e devagar.
+    """
+    return [
+        patch("src.api.routes.generate", return_value=_RESULT),
+        patch("src.api.routes.classify_intent", return_value={"mode": None}),
+        patch("src.api.routes.detect_profile_changes", side_effect=lambda _q, p: p),
+    ]
+
+
 def _post(stream, path="/chat", body=None, **kwargs):
     """Uma requisição com o pipeline mockado, devolvendo (resposta, linha).
 
@@ -35,10 +50,8 @@ def _post(stream, path="/chat", body=None, **kwargs):
     `conversation` tem propagate=False de propósito, então caplog não vê nada.
     """
     with ExitStack() as stack:
-        stack.enter_context(patch("src.api.routes.generate", return_value=_RESULT))
-        stack.enter_context(
-            patch("src.api.routes.classify_intent", return_value={"mode": None})
-        )
+        for ctx in _offline():
+            stack.enter_context(ctx)
         res = client.post(
             path, json=body or {"question": "o que é o perispírito?"}, **kwargs
         )
@@ -107,6 +120,9 @@ def test_stream_lane_logs_the_same_session(stream):
         stack.enter_context(patch("src.api.routes.generate_stream", fake_stream))
         stack.enter_context(
             patch("src.api.routes.classify_intent", return_value={"mode": None})
+        )
+        stack.enter_context(
+            patch("src.api.routes.detect_profile_changes", side_effect=lambda _q, p: p)
         )
         res = client.post(
             "/chat/stream",

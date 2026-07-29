@@ -89,6 +89,14 @@ class ChatResponse(BaseModel):
     safety_level: str | None = None
 
 
+class FeedbackRequest(BaseModel):
+    turn_id: str
+    vote: Literal["up", "down"]
+    # No comment field, deliberately: free text here would reopen the whole
+    # sensitive-data question the 2026-07-28 spec settled. An extra field sent
+    # by a client is ignored by pydantic and never reaches the log.
+
+
 class PathStep(BaseModel):
     book: str
     chapter: str | None = None

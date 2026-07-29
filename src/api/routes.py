@@ -4,7 +4,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Response
 from fastapi.responses import StreamingResponse
 
 from src.api.limits import (
@@ -17,7 +17,7 @@ from src.api.limits import (
 )
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
-from src.rag.conversation_log import log_chat_turn, log_study_turn
+from src.rag.conversation_log import log_chat_turn, log_feedback, log_study_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
 from src.rag.explicador import build_sources
@@ -34,6 +34,7 @@ from src.rag.profile_detector import detect_profile_changes
 from src.api.schemas import (  # isort: skip
     ChatRequest,
     ChatResponse,
+    FeedbackRequest,
     ProfileState,
     EvangelhoResponse,
     EvangelhoSource,
@@ -351,6 +352,21 @@ def _sse_response(events) -> StreamingResponse:
             "X-Accel-Buffering": "no",
         },
     )
+
+
+@router.post("/feedback", status_code=204)
+def feedback(request: FeedbackRequest, http_request: Request) -> Response:
+    """A vote on an answer.
+
+    Works with or without consent: {turn_id, vote} describes no person and
+    links no turns, so refusing the banner does not take away someone's ability
+    to say the answer was bad.
+
+    No rate limit: a vote is one log line, and the cost of abusing that is
+    negligible next to the cost of turning away an honest reader.
+    """
+    log_feedback(request.turn_id, request.vote, session_id_from(http_request))
+    return Response(status_code=204)
 
 
 @router.get("/paths", response_model=list[PathSummary])

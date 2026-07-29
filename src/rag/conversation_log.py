@@ -153,6 +153,29 @@ def log_chat_turn(
     return turn_id
 
 
+def log_feedback(turn_id: str, vote: str, session_id: str | None = None) -> None:
+    """A thumbs up or down, joined to its turn by `turn_id` at query time.
+
+    Same stdout, same sink, no new storage and no network I/O on the response
+    path. Never raises, like everything else here.
+
+    The vote carries no text by design: a free-text field would reopen the
+    whole sensitive-data question the spec settled.
+    """
+    try:
+        payload: dict = {
+            "event": "feedback",
+            "severity": "INFO",
+            "turn_id": turn_id,
+            "vote": vote,
+        }
+        if session_id:
+            payload["session_id"] = session_id
+        _logger.info(json.dumps(payload, ensure_ascii=False))
+    except Exception:  # noqa: BLE001 - logging must never break a good answer
+        logging.getLogger(__name__).exception("feedback logging failed")
+
+
 def log_study_turn(
     book: str,
     item_number: str,
