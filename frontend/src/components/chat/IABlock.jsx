@@ -9,6 +9,7 @@ import { Dots } from './LoadingDots';
 // import { BRAND_TERRACOTTA } from '../../constants/theme';
 import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
 import { formatSourceRef } from '../../utils/format';
+import CitedText from './CitedText';
 
 /**
  * The "Da IA" block containing the explanation text, historical context,
@@ -69,9 +70,38 @@ export default function IABlock({
       {isStreaming && !text ? <Dots /> : (
         <div style={{
           fontSize, color: theme.text, lineHeight: 1.78, whiteSpace: 'pre-wrap',
-        }}>{renderInlineMarkdown(
-          [msg.isReflection && msg.opening, text].filter(Boolean).join('\n\n')
-        )}</div>
+        }}>
+          {/* Reflexivo's opening used to be joined into the same string as
+              `text` before markdown rendering, via '\n\n'. inlineRefs'
+              positions are counted into `text` alone, so joining them here
+              would shift every ref by opening.length + 2 — kept as its own
+              paragraph instead. Reflexivo is switched off in production
+              (msg.isReflection is always false today); this only matters if
+              it is reconnected. */}
+          {msg.isReflection && msg.opening && (
+            <div style={{ marginBottom: '1em' }}>{renderInlineMarkdown(msg.opening)}</div>
+          )}
+          {/* Durante o stream as posições ainda não valem: o texto é parcial e
+              os refs chegam só com o `done`. Enquanto isso, texto puro. */}
+          {isStreaming || !msg.inlineRefs?.length ? (
+            renderInlineMarkdown(text)
+          ) : (
+            <CitedText
+              text={text}
+              refs={msg.inlineRefs}
+              theme={theme}
+              precision={msg.profile?.citation_precision}
+              insideOneChapter={msg.hasDaObra}
+              onOpenSource={(ref) => setOpenSource({
+                book: ref.book,
+                chapter: ref.chapter_title,
+                chapter_ref: ref.chapter_ref,
+                item_number: ref.item_number,
+                excerpt: ref.excerpt,
+              })}
+            />
+          )}
+        </div>
       )}
 
       {/* Refletir is switched off for production — the mode is disconnected,
