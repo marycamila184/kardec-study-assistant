@@ -9,25 +9,8 @@ import { Dots } from './LoadingDots';
 // import { BRAND_TERRACOTTA } from '../../constants/theme';
 import { renderInlineMarkdown } from '../../utils/inlineMarkdown';
 import { formatSourceRef } from '../../utils/format';
+import { passageKey } from '../../utils/citedText';
 import CitedText from './CitedText';
-
-// Identity of a passage, for matching an inline citation against a chip.
-//
-// The chapter is part of it: item numbers restart every chapter in O Evangelho
-// Segundo o Espiritismo, O Céu e o Inferno and A Gênese, so book+item alone
-// collapses two different passages into one key — and /chat retrieval is not
-// chapter-scoped. The backend keeps them apart for the same reason.
-//
-// A passage with no real item number (the parser's "section-N" placeholders,
-// which reach one side raw and the other as null) gets NO key and is never
-// filtered. That asymmetry is chosen: showing a chip twice is untidy, while
-// dropping a passage the answer actually used is the failure this whole
-// feature exists to prevent.
-const passageKey = (p) => {
-  const item = String(p.item_number ?? '');
-  if (!/^\d+$/.test(item)) return null;
-  return `${p.book}|${p.chapter_ref ?? ''}|${item}`;
-};
 
 /**
  * The "Da IA" block containing the explanation text, historical context,

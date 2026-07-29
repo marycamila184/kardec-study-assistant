@@ -1,6 +1,6 @@
 // Sem runner de testes no frontend: este script exercita a função pura em Node.
 // Rode com: node scripts/check_cited_text.mjs
-import { splitByRefs } from '../frontend/src/utils/citedText.js';
+import { splitByRefs, passageKey, citationLabel } from '../frontend/src/utils/citedText.js';
 
 let falhou = false;
 const check = (label, got, want) => {
@@ -58,5 +58,50 @@ check('posição além do fim é presa ao fim',
   [{ type: 'text', value: 'abc' }, { type: 'ref', ref: r(999, '3') }]);
 
 check('texto vazio não quebra', splitByRefs('', [r(0, '3')]), [{ type: 'ref', ref: r(0, '3') }]);
+
+// passageKey — a identidade usada para tirar da fileira de chips o que já
+// virou link inline. O capítulo faz parte da chave porque a numeração reinicia
+// por capítulo em A Gênese, Evangelho e Céu e Inferno.
+const generseCapI = passageKey({
+  book: 'A Gênese', chapter_ref: 'CAPÍTULO I', item_number: '3',
+});
+const generseCapII = passageKey({
+  book: 'A Gênese', chapter_ref: 'CAPÍTULO II', item_number: '3',
+});
+check('passageKey: mesmo item, capítulos diferentes de A Gênese → chaves diferentes',
+  generseCapI === generseCapII, false);
+
+check('passageKey: item_number "section-3" nunca filtra',
+  passageKey({ book: 'X', chapter_ref: null, item_number: 'section-3' }), null);
+
+check('passageKey: item_number null nunca filtra',
+  passageKey({ book: 'X', chapter_ref: null, item_number: null }), null);
+
+// citationLabel — o rótulo do link inline.
+check('citationLabel: short dentro de um capítulo conhecido → "item N"',
+  citationLabel(
+    { book: 'O Evangelho Segundo o Espiritismo', chapter_ref: 'CAPÍTULO XII', item_number: '3' },
+    'short', true,
+  ),
+  'item 3');
+
+// Não fixado numa string exata: sobrevive a um ajuste de formatação em
+// format.js, desde que o rótulo continue nomeando obra e capítulo.
+const shortForaDoCapitulo = citationLabel(
+  { book: 'O Evangelho Segundo o Espiritismo', chapter_ref: 'CAPÍTULO XII', item_number: '3' },
+  'short', false,
+);
+check('citationLabel: short fora de um capítulo conhecido nomeia a obra',
+  shortForaDoCapitulo.includes('O Evangelho Segundo o Espiritismo'), true);
+check('citationLabel: short fora de um capítulo conhecido nomeia o capítulo',
+  shortForaDoCapitulo.includes('XII'), true);
+
+const full = citationLabel(
+  { book: 'O Evangelho Segundo o Espiritismo', chapter_ref: 'CAPÍTULO XII', item_number: '3' },
+  'full', true,
+);
+check('citationLabel: full nomeia a obra', full.includes('O Evangelho Segundo o Espiritismo'), true);
+check('citationLabel: full nomeia o capítulo', full.includes('XII'), true);
+check('citationLabel: full nomeia o item', full.includes('3'), true);
 
 process.exit(falhou ? 1 : 0);
