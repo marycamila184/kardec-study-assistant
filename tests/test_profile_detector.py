@@ -127,3 +127,44 @@ def test_an_explicit_request_still_wins_over_the_level():
     assert moved.citation_style == "inline"
     assert "citation_style" in moved.pinned
     assert moved.depth == "aprofundado"
+
+
+def test_a_doctrinal_question_is_not_a_request_about_form():
+    """Measured 2026-07-28: 'o que Kardec diz sobre a prece?' was setting
+    citation_style to inline — and an explicit request PINS, so a shape nobody
+    asked for would stick to the whole conversation. Two of five plain
+    questions tripped it before the classifier learned the difference.
+
+    The pure half is tested here; the classifier prompt carries the example.
+    """
+    for asked in ({}, {"nivel": "medio"}):
+        assert apply_changes(CHAT_DEFAULT, asked) is CHAT_DEFAULT
+
+
+def test_the_study_mode_starts_deeper_than_a_first_question_elsewhere():
+    """Someone who opened Estudar has already said what they came for."""
+    from src.rag.profile import MODE_DEFAULTS
+
+    study = MODE_DEFAULTS["estudar_obra"]
+    assert study.depth == "aprofundado"
+    assert study.citation_style == "inline"
+    # Deep is not technical: a newcomer can open Estudar, and the product exists
+    # to lower that barrier.
+    assert study.vocabulary == "corrente"
+
+
+def test_the_study_depth_survives_the_level_classifier():
+    """aprofundado + corrente matches no paired level, so an unpinned depth
+    would read as neutral and get pulled back down on the next turn."""
+    from src.rag.profile import MODE_DEFAULTS
+    from src.rag.profile_detector import apply_level
+
+    study = MODE_DEFAULTS["estudar_obra"]
+    assert apply_level(study, 0).depth == "aprofundado"
+
+
+def test_an_explicit_request_still_overrides_the_mode_default():
+    from src.rag.profile import MODE_DEFAULTS
+
+    study = MODE_DEFAULTS["estudar_obra"]
+    assert apply_changes(study, {"citacao": "none"}).citation_style == "none"

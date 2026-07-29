@@ -26,7 +26,7 @@ from src.rag.explicador import explicar_stream, prepare_study
 from src.rag.generator import generate, generate_stream
 from src.rag.mode_detector import extract_study_reference
 from src.rag.orchestrator import classify_intent
-from src.rag.profile import CHAT_DEFAULT, ResponseProfile
+from src.rag.profile import CHAT_DEFAULT, MODE_DEFAULTS, ResponseProfile
 from src.rag.profile_detector import detect_profile_changes
 
 # ReflectRequest and ReflectResponse are commented out below: Refletir is
@@ -90,10 +90,16 @@ def _answer_with_nudge(
 _PROFILE_TIMEOUT_S = 3.0
 
 
-def _resolve_profile(question: str, state: ProfileState | None) -> ResponseProfile:
+def _resolve_profile(
+    question: str, state: ProfileState | None, current_mode: str | None = None
+) -> ResponseProfile:
     """The profile this turn is answered with: what the client carried in, plus
-    anything this message asks to change."""
-    incoming = CHAT_DEFAULT
+    anything this message asks to change.
+
+    With nothing carried in, the mode decides the starting point — a first
+    question in Estudar is not the same as a first question in Dialogar.
+    """
+    incoming = MODE_DEFAULTS.get(current_mode or "", CHAT_DEFAULT)
     if state is not None:
         incoming = ResponseProfile(
             citation_style=state.citation_style,
@@ -151,7 +157,7 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     # message is turned away.
     history = trim_history(request.question, history)
 
-    profile = _resolve_profile(request.question, request.profile)
+    profile = _resolve_profile(request.question, request.profile, request.current_mode)
     result, suggested_mode = _answer_with_nudge(
         request.question,
         "tirar_duvida",
@@ -193,7 +199,7 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
 
     history = trim_history(request.question, history)
 
-    profile = _resolve_profile(request.question, request.profile)
+    profile = _resolve_profile(request.question, request.profile, request.current_mode)
 
     def events():
         executor = ThreadPoolExecutor(max_workers=1)

@@ -52,9 +52,13 @@ _SYSTEM_PROMPT = (
     'começando; "denso" quando for elaborada, técnica, ou usar termos da '
     'doutrina com familiaridade; "medio" no caso comum. Sempre responda este '
     "campo.\n\n"
-    "Uma pergunta comum sobre a doutrina não pede os dois primeiros: responda "
-    'apenas {"nivel": "medio"}.\n'
+    'Só preencha "citacao" e "referencia" quando a mensagem der uma '
+    "INSTRUÇÃO sobre a forma da resposta. Perguntar o que Kardec diz, o que uma "
+    "obra ensina ou pedir explicação NÃO é pedir citação — é a pergunta comum, "
+    'e a resposta é apenas {"nivel": "..."}.\n'
     'Exemplos: "o que é o perispírito?" -> {"nivel": "medio"}. '
+    '"o que Kardec diz sobre a prece?" -> {"nivel": "medio"} '
+    "(pergunta sobre a doutrina, não pedido de citação). "
     '"traga as citações" -> {"citacao": "inline", "nivel": "medio"}. '
     '"o que acontece quando a gente morre?" -> {"nivel": "leve"}. '
     '"como a lei de afinidade opera na erraticidade?" -> {"nivel": "denso"}.'

@@ -582,7 +582,10 @@ export default function App() {
       // gets the guards and the profile axes that /study does not have. The
       // trilhas and the daily passage keep /study, where the chapter is known
       // and the prompt is deliberately tighter.
-      reply = await chatMessage(query, [], bookName || null, null, profile);
+      // 'estudar_obra' so the mode's own default applies — a first question
+      // here starts deeper than one in Dialogar — and so the orchestrator
+      // does not nudge a reader already inside Estudar toward Estudar.
+      reply = await chatMessage(query, [], bookName || null, 'estudar_obra', profile);
     } catch (err) {
       console.error('handleAskTopic failed:', err);
       if (err.status === 404) {

@@ -66,6 +66,35 @@ CHAT_DEFAULT = ResponseProfile(
     sections=frozenset({"seguir"}),
 )
 
+# Someone who opened Estudar has already said what they came for, so that mode
+# does not start at the neutral depth a first question in Dialogar gets.
+# Reported 2026-07-28: first answers there read as too short, because the level
+# starts neutral and only climbs a step per turn.
+#
+# `depth` is PINNED, and the reason is mechanical as well as semantic: a profile
+# at aprofundado/corrente matches none of the paired levels, so the classifier
+# would read it as neutral and could pull it back down on the next turn.
+# Choosing the mode is an explicit act, and an explicit request still overrides
+# a pin — "explique mais simples" works exactly as it always did.
+#
+# Vocabulary stays `corrente`. Deep is not the same as technical, and someone
+# new to the works can open Estudar; the product exists to lower that barrier.
+MODE_DEFAULTS = {
+    "estudar_obra": ResponseProfile(
+        depth="aprofundado",
+        # The passages in the text, not behind a chip. Measured on 2026-07-28:
+        # inline took verbatim quotation from 2 to 12 across three questions.
+        # A study screen is where someone came to read Kardec's words, so they
+        # belong in front of them.
+        #
+        # `citation_precision` stays short on purpose: the full reference is for
+        # copying a citation out of the app, which is a request, not a mode.
+        citation_style="inline",
+        sections=frozenset({"seguir"}),
+        pinned=frozenset({"depth"}),
+    ),
+}
+
 STUDY_DEFAULT = ResponseProfile(
     answer_format="estruturado",
     sections=frozenset({"conceitos", "perguntas", "relacionados", "chapter_context"}),
