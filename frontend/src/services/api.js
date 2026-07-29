@@ -142,30 +142,30 @@ function mapStudy(data, bookLabel, itemNumber) {
       preview: r.preview,
       conexao: r.conexao || null,
     })),
-    // The chapter's other items, with the ones the answer cited first.
+    // The chapter's other items.
     //
-    // Two corrections layered here, both from live use. The heading used to say
-    // "usados na explicação" while listing everything fed to the prompt — on
-    // the daily passage of 2026-07-28 that promised two items the answer had
-    // never marked. Showing only the cited ones fixed the honesty and left a
-    // study screen bare on most turns, which is its own kind of wrong: having
-    // more of the chapter within reach is useful whether or not this particular
-    // answer leaned on it.
+    // The heading used to say "usados na explicação" while listing everything
+    // fed to the prompt — on the daily passage of 2026-07-28 that promised two
+    // items the answer had never marked. Showing only the cited ones fixed the
+    // honesty and left a study screen bare on most turns, which is its own kind
+    // of wrong: having more of the chapter within reach is useful whether or
+    // not this particular answer leaned on it. So: everything is listed, and
+    // the label promises nothing about use.
     //
-    // So: everything is listed, the label promises nothing about use, and what
-    // the [item N] markers point at comes first — the ordering carries the
-    // information the heading used to claim.
-    chapterContext: (() => {
-      const cited = new Set((data.inline_refs || []).map(r => r.item_number));
-      return (data.chapter_context || [])
-        .map(c => ({
-          book: c.book,
-          chapter: c.chapter_title || null,
-          item_number: c.item_number,
-          excerpt: c.excerpt,
-        }))
-        .sort((a, b) => (cited.has(b.item_number) ? 1 : 0) - (cited.has(a.item_number) ? 1 : 0));
-    })(),
+    // chapter_ref is copied through so IABlock can pass it to formatSourceRef —
+    // without it these buttons show only "item N" and silently drop the
+    // chapter, one of the label failures raised on 2026-07-28.
+    //
+    // No cited-first sort here anymore: IABlock filters the cited items out of
+    // this list entirely once it renders them as inline links, so an ordering
+    // that used to promote them to the front has nothing left to promote.
+    chapterContext: (data.chapter_context || []).map(c => ({
+      book: c.book,
+      chapter: c.chapter_title || null,
+      chapter_ref: c.chapter_ref || null,
+      item_number: c.item_number,
+      excerpt: c.excerpt,
+    })),
   };
 }
 

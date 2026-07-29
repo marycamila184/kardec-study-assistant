@@ -148,53 +148,80 @@ export default function IABlock({
         </div>
       )}
 
-      {!isStreaming && msg.sources?.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 8 }}>
-          {msg.sources.map((s, i) => (
-            <button key={i} onClick={() => setOpenSource(s)} style={{
-              background: 'transparent',
-              border: `1px solid ${theme.cardBorder}`,
-              color: theme.subtext, fontSize: 11,
-              padding: '3px 10px', borderRadius: 12,
-              cursor: 'pointer', fontWeight: 500,
-            }}>
-              📖 {formatSourceRef({
-                book: s.book,
-                chapterRef: s.chapter_ref,
-                itemNumber: s.item_number,
-              })}
-            </button>
-          ))}
-        </div>
-      )}
+      {/* O que a prosa apontou virou link no texto; embaixo fica só o que
+          sustentou a resposta sem ser apontado numa frase específica. Sem o
+          filtro, cada fonte apareceria duas vezes. O rótulo existe porque uma
+          fileira sem explicação, ao lado de links que se explicam, lê como
+          sobra. */}
+      {!isStreaming && (() => {
+        const citados = new Set(
+          (msg.inlineRefs || []).map((r) => `${r.book}|${r.item_number}`)
+        );
+        const restantes = (msg.sources || []).filter(
+          (s) => !citados.has(`${s.book}|${s.item_number}`)
+        );
+        if (!restantes.length) return null;
+        return (
+          <div style={{ marginTop: 10 }}>
+            {citados.size > 0 && (
+              <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
+                Outras passagens usadas
+              </div>
+            )}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {restantes.map((s, i) => (
+                <button key={i} onClick={() => setOpenSource(s)} style={{
+                  background: 'transparent',
+                  border: `1px solid ${theme.cardBorder}`,
+                  color: theme.subtext, fontSize: 11,
+                  padding: '3px 10px', borderRadius: 12,
+                  cursor: 'pointer', fontWeight: 500,
+                }}>
+                  📖 {formatSourceRef({
+                    book: s.book, chapterRef: s.chapter_ref, itemNumber: s.item_number,
+                  })}
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
 
-      {/* The chapter items the answer actually cited, resolved from its
-          [item N] markers. When it cited none — which is most turns — the row
-          is simply absent, and that is the honest outcome: the earlier version
-          listed everything fed to the prompt under a heading claiming it had
-          been used. Labelled neutrally as "itens do capítulo" because these are
-          the chapter as retrieval returned it, verses and Kardec's commentary
-          mixed, and nothing in the metadata separates the two. */}
-      {!isStreaming && msg.chapterContext?.length > 0 && (
-        <div style={{ marginTop: 10 }}>
-          <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
-            Outros itens deste capítulo
+      {!isStreaming && msg.chapterContext?.length > 0 && (() => {
+        // O que a explicação citou virou link no texto e sai daqui. O rótulo
+        // "Outros itens deste capítulo" passa a ser literalmente verdade — e a
+        // ordenação citados-primeiro perde a função, porque citado nenhum
+        // sobra nesta lista.
+        const citados = new Set((msg.inlineRefs || []).map((r) => r.item_number));
+        const restantes = msg.chapterContext.filter(
+          (c) => !citados.has(c.item_number)
+        );
+        if (!restantes.length) return null;
+        return (
+          <div style={{ marginTop: 10 }}>
+            <div style={{ fontSize: 11, color: theme.subtext, marginBottom: 5 }}>
+              Outros itens deste capítulo
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {restantes.map((c, i) => (
+                <button key={i} onClick={() => setOpenSource(c)} style={{
+                  background: 'transparent',
+                  border: `1px solid ${theme.cardBorder}`,
+                  color: theme.subtext, fontSize: 11,
+                  padding: '3px 10px', borderRadius: 12,
+                  cursor: 'pointer', fontWeight: 500,
+                }}>
+                  📖 {formatSourceRef({
+                    book: c.book,
+                    chapterRef: c.chapter_ref,
+                    itemNumber: c.item_number,
+                  })}
+                </button>
+              ))}
+            </div>
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-            {msg.chapterContext.map((c, i) => (
-              <button key={i} onClick={() => setOpenSource(c)} style={{
-                background: 'transparent',
-                border: `1px solid ${theme.cardBorder}`,
-                color: theme.subtext, fontSize: 11,
-                padding: '3px 10px', borderRadius: 12,
-                cursor: 'pointer', fontWeight: 500,
-              }}>
-                📖 {formatSourceRef({ book: c.book, itemNumber: c.item_number })}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Um voto na resposta. Este componente rende a resposta da IA tanto no
           chat quanto no estudo livre, então cobre os dois lugares de uma vez.
