@@ -369,7 +369,11 @@ settle a small prompt change on their own.
 
 ## API Layer (`src/api/`)
 
-Stateless. Clients own conversation history; `/chat` accepts it but the server stores nothing. (`/reflect` did too, and its schemas below are kept for reference — Reflexivo is switched off for production, not deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md.)
+Stateless as a service. Clients own conversation history; `/chat` accepts it, and no server-side session or database backs a request. Answered turns *are* recorded, as one JSON line on stdout — see `turn_id` below and the logging rule in CLAUDE.md. (`/reflect` was stateless too, and its schemas below are kept for reference — Reflexivo is switched off for production, not deleted. See docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md.)
+
+**`turn_id`** (on `ChatResponse` and `StudyResponse`): the id of the line this turn wrote to the log, so `POST /feedback` can attach a vote to it. It names one log line, never repeats, and links nothing to anyone — it is not a session id and not an identifier of a person. `null` when the turn was not logged, and the client then shows no vote buttons. Generated in `log_chat_turn`, which returns it, so the route never mints a second one; generated outside that function's `try`, so a failed write still yields an id.
+
+**`X-Session-Id`** (request header, all answering routes plus `/feedback`): the reader's consent to have the turns of one tab linked, carried as the header's *presence* — its absence is the refusal. Read by `session_id_from` in `routes.py`, which never falls back to IP, cookie or user-agent. It must stay listed in `allow_headers` of the CORS middleware in `main.py`: without it the browser preflight rejects every consented request, and no `TestClient` route test can catch that, because `TestClient` issues no preflight.
 
 **`suggested_mode`** (on `/chat`, and historically `/reflect`): a hint for the client to surface a cross-mode nudge button, produced by `orchestrator.classify_intent`. For `estudar_obra` the response also carries `suggested_item_number` / `suggested_book` (from `extract_study_reference`; book `null` unless named) so the client opens `/study` pre-filled. `null` when no nudge applies (the `refletir` target is disconnected, see `orchestrator.py`). The client sends `current_mode` so the orchestrator never nudges toward the current mode. Suppressed on `crise`.
 
