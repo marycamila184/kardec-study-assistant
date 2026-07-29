@@ -22,7 +22,10 @@ text, so a client that ignores `inline_refs` displays what it displays today.
 See docs/superpowers/specs/2026-07-28-grounding-markers-design.md
 """
 
+import logging
 import re
+
+logger = logging.getLogger(__name__)
 
 # "[item 11]", "[ITEM 11]", "[item11]" — the mangling worth tolerating, and no
 # more. A bare "[11]" is NOT an item marker: /study prose legitimately contains
@@ -32,6 +35,21 @@ import re
 # 2026-07-28. It resolves to nothing and the marker is removed — a placeholder
 # on screen is a leak either way.
 _ITEM_MARKER = re.compile(r"\[\s*item\s*(\d{1,4}|N)\s*\]", re.IGNORECASE)
+
+# The shape the model sometimes writes instead: "item [2]", with the word
+# OUTSIDE the bracket. It is not matched above, so it is neither stripped nor
+# validated — the number reaches the screen unchecked, which is how "[50]"
+# (a real ESE item, from another chapter) was displayed on 2026-07-28.
+#
+# Deliberately NOT folded into `_ITEM_MARKER`, decided 2026-07-29. The canonical
+# form is an apposition and strips cleanly; this one is part of the sentence's
+# syntax, so removing it leaves "o  do comentário". Fixing the prompt to stop
+# producing it was chosen first, and this counter measures whether that worked.
+# The decision, with the three options weighed:
+# docs/superpowers/plans/2026-07-28-marcadores-de-item-que-escapam.md
+# Both forms spelled out: "itens?" would mean "iten" plus an optional "s" and
+# would never match "item" — the Portuguese plural is not a suffix.
+_WOVEN_ITEM_MARKER = re.compile(r"\b(?:item|itens)\s*\[\s*\d{1,4}\s*\]", re.IGNORECASE)
 
 # "[fonte 1]", "[FONTE 1, 3]" — the passage indices /chat's prompt prints.
 #
@@ -56,6 +74,13 @@ def extract_item_refs(text: str, allowed: list[dict]) -> tuple[str, list[dict]]:
     Returns (clean_text, refs), where each ref carries `position`: the index
     into clean_text where the marker stood.
     """
+    # Log-only, and log-only on purpose — see `_WOVEN_ITEM_MARKER`. This is the
+    # measurement that decides whether the code needs to handle the shape at
+    # all, or whether the prompt fix of 2026-07-29 was enough.
+    woven = _WOVEN_ITEM_MARKER.findall(text or "")
+    if woven:
+        logger.warning("item marker written with the word outside: %s", woven[:3])
+
     by_item = {str(a["item_number"]): a for a in allowed}
 
     def _resolve(number: str) -> list[dict]:

@@ -38,7 +38,7 @@ _JSON_RULES = _SHARED_RULES.format(ctx='"contexto"', con='"conceitos_chave"')
 # The inline grounding marker. Isolated as one constant so a prompt restructure
 # can replace the wording wholesale: everything downstream depends on the marker
 # SHAPE ("[item N]"), parsed in inline_refs.py, never on this sentence.
-# An item not listed in [COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO] is dropped in
+# An item not listed in [OUTROS ITENS DESTE CAPÍTULO] is dropped in
 # code, so a marker invented here costs the reference, not the reader's trust.
 # See docs/superpowers/specs/2026-07-28-grounding-markers-design.md
 _ITEM_MARKER_RULE = load("study-item-marker")
@@ -60,7 +60,7 @@ _SYSTEM_TEMPLATE = (
 [NOTAS DE RODAPÉ]
 {footnote_passages}
 
-[COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO]
+[OUTROS ITENS DESTE CAPÍTULO]
 {chapter_commentary}
 
 [REFERÊNCIAS RELACIONADAS]
@@ -85,7 +85,7 @@ Você é um tutor socrático especializado na obra de Allan Kardec.
 [NOTAS DE RODAPÉ]
 {footnote_passages}
 
-[COMENTÁRIO DOUTRINÁRIO DESTE CAPÍTULO]
+[OUTROS ITENS DESTE CAPÍTULO]
 {chapter_commentary}
 
 [REFERÊNCIAS RELACIONADAS]
@@ -93,15 +93,34 @@ Você é um tutor socrático especializado na obra de Allan Kardec.
 )
 
 
-def _format_related(chunks: list[dict]) -> str:
+def _format_related(chunks: list[dict], markable: bool = False) -> str:
+    """The passages, as the prompt prints them.
+
+    `markable=True` is for the items of THIS chapter: they come out already in
+    the exact shape of the marker the model is asked to write — "[item 3]" — so
+    the rule becomes copying rather than remembering.
+
+    Related passages come out with no citable number, deliberately. They cross
+    chapters, where a bare item number is ambiguous (numbering restarts every
+    chapter in Evangelho and Céu e Inferno). While both lists had the same
+    shape, "use only numbers from this section" depended on the model recalling
+    which list a number came from — and on 2026-07-28 it did not: ESE item 50,
+    from "Pelos inimigos do Espiritismo", was cited as if it belonged to the
+    chapter being studied. Their reference reaches the reader through the
+    Curador's related-item cards, not through a marker.
+    """
     if not chunks:
         return "(nenhuma)"
     parts = []
     for c in chunks:
         m = c["metadata"]
-        parts.append(
-            f"[{m['book']} | {item_word(m['book'])} {m['item_number']}]\n\"{c['content']}\""
-        )
+        # Literally "item", never `item_word()`: the marker vocabulary is fixed
+        # by `_ITEM_MARKER` in inline_refs.py, not by the book's own word for an
+        # entry. This section is Evangelho-only today, where the two coincide —
+        # but if it ever carries O Livro dos Espíritos, `item_word` would print
+        # "[questão 887]" and the parser would not recognise it.
+        head = f"[item {m['item_number']}]" if markable else f"[{m['book']}]"
+        parts.append(f"{head}\n\"{c['content']}\"")
     return "\n\n".join(parts)
 
 
@@ -117,7 +136,9 @@ def build_explicador_messages(
     system = template.format(
         main_passage=main_text,
         footnote_passages=footnote_context or "(nenhuma)",
-        chapter_commentary=_format_related(chapter_commentary_chunks or []),
+        chapter_commentary=_format_related(
+            chapter_commentary_chunks or [], markable=True
+        ),
         related_passages=_format_related(related_chunks),
     )
     # Appended, so an empty fragment leaves the prompt byte-identical. It lands

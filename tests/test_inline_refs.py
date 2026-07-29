@@ -241,3 +241,28 @@ def test_several_references_keep_their_places():
     rendered, _ = render_references(clean, refs)
     assert rendered.index("O Livro dos Espíritos") < rendered.index("Evangelho")
     assert rendered.count("(") == 2
+
+
+def test_woven_marker_is_counted_but_not_stripped(caplog):
+    """A forma "item [2]" continua chegando à tela — decisão de 2026-07-29.
+
+    O regex canônico não a reconhece, então ela não é removida nem validada. A
+    escolha foi consertar o prompt primeiro e MEDIR, em vez de alargar o regex
+    às cegas: a forma canônica é aposto e sai limpa, esta faz parte da sintaxe
+    e removê-la deixaria "o  do comentário".
+
+    Este teste trava a decisão: se alguém alargar o regex sem trocar o teste,
+    fica claro que mudou de comportamento de propósito.
+    """
+    with caplog.at_level("WARNING"):
+        limpo, refs = extract_item_refs("o item [2] do comentário", [])
+    assert limpo == "o item [2] do comentário"
+    assert refs == []
+    assert "word outside" in caplog.text
+
+
+def test_canonical_marker_still_leaves_no_trace(caplog):
+    with caplog.at_level("WARNING"):
+        limpo, refs = extract_item_refs("o comentário [item 2] diz", [])
+    assert "[item 2]" not in limpo
+    assert "word outside" not in caplog.text
