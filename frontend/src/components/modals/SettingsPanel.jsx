@@ -1,6 +1,7 @@
 import { ANALYTICS_NOTICE, CONTACT_FORM_URL, LOCAL_STORAGE_NOTICE, PRIVACY_NOTICE } from '../../constants/contact';
 import React, { useState } from 'react';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
+import { grantConsent, hasConsent, revokeConsent } from '../../services/consent';
 
 /**
  * Slide-in settings panel from the right (300px wide).
@@ -46,6 +47,9 @@ export default function SettingsPanel({
   theme,
 }) {
   const [justSaved, setJustSaved] = useState(false);
+  // Lido do localStorage, não recebido por prop: o consentimento não é estado
+  // do App, e nenhuma outra tela precisa dele.
+  const [consent, setConsent] = useState(hasConsent);
   useEscapeKey(onClose, open);
 
   if (!open) return null;
@@ -161,6 +165,24 @@ export default function SettingsPanel({
               before the reader had any reason to care. Here it is found by
               whoever goes looking for it. */}
           <Section title="Privacidade" theme={theme}>
+            {/* Um alternador, não um botão de "revogar": um revogar só serve a
+                quem aceitou, e quem recusou no banner ficaria sem caminho de
+                volta. Aqui, ao lado do texto que descreve o que é registrado —
+                separar o controle da promessa é como os dois divergem. */}
+            <Row
+              label="Guardar minhas conversas"
+              sublabel="Ajuda a melhorar as respostas. O vínculo entre as perguntas some quando você fecha a aba."
+              theme={theme}
+            >
+              <Toggle
+                on={consent}
+                onToggle={() => {
+                  const next = !consent;
+                  next ? grantConsent() : revokeConsent();
+                  setConsent(next);
+                }}
+              />
+            </Row>
             <div style={{ background: 'rgba(107,155,184,.07)', border: '1px solid rgba(107,155,184,.2)', borderRadius: 8, padding: 14 }}>
               <p style={{ fontSize: 12, color: theme.subtext, lineHeight: 1.7, margin: '0 0 10px' }}>
                 {LOCAL_STORAGE_NOTICE}
