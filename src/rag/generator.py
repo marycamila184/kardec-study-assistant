@@ -24,6 +24,7 @@ from src.rag.inline_refs import (
 )
 from src.rag.markers import strip_trailing_markers
 from src.rag.mode_detector import extract_study_reference, is_smalltalk
+from src.rag.pasted_quote import find_pasted_source
 from src.rag.premise_check import unsupported_terms
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile
 from src.rag.prompt import build_messages
@@ -180,6 +181,20 @@ def _prepare(
                     "safety_level": "normal",
                 }, None
             chunks = []
+
+        # A pasted passage reaches the same place as a named item. The reader
+        # is holding text and asking about it; verifying it against the corpus
+        # answers "is this really Kardec, and where?" — a teacher's question —
+        # and puts the passage in front of them instead of a chip to click.
+        if not direct_chunks:
+            pasted = find_pasted_source(question, chunks)
+            if pasted is not None:
+                logger.info(
+                    "pasted passage resolved to %s %s",
+                    pasted["metadata"].get("book"),
+                    pasted["metadata"].get("item_number"),
+                )
+                direct_chunks = [pasted]
 
         if direct_chunks:
             # The referenced item leads the passage list; drop any semantic
