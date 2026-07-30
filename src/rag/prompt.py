@@ -1,3 +1,5 @@
+import re
+
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile, render_instructions
 from src.rag.prompt_files import load
 from src.rag.retriever import has_real_item_number, item_word
@@ -19,6 +21,21 @@ _SEGUIR_RULE = load("chat-seguir")
 _CAVEAT_INSTRUCTION = load("chat-caveat")
 
 _SENSITIVE_INSTRUCTION = load("chat-sensitive")
+
+
+_CAVEAT_HEADING = "# Cuidado com a pessoa"
+
+
+def _collapse_blank_runs(text: str) -> str:
+    """Three or more newlines become two — one blank line, never a gap.
+
+    An empty `{slot}` leaves the blank line above it and the one below it
+    touching. Markdown reads the result the same, but the prompt is assembled
+    for a model, and a gap where a section used to be is one more thing it has
+    to decide the meaning of. Runs at the seams only: nothing in these files
+    uses a double blank line on purpose.
+    """
+    return re.sub(r"\n{3,}", "\n\n", text).strip("\n")
 
 
 def _absent_terms_note(terms: list[str] | None) -> str:
@@ -83,11 +100,17 @@ def build_messages(
         notes.append(_SENSITIVE_INSTRUCTION)
     if add_caveat:
         notes.append(_CAVEAT_INSTRUCTION)
-    system = _SYSTEM_TEMPLATE.format(
-        passages=passages,
-        caveat="\n\n".join(notes),
-        seguir=_SEGUIR_RULE,
-        absent_terms=_absent_terms_note(absent_terms),
+    system = _collapse_blank_runs(
+        _SYSTEM_TEMPLATE.format(
+            passages=passages,
+            # The heading travels with the text it introduces. Left in the
+            # template it outlived its content: `{caveat}` is empty on most
+            # turns, so the COMMON prompt carried "# Cuidado com a pessoa"
+            # followed by nothing, and the rare one was the clean one.
+            caveat=(f"{_CAVEAT_HEADING}\n\n" + "\n\n".join(notes) if notes else ""),
+            seguir=_SEGUIR_RULE,
+            absent_terms=_absent_terms_note(absent_terms),
+        )
     )
     # Appended rather than woven into the template so an empty fragment leaves
     # the prompt byte-identical. The sensitivity and caveat instructions above

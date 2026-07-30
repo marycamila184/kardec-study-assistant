@@ -19,8 +19,23 @@ def _build_document(chunk: dict) -> str:
 
 
 def _build_id(stem: str, chunk: dict) -> str:
+    """The chunk's identity in the store, and therefore what `upsert` collides on.
+
+    `part` is in the key because Céu e Inferno restarts chapter *and* item
+    numbering in each part: "CAPÍTULO I" item 1 is `O PORVIR E O NADA` in
+    I PARTE and `O PASSAMENTO` in II PARTE. Without it the two share an id and
+    the second overwrites the first — silently, since upsert treats it as an
+    update. That cost 20 chunks of the production index (measured 2026-07-29).
+
+    Omitted when empty rather than folded in as a blank field, so the books
+    that carry no `part` (O Livro dos Espíritos, O Livro dos Médiuns) keep the
+    ids they already have and a re-ingestion updates their rows instead of
+    writing a second copy beside them.
+    """
     chapter = (chunk.get("chapter") or "").replace(" ", "_").lower()
-    return f"{stem}_{chapter}_{chunk['item_number']}_{chunk['subchunk_index']}"
+    part = (chunk.get("part") or "").replace(" ", "_").lower()
+    prefix = f"{stem}_{part}" if part else stem
+    return f"{prefix}_{chapter}_{chunk['item_number']}_{chunk['subchunk_index']}"
 
 
 def run_ingestion() -> None:

@@ -32,11 +32,36 @@ def test_settings_has_correct_defaults(monkeypatch):
 
     s = Settings()
     assert s.top_k == 5
-    assert s.max_distance == 0.55
+    assert s.max_distance == 0.45
     assert s.max_history_turns == 10
     assert s.chroma_collection == "kardec_docs"
     assert s.paths_dir == "data/paths"
     assert s.embedding_model == "BAAI/bge-m3"
+
+
+def test_max_distance_sits_in_the_measured_gap(monkeypatch):
+    """0.45 não é palpite: medido em 2026-07-29 sobre o índice bge-m3.
+
+    As oito perguntas do arnês de /chat encontram seu capítulo apto entre 0.319
+    e 0.379. Seis perguntas que as obras não cobrem — fofoca, chakras, signo,
+    cristal, amuleto — têm sua MELHOR passagem entre 0.474 e 0.546. Os dois
+    grupos não se tocam, e 0.45 fica no meio do vão: preserva 8/8 das cobertas
+    e cala 6/6 das não cobertas.
+
+    O limiar existe para isto: sem ele, uma pergunta que Kardec não trata ainda
+    entrega cinco passagens fracas ao modelo, e foi sobre passagem fraca que ele
+    inventou uma frase sobre demônios e a atribuiu a um trecho que fala de outra
+    coisa. A guarda de citação não pegou porque a invenção veio parafraseada.
+
+    Este projeto apertou guarda por raciocínio duas vezes e nas duas negou
+    resposta correta. Se este número mudar, meça de novo — o vão é do bge-m3 e
+    de mais nada.
+    """
+    monkeypatch.setenv("TOGETHER_API_KEY", "test-key")
+    from src.core.config import Settings
+
+    s = Settings()
+    assert 0.379 < s.max_distance < 0.474
 
 
 def test_defaults_to_together_provider(monkeypatch):

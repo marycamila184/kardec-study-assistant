@@ -143,7 +143,24 @@ class Settings(BaseSettings):
     deepinfra_api_key: str | None = None
     novita_api_key: str | None = None
     top_k: int = 5
-    max_distance: float = 0.55
+    # O corte de "esta passagem tem algo a ver com a pergunta". Medido
+    # 2026-07-29 sobre o índice bge-m3, e há um vão limpo entre os dois regimes:
+    # as oito perguntas do arnês de /chat acham seu capítulo apto entre 0.319 e
+    # 0.379; seis perguntas que as obras não cobrem (fofoca, chakras, signo,
+    # cristal, amuleto) têm sua MELHOR passagem entre 0.474 e 0.546. Nenhuma
+    # sobreposição. 0.45 fica no meio: preserva 8/8 das cobertas, cala 6/6 das
+    # não cobertas, custo medido zero.
+    #
+    # Era 0.55, e ali NENHUMA pergunta sem cobertura era barrada — todas
+    # chegavam ao modelo com cinco passagens fracas na mão. Foi sobre passagens
+    # assim que ele escreveu uma frase sobre demônios e a pendurou num trecho
+    # que fala de uma menina doente. `find_unsupported_quotes` não pegou porque
+    # a invenção veio parafraseada, sem aspas, e a guarda só cobre citação.
+    #
+    # Calibrado para o bge-m3 e para mais nada: o vão é uma propriedade da
+    # distribuição de distâncias deste modelo. Trocar de modelo de embedding
+    # invalida este número — meça de novo antes de confiar nele.
+    max_distance: float = 0.45
     max_history_turns: int = 10
     chroma_path: str = "data/embeddings/"
     chroma_collection: str = "kardec_docs"

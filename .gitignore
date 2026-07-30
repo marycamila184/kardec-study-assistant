@@ -67,3 +67,7 @@ Thumbs.db
 
 # Local git worktrees
 .worktrees/
+
+# Cola de operação: o próprio arquivo se declara local, e carrega URLs de
+# console, números de projeto e pendências pessoais. Fica no disco, fora do git.
+kardec-operacao.md

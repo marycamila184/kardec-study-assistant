@@ -251,9 +251,11 @@ kardec-study-assistant/
 - ✅ Clickable source citations (excerpt modal) on `/chat` (also built for `/reflect`, currently switched off)
 - ✅ Related-items modal with click-through to full study
 - ✅ Deployment infrastructure — Cloud Run (backend) + Vercel (frontend), index baked into the image, hosted embedding lane
-- **Refletir sobre uma Situação — in development, not shipped.** The mode exists in full (`src/rag/reflect.py`, `reflect_prompt.py`, `RefletirPicker.jsx`) and is disconnected rather than deleted, so re-enabling is wiring rather than rewriting. What keeps it off is measured: the 2026-07-26 retrieval evaluation found that all four embedding models tested answer *"estou me sentindo ansioso"* with the chapter on a Spirit's agony before **reincarnating**. The failure is structural, so the fix is chapter-level filtering, not a model swap. See `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md`
+- **Refletir sobre uma Situação — in development, not shipped.** The mode exists in full (`src/rag/reflect.py`, `reflect_prompt.py`, `RefletirPicker.jsx`) and is disconnected rather than deleted, so re-enabling is wiring rather than rewriting. What keeps it off is measured: the 2026-07-26 retrieval evaluation found that all four embedding models tested answer *"estou me sentindo ansioso"* with the chapter on a Spirit's agony before **reincarnating**. The failure looked structural, so the fix was taken to be chapter-level filtering rather than a model swap. See `docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md` — **and note the 2026-07-29 measurement below, which weakens that conclusion**
+- ✅ Measured 2026-07-29: **Qwen3-Embedding-8B evaluated against bge-m3, bge-m3 kept.** The verdict is split — Qwen wins the `reflexivo` set decisively (`avoid_hits` 6 → 1 at 4096 dims) and loses the `chat` set, which is the one in production. It also shows 4096 dims buy nothing over the MRL-truncated 1024, settling whether the native width is worth 4× the index on every cold start. Cost: US$0.026. The `avoid_hits` result is real evidence *against* "a model swap cannot fix Reflexivo", though with n=9 it argues for reopening the question, not for reconnecting the mode. Numbers in `docs/architecture.md`
+- ✅ Fixed 2026-07-29: **`max_distance` lowered 0.55 → 0.45, from a measured gap.** Covered questions find their apt chapter between 0.319 and 0.379; questions the works do not address have their best passage between 0.474 and 0.546 — no overlap. At 0.55 nothing was stopped, so an uncovered question still reached the model with five weak passages, and that is what it improvised doctrine on top of. The test guards the gap, not the value
 - Deterministic suppression of follow-up chips on sensitive turns — measured 2026-07-26: `gemini-3.6-flash` offered one right below the CVV note, and the current model's silence there is luck, not a guarantee
-- Fix the 20 documents that overwrite each other in the index — `_build_id` omits `part`, so O Céu e o Inferno's two chapter I collide (7327 stored where ingestion reports 7347)
+- ✅ Fixed 2026-07-29: the 20 documents that overwrote each other in the index — `_build_id` omitted `part`, so O Céu e o Inferno's two chapter I collided. The key now carries `part` when present, and ingestion stores all 7347. **Requires a rebuild from empty, not a re-ingestion:** ids change for the three books that have parts (Céu e Inferno, O Livro dos Espíritos, O Livro dos Médiuns), so re-ingesting over the old index leaves ~4451 orphan rows
 - Conversation memory support (server-side; currently client-owned)
 - Multilingual support
 
@@ -312,6 +314,16 @@ uv run isort src/
 # Run tests (backend)
 uv run pytest
 uv run pytest tests/path/to/test_file.py::TestClass::test_name
+
+# Frontend checks — there is no test runner in frontend/, so the pure
+# functions are exercised as plain Node scripts
+node scripts/check_cited_text.mjs          # citation splitting and labels
+node scripts/check_followup_reply.mjs      # follow-ups drop the visible passage
+node scripts/check_chat_current_mode.mjs   # every /chat call declares current_mode
+
+# Evaluation harnesses (cost money; read as comparisons between lanes)
+uv run python -m scripts.compare_retrieval --report      # embedding models
+uv run python -m scripts.compare_generators --report-only # prompts / models
 ```
 
 ---
