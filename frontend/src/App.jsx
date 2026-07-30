@@ -31,6 +31,7 @@ import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { formatItemRef, formatSourceRef } from './utils/format';
 import { dayLabel, startsNewDay } from './utils/day';
+import { asFollowUp } from './utils/followUpReply';
 import { lightTheme } from './constants/theme';
 import { MODES } from './constants/modes';
 import {
@@ -454,8 +455,15 @@ export default function App() {
       // const reply = label === '🪞 Reflexão'
       //   ? await reflectSituation(snippet)
       //   : await chatMessage(`Explique de forma mais simples: "${snippet}"`);
-      const reply = await chatMessage(`Explique de forma mais simples: "${snippet}"`);
-      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
+      // 'estudar_obra': as quick actions só existem dentro de Estudar (trilhas
+      // e Explorar), e sem o modo o orchestrator oferece ao leitor estudar a
+      // passagem que ele já tem aberta na frente.
+      const reply = await chatMessage(
+        `Explique de forma mais simples: "${snippet}"`, [], null, 'estudar_obra',
+      );
+      // asFollowUp: a pergunta cita o trecho, o backend reconhece o item e
+      // devolve studied_item — a mesma passagem que já está na tela acima.
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...asFollowUp(reply) });
     } catch (err) {
       console.error('runQuickAction failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
@@ -480,8 +488,14 @@ export default function App() {
     setLoad(true);
     scrollToBottom();
     try {
-      const reply = await chatMessage(queryText, [], bookFilter);
-      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply });
+      // 'estudar_obra': "Tenho uma dúvida" nasce dentro de Estudar, em trilhas
+      // ou no Explorar. Sem o modo, o orchestrator sugere Estudar a quem já
+      // está lá.
+      const reply = await chatMessage(queryText, [], bookFilter, 'estudar_obra');
+      // asFollowUp: "Como aplicar" e "Explicar mais simples" citam o trecho do
+      // passo, então studied_item volta apontando para o item que o card já
+      // exibe. Sem isto o bloco "Da Obra" aparece duas vezes seguidas.
+      append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...asFollowUp(reply) });
     } catch (err) {
       console.error('askDuvida failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
@@ -590,7 +604,9 @@ export default function App() {
     } catch (err) {
       console.error('handleAskTopic failed:', err);
       if (err.status === 404) {
-        try { reply = await chatMessage(query); }
+        // Sem filtro de livro (é a repescagem do 404), mas o modo continua
+        // sendo Estudar — a tela não mudou por causa do retry.
+        try { reply = await chatMessage(query, [], null, 'estudar_obra'); }
         catch (err2) {
           console.error('handleAskTopic fallback failed:', err2);
           reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };

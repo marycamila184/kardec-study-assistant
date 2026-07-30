@@ -2,18 +2,26 @@ from unittest.mock import MagicMock
 
 import pytest
 
+from src.core.config import settings
 from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
+
+# Distâncias derivadas do limiar em vigor, não escritas à mão. Estes testes são
+# sobre o MECANISMO de filtragem — um fica dentro do corte, o outro fora — e
+# fixar 0.5 os prendeu ao 0.55 da época: quando o limiar desceu para 0.45, três
+# testes de coisas não relacionadas (footnotes) quebraram junto.
+_DENTRO = settings.max_distance - 0.1
+_FORA = settings.max_distance + 0.1
 
 _MOCK_RESULTS = [
     {
         "content": "alma espírita",
         "metadata": {"book": "X", "chapter_title": "A", "item_number": "1"},
-        "distance": 0.5,
+        "distance": _DENTRO,
     },
     {
         "content": "texto irrelevante",
         "metadata": {"book": "Y", "chapter_title": "B", "item_number": "2"},
-        "distance": 1.5,
+        "distance": _FORA,
     },
 ]
 
@@ -34,7 +42,8 @@ def test_retrieve_filters_chunks_above_max_distance():
 
 def test_retrieve_keeps_chunks_at_or_below_max_distance():
     results = retrieve("alma")
-    assert all(r["distance"] <= 1.2 for r in results)
+    assert results
+    assert all(r["distance"] <= settings.max_distance for r in results)
 
 
 def test_retrieve_with_list_book_filter_uses_in_operator(monkeypatch):
@@ -146,7 +155,7 @@ def test_retrieve_strips_footnote_suffix_from_content(monkeypatch):
         {
             "content": "Texto principal.\n[Nota 1] Nota explicativa.",
             "metadata": {},
-            "distance": 0.5,
+            "distance": _DENTRO,
         },
     ]
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
@@ -158,7 +167,7 @@ def test_retrieve_strips_footnote_suffix_from_content(monkeypatch):
 def test_retrieve_footnote_context_empty_when_no_footnote(monkeypatch):
     mock_store = MagicMock()
     mock_store.query.return_value = [
-        {"content": "Texto sem notas.", "metadata": {}, "distance": 0.5},
+        {"content": "Texto sem notas.", "metadata": {}, "distance": _DENTRO},
     ]
     monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
     results = retrieve("alma")

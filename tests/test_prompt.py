@@ -75,6 +75,29 @@ def test_no_caveat_in_system_by_default():
     assert "profissional de saúde" not in system
 
 
+def test_empty_slots_leave_no_orphan_heading():
+    """A heading with nothing under it is a slot the model has to interpret.
+
+    `{caveat}` is empty on most turns and `{absent_terms}` on nearly all, so the
+    common prompt is the one carrying the orphans — the rare one is clean. The
+    heading has to travel with the text it introduces, not sit in the template
+    waiting for it.
+    """
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [])
+
+    assert "# Cuidado com a pessoa" not in system
+    assert "\n\n\n" not in system
+
+
+def test_caveat_brings_its_own_heading():
+    """The counterpart: when there IS something to say, the heading comes with
+    it — otherwise removing the orphan would also remove the framing."""
+    system, _ = build_messages("O que é reencarnação?", [_CHUNK], [], add_caveat=True)
+
+    assert "# Cuidado com a pessoa" in system
+    assert "\n\n\n" not in system
+
+
 def test_system_shows_real_item_number():
     # _CHUNK is O Livro dos Espíritos, whose entries are questões — the header
     # is where the model learns that vocabulary, and it echoes it into prose.
