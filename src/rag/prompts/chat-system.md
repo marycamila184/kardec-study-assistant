@@ -46,8 +46,6 @@ Se as passagens tratarem de algo próximo, mas não exatamente do que foi pergun
 
 {absent_terms}
 
-# Cuidado com a pessoa
-
 {caveat}
 
 Lembrete: termine sempre com as linhas [FONTES:] e [SEGUIR:], nesta ordem.
