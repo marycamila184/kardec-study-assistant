@@ -33,6 +33,7 @@ from src.rag.retriever import (
     filter_sensitive_chunks,
     filter_uncitable_chunks,
     has_real_item_number,
+    join_item_text,
     retrieve,
     retrieve_by_item,
     retrieved_summary,
@@ -115,6 +116,7 @@ def _prepare(
     question: str,
     history: list[dict],
     book_filter: str | None = None,
+    chapter_filter: str | None = None,
     anchor_text: str | None = None,
     profile: ResponseProfile = CHAT_DEFAULT,
 ) -> tuple[dict | None, dict | None]:
@@ -167,7 +169,9 @@ def _prepare(
 
         try:
             chunks = filter_uncitable_chunks(
-                retrieve(search_query, book_filter=book_filter)
+                retrieve(
+                    search_query, book_filter=book_filter, chapter_filter=chapter_filter
+                )
             )
         except Exception:
             logger.exception("retrieve failed in /chat generate")
@@ -410,7 +414,7 @@ def _studied_item(ctx: dict) -> dict | None:
         "chapter_title": meta.get("chapter_title") or None,
         "chapter_ref": meta.get("chapter") or None,
         "item_number": meta.get("item_number"),
-        "excerpt": "\n\n".join(c["content"] for c in chunks),
+        "excerpt": join_item_text(chunks),
     }
 
 
@@ -497,10 +501,13 @@ def generate(
     question: str,
     history: list[dict],
     book_filter: str | None = None,
+    chapter_filter: str | None = None,
     anchor_text: str | None = None,
     profile: ResponseProfile = CHAT_DEFAULT,
 ) -> dict:
-    early, ctx = _prepare(question, history, book_filter, anchor_text, profile)
+    early, ctx = _prepare(
+        question, history, book_filter, chapter_filter, anchor_text, profile
+    )
     if early is not None:
         return early
 
@@ -518,6 +525,7 @@ def generate_stream(
     question: str,
     history: list[dict],
     book_filter: str | None = None,
+    chapter_filter: str | None = None,
     anchor_text: str | None = None,
     profile: ResponseProfile = CHAT_DEFAULT,
 ) -> Iterator[tuple[str, object]]:
@@ -533,7 +541,9 @@ def generate_stream(
     is the source of truth: a client that replaces its accumulated text with it
     ends up byte-identical to POST /chat.
     """
-    early, ctx = _prepare(question, history, book_filter, anchor_text, profile)
+    early, ctx = _prepare(
+        question, history, book_filter, chapter_filter, anchor_text, profile
+    )
     if early is not None:
         yield "done", early
         return
