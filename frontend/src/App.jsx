@@ -3,8 +3,9 @@ import ConsentBanner from './components/layout/ConsentBanner';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
 // React + Vite, so the subpath is /react — the /next in Vercel's docs is for
-// Next.js and does not resolve here.
+// Next.js and does not resolve here. Same for speed-insights.
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import HomeLauncher from './components/layout/HomeLauncher';
 import MobileBottomNav from './components/layout/MobileBottomNav';
 import Onboarding from './components/modals/Onboarding';
@@ -29,7 +30,7 @@ import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
 import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
-import { formatItemRef, formatSourceRef } from './utils/format';
+import { chapterFilterFromTopic, formatItemRef, formatSourceRef } from './utils/format';
 import { dayLabel, startsNewDay } from './utils/day';
 import { asFollowUp } from './utils/followUpReply';
 import { lightTheme } from './constants/theme';
@@ -600,7 +601,13 @@ export default function App() {
       // 'estudar_obra' so the mode's own default applies — a first question
       // here starts deeper than one in Dialogar — and so the orchestrator
       // does not nudge a reader already inside Estudar toward Estudar.
-      reply = await chatMessage(query, [], bookName || null, 'estudar_obra', profile);
+      // The Evangelho chips name their chapter, and passing it is what keeps
+      // the answer inside that chapter instead of the Coletânea de Preces,
+      // which wins a whole-book search for almost any moral subject.
+      reply = await chatMessage(
+        query, [], bookName || null, 'estudar_obra', profile,
+        chapterFilterFromTopic(query),
+      );
     } catch (err) {
       console.error('handleAskTopic failed:', err);
       if (err.status === 404) {
@@ -1094,6 +1101,7 @@ export default function App() {
               pathsLoading={pathsLoading}
               completedTrilhas={completedTrilhas}
               trilhaProgress={trilhaProgress}
+              isMobile={isMobile}
             />
           )}
 
@@ -1341,6 +1349,7 @@ export default function App() {
       />
       <ConsentBanner theme={theme} />
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 }

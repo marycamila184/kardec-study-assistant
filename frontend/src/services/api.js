@@ -219,6 +219,7 @@ function mapReflect(data) {
 
 export async function chatMessage(
   question, history = [], bookFilter = null, currentMode = null, profile = null,
+  chapterFilter = null,
 ) {
   const data = await request('/chat', {
     method: 'POST',
@@ -226,6 +227,8 @@ export async function chatMessage(
       question,
       history,
       book_filter: bookFilter || undefined,
+      // Only Explorar's Evangelho topics set this; see chapterFilterFromTopic.
+      chapter_filter: chapterFilter || undefined,
       current_mode: currentMode || undefined,
       profile: profile || undefined,
     }),

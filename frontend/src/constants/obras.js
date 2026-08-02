@@ -17,19 +17,34 @@ export const OBRAS = [
         title: 'Parte II — Do Mundo Espiritual',
         subtitle: 'Alma, encarnação, reencarnação e vida após a morte',
         context: 'A parte mais extensa da obra. Trata da natureza da alma, do perispírito, do processo de encarnação e reencarnação, da vida entre as encarnações e do que acontece após a morte física.',
-        items: ['O que é a alma? (Q.134)', 'O perispírito (Q.93)', 'Por que nos encarnamos? (Q.132)', 'Reencarnação (Q.166)', 'Vida após a morte (Q.149)', 'Espíritos felizes e sofredores (Q.165)'],
+        // Q.167 (the purpose of reincarnation) and Q.100 (the spirit scale,
+        // impure to pure) replace Q.166 and Q.165, which landed on "how the
+        // soul purifies" and on the duration of the post-mortem daze —
+        // neighbouring subjects, but not the ones the label promises. The
+        // number matters: extract_study_reference resolves it and it becomes
+        // the "Da Obra" block, so a wrong one shows the reader a wrong passage.
+        items: ['O que é a alma? (Q.134)', 'O perispírito (Q.93)', 'Por que nos encarnamos? (Q.132)', 'Reencarnação (Q.167)', 'Vida após a morte (Q.149)', 'Espíritos felizes e sofredores (Q.100)'],
       },
       {
         title: 'Parte III — Das Leis Morais',
         subtitle: 'As leis divinas que regem a existência',
         context: 'Kardec apresenta as grandes leis naturais como expressão da vontade divina: adoração, trabalho, reprodução, conservação, destruição, sociedade, progresso, igualdade, liberdade, justiça e amor.',
-        items: ['A lei do amor e da caridade (Q.614)', 'A lei do trabalho (Q.664)', 'Livre-arbítrio (Q.843)', 'A lei da igualdade (Q.803)', 'Virtudes e vícios (Q.893)'],
+        // Q.886 opens the meaning of charity inside DA LEI DE JUSTIÇA, DE AMOR
+        // E DE CARIDADE (Q.873–892); Q.674 opens DA LEI DO TRABALHO (Q.674–685).
+        // The previous numbers (614, 664) landed in DA LEI DIVINA OU NATURAL and
+        // in DA LEI DE ADORAÇÃO — the latter on a question about praying for the
+        // dead, which is the passage that came up when you clicked "the law of
+        // work".
+        items: ['A lei do amor e da caridade (Q.886)', 'A lei do trabalho (Q.674)', 'Livre-arbítrio (Q.843)', 'A lei da igualdade (Q.803)', 'Virtudes e vícios (Q.893)'],
       },
       {
         title: 'Parte IV — Das Esperanças e Consolações',
         subtitle: 'O destino do Espírito e a vida futura',
         context: 'A parte conclusiva responde às grandes angústias humanas: existem penas eternas? O que é o paraíso? Kardec apresenta uma visão de justiça divina baseada no progresso infinito.',
-        items: ['Penas eternas — sim ou não? (Q.1009)', 'O progresso dos Espíritos (Q.780)', 'Mundos superiores (Q.188)', 'A felicidade futura (Q.920)'],
+        // Q.967 ("what the happiness of good Spirits consists of") replaces
+        // Q.920, which opens DAS PENAS E GOZOS **TERRESTRES** and asks whether
+        // man can be happy ON EARTH — the opposite of what the label promises.
+        items: ['Penas eternas — sim ou não? (Q.1009)', 'O progresso dos Espíritos (Q.780)', 'Mundos superiores (Q.188)', 'A felicidade futura (Q.967)'],
       },
     ],
   },
@@ -45,13 +60,22 @@ export const OBRAS = [
         title: 'Parte I — Dos Agentes Mediúnicos',
         subtitle: 'Quem são os médiuns e os Espíritos',
         context: 'Kardec explica quem são os agentes das comunicações espíritas: de um lado os Espíritos, de outro os médiuns — suas faculdades, tipos e desenvolvimento.',
-        items: ['O que é mediunidade?', 'Tipos de médiuns', 'Desenvolvimento mediúnico', 'Espíritos bons e maus', 'Como se comunicam os Espíritos?'],
+        // "Desenvolvimento mediúnico" is modern spiritist vocabulary that does
+        // not appear in the work: semantic search retrieved NOTHING in the book
+        // and nothing on the cross-book fallback, so the button answered "não
+        // encontrei". The chapter is called "Da formação dos médiuns" (200–220).
+        // The labels stay in Portuguese: each one IS the query, matched against
+        // a Portuguese corpus.
+        items: ['O que é mediunidade?', 'Tipos de médiuns', 'A formação dos médiuns', 'Espíritos bons e maus', 'Como se comunicam os Espíritos?'],
       },
       {
         title: 'Parte II — Das Manifestações Espíritas',
         subtitle: 'Os fenômenos e como estudá-los',
         context: 'Um guia rigoroso para compreender as manifestações físicas e intelectuais dos Espíritos.',
-        items: ['Manifestações físicas', 'Manifestações intelectuais', 'Mesas girantes', 'A escrita mediúnica (psicografia)', 'Como verificar a autenticidade'],
+        // Kardec writes "manifestações INTELIGENTES", not "intelectuais" — the
+        // chapter carries that name (items 65–71). With the wrong word the
+        // button retrieved nothing and fell through to "não encontrei".
+        items: ['Manifestações físicas', 'As manifestações inteligentes', 'Mesas girantes', 'A escrita mediúnica (psicografia)', 'Como verificar a autenticidade'],
       },
       {
         title: 'Parte III — Das Evocações',
@@ -73,19 +97,32 @@ export const OBRAS = [
         title: 'Parte I — Os Fundamentos Morais',
         subtitle: 'Fé, razão e os ensinamentos de Jesus',
         context: 'Kardec interpreta os ensinamentos morais do Cristo à luz da doutrina espírita.',
-        items: ['Fé e razão (cap. II)', 'Bem-aventuranças (cap. V)', 'O Cristo e a doutrina', 'Sede perfeitos (cap. IV)'],
+        // Faith is chapter XIX (A FÉ TRANSPORTA MONTANHAS) and "Sede perfeitos"
+        // is chapter XVII, which carries that title. II is "Meu reino não é
+        // deste mundo" and IV is the being-born-again chapter.
+        items: ['Fé e razão (cap. XIX)', 'Bem-aventuranças (cap. V)', 'O Cristo e a doutrina', 'Sede perfeitos (cap. XVII)'],
       },
       {
         title: 'Parte II — A Vida Moral na Prática',
         subtitle: 'Virtudes, vícios e o caminho do bem',
         context: 'A parte mais cotidiana da obra: caridade, humildade, perdão, tolerância.',
-        items: ['Amar os inimigos (cap. XI)', 'A caridade (cap. XIII)', 'A humildade (cap. XIV)', 'O perdão das ofensas (cap. XII)'],
+        // XI and XII were swapped: XI is "Amar o próximo como a si mesmo", XII
+        // is "Amai os vossos inimigos". Forgiveness of offences is a section of
+        // chapter X (Bem-aventurados os misericordiosos), and humility is
+        // chapter VII ("O orgulho e a humildade"); XIV is "Honrai a vosso pai e
+        // a vossa mãe".
+        items: ['Amar os inimigos (cap. XII)', 'A caridade (cap. XIII)', 'A humildade (cap. VII)', 'O perdão das ofensas (cap. X)'],
       },
       {
         title: 'Parte III — Provas e Consolações',
         subtitle: 'Sofrimento, prece e esperança',
         context: 'Por que sofremos? Qual o valor das tribulações? Kardec responde com profundidade e conforto espiritual.',
-        items: ['Tribulações (cap. XVI)', 'A prece e sua eficácia (cap. XXVII)', 'A morte e a vida (cap. XXX)', 'O livre-arbítrio'],
+        // Tribulations are chapter V ("Justiça das aflições", "Motivos de
+        // resignação"); XVI is "Não se pode servir a Deus e a Mamon".
+        // **There is no chapter XXX**: the work ends at XXVIII. Life after death
+        // is chapter III, "Há muitas moradas na casa de meu pai", with the
+        // sections on the states of the soul in erraticity.
+        items: ['Tribulações (cap. V)', 'A prece e sua eficácia (cap. XXVII)', 'A morte e a vida (cap. III)', 'O livre-arbítrio'],
       },
     ],
   },
@@ -107,7 +144,11 @@ export const OBRAS = [
         title: 'Parte II — Exemplos',
         subtitle: 'Narrativas reais de vidas e mortes',
         context: 'Relatos de Espíritos em diferentes condições após a morte — sofrendo, felizes, arrependidos, em progresso.',
-        items: ['Espíritos em sofrimento', 'Espíritos felizes', 'Morte repentina e seus efeitos', 'Suicídio e consequências'],
+        // "Morte repentina" retrieved nothing in this book and fell through,
+        // via the cross-book fallback, to O Livro dos Espíritos — a different
+        // work from the one the panel is showing. The chapter that covers it is
+        // called "O passamento".
+        items: ['Espíritos em sofrimento', 'Espíritos felizes', 'A perturbação depois da morte', 'Suicídio e consequências'],
       },
     ],
   },
