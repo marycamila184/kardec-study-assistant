@@ -39,9 +39,11 @@ import chromadb
 for c in chromadb.PersistentClient(path='data/embeddings/').list_collections():
     print(c.name, c.count())
 "
-# Esperado: kardec_docs 7347 — e mais nada.
+# Esperado: kardec_docs 7348 — e mais nada.
 # (era 7327 até 2026-07-29, quando `_build_id` passou a incluir `part`: sem ele
-#  os dois "CAPÍTULO I" de Céu e o Inferno colidiam e 20 trechos se sobrescreviam.)
+#  os dois "CAPÍTULO I" de Céu e o Inferno colidiam e 20 trechos se sobrescreviam;
+#  e 7347 até 2026-08-02, quando `_closes_a_sentence` parou de cortar frase em
+#  abreviatura e o item 18 do cap. XIII de A Gênese ganhou um subchunk.)
 ```
 
 Se aparecerem `kardec_docs_e5` ou `kardec_docs_gemini_*`, são lixo de avaliação
