@@ -67,6 +67,13 @@ def run_ingestion() -> None:
                     "item_number": str(c["item_number"]),
                     "subchunk_index": c["subchunk_index"],
                     "total_subchunks": c["total_subchunks"],
+                    # Reassembly needs to know whether the cut before this
+                    # piece was a paragraph break in the source or just the
+                    # size limit. Defaults True for rows written before the
+                    # field existed: a stale index then rejoins with "\n"
+                    # rather than the old "\n\n", which is wrong in fewer
+                    # places, but the field is only right after re-ingestion.
+                    "starts_paragraph": c.get("starts_paragraph", True),
                 }
                 for c in batch
             ]
