@@ -177,8 +177,29 @@ Se doer, `--min-instances 1` resolve — mas aí a conta deixa de ser ~US$0, ent
 lista — rodá-lo cru apaga os três, e perder `CHAT_MODEL` é exatamente a
 armadilha nº 2 lá de cima (todo `/chat` em 503).
 
-Num redeploy, **omita os flags de env**: o Cloud Run preserva a configuração
-existente.
+Num redeploy **manual**, omita os flags de env: o Cloud Run preserva a
+configuração existente.
+
+> **Isto já aconteceu, apesar de estar escrito aqui.** Em 2026-08-03 o job de
+> deploy (`.github/workflows/deploy.yml`) rodava com
+> `--set-env-vars 'LLM_PROVIDER=...,EMBEDDING_PROVIDER=...'` e apagou os três.
+> `CHAT_MODEL` sobreviveu por acaso — o padrão do `config.py` já é o mesmo
+> valor desde a armadilha nº 2. `CONDENSER_MODEL` caiu para o Qwen 7B sem
+> ninguém ver. E `CORS_ALLOWED_ORIGINS` voltou ao padrão
+> `http://localhost:5173`, o que **derrubou o site**: toda preflight do
+> navegador virou `400 Disallowed CORS origin` e o frontend ficou preso em
+> "Carregando trecho do dia…" — enquanto `/health`, `/evangelho`, `/paths` e
+> `/chat` respondiam 200 no curl, porque curl não manda `Origin` nem obedece à
+> resposta. O deploy foi reportado como verde.
+>
+> **Na CI a regra é a inversa da manual:** o job declara o conjunto **inteiro**,
+> o que torna a substituição correta em vez de destrutiva, e o serviço no ar
+> deixa de ser a fonte da verdade. Variável nova no serviço tem de entrar
+> naquele arquivo também. Como o valor do CORS tem vírgulas, o separador vira
+> `@` pelo prefixo `^@^`. E o job passou a fazer uma preflight de verdade
+> depois de subir — o único lugar onde essa falha é observável, já que
+> `TestClient` não emite preflight (ver o comentário do middleware em
+> `src/api/main.py:13-16`).
 
 ```bash
 gcloud run deploy kardec-api --source . --region us-central1 \

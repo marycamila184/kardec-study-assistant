@@ -17,6 +17,7 @@ This file is the orientation + the rules. Everything else lives in `docs/`:
 | [docs/superpowers/specs/README.md](docs/superpowers/specs/README.md) | **Índice das specs** por assunto, marcando as superadas e as declinadas | Antes de refazer uma decisão — para saber se ela já foi tomada, e por quê |
 | [docs/superpowers/plans/](docs/superpowers/plans/) | Planos de implementação, um por lote de trabalho | Ao executar um plano existente |
 | [docs/deploy.md](docs/deploy.md) | Comandos e restrições de deploy (Cloud Run + Vercel) | Ao publicar |
+| [docs/backend-probe-plan.md](docs/backend-probe-plan.md) | As sondas de comportamento que verificam estas Regras contra a API rodando — asserções determinísticas e checagens qualitativas, executadas por `scripts/probe_backend.py` | Ao mexer numa regra de segurança ou de fundamentação |
 | [docs/superpowers/2026-07-25-handoff.md](docs/superpowers/2026-07-25-handoff.md) | Handoff de estado do projeto | Ao retomar o contexto de longe |
 
 ### Modes and endpoints

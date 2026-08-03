@@ -38,12 +38,28 @@ Pipeline:
    ```
    The separator pair acts as open/close delimiters. If the opening separator appears right after a heading with no content yet → title footnote; otherwise it belongs to the preceding content paragraph.
 
-3. `chunking.py` — splits long segment content into ≤800-char subchunks at line boundaries (each Markdown line is a complete paragraph, so splits never cut mid-paragraph). **800 is the ceiling**, calibrated to typical item length across the 4 books (median 440–1600 chars, p90 ~6600), not the model's technical limit (`bge-m3` supports 8192 tokens) — larger chunks dilute retrieval precision.
+3. `chunking.py` — splits long segment content into ≤800-char subchunks at line boundaries. **800 is the ceiling**, calibrated to typical item length across the five works (median 440–1600 chars, p90 ~6600), not the model's technical limit (`bge-m3` supports 8192 tokens) — larger chunks dilute retrieval precision.
+
+   Two properties of the split are load-bearing downstream, and both have their own CLAUDE.md rule:
+   - **A period only closes a sentence when the token it closes is a word.** `_closes_a_sentence` suppresses the boundary after a single letter (`S.` for São, the initials in `A. Kardec`, the `P.`/`R.` that open every line of the O Céu e o Inferno evocations) and after the measured citation abbreviations (`cap.`, `vv.`, `pág.`, `Art.`, …). The list was built by counting what precedes every candidate boundary in the corpus, not from intuition. `etc.` is excluded deliberately (it ends a sentence about as often as not), and numbers are excluded because `1857.` really does end sentences.
+   - **A split is not always a paragraph break.** 28% of subchunk boundaries fall *inside* a source paragraph (measured 2026-08-02), and nothing in the text distinguishes those from a real break — so the splitter records `starts_paragraph` on every chunk, ingestion carries it into the metadata, and `join_item_text` is the only thing allowed to rejoin them. See "Rejoining an item for reading" below.
 4. `parsing_pipeline.py` — orchestrates all books; maps filenames to canonical names via `BOOK_NAME_MAP`. `trecho_diario.md` is intentionally absent and silently skipped (consumed separately by `evangelho.py`).
 
 **Numbered items** (`123. text`) are the primary structural unit:
-- **Livro dos Espíritos, Livro dos Médiuns** — single global sequence (1..N).
-- **Evangelho, Céu e Inferno** — per-chapter sequences (reset to 1 at each chapter heading).
+- **O Livro dos Espíritos, O Livro dos Médiuns** — single global sequence (1..N).
+- **O Evangelho, O Céu e o Inferno, A Gênese** — per-chapter sequences (reset to 1 at each chapter heading). O Céu e o Inferno restarts them again per *part*: "CAPÍTULO I" item 1 is `O PORVIR E O NADA` in I PARTE and `O PASSAMENTO` in II PARTE.
+
+**A Gênese belongs in the second group, and is the easiest to get wrong** — it reads like a treatise rather than a numbered catechism, so it gets filed with the first group by intuition. Counted over `data/json_files/`, **67 of its 69 item numbers occur in more than one chapter** — proportionally the most per-chapter of any of the five works:
+
+| Book | items | item numbers reused across chapters |
+|---|---|---|
+| A Gênese | 69 | **67** |
+| O Evangelho | 92 | 31 |
+| O Céu e o Inferno | 120 | 23 |
+| O Livro dos Espíritos | 1047 | 0 |
+| O Livro dos Médiuns | 392 | 0 |
+
+Hence the rule in CLAUDE.md: **a passage is identified by `(book, chapter, item_number)`, never by `book` + `item_number`.**
 
 Markdown source files (`data/markdown_files/`) are hand-reviewed and authoritative — do not regenerate from PDFs.
 
@@ -51,11 +67,24 @@ Markdown source files (`data/markdown_files/`) are hand-reviewed and authoritati
 
 Run once (or re-run to rebuild).
 
-- `embeddings.py` — wraps `SentenceTransformer` (`BAAI/bge-m3`); module-level singleton. Calls `huggingface_hub.login()` on startup if `HF_TOKEN` is set. The same singleton is reused by `groundedness.py`, so answer-vs-passage scoring costs no extra dependency and no extra model load.
+- `embeddings.py` — `encode(texts)`, the single seam every embedding passes through, dispatching on `EMBEDDING_PROVIDER`. Detail under the RAG layer below; the one thing to know here is that **`sentence_transformers` is imported inside `_get_model()`, never at module level** — hoisting it pulls torch into the container image and undoes the ~4.7 GB the hosted lane exists to save. `groundedness.py` goes through the same seam, so answer-vs-passage scoring costs no extra dependency.
 - `vectorstore.py` — wraps ChromaDB: `upsert`, `query` (semantic), `get_by_filter` (metadata-only).
 - `pipeline.py` — JSON → batches of 64 → embed → upsert. `_build_document` appends footnotes after content, capped at 3000 chars total so the embedding model is never truncated; full footnote text stays in JSON metadata.
 
-Document ID: `{book_filename_stem}_{item_number}_{subchunk_index}` — stable across re-runs (upsert idempotent).
+### The document ID is the collision key
+
+`_build_id` (`pipeline.py`) returns `{stem}_{part}_{chapter}_{item_number}_{subchunk_index}`, with `part` folded in only when the book has one:
+
+```python
+prefix = f"{stem}_{part}" if part else stem
+return f"{prefix}_{chapter}_{chunk['item_number']}_{chunk['subchunk_index']}"
+```
+
+**Every component before `item_number` is there because something collided without it.** `upsert` treats a collision as an update, so a too-short key does not raise — it silently overwrites. Dropping `chapter` merges the per-chapter books above; dropping `part` merges O Céu e o Inferno's two "CAPÍTULO I"s, which cost **20 chunks of the production index** until 2026-07-29.
+
+`part` is omitted rather than folded in as a blank field so the books that carry none (O Livro dos Espíritos, O Livro dos Médiuns) keep the ids they already have, and re-ingestion updates their rows instead of writing a second copy beside them.
+
+**Changing this key requires rebuilding the index from empty** — re-ingesting over it leaves the old rows behind as orphans, and they are indistinguishable from live ones.
 
 ## Provider routing: the two lanes
 
@@ -103,7 +132,21 @@ Each mode has a dedicated prompt file + pipeline file.
 
   That is what the threshold is for. Asked about gossip, `/chat` once opened with *"are the exhortations not to judge others perhaps those of a demon?"* and attributed it to O Céu e o Inferno `section-271` — which is the story of a sick child and contains nothing of the sort. No passage in that work pairs "demônio" with "julgar": the sentence was invented on top of passages that were only there because the cut was too wide to say "not found". `find_unsupported_quotes` did not catch it because the invention arrived paraphrased, without quotation marks, and that guard covers quotations. Tightening the threshold does not replace it — it works upstream, removing the weak material that invites improvisation.
 
-  The threshold is a property of **bge-m3's** distance distribution and of nothing else; swapping the embedding model invalidates it. The test guards the gap (`0.379 < max_distance < 0.474`) rather than the value, so a future change has to stay inside the measured band or re-measure. Reflexivo, if ever reconnected, needs its own threshold: its mean `dist@1` was 0.43, which 0.45 sits right on top of. `retrieve_by_item(book, item_number)`: metadata-only lookup returning all subchunks of an item. Both strip the ingestion-baked `\n[Nota N] …` footnote suffix off `content`, exposing it separately as `footnote_context` (`""` if none). Also owns `filter_sensitive_chunks`, `append_chapter_commentary`, `has_real_item_number`, `REFLECT_BOOKS`.
+  The threshold is a property of **bge-m3's** distance distribution and of nothing else; swapping the embedding model invalidates it. The test guards the gap (`0.379 < max_distance < 0.474`) rather than the value, so a future change has to stay inside the measured band or re-measure. Reflexivo, if ever reconnected, needs its own threshold: its mean `dist@1` was 0.43, which 0.45 sits right on top of.
+
+  **`retrieve(..., chapter_filter="CAPÍTULO VII")` narrows to one chapter, and the distance cut does not apply inside it.** The filter exists for callers that already *know* the chapter — Explorar's Evangelho topics name one in the chip itself. Handing that label to a whole-book search let the **Coletânea de Preces** win it: 60% of everything the ten topics retrieved was prayers, and six of ten had a prayer as the top hit (2026-08-02). Dropping the collection from retrieval was measured too and **rejected** — it emptied "Tribulações" and the legitimate "prece de agradecimento a Deus".
+
+  `max_distance` is skipped inside the filter because the cut exists to separate a question the works address from one they never do, and naming the chapter has already settled that. It was also calibrated on real questions rather than three-word topic labels, which sit further out for reasons unrelated to the passage being wrong — "Sede perfeitos" finds SEDE PERFEITOS item 2 at 0.534. **Every unfiltered call keeps the band above.**
+
+  `retrieve_by_item(book, item_number, chapter=None)`: metadata-only lookup returning all subchunks of an item, sorted by `subchunk_index` — the store's order is not a contract. Pass `chapter` for the per-chapter books. Both strip the ingestion-baked `\n[Nota N] …` footnote suffix off `content`, exposing it separately as `footnote_context` (`""` if none). Also owns `join_item_text` (below), `filter_sensitive_chunks`, `append_chapter_commentary`, `has_real_item_number`, `REFLECT_BOOKS`.
+
+#### Rejoining an item for reading
+
+An item is **split for embedding and rejoined for reading, and only the split knows where the seams are.** `join_item_text` is the single seam for that, and every mode that shows a passage whole goes through it — `/study`'s **Da Obra**, free study's `studied_item`, the chapter context.
+
+The reason it has to be one function: 28% of subchunk boundaries fall inside a source paragraph, so the joiner cannot infer a separator from the text. It reads the `starts_paragraph` flag the splitter recorded instead. The three call sites each used to choose their own (`"\n\n"` twice, `" "` once), and since `ObraBlock` renders with `white-space: pre-wrap`, **every invented newline is a line the reader sees** — `"\n\n"` put a blank line inside a citation the source kept on one line (Evangelho XIX item 8, `(S. MARCOS, cap. | Xl, vv. 12 a 14 e 20 a 23.)`).
+
+**Never rejoin subchunks with a separator of your own choosing.**
 - `crisis.py` — the mode-independent deterministic crisis layer: `needs_crisis_note()` (first-person ideation, accent-tolerant), `mentions_suicide_topic()` (topic-level mention, no ideation), `CRISIS_EXIT_MESSAGE`/`CRISIS_NOTE` (CVV 188 / SAMU 192), `CRISIS_KEYWORDS`. Runs in code, before any retrieval or LLM call, and is shared by every mode that touches user-authored text — it did not vanish with Refletir; `/chat` is its only caller now.
 - `mode_detector.py` — `detect_suggested_mode(question)`: regex intent → `"estudar_obra"` / `None` (estudar_obra wins on tie; the `"refletir"` branch is commented out, Refletir switched off for production — see docs/superpowers/specs/2026-07-26-desligar-reflexivo-design.md). `extract_study_reference(question)`: `{"item_number", "book"}` by regex; "questão N"/"Q. N" default book to O Livro dos Espíritos, "item N" leaves `null`. Accent-tolerant; detection and extraction patterns must stay in sync. `is_smalltalk(text)`: pure-acknowledgment detector for the `/chat` short-circuit. (Superseded for suggested-mode by the orchestrator, but kept + unit-tested.)
 - `query_condenser.py` — `condense_query(question, history)`: rewrites a follow-up + history into a standalone Portuguese search query (`condenser_model`) before embedding; forbids replacing doctrine terms with generic synonyms. `blend_anchor(query, anchor_text)` prepends the passage being studied (capped at `ANCHOR_CAP`) to bias retrieval — **retrieval-only; the anchor never reaches the prompt, sources, or displayed output.** Callers log and fall back to raw text on failure.
@@ -114,6 +157,14 @@ Each mode has a dedicated prompt file + pipeline file.
 - `embeddings.py` — `encode(texts)`, the single seam every embedding passes through, dispatching on `EMBEDDING_PROVIDER`: unset = `BAAI/bge-m3` in-process (dev), or `openrouter`/`deepinfra`/`novita` to call **the same model** over HTTP (production). Parity measured 2026-07-27 — cosine 0.999994 against the stored vectors, 100% top-5 overlap, distance shift 0.0001 — so the index and the calibrated thresholds (`max_distance` 0.45, `source_min_similarity` 0.35, `source_relative_margin` 0.10) survive the switch untouched. `sentence_transformers` is imported **inside** `_get_model()`: hoisting it back to module level would pull torch into the container image and undo the ~4.7 GB the hosted lane exists to save. Hosted calls batch at `HOSTED_BATCH_MAX` and fail loudly, because a wrong vector raises nothing downstream — Chroma stores it and retrieval merely gets worse.
 - `guardrails.py` — post-hoc backstops for prompt-only rules that an 8B holds less reliably: `strip_trailing_question` (the "never end with a question" rule) and `counts_personification` (log-only counter; **no automatic rewriting of doctrine prose**). Reflect's no-advice constraint deliberately has no code check — it cannot be detected reliably, and a check that half-works is worse than none.
 - `sensitivity.py` — `classify_sensitivity(text)` → `normal | abalo | crise`.
+- `prompt_files.py` — `load(name)` reads `src/rag/prompts/{name}.md` at runtime. **There is no second copy of any prompt in the Python**, so the file and the behaviour cannot drift apart; edit the `.md` and restart. `{braces}` placeholders are filled by the caller — a missing one raises at request time, an unknown one is ignored silently, which is worse. `crisis.py` is deliberately not a prompt file: that text is decided in code before any model call and must never become editable as one. See [the prompts README](../src/rag/prompts/README.md) for what may become a prompt rule and what has to be code.
+- `profile.py` / `profile_detector.py` — the **response profile**: what shape an answer takes, separated from which route produced it. Shape used to be a property of the endpoint (`/study` meant structured JSON, `/chat` meant prose with chips), so a reader who wanted citations inside the text had no way to ask. Two families of axis, because they cost different things: the *retrieval* dimensions change how much text reaches the prompt, the *presentation* dimensions change only the surface. `ChatResponse.profile` reports the resolved values. **What a profile can never touch:** retrieval grounding, the visible source/AI separation, the crisis floor, and the rule against personifying "o Espiritismo" — all enforced in code elsewhere, and no profile value reaches them. A profile decides how an answer looks, never whether it is accountable for what it says.
+- `conversation_log.py` — one JSON line per answered turn to stdout; see [Turn logging](#turn-logging-conversation_logpy) under the API layer.
+- `json_stream.py`, `stream_buffer.py` — the two streaming filters, one per lane; see [Streaming](#streaming) under the API layer.
+- `quote_check.py`, `premise_check.py` — the two guards on the finished answer; `inline_refs.py` — the grounding-marker parser. Sections for all three below.
+- `pasted_quote.py` — recognises a passage the reader **pasted** ("me explique esse") and resolves it to its item. Two things are true at once: the model cannot discuss text it was never given (`anchor_text` only biases the search and never enters the prompt), and nobody has checked that the pasted text is actually Kardec's — misattributed quotations circulate widely, and *"is this real, and where is it?"* is a teacher's question more than a student's. One move answers both: retrieve on the pasted text, then verify a retrieved passage really is inside what was pasted. If it is, the message is about a known item and everything downstream treats it as one — the same path a question naming "questão 132" already takes.
+- `json_extract.py` — `strip_code_fence`, `extract_outermost`: the small tolerances that let a structured reply survive a model wrapping it in a fence or padding it with prose.
+- `chapter_summary_prompt.py` / `generate_chapter_summaries.py` — **offline**, not on any request path: a CLI that writes curated chapter summaries into the Evangelho JSON, which `append_chapter_commentary` later serves as doctrinal anchoring. This is the one prompt that still lives inline in Python rather than in `prompts/*.md`, because it is never sent by the API — if it ever moves onto a request path, it moves into `prompts/` with it.
 - `stream_buffer.py` — `StreamBuffer.feed(chunk)` returns the slice of model output that is safe to display, holding back anything that could still grow into a `[FONTES:` / `[SEGUIR:` opening; `flush()` returns the tail. Content-aware rather than a fixed-size window, because the follow-up questions in `[SEGUIR]` are arbitrarily long and would push `[FONTES]` out of any window sized in advance. Sealing on the first opening is safe because the markers are trailer-only by contract. Openings are uppercase-only, so ordinary prose ("as fontes citadas") is never retained.
 
 **Deployment shape:** the backend ships as a container to Cloud Run in a US
@@ -140,6 +191,58 @@ return kept or [scored[0][1]]   # never empty while chunks exist
 Measured 2026-07-25 over 15 questions on both lanes: an absolute cut cannot work, because the similarity **level tracks the question's vocabulary rather than passage relevance**. The worst chunk for *"o que é o perispírito?"* scored 0.744 while the best chunk for *"o que a doutrina diz sobre o perdão?"* scored 0.740 — no single height is right for both, and at `0.35` all 75 chunks survived on both lanes (the filter was inert). Within one question the elbow is sharp (mean step 0.092), so the margin rides each question's own scale. `source_relative_margin = 0.10` yields ~2.3 chips per answer, down from 5.
 
 `source_min_similarity` survives as an **absolute floor**, not the primary cut: the margin only compares chunks to each other, so a uniformly bad retrieval would otherwise keep all of them.
+
+### The two guards on the finished answer
+
+Both were added on 2026-07-28, both act on what the **model** produced, and they were deliberately given opposite powers. The asymmetry is the point: one withholds, one only informs.
+
+#### `quote_check.py` — a fabricated quotation costs the whole answer
+
+`find_unsupported_quotes(answer, chunks)` returns the quotations in the answer that appear in no retrieved chunk. On a hit, `/chat` returns `NOT_FOUND_MESSAGE` with no sources and `/study` returns an empty `contexto` with `generation_failed`. **Nothing the model wrote is shown.**
+
+Found in production. Asked about "duplo etéreo ou aura" — theosophical vocabulary, not Kardec's — the model did not say the works are silent. It wrote a sentence, put it in quotation marks, attributed it to Kardec and supplied a chapter and item:
+
+> Kardec escreve que *"o duplo etéreo é uma espécie de envoltório fluídico que envolve o corpo físico e é uma extensão do perispírito"* (A Gênese, capítulo "OS FLUIDOS", item 18).
+
+Nothing caught it: `citations.py` only recognises number-before-book references, and everything that mutates the answer sits behind the prose lane, which production does not run.
+
+**Why the whole answer and not the sentence:** the improvisation that invented a quotation wrote the paragraphs around it too.
+
+Three properties, each paid for:
+
+- **It runs last, on the finished text**, and on what the *model* produced — never on text the code inserted.
+- **It runs after markers are stripped.** Comparing a marker against the corpus can only fail.
+- **Normalisation is deliberately generous.** The model reflows whitespace, changes quote characters, and sometimes modernises the archaic spelling of the 1860s editions ("freqüentemente"). None of that is fabrication, and flagging it would train everyone to ignore the flag. `MIN_QUOTED_WORDS = 6` keeps scare-quoted terms ("provação") out of scope.
+
+Its blind spot is paraphrase — the invented sentence about demons in the `max_distance` story above arrived without quotation marks, which is why the distance cut exists upstream of it.
+
+#### `premise_check.py` — log-only, on purpose
+
+`unsupported_terms(question, chunks)` flags content words from the question that **the works never use**, measured against the whole corpus rather than the retrieved passages. Checking only the passages flagged "funciona" and "papel" — ordinary words that happen to be long and absent from those particular chunks — two false positives in ten legitimate questions. What makes "ectoplasma" a false premise is not that this retrieval missed it, but that the works never contain it. Matching is substring-based on purpose ("perispirito" should match "perispiritico"), biased toward finding a term present.
+
+The finding shapes the prompt. **It never withholds an answer.** This project shipped a guard tuned by reasoning instead of evidence twice, and both times it withheld correct answers — so the numbers get looked at before any gate is added here.
+
+### Inline grounding markers: the model marks *where*, code resolves *what*
+
+The answer that prompted this said *"o comentário doutrinário de Allan Kardec sobre este capítulo destaca a importância…"* and gave the reader no way to open what it cited. The items had been retrieved and fed to the prompt; they were simply never returned.
+
+**Two vocabularies, because the two agents number things differently:**
+
+| Agent | Marker | Names |
+|---|---|---|
+| `/chat` | `[fonte N]` | the passage index its prompt already printed |
+| `/study` | `[item N]` | the chapter item a reader looks up in their own copy |
+
+`/chat` retrieves across books, where a bare item number is ambiguous — the same ambiguity that forces Curador to carry `chapter`. `/study` works inside one chapter, where the item number is exactly what a reader can find.
+
+`inline_refs.py` parses markers out into **positions on the clean text**, and two rules are absolute:
+
+1. **A marker naming something that was not retrieved is dropped**, leaving the prose intact. An inline citation is an invitation to verify, so a fabricated one is worse than none — it survives exactly as long as it takes someone to check it, and the reader most likely to check is the teacher building a class around it.
+2. **No marker may reach the screen.** A client that ignores `inline_refs` shows the same prose it always did.
+
+Tolerance is bounded deliberately: `[item 11]`, `[ITEM 11]`, `[item11]` are accepted; a bare `[11]` is **not**, because `/study` prose legitimately contains bracketed numbers and guessing would strip a reader's own text. The literal `[fonte N]` is accepted because the model copies the template verbatim often enough to matter — it reached a reader on 2026-07-28 — and resolves to nothing.
+
+**Never ask the model for the reference text.** Measured 2026-07-28, `citation_precision` asked for full references and produced **zero** across two A/B runs, the second with every contradicting rule removed. The model marks the position; code writes the reference from metadata.
 
 ### Safety: the deterministic floor
 
@@ -278,7 +381,24 @@ sequenceDiagram
     G-->>C: answer, sources, suggested_questions,<br/>safety_level, suggested_mode
 ```
 
-**Daily passage** (`evangelho.py`): from `data/markdown_files/trecho_diario.md` — a curated 27-chapter subset of O Evangelho, kept out of the main ChromaDB collection so it never pollutes semantic search. Parsed once with `parse_md_to_json`, cached in memory (`_get_chunks()`). `get_daily_passage()` seeds `random` with today's ISO date, picks a chapter then an item, joins all that item's subchunks. No LLM.
+**Daily passage** (`evangelho.py`): from `data/markdown_files/trecho_diario.md` — a curated 27-chapter subset of O Evangelho, kept out of the main ChromaDB collection so it never pollutes semantic search. Parsed once with `parse_md_to_json`, cached in memory (`_get_chunks()`). No LLM.
+
+**It is a lectionary, not a lottery.** `_select_passage` indexes the day into **one fixed permutation** of all passages — the order is shuffled from a constant seed, and the day's ordinal picks a slot in it:
+
+```python
+order = list(range(len(passages)))
+random.Random(_ORDER_SEED).shuffle(order)
+item_chunks = passages[order[day.toordinal() % len(passages)]]
+```
+
+So every passage is served before any repeats, and two showings are exactly one cycle apart (109 days on the current file).
+
+Two rejected alternatives, both measured, because this looks like a place to "add variety":
+
+- **Choose a chapter, then an item inside it.** This was the original, and it makes a passage's odds depend on its chapter's size. Five chapters of `trecho_diario.md` hold a single item, so those came up 10× more often than items in the ten-item chapter: simulated over a year, **73% of days repeated a passage, the two most frequent appeared 18 times each, and 12 of the 109 curated passages were never served at all.**
+- **Choose uniformly at random.** Does not fix it either — 109 passages over 365 draws still collide on ~71% of days.
+
+Reshuffling per cycle was also considered and leaves the seam between cycles unguarded: measured, a repeat 3 days apart. Do not change the spacing here without re-measuring it.
 
 ## Evaluation (`scripts/`)
 
@@ -340,8 +460,11 @@ The last one is a **static check on call sites**, not a pure function, because t
 
 ### Results, 2026-07-25 — riv-ai-v2 declined
 
-**No mode runs on riv-ai-v2.** Every agent is on `llama-3.3-70b-versatile`
-(Together, `-Turbo`).
+**No mode runs on riv-ai-v2.** Every agent is on
+`meta-llama/Llama-3.3-70B-Instruct-Turbo` (Together). Write the id in full: the
+`-Turbo` suffix is the difference between a model this account can call and one
+it cannot, and the short forms that circulate for this model belong to other
+providers' naming.
 
 This section is the durable record. A longer one — cost tables, serving options,
 the original bet — lives in `docs/superpowers/specs/2026-07-24-riv-ai-prose-generator-design.md`,
@@ -420,6 +543,8 @@ Stateless as a service. Clients own conversation history; `/chat` accepts it, an
 
 **`safety_level`** (on `/chat`, and historically `/reflect`): `normal | abalo | crise`, so the client can adapt presentation.
 
+### Streaming
+
 **`POST /chat/stream`** — the same answer as `POST /chat`, delivered as Server-Sent Events. Two event types:
 
 ```
@@ -429,7 +554,44 @@ event: done    data: { ...the full ChatResponse body... }
 
 `generator.generate()` is split into `_prepare` (short-circuits, sensitivity tier, retrieval, prompt) → the model call → `_finalize` (post-processing, sources). Both routes share everything but the model call, which is why the `done` payload cannot drift from what `/chat` returns; `_chat_response` in `routes.py` is the matching seam for the nudge and the turn log.
 
-Everything decided in code answers before a stream is opened, yielding its `done` and nothing else: the crisis exit, small talk, the size cap, a retrieval failure, no chunks. The rate limit still raises a 429. `Cache-Control: no-store` and `X-Accel-Buffering: no` keep proxies from accumulating the body (Cloud Run was measured not to buffer on 2026-07-27). The anonymous turn log is written once, at the end, with the final answer. Reasoning in `superpowers/specs/2026-07-27-streaming-design.md`.
+Everything decided in code answers before a stream is opened, yielding its `done` and nothing else: the crisis exit, small talk, the size cap, a retrieval failure, no chunks. The rate limit still raises a 429. `Cache-Control: no-store` and `X-Accel-Buffering: no` keep proxies from accumulating the body (Cloud Run was measured not to buffer on 2026-07-27). The turn log is written once, at the end, with the final answer. Reasoning in `superpowers/specs/2026-07-27-streaming-design.md`.
+
+**The crisis exit never streams.** It is fixed text decided in code before any model call, and arrives whole and immediate — a crisis message appearing letter by letter would be cruel and pointless.
+
+**`POST /study/stream`** — the same, for Explicador, with one extra event:
+
+```
+event: source  data: { ...the passage... }     ← always first
+event: token   data: {"text": "Kardec situa este item"}
+event: done    data: { ...the full StudyResponse body... }
+```
+
+`source` comes before any token so the passage is on screen before the explanation of it.
+
+The hard part is that **Explicador is pinned to the JSON lane**, so its raw deltas are JSON syntax, not prose. `json_stream.py` reads the value of one named field (`contexto`) out of the text as it accumulates, applying the same rule `stream_buffer.py` applies to trailer markers: **never emit anything that might still be incomplete.** Providers split chunks at arbitrary byte offsets, so an escape sequence routinely arrives in two pieces — half of a `\uXXXX` must never reach the screen as literal text. No LLM and no network are involved: the output is a pure function of the text fed in, which is how it is tested.
+
+Both streams share the non-streaming lane's parser, so `done` cannot drift: `/study/stream` parses the accumulated JSON with the same `_parse` that `POST /study` uses.
+
+### Turn logging (`conversation_log.py`)
+
+One JSON line per answered turn to stdout, which Cloud Logging captures and a sink forwards to BigQuery. Called **from the route, never from a pipeline** — the pipeline must not know observability exists. Every function swallows its exceptions: observability may never break an answer that already worked.
+
+**Two regimes, and the default one may never gain a link.**
+
+| | Without consent (default) | With consent |
+|---|---|---|
+| `session_id` | **absent from the object** — not null | present; turns of one tab are linked |
+| what it is | loose turns, nothing that could rebuild one person's thread | one tab's thread |
+
+Consent travels **only** as the presence of the `X-Session-Id` header, so its absence *is* the refusal. The backend **never generates a session id and never derives one** from IP, cookie or user-agent.
+
+Three more rules:
+
+- **`crise` and `abalo` record no text at all, in either regime.** Consent does not unlock them — someone who clicked a banner on arrival did not meaningfully consent to what they would write in distress twenty minutes later. The record keeps that the level happened, and not one word of what was written.
+- **The conversation history is never logged**, only `n_history`.
+- **`retrieved` carries every chunk that reached the prompt** (with raw `distance`, smaller is closer) while `sources` carries only what was cited. **The gap between the two is the diagnosis**: whether the right passage was never retrieved, or was retrieved and ignored. `distance` is recorded raw rather than inverted into a "score" — it is what the store returned.
+
+E-mail, phone, CPF and CEP are scrubbed before writing. Note the direction of the constraint in CLAUDE.md: **privacy copy may promise less than the code does, never more** — `PRIVACY_NOTICE` in `frontend/src/constants/contact.js` deliberately omits the scrubbing and the no-text rule, so tightening the code needs no edit there, but loosening it does.
 
 **`Source` / `StudySource`** (`/chat` `sources`, and historically `/reflect`):
 ```json
@@ -449,8 +611,8 @@ One JSON per path, served statically (no DB; client owns progress). Schema: `id`
 
 ## Notes
 
-- **Legacy:** `study.py` / `study_prompt.py` were the original `/study` implementation, superseded by `explicador.py`. Safe to delete.
+- **Legacy:** `study.py` / `study_prompt.py` were the original `/study` implementation, superseded by `explicador.py`, and have since been deleted.
 - **Ações Rápidas** (client-side quick follow-up buttons) are wired but currently disabled everywhere (`showQuickActions={false}`) pending a UX redesign. Source citations (the clickable `📖` chips → `SourceModal`) are independent, but the row is no longer unconditional: since 2026-07-29 a passage cited inline renders as a link in the prose instead, and the chip row shows only what was not cited that way — it is absent entirely when every retrieved passage was.
 - The planned **Pesquisador** agent (query expansion before embedding) is not implemented. A HyDE variant was considered: generate a hypothetical answer, retrieve on *that*, then **discard it** and generate only from the retrieved chunks. Generating the final answer from the hypothesis would be self-confirming — a drift toward untrained-on material would steer retrieval toward itself and inflate the groundedness score that exists to detect it. Not built; the 2026-07-25 data showed no retrieval problem to solve.
-- **Known failing tests on `main`** (pre-existing, unrelated to the prose lane): `test_reflect_complementary_items_come_from_chunks_3_to_5` (returns 2 items where 3 are expected) and `test_explicador_marks_failure_on_unparseable_output`.
+- **The suite is green** — 807 passed, 64 skipped, 0 failed (2026-08-03). This note previously listed two known failures (`test_reflect_complementary_items_come_from_chunks_3_to_5`, `test_explicador_marks_failure_on_unparseable_output`); both are resolved, the first now passing and the second skipped along with Reflexivo. A red suite is not expected here — if you see one, it is yours.
 - **Multilingual is deferred.** CC0 corpora exist for only 2 of the 5 works (`ia-espirita/livro-dos-espiritos`, `ia-espirita/livro-dos-mediuns` — pt/en/es/fr), and those are exactly the works with a single global numbered sequence. Evangelho and Céu e Inferno, with per-chapter numbering, are both the hard case and the missing case. When picked up it costs no new architecture: `bge-m3` already does cross-lingual retrieval on one index, and the prose lane makes language a routing key.
