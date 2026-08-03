@@ -707,16 +707,25 @@ export default function App() {
   };
 
   // ── The mode nudge, as a footer button ────────────────────────────────────
-  // Shared by the main thread and by Explorar. The orchestrator returns
-  // `suggested_mode` on every /chat reply, so Explorar was already receiving
-  // this and discarding it — which matters most in exactly the case the reader
-  // slides from studying a passage into something Estudar is the wrong shape
-  // for, e.g. grief. Non-destructive: it offers, it never switches on its own.
+  // One direction only, and it is the one that deepens: Dialogar -> Estudar.
+  // It hands over an IDENTIFIER (book + item), which /study resolves with a
+  // deterministic metadata lookup, so the reader lands on the passage itself
+  // and nothing can be lost on the way.
   //
-  // `priorUserText` is what gets carried into the new mode, so the reader does
-  // not retype their situation. Without it there is nothing to hand over and
-  // the button is not offered at all.
-  const buildModeNudge = (msg, priorUserText) => {
+  // The reverse — "💬 Dialogar sobre isto" inside Estudar — was removed on
+  // 2026-08-03. It handed over free text and dropped the conversation it came
+  // from, so the question had to be retrieved again from nothing: "o que seria
+  // necessidades humanas?", asked next to Q.674, answered fine inside Estudar
+  // and came back not-found in Dialogar. It also fired backwards from its own
+  // purpose — it existed for the reader who slides from studying into
+  // something Estudar cannot shape (grief), yet grief produced no nudge while
+  // a follow-up about the passage on screen produced one at high confidence.
+  // Handing over a pointer is robust; handing over prose means re-retrieving
+  // from scratch. The backend no longer classifies from `estudar_obra` at all.
+  //
+  // `priorUserText` is what a text-carrying nudge would hand over. No live
+  // branch uses it now; it is kept for the dormant Refletir branch below.
+  const buildModeNudge = (msg, priorUserText) => {  // eslint-disable-line no-unused-vars
     if (msg.suggestedMode === 'estudar_obra') {
       const studyTarget = resolveStudyTarget(msg);
       return studyTarget ? {
@@ -735,12 +744,6 @@ export default function App() {
     //     onClick: () => handleGoReflect(priorUserText),
     //   } : null;
     // }
-    if (msg.suggestedMode === 'tirar_duvida') {
-      return priorUserText ? {
-        label: '💬 Dialogar sobre isto',
-        onClick: () => handleGoDuvida(priorUserText),
-      } : null;
-    }
     return null;
   };
 
@@ -815,35 +818,19 @@ export default function App() {
   //   }
   // };
 
-  // ── Suggested-mode: jump from /reflect to a Dúvida thread seeded with the question ──
-  const handleGoDuvida = async (questionText) => {
-    if (!questionText) return;
-    switchMode('duvida');
-    const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: questionText };
-    setMsgs([userMsg]); setLoading(true);
-    const id = 'c' + Date.now();
-    setConvoId(id);
-    saveConvo(id, questionText.slice(0, 48), 'duvida', [userMsg]);
-    scrollToBottom();
-    const requestId = ++requestIdRef.current;
-    try {
-      const reply = await chatMessage(questionText, [], null, 'tirar_duvida');
-      if (requestId !== requestIdRef.current) return;
-      const aiMsg = { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
-      const finalMsgs = [userMsg, aiMsg];
-      setMsgs(finalMsgs);
-      saveConvo(id, questionText.slice(0, 48), 'duvida', finalMsgs);
-    } catch (err) {
-      console.error('handleGoDuvida failed:', err);
-      if (requestId !== requestIdRef.current) return;
-      setMsgs([userMsg, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
-    } finally {
-      if (requestId === requestIdRef.current) {
-        setLoading(false);
-        scrollToBottom();
-      }
-    }
-  };
+  // `handleGoDuvida` lived here: it seeded a fresh Dúvida thread from one line
+  // of carried-over text. Removed on 2026-08-03 with the nudge that was its
+  // only caller — see buildModeNudge above for why. Note what it did on the way
+  // out, because it is the trap any future text-carrying handoff will hit:
+  //
+  //     chatMessage(questionText, [], null, 'tirar_duvida')
+  //                               ^^ history
+  //
+  // An empty history means `condense_query` never runs (it is skipped when
+  // there is no history), so a fragment that only means something beside the
+  // passage it came from gets embedded raw, lands outside the distance cut,
+  // and the reader is told the works do not address their question. Anything
+  // that hands free text to /chat has to hand over the conversation with it.
 
   // ── Load a saved conversation from the sidebar into the right mode/sub-screen ──
   const handleLoadConvo = async (c) => {
