@@ -7,11 +7,15 @@ lane is a configuration change rather than an edit to any of them.
 """
 
 import logging
+import time
 from typing import Any
 
 from src.core.config import EMBEDDING_PROVIDERS, settings
 
 logger = logging.getLogger(__name__)
+
+# Seam, so a test can move the clock without touching the module's imports.
+_now = time.monotonic
 
 # sentence_transformers pulls torch, and torch is most of the container image.
 # Importing it lazily is what lets a hosted-only deployment drop the dependency
@@ -121,6 +125,42 @@ def _hosted_model_id(provider: str | None = None) -> str:
     return EMBEDDING_PROVIDERS[provider or settings.embedding_provider][2]
 
 
+# The providers that are themselves routers, and so understand a routing block.
+# `baai/bge-m3` on OpenRouter sits behind two upstreams — DeepInfra and Parasail
+# (verified 2026-08-03) — and by default it spreads across them. DeepInfra and
+# Novita ARE upstreams: `provider` is not their vocabulary, and an unknown body
+# key is at best ignored and at worst a 400.
+_ROUTED_PROVIDERS = {"openrouter"}
+
+# Above this, one call is worth a line someone will actually see. Production
+# logs at INFO, so a DEBUG line never arrives — and the call worth correlating
+# is precisely the slow one.
+SLOW_CALL_S = 10.0
+
+
+def _routing_extra(provider: str) -> dict:
+    """`sort: latency` asks OpenRouter to prefer its faster upstream rather than
+    spread across them. Fallback stays on: this expresses a preference, and the
+    point of routing through an aggregator is that it can still move.
+    """
+    if provider not in _ROUTED_PROVIDERS:
+        return {}
+    return {"extra_body": {"provider": {"sort": "latency"}}}
+
+
+def _served_by(response: Any) -> str:
+    """Which upstream actually answered, when the provider says so.
+
+    OpenRouter reports it, and throwing it away is why the hangs of 2026-08-03
+    could not be pinned on either of the two candidates. Never worth an
+    exception: this is diagnostics.
+    """
+    try:
+        return response.model_dump().get("provider") or "unreported"
+    except Exception:
+        return "unreported"
+
+
 def _embed_batch(batch: list[str], chain: list[str]) -> list[list[float]]:
     """One batch, trying each provider in turn.
 
@@ -131,10 +171,13 @@ def _embed_batch(batch: list[str], chain: list[str]) -> list[list[float]]:
     timeout = _hosted_timeout(len(batch))
     last: Exception | None = None
     for provider in chain:
+        started = _now()
         try:
             client = _hosted_client(provider, timeout)
             response = client.embeddings.create(
-                model=_hosted_model_id(provider), input=batch
+                model=_hosted_model_id(provider),
+                input=batch,
+                **_routing_extra(provider),
             )
         except Exception as exc:  # transport: timeout, connection, 5xx, 429
             last = exc
@@ -146,6 +189,25 @@ def _embed_batch(batch: list[str], chain: list[str]) -> list[list[float]]:
                 "; trying the next" if provider != chain[-1] else "; none left",
             )
             continue
+
+        elapsed = _now() - started
+        served_by = _served_by(response)
+        if elapsed >= SLOW_CALL_S:
+            logger.warning(
+                "slow embedding call: %.1fs for %d text(s) via %s (upstream %s)",
+                elapsed,
+                len(batch),
+                provider,
+                served_by,
+            )
+        else:
+            logger.debug(
+                "embedding: %d text(s) in %.2fs via %s (upstream %s)",
+                len(batch),
+                elapsed,
+                provider,
+                served_by,
+            )
 
         returned = [d.embedding for d in response.data]
         if len(returned) != len(batch):
