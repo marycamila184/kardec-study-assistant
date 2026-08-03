@@ -84,21 +84,35 @@ def _answer_with_nudge(
     return result, suggested_mode
 
 
-# The shape classifier cannot run concurrently with generation the way
-# classify_intent does: its output shapes the prompt, so it has to finish first.
-# That is serial latency on every turn, capped tightly here and degrading to the
-# profile the client sent — a slow classifier must never be why someone waits.
+# The shape classifier shapes the prompt, so unlike classify_intent it cannot
+# overlap generation — the prompt is built from it. But it does not need
+# retrieval, and retrieval does not need it, so it overlaps THAT instead: the
+# route starts it and hands the generator a resolver, which is read at the last
+# moment, just before the prompt is built.
+#
+# The budget is a deadline rather than a wait, and that is the whole point. It
+# is measured from the moment detection STARTS, so whatever condensation,
+# embedding and retrieval consumed is time the classifier already had. On the
+# common path it is finished long before anyone asks, and the added latency is
+# zero. It used to be 3s of serial prelude on every turn, and production was
+# logging its TimeoutError — readers paid the full 3s and got the unchanged
+# profile anyway.
 _PROFILE_TIMEOUT_S = 3.0
 
 
-def _resolve_profile(
+def _profile_resolver(
     question: str, state: ProfileState | None, current_mode: str | None = None
-) -> ResponseProfile:
-    """The profile this turn is answered with: what the client carried in, plus
-    anything this message asks to change.
+) -> Callable[[], ResponseProfile]:
+    """Starts profile detection and returns the way to read it.
 
-    With nothing carried in, the mode decides the starting point — a first
-    question in Estudar is not the same as a first question in Dialogar.
+    The profile for this turn is what the client carried in, plus anything this
+    message asks to change. With nothing carried in, the mode decides the
+    starting point — a first question in Estudar is not the same as a first
+    question in Dialogar.
+
+    The result is memoised: the generator reads it to build the prompt and the
+    route reads it again to report it on the response, and those two must be the
+    same profile, resolved once.
     """
     incoming = MODE_DEFAULTS.get(current_mode or "", CHAT_DEFAULT)
     if state is not None:
@@ -112,14 +126,24 @@ def _resolve_profile(
         )
 
     executor = ThreadPoolExecutor(max_workers=1)
-    try:
-        future = executor.submit(detect_profile_changes, question, incoming)
-        return future.result(timeout=_PROFILE_TIMEOUT_S)
-    except Exception:
-        logger.exception("profile detection slow or failed; profile unchanged")
-        return incoming
-    finally:
-        executor.shutdown(wait=False)
+    future = executor.submit(detect_profile_changes, question, incoming)
+    deadline = time.monotonic() + _PROFILE_TIMEOUT_S
+    resolved: list[ResponseProfile] = []
+
+    def resolve() -> ResponseProfile:
+        if resolved:
+            return resolved[0]
+        try:
+            profile = future.result(timeout=max(0.0, deadline - time.monotonic()))
+        except Exception:
+            logger.exception("profile detection slow or failed; profile unchanged")
+            profile = incoming
+        finally:
+            executor.shutdown(wait=False)
+        resolved.append(profile)
+        return profile
+
+    return resolve
 
 
 def _profile_state(profile: ResponseProfile) -> ProfileState:
@@ -172,7 +196,7 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     # message is turned away.
     history = trim_history(request.question, history)
 
-    profile = _resolve_profile(request.question, request.profile, request.current_mode)
+    profile = _profile_resolver(request.question, request.profile, request.current_mode)
     result, suggested_mode = _answer_with_nudge(
         request.question,
         # The mode the CLIENT reports, never a constant: classify_intent's
@@ -197,7 +221,8 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
         suggested_mode,
         started_at=started,
         log=True,
-        profile=profile,
+        # Already resolved by the generator; memoised, so this is a read.
+        profile=profile(),
         session_id=session_id_from(http_request),
         n_history=len(history),
     )
@@ -222,7 +247,7 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
 
     history = trim_history(request.question, history)
 
-    profile = _resolve_profile(request.question, request.profile, request.current_mode)
+    profile = _profile_resolver(request.question, request.profile, request.current_mode)
     # Read before the stream opens: inside the generator the request may already
     # be gone by the time the body starts being consumed.
     session_id = session_id_from(http_request)
@@ -268,7 +293,8 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
             suggested_mode,
             started_at=started,
             log=True,
-            profile=profile,
+            # Already resolved by the generator; memoised, so this is a read.
+            profile=profile(),
             session_id=session_id,
             n_history=n_history,
         )

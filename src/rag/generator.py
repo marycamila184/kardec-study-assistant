@@ -1,7 +1,7 @@
 import logging
 import random
 from concurrent.futures import ThreadPoolExecutor
-from typing import Iterator
+from typing import Callable, Iterator
 
 from src.core.config import settings
 from src.rag.citations import (
@@ -44,6 +44,26 @@ from src.rag.stream_buffer import StreamBuffer
 logger = logging.getLogger(__name__)
 
 _SENSITIVITY_TIMEOUT_S = 8.0
+
+# A profile, or something that will produce one when asked. The deferred form is
+# how profile detection stops being a blocking prelude: the caller starts it,
+# hands over the resolver, and it runs while condensation, embedding and
+# retrieval do — none of which need it. Only `build_messages` does, and that is
+# the last thing `_prepare` does.
+DeferredProfile = ResponseProfile | Callable[[], ResponseProfile]
+
+
+def _resolve_profile(profile: DeferredProfile) -> ResponseProfile:
+    """Never lets the shape of an answer cost the answer itself: a resolver that
+    raises leaves the profile at the default, exactly as a timeout does."""
+    if not callable(profile):
+        return profile
+    try:
+        return profile()
+    except Exception:
+        logger.exception("profile resolution failed; falling back to the default")
+        return CHAT_DEFAULT
+
 
 NOT_FOUND_MESSAGE = (
     "Não encontrei nas obras de Kardec passagens que respondam com segurança a essa "
@@ -118,7 +138,7 @@ def _prepare(
     book_filter: str | None = None,
     chapter_filter: str | None = None,
     anchor_text: str | None = None,
-    profile: ResponseProfile = CHAT_DEFAULT,
+    profile: DeferredProfile = CHAT_DEFAULT,
 ) -> tuple[dict | None, dict | None]:
     """Everything that happens before the model call: the short-circuits, the
     sensitivity tier, retrieval, and the prompt.
@@ -268,6 +288,11 @@ def _prepare(
     absent = unsupported_terms(question, chunks)
     if absent:
         logger.info("question premise absent from the works: %s", absent)
+
+    # Resolved here, at the last possible moment: everything above — the tier,
+    # the condensation, the embedding, the retrieval — got to happen while the
+    # detector was still working.
+    profile = _resolve_profile(profile)
 
     system, messages = build_messages(
         question,
@@ -503,7 +528,7 @@ def generate(
     book_filter: str | None = None,
     chapter_filter: str | None = None,
     anchor_text: str | None = None,
-    profile: ResponseProfile = CHAT_DEFAULT,
+    profile: DeferredProfile = CHAT_DEFAULT,
 ) -> dict:
     early, ctx = _prepare(
         question, history, book_filter, chapter_filter, anchor_text, profile
@@ -527,7 +552,7 @@ def generate_stream(
     book_filter: str | None = None,
     chapter_filter: str | None = None,
     anchor_text: str | None = None,
-    profile: ResponseProfile = CHAT_DEFAULT,
+    profile: DeferredProfile = CHAT_DEFAULT,
 ) -> Iterator[tuple[str, object]]:
     """The same answer as generate(), yielded as ("token", text) pairs followed
     by exactly one ("done", result).
