@@ -68,6 +68,25 @@ def classify_intent(
     confidence, or on any failure — deterministic safety runs before any LLM."""
     if not message or needs_crisis_note(message) or is_smalltalk(message):
         return {"mode": None, "confidence": "high"}
+
+    # Only one direction of nudge is left, and it is the one that deepens:
+    # Dialogar -> Estudar hands over an IDENTIFIER (book + item), which
+    # `retrieve_by_item` resolves deterministically, so the reader arrives at
+    # the passage itself. The reverse handed over free text and dropped the
+    # conversation it came from, so the question had to be retrieved again from
+    # nothing — "o que seria necessidades humanas?", asked next to Q.674,
+    # answered fine inside Estudar and came back not-found in Dialogar.
+    #
+    # It also fired backwards from its stated purpose (measured 2026-08-03): it
+    # existed for the reader who slides from studying into something Estudar
+    # cannot shape, yet grief produced no nudge while a follow-up about the
+    # passage on screen produced one at high confidence.
+    #
+    # From `estudar_obra` the only target this could emit is `tirar_duvida`,
+    # since it never nudges toward the current mode — so there is nothing left
+    # to classify, and the call is skipped rather than made and thrown away.
+    if current_mode == "estudar_obra":
+        return {"mode": None, "confidence": "high"}
     try:
         response = create_json_completion(
             get_client(),
