@@ -68,6 +68,10 @@ def test_hosted_lane_batches_and_refuses_a_short_response(monkeypatch):
 
     monkeypatch.setattr(embeddings.settings, "embedding_provider", "deepinfra")
     monkeypatch.setattr(embeddings.settings, "deepinfra_api_key", "k")
+    # Pinned so the failover chain is this test's business and not whatever the
+    # developer's .env happens to have a key for.
+    monkeypatch.setattr(embeddings.settings, "openrouter_api_key", None)
+    monkeypatch.setattr(embeddings.settings, "novita_api_key", None)
     sizes = []
 
     class FakeClient:
@@ -81,7 +85,9 @@ def test_hosted_lane_batches_and_refuses_a_short_response(monkeypatch):
                     data=[MagicMock(embedding=[0.1] * 1024) for _ in input]
                 )
 
-    monkeypatch.setattr(embeddings, "_hosted_client", lambda: FakeClient)
+    monkeypatch.setattr(
+        embeddings, "_hosted_client", lambda provider, timeout: FakeClient
+    )
     out = embeddings.encode([f"t{i}" for i in range(250)])
     assert len(out) == 250
     assert sizes == [100, 100, 50], "lotes no teto de HOSTED_BATCH_MAX"
@@ -94,7 +100,9 @@ def test_hosted_lane_batches_and_refuses_a_short_response(monkeypatch):
 
                 return MagicMock(data=[MagicMock(embedding=[0.1] * 1024)])
 
-    monkeypatch.setattr(embeddings, "_hosted_client", lambda: ShortClient)
+    monkeypatch.setattr(
+        embeddings, "_hosted_client", lambda provider, timeout: ShortClient
+    )
     with pytest.raises(RuntimeError, match="2 textos"):
         embeddings.encode(["a", "b"])
 
