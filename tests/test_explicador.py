@@ -2,7 +2,9 @@ import json
 import logging
 from unittest.mock import MagicMock, patch
 
-from src.rag.explicador import explicar
+from src.rag.explicador import explicar, prepare_study
+
+EVANGELHO = "O Evangelho Segundo o Espiritismo"
 
 _CHUNK_WITH_FOOTNOTE = {
     "content": "1. Que é Deus?",
@@ -32,6 +34,8 @@ _MULTI_CHUNK_B = {
         "book": "O Livro dos Espíritos",
         "chapter_title": "Da Encarnação",
         "item_number": "132",
+        # A paragraph of its own in the source, so it rejoins on a newline.
+        "starts_paragraph": True,
     },
     "distance": 0.0,
 }
@@ -89,6 +93,50 @@ def test_explicar_returns_contexto_from_llm():
     assert result["original_text"] == "1. Que é Deus?"
 
 
+def test_original_text_does_not_break_a_paragraph_split_by_size():
+    """Regression: Evangelho XIX item 8 is one paragraph in the source, but is
+    over 800 chars, so it is stored as two subchunks — cut inside the citation,
+    at "(S. MARCOS, cap. | Xl, vv. 12 a 14 e 20 a 23.)". `prepare_study` rejoined
+    those with "\\n\\n", and "Da Obra" renders with white-space: pre-wrap, so the
+    reader got a blank line in the middle of the reference."""
+    halves = [
+        {
+            "content": "8. …com efeito, acontece. (S. MARCOS, cap.",
+            "footnote_context": "",
+            "metadata": {
+                "book": EVANGELHO,
+                "chapter": "CAPÍTULO XIX",
+                "item_number": "8",
+                "subchunk_index": 1,
+                "starts_paragraph": True,
+            },
+            "distance": 0.0,
+        },
+        {
+            "content": "Xl, vv. 12 a 14 e 20 a 23.)",
+            "footnote_context": "",
+            "metadata": {
+                "book": EVANGELHO,
+                "chapter": "CAPÍTULO XIX",
+                "item_number": "8",
+                "subchunk_index": 2,
+                "starts_paragraph": False,
+            },
+            "distance": 0.0,
+        },
+    ]
+    with (
+        patch("src.rag.explicador.retrieve_by_item", return_value=halves),
+        patch("src.rag.explicador.retrieve", return_value=[]),
+        patch("src.rag.explicador.chapter_commentary", return_value=[]),
+    ):
+        ctx = prepare_study(EVANGELHO, "8", "CAPÍTULO XIX")
+
+    assert ctx["original_text"] == (
+        "8. …com efeito, acontece. (S. MARCOS, cap. Xl, vv. 12 a 14 e 20 a 23.)"
+    )
+
+
 def test_explicar_degrades_gracefully_when_related_retrieval_fails():
     llm_json = '{"contexto": "Contexto de teste.", "conceitos_chave": []}'
 
@@ -134,7 +182,7 @@ def test_explicar_retrieves_related_using_first_subchunk_only():
     assert mock_retrieve.call_args[0][0] == "Primeiro subtrecho, curto e específico."
     # curar still receives the FULL concatenated original text
     full_text = (
-        "Primeiro subtrecho, curto e específico.\n\n"
+        "Primeiro subtrecho, curto e específico.\n"
         "Segundo subtrecho, com outro assunto diluidor."
     )
     assert mock_curar.call_args[0][0] == full_text

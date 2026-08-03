@@ -1,0 +1,143 @@
+# Backend deploy to Cloud Run, on merge to main.
+#
+# A merged PR is a push to main, so that is the trigger. workflow_dispatch is
+# kept for re-deploying without a new commit.
+#
+# ## Why this job builds the index
+#
+# The Dockerfile does `COPY data/embeddings/`, and `data/embeddings/` is
+# GITIGNORED — the index is regenerable, so it is not in the repository. A
+# checkout therefore does not have it, and `gcloud run deploy --source .`
+# straight from CI would fail at that COPY. Deploying from a laptop worked only
+# because the working tree happened to hold an index.
+#
+# So the index is rebuilt here, from the two things git does track:
+# data/markdown_files/ (hand-reviewed, authoritative) and data/paths/.
+#
+# ## Why hosted embeddings and not the local model
+#
+# Loading BAAI/bge-m3 in-process means sentence-transformers, and that means
+# torch + CUDA: ~4.7 GB to install on every run. The same model over HTTP needs
+# only the `openai` client, which is already a runtime dependency, so this job
+# installs `--no-dev` and nothing else. Parity between the two lanes was
+# measured on 2026-07-27 — cosine 0.999994, 100% top-5 overlap — and the
+# service queries through the hosted lane anyway, so index and queries now come
+# from the same side of that seam.
+#
+# Cost: one full pass is ~7.3k chunks, on the order of US$0.03 per deploy.
+#
+# ## Auth
+#
+# Needs Workload Identity Federation before it can run. Nothing here creates a
+# secret; set these two repository secrets:
+#   GCP_WORKLOAD_IDENTITY_PROVIDER
+#   GCP_SERVICE_ACCOUNT
+# The service account needs roles/run.admin, roles/cloudbuild.builds.editor,
+# roles/artifactregistry.writer, roles/iam.serviceAccountUser and
+# roles/secretmanager.secretAccessor — the last one because the embedding key
+# is read from Secret Manager here rather than duplicated as a GitHub secret.
+name: Deploy (Cloud Run)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time, and never cancel one halfway: an interrupted
+# `gcloud run deploy` can leave a revision half-routed.
+concurrency:
+  group: deploy-cloud-run
+  cancel-in-progress: false
+
+env:
+  GCP_PROJECT: dialogando-doutrina
+  GCP_REGION: us-central1
+  SERVICE: kardec-api
+
+permissions:
+  contents: read
+  id-token: write   # required by Workload Identity Federation
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Python 3.12
+        run: uv python install 3.12
+
+      # Runtime dependencies only. The ingest group (sentence-transformers →
+      # torch) is deliberately absent; see the header.
+      - name: Install dependencies
+        run: uv sync --locked --no-dev
+
+      - name: Parse the works (markdown -> json)
+        run: uv run python -m src.parsing.parsing_pipeline
+
+      - name: Build the index (json -> chromadb, hosted embeddings)
+        run: |
+          OPENROUTER_API_KEY="$(gcloud secrets versions access latest \
+            --secret=openrouter-api-key --project "$GCP_PROJECT")" \
+          EMBEDDING_PROVIDER=openrouter \
+          uv run python -m src.ingestion.pipeline
+
+      # A silently broken ingest ships an index that answers worse rather than
+      # one that fails, so it is checked before the image is built. Two failures
+      # this catches, both of which have happened: an index that came out empty,
+      # and evaluation collections (kardec_docs_e5, kardec_docs_gemini_*) riding
+      # along into the image. Deliberately a floor, not an exact count — the
+      # number moves whenever the corpus or the chunking does.
+      - name: Check the index before shipping it
+        run: |
+          uv run python - <<'PY'
+          import chromadb, sys
+          cols = chromadb.PersistentClient(path="data/embeddings/").list_collections()
+          names = {c.name: c.count() for c in cols}
+          print("collections:", names)
+          if set(names) != {"kardec_docs"}:
+              sys.exit(f"expected only kardec_docs, found {sorted(names)}")
+          if names["kardec_docs"] < 7000:
+              sys.exit(f"index too small: {names['kardec_docs']} chunks")
+          PY
+
+      # The numbers are explained in docs/deploy.md. In short: min-instances 0
+      # is the scale-to-zero; max-instances 3 is a spend brake; concurrency 20
+      # (not the default 80) because the routes are synchronous and wait on the
+      # LLM, so each request holds a thread from the pool.
+      - name: gcloud run deploy
+        run: |
+          gcloud run deploy "$SERVICE" \
+            --source . \
+            --project "$GCP_PROJECT" \
+            --region "$GCP_REGION" \
+            --allow-unauthenticated \
+            --memory 512Mi --cpu 1 \
+            --min-instances 0 --max-instances 3 \
+            --concurrency 20 --timeout 120 \
+            --set-env-vars 'LLM_PROVIDER=together,EMBEDDING_PROVIDER=openrouter' \
+            --set-secrets 'TOGETHER_API_KEY=together-api-key:latest,OPENROUTER_API_KEY=openrouter-api-key:latest' \
+            --quiet
+
+      - name: Check it came up
+        run: |
+          URL=$(gcloud run services describe "$SERVICE" --region "$GCP_REGION" \
+                --project "$GCP_PROJECT" --format='value(status.url)')
+          echo "deployed: $URL"
+          curl -sf --max-time 90 "$URL/health"
+          # The daily passage is deterministic and needs no LLM, so it proves
+          # the index actually shipped inside the image.
+          curl -sf --max-time 90 "$URL/evangelho" > /dev/null && echo "index served OK"

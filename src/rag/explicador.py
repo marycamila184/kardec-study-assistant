@@ -18,6 +18,7 @@ from src.rag.retriever import (
     chapter_commentary,
     filter_sensitive_chunks,
     filter_uncitable_chunks,
+    join_item_text,
     retrieve,
     retrieve_by_item,
     retrieved_summary,
@@ -48,7 +49,7 @@ def prepare_study(
     if not chunks:
         return None
 
-    original_text = "\n\n".join(c["content"] for c in chunks)
+    original_text = join_item_text(chunks)
     footnote_context = "\n\n".join(
         c["footnote_context"] for c in chunks if c.get("footnote_context")
     )
@@ -147,7 +148,7 @@ def build_chapter_context(ctx: dict) -> list[dict]:
                 "parts": [],
             },
         )
-        entry["parts"].append(chunk["content"])
+        entry["parts"].append(chunk)
 
     return [
         {
@@ -155,7 +156,7 @@ def build_chapter_context(ctx: dict) -> list[dict]:
             "chapter_title": e["chapter_title"],
             "chapter_ref": e["chapter_ref"],
             "item_number": e["item_number"],
-            "excerpt": " ".join(e["parts"]),
+            "excerpt": join_item_text(e["parts"]),
         }
         for e in grouped.values()
     ]

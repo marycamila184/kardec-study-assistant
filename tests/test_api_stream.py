@@ -142,3 +142,18 @@ def test_the_turn_is_logged_once_with_the_final_answer():
 
     assert mock_log.call_count == 1
     assert mock_log.call_args[0][1]["answer"] == _DONE_RESULT["answer"]
+
+
+def test_stream_forwards_current_mode_to_the_classifier():
+    """Same contract as POST /chat: the nudge's self-suppression compares the
+    classifier's answer against the mode the client reported, so the streaming
+    lane must forward it too. It used to pass a literal "tirar_duvida"."""
+    with (
+        patch("src.api.routes.generate_stream", _fake_generate_stream),
+        patch(
+            "src.api.routes.classify_intent", return_value={"mode": None}
+        ) as mock_cls,
+    ):
+        _stream("A lei do trabalho (Q.664)", current_mode="estudar_obra")
+
+    assert mock_cls.call_args[0][1] == "estudar_obra"

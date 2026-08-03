@@ -51,3 +51,20 @@ export function chapterTitleOf({ book, chapterTitle }) {
   const norm = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim();
   return norm(chapterTitle) === norm(book) ? null : chapterTitle;
 }
+
+/**
+ * The machine chapter id a topic chip names, or null.
+ *
+ * Explorar's Evangelho topics are written "A humildade (cap. VII)", and that
+ * chapter is the only thing standing between the topic and the Coletânea de
+ * Preces, which wins a whole-book semantic search for almost any moral subject
+ * — 60% of everything the ten topics retrieved (measured 2026-08-02). The
+ * backend takes it as `chapter_filter`.
+ *
+ * Only the Evangelho chips carry this; the others name a question ("(Q.674)"),
+ * which the backend resolves as a direct item lookup instead.
+ */
+export function chapterFilterFromTopic(label) {
+  const match = /\(cap\.\s*([IVXL]+)\)/i.exec(label || '');
+  return match ? `CAPÍTULO ${match[1].toUpperCase()}` : null;
+}

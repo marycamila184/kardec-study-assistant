@@ -179,6 +179,9 @@ def test_chapter_context_exposes_the_grounding_items():
                     "book": EVANGELHO,
                     "chapter_title": "MUITOS OS CHAMADOS",
                     "item_number": "2",
+                    # Continues the previous piece inside one paragraph: the
+                    # cut was the size limit, not a break in the source.
+                    "starts_paragraph": False,
                 },
             },
             {

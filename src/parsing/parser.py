@@ -1,6 +1,6 @@
 import re
 
-from .chunking import split_into_subchunks
+from .chunking import split_with_paragraph_breaks
 
 
 def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 800):
@@ -58,8 +58,8 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 800):
             text = "\n".join(seg_lines).strip()
             if not text:
                 continue
-            for chunk in split_into_subchunks(text, max_chars):
-                all_chunks.append((chunk, seg_footnotes))
+            for chunk, starts_paragraph in split_with_paragraph_breaks(text, max_chars):
+                all_chunks.append((chunk, seg_footnotes, starts_paragraph))
 
         if not all_chunks:
             return
@@ -67,7 +67,9 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 800):
         item_num = current_section if current_section else f"section-{section_counter}"
         total = len(all_chunks)
 
-        for idx, (chunk_text, chunk_footnotes) in enumerate(all_chunks, start=1):
+        for idx, (chunk_text, chunk_footnotes, starts_paragraph) in enumerate(
+            all_chunks, start=1
+        ):
             results.append(
                 {
                     "book": book_name,
@@ -79,6 +81,10 @@ def parse_md_to_json(md_text: str, book_name: str, max_chars: int = 800):
                     "item_number": item_num,
                     "subchunk_index": idx,
                     "total_subchunks": total,
+                    # False when this piece continues the previous one inside
+                    # one source paragraph — what `join_subchunks` needs to
+                    # rebuild the item without inventing a line break.
+                    "starts_paragraph": starts_paragraph,
                     "content": chunk_text,
                     "footnotes": chunk_footnotes,
                 }

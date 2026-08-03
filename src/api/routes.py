@@ -175,12 +175,18 @@ def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
     profile = _resolve_profile(request.question, request.profile, request.current_mode)
     result, suggested_mode = _answer_with_nudge(
         request.question,
-        "tirar_duvida",
+        # The mode the CLIENT reports, never a constant: classify_intent's
+        # self-suppression compares against this, so hardcoding it told the
+        # orchestrator every reader was in Dialogar and let it nudge someone
+        # inside Estudar toward Estudar. `scripts/check_chat_current_mode.mjs`
+        # cannot see this — it only guards the frontend call sites.
+        request.current_mode,
         history,
         lambda: generate(
             request.question,
             history,
             book_filter=request.book_filter,
+            chapter_filter=request.chapter_filter,
             anchor_text=request.anchor_text,
             profile=profile,
         ),
@@ -225,14 +231,16 @@ def chat_stream(request: ChatRequest, http_request: Request) -> StreamingRespons
     def events():
         executor = ThreadPoolExecutor(max_workers=1)
         try:
+            # Same contract as POST /chat: the client's mode, not a constant.
             intent_future = executor.submit(
-                classify_intent, request.question, "tirar_duvida", history
+                classify_intent, request.question, request.current_mode, history
             )
             result: dict = {}
             for kind, payload in generate_stream(
                 request.question,
                 history,
                 book_filter=request.book_filter,
+                chapter_filter=request.chapter_filter,
                 anchor_text=request.anchor_text,
                 profile=profile,
             ):

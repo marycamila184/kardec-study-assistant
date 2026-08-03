@@ -190,6 +190,51 @@ def test_chat_includes_suggested_mode_when_detected():
     assert data["suggested_mode"] == "estudar_obra"
 
 
+def test_chat_forwards_current_mode_to_the_classifier():
+    """The nudge's self-suppression lives in classify_intent and compares
+    against current_mode — so the route has to hand it the mode the CLIENT
+    reported, not a constant. The route used to pass a literal "tirar_duvida",
+    which meant a reader inside Estudar was reported as being in Dialogar and
+    got nudged toward the mode already on screen."""
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent", return_value={"mode": None}
+        ) as mock_cls,
+    ):
+        client.post(
+            "/chat",
+            json={
+                "question": "A lei do trabalho (Q.664)",
+                "history": [],
+                "current_mode": "estudar_obra",
+            },
+        )
+    assert mock_cls.call_args[0][1] == "estudar_obra"
+
+
+def test_chat_never_self_nudges_toward_the_mode_the_reader_is_in():
+    def classify_with_guard(message, current_mode, history):
+        suggested = {"mode": "estudar_obra", "confidence": "high"}
+        if suggested["mode"] == current_mode:
+            return {"mode": None, "confidence": suggested["confidence"]}
+        return suggested
+
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch("src.api.routes.classify_intent", side_effect=classify_with_guard),
+    ):
+        data = client.post(
+            "/chat",
+            json={
+                "question": "A lei do trabalho (Q.664)",
+                "history": [],
+                "current_mode": "estudar_obra",
+            },
+        ).json()
+    assert data["suggested_mode"] is None
+
+
 def test_chat_suggested_mode_is_none_for_generic_question():
     with (
         patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
@@ -563,7 +608,12 @@ def test_reflect_passes_refletir_as_current_mode_to_classifier():
     assert mock_cls.call_args.args[1] == "refletir"
 
 
-def test_chat_passes_tirar_duvida_as_current_mode_to_classifier():
+def test_chat_passes_the_clients_mode_not_the_endpoints_to_the_classifier():
+    """Supersedes the rule from a67e79b, which pinned this to the literal
+    "tirar_duvida" — correct then, because /chat served only Tirar uma Dúvida
+    and "the endpoint's own mode" was a real thing. Estudo livre now answers
+    through /chat as well, so the endpoint has no single mode and the request
+    is the only thing that knows which one is on screen."""
     with (
         patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
         patch(
@@ -571,7 +621,21 @@ def test_chat_passes_tirar_duvida_as_current_mode_to_classifier():
         ) as mock_cls,
     ):
         client.post("/chat", json={"question": "algo", "current_mode": "refletir"})
-    assert mock_cls.call_args.args[1] == "tirar_duvida"
+    assert mock_cls.call_args.args[1] == "refletir"
+
+
+def test_chat_reports_no_mode_when_the_client_sends_none():
+    """Absence stays absence — the route must not substitute a mode of its own.
+    A client that omits it gets no self-suppression, which is exactly why
+    scripts/check_chat_current_mode.mjs fails the build over an omission."""
+    with (
+        patch("src.api.routes.generate", return_value=_ANSWER_RESULT),
+        patch(
+            "src.api.routes.classify_intent", return_value={"mode": None}
+        ) as mock_cls,
+    ):
+        client.post("/chat", json={"question": "algo"})
+    assert mock_cls.call_args.args[1] is None
 
 
 def test_chat_response_accepts_safety_level():

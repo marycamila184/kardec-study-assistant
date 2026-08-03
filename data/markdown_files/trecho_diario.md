@@ -445,7 +445,7 @@ Então, haverá prantos e ranger de dentes, quando virdes que Abraão, Isaac, Ja
 
 # Parábola da figueira que secou
 
-8. Quando saiam de Betânia, ele teve fome; e, vendo ao longe uma figueira, para ela encaminhou-se, a ver se acharia alguma coisa; tendo-se, porém, aproximado, só achou folhas, visto não ser tempo de figos. Então, disse Jesus à figueira: Que ninguém coma de ti fruto algum, o que seus discípulos ouviram. - No dia seguinte, ao passarem pela figueira, viram que secara até á raiz. - Pedro, lembrando-se do que dissera Jesus, disse: Mestre, olha como secou a figueira que tu amaldiçoaste. - Jesus, tomando a palavra, lhes disse: Tende fé em Deus. - Digo-vos, em verdade, que aquele que disser a esta montanha: Tira-te daí e lança-te ao mar, mas sem hesitar no seu coração, crente, ao contrário, firmemente, de que tudo o que houver dito acontecerá, verá que, com efeito, acontece. (S. MARCOS, cap. Xl, vv. 12 a 14 e 20 a 23.)
+8. Quando saiam de Betânia, ele teve fome; e, vendo ao longe uma figueira, para ela encaminhou-se, a ver se acharia alguma coisa; tendo-se, porém, aproximado, só achou folhas, visto não ser tempo de figos. Então, disse Jesus à figueira: Que ninguém coma de ti fruto algum, o que seus discípulos ouviram. - No dia seguinte, ao passarem pela figueira, viram que secara até á raiz. - Pedro, lembrando-se do que dissera Jesus, disse: Mestre, olha como secou a figueira que tu amaldiçoaste. - Jesus, tomando a palavra, lhes disse: Tende fé em Deus. - Digo-vos, em verdade, que aquele que disser a esta montanha: Tira-te daí e lança-te ao mar, mas sem hesitar no seu coração, crente, ao contrário, firmemente, de que tudo o que houver dito acontecerá, verá que, com efeito, acontece. (S. MARCOS, cap. XI, vv. 12 a 14 e 20 a 23.)
 
 ---
 
