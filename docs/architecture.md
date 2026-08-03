@@ -38,12 +38,28 @@ Pipeline:
    ```
    The separator pair acts as open/close delimiters. If the opening separator appears right after a heading with no content yet → title footnote; otherwise it belongs to the preceding content paragraph.
 
-3. `chunking.py` — splits long segment content into ≤800-char subchunks at line boundaries (each Markdown line is a complete paragraph, so splits never cut mid-paragraph). **800 is the ceiling**, calibrated to typical item length across the 4 books (median 440–1600 chars, p90 ~6600), not the model's technical limit (`bge-m3` supports 8192 tokens) — larger chunks dilute retrieval precision.
+3. `chunking.py` — splits long segment content into ≤800-char subchunks at line boundaries. **800 is the ceiling**, calibrated to typical item length across the five works (median 440–1600 chars, p90 ~6600), not the model's technical limit (`bge-m3` supports 8192 tokens) — larger chunks dilute retrieval precision.
+
+   Two properties of the split are load-bearing downstream, and both have their own CLAUDE.md rule:
+   - **A period only closes a sentence when the token it closes is a word.** `_closes_a_sentence` suppresses the boundary after a single letter (`S.` for São, the initials in `A. Kardec`, the `P.`/`R.` that open every line of the O Céu e o Inferno evocations) and after the measured citation abbreviations (`cap.`, `vv.`, `pág.`, `Art.`, …). The list was built by counting what precedes every candidate boundary in the corpus, not from intuition. `etc.` is excluded deliberately (it ends a sentence about as often as not), and numbers are excluded because `1857.` really does end sentences.
+   - **A split is not always a paragraph break.** 28% of subchunk boundaries fall *inside* a source paragraph (measured 2026-08-02), and nothing in the text distinguishes those from a real break — so the splitter records `starts_paragraph` on every chunk, ingestion carries it into the metadata, and `join_item_text` is the only thing allowed to rejoin them. See "Rejoining an item for reading" below.
 4. `parsing_pipeline.py` — orchestrates all books; maps filenames to canonical names via `BOOK_NAME_MAP`. `trecho_diario.md` is intentionally absent and silently skipped (consumed separately by `evangelho.py`).
 
 **Numbered items** (`123. text`) are the primary structural unit:
-- **Livro dos Espíritos, Livro dos Médiuns** — single global sequence (1..N).
-- **Evangelho, Céu e Inferno** — per-chapter sequences (reset to 1 at each chapter heading).
+- **O Livro dos Espíritos, O Livro dos Médiuns** — single global sequence (1..N).
+- **O Evangelho, O Céu e o Inferno, A Gênese** — per-chapter sequences (reset to 1 at each chapter heading). O Céu e o Inferno restarts them again per *part*: "CAPÍTULO I" item 1 is `O PORVIR E O NADA` in I PARTE and `O PASSAMENTO` in II PARTE.
+
+**A Gênese belongs in the second group, and is the easiest to get wrong** — it reads like a treatise rather than a numbered catechism, so it gets filed with the first group by intuition. Counted over `data/json_files/`, **67 of its 69 item numbers occur in more than one chapter** — proportionally the most per-chapter of any of the five works:
+
+| Book | items | item numbers reused across chapters |
+|---|---|---|
+| A Gênese | 69 | **67** |
+| O Evangelho | 92 | 31 |
+| O Céu e o Inferno | 120 | 23 |
+| O Livro dos Espíritos | 1047 | 0 |
+| O Livro dos Médiuns | 392 | 0 |
+
+Hence the rule in CLAUDE.md: **a passage is identified by `(book, chapter, item_number)`, never by `book` + `item_number`.**
 
 Markdown source files (`data/markdown_files/`) are hand-reviewed and authoritative — do not regenerate from PDFs.
 
@@ -51,11 +67,24 @@ Markdown source files (`data/markdown_files/`) are hand-reviewed and authoritati
 
 Run once (or re-run to rebuild).
 
-- `embeddings.py` — wraps `SentenceTransformer` (`BAAI/bge-m3`); module-level singleton. Calls `huggingface_hub.login()` on startup if `HF_TOKEN` is set. The same singleton is reused by `groundedness.py`, so answer-vs-passage scoring costs no extra dependency and no extra model load.
+- `embeddings.py` — `encode(texts)`, the single seam every embedding passes through, dispatching on `EMBEDDING_PROVIDER`. Detail under the RAG layer below; the one thing to know here is that **`sentence_transformers` is imported inside `_get_model()`, never at module level** — hoisting it pulls torch into the container image and undoes the ~4.7 GB the hosted lane exists to save. `groundedness.py` goes through the same seam, so answer-vs-passage scoring costs no extra dependency.
 - `vectorstore.py` — wraps ChromaDB: `upsert`, `query` (semantic), `get_by_filter` (metadata-only).
 - `pipeline.py` — JSON → batches of 64 → embed → upsert. `_build_document` appends footnotes after content, capped at 3000 chars total so the embedding model is never truncated; full footnote text stays in JSON metadata.
 
-Document ID: `{book_filename_stem}_{item_number}_{subchunk_index}` — stable across re-runs (upsert idempotent).
+### The document ID is the collision key
+
+`_build_id` (`pipeline.py`) returns `{stem}_{part}_{chapter}_{item_number}_{subchunk_index}`, with `part` folded in only when the book has one:
+
+```python
+prefix = f"{stem}_{part}" if part else stem
+return f"{prefix}_{chapter}_{chunk['item_number']}_{chunk['subchunk_index']}"
+```
+
+**Every component before `item_number` is there because something collided without it.** `upsert` treats a collision as an update, so a too-short key does not raise — it silently overwrites. Dropping `chapter` merges the per-chapter books above; dropping `part` merges O Céu e o Inferno's two "CAPÍTULO I"s, which cost **20 chunks of the production index** until 2026-07-29.
+
+`part` is omitted rather than folded in as a blank field so the books that carry none (O Livro dos Espíritos, O Livro dos Médiuns) keep the ids they already have, and re-ingestion updates their rows instead of writing a second copy beside them.
+
+**Changing this key requires rebuilding the index from empty** — re-ingesting over it leaves the old rows behind as orphans, and they are indistinguishable from live ones.
 
 ## Provider routing: the two lanes
 
@@ -278,7 +307,24 @@ sequenceDiagram
     G-->>C: answer, sources, suggested_questions,<br/>safety_level, suggested_mode
 ```
 
-**Daily passage** (`evangelho.py`): from `data/markdown_files/trecho_diario.md` — a curated 27-chapter subset of O Evangelho, kept out of the main ChromaDB collection so it never pollutes semantic search. Parsed once with `parse_md_to_json`, cached in memory (`_get_chunks()`). `get_daily_passage()` seeds `random` with today's ISO date, picks a chapter then an item, joins all that item's subchunks. No LLM.
+**Daily passage** (`evangelho.py`): from `data/markdown_files/trecho_diario.md` — a curated 27-chapter subset of O Evangelho, kept out of the main ChromaDB collection so it never pollutes semantic search. Parsed once with `parse_md_to_json`, cached in memory (`_get_chunks()`). No LLM.
+
+**It is a lectionary, not a lottery.** `_select_passage` indexes the day into **one fixed permutation** of all passages — the order is shuffled from a constant seed, and the day's ordinal picks a slot in it:
+
+```python
+order = list(range(len(passages)))
+random.Random(_ORDER_SEED).shuffle(order)
+item_chunks = passages[order[day.toordinal() % len(passages)]]
+```
+
+So every passage is served before any repeats, and two showings are exactly one cycle apart (109 days on the current file).
+
+Two rejected alternatives, both measured, because this looks like a place to "add variety":
+
+- **Choose a chapter, then an item inside it.** This was the original, and it makes a passage's odds depend on its chapter's size. Five chapters of `trecho_diario.md` hold a single item, so those came up 10× more often than items in the ten-item chapter: simulated over a year, **73% of days repeated a passage, the two most frequent appeared 18 times each, and 12 of the 109 curated passages were never served at all.**
+- **Choose uniformly at random.** Does not fix it either — 109 passages over 365 draws still collide on ~71% of days.
+
+Reshuffling per cycle was also considered and leaves the seam between cycles unguarded: measured, a repeat 3 days apart. Do not change the spacing here without re-measuring it.
 
 ## Evaluation (`scripts/`)
 
@@ -340,8 +386,11 @@ The last one is a **static check on call sites**, not a pure function, because t
 
 ### Results, 2026-07-25 — riv-ai-v2 declined
 
-**No mode runs on riv-ai-v2.** Every agent is on `llama-3.3-70b-versatile`
-(Together, `-Turbo`).
+**No mode runs on riv-ai-v2.** Every agent is on
+`meta-llama/Llama-3.3-70B-Instruct-Turbo` (Together). Write the id in full: the
+`-Turbo` suffix is the difference between a model this account can call and one
+it cannot, and the short forms that circulate for this model belong to other
+providers' naming.
 
 This section is the durable record. A longer one — cost tables, serving options,
 the original bet — lives in `docs/superpowers/specs/2026-07-24-riv-ai-prose-generator-design.md`,
@@ -449,8 +498,8 @@ One JSON per path, served statically (no DB; client owns progress). Schema: `id`
 
 ## Notes
 
-- **Legacy:** `study.py` / `study_prompt.py` were the original `/study` implementation, superseded by `explicador.py`. Safe to delete.
+- **Legacy:** `study.py` / `study_prompt.py` were the original `/study` implementation, superseded by `explicador.py`, and have since been deleted.
 - **Ações Rápidas** (client-side quick follow-up buttons) are wired but currently disabled everywhere (`showQuickActions={false}`) pending a UX redesign. Source citations (the clickable `📖` chips → `SourceModal`) are independent, but the row is no longer unconditional: since 2026-07-29 a passage cited inline renders as a link in the prose instead, and the chip row shows only what was not cited that way — it is absent entirely when every retrieved passage was.
 - The planned **Pesquisador** agent (query expansion before embedding) is not implemented. A HyDE variant was considered: generate a hypothetical answer, retrieve on *that*, then **discard it** and generate only from the retrieved chunks. Generating the final answer from the hypothesis would be self-confirming — a drift toward untrained-on material would steer retrieval toward itself and inflate the groundedness score that exists to detect it. Not built; the 2026-07-25 data showed no retrieval problem to solve.
-- **Known failing tests on `main`** (pre-existing, unrelated to the prose lane): `test_reflect_complementary_items_come_from_chunks_3_to_5` (returns 2 items where 3 are expected) and `test_explicador_marks_failure_on_unparseable_output`.
+- **The suite is green** — 807 passed, 64 skipped, 0 failed (2026-08-03). This note previously listed two known failures (`test_reflect_complementary_items_come_from_chunks_3_to_5`, `test_explicador_marks_failure_on_unparseable_output`); both are resolved, the first now passing and the second skipped along with Reflexivo. A red suite is not expected here — if you see one, it is yours.
 - **Multilingual is deferred.** CC0 corpora exist for only 2 of the 5 works (`ia-espirita/livro-dos-espiritos`, `ia-espirita/livro-dos-mediuns` — pt/en/es/fr), and those are exactly the works with a single global numbered sequence. Evangelho and Céu e Inferno, with per-chapter numbering, are both the hard case and the missing case. When picked up it costs no new architecture: `bge-m3` already does cross-lingual retrieval on one index, and the prose lane makes language a routing key.
