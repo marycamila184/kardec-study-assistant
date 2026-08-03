@@ -118,6 +118,28 @@ jobs:
       # is the scale-to-zero; max-instances 3 is a spend brake; concurrency 20
       # (not the default 80) because the routes are synchronous and wait on the
       # LLM, so each request holds a thread from the pool.
+      #
+      # ## Why every variable is listed here, and not just the ones that changed
+      #
+      # `--set-env-vars` REPLACES the whole set. The first version of this job
+      # listed only LLM_PROVIDER and EMBEDDING_PROVIDER, and so deleted the
+      # three the service was carrying: CHAT_MODEL, CONDENSER_MODEL and
+      # CORS_ALLOWED_ORIGINS. Losing the last one took the site down on
+      # 2026-08-03 — the app fell back to its `http://localhost:5173` default,
+      # every browser preflight came back 400 "Disallowed CORS origin", and the
+      # frontend hung on "Carregando trecho do dia…" while curl reported the
+      # API perfectly healthy. docs/deploy.md had warned about exactly this.
+      #
+      # A CI deploy cannot rely on "omit the flags and Cloud Run preserves the
+      # existing config" — that makes the running service, not this file, the
+      # source of truth, and nothing then reconstructs it if the service is
+      # recreated. So the full env set is declared here, which makes replacing
+      # it the correct behavior instead of a destructive one. **Adding a
+      # variable to the service means adding it here, or the next merge to main
+      # deletes it.**
+      #
+      # The `^@^` prefix switches the separator from comma to `@`, because
+      # CORS_ALLOWED_ORIGINS is itself a comma-separated list.
       - name: gcloud run deploy
         run: |
           gcloud run deploy "$SERVICE" \
@@ -128,7 +150,7 @@ jobs:
             --memory 512Mi --cpu 1 \
             --min-instances 0 --max-instances 3 \
             --concurrency 20 --timeout 120 \
-            --set-env-vars 'LLM_PROVIDER=together,EMBEDDING_PROVIDER=openrouter' \
+            --set-env-vars '^@^LLM_PROVIDER=together@EMBEDDING_PROVIDER=openrouter@CHAT_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo@CONDENSER_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo@CORS_ALLOWED_ORIGINS=https://kardec-study-assistant.vercel.app,https://dialogandodoutrina.com.br,https://www.dialogandodoutrina.com.br' \
             --set-secrets 'TOGETHER_API_KEY=together-api-key:latest,OPENROUTER_API_KEY=openrouter-api-key:latest' \
             --quiet
 
@@ -141,3 +163,56 @@ jobs:
           # The daily passage is deterministic and needs no LLM, so it proves
           # the index actually shipped inside the image.
           curl -sf --max-time 90 "$URL/evangelho" > /dev/null && echo "index served OK"
+
+      # The check that would have caught the 2026-08-03 outage. Every route
+      # above answers 200 to curl with the CORS allowlist wiped, because curl
+      # does not send an Origin and does not enforce the reply — the service
+      # looks perfectly healthy while no browser can reach it. Only a preflight
+      # from a real origin sees the failure.
+      #
+      # This cannot live in the test suite: TestClient does not issue
+      # preflights, as the comment on the middleware in src/api/main.py says.
+      # The deploy is the only place it can be observed.
+      - name: Check a browser can actually call it (CORS preflight)
+        run: |
+          URL=$(gcloud run services describe "$SERVICE" --region "$GCP_REGION" \
+                --project "$GCP_PROJECT" --format='value(status.url)')
+          fail=0
+          for origin in \
+            https://dialogandodoutrina.com.br \
+            https://www.dialogandodoutrina.com.br \
+            https://kardec-study-assistant.vercel.app
+          do
+            allowed=$(curl -s --max-time 90 -X OPTIONS "$URL/chat" \
+              -H "Origin: $origin" \
+              -H 'Access-Control-Request-Method: POST' \
+              -H 'Access-Control-Request-Headers: content-type,x-session-id' \
+              -D - -o /dev/null | tr -d '\r' \
+              | sed -n 's/^[Aa]ccess-[Cc]ontrol-[Aa]llow-[Oo]rigin: //p')
+            if [ "$allowed" = "$origin" ]; then
+              echo "CORS OK: $origin"
+            else
+              echo "CORS BROKEN: $origin -> '${allowed:-no allow-origin header}'"
+              fail=1
+            fi
+          done
+          # X-Session-Id carries the reader's consent for session logging. If the
+          # preflight stops listing it the browser drops every consented request,
+          # which fails silently — the site works, the linking just stops.
+          curl -s --max-time 90 -X OPTIONS "$URL/chat" \
+            -H 'Origin: https://dialogandodoutrina.com.br' \
+            -H 'Access-Control-Request-Method: POST' \
+            -D - -o /dev/null | tr -d '\r' \
+            | grep -iq 'access-control-allow-headers:.*X-Session-Id' \
+            || { echo 'CORS BROKEN: X-Session-Id not in allowed headers'; fail=1; }
+          # And the allowlist must still be a list. A wildcard would pass every
+          # check above while allowing any site to call the API.
+          if curl -s --max-time 90 -X OPTIONS "$URL/chat" \
+               -H 'Origin: https://not-an-origin-we-serve.example.com' \
+               -H 'Access-Control-Request-Method: POST' \
+               -D - -o /dev/null | tr -d '\r' \
+               | grep -iq '^access-control-allow-origin:'; then
+            echo 'CORS BROKEN: an unknown origin was allowed'
+            fail=1
+          fi
+          exit $fail

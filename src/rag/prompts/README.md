@@ -46,8 +46,11 @@ it belongs in code — a prompt rule is a request, not a guarantee.
 The same measurement showed this. When one paragraph said "never write a
 reference in the prose" and a later one asked for full references, the model
 followed the first and the second did nothing at all. If a new rule carves out
-an exception, say so where the original rule is, in its own words — see how
-`near-miss.md` names the exception to "never end on a question".
+an exception, say so in the exception's own words and name it as the only one —
+see the closing line of `chat-system.md` § "Quando a busca não bate com a
+pergunta", which states plainly that the near-miss is *"o único caso em que a
+resposta pode terminar com uma pergunta"*, against the rule stated at the top of
+the same file.
 
 ## Examples earn their length
 
