@@ -23,7 +23,7 @@ class _Recorder:
     def __init__(self, **kwargs):
         self.kwargs = kwargs
         self.embeddings = MagicMock()
-        self.embeddings.create = lambda model, input: _vectors(len(input))
+        self.embeddings.create = lambda model, input, **kw: _vectors(len(input))
 
 
 @pytest.fixture
@@ -79,7 +79,9 @@ def test_a_hanging_provider_falls_over_to_the_next(hosted, monkeypatch):
         if provider == "openrouter":
             c.embeddings.create.side_effect = TimeoutError("hung")
         else:
-            c.embeddings.create.side_effect = lambda model, input: _vectors(len(input))
+            c.embeddings.create.side_effect = lambda model, input, **kw: _vectors(
+                len(input)
+            )
         return c
 
     monkeypatch.setattr(embeddings, "_hosted_client", client_for)
@@ -125,10 +127,91 @@ def test_a_short_response_raises_instead_of_failing_over(hosted, monkeypatch):
     def client_for(provider, timeout):
         tried.append(provider)
         c = MagicMock()
-        c.embeddings.create.side_effect = lambda model, input: _vectors(1)
+        c.embeddings.create.side_effect = lambda model, input, **kw: _vectors(1)
         return c
 
     monkeypatch.setattr(embeddings, "_hosted_client", client_for)
     with pytest.raises(RuntimeError, match="2 textos"):
         embeddings.encode(["a", "b"])
     assert tried == ["openrouter"], "must not have tried the fallback"
+
+
+def test_openrouter_gets_a_latency_routing_preference(hosted, monkeypatch):
+    """OpenRouter is itself a router: `baai/bge-m3` sits behind two upstreams
+    (DeepInfra and Parasail, verified 2026-08-03), and default routing spreads
+    across both. `sort: latency` asks it to prefer the faster one instead."""
+    sent = {}
+
+    def client_for(provider, timeout):
+        c = MagicMock()
+
+        def create(model, input, **kwargs):
+            sent.update(kwargs)
+            return _vectors(len(input))
+
+        c.embeddings.create = create
+        return c
+
+    monkeypatch.setattr(embeddings, "_hosted_client", client_for)
+    embeddings.encode(["pergunta"])
+    assert sent.get("extra_body", {}).get("provider", {}).get("sort") == "latency"
+
+
+def test_a_direct_provider_gets_no_routing_block(hosted, monkeypatch):
+    """`provider` is OpenRouter's own routing vocabulary. DeepInfra and Novita
+    are the upstreams themselves — there is nothing for them to route, and an
+    unknown body key is at best ignored and at worst a 400."""
+    monkeypatch.setattr(embeddings.settings, "embedding_provider", "deepinfra")
+    monkeypatch.setattr(embeddings.settings, "deepinfra_api_key", "k")
+    sent = {}
+
+    def client_for(provider, timeout):
+        c = MagicMock()
+
+        def create(model, input, **kwargs):
+            sent.update(kwargs)
+            return _vectors(len(input))
+
+        c.embeddings.create = create
+        return c
+
+    monkeypatch.setattr(embeddings, "_hosted_client", client_for)
+    embeddings.encode(["pergunta"])
+    assert "provider" not in sent.get("extra_body", {})
+
+
+def test_the_serving_upstream_is_recorded(hosted, monkeypatch, caplog):
+    """OpenRouter names the upstream that served each call. Throwing that away
+    is why the 2026-08-03 hangs could not be attributed to one of the two."""
+
+    def client_for(provider, timeout):
+        c = MagicMock()
+        response = _vectors(1)
+        response.model_dump = lambda: {"provider": "Parasail"}
+        c.embeddings.create = lambda model, input, **kw: response
+        return c
+
+    monkeypatch.setattr(embeddings, "_hosted_client", client_for)
+    with caplog.at_level("DEBUG", logger="src.ingestion.embeddings"):
+        embeddings.encode(["pergunta"])
+    assert "Parasail" in caplog.text
+
+
+def test_a_slow_call_is_visible_above_debug(hosted, monkeypatch, caplog):
+    """A DEBUG line does not reach production, where the app logs at INFO — so
+    the case worth correlating, a call that took far too long, is raised to a
+    level that actually arrives."""
+
+    def client_for(provider, timeout):
+        c = MagicMock()
+        response = _vectors(1)
+        response.model_dump = lambda: {"provider": "DeepInfra"}
+        c.embeddings.create = lambda model, input, **kw: response
+        return c
+
+    clock = iter([0.0, embeddings.SLOW_CALL_S + 1.0])
+    monkeypatch.setattr(embeddings, "_now", lambda: next(clock))
+    monkeypatch.setattr(embeddings, "_hosted_client", client_for)
+    with caplog.at_level("WARNING", logger="src.ingestion.embeddings"):
+        embeddings.encode(["pergunta"])
+    assert "DeepInfra" in caplog.text, "a slow call must name its upstream at WARNING"
