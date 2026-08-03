@@ -31,13 +31,23 @@ export default function SourceModal({ source, theme, onClose }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 24, background: 'rgba(0,0,0,.5)',
     }} onClick={onClose}>
+      {/* Capped and scrollable, the same shape RelatedItemsModal already uses.
+          Without the cap the card grows to whatever the excerpt needs, and an
+          excerpt is a whole item — O Céu e o Inferno I PARTE cap. VIII item 2
+          is thirteen subchunks. On a phone that runs off both ends of the
+          screen, and neither the card nor the backdrop scrolls, so the passage
+          simply cannot be read. The header stays put and only the passage
+          scrolls, so the close button is always reachable. */}
       <div style={{
         background: theme.headerBg, borderRadius: 14,
-        maxWidth: 480, width: '100%', boxShadow: '0 8px 48px rgba(0,0,0,.3)', overflow: 'hidden',
+        maxWidth: 480, width: '100%', maxHeight: '80vh', overflow: 'hidden',
+        display: 'flex', flexDirection: 'column',
+        boxShadow: '0 8px 48px rgba(0,0,0,.3)',
       }} onClick={(e) => e.stopPropagation()}>
         <div style={{
           padding: '16px 18px', borderBottom: `1px solid ${theme.headerBorder}`,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          flexShrink: 0,
         }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: theme.text }}>Fonte citada</div>
           <button onClick={onClose} aria-label="Fechar" style={{
@@ -46,7 +56,7 @@ export default function SourceModal({ source, theme, onClose }) {
           }}>×</button>
         </div>
 
-        <div style={{ padding: '20px 18px' }}>
+        <div style={{ padding: '20px 18px', overflowY: 'auto' }}>
           <div style={{
             fontFamily: "'Crimson Pro', serif", fontSize: 16, fontStyle: 'italic',
             color: theme.text, lineHeight: 1.7, marginBottom: 14,

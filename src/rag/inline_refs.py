@@ -145,6 +145,50 @@ def format_reference(ref: dict) -> str:
     return " (" + ", ".join(parts) + ")"
 
 
+# Anything still in brackets after the marker walk. The model writes these when
+# it has nothing markable to point at — measured 2026-08-02 on O Livro dos
+# Espíritos, where `chapter_commentary` is empty because it is Evangelho-only,
+# and the answer came back citing "[O Livro dos Espíritos]": bracket-shaped,
+# unclickable, naming the work already on screen.
+#
+# The words stay and only the brackets go. Deleting the span would repeat the
+# mistake `_WOVEN_ITEM_MARKER` records — the bracket is part of the sentence's
+# syntax, and removing it leaves "apresentada em, onde". Rewriting model prose
+# this way is safe here for a reason that was measured, not assumed: the five
+# works contain **zero** bracketed spans, so this can never alter a quotation
+# before `find_unsupported_quotes` compares it against the corpus. It also only
+# ever removes characters the corpus does not have, so a quoted span can come
+# out more likely to match, never less.
+# The body must contain a LETTER. A bare "[11]" is left exactly as it is: the
+# module has already decided twice that bracketed numbers are not ours to touch
+# — `_ITEM_MARKER` refuses to read them as markers because /study prose
+# legitimately contains them, and `_WOVEN_ITEM_MARKER` ("item [2]") is log-only
+# on purpose while the prompt fix is measured. Neither decision changes here.
+_LEFTOVER_BRACKET = re.compile(r"\[([^\[\]\n]*[^\W\d_][^\[\]\n]*)\]")
+
+# ...except a marker from the OTHER lane's vocabulary, which is dropped whole
+# like any unresolved marker. Unwrapping "[fonte 2]" into "fonte 2" would leave
+# something that still reads as a citation, which is the thing being prevented.
+_ANY_MARKER_BODY = re.compile(
+    r"\A\s*(?:items?|itens|fontes?)\s*(?:\d{1,4}|N)(?:\s*[,\s]\s*\d{1,4})*\s*\Z",
+    re.IGNORECASE,
+)
+
+
+def _strip_leftover_brackets(text: str) -> str:
+    def replace(match: re.Match) -> str:
+        body = match.group(1)
+        if _ANY_MARKER_BODY.match(body):
+            logger.warning(
+                "marker in the wrong vocabulary, dropped: %r", match.group(0)
+            )
+            return ""
+        logger.warning("bracketed span in model prose, unwrapped: %r", match.group(0))
+        return body
+
+    return _LEFTOVER_BRACKET.sub(replace, text)
+
+
 # A private-use codepoint, which cannot occur in the works or in model prose.
 # Each resolved marker leaves one behind so its position survives the whitespace
 # tidying below; positions computed before that cleanup would drift by however
@@ -179,7 +223,10 @@ def _extract(text: str, pattern: re.Pattern, resolve) -> tuple[str, list[dict]]:
         last = match.end()
 
     parts.append(text[last:])
-    marked = "".join(parts)
+    # Before the whitespace tidying, so a dropped wrong-vocabulary marker gets
+    # the same cleanup as a dropped right-vocabulary one, and before positions
+    # are measured, so they are computed on the text the reader actually sees.
+    marked = _strip_leftover_brackets("".join(parts))
 
     # A marker sitting between a word and its punctuation leaves a stray space
     # behind ("progresso [item 5]." -> "progresso ."). Not cosmetic: these

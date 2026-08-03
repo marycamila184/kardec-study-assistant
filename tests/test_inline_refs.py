@@ -285,3 +285,71 @@ def test_canonical_marker_still_leaves_no_trace(caplog):
         limpo, refs = extract_item_refs("o comentário [item 2] diz", [])
     assert "[item 2]" not in limpo
     assert "word outside" not in caplog.text
+
+
+# --- Brackets the model writes that are not markers -----------------------
+#
+# Observed 2026-08-02, studying O Livro dos Espíritos Q.13: the answer read
+# "…semelhante à apresentada em [O Livro dos Espíritos], onde se discute…".
+# It looks like a citation, is not clickable, and names the work the reader is
+# already inside. It survived because the extractors only recognise `[item N]`
+# and `[fonte N]`; anything else in brackets passed through untouched.
+#
+# It is provoked by the empty case: chapter_commentary is Evangelho-only, so in
+# every other book there is nothing markable and the model reaches for prose.
+#
+# Deleting the span outright would repeat the mistake `_WOVEN_ITEM_MARKER`
+# documents — the bracket is part of the sentence's syntax, and removing it
+# leaves "apresentada em, onde". So the brackets go and the words stay. That is
+# safe to do because the works contain **zero** bracketed spans (measured over
+# all five, 2026-08-02), so this can never rewrite a real quotation before
+# find_unsupported_quotes compares it against the corpus.
+
+
+def test_a_bracketed_phrase_loses_its_brackets_but_keeps_its_words():
+    text = (
+        "Isso é semelhante ao apresentado em [O Livro dos Espíritos], onde se discute."
+    )
+    clean, refs = extract_item_refs(text, [])
+    assert clean == (
+        "Isso é semelhante ao apresentado em O Livro dos Espíritos, onde se discute."
+    )
+    assert refs == []
+
+
+def test_no_bracket_survives_study_prose():
+    clean, _ = extract_item_refs("Ver [A Gênese] e também [cap. XIX] a respeito.", [])
+    assert "[" not in clean and "]" not in clean
+
+
+def test_a_wrong_vocabulary_marker_is_dropped_not_unwrapped():
+    """`[fonte 2]` in /study is a marker in the other lane's vocabulary. It must
+    vanish like any unresolved marker — unwrapping it would put the bare word
+    "fonte 2" into the prose, which reads as a citation just as much."""
+    clean, refs = extract_item_refs("O texto afirma [fonte 2] que a alma progride.", [])
+    assert "fonte" not in clean
+    assert clean == "O texto afirma que a alma progride."
+    assert refs == []
+
+
+def test_unwrapping_does_not_disturb_a_resolved_marker_position():
+    text = "Como diz [A Gênese], o comentário [item 11] trata do progresso."
+    clean, refs = extract_item_refs(text, _ALLOWED)
+    assert "[" not in clean
+    assert len(refs) == 1
+    # The reference still attaches to the end of the clause it belongs to.
+    assert clean[: refs[0]["position"]].endswith("o comentário")
+
+
+def test_chat_prose_also_loses_stray_brackets():
+    clean, _ = extract_passage_refs("Kardec trata disso em [A Gênese] com cuidado.", [])
+    assert clean == "Kardec trata disso em A Gênese com cuidado."
+
+
+def test_bracketed_numbers_are_still_left_alone():
+    """Guards the narrowing: unwrapping only ever touches bracketed TEXT. Bare
+    numbers stay because two earlier decisions say so — `[11]` is not a marker
+    (prose contains bracketed numbers) and `item [2]` is counted, not stripped,
+    while the prompt fix is measured."""
+    clean, _ = extract_item_refs("O trecho [11] e o item [2] do comentário.", [])
+    assert clean == "O trecho [11] e o item [2] do comentário."

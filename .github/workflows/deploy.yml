@@ -1,0 +1,66 @@
+# Backend deploy to Cloud Run.
+#
+# MANUAL trigger, on purpose. The index is baked into the image, so deploying
+# automatically on every push to main would publish whatever index the commit
+# happened to carry — and re-ingesting is an offline step (`parsing_pipeline` +
+# `ingestion.pipeline`) that CI does not run. While that is true, whoever
+# publishes needs to know the index is current.
+#
+# To make it automatic, add:
+#   push:
+#     branches: [main]
+#
+# THIS NEEDS AUTH BEFORE IT CAN RUN. No secret is created by this file. The
+# recommended route is Workload Identity Federation (no long-lived key):
+#   gcloud iam workload-identity-pools create github --location=global
+#   ...then set the repository secrets:
+#     GCP_WORKLOAD_IDENTITY_PROVIDER
+#     GCP_SERVICE_ACCOUNT
+# The service account needs roles/run.admin, roles/cloudbuild.builds.editor,
+# roles/artifactregistry.writer and roles/iam.serviceAccountUser.
+name: Deploy (Cloud Run)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write   # required by Workload Identity Federation
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      # The numbers are explained in docs/deploy.md. In short: min-instances 0
+      # is the scale-to-zero; max-instances 3 is a spend brake; concurrency 20
+      # (not the default 80) because the routes are synchronous and wait on the
+      # LLM, so each request holds a thread from the pool.
+      - name: gcloud run deploy
+        run: |
+          gcloud run deploy kardec-api \
+            --source . \
+            --project dialogando-doutrina \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --memory 512Mi --cpu 1 \
+            --min-instances 0 --max-instances 3 \
+            --concurrency 20 --timeout 120 \
+            --set-env-vars 'LLM_PROVIDER=together,EMBEDDING_PROVIDER=openrouter' \
+            --set-secrets 'TOGETHER_API_KEY=together-api-key:latest,OPENROUTER_API_KEY=openrouter-api-key:latest' \
+            --quiet
+
+      - name: Check it came up
+        run: |
+          URL=$(gcloud run services describe kardec-api --region us-central1 \
+                --project dialogando-doutrina --format='value(status.url)')
+          curl -sf --max-time 90 "$URL/health"

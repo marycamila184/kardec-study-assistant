@@ -1,0 +1,77 @@
+# Runs on every PR and on every push to main/development.
+#
+# Needs no secrets: `together_api_key` is optional in config.py and no test
+# calls the network for real — the 401 that shows up in the log is a
+# degradation test exercising its failure path. The index (`data/embeddings/`)
+# is gitignored and is not needed either: the tests fake the store. This was
+# checked by deleting .env and data/embeddings before running the suite, which
+# is exactly what the clean checkout here sees.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, development]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Python 3.12
+        run: uv python install 3.12
+
+      # --no-group ingest leaves torch and CUDA out: ~4.7 GB that exist only to
+      # run bge-m3 in-process, which the suite does not need. Same reason the
+      # production image does not carry them.
+      - name: Install dependencies
+        run: uv sync --group dev --no-group ingest
+
+      - name: Formatting
+        run: |
+          uv run black --check src/ tests/
+          uv run isort --check-only src/ tests/
+
+      - name: Tests
+        run: uv run pytest -q
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The three guards this repo already wrote and that nothing ran
+      # automatically until now. The current_mode one exists because two call
+      # sites were fixed by hand and three others kept the bug: without it, a
+      # /chat call missing `current_mode` silently re-enables self-nudging.
+      - name: Frontend guards
+        working-directory: .
+        run: |
+          node scripts/check_chat_current_mode.mjs
+          node scripts/check_cited_text.mjs
+          node scripts/check_followup_reply.mjs
+
+      - name: Build
+        run: npm run build

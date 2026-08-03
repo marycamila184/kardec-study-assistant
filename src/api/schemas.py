@@ -38,6 +38,9 @@ class ChatRequest(BaseModel):
     question: str
     history: list[Message] = []
     book_filter: str | None = None
+    # The machine chapter id ("CAPÍTULO VII"). Set by callers that already know
+    # the chapter — Explorar's Evangelho topics name one in the chip.
+    chapter_filter: str | None = None
     current_mode: str | None = None
     anchor_text: str | None = None
     profile: ProfileState | None = None

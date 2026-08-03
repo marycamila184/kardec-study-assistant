@@ -4,6 +4,7 @@ import re
 from src.core.config import settings
 from src.ingestion.embeddings import encode
 from src.ingestion.vectorstore import VectorStore
+from src.parsing.chunking import join_subchunks
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +90,26 @@ def retrieve(
     query: str,
     top_k: int | None = None,
     book_filter: str | list[str] | None = None,
+    chapter_filter: str | None = None,
 ) -> list[dict]:
+    """Semantic search, optionally narrowed to a book and to one chapter of it.
+
+    `chapter_filter` takes the machine chapter id ("CAPÍTULO VII"), and is for
+    callers that already KNOW the chapter — Explorar's Evangelho topics, which
+    name one in the chip itself. Handing that label to a whole-book search let
+    the Coletânea de Preces win it: 60% of everything retrieved across the ten
+    topics was prayers, six of ten had a prayer as the top hit (2026-08-02).
+    Dropping the collection from retrieval was measured too, and rejected — it
+    emptied "Tribulações" and the legitimate "prece de agradecimento a Deus".
+
+    **`max_distance` is not applied inside a chapter filter, on purpose.** The
+    cut exists to separate a question the works address from one they never do;
+    naming the chapter settles that, so the cut has nothing left to decide. It
+    was also calibrated on real questions, not on three-word topic labels,
+    which sit further out for reasons that have nothing to do with the passage
+    being wrong — "Sede perfeitos" finds SEDE PERFEITOS item 2 at 0.534. The
+    band in the docs still governs every unfiltered call.
+    """
     if top_k is None:
         top_k = settings.top_k
     embedding = encode([query])[0]
@@ -99,9 +119,13 @@ def retrieve(
         where = {"book": {"$in": list(book_filter)}}
     else:
         where = None
+    if chapter_filter:
+        clause = {"chapter": {"$eq": chapter_filter}}
+        where = {"$and": [where, clause]} if where else clause
     results = _get_store().query(embedding, n_results=top_k, where=where)
-    filtered = [r for r in results if r["distance"] <= settings.max_distance]
-    return _strip_footnotes_from_results(filtered)
+    if not chapter_filter:
+        results = [r for r in results if r["distance"] <= settings.max_distance]
+    return _strip_footnotes_from_results(results)
 
 
 def retrieved_summary(chunks: list[dict]) -> list[dict]:
@@ -147,7 +171,25 @@ def retrieve_by_item(
     if chapter is not None:
         conditions.append({"chapter": {"$eq": chapter}})
     results = _get_store().get_by_filter({"$and": conditions})
+    # Ordered by subchunk_index because every caller rejoins these into the
+    # item's text: the store's own order is not part of its contract, and the
+    # pieces of a sentence read as nonsense in any other order.
+    results.sort(key=lambda r: r["metadata"].get("subchunk_index") or 0)
     return _strip_footnotes_from_results(results)
+
+
+def join_item_text(chunks) -> str:
+    """An item's retrieved subchunks rejoined into the text the source had.
+
+    The single seam for it, because every mode that shows a passage whole goes
+    through here — /study's "Da Obra", free study's `studied_item`, the chapter
+    context. They used to each pick their own separator ("\\n\\n" in two places,
+    " " in a third), and "\\n\\n" put a blank line inside a citation the source
+    kept on one line.
+    """
+    return join_subchunks(
+        (c["content"], c["metadata"].get("starts_paragraph", True)) for c in chunks
+    )
 
 
 def retrieve_by_chapter(book: str, chapter: str) -> list[dict]:

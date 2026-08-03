@@ -15,7 +15,41 @@ const SECONDARY_BTN = {
   cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
 };
 
-export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, onExplorar, onVerIntro, paths = [], pathsLoading = false, completedTrilhas = [], trilhaProgress = {} }) {
+// A badge is a pill: it either fits on a line or moves to the next one, but it
+// never breaks in half. Without nowrap + flexShrink:0 the flex row squeezes the
+// span instead of wrapping the row, and "Em andamento" — the longest label —
+// splits across two lines inside its own background. That shows up on mobile
+// only in the in-progress state, which is also the state that adds a second
+// button to the right column, so the badges get the least room exactly when
+// they need the most.
+const BADGE = {
+  fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
+  padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
+  whiteSpace: 'nowrap', flexShrink: 0,
+};
+
+export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, onExplorar, onVerIntro, paths = [], pathsLoading = false, completedTrilhas = [], trilhaProgress = {}, isMobile = false }) {
+  // Text beside buttons is the desktop shape. On a phone the button column is
+  // flexShrink:0, so every pixel it takes comes out of the text column — which
+  // is what squeezed the badges. Stacking gives the text the full width and
+  // lets the actions share a row of their own.
+  const CARD_ROW = {
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
+    alignItems: isMobile ? 'stretch' : 'flex-start',
+    justifyContent: 'space-between',
+    gap: 12,
+  };
+  const ACTIONS = {
+    display: 'flex',
+    flexDirection: isMobile ? 'row' : 'column',
+    gap: 6,
+    flexShrink: 0,
+  };
+  // flex:1 overrides the shared buttons' flexShrink:0, so a stacked pair splits
+  // the width evenly instead of leaving a ragged gap.
+  const btn = (base) => (isMobile ? { ...base, flex: 1 } : base);
+
   return (
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px 20px' }}>
       {/* No title here: the TopBar already names the mode. This line is the
@@ -39,14 +73,10 @@ export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, on
           background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
           borderRadius: 10, padding: '16px 18px',
         }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+          <div style={CARD_ROW}>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 5 }}>
-                <span style={{
-                  background: 'rgba(107,155,184,.12)', color: '#4A7A98',
-                  fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
-                  padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
-                }}>Contexto</span>
+              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 7, rowGap: 5, marginBottom: 5 }}>
+                <span style={{ ...BADGE, background: 'rgba(107,155,184,.12)', color: '#4A7A98' }}>Contexto</span>
               </div>
               <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 4 }}>
                 Sobre Allan Kardec e as obras
@@ -55,11 +85,9 @@ export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, on
                 Conheça o autor e o Pentateuco Espírita antes de começar seus estudos.
               </div>
             </div>
-            <button onClick={onVerIntro} style={{
-              background: '#6B9BB8', color: 'white', border: 'none',
-              padding: '8px 16px', borderRadius: 7, fontSize: 12, fontWeight: 600,
-              cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
-            }}>Ver →</button>
+            <div style={ACTIONS}>
+              <button onClick={onVerIntro} style={btn(PRIMARY_BTN)}>Ver →</button>
+            </div>
           </div>
         </div>
       </div>
@@ -93,28 +121,24 @@ export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, on
                   background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
                   borderRadius: 10, padding: '16px 18px', marginBottom: 8,
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                  <div style={CARD_ROW}>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 5 }}>
-                        <span style={{
-                          background: 'rgba(107,155,184,.12)', color: '#4A7A98',
-                          fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
-                          padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
-                        }}>{LEVEL_LABEL[level]}</span>
-                        <span style={{ fontSize: 10, color: theme.subtext }}>{tr.step_count} trechos</span>
+                      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 7, rowGap: 5, marginBottom: 5 }}>
+                        <span style={{ ...BADGE, background: 'rgba(107,155,184,.12)', color: '#4A7A98' }}>
+                          {LEVEL_LABEL[level]}
+                        </span>
+                        <span style={{ fontSize: 10, color: theme.subtext, whiteSpace: 'nowrap', flexShrink: 0 }}>
+                          {tr.step_count} trechos
+                        </span>
                         {completed && (
-                          <span style={{
-                            background: 'rgba(90,170,100,.12)', color: '#4A9A5A',
-                            fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
-                            padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
-                          }}>✓ Concluída</span>
+                          <span style={{ ...BADGE, background: 'rgba(90,170,100,.12)', color: '#4A9A5A' }}>
+                            ✓ Concluída
+                          </span>
                         )}
                         {inProgress && (
-                          <span style={{
-                            background: 'rgba(200,133,106,.12)', color: '#B5714E',
-                            fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em',
-                            padding: '2px 8px', borderRadius: 3, textTransform: 'uppercase',
-                          }}>Em andamento</span>
+                          <span style={{ ...BADGE, background: 'rgba(200,133,106,.12)', color: '#B5714E' }}>
+                            Em andamento
+                          </span>
                         )}
                       </div>
                       <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 4 }}>{tr.title}</div>
@@ -130,16 +154,16 @@ export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, on
                         </div>
                       )}
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flexShrink: 0 }}>
+                    <div style={ACTIONS}>
                       {inProgress ? (
                         <>
-                          <button onClick={() => onResumeTrilha(tr)} style={PRIMARY_BTN}>Continuar →</button>
-                          <button onClick={() => onStartTrilha(tr)} style={SECONDARY_BTN}>Recomeçar</button>
+                          <button onClick={() => onResumeTrilha(tr)} style={btn(PRIMARY_BTN)}>Continuar →</button>
+                          <button onClick={() => onStartTrilha(tr)} style={btn(SECONDARY_BTN)}>Recomeçar</button>
                         </>
                       ) : completed ? (
-                        <button onClick={() => onStartTrilha(tr)} style={SECONDARY_BTN}>Refazer</button>
+                        <button onClick={() => onStartTrilha(tr)} style={btn(SECONDARY_BTN)}>Refazer</button>
                       ) : (
-                        <button onClick={() => onStartTrilha(tr)} style={PRIMARY_BTN}>Iniciar →</button>
+                        <button onClick={() => onStartTrilha(tr)} style={btn(PRIMARY_BTN)}>Iniciar →</button>
                       )}
                     </div>
                   </div>
@@ -160,18 +184,16 @@ export default function EstudarPicker({ theme, onStartTrilha, onResumeTrilha, on
         <div style={{
           background: theme.cardBg, border: `1px solid ${theme.cardBorder}`,
           borderRadius: 10, padding: '16px 18px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
+          ...CARD_ROW,
+          alignItems: isMobile ? 'stretch' : 'center',
         }}>
-          <div>
+          <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 3 }}>Explorar Obras</div>
             <div style={{ fontSize: 13.5, color: theme.subtext }}>Navegue pelos tópicos de cada obra e consulte temas específicos.</div>
           </div>
-          <button onClick={onExplorar} style={{
-            background: 'transparent', color: '#4A7A98',
-            border: '1px solid rgba(107,155,184,.35)',
-            padding: '8px 16px', borderRadius: 7, fontSize: 12, fontWeight: 600,
-            cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
-          }}>Explorar →</button>
+          <div style={ACTIONS}>
+            <button onClick={onExplorar} style={btn(SECONDARY_BTN)}>Explorar →</button>
+          </div>
         </div>
       </div>
     </div>

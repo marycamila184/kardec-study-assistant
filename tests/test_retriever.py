@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -11,6 +11,7 @@ from src.rag.retriever import has_real_item_number, retrieve, retrieve_by_item
 # testes de coisas não relacionadas (footnotes) quebraram junto.
 _DENTRO = settings.max_distance - 0.1
 _FORA = settings.max_distance + 0.1
+EVANGELHO = "O Evangelho Segundo o Espiritismo"
 
 _MOCK_RESULTS = [
     {
@@ -411,3 +412,48 @@ def test_filter_uncitable_drops_only_the_unnumbered():
     kept = filter_uncitable_chunks(chunks)
 
     assert [c["metadata"]["item_number"] for c in kept] == ["12", "132"]
+
+
+# --- Chapter-scoped retrieval ---------------------------------------------
+#
+# Explorar's Evangelho topics name a chapter ("A humildade (cap. VII)") and
+# then handed that label to a whole-book search, where the Coletânea de Preces
+# won: 60% of everything retrieved for the ten topics was prayers, and six of
+# ten topics had a prayer as their top hit (measured 2026-08-02). Excluding the
+# collection was measured too and rejected — it emptied "Tribulações" and the
+# legitimate question "prece de agradecimento a Deus".
+#
+# The chip already knows the chapter, so retrieval uses it.
+
+
+def test_chapter_filter_narrows_the_where_clause():
+    with patch("src.rag.retriever._get_store") as store:
+        store.return_value.query.return_value = []
+        retrieve("a humildade", book_filter=EVANGELHO, chapter_filter="CAPÍTULO VII")
+    where = store.return_value.query.call_args.kwargs["where"]
+    assert where == {
+        "$and": [
+            {"book": {"$eq": EVANGELHO}},
+            {"chapter": {"$eq": "CAPÍTULO VII"}},
+        ]
+    }
+
+
+def test_max_distance_does_not_apply_inside_a_chapter_filter():
+    """`max_distance` exists to tell a question the works never address from one
+    they do. Naming the chapter settles that question, so the cut has nothing
+    left to decide — and it was calibrated on real questions, not on three-word
+    topic labels, which sit further out for reasons that have nothing to do with
+    the passage being wrong ("Sede perfeitos" finds SEDE PERFEITOS at 0.534)."""
+    far = {"content": "x", "metadata": {"book": EVANGELHO}, "distance": _FORA}
+    with patch("src.rag.retriever._get_store") as store:
+        store.return_value.query.return_value = [far]
+        kept = retrieve("sede perfeitos", chapter_filter="CAPÍTULO XVII")
+    assert len(kept) == 1
+
+
+def test_max_distance_still_applies_without_a_chapter_filter():
+    far = {"content": "x", "metadata": {"book": EVANGELHO}, "distance": _FORA}
+    with patch("src.rag.retriever._get_store") as store:
+        store.return_value.query.return_value = [far]
+        assert retrieve("qualquer coisa") == []
