@@ -161,6 +161,12 @@ class Settings(BaseSettings):
     # distribuição de distâncias deste modelo. Trocar de modelo de embedding
     # invalida este número — meça de novo antes de confiar nele.
     max_distance: float = 0.45
+    # Expand each /chat hit to the item around it before building the prompt
+    # (src.rag.retriever.expand_to_item). OFF until the numbers say otherwise:
+    # the design is approved but gated on scripts/compare_expansion.py, and this
+    # project does not ship retrieval changes on reasoning alone. Flipping this
+    # default is the whole of the production change.
+    expand_to_item: bool = False
     max_history_turns: int = 10
     chroma_path: str = "data/embeddings/"
     chroma_collection: str = "kardec_docs"

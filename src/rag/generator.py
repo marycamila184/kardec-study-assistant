@@ -30,6 +30,7 @@ from src.rag.quote_check import StreamingQuoteGuard, find_unsupported_quotes
 from src.rag.retriever import (
     EVANGELHO_BOOK,
     append_chapter_commentary,
+    expand_to_item,
     filter_sensitive_chunks,
     filter_uncitable_chunks,
     has_real_item_number,
@@ -250,6 +251,14 @@ def _prepare(
                 )
 
         chunks = append_chapter_commentary(chunks)
+
+        # After the commentary append, so one rule governs everything that
+        # reaches the prompt, and BEFORE filter_sensitive_chunks below — that
+        # filter now matches on `prompt_text`, and expanding after it would let
+        # suicide-adjacent language in a neighbouring subchunk reach an `abalo`
+        # prompt without ever being looked at.
+        if settings.expand_to_item:
+            chunks = expand_to_item(chunks)
 
         try:
             level = sensitivity_future.result(timeout=_SENSITIVITY_TIMEOUT_S)
