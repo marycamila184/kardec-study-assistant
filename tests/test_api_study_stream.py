@@ -103,6 +103,26 @@ def test_missing_item_is_a_404_not_an_empty_stream():
     assert response.json()["detail"]["error"] == "item_not_found"
 
 
+def test_part_reaches_prepare_study():
+    """The streaming lane has its own call to prepare_study, so it can drop the
+    part while POST /study carries it — and a Céu e Inferno item would then be
+    two passages joined here and one passage on the recovery path."""
+    with patch("src.api.routes.prepare_study", return_value=_CTX) as mock_prepare:
+        client.post(
+            "/study/stream",
+            json={
+                "book": "O Céu e o Inferno",
+                "item_number": "1",
+                "chapter": "CAPÍTULO I",
+                "part": "II PARTE",
+            },
+        )
+
+    mock_prepare.assert_called_once_with(
+        "O Céu e o Inferno", "1", "CAPÍTULO I", "II PARTE"
+    )
+
+
 def test_source_then_tokens_then_done():
     with (
         patch("src.api.routes.prepare_study", return_value=_CTX),

@@ -438,6 +438,7 @@ def _studied_item(ctx: dict) -> dict | None:
         "book": meta["book"],
         "chapter_title": meta.get("chapter_title") or None,
         "chapter_ref": meta.get("chapter") or None,
+        "part": meta.get("part") or None,
         "item_number": meta.get("item_number"),
         "excerpt": join_item_text(chunks),
     }
@@ -489,6 +490,7 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
                     "book": m["book"],
                     "chapter": m.get("chapter_title") or None,
                     "chapter_ref": m.get("chapter") or None,
+                    "part": m.get("part") or None,
                     "item_number": (
                         m["item_number"]
                         if has_real_item_number(m.get("item_number"))

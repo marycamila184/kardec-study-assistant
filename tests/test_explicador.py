@@ -234,7 +234,8 @@ def test_explicar_passes_chapter_commentary_to_prompt(monkeypatch):
 
     monkeypatch.setattr("src.rag.explicador.settings.prose_provider", "ollama")
     monkeypatch.setattr(
-        "src.rag.explicador.retrieve_by_item", lambda b, i, c=None: [ev_chunk]
+        "src.rag.explicador.retrieve_by_item",
+        lambda b, i, c=None, part=None: [ev_chunk],
     )
     monkeypatch.setattr("src.rag.explicador.retrieve", lambda q, top_k=6: [])
     monkeypatch.setattr("src.rag.explicador.curar", lambda t, r: [])
@@ -284,7 +285,8 @@ def test_explicar_no_commentary_for_non_evangelho(monkeypatch):
 
     monkeypatch.setattr("src.rag.explicador.settings.prose_provider", "ollama")
     monkeypatch.setattr(
-        "src.rag.explicador.retrieve_by_item", lambda b, i, c=None: [le_chunk]
+        "src.rag.explicador.retrieve_by_item",
+        lambda b, i, c=None, part=None: [le_chunk],
     )
     monkeypatch.setattr("src.rag.explicador.retrieve", lambda q, top_k=6: [])
     monkeypatch.setattr("src.rag.explicador.curar", lambda t, r: [])

@@ -88,6 +88,9 @@ function mapChat(data) {
       book: s.book,
       chapter: s.chapter || null,
       chapter_ref: s.chapter_ref || null,
+      // Carried so a handoff to /study can name the passage exactly — Céu e
+      // Inferno restarts item numbering per part as well as per chapter.
+      part: s.part || null,
       item_number: s.item_number,
       excerpt: s.excerpt || null,
     })),
@@ -138,6 +141,7 @@ function mapStudy(data, bookLabel, itemNumber) {
     relatedItems: (data.related_items || []).map(r => ({
       book: r.book,
       chapter: r.chapter || null,
+      part: r.part || null,
       item_number: r.item_number,
       preview: r.preview,
       conexao: r.conexao || null,
@@ -163,6 +167,7 @@ function mapStudy(data, bookLabel, itemNumber) {
       book: c.book,
       chapter: c.chapter_title || null,
       chapter_ref: c.chapter_ref || null,
+      part: c.part || null,
       item_number: c.item_number,
       excerpt: c.excerpt,
     })),
@@ -295,10 +300,16 @@ export async function chatMessageStream(
   return mapChat(done);
 }
 
-export async function studyItem(book, item_number, chapter = null) {
+// `part` travels wherever `chapter` does, and is not optional in practice for
+// O Céu e o Inferno: that work restarts item numbering per part as well as per
+// chapter, so (book, chapter, item_number) names two different passages for 14
+// keys — "CAPÍTULO I" item 1 is `O PORVIR E O NADA` in I PARTE and
+// `O PASSAMENTO` in II PARTE. Omitting it fetched both and rendered them joined
+// as one passage in "Da Obra". Null for the four works that have no parts.
+export async function studyItem(book, item_number, chapter = null, part = null) {
   const data = await request('/study', {
     method: 'POST',
-    body: JSON.stringify({ book, item_number, chapter }),
+    body: JSON.stringify({ book, item_number, chapter, part }),
   });
   return mapStudy(data, book, item_number);
 }
@@ -313,9 +324,10 @@ export async function studyItem(book, item_number, chapter = null) {
 // written. onSource receives what mapStudy would have produced for the passage
 // alone, so the caller renders it the same way in both lanes.
 export async function studyItemStream(
-  book, item_number, chapter = null, onToken = () => {}, onSource = () => {},
+  book, item_number, chapter = null, part = null,
+  onToken = () => {}, onSource = () => {},
 ) {
-  const done = await streamSSE('/study/stream', { book, item_number, chapter },
+  const done = await streamSSE('/study/stream', { book, item_number, chapter, part },
     (event, payload) => {
       if (event === 'token') onToken(payload.text);
       else if (event === 'source') {

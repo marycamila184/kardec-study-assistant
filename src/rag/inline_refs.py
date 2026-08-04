@@ -117,6 +117,7 @@ def extract_passage_refs(text: str, chunks: list[dict]) -> tuple[str, list[dict]
                         "book": meta["book"],
                         "chapter_title": meta.get("chapter_title") or None,
                         "chapter_ref": meta.get("chapter") or None,
+                        "part": meta.get("part") or None,
                         # The parser's "section-N" placeholder is not an item
                         # a reader can look up. generator.py's `sources` drops
                         # it the same way — both halves of one response must

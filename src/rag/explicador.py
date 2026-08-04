@@ -31,6 +31,7 @@ def prepare_study(
     book: str,
     item_number: str,
     chapter: str | None = None,
+    part: str | None = None,
     profile: ResponseProfile = STUDY_DEFAULT,
 ) -> dict | None:
     """Everything before the model call: retrieval, related items, chapter
@@ -40,12 +41,18 @@ def prepare_study(
     and cannot drift apart — the arrangement the chat lane already uses. It is
     also what lets the route answer 404 before opening a stream: a real
     not-found stays an HTTP 404 instead of becoming an SSE event.
+
+    `part` is what disambiguates O Céu e o Inferno, whose item numbering
+    restarts per part: without it, "CAPÍTULO I" item 1 fetched both `O PORVIR E
+    O NADA` and `O PASSAMENTO` and showed them joined as one passage. Clients
+    that do not send it keep the old behaviour, so the fix is only as good as
+    the caller — see the `part` field on `StudyRequest`.
     """
     # Note: retrieve_by_item failures are left unhandled here (surface as a
     # 500), rather than mapped to the 404 "item not found" response — a DB
     # failure and a real not-found are different situations and shouldn't
     # look the same to the client.
-    chunks = retrieve_by_item(book, item_number, chapter)
+    chunks = retrieve_by_item(book, item_number, chapter, part)
     if not chunks:
         return None
 
@@ -144,6 +151,10 @@ def build_chapter_context(ctx: dict) -> list[dict]:
                 # Inferno; without this the modal shows a number that could be
                 # any of a dozen chapters.
                 "chapter_ref": meta.get("chapter") or None,
+                # Céu e Inferno restarts the numbering per part too, so the
+                # chapter id alone still leaves the reference ambiguous there.
+                # (`parts` below is the subchunk list — unrelated.)
+                "part": meta.get("part") or None,
                 "item_number": item,
                 "parts": [],
             },
@@ -155,6 +166,7 @@ def build_chapter_context(ctx: dict) -> list[dict]:
             "book": e["book"],
             "chapter_title": e["chapter_title"],
             "chapter_ref": e["chapter_ref"],
+            "part": e["part"],
             "item_number": e["item_number"],
             "excerpt": join_item_text(e["parts"]),
         }
@@ -182,6 +194,7 @@ def build_sources(ctx: dict) -> list[dict]:
             "book": c["metadata"]["book"],
             "chapter_title": c["metadata"].get("chapter_title") or None,
             "chapter_ref": c["metadata"].get("chapter") or None,
+            "part": c["metadata"].get("part") or None,
             "item_number": c["metadata"]["item_number"],
         }
         for c in ctx["chunks"]
@@ -244,9 +257,10 @@ def explicar(
     book: str,
     item_number: str,
     chapter: str | None = None,
+    part: str | None = None,
     profile: ResponseProfile = STUDY_DEFAULT,
 ) -> dict | None:
-    ctx = prepare_study(book, item_number, chapter, profile)
+    ctx = prepare_study(book, item_number, chapter, part, profile)
     if ctx is None:
         return None
 

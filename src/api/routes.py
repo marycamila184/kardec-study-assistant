@@ -427,7 +427,9 @@ def study(request: StudyRequest, http_request: Request) -> StudyResponse:
     # public and unauthenticated.
     _enforce_rate_limit(http_request)
     started = time.monotonic()
-    result = study_item_fn(request.book, request.item_number, request.chapter)
+    result = study_item_fn(
+        request.book, request.item_number, request.chapter, request.part
+    )
     if result is None:
         raise _item_not_found(request.item_number)
     return _study_response(
@@ -454,7 +456,9 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
     # request may already be gone.
     session_id = session_id_from(http_request)
 
-    ctx = prepare_study(request.book, request.item_number, request.chapter)
+    ctx = prepare_study(
+        request.book, request.item_number, request.chapter, request.part
+    )
     if ctx is None:
         raise _item_not_found(request.item_number)
 
