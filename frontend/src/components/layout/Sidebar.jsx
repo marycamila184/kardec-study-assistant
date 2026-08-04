@@ -21,13 +21,11 @@ const BookIcon = ({ size = 17, color = 'white' }) => (
  *
  * Props:
  *   onNewConvo     — () => void  (opens the home launcher)
- *   onTutorial     — () => void
  *   conversations  — array of {id, title, mode, msgs}
  *   onLoadConvo    — (convo) => void
  */
 export default function Sidebar({
   onNewConvo,
-  onTutorial,
   conversations = [], onLoadConvo, onDeleteConvo, onToggleConvoFavorite,
   onClose,
   isMobile = false,
@@ -138,14 +136,17 @@ export default function Sidebar({
       </div>
 
       {/* Rodapé: sobre o projeto e contato.
-          "Ver tutorial" prometia um passo a passo que não existe — a tela é
-          uma apresentação do projeto, e o rótulo passa a dizer isso. */}
+          "Sobre o projeto" abre /sobre, a página estática. Ela era a tela de
+          onboarding reaberta, e reabri-la significava rebobinar a flag de
+          primeira visita no localStorage para depois regravá-la. Uma
+          apresentação do projeto é um documento, não um estado da sessão. */}
       <div style={{ padding: '8px 12px 14px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <button onClick={onTutorial} style={{
+        <a href="/sobre" target="_blank" rel="noopener noreferrer" style={{
           width: '100%', background: 'rgba(255,255,255,.18)',
           border: '1px solid rgba(255,255,255,.32)', color: 'white',
           fontSize: 11.5, fontWeight: 500, padding: '8px 10px', borderRadius: 7,
-          cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center',
+          cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
+          justifyContent: 'center', textDecoration: 'none', boxSizing: 'border-box',
         }}>
           <svg width={12} height={12} viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -154,7 +155,7 @@ export default function Sidebar({
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
           Sobre o projeto
-        </button>
+        </a>
         {CONTACT_FORM_URL && (
           <a href={CONTACT_FORM_URL} target="_blank" rel="noopener noreferrer" style={{
             width: '100%', background: 'transparent',
