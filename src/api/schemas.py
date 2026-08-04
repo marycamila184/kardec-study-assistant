@@ -12,6 +12,12 @@ class Source(BaseModel):
     book: str
     chapter: str | None = None
     chapter_ref: str | None = None
+    # Completes the passage identity. O Céu e o Inferno restarts item numbering
+    # per part as well as per chapter, so (book, chapter_ref, item_number) names
+    # two different passages for 14 keys in the corpus. A client handing this
+    # back to /study is what makes the difference; None for the four works that
+    # have no parts.
+    part: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -55,6 +61,8 @@ class InlineRef(BaseModel):
     book: str
     chapter_title: str | None = None
     chapter_ref: str | None = None
+    # Part of the passage identity — see Source.part.
+    part: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -67,6 +75,8 @@ class StudiedItem(BaseModel):
     book: str
     chapter_title: str | None = None
     chapter_ref: str | None = None
+    # Part of the passage identity — see Source.part.
+    part: str | None = None
     item_number: str | None = None
     excerpt: str
 
@@ -127,6 +137,10 @@ class PathDetail(BaseModel):
 class RelatedItem(BaseModel):
     book: str
     chapter: str | None = None
+    # Part of the passage identity — see Source.part. The related-items modal
+    # opens /study directly from one of these, so without it a Céu e Inferno
+    # related item hands over an ambiguous reference.
+    part: str | None = None
     item_number: str | None = None
     preview: str
     conexao: str | None = None
@@ -136,6 +150,8 @@ class StudySource(BaseModel):
     book: str
     chapter_title: str | None = None
     chapter_ref: str | None = None
+    # Part of the passage identity — see Source.part.
+    part: str | None = None
     item_number: str | None = None
     excerpt: str | None = None
 
@@ -143,6 +159,13 @@ class StudySource(BaseModel):
 class StudyRequest(BaseModel):
     book: str
     chapter: str | None = None
+    # Only O Céu e o Inferno needs this, and there it is not optional in
+    # practice: that work restarts item numbering per part as well as per
+    # chapter, so (book, chapter, item_number) names TWO passages for 14 keys —
+    # "CAPÍTULO I" item 1 is `O PORVIR E O NADA` in I PARTE and `O PASSAMENTO`
+    # in II PARTE. Omitting it fetches both and shows them joined as one.
+    # Absent (not null) for the four works that have no parts.
+    part: str | None = None
     item_number: str
     conversation_history: list[Message] = []
 

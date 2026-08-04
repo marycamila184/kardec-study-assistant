@@ -162,14 +162,29 @@ def retrieved_summary(chunks: list[dict]) -> list[dict]:
 
 
 def retrieve_by_item(
-    book: str, item_number: str, chapter: str | None = None
+    book: str, item_number: str, chapter: str | None = None, part: str | None = None
 ) -> list[dict]:
+    """All subchunks of an item, sorted by `subchunk_index`.
+
+    **`(book, chapter, item_number)` is not an identity in O Céu e o Inferno.**
+    That work restarts item numbering per *part* as well as per chapter, and 14
+    keys in the corpus match two parts at once: "CAPÍTULO I" item 1 is
+    `O PORVIR E O NADA` in I PARTE and `O PASSAMENTO` in II PARTE. Without the
+    part clause this returned both, and `join_item_text` glued two unrelated
+    passages into the single block /study shows as "Da Obra".
+
+    Optional, and `None` means "do not filter" rather than "no part": the books
+    that carry none store `""`, so passing that narrows correctly while existing
+    callers with nothing to pass are unchanged.
+    """
     conditions: list[dict] = [
         {"book": {"$eq": book}},
         {"item_number": {"$eq": item_number}},
     ]
     if chapter is not None:
         conditions.append({"chapter": {"$eq": chapter}})
+    if part is not None:
+        conditions.append({"part": {"$eq": part}})
     results = _get_store().get_by_filter({"$and": conditions})
     # Ordered by subchunk_index because every caller rejoins these into the
     # item's text: the store's own order is not part of its contract, and the
@@ -190,6 +205,135 @@ def join_item_text(chunks) -> str:
     return join_subchunks(
         (c["content"], c["metadata"].get("starts_paragraph", True)) for c in chunks
     )
+
+
+def prompt_text(chunk: dict) -> str:
+    """The text of a chunk as the model should see it.
+
+    `expand_to_item` sets `prompt_text` to the item text around the hit and
+    leaves `content` as the raw winning subchunk. Everything the MODEL is shown,
+    and everything checked against what the model wrote, reads through here; the
+    source chip reads `content` directly, so the reader keeps seeing what
+    actually won retrieval.
+
+    Falls back to `content` so a chunk that never went through expansion — the
+    flag off, an expansion failure, a chunk assembled by some other path — still
+    works unchanged. `content` is read defensively for the same reason the quote
+    guard used to read it that way: not every dict that reaches these callers
+    came from `retrieve()`.
+    """
+    return chunk.get("prompt_text") or chunk.get("content", "")
+
+
+def _item_key(chunk: dict) -> tuple:
+    """The identity of the item a chunk belongs to.
+
+    `part` is in the key for the reason `_build_id` has it at ingestion: O Céu e
+    o Inferno restarts item numbering per part as well as per chapter, so
+    (book, chapter, item) names two different passages there.
+    """
+    m = chunk["metadata"]
+    return (
+        m.get("book"),
+        m.get("part") or "",
+        m.get("chapter") or "",
+        m.get("item_number"),
+    )
+
+
+def _window_around(chunk: dict, char_cap: int) -> str:
+    """The item text around `chunk`, grown outward from it up to `char_cap`.
+
+    Grows from the hit rather than from the item's first subchunk, and the
+    difference is not cosmetic. Truncating from the item's opening can produce a
+    passage that does not contain the text that scored — and that reads as a
+    complete, coherent passage about something else, arriving labelled as the
+    source of the answer. A fragment is at least visibly broken.
+
+    The predecessor is taken before the successor because losing it is the
+    failure this exists for: Médiuns II item 7 subchunk 2 opens "que não é, nem
+    pode ser uma destas leis" — the subject is in subchunk 1.
+
+    Best-effort: any failure returns the chunk's own content, because a
+    retrieval problem here must degrade to today's behaviour, never to an error.
+    """
+    m = chunk["metadata"]
+    if (m.get("total_subchunks") or 1) <= 1:
+        return chunk["content"]
+    try:
+        siblings = retrieve_by_item(
+            m["book"], m["item_number"], m.get("chapter"), m.get("part") or ""
+        )
+    except Exception:
+        logger.exception("sibling lookup failed while expanding; using the subchunk")
+        return chunk["content"]
+
+    index = next(
+        (
+            i
+            for i, s in enumerate(siblings)
+            if s["metadata"].get("subchunk_index") == m.get("subchunk_index")
+        ),
+        None,
+    )
+    if index is None:
+        return chunk["content"]
+
+    lo = hi = index
+    total = len(siblings[index]["content"])
+    # The hit is always in, even when it alone exceeds the cap — the same
+    # "never drop to empty" rule chapter_commentary uses.
+    while True:
+        grew = False
+        if lo > 0 and total + len(siblings[lo - 1]["content"]) <= char_cap:
+            lo -= 1
+            total += len(siblings[lo]["content"])
+            grew = True
+        if (
+            hi < len(siblings) - 1
+            and total + len(siblings[hi + 1]["content"]) <= char_cap
+        ):
+            hi += 1
+            total += len(siblings[hi]["content"])
+            grew = True
+        if not grew:
+            break
+
+    return join_item_text(siblings[lo : hi + 1])
+
+
+def expand_to_item(
+    chunks: list[dict], char_cap: int = CHAPTER_COMMENTARY_CAP
+) -> list[dict]:
+    """Retrieved subchunks carrying the item text around them in `prompt_text`.
+
+    Semantic search returns ≤800-char subchunks, and half the numbered items in
+    the corpus are more than one of those (measured 2026-08-03: 1333 of 2668;
+    30% of non-first subchunks are cut mid-paragraph). /study never had this
+    problem because it is handed an identifier and calls `retrieve_by_item`;
+    /chat is handed free text and had no step that mapped a hit back to its item.
+
+    `content` is deliberately not touched, so the source chip keeps showing the
+    subchunk that actually won retrieval while the model reads the whole item.
+
+    When two subchunks of one item are both retrieved they collapse to a single
+    passage — the best-ranked one, carrying the window. The prompt stops
+    printing the same item twice, and since every consumer indexes this one list
+    ([fonte N], sources, the log), they stay in step by construction.
+
+    Order is preserved: callers rely on `chunks[0]` being the top hit
+    (`append_chapter_commentary` does).
+    """
+    seen: dict[tuple, dict] = {}
+    out: list[dict] = []
+    for chunk in chunks:
+        key = _item_key(chunk)
+        if key in seen:
+            continue
+        seen[key] = chunk
+        chunk["prompt_text"] = _window_around(chunk, char_cap)
+        out.append(chunk)
+    return out
 
 
 def retrieve_by_chapter(book: str, chapter: str) -> list[dict]:
@@ -284,12 +428,18 @@ def filter_sensitive_chunks(chunks: list[dict]) -> list[dict]:
     of O Céu e o Inferno (SENSITIVE_CHAPTERS), plus any chunk whose content
     matches suicide-adjacent language (_SENSITIVE_CONTENT_RE) regardless of
     book. Applied only on 'abalo' turns, so distressing material never
-    surfaces unprompted for an emotionally vulnerable reader."""
+    surfaces unprompted for an emotionally vulnerable reader.
+
+    Matched against `prompt_text`, not `content`: once a chunk is expanded to
+    its item, the language this filter exists to catch can sit in a neighbouring
+    subchunk that the model will read and this would never have looked at. The
+    filter has to see everything that reaches the prompt, or it is not a floor.
+    """
     return [
         c
         for c in chunks
         if c["metadata"].get("chapter_title") not in SENSITIVE_CHAPTERS
-        and not _SENSITIVE_CONTENT_RE.search(c["content"])
+        and not _SENSITIVE_CONTENT_RE.search(prompt_text(c))
     ]
 
 

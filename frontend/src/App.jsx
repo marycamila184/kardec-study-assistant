@@ -112,11 +112,15 @@ const upsertById = (list, msg) => {
 // wait for a whole answer, never half of one left on screen. A 404 still comes
 // out of the fallback as an ApiError, which is what callers already handle.
 // See docs/superpowers/specs/2026-07-28-study-trecho-streaming-design.md
-async function streamStudy(book, itemNumber, chapter, onPartial) {
+// `part` completes the passage reference for O Céu e o Inferno, whose item
+// numbering restarts per part as well as per chapter — see studyItem in
+// services/api.js. Callers pass it straight from the source or related item
+// they are opening; null everywhere else.
+async function streamStudy(book, itemNumber, chapter, part, onPartial) {
   try {
     let passage = null;
     let text = '';
-    return await studyItemStream(book, itemNumber, chapter,
+    return await studyItemStream(book, itemNumber, chapter, part,
       (piece) => {
         text += piece;
         if (passage) onPartial({ ...passage, ia: text, streaming: true });
@@ -125,7 +129,7 @@ async function streamStudy(book, itemNumber, chapter, onPartial) {
     );
   } catch (err) {
     console.warn('study stream failed; falling back to /study', err);
-    return studyItem(book, itemNumber, chapter);
+    return studyItem(book, itemNumber, chapter, part);
   }
 }
 
@@ -549,7 +553,7 @@ export default function App() {
     let tutorMsg;
     try {
       const reply = await streamStudy(
-        step.book, step.item_number, step.chapter || null,
+        step.book, step.item_number, step.chapter || null, step.part || null,
         (partial) => {
           setGuidedLoading(false); // the passage is on screen; the spinner would sit under it
           setGuidedMsgs([...existingMsgs, asStepMsg(partial)]);
@@ -692,6 +696,10 @@ export default function App() {
     // chapter must be the machine id (chapter_ref, e.g. "CAPÍTULO II") that
     // /study filters on — source.chapter holds the display title, which the
     // backend would never match (404).
+    // `part` travels with chapter_ref for the same reason: in O Céu e o Inferno
+    // the numbering restarts per part too, so book + chapter + item still names
+    // two passages. The nudge's whole claim is that it hands over an identifier
+    // nothing can be lost from — that only holds if the identifier is complete.
     if (msg.suggestedItemNumber) {
       const match = sources.find(s =>
         s.item_number === msg.suggestedItemNumber &&
@@ -699,11 +707,17 @@ export default function App() {
       );
       const book = msg.suggestedBook || match?.book || sources[0]?.book || null;
       if (!book) return null;
-      return { book, item_number: msg.suggestedItemNumber, chapter: match?.chapter_ref || null };
+      return {
+        book, item_number: msg.suggestedItemNumber,
+        chapter: match?.chapter_ref || null, part: match?.part || null,
+      };
     }
     const first = sources[0];
     if (!first?.item_number) return null;
-    return { book: first.book, item_number: first.item_number, chapter: first.chapter_ref || null };
+    return {
+      book: first.book, item_number: first.item_number,
+      chapter: first.chapter_ref || null, part: first.part || null,
+    };
   };
 
   // ── The mode nudge, as a footer button ────────────────────────────────────
@@ -764,7 +778,7 @@ export default function App() {
     setExplorarConvoMeta(null); explorarConvoMetaRef.current = null;
     try {
       const reply = await streamStudy(
-        source.book, source.item_number, source.chapter || null,
+        source.book, source.item_number, source.chapter || null, source.part || null,
         (partial) => {
           setExplorarLoad(false);
           setExplorarMsgs([userMsg,
@@ -948,7 +962,8 @@ export default function App() {
     try {
       if (source.item_number) {
         reply = await streamStudy(
-          source.book, source.item_number, source.chapter || null, showPartial,
+          source.book, source.item_number, source.chapter || null,
+          source.part || null, showPartial,
         );
       } else {
         let streamed = '';
@@ -1301,7 +1316,7 @@ export default function App() {
               // per token.
               const msgId = 'a' + Date.now();
               const reply = await streamStudy(
-                item.book, item.item_number, item.chapter || null,
+                item.book, item.item_number, item.chapter || null, item.part || null,
                 (partial) => {
                   setLoad(false);
                   appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...partial });

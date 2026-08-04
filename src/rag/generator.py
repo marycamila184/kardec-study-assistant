@@ -30,6 +30,7 @@ from src.rag.quote_check import StreamingQuoteGuard, find_unsupported_quotes
 from src.rag.retriever import (
     EVANGELHO_BOOK,
     append_chapter_commentary,
+    expand_to_item,
     filter_sensitive_chunks,
     filter_uncitable_chunks,
     has_real_item_number,
@@ -251,6 +252,14 @@ def _prepare(
 
         chunks = append_chapter_commentary(chunks)
 
+        # After the commentary append, so one rule governs everything that
+        # reaches the prompt, and BEFORE filter_sensitive_chunks below — that
+        # filter now matches on `prompt_text`, and expanding after it would let
+        # suicide-adjacent language in a neighbouring subchunk reach an `abalo`
+        # prompt without ever being looked at.
+        if settings.expand_to_item:
+            chunks = expand_to_item(chunks)
+
         try:
             level = sensitivity_future.result(timeout=_SENSITIVITY_TIMEOUT_S)
         except Exception:
@@ -438,6 +447,7 @@ def _studied_item(ctx: dict) -> dict | None:
         "book": meta["book"],
         "chapter_title": meta.get("chapter_title") or None,
         "chapter_ref": meta.get("chapter") or None,
+        "part": meta.get("part") or None,
         "item_number": meta.get("item_number"),
         "excerpt": join_item_text(chunks),
     }
@@ -489,6 +499,7 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
                     "book": m["book"],
                     "chapter": m.get("chapter_title") or None,
                     "chapter_ref": m.get("chapter") or None,
+                    "part": m.get("part") or None,
                     "item_number": (
                         m["item_number"]
                         if has_real_item_number(m.get("item_number"))

@@ -2,7 +2,7 @@ import re
 
 from src.rag.profile import CHAT_DEFAULT, ResponseProfile, render_instructions
 from src.rag.prompt_files import load
-from src.rag.retriever import has_real_item_number, item_word
+from src.rag.retriever import has_real_item_number, item_word, prompt_text
 
 _SYSTEM_TEMPLATE = load("chat-system")
 
@@ -81,7 +81,10 @@ def _format_passage(index: int, chunk: dict) -> str:
         header += f" | {chapter_ref}"
     if has_real_item_number(m.get("item_number")):
         header += f" | {item_word(m['book'])}: {m['item_number']}"
-    return f"{header}\n    \"{chunk['content']}\""
+    # `prompt_text`, not `content`: when expansion is on this is the item around
+    # the hit rather than the ≤800-char subchunk that won retrieval. Falls back
+    # to `content` on its own, so nothing changes with expansion off.
+    return f'{header}\n    "{prompt_text(chunk)}"'
 
 
 def build_messages(

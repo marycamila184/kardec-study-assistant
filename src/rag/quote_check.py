@@ -29,6 +29,8 @@ See docs/superpowers/specs/2026-07-28-quote-verification-design.md
 import re
 import unicodedata
 
+from src.rag.retriever import prompt_text
+
 # Below this, a "quotation" is usually a term in scare quotes ("campo de
 # energia", "provação") rather than a claim about what the text says. Checking
 # those would flag ordinary prose constantly.
@@ -71,6 +73,22 @@ def _words(text: str) -> list[str]:
     return _normalise(text).split()
 
 
+def _haystack(chunks: list[dict]) -> str:
+    """Everything that went to the prompt, normalised.
+
+    Reads `prompt_text` and not `content`, because that is what the model was
+    shown: with expansion on, a chunk's `content` is only the subchunk that won
+    retrieval while the model read the item around it. Checking the narrower
+    text would flag a quotation the model took **correctly** from a neighbouring
+    subchunk as fabricated — and a hit here discards the whole answer.
+
+    /study reached the same rule from the other side on 2026-07-28: explicador
+    passes `available` (chunks + commentary + related), not `ctx["chunks"]`. The
+    invariant is that the haystack is everything the model could quote from.
+    """
+    return " ".join(_normalise(prompt_text(c)) for c in chunks)
+
+
 def find_unsupported_quotes(answer: str, chunks: list[dict]) -> list[str]:
     """The quotations in `answer` that appear in no retrieved chunk.
 
@@ -80,7 +98,7 @@ def find_unsupported_quotes(answer: str, chunks: list[dict]) -> list[str]:
     if not answer:
         return []
 
-    haystack = " ".join(_normalise(c.get("content", "")) for c in chunks)
+    haystack = _haystack(chunks)
     unsupported = []
 
     for match in _QUOTED.finditer(answer):
@@ -142,7 +160,7 @@ class StreamingQuoteGuard:
     _CLOSING = '"”»'
 
     def __init__(self, chunks: list[dict]) -> None:
-        self._haystack = " ".join(_normalise(c.get("content", "")) for c in chunks)
+        self._haystack = _haystack(chunks)
         self._held = ""
         self.violated = False
         self.offending: str | None = None
