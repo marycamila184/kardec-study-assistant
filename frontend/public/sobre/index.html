@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre — Dialogando com a Doutrina</title>
+<meta name="description" content="O que é o Dialogando com a Doutrina, quais obras de Allan Kardec estão no acervo, como as respostas são montadas e quais são os limites do projeto.">
+<link rel="canonical" href="https://dialogandodoutrina.com.br/sobre">
+<meta name="theme-color" content="#6B9BB8">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dialogandodoutrina.com.br/sobre">
+<meta property="og:site_name" content="Dialogando com a Doutrina">
+<meta property="og:title" content="Sobre o projeto — Dialogando com a Doutrina">
+<meta property="og:description" content="Um assistente de estudo das cinco obras da Codificação Espírita. Veja o acervo, como funciona e o que ele não faz.">
+<meta property="og:image" content="https://dialogandodoutrina.com.br/preview.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  /* Página estática, sem JavaScript nenhum: ela existe para ser lida antes de
+     qualquer bundle carregar, e para que um buscador veja texto em vez de uma
+     div vazia. Não pode ler o tema escolhido no app (ele mora no localStorage,
+     e ler exigiria justamente o JS que esta página recusa), então segue a
+     preferência do sistema. */
+  :root {
+    --fundo: #F6F4EF; --cartao: #FFFFFF; --borda: #E2DDD6;
+    --texto: #3A3028; --suave: #6A5E50; --tenue: #9A8E7E;
+    --obra-fundo: #FBF8F2; --obra-borda: #DDD0B8;
+    --azul: #6B9BB8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fundo: #111C26; --cartao: #1C2D3C; --borda: #253748;
+      --texto: #D5CCC0; --suave: #B3A899; --tenue: #6A8898;
+      --obra-fundo: #1E3040; --obra-borda: #2C4258;
+      --azul: #8FB9D2;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fundo); color: var(--texto);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px; line-height: 1.75;
+  }
+  .topo {
+    border-bottom: 1px solid var(--borda); background: var(--cartao);
+  }
+  .topo a {
+    display: inline-flex; align-items: center; gap: 8px;
+    max-width: 760px; margin: 0 auto; padding: 16px 24px;
+    width: 100%; color: var(--azul); text-decoration: none;
+    font-size: 14px; font-weight: 500;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 40px; font-weight: 600; line-height: 1.15;
+    letter-spacing: -.01em; margin: 0 0 8px;
+  }
+  .selo {
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--tenue); margin-bottom: 40px;
+  }
+  h2 {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 25px; font-weight: 600; margin: 44px 0 14px;
+  }
+  p { margin: 0 0 16px; color: var(--suave); }
+  strong { color: var(--texto); font-weight: 600; }
+  .obra {
+    background: var(--obra-fundo); border: 1px solid var(--obra-borda);
+    border-radius: 10px; padding: 16px 18px; margin-bottom: 10px;
+  }
+  .obra h3 {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 19px; font-weight: 600; margin: 0 0 2px; color: var(--texto);
+  }
+  .obra .ano {
+    font-size: 12px; letter-spacing: .04em; color: var(--tenue);
+    margin: 0 0 8px; text-transform: uppercase;
+  }
+  .obra p { font-size: 14.5px; margin: 0; line-height: 1.65; }
+  .nota {
+    background: rgba(107,155,184,.09); border: 1px solid rgba(107,155,184,.28);
+    border-radius: 10px; padding: 16px 18px; margin: 20px 0;
+  }
+  .nota p { margin: 0; font-size: 15px; }
+  a { color: var(--azul); }
+  .cta {
+    display: inline-block; margin-top: 12px; background: var(--azul);
+    color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 12px 26px; border-radius: 8px;
+  }
+  footer {
+    border-top: 1px solid var(--borda); margin-top: 52px; padding-top: 22px;
+    font-size: 13px; color: var(--tenue);
+  }
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <a href="/">← Voltar ao aplicativo</a>
+</div>
+
+<main>
+  <h1>Sobre o projeto</h1>
+  <div class="selo">Dialogando com a Doutrina</div>
+
+  <h2>O que é</h2>
+  <p>
+    Um <strong>assistente de estudo</strong> das obras de Allan Kardec. Você
+    pergunta com as suas palavras e ele procura a resposta dentro das obras,
+    mostrando de onde ela veio — a obra, o capítulo e o número da questão ou do
+    item, para você conferir no livro.
+  </p>
+  <p>
+    Não é um oráculo, não é médium e não fala em nome de Espírito nenhum.
+    <strong>Não substitui a leitura das obras nem o estudo em grupo.</strong>
+    Existe para tornar essa leitura mais acessível a quem tem pouco tempo ou
+    encontra dificuldade na linguagem do século XIX.
+  </p>
+
+  <h2>As obras do acervo</h2>
+  <p>
+    Todas as respostas saem destas cinco obras — o Pentateuco Espírita — e de
+    nenhuma outra fonte:
+  </p>
+
+  <div class="obra">
+    <h3>O Livro dos Espíritos</h3>
+    <p class="ano">Paris, 1857 — primeira obra da codificação</p>
+    <p>Os fundamentos da doutrina: Deus, Espíritos, alma, reencarnação e leis morais.</p>
+  </div>
+  <div class="obra">
+    <h3>O Livro dos Médiuns</h3>
+    <p class="ano">Paris, 1861 — segunda obra da codificação</p>
+    <p>Mediunidade, evocações, tipos de manifestações e como discernir os Espíritos.</p>
+  </div>
+  <div class="obra">
+    <h3>O Evangelho Segundo o Espiritismo</h3>
+    <p class="ano">Paris, 1864 — terceira obra da codificação</p>
+    <p>Comentários aos ensinamentos morais do Cristo à luz da doutrina espírita: caridade, humildade, perdão e amor.</p>
+  </div>
+  <div class="obra">
+    <h3>O Céu e o Inferno</h3>
+    <p class="ano">Paris, 1865 — quarta obra da codificação</p>
+    <p>A doutrina das penas e recompensas futuras, com exemplos de vidas e mortes narrados pelos próprios Espíritos.</p>
+  </div>
+  <div class="obra">
+    <h3>A Gênese</h3>
+    <p class="ano">Paris, 1868 — quinta obra da codificação</p>
+    <p>A criação do universo, os milagres e a origem da vida, conciliando ciência, filosofia e religião.</p>
+  </div>
+
+  <div class="nota">
+    <p>
+      Fora daí, ele não responde. Uma pergunta que as obras não tratam recebe
+      um “não encontrei” — não uma resposta inventada.
+    </p>
+  </div>
+
+  <h2>Como funciona</h2>
+  <p>
+    Em linguagem simples: a sua pergunta é comparada com os trechos das obras —
+    as questões numeradas, os itens de cada capítulo — e os mais próximos são
+    recuperados. A resposta é montada <strong>a partir desses trechos</strong>,
+    com a fonte citada.
+  </p>
+  <p>
+    O que veio da obra aparece separado do que veio da inteligência artificial.
+    Essa separação é a regra que governa o projeto inteiro: o trecho original de
+    um lado, a explicação do outro, sem se misturarem.
+  </p>
+  <p>
+    O que ele <strong>não</strong> faz: não emite opinião própria; não responde
+    o que não está nas obras; e não preenche uma lacuna do texto com
+    conhecimento geral sem deixar claro que está fazendo isso.
+  </p>
+
+  <h2>Limites e cuidados</h2>
+  <p>
+    <strong>Ele pode errar.</strong> Quando a explicação e o trecho citado
+    divergirem, o trecho é que vale — e o número está ali justamente para você
+    ir conferir na obra.
+  </p>
+  <p>
+    Ele não dá conselhos, não faz diagnóstico e não trata de questões de saúde.
+    Em assuntos delicados o tom é de acolhimento, não de doutrinação.
+  </p>
+  <p>
+    Se alguém escreve sobre querer morrer, ele não responde com doutrina:
+    mostra o contato do <strong>CVV — 188</strong> (ligação gratuita, 24 horas)
+    e do <strong>SAMU — 192</strong>. Isso está decidido no código, antes de
+    qualquer busca — não depende de a inteligência artificial acertar.
+  </p>
+
+  <h2>Quem fez</h2>
+  <p>
+    Projeto independente, feito por quem estuda a doutrina.
+    <strong>Sem fins comerciais, sem publicidade e sem coleta de dados
+    pessoais.</strong>
+  </p>
+  <p>
+    As suas conversas ficam salvas no seu próprio navegador. O detalhe do que é
+    registrado, e como desligar, está em <strong>Configurações →
+    Privacidade</strong>, dentro do aplicativo.
+  </p>
+  <p>
+    <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSf1d5lIjIkwgtABM6P6VuSzraeafEd9uhxtDUERYf4feV61fQ/viewform" target="_blank" rel="noopener noreferrer">Fale comigo →</a>
+  </p>
+
+  <footer>
+    Dialogando com a Doutrina — as obras de Allan Kardec são de domínio público.
+    <a href="/">Voltar ao aplicativo</a>
+  </footer>
+</main>
+
+</body>
+</html>
