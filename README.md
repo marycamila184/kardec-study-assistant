@@ -191,6 +191,12 @@ reach the deployed backend either way:
 1. Build: `npm run build` (run from the `frontend/` folder)
 2. Publish directory: `frontend/dist`
 3. Set the backend API URL as an environment variable so the frontend knows where to send requests (exact variable name depends on how the frontend is configured).
+4. `frontend/public/` ships verbatim with the build — `preview.png`, `robots.txt`, `sitemap.xml` and the static `/sobre/` page need no configuration of their own.
+
+Two manual steps after every deploy, neither of them a code change:
+
+- Check the share card at `developers.facebook.com/tools/debug` **before** sending the link anywhere — WhatsApp caches previews aggressively, so a mistake found after the first share is expensive to correct.
+- Register the site in Google Search Console and submit `https://dialogandodoutrina.com.br/sitemap.xml`.
 
 ---
 
@@ -216,6 +222,11 @@ kardec-study-assistant/
 │   │   ├── constants/          # Theme, books, learning paths
 │   │   ├── hooks/              # useTheme, useFavorites, useConversations, etc.
 │   │   └── styles/
+│   ├── public/                 # copied verbatim into dist/ by Vite, no bundling
+│   │   ├── sobre/index.html    # static Sobre page, served at /sobre/, no JS
+│   │   ├── robots.txt          # allow all, points at sitemap.xml
+│   │   ├── sitemap.xml         # lists / and /sobre/
+│   │   └── preview.png         # 1200x630 social share card
 │   ├── index.html
 │   ├── vite.config.js
 │   └── package.json
@@ -320,6 +331,7 @@ uv run pytest tests/path/to/test_file.py::TestClass::test_name
 node scripts/check_cited_text.mjs          # citation splitting and labels
 node scripts/check_followup_reply.mjs      # follow-ups drop the visible passage
 node scripts/check_chat_current_mode.mjs   # every /chat call declares current_mode
+node scripts/check_discovery_assets.mjs    # meta tags, preview.png, /sobre/, robots, sitemap
 
 # Evaluation harnesses (cost money; read as comparisons between lanes)
 uv run python -m scripts.compare_retrieval --report      # embedding models
