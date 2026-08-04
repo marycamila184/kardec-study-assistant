@@ -96,7 +96,7 @@ if (sobre) {
   check('o contato é o formulário, não um e-mail',
     sobre.includes('docs.google.com/forms') && !/mailto:/i.test(sobre));
   check('a página Sobre tem canonical próprio',
-    sobre.includes(`href="${HOST}/sobre"`));
+    sobre.includes(`href="${HOST}/sobre/"`));
 }
 
 // --- robots e sitemap ---
@@ -111,7 +111,7 @@ const sitemap = ler('frontend/public/sitemap.xml');
 check('frontend/public/sitemap.xml existe', sitemap !== null);
 if (sitemap) {
   check('sitemap lista a home', sitemap.includes(`<loc>${HOST}/</loc>`));
-  check('sitemap lista /sobre', sitemap.includes(`<loc>${HOST}/sobre</loc>`));
+  check('sitemap lista /sobre/', sitemap.includes(`<loc>${HOST}/sobre/</loc>`));
 }
 
 process.exit(falhou ? 1 : 0);

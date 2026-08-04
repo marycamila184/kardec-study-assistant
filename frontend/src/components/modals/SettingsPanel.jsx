@@ -137,7 +137,7 @@ export default function SettingsPanel({
                   ⚠️ Perguntas fora do escopo das obras de Kardec serão redirecionadas ou não respondidas.
                 </div>
               </div>
-              <a href="/sobre" target="_blank" rel="noopener noreferrer" style={{
+              <a href="/sobre/" target="_blank" rel="noopener noreferrer" style={{
                 display: 'inline-block', marginTop: 10, fontSize: 12,
                 color: '#6B9BB8', textDecoration: 'none', fontWeight: 500,
               }}>Sobre o projeto e as obras →</a>

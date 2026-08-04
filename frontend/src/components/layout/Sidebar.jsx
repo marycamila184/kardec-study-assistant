@@ -141,7 +141,7 @@ export default function Sidebar({
           primeira visita no localStorage para depois regravá-la. Uma
           apresentação do projeto é um documento, não um estado da sessão. */}
       <div style={{ padding: '8px 12px 14px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <a href="/sobre" target="_blank" rel="noopener noreferrer" style={{
+        <a href="/sobre/" target="_blank" rel="noopener noreferrer" style={{
           width: '100%', background: 'rgba(255,255,255,.18)',
           border: '1px solid rgba(255,255,255,.32)', color: 'white',
           fontSize: 11.5, fontWeight: 500, padding: '8px 10px', borderRadius: 7,
