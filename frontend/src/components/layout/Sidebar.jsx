@@ -136,7 +136,9 @@ export default function Sidebar({
       </div>
 
       {/* Rodapé: sobre o projeto e contato.
-          "Sobre o projeto" abre /sobre, a página estática. Ela era a tela de
+          "Sobre o projeto" abre /sobre/, a página estática — a barra final é o
+          que resolve para o índice do diretório (sobre/index.html) e não pode
+          ser "arrumada". Ela era a tela de
           onboarding reaberta, e reabri-la significava rebobinar a flag de
           primeira visita no localStorage para depois regravá-la. Uma
           apresentação do projeto é um documento, não um estado da sessão. */}
