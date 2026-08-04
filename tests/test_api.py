@@ -525,8 +525,24 @@ def test_study_with_chapter_passes_chapter_to_study_fn():
             },
         )
     mock_fn.assert_called_once_with(
-        "O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO IV"
+        "O Evangelho Segundo o Espiritismo", "1", "CAPÍTULO IV", None
     )
+
+
+def test_study_passes_part_through_to_study_fn():
+    """O Céu e o Inferno needs the part to name a passage at all: "CAPÍTULO I"
+    item 1 is `O PORVIR E O NADA` in I PARTE and `O PASSAMENTO` in II PARTE."""
+    with patch("src.api.routes.study_item_fn", return_value=_STUDY_RESULT) as mock_fn:
+        client.post(
+            "/study",
+            json={
+                "book": "O Céu e o Inferno",
+                "item_number": "1",
+                "chapter": "CAPÍTULO I",
+                "part": "II PARTE",
+            },
+        )
+    mock_fn.assert_called_once_with("O Céu e o Inferno", "1", "CAPÍTULO I", "II PARTE")
 
 
 def test_evangelho_response_includes_chapter_summary():

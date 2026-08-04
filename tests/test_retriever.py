@@ -109,6 +109,36 @@ def test_retrieve_by_item_calls_get_by_filter_with_correct_where(monkeypatch):
     )
 
 
+def test_retrieve_by_item_with_part_narrows_to_one_part(monkeypatch):
+    """(book, chapter, item_number) is NOT an identity in O Céu e o Inferno: it
+    restarts item numbering per part as well as per chapter, and 14 keys in the
+    corpus match two parts at once — "CAPÍTULO I" item 1 is `O PORVIR E O NADA`
+    in I PARTE and `O PASSAMENTO` in II PARTE. Without this clause the lookup
+    returned both, and join_item_text glued two unrelated passages into the one
+    block /study shows as "Da Obra"."""
+    mock_store = MagicMock()
+    mock_store.get_by_filter.return_value = [_MOCK_RESULTS[0]]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+
+    retrieve_by_item("O Céu e o Inferno", "1", chapter="CAPÍTULO I", part="I PARTE")
+
+    conditions = mock_store.get_by_filter.call_args[0][0]["$and"]
+    assert {"part": {"$eq": "I PARTE"}} in conditions
+
+
+def test_retrieve_by_item_without_part_does_not_filter_on_it(monkeypatch):
+    """The four works with no parts must keep working untouched — the argument
+    is optional precisely so every existing caller is unchanged."""
+    mock_store = MagicMock()
+    mock_store.get_by_filter.return_value = [_MOCK_RESULTS[0]]
+    monkeypatch.setattr("src.rag.retriever._get_store", lambda: mock_store)
+
+    retrieve_by_item("O Livro dos Espíritos", "1")
+
+    conditions = mock_store.get_by_filter.call_args[0][0]["$and"]
+    assert not any("part" in c for c in conditions)
+
+
 def test_retrieve_by_item_returns_empty_list_when_not_found(monkeypatch):
     mock_store = MagicMock()
     mock_store.get_by_filter.return_value = []

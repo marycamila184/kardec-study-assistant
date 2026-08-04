@@ -42,6 +42,10 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
             {
                 "book": c["metadata"]["book"],
                 "chapter": c["metadata"].get("chapter"),
+                # The related-items modal opens /study straight from this, so
+                # the reference has to be complete: Céu e Inferno restarts item
+                # numbering per part as well as per chapter.
+                "part": c["metadata"].get("part") or None,
                 "item_number": (
                     c["metadata"]["item_number"]
                     if has_real_item_number(c["metadata"].get("item_number"))
@@ -65,6 +69,7 @@ def curar(main_text: str, candidates: list[dict]) -> list[dict]:
                 {
                     "book": c["metadata"]["book"],
                     "chapter": c["metadata"].get("chapter"),
+                    "part": c["metadata"].get("part") or None,
                     "item_number": (
                         c["metadata"]["item_number"]
                         if has_real_item_number(c["metadata"].get("item_number"))

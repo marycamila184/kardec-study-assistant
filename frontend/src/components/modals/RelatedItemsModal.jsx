@@ -5,7 +5,10 @@ import { formatSourceRef } from '../../utils/format';
 /**
  * Related items modal — lists items connected to the current passage.
  * Props:
- *   modal        — { items: [{book, item_number, preview, conexao}] } | null
+ *   modal        — { items: [{book, chapter, part, item_number, preview, conexao}] } | null
+ *                  `part` completes the reference for O Céu e o Inferno and is
+ *                  passed straight through to /study; the whole item object
+ *                  goes to onSelectItem, so nothing here needs to know more.
  *   theme
  *   onClose      — () => void
  *   onSelectItem — (item) => void, called when a row is clicked

@@ -162,14 +162,29 @@ def retrieved_summary(chunks: list[dict]) -> list[dict]:
 
 
 def retrieve_by_item(
-    book: str, item_number: str, chapter: str | None = None
+    book: str, item_number: str, chapter: str | None = None, part: str | None = None
 ) -> list[dict]:
+    """All subchunks of an item, sorted by `subchunk_index`.
+
+    **`(book, chapter, item_number)` is not an identity in O Céu e o Inferno.**
+    That work restarts item numbering per *part* as well as per chapter, and 14
+    keys in the corpus match two parts at once: "CAPÍTULO I" item 1 is
+    `O PORVIR E O NADA` in I PARTE and `O PASSAMENTO` in II PARTE. Without the
+    part clause this returned both, and `join_item_text` glued two unrelated
+    passages into the single block /study shows as "Da Obra".
+
+    Optional, and `None` means "do not filter" rather than "no part": the books
+    that carry none store `""`, so passing that narrows correctly while existing
+    callers with nothing to pass are unchanged.
+    """
     conditions: list[dict] = [
         {"book": {"$eq": book}},
         {"item_number": {"$eq": item_number}},
     ]
     if chapter is not None:
         conditions.append({"chapter": {"$eq": chapter}})
+    if part is not None:
+        conditions.append({"part": {"$eq": part}})
     results = _get_store().get_by_filter({"$and": conditions})
     # Ordered by subchunk_index because every caller rejoins these into the
     # item's text: the store's own order is not part of its contract, and the
