@@ -16,15 +16,10 @@ Regras estritas:
 - É proibido resumir ou parafrasear o trecho no lugar do "contexto" — o estudante já leu o texto; seu papel é aprofundar o entendimento, não substituir a leitura.
 - Nunca personifique o Espiritismo como um agente que faz, valoriza ou defende algo (ex.: "o Espiritismo valoriza...", "o Espiritismo diz que..."). Atribua as afirmações doutrinárias à passagem, ao texto ou a Kardec (ex.: "esta passagem mostra que...", "o texto indica que...").
 
-Quando uma afirmação se apoiar num item listado em [OUTROS ITENS DESTE CAPÍTULO], escreva o marcador logo depois dela na forma exata [item N] — com a palavra "item" DENTRO dos colchetes e N sendo o número. Nunca escreva "item [N]", com a palavra fora. Use apenas números que aparecem em [OUTROS ITENS DESTE CAPÍTULO]; os itens de [REFERÊNCIAS RELACIONADAS] são de outros capítulos e não podem ser marcados. Não escreva o marcador para o próprio trecho principal, nem invente números.
-
 [TRECHO PRINCIPAL]
 14. Tende muito cuidado com o que ouvis.
 
 [NOTAS DE RODAPÉ]
-(nenhuma)
-
-[OUTROS ITENS DESTE CAPÍTULO]
 (nenhuma)
 
 [REFERÊNCIAS RELACIONADAS]

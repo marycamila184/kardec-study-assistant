@@ -12,13 +12,13 @@ import { grantConsent, hasConsent, revokeConsent } from '../../services/consent'
  *   onToggleDark   — () => void
  *   fontSize       — 'small' | 'medium' | 'large'
  *   onFontSize     — (size) => void
- *   reminderOn     — boolean
- *   onToggleReminder — () => void
- *   reminderTime   — string 'HH:MM'
- *   onReminderTime — (time) => void
- *   notifPermission — 'default' | 'granted' | 'denied'
- *   onRequestNotif — () => void
  *   theme
+ *
+ * The study reminder is switched off for production — disconnected, not
+ * deleted, like Refletir. Its props (reminderOn, onToggleReminder,
+ * reminderTime, onReminderTime, notifPermission, onRequestNotif) are commented
+ * out below along with the section that rendered them. See
+ * docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
  */
 const CITATION_LABELS = {
   inline: 'no texto',
@@ -41,12 +41,14 @@ const VOCABULARY_LABELS = {
 export default function SettingsPanel({
   open, onClose, darkMode, onToggleDark,
   fontSize, onFontSize,
-  reminderOn, onToggleReminder, reminderTime, onReminderTime,
-  notifPermission, onRequestNotif,
+  // Study reminder switched off — see the note in the block comment above.
+  // reminderOn, onToggleReminder, reminderTime, onReminderTime,
+  // notifPermission, onRequestNotif,
   profile, onResetProfile,
   theme,
 }) {
-  const [justSaved, setJustSaved] = useState(false);
+  // Only consumer was the reminder time input's "Salvo ✓".
+  // const [justSaved, setJustSaved] = useState(false);
   // Lido do localStorage, não recebido por prop: o consentimento não é estado
   // do App, e nenhuma outra tela precisa dele.
   const [consent, setConsent] = useState(hasConsent);
@@ -230,7 +232,22 @@ export default function SettingsPanel({
             </div>
           </Section>
 
-          {/* Lembrete */}
+          {/* Lembrete de Estudo — switched off for production 2026-08-05.
+              Disconnected, not deleted; see
+              docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
+
+              It was a 30s setInterval inside the page, so it could only fire
+              while the tab was open and in the foreground. On a phone that is
+              almost never: backgrounding the browser or locking the screen
+              freezes the timer, and on iOS Safari outside a Home Screen app
+              `window.Notification` does not exist at all, so the button did
+              nothing, silently, forever. The section promised a daily reminder
+              and delivered one only to a reader already looking at the app.
+
+              Bringing it back means Web Push — service worker, VAPID, stored
+              subscriptions and a scheduler — which is a storage and a privacy
+              decision before it is code, not a bigger version of this. */}
+          {/*
           <Section title="Lembrete de Estudo" theme={theme}>
             <Row label="Ativar lembrete diário" sublabel="Notificação no horário escolhido" theme={theme}>
               <Toggle on={reminderOn} onToggle={onToggleReminder} />
@@ -261,6 +278,7 @@ export default function SettingsPanel({
               </>
             )}
           </Section>
+          */}
         </div>
       </div>
     </div>

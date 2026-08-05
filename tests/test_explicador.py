@@ -573,3 +573,43 @@ def test_sources_carry_the_chapter_id_too():
     }
     (source,) = build_sources(ctx)
     assert source["chapter_ref"] == "CAPÍTULO XII"
+
+
+def test_marker_rule_is_dropped_when_the_chapter_has_no_commentary():
+    """The [item N] rule may not be sent with nothing to mark.
+
+    chapter_commentary() is Evangelho-only, so on every other book that section
+    printed "(nenhuma)" while the rule above it still ordered the model to mark
+    items "from [OUTROS ITENS DESTE CAPÍTULO]". Told to cite an empty list, the
+    model narrated the emptiness INTO the answer — observed 2026-08-05 on the
+    Livro dos Espíritos trilha, step 1: "...sabedoria, bondade e justiça item
+    não aplicável, pois não há itens no capítulo." That sentence is in no prompt
+    and in no code; it is what an impossible instruction produces.
+    """
+    from src.rag.explicador_prompt import build_explicador_messages
+
+    vazio, _ = build_explicador_messages("trecho", [], chapter_commentary_chunks=[])
+    # The section itself, not the phrase: study-rules.md also names it, but
+    # under "Quando o TRECHO PRINCIPAL for um texto evangélico" — a condition
+    # that is false off the Evangelho, so that mention disarms itself.
+    assert "[OUTROS ITENS DESTE CAPÍTULO]\n(nenhuma)" not in vazio
+    assert "escreva o marcador logo depois" not in vazio
+    assert "[item N]" not in vazio
+
+    com, _ = build_explicador_messages(
+        "trecho",
+        [],
+        chapter_commentary_chunks=[
+            {
+                "metadata": {
+                    "item_number": "3",
+                    "book": "O Evangelho Segundo o Espiritismo",
+                },
+                "content": "texto do item",
+            }
+        ],
+    )
+    assert "[OUTROS ITENS DESTE CAPÍTULO]" in com
+    assert "escreva o marcador logo depois" in com
+    assert "[item N]" in com
+    assert "[item 3]" in com
