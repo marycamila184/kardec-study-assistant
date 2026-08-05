@@ -1,22 +1,30 @@
 {
   "id": "fundamentos-evangelico-estudante",
-  "title": "Fundamentos do Evangelho Espírita",
-  "description": "Para quem conhece o básico. A leitura que Kardec faz de cada ensinamento, à luz da doutrina.",
+  "title": "Fundamentos do Evangelho Segundo o Espiritismo",
+  "description": "Para quem conhece o básico. Os mesmos capítulos, na leitura que Kardec faz de cada ensinamento.",
   "level": "estudante",
   "steps": [
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO I"    , "item_number": "6", "label": "As três revelações: Moisés, Cristo, Espiritismo"},
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO II"   , "item_number": "2", "label": "A vida futura e o reino de Jesus"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO III"  , "item_number": "2", "label": "Há muitas moradas na casa de meu pai"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO III"  , "item_number": "2", "label": "As moradas são os mundos"},
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO IV"   , "item_number": "4", "label": "A reencarnação — nascer de novo"},
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO V"    , "item_number": "3", "label": "O sentido do sofrimento"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VI"   , "item_number": "2", "label": "O jugo é leve"},
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VII"  , "item_number": "2", "label": "Humildade — os pobres de espírito"},
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VIII" , "item_number": "3", "label": "Pureza do coração"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO IX"   , "item_number": "4", "label": "A brandura como lei"},
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO X"    , "item_number": "4", "label": "Misericórdia e perdão"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XI"   , "item_number": "4", "label": "Amar o próximo como a si mesmo"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XII"  , "item_number": "3", "label": "Amai os vossos inimigos"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XI"   , "item_number": "4", "label": "A expressão mais completa da caridade"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XII"  , "item_number": "3", "label": "A mais sublime aplicação da caridade"},
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIII" , "item_number": "3", "label": "Caridade sem ostentação"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XV"   , "item_number": "3", "label": "Fora da caridade não há salvação"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIX"  , "item_number": "2", "label": "A fé"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XXVII", "item_number": "4", "label": "Pedi e obtereis — a prece"}
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIV"  , "item_number": "3", "label": "A piedade filial"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XV"   , "item_number": "3", "label": "Toda a moral de Jesus: caridade e humildade"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XVI"  , "item_number": "9", "label": "A verdadeira propriedade"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XVII" , "item_number": "2", "label": "Os caracteres da perfeição"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XVIII", "item_number": "5", "label": "A porta estreita"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIX"  , "item_number": "2", "label": "O poder da fé"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XXV"  , "item_number": "2", "label": "Ajuda-te, que o céu te ajudará"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XXVI" , "item_number": "2", "label": "O dom de curar não se vende"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XXVII", "item_number": "4", "label": "As qualidades da prece"}
   ]
 }
