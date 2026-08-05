@@ -50,173 +50,197 @@
     font-family: 'DM Sans', system-ui, sans-serif;
     font-size: 16px; line-height: 1.75;
   }
-  .topo {
-    border-bottom: 1px solid var(--borda); background: var(--cartao);
+  main { max-width: 680px; margin: 0 auto; padding: 26px 24px 64px; }
+
+  /* Cabeçalho no formato das telas internas do app (IntroObras): a seta é
+     discreta e fica na linha do título, sem barra de largura total. Uma barra
+     ocupando o topo inteiro dava ao "voltar" mais peso visual do que ao
+     próprio assunto da página. */
+  .cabecalho {
+    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 26px;
   }
-  .topo a {
-    display: inline-flex; align-items: center; gap: 8px;
-    max-width: 760px; margin: 0 auto; padding: 16px 24px;
-    width: 100%; color: var(--azul); text-decoration: none;
-    font-size: 14px; font-weight: 500;
+  .voltar {
+    color: var(--tenue); text-decoration: none; font-size: 19px;
+    line-height: 1.35; padding: 0 2px; flex-shrink: 0;
   }
-  main { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
   h1 {
     font-family: 'Crimson Pro', Georgia, serif;
-    font-size: 40px; font-weight: 600; line-height: 1.15;
-    letter-spacing: -.01em; margin: 0 0 8px;
+    font-size: 22px; font-weight: 600; line-height: 1.3;
+    margin: 0;
   }
   .selo {
-    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
-    color: var(--tenue); margin-bottom: 40px;
+    font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--tenue); margin-top: 2px;
   }
+
   h2 {
     font-family: 'Crimson Pro', Georgia, serif;
-    font-size: 25px; font-weight: 600; margin: 44px 0 14px;
+    font-size: 22px; font-weight: 600; margin: 36px 0 12px;
   }
-  p { margin: 0 0 16px; color: var(--suave); }
+  p { margin: 0 0 14px; color: var(--suave); }
   strong { color: var(--texto); font-weight: 600; }
+
+  /* Os modos, na mesma ordem e com o mesmo texto dos cards da home
+     (frontend/src/constants/modes.js). O trecho do dia vem depois de uma
+     linha porque não é um modo: é conteúdo, exatamente como no HomeLauncher. */
+  .modo {
+    display: flex; align-items: flex-start; gap: 13px;
+    background: var(--cartao); border: 1px solid var(--borda);
+    border-radius: 10px; padding: 13px 16px; margin-bottom: 9px;
+  }
+  .modo .icone { font-size: 21px; line-height: 1.2; flex-shrink: 0; }
+  .modo .nome { display: block; font-size: 15px; color: var(--texto); font-weight: 600; }
+  .modo .sub { display: block; font-size: 13.5px; color: var(--suave); line-height: 1.55; }
+  .risco { height: 1px; background: var(--borda); margin: 16px 2px; }
+
   .obra {
     background: var(--obra-fundo); border: 1px solid var(--obra-borda);
-    border-radius: 10px; padding: 16px 18px; margin-bottom: 10px;
+    border-radius: 10px; padding: 12px 16px; margin-bottom: 8px;
   }
   .obra h3 {
     font-family: 'Crimson Pro', Georgia, serif;
-    font-size: 19px; font-weight: 600; margin: 0 0 2px; color: var(--texto);
+    font-size: 18px; font-weight: 600; margin: 0; color: var(--texto);
   }
   .obra .ano {
-    font-size: 12px; letter-spacing: .04em; color: var(--tenue);
-    margin: 0 0 8px; text-transform: uppercase;
+    font-size: 11.5px; letter-spacing: .04em; color: var(--tenue);
+    margin: 0 0 5px; text-transform: uppercase;
   }
-  .obra p { font-size: 14.5px; margin: 0; line-height: 1.65; }
+  .obra p { font-size: 14px; margin: 0; line-height: 1.6; }
   .nota {
     background: rgba(107,155,184,.09); border: 1px solid rgba(107,155,184,.28);
-    border-radius: 10px; padding: 16px 18px; margin: 20px 0;
+    border-radius: 10px; padding: 14px 16px; margin: 16px 0;
   }
-  .nota p { margin: 0; font-size: 15px; }
+  .nota p { margin: 0; font-size: 14.5px; }
   a { color: var(--azul); }
   .cta {
-    display: inline-block; margin-top: 12px; background: var(--azul);
+    display: inline-block; margin-top: 10px; background: var(--azul);
     color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px;
     padding: 12px 26px; border-radius: 8px;
   }
   footer {
-    border-top: 1px solid var(--borda); margin-top: 52px; padding-top: 22px;
+    border-top: 1px solid var(--borda); margin-top: 44px; padding-top: 20px;
     font-size: 13px; color: var(--tenue);
   }
 </style>
 </head>
 <body>
 
-<div class="topo">
-  <a href="/">← Voltar ao aplicativo</a>
-</div>
-
 <main>
-  <h1>Sobre o projeto</h1>
-  <div class="selo">Dialogando com a Doutrina</div>
+
+  <div class="cabecalho">
+    <a class="voltar" href="/" aria-label="Voltar ao aplicativo">←</a>
+    <div>
+      <h1>Sobre o projeto</h1>
+      <div class="selo">Dialogando com a Doutrina</div>
+    </div>
+  </div>
 
   <h2>O que é</h2>
   <p>
     Um <strong>assistente de estudo</strong> das obras de Allan Kardec. Você
     pergunta com as suas palavras e ele procura a resposta dentro das obras,
-    mostrando de onde ela veio — a obra, o capítulo e o número da questão ou do
-    item, para você conferir no livro.
+    mostrando de onde ela veio: a obra, o capítulo e o número da questão ou do
+    item.
   </p>
   <p>
-    Não é um oráculo, não é médium e não fala em nome de Espírito nenhum.
     <strong>Não substitui a leitura das obras nem o estudo em grupo.</strong>
-    Existe para tornar essa leitura mais acessível a quem tem pouco tempo ou
+    Existe para deixar essa leitura mais acessível a quem tem pouco tempo ou
     encontra dificuldade na linguagem do século XIX.
   </p>
-
-  <h2>As obras do acervo</h2>
-  <p>
-    Todas as respostas saem destas cinco obras — o Pentateuco Espírita — e de
-    nenhuma outra fonte:
-  </p>
-
-  <div class="obra">
-    <h3>O Livro dos Espíritos</h3>
-    <p class="ano">Paris, 1857 — primeira obra da codificação</p>
-    <p>Os fundamentos da doutrina: Deus, Espíritos, alma, reencarnação e leis morais.</p>
-  </div>
-  <div class="obra">
-    <h3>O Livro dos Médiuns</h3>
-    <p class="ano">Paris, 1861 — segunda obra da codificação</p>
-    <p>Mediunidade, evocações, tipos de manifestações e como discernir os Espíritos.</p>
-  </div>
-  <div class="obra">
-    <h3>O Evangelho Segundo o Espiritismo</h3>
-    <p class="ano">Paris, 1864 — terceira obra da codificação</p>
-    <p>Comentários aos ensinamentos morais do Cristo à luz da doutrina espírita: caridade, humildade, perdão e amor.</p>
-  </div>
-  <div class="obra">
-    <h3>O Céu e o Inferno</h3>
-    <p class="ano">Paris, 1865 — quarta obra da codificação</p>
-    <p>A doutrina das penas e recompensas futuras, com exemplos de vidas e mortes narrados pelos próprios Espíritos.</p>
-  </div>
-  <div class="obra">
-    <h3>A Gênese</h3>
-    <p class="ano">Paris, 1868 — quinta obra da codificação</p>
-    <p>A criação do universo, os milagres e a origem da vida, conciliando ciência, filosofia e religião.</p>
-  </div>
-
-  <div class="nota">
-    <p>
-      Fora daí, ele não responde. Uma pergunta que as obras não tratam recebe
-      um “não encontrei” — não uma resposta inventada.
-    </p>
-  </div>
-
-  <h2>Como funciona</h2>
-  <p>
-    Em linguagem simples: a sua pergunta é comparada com os trechos das obras —
-    as questões numeradas, os itens de cada capítulo — e os mais próximos são
-    recuperados. A resposta é montada <strong>a partir desses trechos</strong>,
-    com a fonte citada.
-  </p>
-  <p>
-    O que veio da obra aparece separado do que veio da inteligência artificial.
-    Essa separação é a regra que governa o projeto inteiro: o trecho original de
-    um lado, a explicação do outro, sem se misturarem.
-  </p>
-  <p>
-    O que ele <strong>não</strong> faz: não emite opinião própria; não responde
-    o que não está nas obras; e não preenche uma lacuna do texto com
-    conhecimento geral sem deixar claro que está fazendo isso.
-  </p>
-
-  <h2>Limites e cuidados</h2>
-  <p>
-    <strong>Ele pode errar.</strong> Quando a explicação e o trecho citado
-    divergirem, o trecho é que vale — e o número está ali justamente para você
-    ir conferir na obra.
-  </p>
-  <p>
-    Ele não dá conselhos, não faz diagnóstico e não trata de questões de saúde.
-    Em assuntos delicados o tom é de acolhimento, não de doutrinação.
-  </p>
-  <p>
-    Se alguém escreve sobre querer morrer, ele não responde com doutrina:
-    mostra o contato do <strong>CVV — 188</strong> (ligação gratuita, 24 horas)
-    e do <strong>SAMU — 192</strong>. Isso está decidido no código, antes de
-    qualquer busca — não depende de a inteligência artificial acertar.
-  </p>
-
-  <h2>Quem fez</h2>
   <!-- "Sem cadastro", não "sem coleta de dados pessoais": o backend registra
        cada pergunta respondida (texto incluso) por 12 meses e a Vercel mede
        página/país/aparelho — a regra do projeto é a copy de privacidade
        prometer menos do que o código faz, nunca mais. Ver CLAUDE.md e o
        comentário no topo de frontend/src/constants/contact.js. -->
   <p>
-    Projeto independente, feito por quem estuda a doutrina.
-    <strong>Sem fins comerciais, sem publicidade e sem cadastro.</strong>
+    Projeto independente, feito por quem estuda a doutrina. Sem fins
+    comerciais, sem publicidade e sem cadastro. Suas conversas ficam salvas no
+    seu próprio navegador; o que é registrado, e como desligar, está em
+    <strong>Configurações → Privacidade</strong>.
+  </p>
+
+  <h2>O que dá para fazer</h2>
+
+  <div class="modo">
+    <span class="icone" aria-hidden="true">📚</span>
+    <span>
+      <span class="nome">Estudar</span>
+      <span class="sub">Trilhas guiadas e livre exploração pelas cinco obras.</span>
+    </span>
+  </div>
+  <div class="modo">
+    <span class="icone" aria-hidden="true">💬</span>
+    <span>
+      <span class="nome">Dialogar</span>
+      <span class="sub">Perguntas abertas, respondidas a partir das obras.</span>
+    </span>
+  </div>
+
+  <div class="risco"></div>
+
+  <div class="modo">
+    <span class="icone" aria-hidden="true">☀️</span>
+    <span>
+      <span class="nome">Trecho do dia</span>
+      <span class="sub">Uma passagem do Evangelho, nova a cada dia.</span>
+    </span>
+  </div>
+
+  <h2>As obras</h2>
+  <p>Todas as respostas saem destas cinco obras, e de nenhuma outra fonte:</p>
+
+  <div class="obra">
+    <h3>O Livro dos Espíritos</h3>
+    <p class="ano">Paris, 1857</p>
+    <p>Os fundamentos: Deus, Espíritos, alma, reencarnação e leis morais.</p>
+  </div>
+  <div class="obra">
+    <h3>O Livro dos Médiuns</h3>
+    <p class="ano">Paris, 1861</p>
+    <p>Mediunidade, evocações e como discernir os Espíritos.</p>
+  </div>
+  <div class="obra">
+    <h3>O Evangelho Segundo o Espiritismo</h3>
+    <p class="ano">Paris, 1864</p>
+    <p>Os ensinamentos morais do Cristo: caridade, humildade, perdão e amor.</p>
+  </div>
+  <div class="obra">
+    <h3>O Céu e o Inferno</h3>
+    <p class="ano">Paris, 1865</p>
+    <p>As penas e recompensas futuras, com relatos dos próprios Espíritos.</p>
+  </div>
+  <div class="obra">
+    <h3>A Gênese</h3>
+    <p class="ano">Paris, 1868</p>
+    <p>A criação, os milagres e a origem da vida entre ciência e fé.</p>
+  </div>
+
+  <div class="nota">
+    <p>
+      Uma pergunta que as obras não tratam recebe um “não encontrei”, não uma
+      resposta inventada.
+    </p>
+  </div>
+
+  <h2>Como funciona</h2>
+  <p>
+    A sua pergunta é comparada com os trechos das obras — as questões
+    numeradas, os itens de cada capítulo — e os mais próximos são recuperados.
+    A resposta é montada a partir deles, com a fonte citada.
   </p>
   <p>
-    As suas conversas ficam salvas no seu próprio navegador. O detalhe do que é
-    registrado, e como desligar, está em <strong>Configurações →
-    Privacidade</strong>, dentro do aplicativo.
+    O que veio da obra aparece separado do que veio da inteligência artificial:
+    o trecho de um lado, a explicação do outro.
+  </p>
+
+  <h2>Limites e cuidados</h2>
+  <p>
+    <strong>Ele pode errar.</strong> Se a explicação e o trecho citado
+    divergirem, vale o trecho — o número está ali para você conferir na obra.
+  </p>
+  <p>
+    Ele não dá conselhos, não faz diagnóstico e não trata de questões de saúde.
+    Em assuntos delicados, o tom é de acolhimento.
   </p>
   <p>
     <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSf1d5lIjIkwgtABM6P6VuSzraeafEd9uhxtDUERYf4feV61fQ/viewform" target="_blank" rel="noopener noreferrer">Fale comigo →</a>

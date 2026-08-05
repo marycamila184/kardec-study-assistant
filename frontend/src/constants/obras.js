@@ -178,7 +178,20 @@ export const OBRAS = [
         // via the cross-book fallback, to O Livro dos Espíritos — a different
         // work from the one the panel is showing. The chapter that covers it is
         // called "O passamento".
-        items: ['Espíritos em sofrimento', 'Espíritos felizes', 'A perturbação depois da morte', 'Suicídio e consequências'],
+        //
+        // "Suicídio e consequências" was removed 2026-08-05 for a cause no
+        // relabelling can reach, and the difference is worth keeping straight.
+        // Raw retrieval DOES find the material — 5 chunks at 0.409–0.442, all
+        // in II PARTE · SUICIDAS — and filter_uncitable_chunks then drops every
+        // one of them: that chapter is 104 chunks of spirit testimony with 0
+        // numbered items, and no numbered item anywhere in this book mentions
+        // suicide. So the chip promised a subject the book cannot offer in a
+        // form the reader could look up, which is the opposite of what the
+        // Da Obra separation exists to guarantee. "Suicidas", the chapter's own
+        // title, comes back just as empty; the only phrasing that returned
+        // anything was worse than the failure — one chunk of O PASSAMENTO, a
+        // chapter about dying in general, not about suicide.
+        items: ['Espíritos em sofrimento', 'Espíritos felizes', 'A perturbação depois da morte'],
       },
     ],
   },
