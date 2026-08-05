@@ -1,0 +1,6 @@
+# Nada a esconder: o conteúdo do app é o de Kardec, e o que é privado (as
+# conversas) nunca chega a uma URL.
+User-agent: *
+Allow: /
+
+Sitemap: https://dialogandodoutrina.com.br/sitemap.xml

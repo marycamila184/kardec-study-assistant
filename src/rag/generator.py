@@ -461,6 +461,7 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
     suggested_questions: list[str] = []
     inline_refs: list[dict] = []
     not_found_override = False
+    withheld: str | None = None
     if generation_failed:
         answer = GENERATION_FAILED_MESSAGE
     else:
@@ -470,6 +471,15 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
             # Not a generation failure — the model answered, and what it said
             # cannot be shown. "I did not find this in the works" is both the
             # honest thing and, for a question like "duplo etéreo", the true one.
+            #
+            # The text is kept for the log, and never for the reader. Until
+            # 2026-08-04 it was simply dropped, and the turn recorded
+            # NOT_FOUND_MESSAGE as its answer — so the only trace of what
+            # triggered the withholding was a truncated `stderr` warning, and
+            # the guard's own decisions could not be audited from BigQuery.
+            # Calibrating it then meant reading five log lines by hand. A guard
+            # that cannot be measured after the fact cannot be corrected.
+            withheld = answer
             answer = NOT_FOUND_MESSAGE
             chunks, suggested_questions, inline_refs = [], [], []
             not_found_override = True
@@ -530,6 +540,10 @@ def _finalize(answer: str | None, ctx: dict, generation_failed: bool) -> dict:
         # never reaches the client — it exists so the turn log can record what
         # retrieval offered, not just what the answer used.
         "retrieved": retrieved_summary(ctx["chunks"]),
+        # Log-only, same reason and same mechanism: what the model wrote when a
+        # quotation could not be supported. It is the evidence the guard's
+        # calibration runs on, and the reader never sees a character of it.
+        "withheld_answer": withheld,
     }
 
 

@@ -136,6 +136,11 @@ Defina `VITE_API_URL` com a URL do Cloud Run nas variáveis de ambiente do
 projeto na Vercel (Settings → Environment Variables) e refaça o deploy. O
 `frontend/src/services/api.js:3` já lê essa variável.
 
+`frontend/public/` vai junto com o build, sem configuração nenhuma: o
+`preview.png`, o `robots.txt`, o `sitemap.xml` e a página estática
+`sobre/index.html` chegam ao ar do jeito que estão no repositório — não
+precisam de `vercel.json`.
+
 ## 5. A segunda ida: CORS
 
 O backend precisa saber a URL da Vercel, que só existe depois do passo 4.
@@ -169,6 +174,18 @@ curl -s -o /dev/null -w 'cold start: %{time_total}s\n' "$API/health"
 
 Se doer, `--min-instances 1` resolve — mas aí a conta deixa de ser ~US$0, então
 é decisão com número na mão, não por precaução.
+
+Depois do deploy do frontend, nesta ordem — cada passo prova algo que o
+anterior não prova:
+
+1. `https://dialogandodoutrina.com.br/sobre/` devolve a página estática, não o
+   app. É a única das três que o build local não consegue provar — só o
+   servidor real resolve (ou não) a barra final.
+2. O card de compartilhamento em `developers.facebook.com/tools/debug`, **antes**
+   de mandar o link para qualquer pessoa — o WhatsApp cacheia a prévia com
+   força, então um erro descoberto depois do primeiro envio é caro de corrigir.
+3. Google Search Console: registrar a propriedade e submeter o
+   `https://dialogandodoutrina.com.br/sitemap.xml`.
 
 ## Redeploy: o comando do passo 3 é para a PRIMEIRA vez
 

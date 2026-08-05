@@ -18,12 +18,27 @@ export const OBRAS = [
         subtitle: 'Alma, encarnação, reencarnação e vida após a morte',
         context: 'A parte mais extensa da obra. Trata da natureza da alma, do perispírito, do processo de encarnação e reencarnação, da vida entre as encarnações e do que acontece após a morte física.',
         // Q.167 (the purpose of reincarnation) and Q.100 (the spirit scale,
-        // impure to pure) replace Q.166 and Q.165, which landed on "how the
+        // impure to pure) replaced Q.166 and Q.165, which landed on "how the
         // soul purifies" and on the duration of the post-mortem daze —
         // neighbouring subjects, but not the ones the label promises. The
         // number matters: extract_study_reference resolves it and it becomes
         // the "Da Obra" block, so a wrong one shows the reader a wrong passage.
-        items: ['O que é a alma? (Q.134)', 'O perispírito (Q.93)', 'Por que nos encarnamos? (Q.132)', 'Reencarnação (Q.167)', 'Vida após a morte (Q.149)', 'Espíritos felizes e sofredores (Q.100)'],
+        //
+        // Q.97 then replaced Q.100 on 2026-08-04, keeping that same intent —
+        // the scale, imperfect to pure — in 742 characters instead of 4423.
+        // Q.100 is OBSERVAÇÕES PRELIMINARES: five paragraphs of method, on
+        // Linnaeus and botanical classification, before the three orders
+        // arrive. Q.97 asks the question and the answer IS the three orders.
+        // Size is not a matter of taste here: measured over the 21 numbered
+        // topic items, the median is ~500 characters and only Q.100 and
+        // Q.1009 passed 4000 — and those two are the only ones a reader
+        // reported coming back "não encontrei" from. See the note on Q.1006
+        // in Parte IV.
+        // The label follows the passage rather than the passage following the
+        // label: Q.97 is about the orders of perfection, not about happy and
+        // suffering Spirits, and a label promising the second while showing
+        // the first is exactly the mismatch the paragraph above warns about.
+        items: ['O que é a alma? (Q.134)', 'O perispírito (Q.93)', 'Por que nos encarnamos? (Q.132)', 'Reencarnação (Q.167)', 'Vida após a morte (Q.149)', 'A escala dos Espíritos (Q.97)'],
       },
       {
         title: 'Parte III — Das Leis Morais',
@@ -44,7 +59,22 @@ export const OBRAS = [
         // Q.967 ("what the happiness of good Spirits consists of") replaces
         // Q.920, which opens DAS PENAS E GOZOS **TERRESTRES** and asks whether
         // man can be happy ON EARTH — the opposite of what the label promises.
-        items: ['Penas eternas — sim ou não? (Q.1009)', 'O progresso dos Espíritos (Q.780)', 'Mundos superiores (Q.188)', 'A felicidade futura (Q.967)'],
+        //
+        // Q.1006 replaced Q.1009 on 2026-08-04, and this one was about size,
+        // not about aim. Both answer the label; Q.1009 took 11655 characters
+        // to do it — 23x the median of these items, and 13x Q.1006 — because
+        // it is not a question and answer at all but five dissertations
+        // (Santo Agostinho, Lamennais, Platão, São Paulo) plus Kardec's
+        // commentary. Q.1006 asks "poderão durar eternamente os sofrimentos
+        // do Espírito?" and answers it in 892 characters, which is the whole
+        // of what the label promises.
+        //
+        // The Da Obra block renders with `white-space: pre-wrap` and no
+        // collapse, so an 11k-character item is 11k characters on screen
+        // before the explanation starts. Reported by the reader as "muito
+        // grande", and it is also one of the two items observed returning
+        // "não encontrei" in production — see the note on Q.97 in Parte II.
+        items: ['Penas eternas — sim ou não? (Q.1006)', 'O progresso dos Espíritos (Q.780)', 'Mundos superiores (Q.188)', 'A felicidade futura (Q.967)'],
       },
     ],
   },
