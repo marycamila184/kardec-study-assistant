@@ -87,7 +87,7 @@ sideBg (dark): '#1B3248'
 - Persists to localStorage key `dialogando_onboarded`.
 
 ### 2. Main Layout
-- **Sidebar** (300px, sky blue `#6B9BB8`): Brand header (clickable — opens the tutorial/onboarding overlay, same as the "Ver tutorial" button below), mode nav, daily trecho card, recent convos, favorites, "Ver tutorial" button (second, redundant entry point to the same `onTutorial` action).
+- **Sidebar** (300px, sky blue `#6B9BB8`): Brand header (not clickable), mode nav, daily trecho card, recent convos, favorites, "Sobre o projeto" link (`<a href="/sobre/">`, opens the static About page in a new tab) and a "Contato" link below it.
 - **Chat Area** (flex:1): Top header bar with mode icon + title + settings gear. Messages scroll area. Input bar (non-estudar modes).
 - **Mobile**: Sidebar collapses, bottom nav bar (4 mode icons), hamburger opens drawer.
 
@@ -130,7 +130,7 @@ src/
     api.js                    # fetch wrappers + response-mapping (mapChat/mapStudy/mapReflect) for every endpoint
   components/
     layout/
-      Sidebar.jsx             # Sidebar with nav, daily trecho, recent convos, favorites, "Ver tutorial"
+      Sidebar.jsx             # Sidebar with nav, daily trecho, recent convos, favorites, "Sobre o projeto" / "Contato" links
       MobileBottomNav.jsx     # Bottom tab bar (mobile only) — no separate mobile drawer component
       TopBar.jsx              # Chat header with mode icon + title + settings gear
     chat/

@@ -97,6 +97,28 @@ if (sobre) {
     sobre.includes('docs.google.com/forms') && !/mailto:/i.test(sobre));
   check('a página Sobre tem canonical próprio',
     sobre.includes(`href="${HOST}/sobre/"`));
+  check('og:url da página Sobre também tem barra final',
+    sobre.includes(`property="og:url" content="${HOST}/sobre/"`));
+}
+
+// --- os links internos para /sobre/: a barra final tem que sobreviver aqui
+// também. O bug que isto pega é uma edição de "faxina" — trocar
+// href="/sobre/" por href="/sobre" parece um ajuste inofensivo e não quebra
+// nada visível: o link abre o app (SPA) em vez da página estática, do mesmo
+// jeito que scripts/check_chat_current_mode.mjs existe para pegar
+// current_mode esquecido.
+const sidebar = ler('frontend/src/components/layout/Sidebar.jsx');
+check('frontend/src/components/layout/Sidebar.jsx existe', sidebar !== null);
+if (sidebar) {
+  check('Sidebar.jsx aponta para /sobre/, com barra final',
+    sidebar.includes('href="/sobre/"'));
+}
+
+const settingsPanel = ler('frontend/src/components/modals/SettingsPanel.jsx');
+check('frontend/src/components/modals/SettingsPanel.jsx existe', settingsPanel !== null);
+if (settingsPanel) {
+  check('SettingsPanel.jsx aponta para /sobre/, com barra final',
+    settingsPanel.includes('href="/sobre/"'));
 }
 
 // --- robots e sitemap ---
