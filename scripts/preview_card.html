@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<!-- Fonte do frontend/public/preview.png (1200x630, o card que aparece quando
+     alguém compartilha o link). Renderize com:
+
+       google-chrome --headless --disable-gpu --hide-scrollbars \
+         --force-device-scale-factor=1 --window-size=1200,630 \
+         --screenshot=frontend/public/preview.png scripts/preview_card.html
+
+     Se as fontes do Google não carregarem, o texto cai para o serif local e o
+     card continua legível — confira o PNG antes de commitar. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: #F6F4EF;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #3A3028;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 96px;
+    position: relative;
+  }
+  /* A faixa da marca, do lado esquerdo — o mesmo azul da barra lateral. */
+  .faixa { position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: #6B9BB8; }
+  .selo {
+    font-size: 15px; letter-spacing: .24em; text-transform: uppercase;
+    color: #A09080; margin-bottom: 26px;
+  }
+  h1 {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 86px; font-weight: 600; line-height: 1.06;
+    letter-spacing: -.015em; color: #2A2318;
+  }
+  .regua { width: 96px; height: 4px; background: #6B9BB8; margin: 32px 0; border-radius: 2px; }
+  .linha { font-size: 27px; line-height: 1.5; color: #6A5E50; max-width: 830px; }
+  .obras {
+    position: absolute; left: 96px; right: 96px; bottom: 54px;
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-top: 1px solid #DDD0B8; padding-top: 20px;
+  }
+  .obras span { font-size: 17px; color: #9A8E7E; }
+  .obras .dominio { font-size: 17px; color: #6B9BB8; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="faixa"></div>
+  <div class="selo">Estude · Compreenda</div>
+  <h1>Dialogando<br>com a Doutrina</h1>
+  <div class="regua"></div>
+  <p class="linha">
+    Perguntas e respostas nas obras de Allan Kardec,<br>
+    com a fonte sempre citada.
+  </p>
+  <div class="obras">
+    <span>O Livro dos Espíritos · O Livro dos Médiuns · O Evangelho · O Céu e o Inferno · A Gênese</span>
+    <span class="dominio">dialogandodoutrina.com.br</span>
+  </div>
+</body>
+</html>

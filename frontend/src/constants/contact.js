@@ -41,5 +41,7 @@ export const ANALYTICS_NOTICE =
   'sem cookies e sem ligar isso às suas conversas.';
 
 // Vai impresso na imagem compartilhada: sem ele, quem recebe o trecho gosta e
-// nao tem como chegar ao app.
-export const APP_URL = 'kardec-study-assistant.vercel.app';
+// nao tem como chegar ao app. Passou a ser o domínio próprio em 2026-08-04,
+// quando ele entrou no ar — a URL da Vercel continua servindo o app, mas não é
+// a que se mostra a ninguém.
+export const APP_URL = 'dialogandodoutrina.com.br';

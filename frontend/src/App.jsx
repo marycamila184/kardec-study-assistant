@@ -1033,7 +1033,6 @@ export default function App() {
           <div style={{ width: 300, flexShrink: 0, display: 'flex' }}>
             <Sidebar
               onNewConvo={newConvo}
-              onTutorial={() => setOnboarded(false)}
               conversations={conversations}
               onLoadConvo={handleLoadConvo}
               onDeleteConvo={handleDeleteConvo}
@@ -1058,7 +1057,6 @@ export default function App() {
             }}>
               <Sidebar
                 onNewConvo={() => { newConvo(); setDrawerOpen(false); }}
-                onTutorial={() => { setOnboarded(false); setDrawerOpen(false); }}
                 conversations={conversations}
                 onLoadConvo={(c) => { handleLoadConvo(c); setDrawerOpen(false); }}
                 onDeleteConvo={handleDeleteConvo}

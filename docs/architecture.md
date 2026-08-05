@@ -462,9 +462,20 @@ Worth recording against [the Reflexivo shutdown](superpowers/specs/2026-07-26-de
 node scripts/check_cited_text.mjs           # splitByRefs, passageKey, citationLabel
 node scripts/check_followup_reply.mjs       # asFollowUp strips the already-visible passage
 node scripts/check_chat_current_mode.mjs    # every /chat call site declares current_mode
+node scripts/check_discovery_assets.mjs     # meta tags, preview.png, /sobre/, robots.txt, sitemap.xml
 ```
 
 The last one is a **static check on call sites**, not a pure function, because the bug it guards *is* a forgotten argument: three call sites inside Estudar omitted `current_mode`, which sends `undefined` and silently re-enables the orchestrator's self-nudging. Two other call sites had already been fixed once and a comment already warned about the trap; it came back through the other three. That is when vigilance gets replaced by a check.
+
+`check_discovery_assets.mjs` is the same idea applied to files instead of code: it reads `frontend/index.html`, `preview.png`'s PNG header, and the static pages under `frontend/public/`, and asserts the exact strings a crawler or a share-card fetcher would need — an absolute `og:image`, a canonical that matches the custom domain, `/sobre/` with its trailing slash. None of those failures throw; the app renders fine either way, which is why nothing short of a check catches them.
+
+### The discovery surface
+
+`frontend/public/` ships into `dist/` untouched — Vite copies it verbatim rather than bundling it, which is what keeps `frontend/public/sobre/index.html` free of the app's JS entirely.
+
+The Sobre page is a **directory index**, not `public/sobre.html`: the project has no `vercel.json`, so `cleanUrls` is off and a bare `.html` file would not resolve to `/sobre/`. As `sobre/index.html` it resolves by directory index instead, and is served **with the trailing slash** — `/sobre` without one falls through to the SPA, since `trailingSlash` is equally unconfigured. See [the design](superpowers/specs/2026-08-04-discovery-and-about-page-design.md) for why the bare path was the first draft and what serving the built output showed.
+
+`preview.png` (1200×630, under 300 KB — WhatsApp drops larger images) is regenerable, not hand-drawn: its source is the committed `scripts/preview_card.html`, rendered by headless Chrome. Changing the wording means re-running that, not opening an image editor.
 
 ### Metrics, and how to misread them
 
