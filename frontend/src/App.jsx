@@ -8,6 +8,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import HomeLauncher from './components/layout/HomeLauncher';
 import MobileBottomNav from './components/layout/MobileBottomNav';
+import TrechoCard from './components/layout/TrechoCard';
 import Onboarding from './components/modals/Onboarding';
 import SettingsPanel from './components/modals/SettingsPanel';
 import ShareModal from './components/modals/ShareModal';
@@ -1223,6 +1224,36 @@ export default function App() {
                             {sug.label}
                           </button>
                         ))}
+                      </div>
+                    )}
+
+                    {/* The daily passage, mobile only. On a phone this screen
+                        is a dead end for it: the passage renders in
+                        HomeLauncher alone, and no door leads back there —
+                        "Nova conversa" is desktop-only, the bottom nav has no
+                        Início tab, and the brand mark is not a button. Desktop
+                        has that door and so does not get this card.
+
+                        Below the chips and behind a rule, for the reason home
+                        uses the same rule: the chips are questions you could
+                        ask, and this is not one of them.
+
+                        It goes with the empty screen on the first message.
+                        That is the chosen reach — the alternative was putting a
+                        widget back in a sidebar that was made history-only on
+                        purpose. See
+                        docs/superpowers/specs/2026-08-05-trecho-no-dialogar-mobile-design.md */}
+                    {isMobile && mode === 'duvida' && (
+                      <div style={{ width: '100%', maxWidth: 420, marginTop: 26 }}>
+                        <div style={{
+                          height: 1, background: theme.cardBorder, margin: '0 2px 14px',
+                        }} />
+                        <TrechoCard
+                          theme={theme}
+                          evangelhoData={evangelhoData}
+                          onStudyTrecho={handleStudyTrecho}
+                          excerptChars={75}
+                        />
                       </div>
                     )}
 
