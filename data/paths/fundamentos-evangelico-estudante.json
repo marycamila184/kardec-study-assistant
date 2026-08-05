@@ -1,7 +1,7 @@
 {
   "id": "fundamentos-evangelico-estudante",
   "title": "Fundamentos do Evangelho Espírita",
-  "description": "Para quem conhece o básico e quer ampliar o panorama moral e filosófico.",
+  "description": "Para quem conhece o básico. A leitura que Kardec faz de cada ensinamento, à luz da doutrina.",
   "level": "estudante",
   "steps": [
     {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO I"    , "item_number": "6", "label": "As três revelações: Moisés, Cristo, Espiritismo"},
