@@ -36,6 +36,18 @@ export default function CitedText({
               font: 'inherit', fontSize: '0.88em', color: '#6B9BB8',
               textDecoration: 'underline', textUnderlineOffset: 2,
               cursor: 'pointer',
+              // The reference carries no space before it on purpose —
+              // inline_refs.py strips one so the chip attaches to the end of
+              // the preceding word, the way a footnote marker does. That works
+              // for a superscript digit and does not for a two-word label:
+              // 2px of padding put "item 1" flush against "dele" and it read
+              // as one word ("deleitem 1"), reported 2026-08-05. The margin is
+              // the separation the stripped space used to provide; keeping it
+              // out of `padding` leaves the underline under the label only.
+              marginLeft: 3,
+              // "item 1" and "cap. V, item 3" are labels, not prose: a line
+              // break inside one turns the chip into two orphaned fragments.
+              whiteSpace: 'nowrap',
             }}
           >
             {citationLabel(part.ref, precision, insideOneChapter)}

@@ -1,138 +1,53 @@
 {
   "id": "fundamentos-espirita-aprofundado",
   "title": "Fundamentos da Doutrina Espírita",
-  "description": "Para o espírita praticante. Cobertura completa das quatro partes do Livro dos Espíritos.",
+  "description": "Para o espírita praticante. Os mesmos nove assuntos, na questão em que a doutrina responde a quem duvida.",
   "level": "aprofundado",
   "steps": [
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "1",
-      "label": "O que é Deus?"
+      "item_number": "14",
+      "label": "Deus é distinto, ou a soma das forças do Universo?"
     },
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "13",
-      "label": "Atributos da Divindade"
+      "item_number": "119",
+      "label": "Não podia Deus poupá-los das provas?"
     },
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "27",
-      "label": "A trindade universal — Deus, Espírito e matéria"
+      "item_number": "139",
+      "label": "A alma é uma centelha do grande Todo?"
     },
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "37",
-      "label": "Como se formam os mundos?"
+      "item_number": "196",
+      "label": "A vida material é um crisol por onde todos passam?"
     },
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "63",
-      "label": "O princípio vital"
+      "item_number": "165",
+      "label": "Conhecer o Espiritismo encurta a perturbação?"
     },
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "76",
-      "label": "O que são os Espíritos?"
+      "item_number": "634",
+      "label": "Por que o mal está na natureza das coisas?"
     },
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "93",
-      "label": "O invólucro semimaterial do Espírito"
+      "item_number": "851",
+      "label": "Existe fatalidade nos acontecimentos da vida?"
     },
     {
       "book": "O Livro dos Espíritos",
-      "item_number": "100",
-      "label": "A escala espírita — classificação dos Espíritos"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "132",
-      "label": "Por que os Espíritos se encarnaram?"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "134",
-      "label": "O que é a alma?"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "135",
-      "label": "O perispírito — o laço entre alma e corpo"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "141",
-      "label": "Os dois invólucros da alma — o perispírito"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "149",
-      "label": "O que acontece após a morte?"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "150",
-      "label": "A alma conserva sua individualidade após a morte?"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "163",
-      "label": "A perturbação espiritual após a morte"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "166",
-      "label": "Como a alma se depura?"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "167",
-      "label": "A justiça da reencarnação"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "218",
-      "label": "As idéias inatas — vestígios de vidas anteriores"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "223",
-      "label": "A reencarnação imediata ou tardia"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "614",
-      "label": "O que é a lei de Deus?"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "843",
-      "label": "O livre-arbítrio"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "886",
-      "label": "O verdadeiro sentido da caridade"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "958",
-      "label": "O nada não existe — a intuição da vida futura"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "967",
-      "label": "Em que consiste a felicidade dos bons Espíritos"
-    },
-    {
-      "book": "O Livro dos Espíritos",
-      "item_number": "1006",
-      "label": "Poderão os sofrimentos durar eternamente?"
+      "item_number": "887",
+      "label": "Amar os inimigos não é contrário à natureza?"
     },
     {
       "book": "O Livro dos Espíritos",
       "item_number": "1012",
-      "label": "Paraíso, inferno e purgatório"
+      "label": "O céu e o inferno são lugares?"
     }
   ]
 }

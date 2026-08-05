@@ -19,6 +19,12 @@ const BookIcon = ({ size = 17, color = 'white' }) => (
  * The modes went to the home launcher, and so did the daily passage, which was
  * the last block here that was not the reader's own material.
  *
+ * The passage briefly came back as a footer button on 2026-08-05 and was taken
+ * out the same day. On desktop it was redundant with the home card, which
+ * "Nova conversa" is one click from; on mobile the reachability problem it was
+ * meant to solve belongs to MobileBottomNav, which now carries the passage as
+ * its own tab. Nothing here needs to know the passage exists.
+ *
  * Props:
  *   onNewConvo     — () => void  (opens the home launcher)
  *   conversations  — array of {id, title, mode, msgs}

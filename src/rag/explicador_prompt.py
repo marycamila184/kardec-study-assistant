@@ -44,53 +44,54 @@ _JSON_RULES = _SHARED_RULES.format(ctx='"contexto"', con='"conceitos_chave"')
 _ITEM_MARKER_RULE = load("study-item-marker")
 _MARKER_RULES = _SHARED_RULES.format(ctx="CONTEXTO", con="CONCEITOS")
 
-_SYSTEM_TEMPLATE = (
-    load("study-system")
-    + "\n\n"
-    + _JSON_RULES
-    + """
+_JSON_HEAD = load("study-system") + "\n\n" + _JSON_RULES
 
-"""
-    + _ITEM_MARKER_RULE
-    + """
-
-[TRECHO PRINCIPAL]
-{main_passage}
-
-[NOTAS DE RODAPÉ]
-{footnote_passages}
-
-[OUTROS ITENS DESTE CAPÍTULO]
-{chapter_commentary}
-
-[REFERÊNCIAS RELACIONADAS]
-{related_passages}"""
-)
-
-_MARKER_SYSTEM_TEMPLATE = (
-    """\
-Você é um tutor socrático especializado na obra de Allan Kardec.
-
-"""
+_MARKER_HEAD = (
+    "Você é um tutor socrático especializado na obra de Allan Kardec.\n\n"
     + _MARKER_FORMAT
-    + """
-
-"""
+    + "\n\n"
     + _MARKER_RULES
-    + """
+)
 
-[TRECHO PRINCIPAL]
+_MAIN_SECTION = """[TRECHO PRINCIPAL]
 {main_passage}
 
 [NOTAS DE RODAPÉ]
-{footnote_passages}
+{footnote_passages}"""
 
-[OUTROS ITENS DESTE CAPÍTULO]
-{chapter_commentary}
+_CHAPTER_SECTION = """[OUTROS ITENS DESTE CAPÍTULO]
+{chapter_commentary}"""
 
-[REFERÊNCIAS RELACIONADAS]
+_RELATED_SECTION = """[REFERÊNCIAS RELACIONADAS]
 {related_passages}"""
-)
+
+
+def _system_template(with_chapter: bool, marker_lane: bool) -> str:
+    """The prompt, assembled so the marker rule cannot outlive its section.
+
+    `_ITEM_MARKER_RULE` and [OUTROS ITENS DESTE CAPÍTULO] travel together or not
+    at all. They used to be unconditional, and `chapter_commentary()` is
+    Evangelho-only — so on every other book the model was ordered to write
+    "[item N]" using only numbers from a section that read "(nenhuma)". It
+    complied the only way an impossible instruction allows, by narrating the
+    emptiness into the answer: "...sabedoria, bondade e justiça item não
+    aplicável, pois não há itens no capítulo", observed 2026-08-05 on step 1 of
+    the Livro dos Espíritos trilha. That sentence appears in no prompt file and
+    no code path; it is what the contradiction produced.
+
+    With chapter commentary present the string is byte-identical to what it was
+    — the sections joined by a blank line, in the same order — so nothing that
+    was calibrated on the Evangelho lane moves.
+    """
+    parts = [_MARKER_HEAD if marker_lane else _JSON_HEAD]
+    # The rule sits above [TRECHO PRINCIPAL], where it always sat.
+    if with_chapter and not marker_lane:
+        parts.append(_ITEM_MARKER_RULE)
+    parts.append(_MAIN_SECTION)
+    if with_chapter:
+        parts.append(_CHAPTER_SECTION)
+    parts.append(_RELATED_SECTION)
+    return "\n\n".join(parts)
 
 
 def _format_related(chunks: list[dict], markable: bool = False) -> str:
@@ -132,13 +133,12 @@ def build_explicador_messages(
     markers: bool = False,
     profile: ResponseProfile = STUDY_DEFAULT,
 ) -> tuple[str, list[dict]]:
-    template = _MARKER_SYSTEM_TEMPLATE if markers else _SYSTEM_TEMPLATE
+    commentary = chapter_commentary_chunks or []
+    template = _system_template(with_chapter=bool(commentary), marker_lane=markers)
     system = template.format(
         main_passage=main_text,
         footnote_passages=footnote_context or "(nenhuma)",
-        chapter_commentary=_format_related(
-            chapter_commentary_chunks or [], markable=True
-        ),
+        chapter_commentary=_format_related(commentary, markable=True),
         related_passages=_format_related(related_chunks),
     )
     # Appended, so an empty fragment leaves the prompt byte-identical. It lands

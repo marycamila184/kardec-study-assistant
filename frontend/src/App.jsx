@@ -8,7 +8,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import HomeLauncher from './components/layout/HomeLauncher';
 import MobileBottomNav from './components/layout/MobileBottomNav';
-import TrechoCard from './components/layout/TrechoCard';
 import Onboarding from './components/modals/Onboarding';
 import SettingsPanel from './components/modals/SettingsPanel';
 import ShareModal from './components/modals/ShareModal';
@@ -29,7 +28,9 @@ import InputBar from './components/chat/InputBar';
 import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
-import { useReminder } from './hooks/useReminder';
+// Study reminder switched off for production — disconnected, not deleted.
+// See docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
+// import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { chapterFilterFromTopic, formatItemRef, formatSourceRef } from './utils/format';
 import { dayLabel, startsNewDay } from './utils/day';
@@ -142,10 +143,15 @@ export default function App() {
   // ── Persistence ─────────────────────────────────────────────────────────
   const [onboarded,    setOnboarded]    = useStorage('dialogando_onboarded', false);
   const [fontSize,     setFontSize]     = useStorage('dialogando_fontsize', 'medium');
-  const [reminderOn,       setReminderOn]       = useStorage('dialogando_reminder_on', false);
-  const [reminderTime,     setReminderTime]     = useStorage('dialogando_reminder_time', '08:00');
+  // Study reminder switched off for production — disconnected, not deleted.
+  // The two localStorage keys are deliberately NOT cleaned up: a reader who had
+  // set a reminder keeps their hour, so switching the feature back on restores
+  // it instead of silently resetting everyone to 08:00. They cost two unread
+  // strings. See docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
+  // const [reminderOn,       setReminderOn]       = useStorage('dialogando_reminder_on', false);
+  // const [reminderTime,     setReminderTime]     = useStorage('dialogando_reminder_time', '08:00');
   const [completedTrilhas, setCompletedTrilhas] = useStorage('dialogando_completed_trilhas', []);
-  const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
+  // const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
   const { conversations, saveConvo, deleteConvo, toggleConvoFavorite } = useConversations();
 
   // ── API state ────────────────────────────────────────────────────────────
@@ -989,23 +995,27 @@ export default function App() {
     scrollToBottom();
   };
 
-  // ── Reminder notification click ───────────────────────────────────────────
-  const handleNotificationClick = useCallback(() => {
-    switchMode('duvida');
-    handleStudyTrecho();
-  }, [switchMode, handleStudyTrecho]);
-
-  useReminder({
-    enabled: reminderOn, time: reminderTime, permission: notifPerm,
-    onNotificationClick: handleNotificationClick,
-  });
-
-  // ── Notification permission ───────────────────────────────────────────────
-  const requestNotif = async () => {
-    if (typeof Notification === 'undefined') return;
-    const perm = await Notification.requestPermission();
-    setNotifPerm(perm);
-  };
+  // ── Reminder ──────────────────────────────────────────────────────────────
+  // Switched off for production 2026-08-05 — disconnected, not deleted, like
+  // Refletir. useReminder.js stays in the tree with no caller; the hook itself
+  // is sound, the mechanism is not. See
+  // docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
+  //
+  // const handleNotificationClick = useCallback(() => {
+  //   switchMode('duvida');
+  //   handleStudyTrecho();
+  // }, [switchMode, handleStudyTrecho]);
+  //
+  // useReminder({
+  //   enabled: reminderOn, time: reminderTime, permission: notifPerm,
+  //   onNotificationClick: handleNotificationClick,
+  // });
+  //
+  // const requestNotif = async () => {
+  //   if (typeof Notification === 'undefined') return;
+  //   const perm = await Notification.requestPermission();
+  //   setNotifPerm(perm);
+  // };
 
   // ── Render ────────────────────────────────────────────────────────────────
   const isHome = mode === null;
@@ -1227,35 +1237,14 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* The daily passage, mobile only. On a phone this screen
-                        is a dead end for it: the passage renders in
-                        HomeLauncher alone, and no door leads back there —
-                        "Nova conversa" is desktop-only, the bottom nav has no
-                        Início tab, and the brand mark is not a button. Desktop
-                        has that door and so does not get this card.
-
-                        Below the chips and behind a rule, for the reason home
-                        uses the same rule: the chips are questions you could
-                        ask, and this is not one of them.
-
-                        It goes with the empty screen on the first message.
-                        That is the chosen reach — the alternative was putting a
-                        widget back in a sidebar that was made history-only on
-                        purpose. See
-                        docs/superpowers/specs/2026-08-05-trecho-no-dialogar-mobile-design.md */}
-                    {isMobile && mode === 'duvida' && (
-                      <div style={{ width: '100%', maxWidth: 420, marginTop: 26 }}>
-                        <div style={{
-                          height: 1, background: theme.cardBorder, margin: '0 2px 14px',
-                        }} />
-                        <TrechoCard
-                          theme={theme}
-                          evangelhoData={evangelhoData}
-                          onStudyTrecho={handleStudyTrecho}
-                          excerptChars={75}
-                        />
-                      </div>
-                    )}
+                    {/* The daily passage used to render here, mobile only, and
+                        does not any more: it is a button in the menu footer,
+                        reachable from every screen in both layouts. This screen
+                        is where you ask a question, and the passage needed a
+                        rule above it saying so — a separator whose whole job is
+                        to explain that the thing under it does not belong with
+                        the thing over it. See Sidebar.jsx and
+                        docs/superpowers/specs/2026-08-05-trecho-no-menu-design.md */}
 
                   </div>
                 )}
@@ -1313,17 +1302,30 @@ export default function App() {
         </div>
       </div>
 
-      {/* Mobile bottom nav */}
-      {isMobile && <MobileBottomNav mode={mode} onChange={switchMode} />}
+      {/* Mobile bottom nav. `trechoActive` is derived from convoId rather than
+          from mode: the passage opens as a duvida conversation, so mode alone
+          cannot tell "Trecho" and "Dúvida" apart — see the note in
+          MobileBottomNav.jsx for why that distinction is the whole reason the
+          tab can exist at all. */}
+      {isMobile && (
+        <MobileBottomNav
+          mode={mode}
+          onChange={switchMode}
+          onStudyTrecho={handleStudyTrecho}
+          trechoActive={!!convoId && convoId.startsWith('trecho_')}
+          trechoEnabled={!!evangelhoData}
+        />
+      )}
 
       {/* Modals */}
+      {/* The reminder props are gone with the feature — see the commented block
+          near useReminder above. They were:
+            reminderOn / onToggleReminder, reminderTime / onReminderTime,
+            notifPermission / onRequestNotif */}
       <SettingsPanel
         open={showSettings} onClose={() => setShowSettings(false)}
         darkMode={darkMode} onToggleDark={toggleDark}
         fontSize={fontSize} onFontSize={setFontSize}
-        reminderOn={reminderOn} onToggleReminder={() => setReminderOn(r => !r)}
-        reminderTime={reminderTime} onReminderTime={setReminderTime}
-        notifPermission={notifPerm} onRequestNotif={requestNotif}
         profile={profile} onResetProfile={() => setProfile(null)}
         theme={theme}
       />

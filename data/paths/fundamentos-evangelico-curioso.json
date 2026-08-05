@@ -1,16 +1,16 @@
 {
   "id": "fundamentos-evangelico-curioso",
   "title": "Fundamentos do Evangelho Espírita",
-  "description": "Para quem está começando. Uma leitura filosófica das grandes verdades morais do Espiritismo.",
+  "description": "Para quem está começando. O ensinamento do Cristo no texto do Evangelho, um capítulo por vez.",
   "level": "curioso",
   "steps": [
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO I",    "item_number": "1", "label": "As três revelações: Moisés, Cristo, Espiritismo"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO II",   "item_number": "1", "label": "A vida futura e o reino de Jesus"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO IV",   "item_number": "1", "label": "A reencarnação — nascer de novo"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO V",    "item_number": "1", "label": "O sentido do sofrimento"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VII",  "item_number": "1", "label": "Humildade — os pobres de espírito"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XI",   "item_number": "1", "label": "Amar o próximo como a si mesmo"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XV",   "item_number": "1", "label": "Fora da caridade não há salvação"},
-    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIX",  "item_number": "1", "label": "A fé"}
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO I"  , "item_number": "1", "label": "Não vim destruir a lei"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO II" , "item_number": "1", "label": "Meu reino não é deste mundo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO IV" , "item_number": "5", "label": "Ninguém verá o reino de Deus se não nascer de novo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO V"  , "item_number": "1", "label": "Bem-aventurados os aflitos"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO VII", "item_number": "1", "label": "Bem-aventurados os pobres de espírito"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XI" , "item_number": "1", "label": "Amar o próximo como a si mesmo"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XV" , "item_number": "1", "label": "Fora da caridade não há salvação"},
+    {"book": "O Evangelho Segundo o Espiritismo", "chapter": "CAPÍTULO XIX", "item_number": "1", "label": "A fé transporta montanhas"}
   ]
 }
