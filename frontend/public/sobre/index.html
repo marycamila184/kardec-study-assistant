@@ -52,16 +52,16 @@
   }
   main { max-width: 680px; margin: 0 auto; padding: 26px 24px 64px; }
 
-  /* Cabeçalho no formato das telas internas do app (IntroObras): a seta é
-     discreta e fica na linha do título, sem barra de largura total. Uma barra
-     ocupando o topo inteiro dava ao "voltar" mais peso visual do que ao
-     próprio assunto da página. */
+  /* Não há "voltar" aqui, e isso é escolha.
+     Havia uma barra de largura total, que dava ao voltar mais peso do que ao
+     assunto da página; virou uma seta discreta na linha do título; e saiu de
+     vez quando o rodapé ganhou um botão de verdade. Duas saídas na mesma
+     página são uma a mais, e esta era a menos útil das duas: os links do app
+     (Sidebar, SettingsPanel) abrem a Sobre com target="_blank", então quem
+     vem de dentro fecha a aba e nunca precisou de "voltar" — sobrava servir
+     apenas a quem chega de busca, para quem o botão do fim já basta. */
   .cabecalho {
-    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 26px;
-  }
-  .voltar {
-    color: var(--tenue); text-decoration: none; font-size: 19px;
-    line-height: 1.35; padding: 0 2px; flex-shrink: 0;
+    margin-bottom: 26px;
   }
   h1 {
     font-family: 'Crimson Pro', Georgia, serif;
@@ -125,7 +125,6 @@
      saída para quem se enganou de página, aqui é a ação de quem terminou. */
   footer {
     border-top: 1px solid var(--borda); margin-top: 44px; padding-top: 26px;
-    display: flex; flex-direction: column; align-items: flex-start; gap: 18px;
   }
   .voltar-fim {
     display: inline-flex; align-items: center; gap: 9px;
@@ -137,9 +136,10 @@
   }
   .voltar-fim:hover { border-color: var(--azul); }
   .voltar-fim .seta { font-size: 16px; line-height: 1; }
-  .creditos {
-    font-size: 13px; color: var(--tenue); margin: 0; line-height: 1.6;
+  .dominio {
+    font-size: 14px; color: var(--tenue); margin: 16px 0 0; line-height: 1.65;
   }
+  .dominio strong { color: var(--suave); }
 </style>
 </head>
 <body>
@@ -147,11 +147,8 @@
 <main>
 
   <div class="cabecalho">
-    <a class="voltar" href="/" aria-label="Voltar ao aplicativo">←</a>
-    <div>
-      <h1>Sobre o projeto</h1>
-      <div class="selo">Dialogando com a Doutrina</div>
-    </div>
+    <h1>Sobre o projeto</h1>
+    <div class="selo">Dialogando com a Doutrina</div>
   </div>
 
   <h2>O que é</h2>
@@ -234,6 +231,21 @@
     <p>A criação, os milagres e a origem da vida entre ciência e fé.</p>
   </div>
 
+  <!-- Estava no rodapé, numa linha de crédito que ninguém lê. Aqui é onde a
+       frase responde a uma pergunta que o leitor acabou de fazer: por que um
+       site pode reproduzir cinco obras inteiras. O link é uma busca, não a
+       obra em si, e o texto diz isso — "podem ser encontradas", não "leia
+       aqui" — porque prometer um clique a mais do que existe é o mesmo erro
+       que os rótulos das trilhas cometiam. -->
+  <p class="dominio">
+    Escritas entre 1857 e 1868, as obras de Allan Kardec são de
+    <strong>domínio público</strong> e podem ser encontradas em acervos
+    abertos, como o
+    <a href="https://dominiopublico.mec.gov.br/pesquisa/PesquisaObraForm.jsp"
+       target="_blank" rel="noopener noreferrer">portal Domínio Público</a>
+    do Ministério da Educação.
+  </p>
+
   <div class="nota">
     <p>
       Uma pergunta que as obras não tratam recebe um “não encontrei”, não uma
@@ -269,9 +281,6 @@
     <a class="voltar-fim" href="/">
       <span class="seta" aria-hidden="true">←</span>Voltar ao aplicativo
     </a>
-    <p class="creditos">
-      Dialogando com a Doutrina — as obras de Allan Kardec são de domínio público.
-    </p>
   </footer>
 </main>
 
