@@ -117,9 +117,28 @@
     color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px;
     padding: 12px 26px; border-radius: 8px;
   }
+  /* O rodapé é o fim de uma página longa, e é onde a maioria vai querer
+     voltar. O link ficava dentro da frase de crédito, em 13px, colado num
+     texto já apagado: lia como parte da frase e não como um controle. Agora é
+     um alvo próprio, primeiro, com o crédito abaixo — a ordem importa tanto
+     quanto a moldura. A seta do topo continua discreta de propósito: lá é uma
+     saída para quem se enganou de página, aqui é a ação de quem terminou. */
   footer {
-    border-top: 1px solid var(--borda); margin-top: 44px; padding-top: 20px;
-    font-size: 13px; color: var(--tenue);
+    border-top: 1px solid var(--borda); margin-top: 44px; padding-top: 26px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 18px;
+  }
+  .voltar-fim {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--cartao); border: 1px solid var(--borda);
+    border-radius: 9px; padding: 12px 20px;
+    font-size: 14.5px; font-weight: 600; color: var(--azul);
+    text-decoration: none;
+    transition: border-color .15s, background .15s;
+  }
+  .voltar-fim:hover { border-color: var(--azul); }
+  .voltar-fim .seta { font-size: 16px; line-height: 1; }
+  .creditos {
+    font-size: 13px; color: var(--tenue); margin: 0; line-height: 1.6;
   }
 </style>
 </head>
@@ -247,8 +266,12 @@
   </p>
 
   <footer>
-    Dialogando com a Doutrina — as obras de Allan Kardec são de domínio público.
-    <a href="/">Voltar ao aplicativo</a>
+    <a class="voltar-fim" href="/">
+      <span class="seta" aria-hidden="true">←</span>Voltar ao aplicativo
+    </a>
+    <p class="creditos">
+      Dialogando com a Doutrina — as obras de Allan Kardec são de domínio público.
+    </p>
   </footer>
 </main>
 
