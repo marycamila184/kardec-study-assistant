@@ -1,21 +1,17 @@
 {
   "id": "fundamentos-espirita-estudante",
   "title": "Fundamentos da Doutrina Espírita",
-  "description": "Para quem conhece o básico e quer aprofundar a compreensão doutrinária.",
+  "description": "Para quem conhece o básico. Os mesmos nove assuntos, na questão em que Kardec explica como funcionam.",
   "level": "estudante",
   "steps": [
-    {"book": "O Livro dos Espíritos", "item_number": "1"  , "label": "O que é Deus?"},
-    {"book": "O Livro dos Espíritos", "item_number": "13" , "label": "Atributos da Divindade"},
-    {"book": "O Livro dos Espíritos", "item_number": "27" , "label": "A trindade universal — Deus, Espírito e matéria"},
-    {"book": "O Livro dos Espíritos", "item_number": "76" , "label": "O que são os Espíritos?"},
-    {"book": "O Livro dos Espíritos", "item_number": "97" , "label": "A escala espírita — as três ordens principais"},
-    {"book": "O Livro dos Espíritos", "item_number": "132", "label": "Por que os Espíritos se encarnaram?"},
-    {"book": "O Livro dos Espíritos", "item_number": "134", "label": "O que é a alma?"},
-    {"book": "O Livro dos Espíritos", "item_number": "135", "label": "O perispírito — o laço entre alma e corpo"},
-    {"book": "O Livro dos Espíritos", "item_number": "149", "label": "O que acontece após a morte?"},
-    {"book": "O Livro dos Espíritos", "item_number": "163", "label": "A perturbação espiritual após a morte"},
-    {"book": "O Livro dos Espíritos", "item_number": "166", "label": "Como a alma se depura?"},
-    {"book": "O Livro dos Espíritos", "item_number": "167", "label": "A justiça da reencarnação"},
-    {"book": "O Livro dos Espíritos", "item_number": "614", "label": "O que é a lei de Deus?"}
+    {"book": "O Livro dos Espíritos", "item_number": "13"  , "label": "Os atributos da Divindade"},
+    {"book": "O Livro dos Espíritos", "item_number": "97"  , "label": "As ordens de perfeição dos Espíritos"},
+    {"book": "O Livro dos Espíritos", "item_number": "135" , "label": "O perispírito — o laço entre alma e corpo"},
+    {"book": "O Livro dos Espíritos", "item_number": "171" , "label": "Em que se funda o dogma da reencarnação"},
+    {"book": "O Livro dos Espíritos", "item_number": "150" , "label": "A alma conserva a individualidade após a morte"},
+    {"book": "O Livro dos Espíritos", "item_number": "617" , "label": "O que as leis divinas abrangem"},
+    {"book": "O Livro dos Espíritos", "item_number": "846" , "label": "O organismo influi sobre os atos da vida?"},
+    {"book": "O Livro dos Espíritos", "item_number": "886" , "label": "O verdadeiro sentido da caridade, como Jesus a entendia"},
+    {"book": "O Livro dos Espíritos", "item_number": "1006", "label": "Podem os sofrimentos durar eternamente?"}
   ]
 }
