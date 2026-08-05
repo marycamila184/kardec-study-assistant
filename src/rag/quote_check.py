@@ -36,6 +36,39 @@ from src.rag.retriever import prompt_text
 # those would flag ordinary prose constantly.
 MIN_QUOTED_WORDS = 6
 
+# The second way a quotation can be supported, added 2026-08-04 and measured
+# before it was added. The anchor above is binary, and that cost correct
+# answers in production: asked for Q.1009, the model wrote
+#
+#     "a duração das penas depende dos esforços do culpado"
+#
+# where the work says "…dependa dos esforços do culpado" — one verb moved from
+# the subjunctive to the indicative to fit the model's own sentence. Nine
+# words, four possible 6-word windows, the altered word inside all four. So
+# nothing anchored and the reader was told the works do not address the
+# question, printed underneath the passage that answers it.
+#
+# Bigram coverage is the fraction of the quotation's adjacent word pairs found
+# in the haystack. It measures how much of the sentence is the source's, which
+# is a different question from the longest intact fragment: a paraphrase can
+# carry a five-word fragment and still be mostly the model's words. Measured
+# over 70 production turns (scripts/measure_quote_guard.py, results in
+# logs/quote-guard-calibration.txt):
+#
+#     quotations accepted in production   n=42   0.87 – 1.00
+#     re-inflected quotations, withheld   n= 4   0.67 – 0.75
+#     paraphrase-as-quotation, withheld   n= 3   0.14 – 0.33
+#     inventions (control)                n= 4   0.00 – 0.26
+#
+# The cut sits in the 0.33–0.67 gap. **The band is what the test guards, not
+# the number** — the same rule `max_distance` follows. Anything above 0.33 and
+# below 0.67 preserves every decision measured here; move outside it and
+# re-measure.
+#
+# This only ever ADDS support: a quotation that anchors is supported as before,
+# so nothing that passed the old check fails the new one.
+MIN_BIGRAM_COVERAGE = 0.5
+
 # Straight, curly, and the guillemets the Portuguese editions use.
 #
 # Newlines are excluded from the span, and it is not cosmetic. Pairing any two
@@ -89,6 +122,36 @@ def _haystack(chunks: list[dict]) -> str:
     return " ".join(_normalise(prompt_text(c)) for c in chunks)
 
 
+def _bigrams(normalised: str) -> set[str]:
+    words = normalised.split()
+    return {f"{a} {b}" for a, b in zip(words, words[1:])}
+
+
+def coverage(words: list[str], haystack_bigrams: set[str]) -> float:
+    """Fraction of the quotation's adjacent word pairs present in the corpus.
+
+    A changed word costs the two bigrams that touch it, wherever it sits. The
+    longest-run alternative is hostage to position — change the middle word of
+    a nine-word quotation and the run halves, change the last and it barely
+    moves — which is why it cannot tell a re-inflection from a paraphrase.
+    """
+    if len(words) < 2:
+        return 0.0
+    pairs = [f"{a} {b}" for a, b in zip(words, words[1:])]
+    return sum(p in haystack_bigrams for p in pairs) / len(pairs)
+
+
+def _is_supported(words: list[str], haystack: str, haystack_bigrams: set[str]) -> bool:
+    """Whether the corpus backs this quotation, by either route.
+
+    The anchor first, because it is the cheap exact case and because keeping it
+    means no quotation that used to pass can start failing.
+    """
+    if _has_anchor(words, haystack):
+        return True
+    return coverage(words, haystack_bigrams) >= MIN_BIGRAM_COVERAGE
+
+
 def find_unsupported_quotes(answer: str, chunks: list[dict]) -> list[str]:
     """The quotations in `answer` that appear in no retrieved chunk.
 
@@ -99,6 +162,7 @@ def find_unsupported_quotes(answer: str, chunks: list[dict]) -> list[str]:
         return []
 
     haystack = _haystack(chunks)
+    haystack_bigrams = _bigrams(haystack)
     unsupported = []
 
     for match in _QUOTED.finditer(answer):
@@ -106,7 +170,7 @@ def find_unsupported_quotes(answer: str, chunks: list[dict]) -> list[str]:
         words = _words(quoted)
         if len(words) < MIN_QUOTED_WORDS:
             continue
-        if not _has_anchor(words, haystack):
+        if not _is_supported(words, haystack, haystack_bigrams):
             unsupported.append(quoted.strip())
 
     return unsupported
@@ -161,6 +225,7 @@ class StreamingQuoteGuard:
 
     def __init__(self, chunks: list[dict]) -> None:
         self._haystack = _haystack(chunks)
+        self._bigrams = _bigrams(self._haystack)
         self._held = ""
         self.violated = False
         self.offending: str | None = None
@@ -189,7 +254,12 @@ class StreamingQuoteGuard:
         self._held = ""
         inner = span[1:-1]
         words = _words(inner)
-        if len(words) >= MIN_QUOTED_WORDS and not _has_anchor(words, self._haystack):
+        # Same predicate as the non-streaming lane, deliberately: a streamed
+        # answer must end up identical to what POST /chat returns, and two
+        # copies of a support test are two tests that can drift apart.
+        if len(words) >= MIN_QUOTED_WORDS and not _is_supported(
+            words, self._haystack, self._bigrams
+        ):
             self.violated = True
             self.offending = inner.strip()
             return ""

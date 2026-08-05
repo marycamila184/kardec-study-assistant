@@ -156,3 +156,73 @@ def test_a_short_quoted_term_does_not_break_the_pairing():
         'indica que "O perispírito desempenha preponderante papel no organismo".'
     )
     assert find_unsupported_quotes(answer, _CHUNKS) == []
+
+
+# ── Bigram coverage: the second route to being supported ─────────────────────
+#
+# Added 2026-08-04. The anchor is binary, and production showed what that costs:
+# one verb moved from the subjunctive to the indicative discarded a correct
+# answer and told the reader the works are silent — printed underneath the
+# passage that answers the question. Measured over 70 turns before the change;
+# the numbers and the band are in quote_check.MIN_BIGRAM_COVERAGE.
+
+_PENAS = [
+    {
+        "content": (
+            "Aliás, no fazer que a duração das penas dependa dos esforços do "
+            "culpado não está toda a sublimidade da justiça unida à bondade? "
+            "Aí é que se encontra a verdade desta sentença: A cada um segundo "
+            "as suas obras."
+        )
+    }
+]
+
+
+def test_the_production_false_positive_now_passes():
+    """The reported bug, exactly as it reached the reader.
+
+    "dependa" -> "depende". Nine words, four possible 6-word windows, the
+    altered word inside all four, so the anchor cannot match anywhere.
+    """
+    answer = 'O texto indica que "a duração das penas depende dos esforços do culpado".'
+    assert find_unsupported_quotes(answer, _PENAS) == []
+
+
+def test_paraphrase_dressed_as_a_quotation_is_still_caught():
+    """The other turn in the same log window, which the guard got RIGHT.
+
+    It carries a real fragment — that is what made it indistinguishable from a
+    re-inflection under a longest-run test — but most of the sentence is the
+    model's own construction, so its coverage sits with the inventions.
+    """
+    answer = (
+        '"a justiça de Deus consiste em fazer que cada alma pague na exata '
+        'medida do mal que cometeu contra os seus semelhantes"'
+    )
+    assert len(find_unsupported_quotes(answer, _PENAS)) == 1
+
+
+def test_the_measured_band_holds_not_just_the_number():
+    """Guards the gap rather than the constant, like `max_distance`.
+
+    Measured: re-inflected quotations 0.67-0.75, paraphrase and inventions
+    0.00-0.33. Any cut inside 0.33-0.67 preserves every decision above. A
+    change that moves the constant outside the band has to re-measure.
+    """
+    from src.rag.quote_check import MIN_BIGRAM_COVERAGE
+
+    assert 0.33 < MIN_BIGRAM_COVERAGE < 0.67
+
+
+def test_coverage_scores_a_reinflection_far_above_an_invention():
+    from src.rag.quote_check import _bigrams, _haystack, _words, coverage
+
+    bg = _bigrams(_haystack(_PENAS))
+    reinflected = coverage(
+        _words("a duração das penas depende dos esforços do culpado"), bg
+    )
+    invented = coverage(
+        _words("o duplo etéreo envolve o corpo físico e prolonga o perispírito"), bg
+    )
+    assert reinflected >= 0.67
+    assert invented <= 0.33
