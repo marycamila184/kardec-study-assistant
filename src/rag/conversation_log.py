@@ -147,6 +147,15 @@ def log_chat_turn(
         if level not in _TEXT_FREE_LEVELS:
             payload["question"] = scrub(question)
             payload["answer"] = scrub(result.get("answer", ""))
+            # What the model wrote when the quote guard withheld the answer.
+            # Under the same tier gate as everything else textual: `crise` and
+            # `abalo` record no text, and consent does not unlock them.
+            # Absent, not null, when nothing was withheld — the same rule the
+            # session id follows, so a query can tell "not withheld" from
+            # "withheld and blank".
+            withheld = result.get("withheld_answer")
+            if withheld:
+                payload["withheld_answer"] = scrub(withheld)
         _logger.info(json.dumps(payload, ensure_ascii=False))
     except Exception:  # noqa: BLE001 - logging must never break a good answer
         logging.getLogger(__name__).exception("conversation logging failed")
