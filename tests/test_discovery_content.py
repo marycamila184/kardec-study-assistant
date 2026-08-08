@@ -27,7 +27,15 @@ def full_index():
     return load_corpus(FULL_CORPUS)
 
 
-def _write_topic(tmp_path, **overrides):
+def _dirs(tmp_path, **overrides):
+    """A topics dir holding one topic, and an EMPTY paths dir.
+
+    The paths dir is empty on purpose: the real trilhas range across books the
+    fixture corpus does not carry, so pairing them with the fixture index would
+    raise ContentError — and three tests below expect ContentError, which means
+    they would pass for entirely the wrong reason. Trilha loading is covered by
+    the full-corpus test instead.
+    """
     topic = {
         "id": "o-que-acontece-depois-da-morte",
         "question": "O que acontece depois da morte?",
@@ -45,15 +53,19 @@ def _write_topic(tmp_path, **overrides):
         ],
     }
     topic.update(overrides)
-    (tmp_path / f"{topic['id']}.json").write_text(
+    topics = tmp_path / "topics"
+    topics.mkdir(exist_ok=True)
+    (topics / f"{topic['id']}.json").write_text(
         json.dumps(topic, ensure_ascii=False), encoding="utf-8"
     )
-    return tmp_path
+    paths = tmp_path / "paths"
+    paths.mkdir(exist_ok=True)
+    return str(topics), str(paths)
 
 
 def test_loads_a_topic_with_its_passage_text(tmp_path, index):
-    topics = _write_topic(tmp_path)
-    pages = load_pages(str(topics), "data/paths", index)
+    topics, paths = _dirs(tmp_path)
+    pages = load_pages(topics, paths, index)
     tema = next(p for p in pages if p.kind == "tema")
     assert tema.slug == "o-que-acontece-depois-da-morte"
     assert tema.heading == "O que acontece depois da morte?"
@@ -77,13 +89,13 @@ def test_loads_the_existing_trilhas(tmp_path, full_index):
 
 
 def test_topic_without_intro_is_a_build_error(tmp_path, index):
-    topics = _write_topic(tmp_path, intro="")
+    topics, paths = _dirs(tmp_path, intro="")
     with pytest.raises(ContentError, match="intro"):
-        load_pages(str(topics), "data/paths", index)
+        load_pages(topics, paths, index)
 
 
 def test_topic_pointing_at_a_missing_passage_is_a_build_error(tmp_path, index):
-    topics = _write_topic(
+    topics, paths = _dirs(
         tmp_path,
         steps=[
             {
@@ -96,10 +108,10 @@ def test_topic_pointing_at_a_missing_passage_is_a_build_error(tmp_path, index):
         ],
     )
     with pytest.raises(ContentError):
-        load_pages(str(topics), "data/paths", index)
+        load_pages(topics, paths, index)
 
 
 def test_slug_must_be_url_safe(tmp_path, index):
-    topics = _write_topic(tmp_path, id="Não Vale Assim")
+    topics, paths = _dirs(tmp_path, id="Não Vale Assim")
     with pytest.raises(ContentError, match="slug"):
-        load_pages(str(topics), "data/paths", index)
+        load_pages(topics, paths, index)
