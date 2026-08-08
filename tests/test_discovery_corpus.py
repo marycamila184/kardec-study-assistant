@@ -76,8 +76,13 @@ def test_missing_passage_raises(index):
 
 def test_footnotes_are_not_appended(index):
     # Footnotes are baked in by ingestion's _build_document, never here.
+    # Every footnoted chunk is checked, not just the first one found, and the
+    # test asserts it actually found some — otherwise a fixture that lost its
+    # footnoted chunk would leave this passing while checking nothing.
+    checked = 0
     for chunks in index.values():
         for chunk in chunks:
             if chunk.get("footnotes"):
                 assert "[Nota " not in chunk["content"]
-                break
+                checked += 1
+    assert checked, "fixture carries no footnoted chunk — this test is vacuous"

@@ -1,9 +1,15 @@
 import json
 import os
+from pathlib import Path
 
 import pytest
 
 from src.discovery.generate import generate
+
+
+def _slugs(directory: Path) -> set[str]:
+    return {p.name for p in directory.iterdir()} if directory.is_dir() else set()
+
 
 TOPIC = {
     "id": "o-que-e-perispirito",
@@ -77,6 +83,54 @@ def test_leaves_sobre_and_preview_untouched(tmp_path):
         f.write("<p>sobre</p>")
     generate(FIXTURE_DIR, topics, paths, out)
     assert os.path.exists(os.path.join(sobre, "index.html"))
+
+
+@needs_full_corpus
+def test_committed_pages_are_what_a_fresh_generation_produces(tmp_path):
+    """The pages in frontend/public/ must still match their sources.
+
+    This is the one failure the structural guard cannot see. Edit a trilha in
+    data/paths/, forget `uv run python -m src.discovery.generate`, and the
+    committed page keeps its correct canonical, keeps agreeing with the
+    sitemap, and passes every check in check_discovery_assets.mjs — while
+    serving content that no longer matches the curation. Nothing in the running
+    app would ever surface it, which is exactly the kind of silent staleness
+    this project guards against elsewhere.
+
+    Skipped when data/json_files/ is absent (it is gitignored), so this runs
+    for the person editing the curated data — who is the same person who has
+    the parsed corpus.
+    """
+    out = tmp_path / "public"
+    out.mkdir()
+    generate(FULL_CORPUS, "data/topics", "data/paths", str(out))
+
+    live = Path("frontend/public")
+    differences = []
+    for family in ("temas", "trilhas"):
+        fresh_slugs = _slugs(out / family)
+        live_slugs = _slugs(live / family)
+        if fresh_slugs != live_slugs:
+            differences.append(
+                f"{family}/: committed {sorted(live_slugs)} != "
+                f"freshly generated {sorted(fresh_slugs)}"
+            )
+            continue
+        for slug in sorted(fresh_slugs):
+            a = (out / family / slug / "index.html").read_text(encoding="utf-8")
+            b = (live / family / slug / "index.html").read_text(encoding="utf-8")
+            if a != b:
+                differences.append(f"{family}/{slug}/index.html is stale")
+
+    fresh_sitemap = (out / "sitemap.xml").read_text(encoding="utf-8")
+    live_sitemap = (live / "sitemap.xml").read_text(encoding="utf-8")
+    if fresh_sitemap != live_sitemap:
+        differences.append("sitemap.xml is stale")
+
+    assert not differences, (
+        "committed discovery pages are out of date — run "
+        "`uv run python -m src.discovery.generate`:\n  " + "\n  ".join(differences)
+    )
 
 
 @needs_full_corpus

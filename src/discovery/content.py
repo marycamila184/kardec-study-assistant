@@ -75,10 +75,21 @@ def _resolve(steps: list[dict], index: dict, source: str) -> list[Passage]:
     return passages
 
 
-def _page_from_topic(data: dict, index: dict, source: str) -> Page:
+def _slug(data: dict, source: str) -> str:
+    """The page's `id`, checked once for both kinds.
+
+    One definition on purpose: when the two kinds each carried their own copy
+    of this check, a change to the rule could be made in one and missed in the
+    other, and the slug is what the URL is built from.
+    """
     slug = _require(data, "id", source)
     if not SLUG.match(slug):
         raise ContentError(f"{source}: 'id' is not a url-safe slug: {slug!r}")
+    return slug
+
+
+def _page_from_topic(data: dict, index: dict, source: str) -> Page:
+    slug = _slug(data, source)
     return Page(
         slug=slug,
         kind="tema",
@@ -91,9 +102,7 @@ def _page_from_topic(data: dict, index: dict, source: str) -> Page:
 
 
 def _page_from_trilha(data: dict, index: dict, source: str) -> Page:
-    slug = _require(data, "id", source)
-    if not SLUG.match(slug):
-        raise ContentError(f"{source}: 'id' is not a url-safe slug: {slug!r}")
+    slug = _slug(data, source)
     # A trilha has no separate meta_description or intro; `description` is
     # already the one-line summary the app shows, and it serves both here.
     description = _require(data, "description", source)
@@ -124,6 +133,19 @@ def _load_dir(directory: str, index: dict, build) -> list[Page]:
 
 
 def load_pages(topics_dir: str, paths_dir: str, index: dict) -> list[Page]:
-    return _load_dir(topics_dir, index, _page_from_topic) + _load_dir(
+    pages = _load_dir(topics_dir, index, _page_from_topic) + _load_dir(
         paths_dir, index, _page_from_trilha
     )
+    # Two sources sharing a slug write to the same directory, so the second
+    # silently replaces the first — one curated page vanishes and the sitemap
+    # still lists exactly one URL, so nothing downstream can notice.
+    seen: dict[tuple[str, str], None] = {}
+    for page in pages:
+        key = (page.kind, page.slug)
+        if key in seen:
+            raise ContentError(
+                f"duplicate {page.kind} slug {page.slug!r}: two source files "
+                f"would write the same page and one would be lost"
+            )
+        seen[key] = None
+    return pages

@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 import pytest
 
@@ -108,6 +109,23 @@ def test_topic_pointing_at_a_missing_passage_is_a_build_error(tmp_path, index):
         ],
     )
     with pytest.raises(ContentError):
+        load_pages(topics, paths, index)
+
+
+def test_two_sources_sharing_a_slug_is_a_build_error(tmp_path, index):
+    # Both would write the same directory, so the second replaces the first:
+    # a curated page disappears while the sitemap still lists exactly one URL,
+    # which leaves nothing downstream able to notice.
+    topics, paths = _dirs(tmp_path)
+    duplicate = json.loads(
+        (Path(topics) / "o-que-acontece-depois-da-morte.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    (Path(topics) / "outro-arquivo.json").write_text(
+        json.dumps(duplicate, ensure_ascii=False), encoding="utf-8"
+    )
+    with pytest.raises(ContentError, match="duplicate"):
         load_pages(topics, paths, index)
 
 
