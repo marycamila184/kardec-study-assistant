@@ -5,7 +5,7 @@
 // Existe porque toda falha aqui é silenciosa. Um og:image relativo, um canonical
 // ausente ou um PNG de 400 KB não quebram nada visível: a página abre normal e
 // só o card compartilhado sai vazio — e o WhatsApp cacheia isso com força.
-import { readFileSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 
 const HOST = 'https://dialogandodoutrina.com.br';
 const MAX_PNG_BYTES = 300 * 1024;
@@ -134,6 +134,70 @@ check('frontend/public/sitemap.xml existe', sitemap !== null);
 if (sitemap) {
   check('sitemap lista a home', sitemap.includes(`<loc>${HOST}/</loc>`));
   check('sitemap lista /sobre/', sitemap.includes(`<loc>${HOST}/sobre/</loc>`));
+}
+
+// --- as páginas geradas: temas e trilhas ---
+// Geradas por src/discovery/generate.py e commitadas. Os dois sentidos
+// importam: uma página fora do sitemap não é encontrada, e uma entrada do
+// sitemap sem arquivo é um 404 que só o buscador vê.
+const paginasGeradas = [];
+for (const familia of ['temas', 'trilhas']) {
+  const raiz = `frontend/public/${familia}`;
+  if (!existsSync(raiz)) {
+    // temas/ só existe quando houver algum tema curado; trilhas/ é obrigatório.
+    if (familia === 'trilhas') {
+      check(`${raiz} existe`, false, 'rode: uv run python -m src.discovery.generate');
+    }
+    continue;
+  }
+  for (const slug of readdirSync(raiz)) {
+    const caminho = `${raiz}/${slug}/index.html`;
+    const url = `${HOST}/${familia}/${slug}/`;
+    const html = ler(caminho);
+    check(`${caminho} existe`, html !== null);
+    if (!html) continue;
+    paginasGeradas.push(url);
+
+    // O motivo inteiro destas páginas existirem: texto antes de qualquer
+    // bundle, e conteúdo para quem não executa JavaScript.
+    check(`${familia}/${slug} não tem JavaScript`, !/<script/i.test(html));
+    check(`${familia}/${slug} tem canonical próprio, com barra final`,
+      html.includes(`<link rel="canonical" href="${url}">`));
+    check(`${familia}/${slug} tem og:url igual ao canonical`,
+      html.includes(`<meta property="og:url" content="${url}">`));
+    check(`${familia}/${slug} não aponta para a URL da Vercel`,
+      !html.includes('kardec-study-assistant.vercel.app'));
+    check(`${familia}/${slug} tem <h1>`, /<h1>/i.test(html));
+  }
+}
+
+check('há pelo menos uma página gerada', paginasGeradas.length > 0,
+  'rode: uv run python -m src.discovery.generate');
+
+if (sitemap) {
+  for (const url of paginasGeradas) {
+    check(`sitemap lista ${url}`, sitemap.includes(`<loc>${url}</loc>`));
+  }
+  // O sentido inverso: entrada sem arquivo é 404 silencioso.
+  const noSitemap = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+  for (const url of noSitemap) {
+    const relativo = url.replace(`${HOST}/`, '');
+    if (!relativo.startsWith('temas/') && !relativo.startsWith('trilhas/')) continue;
+    check(`a entrada ${url} tem arquivo`,
+      existsSync(`frontend/public/${relativo}index.html`));
+  }
+}
+
+// --- o leitor do deep link ---
+// O deep link é o que faz das páginas estáticas uma porta em vez de um beco:
+// sem este leitor elas só conseguem apontar para "/" e o leitor perde a
+// passagem que estava lendo. Some numa "faxina" sem quebrar nada visível.
+const app = ler('frontend/src/App.jsx');
+check('frontend/src/App.jsx existe', app !== null);
+if (app) {
+  check('App.jsx lê os parâmetros do deep link',
+    app.includes('URLSearchParams') && app.includes("params.get('item')"));
+  check('o deep link carrega part', app.includes("params.get('part')"));
 }
 
 process.exit(falhou ? 1 : 0);
