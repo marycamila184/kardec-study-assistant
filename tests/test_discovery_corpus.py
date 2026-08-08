@@ -61,6 +61,14 @@ def test_omitting_a_required_part_raises_rather_than_gluing(index):
         passage_text(index, "O Céu e o Inferno", "CAPÍTULO I", "1")
 
 
+def test_an_unambiguous_item_resolves_without_chapter_or_part(index):
+    # O Livro dos Espíritos numbering runs 1-1019 without repeating, so the
+    # curated trilhas name book + item alone — a complete identity for that
+    # book. Rejecting it would break every Livro dos Espíritos trilha.
+    text = passage_text(index, "O Livro dos Espíritos", None, "1")
+    assert text and text.strip()
+
+
 def test_missing_passage_raises(index):
     with pytest.raises(PassageNotFound):
         passage_text(index, "O Evangelho Segundo o Espiritismo", "CAPÍTULO V", "9999")
