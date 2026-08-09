@@ -155,7 +155,9 @@ def test_the_doors_carry_no_javascript():
 
 
 _TAGS = re.compile(r"<[^>]+>")
-_STYLE_OR_SCRIPT = re.compile(r"<(style|script)\b[^>]*>.*?</\1>", re.DOTALL | re.IGNORECASE)
+_STYLE_OR_SCRIPT = re.compile(
+    r"<(style|script)\b[^>]*>.*?</\1>", re.DOTALL | re.IGNORECASE
+)
 _BLOCK_TAGS = re.compile(
     r"</?(?:h1|h2|h3|h4|p|div|li|ul|ol|header|footer|section|article|nav|title|html|head|body)\b[^>]*>",
     re.IGNORECASE,
@@ -230,9 +232,9 @@ def test_the_header_text_is_copied_from_the_sobre_page():
 
     o_que_e, nao_substitui, pode_errar = CABECALHO_FRASES
 
-    assert _frases(o_que_e) in paragrafos_sobre, (
-        f"parágrafo 'O que é' não bate mais, inteiro, com a Sobre: {o_que_e!r}"
-    )
+    assert (
+        _frases(o_que_e) in paragrafos_sobre
+    ), f"parágrafo 'O que é' não bate mais, inteiro, com a Sobre: {o_que_e!r}"
     for frase_unica in (nao_substitui, pode_errar):
         assert (
             frase_unica in frases_sobre

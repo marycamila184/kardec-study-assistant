@@ -172,9 +172,7 @@ def _portas_html(page: Page) -> str:
     Um `tema` recebe só a porta do Dialogar: ?trilha=<slug-de-tema> nomearia um
     id inexistente em data/paths/ e o leitor cairia no picker sem entender.
     """
-    portas = [
-        _porta(CHAT_LINK, "💬", "Dialogar", "Faça uma pergunta sobre as obras")
-    ]
+    portas = [_porta(CHAT_LINK, "💬", "Dialogar", "Faça uma pergunta sobre as obras")]
     if page.kind == "trilha":
         n = len(page.passages)
         desc = "Um trecho, no app" if n == 1 else f"Os {n} trechos, um por vez, no app"
