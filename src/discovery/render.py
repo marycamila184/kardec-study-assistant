@@ -13,6 +13,10 @@ from src.discovery.content import Page, Passage
 
 HOST = "https://dialogandodoutrina.com.br"
 
+# A porta do chat. O app lê `mode` no boot; `duvida` é o id persistido do
+# modo Dialogar (constants/modes.js) e NUNCA deve ser renomeado.
+CHAT_LINK = f"{HOST}/?mode=duvida"
+
 _STYLE = """
   :root {
     --fundo: #F6F4EF; --cartao: #FFFFFF; --borda: #E2DDD6;
@@ -40,7 +44,21 @@ _STYLE = """
     font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
     font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem;
   }
-  .intro { color: var(--suave); margin: 0 0 2.5rem; }
+  .intro { color: var(--suave); margin: 0 0 1.5rem; }
+  /* O cartão da home do app: mesmo fundo, borda, raio e espaçamento que
+     HomeLauncher usa, para a página ser reconhecivelmente a mesma casa. */
+  .portas { display: flex; flex-direction: column; gap: .75rem; margin: 0 0 2.5rem; }
+  .porta {
+    display: flex; align-items: center; gap: .9rem;
+    background: var(--cartao); border: 1px solid var(--borda);
+    border-radius: 12px; padding: 1rem 1.15rem;
+    text-decoration: none; color: inherit;
+  }
+  .porta:hover { border-color: var(--azul); }
+  .porta-icone { font-size: 1.35rem; line-height: 1; }
+  .porta-texto { display: flex; flex-direction: column; }
+  .porta-nome { font-weight: 500; }
+  .porta-desc { font-size: .88rem; color: var(--suave); }
   .passagem {
     background: var(--obra-fundo); border: 1px solid var(--obra-borda);
     border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 1.5rem;
@@ -84,6 +102,46 @@ def deep_link(passage: Passage) -> str:
     return f"{HOST}/?{urlencode(params)}"
 
 
+def trilha_link(page: Page) -> str:
+    """Into the trilha itself.
+
+    The page slug IS the trilha id: generate.py writes trilhas/<slug>/ from
+    data/paths/<slug>.json, whose `id` field is that same slug. App.jsx calls
+    startTrilha({id}), which fetches the path detail itself — so nothing else
+    has to travel, and nothing has to wait for getPaths() to land.
+
+    No quoting: content.SLUG already restricts a slug to [a-z0-9-].
+    """
+    return f"{HOST}/?trilha={page.slug}"
+
+
+def _porta(href: str, icone: str, nome: str, desc: str) -> str:
+    return f"""<a class="porta" href="{escape(href)}">
+<span class="porta-icone" aria-hidden="true">{icone}</span>
+<span class="porta-texto"><span class="porta-nome">{escape(nome)}</span><span class="porta-desc">{escape(desc)}</span></span>
+</a>"""
+
+
+def _portas_html(page: Page) -> str:
+    """A tela inicial do app, em HTML estático.
+
+    Quem chega de um buscador veio com uma pergunta, não para ler 22 trechos.
+    HomeLauncher oferece exatamente duas entradas — Dialogar e Estudar — e a
+    porta as reproduz antes da parede de texto.
+
+    Um `tema` recebe só a porta do Dialogar: ?trilha=<slug-de-tema> nomearia um
+    id inexistente em data/paths/ e o leitor cairia no picker sem entender.
+    """
+    portas = [
+        _porta(CHAT_LINK, "💬", "Dialogar", "Faça uma pergunta sobre as obras")
+    ]
+    if page.kind == "trilha":
+        n = len(page.passages)
+        desc = "Um trecho, no app" if n == 1 else f"Os {n} trechos, um por vez, no app"
+        portas.append(_porta(trilha_link(page), "📚", "Estudar esta trilha", desc))
+    return '<div class="portas">\n' + "\n".join(portas) + "\n</div>"
+
+
 def _passage_html(passage: Passage) -> str:
     ref = passage.label
     where = passage.chapter or ""
@@ -100,6 +158,7 @@ def _passage_html(passage: Passage) -> str:
 def render_page(page: Page) -> str:
     url = page_url(page)
     passages = "\n".join(_passage_html(p) for p in page.passages)
+    portas = _portas_html(page)
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -126,6 +185,7 @@ def render_page(page: Page) -> str:
 <main>
 <h1>{escape(page.heading)}</h1>
 <p class="intro">{escape(page.intro)}</p>
+{portas}
 {passages}
 </main>
 <footer>

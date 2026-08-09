@@ -45,7 +45,21 @@
     font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
     font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem;
   }
-  .intro { color: var(--suave); margin: 0 0 2.5rem; }
+  .intro { color: var(--suave); margin: 0 0 1.5rem; }
+  /* O cartão da home do app: mesmo fundo, borda, raio e espaçamento que
+     HomeLauncher usa, para a página ser reconhecivelmente a mesma casa. */
+  .portas { display: flex; flex-direction: column; gap: .75rem; margin: 0 0 2.5rem; }
+  .porta {
+    display: flex; align-items: center; gap: .9rem;
+    background: var(--cartao); border: 1px solid var(--borda);
+    border-radius: 12px; padding: 1rem 1.15rem;
+    text-decoration: none; color: inherit;
+  }
+  .porta:hover { border-color: var(--azul); }
+  .porta-icone { font-size: 1.35rem; line-height: 1; }
+  .porta-texto { display: flex; flex-direction: column; }
+  .porta-nome { font-weight: 500; }
+  .porta-desc { font-size: .88rem; color: var(--suave); }
   .passagem {
     background: var(--obra-fundo); border: 1px solid var(--obra-borda);
     border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 1.5rem;
@@ -70,6 +84,16 @@
 <main>
 <h1>Fundamentos da Doutrina Espírita</h1>
 <p class="intro">Para quem está começando. As nove perguntas fundamentais da doutrina, na resposta mais direta que o livro dá.</p>
+<div class="portas">
+<a class="porta" href="https://dialogandodoutrina.com.br/?mode=duvida">
+<span class="porta-icone" aria-hidden="true">💬</span>
+<span class="porta-texto"><span class="porta-nome">Dialogar</span><span class="porta-desc">Faça uma pergunta sobre as obras</span></span>
+</a>
+<a class="porta" href="https://dialogandodoutrina.com.br/?trilha=fundamentos-espirita-curioso">
+<span class="porta-icone" aria-hidden="true">📚</span>
+<span class="porta-texto"><span class="porta-nome">Estudar esta trilha</span><span class="porta-desc">Os 9 trechos, um por vez, no app</span></span>
+</a>
+</div>
 <article class="passagem">
 <p class="rotulo">O Livro dos Espíritos —  item 1</p>
 <p class="texto">1. Que é Deus? “Deus é a inteligência suprema, causa primária de todas as coisas” (1). (Vide Nota Especial n° 1, da Editora (FEB), à pág. 494.)</p>

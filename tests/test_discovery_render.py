@@ -1,10 +1,14 @@
+from dataclasses import replace
+
 from src.discovery.content import Page, Passage
 from src.discovery.render import (
+    CHAT_LINK,
     HOST,
     deep_link,
     page_url,
     render_page,
     render_sitemap,
+    trilha_link,
 )
 
 PASSAGE = Passage(
@@ -80,3 +84,67 @@ def test_sitemap_lists_home_sobre_and_every_page():
     assert f"<loc>{HOST}/</loc>" in xml
     assert f"<loc>{HOST}/sobre/</loc>" in xml
     assert f"<loc>{page_url(PAGE)}</loc>" in xml
+
+
+SEGUNDA = Passage(
+    book="O Evangelho Segundo o Espiritismo",
+    chapter="CAPÍTULO II",
+    item_number="1",
+    part=None,
+    label="Pilatos",
+    text="Texto do segundo trecho",
+)
+
+TRILHA = Page(
+    slug="fundamentos-evangelico-curioso",
+    kind="trilha",
+    title="Fundamentos do Evangelho Segundo o Espiritismo — Dialogando com a Doutrina",
+    heading="Fundamentos do Evangelho Segundo o Espiritismo",
+    meta_description="Para quem está começando.",
+    intro="Para quem está começando.",
+    passages=[PASSAGE, SEGUNDA],
+)
+
+
+def test_a_trilha_offers_both_doors():
+    html = render_page(TRILHA)
+    assert f'href="{CHAT_LINK}"' in html
+    assert "Dialogar" in html
+    assert "Estudar esta trilha" in html
+
+
+def test_the_study_door_names_the_trilha_by_its_slug():
+    """O slug da página É o id da trilha, e startTrilha só precisa do id."""
+    assert trilha_link(TRILHA) == f"{HOST}/?trilha=fundamentos-evangelico-curioso"
+    assert f'href="{trilha_link(TRILHA)}"' in render_page(TRILHA)
+
+
+def test_the_study_door_counts_the_passages():
+    """Sem número escrito à mão: ele envelheceria junto com a curadoria."""
+    assert "Os 2 trechos, um por vez, no app" in render_page(TRILHA)
+
+
+def test_the_study_door_says_it_in_the_singular_for_one_passage():
+    one = replace(TRILHA, passages=[PASSAGE])  # from dataclasses import replace
+    assert "Um trecho, no app" in render_page(one)
+    assert "Os 1 trechos" not in render_page(one)
+
+
+def test_a_tema_offers_only_the_chat_door():
+    """?trilha=<slug-de-tema> nomearia um id que não existe em data/paths/,
+    e o leitor cairia no picker sem entender por quê."""
+    html = render_page(PAGE)  # PAGE.kind == "tema"
+    assert f'href="{CHAT_LINK}"' in html
+    assert "?trilha=" not in html
+    assert "Estudar esta trilha" not in html
+
+
+def test_the_doors_come_before_the_passages():
+    """O ponto inteiro: a pessoa vê as portas antes de rolar 22 trechos."""
+    html = render_page(TRILHA)
+    assert html.index("Dialogar") < html.index("Texto do segundo trecho")
+
+
+def test_the_doors_carry_no_javascript():
+    assert "<script" not in render_page(TRILHA).lower()
+    assert "onclick" not in render_page(TRILHA).lower()
