@@ -1,14 +1,14 @@
 """Page HTML. No template engine, no JavaScript, no model output.
 
-The <head> and the palette mirror frontend/public/sobre/index.html so these
+The <head> and the palette mirror frontend/src/pages/sobre.astro so these
 pages belong to the same site in both colour schemes. Like that page they
 carry no script: the whole point is that a reader sees the text before any
 bundle loads and a crawler sees text instead of an empty root div.
 """
 
 import json
-import os
 from html import escape
+from pathlib import Path
 from urllib.parse import urlencode
 
 from src.discovery.content import Page, Passage
@@ -32,7 +32,9 @@ CHAT_LINK = f"{HOST}/?mode=duvida"
 # trecho…" — não entra em frases.json (decisão da autora, 2026-08-09). Ela
 # instrui a conferir a citação dentro do app, e quem ainda não entrou não tem
 # o que conferir.
-_FRASES_PATH = os.path.join("frontend", "src", "content", "frases.json")
+_FRASES_PATH = (
+    Path(__file__).resolve().parents[2] / "frontend" / "src" / "content" / "frases.json"
+)
 
 with open(_FRASES_PATH, encoding="utf-8") as _f:
     _FRASES = json.load(_f)

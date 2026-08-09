@@ -39,11 +39,30 @@ const ler = (caminho) => {
   }
 };
 
-// --- index.html: as meta tags ---
+// As frases vivem em frontend/src/content/frases.json e alimentam a home e a
+// Sobre (ambas Astro). Lidas uma vez aqui e reusadas nas duas checagens
+// abaixo.
+const frases = JSON.parse(
+  readFileSync('frontend/src/content/frases.json', 'utf8'));
+
+// --- index.html: as meta tags e o corpo estático ---
 const index = ler(`${DIST}/index.html`);
 check(`${DIST}/index.html existe`, index !== null);
 
 if (index) {
+  // O bloco #conteudo-estatico é o único texto que um buscador lê nesta
+  // rota: a island é client:only, então o Astro não emite nada do app no
+  // HTML. Apagar o bloco, renomear uma chave de frases.json ou perder uma
+  // expressão no meio de uma edição de estilo derruba a home de volta para
+  // uma página sem corpo — em silêncio, com todo o resto verde.
+  check('a home tem <title> com "IA"', /<title>[^<]*IA[^<]*<\/title>/.test(index));
+  check('a home tem o bloco id="conteudo-estatico"',
+    index.includes('id="conteudo-estatico"'));
+  for (const [chave, valor] of Object.entries(frases)) {
+    check(`a home tem a frase "${chave}" de frases.json`,
+      index.includes(valor), `frase ausente: ${valor}`);
+  }
+
   const tag = (nome, attr = 'property') =>
     index.match(new RegExp(`<meta\\s+${attr}="${nome}"\\s+content="([^"]*)"`, 'i'))?.[1] ?? null;
 
@@ -123,11 +142,35 @@ if (sobre) {
   // assim publicariam uma Sobre sem a própria frase. Esta guarda lê o HTML
   // CONSTRUÍDO e confere o texto de verdade — comportamental onde a outra é
   // estrutural, e juntas cobrem os dois sentidos.
-  const frases = JSON.parse(
-    readFileSync('frontend/src/content/frases.json', 'utf8'));
   for (const [chave, valor] of Object.entries(frases)) {
     check(`a página Sobre tem a frase "${chave}" de frases.json`,
       sobre.includes(valor), `frase ausente: ${valor}`);
+  }
+
+  // A página Sobre destrava o overflow:hidden que globals.css põe em
+  // html/body para o app, com uma regra `:global(html), :global(body)` de
+  // mesma especificidade. Ela só vence porque o Astro emite o CSS global
+  // importado ANTES do bloco <style> da página — comportamento documentado,
+  // mas não garantido por nada além da ordem de emissão. Se uma migração de
+  // integração inverter essa ordem, a última declaração de overflow dentro
+  // da regra html,body vira "hidden" e a página trava no primeiro scroll,
+  // sem quebrar nenhum outro sinal visível. Esta checagem lê o CSS
+  // construído e falha se a ORDEM se inverter.
+  // Há DUAS regras "html,body" no CSS construído: a de globals.css (hidden,
+  // para o app) e a desta página (auto). Mesma especificidade — quem vence é
+  // a que aparece por último no documento. Por isso a checagem varre TODAS
+  // as regras html,body em ordem e olha a última declaração overflow entre
+  // todas elas, não só a da primeira regra que casar.
+  const regrasHtmlBody = [...sobre.matchAll(/html\s*,\s*body\s*\{([^}]*)\}/g)];
+  if (regrasHtmlBody.length > 0) {
+    const declaracoesOverflow = regrasHtmlBody
+      .flatMap(m => [...m[1].matchAll(/overflow\s*:\s*([a-z]+)/g)].map(d => d[1]));
+    const ultima = declaracoesOverflow[declaracoesOverflow.length - 1] ?? null;
+    check('a última declaração overflow entre as regras html,body é "auto"',
+      ultima === 'auto',
+      `obtido: ${ultima} (declarações, em ordem: ${declaracoesOverflow.join(', ')})`);
+  } else {
+    check('a página Sobre tem uma regra html,body no CSS construído', false);
   }
 }
 

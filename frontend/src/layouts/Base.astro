@@ -18,6 +18,14 @@ const {
   <title>{title}</title>
   <meta name="description" content={description}>
 
+  {/* Antes chegavam via @import no topo de globals.css — descobertos tarde e
+      serializados atrás do parsing do CSS. Como <link>, o navegador os
+      descobre no primeiro passe do <head>, na página cujo propósito inteiro é
+      ser lida rápido. */}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap">
+
   {/* O app responde nos dois domínios e serve o mesmo conteúdo. Sem canonical,
       o buscador indexa as duas cópias e divide o sinal entre elas. */}
   <link rel="canonical" href={canonical}>

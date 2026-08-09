@@ -31,8 +31,16 @@ const OBRAS = [
     <ul>{OBRAS.map((obra) => <li>{obra}</li>)}</ul>
     <p>{frases.nao_substitui} {frases.pode_errar}</p>
     <p>{frases.independente}</p>
-    <p><a href="https://dialogandodoutrina.com.br/sobre/">Sobre o projeto &rarr;</a></p>
+    <p><a href="/sobre/">Sobre o projeto &rarr;</a></p>
   </div>
 
   <App client:only="react" />
 </Base>
+
+<style>
+  /* O app gerencia a própria rolagem e globals.css põe overflow:hidden em
+     html/body por causa disso. Este bloco é o texto que o buscador lê e que
+     alguém sem JavaScript precisa conseguir ler até o fim, então ele rola
+     sozinho em vez de destravar a página inteira. App.jsx o remove ao montar. */
+  #conteudo-estatico { max-height: 100dvh; overflow: auto; padding: 24px; }
+</style>
