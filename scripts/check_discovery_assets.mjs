@@ -168,6 +168,24 @@ for (const familia of ['temas', 'trilhas']) {
     check(`${familia}/${slug} não aponta para a URL da Vercel`,
       !html.includes('kardec-study-assistant.vercel.app'));
     check(`${familia}/${slug} tem <h1>`, /<h1>/i.test(html));
+
+    // As portas: o motivo de a página ser uma entrada e não um beco. Somem
+    // numa edição de estilo sem quebrar nada visível.
+    check(`${familia}/${slug} tem a porta do Dialogar`,
+      html.includes(`href="${HOST}/?mode=duvida"`));
+
+    if (familia === 'trilhas') {
+      check(`${familia}/${slug} tem a porta da trilha, com o slug do diretório`,
+        html.includes(`href="${HOST}/?trilha=${slug}"`));
+      // O botão Estudar só funciona enquanto o slug for o id da trilha.
+      // Renomear um data/paths/*.json e regenerar produz uma página perfeita
+      // com um botão que cai no picker — falha silenciosa clássica aqui.
+      check(`data/paths/${slug}.json existe (o botão Estudar depende do id)`,
+        existsSync(`data/paths/${slug}.json`));
+    } else {
+      check(`${familia}/${slug} (tema) não oferece ?trilha=`,
+        !html.includes('?trilha='));
+    }
   }
 }
 
@@ -198,6 +216,8 @@ if (app) {
   check('App.jsx lê os parâmetros do deep link',
     app.includes('URLSearchParams') && app.includes("params.get('item')"));
   check('o deep link carrega part', app.includes("params.get('part')"));
+  check('App.jsx lê o parâmetro de trilha', app.includes("params.get('trilha')"));
+  check('App.jsx lê o parâmetro de modo', app.includes("params.get('mode')"));
 }
 
 process.exit(falhou ? 1 : 0);
