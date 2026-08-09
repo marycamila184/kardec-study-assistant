@@ -230,18 +230,40 @@ export default function App() {
   // once and cleared from the URL so a reload does not re-trigger the study
   // call; the canonical in index.html already points at the bare "/" so no
   // crawler indexes a parameter combination as a separate copy of the app.
+  //
+  // Desde 2026-08-09 a página também oferece as duas portas do app no topo:
+  // ?trilha=<id> começa a trilha, ?mode=duvida abre a conversa. As três
+  // formas são exclusivas na prática (cada botão emite uma), e a precedência
+  // abaixo é explícita para o caso de virem juntas.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const book = params.get('book');
     const itemNumber = params.get('item');
-    if (!book || !itemNumber) return;
+    const trilhaId = params.get('trilha');
+    const modeParam = params.get('mode');
+    if (!book && !itemNumber && !trilhaId && !modeParam) return;
     window.history.replaceState({}, '', window.location.pathname);
-    handleGoStudyItem({
-      book,
-      item_number: itemNumber,
-      chapter: params.get('chapter') || null,
-      part: params.get('part') || null,
-    });
+    // Precedência, do mais específico para o menos: um trecho identifica uma
+    // coisa, uma trilha identifica uma sequência, um modo só diz por qual
+    // porta a pessoa entrou. Um caminho vencedor só é mais fácil de testar
+    // do que uma combinação.
+    if (book && itemNumber) {
+      handleGoStudyItem({
+        book,
+        item_number: itemNumber,
+        chapter: params.get('chapter') || null,
+        part: params.get('part') || null,
+      });
+    } else if (trilhaId) {
+      // startTrilha precisa só do id — ele busca o detalhe da trilha sozinho
+      // via getPath() — então isto não espera o getPaths() ainda em voo. Um
+      // id inválido cai no catch de startTrilha e volta para o picker.
+      startTrilha({ id: trilhaId });
+    } else if (modeParam === 'duvida' || modeParam === 'estudar') {
+      // Lista fechada: `refletir` está desligado em produção e nenhuma URL
+      // pode reconectá-lo. Ver 2026-07-26-desligar-reflexivo-design.md
+      switchMode(modeParam);
+    }
     // Runs once, on mount: the URL is read and cleared before anything else.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
