@@ -6,6 +6,8 @@ carry no script: the whole point is that a reader sees the text before any
 bundle loads and a crawler sees text instead of an empty root div.
 """
 
+import json
+import os
 from html import escape
 from urllib.parse import urlencode
 
@@ -17,26 +19,22 @@ HOST = "https://dialogandodoutrina.com.br"
 # modo Dialogar (constants/modes.js) e NUNCA deve ser renomeado.
 CHAT_LINK = f"{HOST}/?mode=duvida"
 
-# O enquadramento para quem chega de um buscador e nunca ouviu falar do projeto.
+# As frases vivem em frontend/src/content/frases.json porque três páginas as
+# usam: a home e a Sobre (ambas Astro) e o cabeçalho das trilhas (aqui). Antes
+# desta leitura elas existiam em duas cópias vigiadas por um teste anti-deriva;
+# uma origem só torna a deriva impossível em vez de vigiada.
 #
-# COPIADO LITERALMENTE de frontend/public/sobre/index.html. Nenhuma palavra aqui
-# é nova: um texto escrito por um modelo e servido por anos ficaria fora de todas
-# as guardas deste projeto (find_unsupported_quotes e max_distance agem no
-# momento do pedido e não protegem nada escrito uma vez e servido para sempre).
-# Escolher QUAIS frases entram é escolha; reescrever uma frase ou cortá-la ao
-# meio não é. test_the_header_text_is_copied_from_the_sobre_page falha se estas
-# frases deixarem de existir lá.
-#
-# A segunda frase de "Limites e cuidados" — "Se a explicação e o trecho citado
-# divergirem, vale o trecho…" — fica deliberadamente de fora (decisão da autora,
-# 2026-08-09): ela instrui sobre conferir a citação dentro do app, e quem ainda
-# não entrou não tem o que conferir.
+# A origem do texto continua sendo a página Sobre, escrita por uma pessoa —
+# test_the_sentences_are_copied_from_the_sobre_page guarda isso.
+_FRASES_PATH = os.path.join("frontend", "src", "content", "frases.json")
+
+with open(_FRASES_PATH, encoding="utf-8") as _f:
+    _FRASES = json.load(_f)
+
 CABECALHO_FRASES = (
-    "Um assistente de estudo das obras de Allan Kardec. Você pergunta com as "
-    "suas palavras e ele procura a resposta dentro das obras, mostrando de onde "
-    "ela veio: a obra, o capítulo e o número da questão ou do item.",
-    "Não substitui a leitura das obras nem o estudo em grupo.",
-    "Ele pode errar.",
+    _FRASES["o_que_e"],
+    _FRASES["nao_substitui"],
+    _FRASES["pode_errar"],
 )
 
 _STYLE = """

@@ -1,3 +1,4 @@
+import json
 import re
 from dataclasses import replace
 from html import escape
@@ -204,41 +205,39 @@ def _frases(texto: str) -> list[str]:
     return frases
 
 
-def test_the_header_text_is_copied_from_the_sobre_page():
-    """Copiar cria duas cópias, e este teste impede que divirjam em silêncio.
+def test_the_sentences_are_copied_from_the_sobre_page():
+    """A origem das frases é a página Sobre, escrita por uma pessoa.
 
-    A regra do projeto é que a copy pode prometer menos do que o código faz,
-    nunca mais. Apertar a página Sobre e esquecer daqui produziria duas versões
-    do mesmo enunciado, e a versão frouxa é justamente a que um estranho lê
-    primeiro.
-
-    A comparação é por frase inteira, não por substring solto — mas frase-a-
-    -frase sozinho não basta para `o_que_e`: ele são duas frases ("Um
-    assistente... Kardec." e "Você pergunta... item."), e cortar a segunda
-    ainda deixaria a primeira presente, isolada, em algum lugar da Sobre — o
-    "pega" frase-a-frase passaria batendo, do mesmo jeito que o substring
-    antigo passava. `o_que_e` é o único item de CABECALHO_FRASES que é um
-    parágrafo inteiro da Sobre (as outras duas entradas são, de propósito, só
-    a primeira frase de parágrafos mais longos — o resto do parágrafo não é
-    cabeçalho); por isso só ele pode — e precisa — ser cobrado por igualdade
-    completa com o parágrafo de origem. É essa igualdade, não a frase-a-frase,
-    que pega o corte da frase final.
+    Compara parágrafo inteiro, não "contém": `o_que_e` são DUAS frases, e uma
+    verificação por substring passaria contra uma versão truncada na primeira
+    — que descarta justamente a parte que diz que a resposta vem com a fonte.
     """
+    frases = json.loads(
+        Path("frontend/src/content/frases.json").read_text(encoding="utf-8")
+    )
     sobre = _texto_visivel(
         Path("frontend/public/sobre/index.html").read_text(encoding="utf-8")
     )
-    paragrafos_sobre = [_frases(linha) for linha in sobre.split("\n") if linha.strip()]
-    frases_sobre = {frase for paragrafo in paragrafos_sobre for frase in paragrafo}
+    # _texto_visivel devolve blocos separados por \n (as tags de bloco viram
+    # quebra de linha). Comparar bloco inteiro é o que pega o truncamento:
+    # `o_que_e` são DUAS frases, e cortar a segunda deixaria a primeira ainda
+    # presente na Sobre — passaria numa checagem por frase solta.
+    paragrafos = [_frases(linha) for linha in sobre.splitlines() if linha.strip()]
+    assert _frases(frases["o_que_e"]) in paragrafos
+    for chave in ("nao_substitui", "pode_errar", "separado_da_ia", "nao_encontrei"):
+        assert frases[chave] in sobre, f"frase ausente na Sobre: {chave}"
 
-    o_que_e, nao_substitui, pode_errar = CABECALHO_FRASES
 
-    assert (
-        _frases(o_que_e) in paragrafos_sobre
-    ), f"parágrafo 'O que é' não bate mais, inteiro, com a Sobre: {o_que_e!r}"
-    for frase_unica in (nao_substitui, pode_errar):
-        assert (
-            frase_unica in frases_sobre
-        ), f"frase ausente (ou truncada) na página Sobre: {frase_unica!r}"
+def test_the_python_header_reads_the_shared_file():
+    """Uma origem só: se o JSON mudar, o cabeçalho das trilhas muda junto."""
+    frases = json.loads(
+        Path("frontend/src/content/frases.json").read_text(encoding="utf-8")
+    )
+    assert CABECALHO_FRASES == (
+        frases["o_que_e"],
+        frases["nao_substitui"],
+        frases["pode_errar"],
+    )
 
 
 def test_every_page_carries_the_header():
