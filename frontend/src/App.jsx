@@ -217,6 +217,35 @@ export default function App() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  // ── Deep link from a static discovery page ───────────────────────────────
+  // A page under /temas/ or /trilhas/ hands the reader over on a specific
+  // passage. It travels as an IDENTIFIER — book + chapter + item + part —
+  // which /study resolves deterministically, the same contract the
+  // Dialogar -> Estudar nudge has. `part` is in it because O Céu e o Inferno
+  // restarts numbering per part, so without it the identifier names two
+  // passages.
+  //
+  // Anything malformed is ignored and the app boots normally: a bad link
+  // degrades to the home screen, never to an error. The params are consumed
+  // once and cleared from the URL so a reload does not re-trigger the study
+  // call; the canonical in index.html already points at the bare "/" so no
+  // crawler indexes a parameter combination as a separate copy of the app.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const book = params.get('book');
+    const itemNumber = params.get('item');
+    if (!book || !itemNumber) return;
+    window.history.replaceState({}, '', window.location.pathname);
+    handleGoStudyItem({
+      book,
+      item_number: itemNumber,
+      chapter: params.get('chapter') || null,
+      part: params.get('part') || null,
+    });
+    // Runs once, on mount: the URL is read and cleared before anything else.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Scrolls after the next couple of paint frames, once new content has
   // actually been laid out, instead of polling scrollTop for seconds.
   const scrollToBottom = () => {
