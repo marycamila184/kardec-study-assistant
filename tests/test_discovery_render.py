@@ -1,7 +1,11 @@
+import re
 from dataclasses import replace
+from html import escape
+from pathlib import Path
 
 from src.discovery.content import Page, Passage
 from src.discovery.render import (
+    CABECALHO_FRASES,
     CHAT_LINK,
     HOST,
     deep_link,
@@ -148,3 +152,57 @@ def test_the_doors_come_before_the_passages():
 def test_the_doors_carry_no_javascript():
     assert "<script" not in render_page(TRILHA).lower()
     assert "onclick" not in render_page(TRILHA).lower()
+
+
+_TAGS = re.compile(r"<[^>]+>")
+
+
+def _texto_visivel(html: str) -> str:
+    """O texto que sobra depois de tirar as tags, com espaços colapsados.
+
+    A página Sobre quebra as frases em várias linhas e põe <strong> no meio
+    delas, então comparar o HTML cru nunca casaria.
+    """
+    return " ".join(_TAGS.sub(" ", html).split())
+
+
+def test_the_header_text_is_copied_from_the_sobre_page():
+    """Copiar cria duas cópias, e este teste impede que divirjam em silêncio.
+
+    A regra do projeto é que a copy pode prometer menos do que o código faz,
+    nunca mais. Apertar a página Sobre e esquecer daqui produziria duas versões
+    do mesmo enunciado, e a versão frouxa é justamente a que um estranho lê
+    primeiro.
+    """
+    sobre = _texto_visivel(
+        Path("frontend/public/sobre/index.html").read_text(encoding="utf-8")
+    )
+    for frase in CABECALHO_FRASES:
+        assert frase in sobre, f"frase ausente na página Sobre: {frase!r}"
+
+
+def test_every_page_carries_the_header():
+    for page in (PAGE, TRILHA):
+        html = render_page(page)
+        assert 'class="cabecalho"' in html
+        for frase in CABECALHO_FRASES:
+            assert escape(frase) in html
+
+
+def test_the_header_links_to_the_app_and_to_sobre():
+    html = render_page(TRILHA)
+    assert f'href="{HOST}/"' in html
+    assert f'href="{HOST}/sobre/"' in html
+
+
+def test_the_h1_is_the_page_heading_not_the_project_name():
+    """O <h1> é o que o buscador lê como assunto da página, e o assunto é a
+    trilha — não o site."""
+    html = render_page(TRILHA)
+    assert f"<h1>{escape(TRILHA.heading)}</h1>" in html
+    assert "<h1>Dialogando com a Doutrina</h1>" not in html
+
+
+def test_the_header_comes_before_the_h1():
+    html = render_page(TRILHA)
+    assert html.index('class="cabecalho"') < html.index("<h1>")

@@ -41,6 +41,21 @@
     line-height: 1.65;
   }
   main { max-width: 42rem; margin: 0 auto; }
+  .cabecalho {
+    max-width: 42rem; margin: 0 auto 2rem; padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--borda);
+  }
+  .cabecalho-nome {
+    font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
+    font-size: 1.15rem; color: var(--texto); text-decoration: none;
+    display: inline-block; margin-bottom: .6rem;
+  }
+  .cabecalho p { margin: 0 0 .5rem; color: var(--suave); font-size: .93rem; }
+  .cabecalho-limites { color: var(--tenue); font-size: .88rem; }
+  .cabecalho-mais {
+    color: var(--azul); text-decoration: none; font-size: .88rem;
+  }
+  .cabecalho-mais:hover { text-decoration: underline; }
   h1 {
     font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
     font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem;
@@ -81,6 +96,12 @@
 </style>
 </head>
 <body>
+<header class="cabecalho">
+<a class="cabecalho-nome" href="https://dialogandodoutrina.com.br/">Dialogando com a Doutrina</a>
+<p>Um assistente de estudo das obras de Allan Kardec. Você pergunta com as suas palavras e ele procura a resposta dentro das obras, mostrando de onde ela veio: a obra, o capítulo e o número da questão ou do item.</p>
+<p class="cabecalho-limites">Não substitui a leitura das obras nem o estudo em grupo. Ele pode errar.</p>
+<a class="cabecalho-mais" href="https://dialogandodoutrina.com.br/sobre/">Sobre o projeto &rarr;</a>
+</header>
 <main>
 <h1>Fundamentos da Doutrina Espírita</h1>
 <p class="intro">Para quem conhece o básico. Os mesmos nove assuntos, na questão em que Kardec explica como funcionam.</p>

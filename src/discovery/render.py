@@ -17,6 +17,28 @@ HOST = "https://dialogandodoutrina.com.br"
 # modo Dialogar (constants/modes.js) e NUNCA deve ser renomeado.
 CHAT_LINK = f"{HOST}/?mode=duvida"
 
+# O enquadramento para quem chega de um buscador e nunca ouviu falar do projeto.
+#
+# COPIADO LITERALMENTE de frontend/public/sobre/index.html. Nenhuma palavra aqui
+# é nova: um texto escrito por um modelo e servido por anos ficaria fora de todas
+# as guardas deste projeto (find_unsupported_quotes e max_distance agem no
+# momento do pedido e não protegem nada escrito uma vez e servido para sempre).
+# Escolher QUAIS frases entram é escolha; reescrever uma frase ou cortá-la ao
+# meio não é. test_the_header_text_is_copied_from_the_sobre_page falha se estas
+# frases deixarem de existir lá.
+#
+# A segunda frase de "Limites e cuidados" — "Se a explicação e o trecho citado
+# divergirem, vale o trecho…" — fica deliberadamente de fora (decisão da autora,
+# 2026-08-09): ela instrui sobre conferir a citação dentro do app, e quem ainda
+# não entrou não tem o que conferir.
+CABECALHO_FRASES = (
+    "Um assistente de estudo das obras de Allan Kardec. Você pergunta com as "
+    "suas palavras e ele procura a resposta dentro das obras, mostrando de onde "
+    "ela veio: a obra, o capítulo e o número da questão ou do item.",
+    "Não substitui a leitura das obras nem o estudo em grupo.",
+    "Ele pode errar.",
+)
+
 _STYLE = """
   :root {
     --fundo: #F6F4EF; --cartao: #FFFFFF; --borda: #E2DDD6;
@@ -40,6 +62,21 @@ _STYLE = """
     line-height: 1.65;
   }
   main { max-width: 42rem; margin: 0 auto; }
+  .cabecalho {
+    max-width: 42rem; margin: 0 auto 2rem; padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--borda);
+  }
+  .cabecalho-nome {
+    font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
+    font-size: 1.15rem; color: var(--texto); text-decoration: none;
+    display: inline-block; margin-bottom: .6rem;
+  }
+  .cabecalho p { margin: 0 0 .5rem; color: var(--suave); font-size: .93rem; }
+  .cabecalho-limites { color: var(--tenue); font-size: .88rem; }
+  .cabecalho-mais {
+    color: var(--azul); text-decoration: none; font-size: .88rem;
+  }
+  .cabecalho-mais:hover { text-decoration: underline; }
   h1 {
     font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
     font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem;
@@ -155,10 +192,26 @@ def _passage_html(passage: Passage) -> str:
 </article>"""
 
 
+def _cabecalho_html() -> str:
+    """Quem é este site, para quem nunca ouviu falar dele.
+
+    Vem antes do <h1> e é idêntico em toda página. O <h1> continua sendo o
+    título da página porque é ele que o buscador lê como o assunto.
+    """
+    o_que_e, nao_substitui, pode_errar = CABECALHO_FRASES
+    return f"""<header class="cabecalho">
+<a class="cabecalho-nome" href="{HOST}/">Dialogando com a Doutrina</a>
+<p>{escape(o_que_e)}</p>
+<p class="cabecalho-limites">{escape(nao_substitui)} {escape(pode_errar)}</p>
+<a class="cabecalho-mais" href="{HOST}/sobre/">Sobre o projeto &rarr;</a>
+</header>"""
+
+
 def render_page(page: Page) -> str:
     url = page_url(page)
     passages = "\n".join(_passage_html(p) for p in page.passages)
     portas = _portas_html(page)
+    cabecalho = _cabecalho_html()
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -182,6 +235,7 @@ def render_page(page: Page) -> str:
 <style>{_STYLE}</style>
 </head>
 <body>
+{cabecalho}
 <main>
 <h1>{escape(page.heading)}</h1>
 <p class="intro">{escape(page.intro)}</p>
