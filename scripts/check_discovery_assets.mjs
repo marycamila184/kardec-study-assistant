@@ -168,6 +168,51 @@ for (const familia of ['temas', 'trilhas']) {
     check(`${familia}/${slug} não aponta para a URL da Vercel`,
       !html.includes('kardec-study-assistant.vercel.app'));
     check(`${familia}/${slug} tem <h1>`, /<h1>/i.test(html));
+
+    // As portas: o motivo de a página ser uma entrada e não um beco. Somem
+    // numa edição de estilo sem quebrar nada visível.
+    check(`${familia}/${slug} tem a porta do Dialogar`,
+      html.includes(`href="${HOST}/?mode=duvida"`));
+
+    // O cabeçalho: quem chega de uma busca não sabe o que é este site, e a
+    // única página que explica está a um link de rodapé de distância.
+    check(`${familia}/${slug} tem o cabeçalho do projeto`,
+      html.includes('class="cabecalho"'));
+    check(`${familia}/${slug} diz o que o projeto é`,
+      html.includes('Um assistente de estudo das obras de Allan Kardec.'));
+    // A checagem acima passaria com só a primeira frase, se a segunda fosse
+    // cortada em silêncio — esta pega o rabo dela.
+    check(`${familia}/${slug} diz que a resposta vem com a fonte`,
+      html.includes('o número da questão ou do item.'));
+    check(`${familia}/${slug} avisa que pode errar`,
+      html.includes('Ele pode errar.'));
+
+    // Exatamente um trecho aberto. Zero é uma página que parece vazia; dois
+    // desfazem metade do motivo de recolher.
+    const abertos = (html.match(/<details class="passagem" open>/g) || []).length;
+    check(`${familia}/${slug} tem exatamente um trecho aberto`,
+      abertos === 1, `obtido: ${abertos}`);
+
+    // Um <details> por trecho: o link "Abrir no app" é emitido uma vez por
+    // trecho, então os dois números têm de bater. Pega um trecho que perdeu
+    // o seu invólucro numa edição de estilo.
+    const detalhes = (html.match(/<details class="passagem"/g) || []).length;
+    const links = (html.match(/class="abrir"/g) || []).length;
+    check(`${familia}/${slug}: um trecho recolhido por link de abrir`,
+      detalhes === links && detalhes > 0, `details: ${detalhes}, links: ${links}`);
+
+    if (familia === 'trilhas') {
+      check(`${familia}/${slug} tem a porta da trilha, com o slug do diretório`,
+        html.includes(`href="${HOST}/?trilha=${slug}"`));
+      // O botão Estudar só funciona enquanto o slug for o id da trilha.
+      // Renomear um data/paths/*.json e regenerar produz uma página perfeita
+      // com um botão que cai no picker — falha silenciosa clássica aqui.
+      check(`data/paths/${slug}.json existe (o botão Estudar depende do id)`,
+        existsSync(`data/paths/${slug}.json`));
+    } else {
+      check(`${familia}/${slug} (tema) não oferece ?trilha=`,
+        !html.includes('?trilha='));
+    }
   }
 }
 
@@ -198,6 +243,15 @@ if (app) {
   check('App.jsx lê os parâmetros do deep link',
     app.includes('URLSearchParams') && app.includes("params.get('item')"));
   check('o deep link carrega part', app.includes("params.get('part')"));
+  check('App.jsx lê o parâmetro de trilha', app.includes("params.get('trilha')"));
+  check('App.jsx lê o parâmetro de modo', app.includes("params.get('mode')"));
+  // Ler o parâmetro não basta: a versão que esta guarda deixou passar lia
+  // ?trilha= e chamava startTrilha sem entrar em Estudar, então a trilha
+  // carregava por baixo da tela inicial. Prende o parâmetro à ação.
+  check('a trilha do deep link entra no modo estudar e começa a trilha',
+    /trilhaId[\s\S]{0,400}switchMode\('estudar'\)[\s\S]{0,400}startTrilha\(/.test(app));
+  check('o modo do deep link chama switchMode',
+    /modeParam ===[\s\S]{0,200}switchMode\(modeParam\)/.test(app));
 }
 
 process.exit(falhou ? 1 : 0);
