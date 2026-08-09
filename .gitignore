@@ -12,6 +12,7 @@ docs/superpowers/
 # Frontend
 frontend/reference/
 frontend/node_modules/
+frontend/.astro/
 
 # Test artifacts
 .pytest_cache/

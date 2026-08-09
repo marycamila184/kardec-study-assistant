@@ -1,0 +1,46 @@
+---
+import '../styles/globals.css';
+
+const {
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{title}</title>
+  <meta name="description" content={description}>
+
+  {/* O app responde nos dois domínios e serve o mesmo conteúdo. Sem canonical,
+      o buscador indexa as duas cópias e divide o sinal entre elas. */}
+  <link rel="canonical" href={canonical}>
+
+  {/* Pinta a barra do navegador no Android, que é onde um link encaminhado
+      por WhatsApp costuma aterrissar. É o BRAND_BLUE de constants/theme.js. */}
+  <meta name="theme-color" content="#6B9BB8">
+
+  {/* og:image e og:url precisam ser absolutas: caminho relativo é descartado
+      em silêncio por todo crawler. scripts/check_discovery_assets.mjs guarda
+      isso, porque a falha não aparece na tela — só no card em branco. */}
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonical}>
+  <meta property="og:site_name" content="Dialogando com a Doutrina">
+  <meta property="og:title" content={ogTitle}>
+  <meta property="og:description" content={ogDescription}>
+  <meta property="og:image" content="https://dialogandodoutrina.com.br/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <slot />
+</body>
+</html>
