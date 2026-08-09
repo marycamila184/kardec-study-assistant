@@ -155,15 +155,51 @@ def test_the_doors_carry_no_javascript():
 
 
 _TAGS = re.compile(r"<[^>]+>")
+_STYLE_OR_SCRIPT = re.compile(r"<(style|script)\b[^>]*>.*?</\1>", re.DOTALL | re.IGNORECASE)
+_BLOCK_TAGS = re.compile(
+    r"</?(?:h1|h2|h3|h4|p|div|li|ul|ol|header|footer|section|article|nav|title|html|head|body)\b[^>]*>",
+    re.IGNORECASE,
+)
 
 
 def _texto_visivel(html: str) -> str:
-    """O texto que sobra depois de tirar as tags, com espaços colapsados.
+    """O texto que sobra depois de tirar tags, CSS e script.
 
     A página Sobre quebra as frases em várias linhas e põe <strong> no meio
-    delas, então comparar o HTML cru nunca casaria.
+    delas, então comparar o HTML cru nunca casaria: tags inline viram espaço.
+    <style> e <script> saem primeiro — seu conteúdo tem pontos que não são
+    fim de frase e, misturado ao texto visível, engoliria a frase real dentro
+    de um bloco só. Tags de bloco (título, parágrafo, cabeçalho, rodapé...)
+    viram quebra de linha, não espaço: sem isso, um título sem ponto final
+    ("Sobre o projeto") se gruda à primeira frase do parágrafo seguinte e a
+    frase real deixa de existir como string isolada.
     """
-    return " ".join(_TAGS.sub(" ", html).split())
+    sem_style = _STYLE_OR_SCRIPT.sub(" ", html)
+    com_marcas = _BLOCK_TAGS.sub("\x00", sem_style)
+    sem_tags = _TAGS.sub(" ", com_marcas)
+    # Colapsa todo espaço em branco (inclusive as quebras de linha do próprio
+    # HTML de origem, que não são quebra de bloco) num espaço só, preservando
+    # o marcador \x00 como o único separador de linha real.
+    texto = " ".join(sem_tags.split())
+    linhas = (linha.strip() for linha in texto.split("\x00"))
+    return "\n".join(linha for linha in linhas if linha)
+
+
+def _frases(texto: str) -> list[str]:
+    """Quebra em frases, pelo ponto final seguido de espaço e maiúscula.
+
+    Cru de propósito: o texto comparado são três frases escolhidas à mão, não
+    um corpus. O splitter de chunking.py existe para o corpus e traria consigo
+    as suas abreviações calibradas, que aqui não têm o que fazer. Quebra
+    também por linha primeiro, para não juntar frases de blocos diferentes
+    (um título sem ponto final e o parágrafo seguinte, por exemplo).
+    """
+    frases = []
+    for linha in texto.splitlines():
+        frases.extend(
+            f.strip() for f in re.split(r"(?<=\.)\s+(?=[A-ZÀ-Ú])", linha) if f.strip()
+        )
+    return frases
 
 
 def test_the_header_text_is_copied_from_the_sobre_page():
@@ -173,12 +209,34 @@ def test_the_header_text_is_copied_from_the_sobre_page():
     nunca mais. Apertar a página Sobre e esquecer daqui produziria duas versões
     do mesmo enunciado, e a versão frouxa é justamente a que um estranho lê
     primeiro.
+
+    A comparação é por frase inteira, não por substring solto — mas frase-a-
+    -frase sozinho não basta para `o_que_e`: ele são duas frases ("Um
+    assistente... Kardec." e "Você pergunta... item."), e cortar a segunda
+    ainda deixaria a primeira presente, isolada, em algum lugar da Sobre — o
+    "pega" frase-a-frase passaria batendo, do mesmo jeito que o substring
+    antigo passava. `o_que_e` é o único item de CABECALHO_FRASES que é um
+    parágrafo inteiro da Sobre (as outras duas entradas são, de propósito, só
+    a primeira frase de parágrafos mais longos — o resto do parágrafo não é
+    cabeçalho); por isso só ele pode — e precisa — ser cobrado por igualdade
+    completa com o parágrafo de origem. É essa igualdade, não a frase-a-frase,
+    que pega o corte da frase final.
     """
     sobre = _texto_visivel(
         Path("frontend/public/sobre/index.html").read_text(encoding="utf-8")
     )
-    for frase in CABECALHO_FRASES:
-        assert frase in sobre, f"frase ausente na página Sobre: {frase!r}"
+    paragrafos_sobre = [_frases(linha) for linha in sobre.split("\n") if linha.strip()]
+    frases_sobre = {frase for paragrafo in paragrafos_sobre for frase in paragrafo}
+
+    o_que_e, nao_substitui, pode_errar = CABECALHO_FRASES
+
+    assert _frases(o_que_e) in paragrafos_sobre, (
+        f"parágrafo 'O que é' não bate mais, inteiro, com a Sobre: {o_que_e!r}"
+    )
+    for frase_unica in (nao_substitui, pode_errar):
+        assert (
+            frase_unica in frases_sobre
+        ), f"frase ausente (ou truncada) na página Sobre: {frase_unica!r}"
 
 
 def test_every_page_carries_the_header():
@@ -191,8 +249,11 @@ def test_every_page_carries_the_header():
 
 def test_the_header_links_to_the_app_and_to_sobre():
     html = render_page(TRILHA)
-    assert f'href="{HOST}/"' in html
-    assert f'href="{HOST}/sobre/"' in html
+    header = html[html.index('<header class="cabecalho">') : html.index("</header>")]
+    assert f'href="{HOST}/"' in header
+    assert f'href="{HOST}/sobre/"' in header
+    assert 'class="cabecalho-nome"' in header
+    assert 'class="cabecalho-mais"' in header
 
 
 def test_the_h1_is_the_page_heading_not_the_project_name():

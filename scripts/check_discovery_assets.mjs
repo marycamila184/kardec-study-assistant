@@ -180,6 +180,10 @@ for (const familia of ['temas', 'trilhas']) {
       html.includes('class="cabecalho"'));
     check(`${familia}/${slug} diz o que o projeto é`,
       html.includes('Um assistente de estudo das obras de Allan Kardec.'));
+    // A checagem acima passaria com só a primeira frase, se a segunda fosse
+    // cortada em silêncio — esta pega o rabo dela.
+    check(`${familia}/${slug} diz que a resposta vem com a fonte`,
+      html.includes('o número da questão ou do item.'));
     check(`${familia}/${slug} avisa que pode errar`,
       html.includes('Ele pode errar.'));
 
