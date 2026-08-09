@@ -1,5 +1,4 @@
 import json
-import re
 from dataclasses import replace
 from html import escape
 from pathlib import Path
@@ -155,96 +154,34 @@ def test_the_doors_carry_no_javascript():
     assert "onclick" not in render_page(TRILHA).lower()
 
 
-_TAGS = re.compile(r"<[^>]+>")
-_STYLE_OR_SCRIPT = re.compile(
-    r"<(style|script)\b[^>]*>.*?</\1>", re.DOTALL | re.IGNORECASE
-)
-_BLOCK_TAGS = re.compile(
-    r"</?(?:h1|h2|h3|h4|p|div|li|ul|ol|header|footer|section|article|nav|title|html|head|body)\b[^>]*>",
-    re.IGNORECASE,
-)
+def test_the_sobre_page_reads_the_shared_sentences_from_the_json():
+    """A Sobre virou uma rota Astro (frontend/src/pages/sobre.astro) que
+    importa frases.json e interpola `{frases.chave}` — ela não copia mais o
+    texto à mão, então a checagem que existia aqui até 2026-08-09 (comparar a
+    Sobre e o JSON frase a frase, para pegar uma cópia truncada ou reescrita)
+    não tem mais o que comparar: os dois lados são o mesmo valor por
+    construção, e uma cópia divergente é estruturalmente impossível enquanto
+    a página ler o JSON em vez de repetir o texto.
 
-
-def _texto_visivel(html: str) -> str:
-    """O texto que sobra depois de tirar tags, CSS e script.
-
-    A página Sobre quebra as frases em várias linhas e põe <strong> no meio
-    delas, então comparar o HTML cru nunca casaria: tags inline viram espaço.
-    <style> e <script> saem primeiro — seu conteúdo tem pontos que não são
-    fim de frase e, misturado ao texto visível, engoliria a frase real dentro
-    de um bloco só. Tags de bloco (título, parágrafo, cabeçalho, rodapé...)
-    viram quebra de linha, não espaço: sem isso, um título sem ponto final
-    ("Sobre o projeto") se gruda à primeira frase do parágrafo seguinte e a
-    frase real deixa de existir como string isolada.
-    """
-    sem_style = _STYLE_OR_SCRIPT.sub(" ", html)
-    com_marcas = _BLOCK_TAGS.sub("\x00", sem_style)
-    sem_tags = _TAGS.sub(" ", com_marcas)
-    # Colapsa todo espaço em branco (inclusive as quebras de linha do próprio
-    # HTML de origem, que não são quebra de bloco) num espaço só, preservando
-    # o marcador \x00 como o único separador de linha real.
-    texto = " ".join(sem_tags.split())
-    linhas = (linha.strip() for linha in texto.split("\x00"))
-    return "\n".join(linha for linha in linhas if linha)
-
-
-def _frases(texto: str) -> list[str]:
-    """Quebra em frases, pelo ponto final seguido de espaço e maiúscula.
-
-    Cru de propósito: o texto comparado são três frases escolhidas à mão, não
-    um corpus. O splitter de chunking.py existe para o corpus e traria consigo
-    as suas abreviações calibradas, que aqui não têm o que fazer. Quebra
-    também por linha primeiro, para não juntar frases de blocos diferentes
-    (um título sem ponto final e o parágrafo seguinte, por exemplo).
-    """
-    frases = []
-    for linha in texto.splitlines():
-        frases.extend(
-            f.strip() for f in re.split(r"(?<=\.)\s+(?=[A-ZÀ-Ú])", linha) if f.strip()
-        )
-    return frases
-
-
-def test_the_sentences_are_copied_from_the_sobre_page():
-    """A origem das frases é a página Sobre, escrita por uma pessoa.
-
-    Duas checagens, para dois jeitos de trair a cópia:
-
-    - `o_que_e` é comparado por PARÁGRAFO inteiro, não por frase solta: são
-      DUAS frases, e uma checagem frase-a-frase passaria contra uma versão
-      truncada que corta a segunda — a primeira sozinha ainda "bateria",
-      isolada, do mesmo jeito que a checagem por substring antigo passava.
-    - As outras seis chaves são comparadas por IGUALDADE de frase inteira
-      contra a lista de frases da Sobre (`_frases(valor) `, cada elemento
-      testado como membro de `frases_sobre`) — não por substring (`in
-      <string>`), que uma frase truncada continua satisfazendo, e não por
-      "aparece na Sobre" sem checar as seis chaves, o que deixava
-      `so_estas_obras` e `independente` sem checagem nenhuma. Uma frase
-      cortada ou reescrita não é igual a nenhuma frase completa da página, e
-      falha.
+    O que ainda pode quebrar — e o que esta versão guarda — é a página voltar
+    a hardcodar a frase (ex.: colar o texto de volta em vez de `{frases.
+    o_que_e}`), o que reabriria exatamente o risco de duas cópias divergentes
+    que a JSON existe para fechar. Por isso a checagem agora é estrutural:
+    cada chave usada na Sobre precisa aparecer como `{frases.<chave>}` no
+    arquivo-fonte. Isto não confere o HTML renderizado (isso pediria buildar
+    o Astro antes de rodar pytest, uma dependência que este arquivo de teste
+    não tinha e que a suíte Python não deveria carregar) — confere que a
+    fonte referencia o JSON em vez de duplicar o texto.
     """
     frases = json.loads(
         Path("frontend/src/content/frases.json").read_text(encoding="utf-8")
     )
-    sobre = _texto_visivel(
-        Path("frontend/public/sobre/index.html").read_text(encoding="utf-8")
-    )
-    # _texto_visivel devolve blocos separados por \n (as tags de bloco viram
-    # quebra de linha). Comparar bloco inteiro é o que pega o truncamento:
-    # `o_que_e` são DUAS frases, e cortar a segunda deixaria a primeira ainda
-    # presente na Sobre — passaria numa checagem por frase solta.
-    paragrafos = [_frases(linha) for linha in sobre.splitlines() if linha.strip()]
-    assert _frases(frases["o_que_e"]) in paragrafos
+    sobre = Path("frontend/src/pages/sobre.astro").read_text(encoding="utf-8")
 
-    # Lista de frases da Sobre inteira, construída uma vez e reusada nas duas
-    # checagens desta função.
-    frases_sobre = [
-        frase
-        for linha in sobre.splitlines()
-        if linha.strip()
-        for frase in _frases(linha)
-    ]
+    assert "import frases from '../content/frases.json'" in sobre
+
     for chave in (
+        "o_que_e",
         "nao_substitui",
         "pode_errar",
         "separado_da_ia",
@@ -252,10 +189,11 @@ def test_the_sentences_are_copied_from_the_sobre_page():
         "so_estas_obras",
         "independente",
     ):
-        for frase in _frases(frases[chave]):
-            assert frase in frases_sobre, (
-                f"frase ausente ou truncada na Sobre (chave {chave!r}): {frase!r}"
-            )
+        assert chave in frases, f"chave {chave!r} não existe mais em frases.json"
+        assert f"{{frases.{chave}}}" in sobre, (
+            f"a Sobre não lê {chave!r} do JSON — o texto pode ter sido "
+            "hardcodado de volta, reabrindo o risco de duas cópias divergentes"
+        )
 
 
 def test_the_python_header_reads_the_shared_file():
