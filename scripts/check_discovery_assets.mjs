@@ -41,7 +41,7 @@ const ler = (caminho) => {
 
 // --- index.html: as meta tags ---
 const index = ler(`${DIST}/index.html`);
-check('frontend/index.html existe', index !== null);
+check(`${DIST}/index.html existe`, index !== null);
 
 if (index) {
   const tag = (nome, attr = 'property') =>
@@ -84,7 +84,7 @@ try {
 } catch {
   /* ausente — o check abaixo reporta */
 }
-check('frontend/public/preview.png existe', png !== null);
+check(`${DIST}/preview.png existe`, png !== null);
 
 if (png) {
   const largura = png.readUInt32BE(16);
@@ -98,7 +98,7 @@ if (png) {
 
 // --- a página Sobre ---
 const sobre = ler(`${DIST}/sobre/index.html`);
-check('frontend/public/sobre/index.html existe', sobre !== null);
+check(`${DIST}/sobre/index.html existe`, sobre !== null);
 
 if (sobre) {
   // O ponto inteiro da página é ser lida antes de qualquer bundle carregar.
@@ -137,14 +137,14 @@ if (settingsPanel) {
 
 // --- robots e sitemap ---
 const robots = ler(`${DIST}/robots.txt`);
-check('frontend/public/robots.txt existe', robots !== null);
+check(`${DIST}/robots.txt existe`, robots !== null);
 if (robots) {
   check('robots.txt aponta para o sitemap',
     robots.includes(`Sitemap: ${HOST}/sitemap.xml`));
 }
 
 const sitemap = ler(`${DIST}/sitemap.xml`);
-check('frontend/public/sitemap.xml existe', sitemap !== null);
+check(`${DIST}/sitemap.xml existe`, sitemap !== null);
 if (sitemap) {
   check('sitemap lista a home', sitemap.includes(`<loc>${HOST}/</loc>`));
   check('sitemap lista /sobre/', sitemap.includes(`<loc>${HOST}/sobre/</loc>`));
