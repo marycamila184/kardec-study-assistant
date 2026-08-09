@@ -218,6 +218,13 @@ if (app) {
   check('o deep link carrega part', app.includes("params.get('part')"));
   check('App.jsx lê o parâmetro de trilha', app.includes("params.get('trilha')"));
   check('App.jsx lê o parâmetro de modo', app.includes("params.get('mode')"));
+  // Ler o parâmetro não basta: a versão que esta guarda deixou passar lia
+  // ?trilha= e chamava startTrilha sem entrar em Estudar, então a trilha
+  // carregava por baixo da tela inicial. Prende o parâmetro à ação.
+  check('a trilha do deep link entra no modo estudar e começa a trilha',
+    /trilhaId[\s\S]{0,400}switchMode\('estudar'\)[\s\S]{0,400}startTrilha\(/.test(app));
+  check('o modo do deep link chama switchMode',
+    /modeParam ===[\s\S]{0,200}switchMode\(modeParam\)/.test(app));
 }
 
 process.exit(falhou ? 1 : 0);

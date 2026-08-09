@@ -54,7 +54,7 @@ _STYLE = """
     border-radius: 12px; padding: 1rem 1.15rem;
     text-decoration: none; color: inherit;
   }
-  .porta:hover { border-color: var(--azul); }
+  .porta:hover, .porta:focus-visible { border-color: var(--azul); }
   .porta-icone { font-size: 1.35rem; line-height: 1; }
   .porta-texto { display: flex; flex-direction: column; }
   .porta-nome { font-weight: 500; }

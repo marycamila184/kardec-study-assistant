@@ -255,6 +255,12 @@ export default function App() {
         part: params.get('part') || null,
       });
     } else if (trilhaId) {
+      // startTrilha assume que quem chama já está em Estudar — todos os seus
+      // outros chamadores estão. Vindo da URL, mode ainda é null e isHome
+      // renderizaria a HomeLauncher com a trilha carregada por baixo. As duas
+      // chamadas são do mesmo tique, então o setEstudarSub('guided') de
+      // startTrilha vence o 'picker' de switchMode.
+      switchMode('estudar');
       // startTrilha precisa só do id — ele busca o detalhe da trilha sozinho
       // via getPath() — então isto não espera o getPaths() ainda em voo. Um
       // id inválido cai no catch de startTrilha e volta para o picker.
