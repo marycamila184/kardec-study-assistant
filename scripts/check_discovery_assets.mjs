@@ -174,6 +174,29 @@ for (const familia of ['temas', 'trilhas']) {
     check(`${familia}/${slug} tem a porta do Dialogar`,
       html.includes(`href="${HOST}/?mode=duvida"`));
 
+    // O cabeçalho: quem chega de uma busca não sabe o que é este site, e a
+    // única página que explica está a um link de rodapé de distância.
+    check(`${familia}/${slug} tem o cabeçalho do projeto`,
+      html.includes('class="cabecalho"'));
+    check(`${familia}/${slug} diz o que o projeto é`,
+      html.includes('Um assistente de estudo das obras de Allan Kardec.'));
+    check(`${familia}/${slug} avisa que pode errar`,
+      html.includes('Ele pode errar.'));
+
+    // Exatamente um trecho aberto. Zero é uma página que parece vazia; dois
+    // desfazem metade do motivo de recolher.
+    const abertos = (html.match(/<details class="passagem" open>/g) || []).length;
+    check(`${familia}/${slug} tem exatamente um trecho aberto`,
+      abertos === 1, `obtido: ${abertos}`);
+
+    // Um <details> por trecho: o link "Abrir no app" é emitido uma vez por
+    // trecho, então os dois números têm de bater. Pega um trecho que perdeu
+    // o seu invólucro numa edição de estilo.
+    const detalhes = (html.match(/<details class="passagem"/g) || []).length;
+    const links = (html.match(/class="abrir"/g) || []).length;
+    check(`${familia}/${slug}: um trecho recolhido por link de abrir`,
+      detalhes === links && detalhes > 0, `details: ${detalhes}, links: ${links}`);
+
     if (familia === 'trilhas') {
       check(`${familia}/${slug} tem a porta da trilha, com o slug do diretório`,
         html.includes(`href="${HOST}/?trilha=${slug}"`));
