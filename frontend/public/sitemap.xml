@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Duas URLs hoje. As páginas por tema, quando existirem, entram aqui. -->
+<!-- GERADO por src/discovery/generate.py. Não edite à mão: a lista cresce com
+     data/topics/ e data/paths/, e uma entrada que não corresponde a um arquivo
+     é uma falha silenciosa. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dialogandodoutrina.com.br/</loc>
@@ -10,5 +12,35 @@
     <loc>https://dialogandodoutrina.com.br/sobre/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dialogandodoutrina.com.br/trilhas/fundamentos-espirita-aprofundado/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dialogandodoutrina.com.br/trilhas/fundamentos-espirita-curioso/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dialogandodoutrina.com.br/trilhas/fundamentos-espirita-estudante/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dialogandodoutrina.com.br/trilhas/fundamentos-evangelico-aprofundado/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dialogandodoutrina.com.br/trilhas/fundamentos-evangelico-curioso/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dialogandodoutrina.com.br/trilhas/fundamentos-evangelico-estudante/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
