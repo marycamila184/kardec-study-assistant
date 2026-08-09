@@ -98,12 +98,15 @@ _STYLE = """
   .porta-desc { font-size: .88rem; color: var(--suave); }
   .passagem {
     background: var(--obra-fundo); border: 1px solid var(--obra-borda);
-    border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 1.5rem;
+    border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 .75rem;
   }
-  .rotulo {
-    font-size: .82rem; text-transform: uppercase; letter-spacing: .06em;
-    color: var(--tenue); margin: 0 0 .6rem;
+  .resumo { cursor: pointer; }
+  .resumo-rotulo { display: block; font-weight: 500; }
+  .resumo-ref {
+    display: block; font-size: .82rem; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--tenue); margin-top: .25rem;
   }
+  .passagem[open] .resumo { margin-bottom: .9rem; }
   /* pre-wrap for the same reason ObraBlock uses it: join_subchunks emits
      single newlines that are the source's own paragraph breaks. */
   .texto { white-space: pre-wrap; margin: 0 0 .9rem; }
@@ -179,17 +182,30 @@ def _portas_html(page: Page) -> str:
     return '<div class="portas">\n' + "\n".join(portas) + "\n</div>"
 
 
-def _passage_html(passage: Passage) -> str:
+def _passage_html(passage: Passage, aberto: bool = False) -> str:
+    """Um trecho, recolhido.
+
+    <details> em vez de <article> porque a página abria com 22 trechos e o
+    leitor tinha de rolar para descobrir que existe um app. O texto continua
+    inteiro no arquivo — o buscador indexa conteúdo dentro de <details>; o que
+    ele desvaloriza é conteúdo que só chega depois de um clique, buscado por
+    JavaScript. É por isso que aqui é HTML nativo e não um acordeão em script.
+
+    O marcador nativo do <details> fica: os cartões do app não têm triângulo,
+    mas ali nada expande, e sem ele o leitor conclui que a página só tem
+    títulos. Ele traz teclado e leitor de tela sem custo.
+    """
     ref = passage.label
     where = passage.chapter or ""
     if passage.part:
         where = f"{passage.part}, {where}"
     caption = f"{passage.book} — {where} item {passage.item_number}".strip()
-    return f"""<article class="passagem">
-<p class="rotulo">{escape(caption)}</p>
+    marca = " open" if aberto else ""
+    return f"""<details class="passagem"{marca}>
+<summary class="resumo"><span class="resumo-rotulo">{escape(ref)}</span><span class="resumo-ref">{escape(caption)}</span></summary>
 <p class="texto">{escape(passage.text)}</p>
 <a class="abrir" href="{escape(deep_link(passage))}">Abrir “{escape(ref)}” no app &rarr;</a>
-</article>"""
+</details>"""
 
 
 def _cabecalho_html() -> str:
@@ -209,7 +225,11 @@ def _cabecalho_html() -> str:
 
 def render_page(page: Page) -> str:
     url = page_url(page)
-    passages = "\n".join(_passage_html(p) for p in page.passages)
+    # O primeiro vem aberto: quem chega vê texto real de imediato e entende o
+    # que as linhas contêm, sem clicar — e a página não parece vazia.
+    passages = "\n".join(
+        _passage_html(p, aberto=(i == 0)) for i, p in enumerate(page.passages)
+    )
     portas = _portas_html(page)
     cabecalho = _cabecalho_html()
     return f"""<!DOCTYPE html>

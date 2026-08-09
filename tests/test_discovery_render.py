@@ -206,3 +206,39 @@ def test_the_h1_is_the_page_heading_not_the_project_name():
 def test_the_header_comes_before_the_h1():
     html = render_page(TRILHA)
     assert html.index('class="cabecalho"') < html.index("<h1>")
+
+
+def test_the_first_passage_is_open_and_the_rest_are_not():
+    html = render_page(TRILHA)
+    assert html.count('<details class="passagem" open>') == 1
+    assert html.count('<details class="passagem">') == len(TRILHA.passages) - 1
+
+
+def test_every_passage_text_is_still_in_the_file():
+    """Recolher esconde na tela, nunca no arquivo.
+
+    É o texto dos trechos que casa com a busca de alguém — é a razão inteira
+    de estas páginas existirem. Um <details> mantém o texto no HTML; um
+    acordeão em JavaScript não manteria.
+    """
+    html = render_page(TRILHA)
+    for passage in TRILHA.passages:
+        assert escape(passage.text) in html
+
+
+def test_the_summary_carries_the_label_and_the_reference():
+    html = render_page(TRILHA)
+    assert '<summary class="resumo">' in html
+    assert escape(PASSAGE.label) in html
+    assert "O Céu e o Inferno" in html  # o livro, na referência
+
+
+def test_each_passage_keeps_its_own_link_into_the_app():
+    html = render_page(TRILHA)
+    assert html.count('class="abrir"') == len(TRILHA.passages)
+
+
+def test_the_passages_carry_no_javascript():
+    html = render_page(TRILHA).lower()
+    assert "<script" not in html
+    assert "onclick" not in html
