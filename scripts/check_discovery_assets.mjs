@@ -113,6 +113,22 @@ if (sobre) {
     sobre.includes(`href="${HOST}/sobre/"`));
   check('og:url da página Sobre também tem barra final',
     sobre.includes(`property="og:url" content="${HOST}/sobre/"`));
+
+  // A Sobre virou frontend/src/pages/sobre.astro e passou a ler as frases de
+  // frases.json (`{frases.chave}`) em vez de copiar o texto à mão. O teste
+  // Python (tests/test_discovery_render.py) confere que a FONTE referencia o
+  // JSON — mas isso não prova que o Astro realmente interpola o valor: uma
+  // chave renomeada, uma falha silenciosa de interpolação ou uma edição de
+  // template que derruba a expressão passariam por aquele teste e ainda
+  // assim publicariam uma Sobre sem a própria frase. Esta guarda lê o HTML
+  // CONSTRUÍDO e confere o texto de verdade — comportamental onde a outra é
+  // estrutural, e juntas cobrem os dois sentidos.
+  const frases = JSON.parse(
+    readFileSync('frontend/src/content/frases.json', 'utf8'));
+  for (const [chave, valor] of Object.entries(frases)) {
+    check(`a página Sobre tem a frase "${chave}" de frases.json`,
+      sobre.includes(valor), `frase ausente: ${valor}`);
+  }
 }
 
 // --- os links internos para /sobre/: a barra final tem que sobreviver aqui
