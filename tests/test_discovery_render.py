@@ -208,9 +208,20 @@ def _frases(texto: str) -> list[str]:
 def test_the_sentences_are_copied_from_the_sobre_page():
     """A origem das frases é a página Sobre, escrita por uma pessoa.
 
-    Compara parágrafo inteiro, não "contém": `o_que_e` são DUAS frases, e uma
-    verificação por substring passaria contra uma versão truncada na primeira
-    — que descarta justamente a parte que diz que a resposta vem com a fonte.
+    Duas checagens, para dois jeitos de trair a cópia:
+
+    - `o_que_e` é comparado por PARÁGRAFO inteiro, não por frase solta: são
+      DUAS frases, e uma checagem frase-a-frase passaria contra uma versão
+      truncada que corta a segunda — a primeira sozinha ainda "bateria",
+      isolada, do mesmo jeito que a checagem por substring antigo passava.
+    - As outras seis chaves são comparadas por IGUALDADE de frase inteira
+      contra a lista de frases da Sobre (`_frases(valor) `, cada elemento
+      testado como membro de `frases_sobre`) — não por substring (`in
+      <string>`), que uma frase truncada continua satisfazendo, e não por
+      "aparece na Sobre" sem checar as seis chaves, o que deixava
+      `so_estas_obras` e `independente` sem checagem nenhuma. Uma frase
+      cortada ou reescrita não é igual a nenhuma frase completa da página, e
+      falha.
     """
     frases = json.loads(
         Path("frontend/src/content/frases.json").read_text(encoding="utf-8")
@@ -224,8 +235,27 @@ def test_the_sentences_are_copied_from_the_sobre_page():
     # presente na Sobre — passaria numa checagem por frase solta.
     paragrafos = [_frases(linha) for linha in sobre.splitlines() if linha.strip()]
     assert _frases(frases["o_que_e"]) in paragrafos
-    for chave in ("nao_substitui", "pode_errar", "separado_da_ia", "nao_encontrei"):
-        assert frases[chave] in sobre, f"frase ausente na Sobre: {chave}"
+
+    # Lista de frases da Sobre inteira, construída uma vez e reusada nas duas
+    # checagens desta função.
+    frases_sobre = [
+        frase
+        for linha in sobre.splitlines()
+        if linha.strip()
+        for frase in _frases(linha)
+    ]
+    for chave in (
+        "nao_substitui",
+        "pode_errar",
+        "separado_da_ia",
+        "nao_encontrei",
+        "so_estas_obras",
+        "independente",
+    ):
+        for frase in _frases(frases[chave]):
+            assert frase in frases_sobre, (
+                f"frase ausente ou truncada na Sobre (chave {chave!r}): {frase!r}"
+            )
 
 
 def test_the_python_header_reads_the_shared_file():

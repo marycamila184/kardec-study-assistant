@@ -26,6 +26,12 @@ CHAT_LINK = f"{HOST}/?mode=duvida"
 #
 # A origem do texto continua sendo a página Sobre, escrita por uma pessoa —
 # test_the_sentences_are_copied_from_the_sobre_page guarda isso.
+#
+# Uma frase da Sobre fica de fora de propósito: a segunda frase de "Limites e
+# cuidados" — "Se a explicação e o trecho citado divergirem, vale o
+# trecho…" — não entra em frases.json (decisão da autora, 2026-08-09). Ela
+# instrui a conferir a citação dentro do app, e quem ainda não entrou não tem
+# o que conferir.
 _FRASES_PATH = os.path.join("frontend", "src", "content", "frases.json")
 
 with open(_FRASES_PATH, encoding="utf-8") as _f:
