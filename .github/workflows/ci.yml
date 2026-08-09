@@ -62,10 +62,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build
+        run: npm run build
+
       # The three guards this repo already wrote and that nothing ran
       # automatically until now. The current_mode one exists because two call
       # sites were fixed by hand and three others kept the bug: without it, a
       # /chat call missing `current_mode` silently re-enables self-nudging.
+      # check_discovery_assets.mjs reads the built artifact in frontend/dist,
+      # so it must run after Build.
       - name: Frontend guards
         working-directory: .
         run: |
@@ -73,6 +78,3 @@ jobs:
           node scripts/check_cited_text.mjs
           node scripts/check_followup_reply.mjs
           node scripts/check_discovery_assets.mjs
-
-      - name: Build
-        run: npm run build

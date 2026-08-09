@@ -10,6 +10,20 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 const HOST = 'https://dialogandodoutrina.com.br';
 const MAX_PNG_BYTES = 300 * 1024;
 
+// A guarda lê o artefato construído, não a fonte.
+//
+// Desde a migração para Astro a fonte é um template (.astro), e as meta tags
+// só existem como HTML depois do build. Conferir o que a Vercel realmente
+// serve é mais forte do que conferir o que a gente escreveu — mas custa uma
+// dependência de ordem: `npm run build` antes desta guarda, sempre.
+const DIST = 'frontend/dist';
+
+if (!existsSync(DIST)) {
+  console.log(`FALHA ${DIST} não existe`);
+  console.log('   rode `cd frontend && npm run build` antes desta guarda');
+  process.exit(1);
+}
+
 let falhou = false;
 const check = (label, ok, detalhe = '') => {
   console.log(`${ok ? 'OK  ' : 'FALHA'} ${label}`);
@@ -26,7 +40,7 @@ const ler = (caminho) => {
 };
 
 // --- index.html: as meta tags ---
-const index = ler('frontend/index.html');
+const index = ler(`${DIST}/index.html`);
 check('frontend/index.html existe', index !== null);
 
 if (index) {
@@ -63,7 +77,7 @@ if (index) {
 
 // --- preview.png: dimensões e peso ---
 // Lê o cabeçalho IHDR do PNG: largura e altura são big-endian nos bytes 16..24.
-const PNG = 'frontend/public/preview.png';
+const PNG = `${DIST}/preview.png`;
 let png = null;
 try {
   png = readFileSync(PNG);
@@ -83,7 +97,7 @@ if (png) {
 }
 
 // --- a página Sobre ---
-const sobre = ler('frontend/public/sobre/index.html');
+const sobre = ler(`${DIST}/sobre/index.html`);
 check('frontend/public/sobre/index.html existe', sobre !== null);
 
 if (sobre) {
@@ -122,14 +136,14 @@ if (settingsPanel) {
 }
 
 // --- robots e sitemap ---
-const robots = ler('frontend/public/robots.txt');
+const robots = ler(`${DIST}/robots.txt`);
 check('frontend/public/robots.txt existe', robots !== null);
 if (robots) {
   check('robots.txt aponta para o sitemap',
     robots.includes(`Sitemap: ${HOST}/sitemap.xml`));
 }
 
-const sitemap = ler('frontend/public/sitemap.xml');
+const sitemap = ler(`${DIST}/sitemap.xml`);
 check('frontend/public/sitemap.xml existe', sitemap !== null);
 if (sitemap) {
   check('sitemap lista a home', sitemap.includes(`<loc>${HOST}/</loc>`));
@@ -142,7 +156,7 @@ if (sitemap) {
 // sitemap sem arquivo é um 404 que só o buscador vê.
 const paginasGeradas = [];
 for (const familia of ['temas', 'trilhas']) {
-  const raiz = `frontend/public/${familia}`;
+  const raiz = `${DIST}/${familia}`;
   if (!existsSync(raiz)) {
     // temas/ só existe quando houver algum tema curado; trilhas/ é obrigatório.
     if (familia === 'trilhas') {
@@ -229,7 +243,7 @@ if (sitemap) {
     const relativo = url.replace(`${HOST}/`, '');
     if (!relativo.startsWith('temas/') && !relativo.startsWith('trilhas/')) continue;
     check(`a entrada ${url} tem arquivo`,
-      existsSync(`frontend/public/${relativo}index.html`));
+      existsSync(`${DIST}/${relativo}index.html`));
   }
 }
 
