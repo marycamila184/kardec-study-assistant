@@ -242,6 +242,14 @@ for (const familia of ['temas', 'trilhas']) {
       check(`${familia}/${slug} tem o bloco id="conteudo-estatico"`,
         html.includes('id="conteudo-estatico"'));
 
+      // As páginas Python apagadas emitiam og:type="article"; Base.astro
+      // fixa "website" por padrão para a home e a Sobre, e a rota de trilha
+      // tem de passar o próprio valor para restaurar o que a página servia
+      // antes desta branch. Nada mais aqui checa og:type — a falha some sem
+      // deixar rastro visível, igual og:image e canonical.
+      check(`${familia}/${slug} tem og:type article`,
+        html.includes('<meta property="og:type" content="article">'));
+
       const conteudo = ler(`frontend/src/content/trilhas/${slug}.json`);
       check(`frontend/src/content/trilhas/${slug}.json existe`, conteudo !== null,
         'rode: uv run python -m src.discovery.generate');

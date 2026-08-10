@@ -1,14 +1,19 @@
 // Abre a página construída, deixa o JavaScript rodar e confere que a trilha
 // chega na tela vinda da API.
 //
-// A Fase 1 publicou duas falhas que nenhuma outra verificação deste projeto
-// podia ver: `npm run build` aceita "http://localhost:8000" como string
-// válida, as guardas leem HTML, o pytest é do backend e o curl nunca roda
-// script — e na máquina de quem desenvolve aquele endereço existe.
+// A Fase 1 publicou duas falhas. Esta suíte cobre uma delas: o CORS mal
+// configurado, que só existe entre um navegador de verdade e um servidor de
+// verdade, e que nenhuma outra verificação deste projeto podia ver — o
+// `npm run build` aceita qualquer string, as guardas leem HTML, o pytest é
+// do backend e o curl nunca roda script. A outra falha — `PUBLIC_API_URL`
+// gravado no bundle de produção — este arquivo NÃO cobre, por construção:
+// `npm run smoke` constrói apontando PUBLIC_API_URL para a API local, então
+// "localhost" aqui dentro é o comportamento esperado. Essa falha é do
+// `scripts/check_api_base.mjs`, rodado contra um build de produção.
 //
-// O que este arquivo NÃO cobre, de propósito: a resposta do /study, que
-// precisa do índice ChromaDB (gitignorado) e de chave de LLM. As asserções
-// abaixo param na costura navegador↔API.
+// O que este arquivo também NÃO cobre, de propósito: a resposta do /study,
+// que precisa do índice ChromaDB (gitignorado) e de chave de LLM. As
+// asserções abaixo param na costura navegador↔API.
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
@@ -28,6 +33,12 @@ test('a rota de trilha entrega a trilha ao app, pela API', async ({ page }) => {
   page.on('console', (m) => { if (m.type() === 'error') erros.push(m.text()); });
   page.on('requestfailed', (r) => erros.push(`${r.url()} — ${r.failure()?.errorText}`));
 
+  // Montar a trilha dispara uma chamada a /study/stream que não pode dar
+  // certo aqui — não há índice ChromaDB nem chave de LLM em CI. Isso é
+  // esperado e inofensivo: nenhuma asserção depende do resultado dela, e é
+  // essa chamada (com sucesso ou caindo no catch) que eventualmente produz a
+  // segunda ocorrência do rótulo do passo que o `.first()` abaixo existe
+  // para tolerar.
   await page.goto(`/trilhas/${SLUG}/`);
 
   // A island montou: o bloco estático existia no HTML e o app o removeu.
@@ -35,7 +46,12 @@ test('a rota de trilha entrega a trilha ao app, pela API', async ({ page }) => {
 
   // O passo 1 na tela só aparece depois de GET /paths/<slug> voltar 200: o
   // rótulo e a contagem vêm da resposta, não do HTML.
-  await expect(page.getByText(trilha.steps[0].label)).toBeVisible({ timeout: 15_000 });
+  //
+  // `.first()`: assim que a chamada a /study/stream (disparada logo abaixo)
+  // resolve — com sucesso num ambiente completo, ou na mensagem de erro do
+  // catch em CI — o rótulo do passo aparece uma segunda vez na tela, e sem
+  // `.first()` isso é uma violação de strict mode, não uma falha limpa.
+  await expect(page.getByText(trilha.steps[0].label).first()).toBeVisible({ timeout: 15_000 });
   await expect(page.getByText(`1 de ${trilha.steps.length}`)).toBeVisible();
 
   const paths = respostas.find(([url]) => url.endsWith(`/paths/${SLUG}`));

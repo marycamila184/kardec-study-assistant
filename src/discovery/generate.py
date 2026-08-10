@@ -1,7 +1,7 @@
 """Writes the discovery artefacts: the trilha content JSON the Astro route
 reads, plus the static tema pages under frontend/public/ and the sitemap.
 
-Build-time only, and its output is committed — Vite copies public/ into dist/
+Build-time only, and its output is committed — Astro copies public/ into dist/
 verbatim, so nothing here runs at deploy time. Run it when content changes:
 
     uv run python -m src.discovery.generate

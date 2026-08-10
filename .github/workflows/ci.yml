@@ -81,10 +81,16 @@ jobs:
           node scripts/check_api_base.mjs
 
   # O único job que executa o JavaScript e fala com a API. Existe porque a
-  # migração para Astro publicou duas falhas — o CORS na porta do Vite e
-  # localhost:8000 dentro do bundle — que passaram por todas as outras
-  # verificações: o build aceita a string, as guardas leem HTML, o pytest é do
-  # backend, e na máquina de quem desenvolve o endereço existe.
+  # migração para Astro publicou duas falhas que passaram por todas as outras
+  # verificações: o build aceita qualquer string, as guardas leem HTML, o
+  # pytest é do backend, e na máquina de quem desenvolve o endereço existe.
+  # Este job cobre só uma das duas — o CORS preso na porta do Vite — porque só
+  # um navegador de verdade falando com uma API de verdade revela isso. A
+  # outra falha, localhost:8000 dentro do bundle, este job não pode pegar por
+  # construção: `npm run smoke` constrói de propósito com PUBLIC_API_URL
+  # apontando para a API local, então "localhost" no dist dele é o esperado.
+  # Essa é a responsabilidade de check_api_base.mjs, no job `frontend`, contra
+  # um build de produção.
   #
   # Precisa de Python e de Node no mesmo runner: o Playwright sobe a API e o
   # `astro preview` juntos. Não precisa de chave de LLM nem do índice — as
@@ -103,6 +109,11 @@ jobs:
       - name: Python 3.12
         run: uv python install 3.12
 
+      # Reinstala tudo que o job `frontend` já instalou, de propósito: a
+      # isolação (runner limpo, `dist/` próprio) é o ponto, porque o build
+      # deste job aponta para localhost e não pode nunca dividir um `dist/`
+      # com o job das guardas. Sem este comentário, alguém vai "otimizar" isto
+      # para um `needs:` encadeado e reintroduzir esse risco.
       - name: Install backend dependencies
         run: uv sync --group dev --no-group ingest
 

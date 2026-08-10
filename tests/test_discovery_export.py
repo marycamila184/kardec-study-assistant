@@ -1,8 +1,4 @@
 import json
-import os
-from pathlib import Path
-
-import pytest
 
 from src.discovery.content import Page, Passage
 from src.discovery.export import trilha_content

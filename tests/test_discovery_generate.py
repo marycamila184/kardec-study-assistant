@@ -93,15 +93,23 @@ def test_leaves_sobre_and_preview_untouched(tmp_path):
 
 @needs_full_corpus
 def test_committed_pages_are_what_a_fresh_generation_produces(tmp_path):
-    """The pages in frontend/public/ must still match their sources.
+    """The pages in frontend/public/ (temas) and the committed sitemap.xml
+    must still match their sources.
 
-    This is the one failure the structural guard cannot see. Edit a trilha in
-    data/paths/, forget `uv run python -m src.discovery.generate`, and the
+    This is the one failure the structural guard cannot see. Edit a topic in
+    data/topics/, forget `uv run python -m src.discovery.generate`, and the
     committed page keeps its correct canonical, keeps agreeing with the
     sitemap, and passes every check in check_discovery_assets.mjs — while
     serving content that no longer matches the curation. Nothing in the running
     app would ever surface it, which is exactly the kind of silent staleness
-    this project guards against elsewhere.
+    this project guards against elsewhere. Trilha staleness is a separate
+    failure since the Fase 2 route change — guarded by
+    test_committed_trilha_json_is_what_a_fresh_generation_produces below — but
+    the sitemap comparison here still spans both families, so this test still
+    lights up if a trilha entry in sitemap.xml goes stale.
+
+    The `("temas",)` loop is empty today (no tema exists in data/topics/ yet)
+    and lights up the day one is added.
 
     Skipped when data/json_files/ is absent (it is gitignored), so this runs
     for the person editing the curated data — who is the same person who has
