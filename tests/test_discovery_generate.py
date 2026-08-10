@@ -109,7 +109,8 @@ def test_committed_pages_are_what_a_fresh_generation_produces(tmp_path):
     """
     out = tmp_path / "public"
     out.mkdir()
-    generate(FULL_CORPUS, "data/topics", "data/paths", str(out))
+    content = tmp_path / "content"
+    generate(FULL_CORPUS, "data/topics", "data/paths", str(out), str(content))
 
     live = Path("frontend/public")
     differences = []
