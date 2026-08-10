@@ -44,14 +44,62 @@ const check = (label, ok, detalhe = '') => {
   if (!ok) falhou = true;
 };
 
-const app = readFileSync(APP, 'utf8');
+// Tira comentários de linha e de bloco antes de qualquer busca. Achado em
+// revisão (2026-08-10): `corpo()` cortava em `\n  const `, e um bloco morto
+// comentado — `handleGoReflect`, entre `handleGoStudyItem` e
+// `handleLoadConvo` — não começa com `const` porque o `//` vem antes, então a
+// varredura andava direto por cima dele. Hoje isso dá o veredito certo por
+// sorte (o bloco morto não contém `markReaderAsked()`), mas reabilitar aquele
+// código — ou qualquer edição nele — vira um CI vermelho por um motivo que
+// não tem nada a ver com a função sob teste; e o inverso também é
+// construível: uma função obrigatória perde a chamada e o texto varrido
+// depois dela contém `markReaderAsked()` por acaso, e a guarda aprova errado.
+// Uma guarda que existe porque a falha é silenciosa não pode ela mesma dar um
+// veredito pelo motivo errado. String/template literals são preservados —
+// só o comentário em si é removido — porque não há razão para simplificar
+// mais que isso.
+const semComentarios = (src) => {
+  let out = '';
+  let i = 0;
+  let linha = false, bloco = false, simples = false, dupla = false, template = false;
+  while (i < src.length) {
+    const c = src[i];
+    const c2 = src[i + 1];
+    if (linha) {
+      if (c === '\n') { linha = false; out += c; }
+      i++; continue;
+    }
+    if (bloco) {
+      if (c === '*' && c2 === '/') { bloco = false; i += 2; continue; }
+      i++; continue;
+    }
+    if (simples || dupla || template) {
+      out += c;
+      if (c === '\\') { out += src[i + 1] ?? ''; i += 2; continue; }
+      if ((simples && c === "'") || (dupla && c === '"') || (template && c === '`')) {
+        simples = dupla = template = false;
+      }
+      i++; continue;
+    }
+    if (c === '/' && c2 === '/') { linha = true; i += 2; continue; }
+    if (c === '/' && c2 === '*') { bloco = true; i += 2; continue; }
+    if (c === "'") { simples = true; out += c; i++; continue; }
+    if (c === '"') { dupla = true; out += c; i++; continue; }
+    if (c === '`') { template = true; out += c; i++; continue; }
+    out += c; i++;
+  }
+  return out;
+};
+
+const app = semComentarios(readFileSync(APP, 'utf8'));
 
 check(`${APP} declara ${MARCA.replace('()', '')}`, app.includes(`const markReaderAsked =`));
 check('o banner recebe show={readerAsked}', /<ConsentBanner[^>]*show=\{readerAsked\}/.test(app));
 
 // O corpo de cada função: do `const <nome> = ` até o próximo `\n  const ` no
-// mesmo nível de indentação. Grosseiro de propósito — a alternativa é um
-// parser, e o que se quer saber é só se a chamada está lá dentro.
+// mesmo nível de indentação, já sem comentários (ver semComentarios acima).
+// Grosseiro de propósito — a alternativa é um parser, e o que se quer saber é
+// só se a chamada está lá dentro.
 const corpo = (nome) => {
   const inicio = app.indexOf(`const ${nome} = `);
   if (inicio === -1) return null;
