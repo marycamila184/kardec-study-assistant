@@ -1,7 +1,31 @@
 import { formatItemRef } from '../utils/format';
 import { sessionId } from './consent';
 
-const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// A URL do backend.
+//
+// Era `import.meta.env.VITE_API_URL || 'http://localhost:8000'`, e a migração
+// para o Astro quebrou isso em silêncio: o Vite expõe ao cliente as variáveis
+// com prefixo VITE_, o Astro expõe as com prefixo PUBLIC_. Sob o Astro,
+// VITE_API_URL é `undefined`, o fallback vencia, e `http://localhost:8000` foi
+// gravado dentro do bundle de produção — o navegador de cada visitante tentando
+// falar com a máquina dele mesmo, o que o Chrome anuncia como "este site quer
+// acessar outros apps e serviços neste aparelho". Medido em 2026-08-09 no site
+// no ar.
+//
+// O padrão de produção agora é a URL do Cloud Run, e não uma variável de
+// ambiente, porque uma variável ausente falha exatamente como falhou aqui: sem
+// erro, sem aviso, e só visível para quem abre o site publicado. A URL não é
+// segredo — está em README.md e docs/deploy.md, num repositório público, e
+// aparece na aba de rede de qualquer navegador. PUBLIC_API_URL continua tendo
+// precedência para quem quiser apontar para outro backend.
+//
+// scripts/check_api_base.mjs falha o build se `localhost` voltar a aparecer no
+// bundle construído.
+const PRODUCTION_API = 'https://kardec-api-391789792183.us-central1.run.app';
+
+const BASE =
+  import.meta.env.PUBLIC_API_URL ||
+  (import.meta.env.PROD ? PRODUCTION_API : 'http://localhost:8000');
 
 class ApiError extends Error {
   constructor(status, body) {
