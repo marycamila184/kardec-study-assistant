@@ -231,16 +231,81 @@ for (const familia of ['temas', 'trilhas']) {
     if (!html) continue;
     paginasGeradas.push(url);
 
-    // O motivo inteiro destas páginas existirem: texto antes de qualquer
-    // bundle, e conteúdo para quem não executa JavaScript.
-    check(`${familia}/${slug} não tem JavaScript`, !/<script/i.test(html));
+    if (familia === 'trilhas') {
+      // Desde a Fase 2 esta página É o app: a island monta na mesma URL que o
+      // buscador leu. O que substituiu a regra do "<script> proibido" é mais
+      // forte que ela — o texto tem de estar no HTML SERVIDO — e é o que as
+      // duas checagens abaixo exigem. Sem elas, uma rota que emitisse só a
+      // island passaria: página válida, app funcionando, e um rastreador
+      // vendo uma div vazia.
+      check(`${familia}/${slug} monta o app`, /<script[\s>]/i.test(html));
+      check(`${familia}/${slug} tem o bloco id="conteudo-estatico"`,
+        html.includes('id="conteudo-estatico"'));
+
+      // As páginas Python apagadas emitiam og:type="article"; Base.astro
+      // fixa "website" por padrão para a home e a Sobre, e a rota de trilha
+      // tem de passar o próprio valor para restaurar o que a página servia
+      // antes desta branch. Nada mais aqui checa og:type — a falha some sem
+      // deixar rastro visível, igual og:image e canonical.
+      check(`${familia}/${slug} tem og:type article`,
+        html.includes('<meta property="og:type" content="article">'));
+
+      const conteudo = ler(`frontend/src/content/trilhas/${slug}.json`);
+      check(`frontend/src/content/trilhas/${slug}.json existe`, conteudo !== null,
+        'rode: uv run python -m src.discovery.generate');
+      if (conteudo) {
+        // O HTML escapa &, <, > e as aspas; desfazer isso é o que permite
+        // comparar o texto do trecho literalmente, em vez de por um pedaço
+        // curto que um truncamento silencioso ainda passaria.
+        const servido = html
+          .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+          .replace(/&amp;/g, '&');
+        const trilha = JSON.parse(conteudo);
+        const ausentes = trilha.passages
+          .filter((p) => !servido.includes(p.text))
+          .map((p) => p.label);
+        check(`${familia}/${slug}: todo trecho está no HTML servido`,
+          ausentes.length === 0, `ausentes: ${ausentes.join(', ')}`);
+
+        // Deliberadamente adormecida hoje: nenhuma das seis trilhas curadas
+        // tem uma passagem com `part` (nenhuma vem de O Céu e o Inferno), então
+        // este laço não roda nenhuma vez em nenhum build atual. Existe porque
+        // a checagem em Python que cobria isso (test_deep_link_carries_the_part
+        // / test_deep_link_omits_an_absent_part, tests/test_discovery_render.py)
+        // guarda o `deep_link` de render.py, que desde a Fase 2 só serve
+        // temas — zero deles existem hoje. O deep link que a rota Astro
+        // realmente serve (deepLink em [slug].astro) ficou sem nenhuma
+        // checagem. Sem `part`, O Céu e o Inferno reinicia a numeração por
+        // parte e um deep link que o perde resolve, em silêncio, para a
+        // passagem errada (O PASSAMENTO em vez de O PORVIR E O NADA, por
+        // exemplo) — e nada na aplicação em execução expõe isso. Acende
+        // sozinha no dia em que uma trilha curada ganhar um passo de O Céu e
+        // o Inferno.
+        for (const p of trilha.passages) {
+          if (!p.part) continue;
+          // Mesma codificação que URLSearchParams produz em deepLink(): o
+          // espaço em "I PARTE" vira "+", não "%20".
+          const partParam = new URLSearchParams({ part: p.part }).toString();
+          check(`${familia}/${slug}: o deep link de "${p.label}" carrega part`,
+            servido.includes(partParam), `esperado "${partParam}" ausente do HTML`);
+        }
+      }
+    } else {
+      // Um tema continua sendo página estática gerada pelo Python, sem app.
+      check(`${familia}/${slug} não tem JavaScript`, !/<script/i.test(html));
+    }
     check(`${familia}/${slug} tem canonical próprio, com barra final`,
       html.includes(`<link rel="canonical" href="${url}">`));
     check(`${familia}/${slug} tem og:url igual ao canonical`,
       html.includes(`<meta property="og:url" content="${url}">`));
     check(`${familia}/${slug} não aponta para a URL da Vercel`,
       !html.includes('kardec-study-assistant.vercel.app'));
-    check(`${familia}/${slug} tem <h1>`, /<h1>/i.test(html));
+    // `[\s>]` em vez de exigir `<h1>` exato: a rota de trilha tem <style>
+    // escopado, e o Astro grava um atributo data-astro-cid-* em cada tag do
+    // componente — as páginas de tema, ainda em Python puro, seguem batendo
+    // com a forma exata.
+    check(`${familia}/${slug} tem <h1>`, /<h1[\s>]/i.test(html));
 
     // As portas: o motivo de a página ser uma entrada e não um beco. Somem
     // numa edição de estilo sem quebrar nada visível.
@@ -262,7 +327,9 @@ for (const familia of ['temas', 'trilhas']) {
 
     // Exatamente um trecho aberto. Zero é uma página que parece vazia; dois
     // desfazem metade do motivo de recolher.
-    const abertos = (html.match(/<details class="passagem" open>/g) || []).length;
+    // \bopen\b em vez de exigir `open>` colado: mesmo motivo do <h1> acima —
+    // o data-astro-cid-* do Astro entra entre "open" e o fechamento da tag.
+    const abertos = (html.match(/<details class="passagem"[^>]*\bopen\b[^>]*>/g) || []).length;
     check(`${familia}/${slug} tem exatamente um trecho aberto`,
       abertos === 1, `obtido: ${abertos}`);
 
@@ -291,6 +358,19 @@ for (const familia of ['temas', 'trilhas']) {
 
 check('há pelo menos uma página gerada', paginasGeradas.length > 0,
   'rode: uv run python -m src.discovery.generate');
+
+// Uma trilha curada cujo JSON existe mas cuja página não foi construída é uma
+// URL indexada virando 404 — e getStaticPaths() falhando em silêncio para um
+// arquivo é exatamente a forma que isso teria.
+const conteudoTrilhas = 'frontend/src/content/trilhas';
+if (existsSync(conteudoTrilhas)) {
+  for (const arquivo of readdirSync(conteudoTrilhas)) {
+    if (!arquivo.endsWith('.json')) continue;
+    const slug = arquivo.replace(/\.json$/, '');
+    check(`a trilha curada ${slug} tem página construída`,
+      existsSync(`${DIST}/trilhas/${slug}/index.html`));
+  }
+}
 
 if (sitemap) {
   for (const url of paginasGeradas) {

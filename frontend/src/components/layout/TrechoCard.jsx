@@ -20,11 +20,17 @@ import { formatTrechoDate } from '../../utils/day';
  * description, three wrapping chips and the input bar. A default here would be
  * a fourth opinion that no screen asked for.
  *
- * With `evangelhoData` null the card is disabled and says so. A failed
- * /evangelho fetch leaves it in that state permanently, which is what home has
- * always done.
+ * The card has three states, and the third one exists because of a bug: with
+ * `evangelhoData` null it said "Carregando trecho do dia…" forever, whether the
+ * answer was still in flight or was never coming. Measured on 2026-08-10, a
+ * blocked /evangelho (CORS, backend down, no network — the client cannot tell
+ * them apart) looked exactly like a slow one, and the person debugging it
+ * started in the wrong place. `evangelhoFailed` splits "not yet" from "not
+ * going to", and the card says which.
  */
-export default function TrechoCard({ theme, evangelhoData, onStudyTrecho, excerptChars }) {
+export default function TrechoCard({
+  theme, evangelhoData, evangelhoFailed = false, onStudyTrecho, excerptChars,
+}) {
   const trechoDate = formatTrechoDate(evangelhoData?.date);
   return (
     <button
@@ -64,7 +70,11 @@ export default function TrechoCard({ theme, evangelhoData, onStudyTrecho, excerp
           <span style={{
             display: 'block', fontSize: 12.5, color: theme.subtext,
             marginTop: 2, fontStyle: 'italic',
-          }}>Carregando trecho do dia…</span>
+          }}>
+            {evangelhoFailed
+              ? 'Não foi possível carregar o trecho de hoje.'
+              : 'Carregando trecho do dia…'}
+          </span>
         )}
       </span>
     </button>

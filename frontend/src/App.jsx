@@ -135,7 +135,11 @@ async function streamStudy(book, itemNumber, chapter, part, onPartial) {
   }
 }
 
-export default function App() {
+// `trilha` chega da rota /trilhas/<slug>/, onde a página É o app: o Astro
+// entrega o slug na montagem em vez de fazer a pessoa navegar para
+// /?trilha=<slug>. Na home a prop não existe e o parâmetro da URL continua
+// sendo a fonte — as duas formas convergem no mesmo efeito abaixo.
+export default function App({ trilha: trilhaProp = null }) {
 
   // ── Theme ───────────────────────────────────────────────────────────────
   const { darkMode, toggleDark, theme } = useTheme();
@@ -156,6 +160,12 @@ export default function App() {
 
   // ── API state ────────────────────────────────────────────────────────────
   const [evangelhoData, setEvangelhoData] = useState(null);
+  // Sem este estado, "ainda não chegou" e "não vai chegar" são o mesmo valor
+  // (null) e o card fica "Carregando…" para sempre. Medido em 2026-08-10: um
+  // preview esquecido servia o bundle de produção contra a API de produção, o
+  // CORS bloqueou /evangelho — corretamente — e o sintoma na tela não disse
+  // nada, o que fez a procura pela causa começar no lugar errado.
+  const [evangelhoFailed, setEvangelhoFailed] = useState(false);
   const [paths,         setPaths]         = useState([]);
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
@@ -204,7 +214,10 @@ export default function App() {
 
   // ── On-mount: fetch evangelho + paths ────────────────────────────────────
   useEffect(() => {
-    getEvangelho().then(setEvangelhoData).catch(() => {});
+    // O erro é registrado, não engolido: quem falha aqui é a rede ou o
+    // backend, e o card precisa poder dizer isso em vez de fingir que ainda
+    // está carregando.
+    getEvangelho().then(setEvangelhoData).catch(() => setEvangelhoFailed(true));
     getPaths()
       .then(setPaths)
       .catch(() => setPaths([]))
@@ -244,10 +257,15 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     const book = params.get('book');
     const itemNumber = params.get('item');
-    const trilhaId = params.get('trilha');
+    const trilhaId = trilhaProp || params.get('trilha');
     const modeParam = params.get('mode');
     if (!book && !itemNumber && !trilhaId && !modeParam) return;
-    window.history.replaceState({}, '', window.location.pathname);
+    // Só limpa se houver o que limpar: em /trilhas/<slug>/ não há query, e
+    // reescrever o histórico por reescrever é ruído. O caminho não muda — a
+    // URL indexada continua sendo esta.
+    if (window.location.search) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
     // Precedência, do mais específico para o menos: um trecho identifica uma
     // coisa, uma trilha identifica uma sequência, um modo só diz por qual
     // porta a pessoa entrou. Um caminho vencedor só é mais fácil de testar
@@ -1159,6 +1177,7 @@ export default function App() {
               theme={theme}
               isMobile={isMobile}
               evangelhoData={evangelhoData}
+              evangelhoFailed={evangelhoFailed}
               onStudyTrecho={handleStudyTrecho}
             />
           )}
