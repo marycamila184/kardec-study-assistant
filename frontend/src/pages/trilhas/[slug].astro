@@ -25,6 +25,16 @@ export async function getStaticPaths() {
   // apontar para dentro de dist/ em vez de src/ — medido 2026-08-10, ENOENT
   // em dist/content/trilhas/. `astro dev` não expõe isso porque lá o módulo
   // não é empacotado.
+  //
+  // process.cwd() só funciona porque é o MESMO contrato que astro.config.mjs
+  // já assume: o Astro resolve a raiz do projeto a partir do cwd de onde
+  // `astro build`/`astro dev` roda, que é `frontend/` — nunca a raiz do
+  // monorepo. Isto tem de rodar com cwd = frontend/; um build disparado de
+  // outro diretório (um script na raiz do repo, por exemplo) já falharia
+  // alto no próprio Astro antes de chegar aqui, em vez de silenciosamente
+  // devolver uma lista de páginas vazia — é essa falha alta que torna este
+  // ancoramento seguro. Quem escrever um script de build a partir da raiz do
+  // repo precisa saber disso primeiro.
   const dir = join(process.cwd(), 'src/content/trilhas');
   return readdirSync(dir)
     .filter((nome) => nome.endsWith('.json'))

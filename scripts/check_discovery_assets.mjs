@@ -259,6 +259,29 @@ for (const familia of ['temas', 'trilhas']) {
           .map((p) => p.label);
         check(`${familia}/${slug}: todo trecho está no HTML servido`,
           ausentes.length === 0, `ausentes: ${ausentes.join(', ')}`);
+
+        // Deliberadamente adormecida hoje: nenhuma das seis trilhas curadas
+        // tem uma passagem com `part` (nenhuma vem de O Céu e o Inferno), então
+        // este laço não roda nenhuma vez em nenhum build atual. Existe porque
+        // a checagem em Python que cobria isso (test_deep_link_carries_the_part
+        // / test_deep_link_omits_an_absent_part, tests/test_discovery_render.py)
+        // guarda o `deep_link` de render.py, que desde a Fase 2 só serve
+        // temas — zero deles existem hoje. O deep link que a rota Astro
+        // realmente serve (deepLink em [slug].astro) ficou sem nenhuma
+        // checagem. Sem `part`, O Céu e o Inferno reinicia a numeração por
+        // parte e um deep link que o perde resolve, em silêncio, para a
+        // passagem errada (O PASSAMENTO em vez de O PORVIR E O NADA, por
+        // exemplo) — e nada na aplicação em execução expõe isso. Acende
+        // sozinha no dia em que uma trilha curada ganhar um passo de O Céu e
+        // o Inferno.
+        for (const p of trilha.passages) {
+          if (!p.part) continue;
+          // Mesma codificação que URLSearchParams produz em deepLink(): o
+          // espaço em "I PARTE" vira "+", não "%20".
+          const partParam = new URLSearchParams({ part: p.part }).toString();
+          check(`${familia}/${slug}: o deep link de "${p.label}" carrega part`,
+            servido.includes(partParam), `esperado "${partParam}" ausente do HTML`);
+        }
       }
     } else {
       // Um tema continua sendo página estática gerada pelo Python, sem app.
