@@ -236,6 +236,11 @@ export default function App() {
   // formas são exclusivas na prática (cada botão emite uma), e a precedência
   // abaixo é explícita para o caso de virem juntas.
   useEffect(() => {
+    // O Astro renderiza o texto indexável desta rota em #conteudo-estatico.
+    // A island é client:only, então esse bloco é o que o buscador lê; assim que
+    // o app monta, ele sai. É o único ponto em que o app sabe que o Astro
+    // existe, e vale mantê-lo num lugar só.
+    document.getElementById('conteudo-estatico')?.remove();
     const params = new URLSearchParams(window.location.search);
     const book = params.get('book');
     const itemNumber = params.get('item');
