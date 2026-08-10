@@ -114,7 +114,9 @@ def test_committed_pages_are_what_a_fresh_generation_produces(tmp_path):
 
     live = Path("frontend/public")
     differences = []
-    for family in ("temas", "trilhas"):
+    # Só "temas": as trilhas viraram rota Astro na Fase 2 e são guardadas por
+    # test_committed_trilha_json_is_what_a_fresh_generation_produces.
+    for family in ("temas",):
         fresh_slugs = _slugs(out / family)
         live_slugs = _slugs(live / family)
         if fresh_slugs != live_slugs:
@@ -142,9 +144,13 @@ def test_committed_pages_are_what_a_fresh_generation_produces(tmp_path):
 
 @needs_full_corpus
 def test_writes_a_page_per_trilha(tmp_path):
+    """Desde a Fase 2 uma trilha não escreve HTML em out_dir — só o JSON em
+    content_dir, que frontend/src/pages/trilhas/[slug].astro lê. out/trilhas/
+    não existe mais; a contagem certa está no content_dir.
+    """
     topics, _, out, content = _dirs(tmp_path)
     generate(FULL_CORPUS, topics, "data/paths", out, content)
-    trilhas = os.listdir(os.path.join(out, "trilhas"))
+    trilhas = [f for f in os.listdir(content) if f.endswith(".json")]
     assert len(trilhas) == len(
         [f for f in os.listdir("data/paths") if f.endswith(".json")]
     )
