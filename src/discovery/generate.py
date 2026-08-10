@@ -1,4 +1,5 @@
-"""Writes the static discovery pages into frontend/public/.
+"""Writes the discovery artefacts: the trilha content JSON the Astro route
+reads, plus the static tema pages under frontend/public/ and the sitemap.
 
 Build-time only, and its output is committed — Vite copies public/ into dist/
 verbatim, so nothing here runs at deploy time. Run it when content changes:
@@ -6,17 +7,20 @@ verbatim, so nothing here runs at deploy time. Run it when content changes:
     uv run python -m src.discovery.generate
 """
 
+import json
 import os
 import shutil
 
 from src.discovery.content import load_pages
 from src.discovery.corpus import load_corpus
+from src.discovery.export import trilha_content
 from src.discovery.render import render_page, render_sitemap
 
 JSON_DIR = "data/json_files"
 TOPICS_DIR = "data/topics"
 PATHS_DIR = "data/paths"
 OUT_DIR = "frontend/public"
+CONTENT_DIR = "frontend/src/content/trilhas"
 GENERATED = ("temas", "trilhas")
 
 
@@ -25,6 +29,7 @@ def generate(
     topics_dir: str = TOPICS_DIR,
     paths_dir: str = PATHS_DIR,
     out_dir: str = OUT_DIR,
+    content_dir: str = CONTENT_DIR,
 ) -> list[str]:
     index = load_corpus(json_dir)
     pages = load_pages(topics_dir, paths_dir, index)
@@ -35,6 +40,11 @@ def generate(
     # hand-written and must survive.
     for name in GENERATED:
         shutil.rmtree(os.path.join(out_dir, name), ignore_errors=True)
+    # Mesmo motivo, no lado novo: um slug renomeado deixaria o JSON antigo
+    # para trás, e getStaticPaths() construiria uma rota para uma trilha que
+    # data/paths/ não tem mais.
+    shutil.rmtree(content_dir, ignore_errors=True)
+    os.makedirs(content_dir, exist_ok=True)
 
     written = []
     for page in pages:
@@ -44,6 +54,15 @@ def generate(
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(render_page(page))
         written.append(filepath)
+
+        if page.kind == "trilha":
+            content = os.path.join(content_dir, f"{page.slug}.json")
+            with open(content, "w", encoding="utf-8") as f:
+                # ensure_ascii=False e indent=2: o arquivo é commitado e lido
+                # em diffs por uma pessoa.
+                json.dump(trilha_content(page), f, ensure_ascii=False, indent=2)
+                f.write("\n")
+            written.append(content)
 
     sitemap = os.path.join(out_dir, "sitemap.xml")
     with open(sitemap, "w", encoding="utf-8") as f:
