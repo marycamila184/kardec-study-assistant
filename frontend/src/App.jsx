@@ -170,6 +170,18 @@ export default function App({ trilha: trilhaProp = null }) {
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
   // ── UI State ────────────────────────────────────────────────────────────
+  // O banner de consentimento só sobe depois que a pessoa pede alguma coisa
+  // por vontade própria — digitar, ou clicar num chip que produz uma troca de
+  // chat. Chegar numa trilha, abrir o trecho do dia ou seguir um deep link são
+  // leitura, e leitura não é interrompida.
+  //
+  // Uma função só, chamada nos CINCO pontos de entrada iniciados pela pessoa, e
+  // scripts/check_consent_prompt.mjs para que um sexto não nasça sem ela: um
+  // handler que esquecer a chamada continua funcionando perfeitamente, só deixa
+  // de perguntar — que é exatamente a forma do bug que fez este repositório
+  // escrever check_chat_current_mode.mjs.
+  const [readerAsked, setReaderAsked] = useState(false);
+  const markReaderAsked = () => setReaderAsked(true);
   const [mode,          setMode]         = useState(null);
   const [input,         setInput]        = useState('');
   const [msgs,          setMsgs]         = useState([]);
@@ -414,6 +426,7 @@ export default function App({ trilha: trilhaProp = null }) {
 
   const sendText = async (txt) => {
     if (!txt) return;
+    markReaderAsked();
     const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: txt };
     const newMsgs = [...msgs, userMsg];
     setMsgs(newMsgs); setInput(''); setLoading(true);
@@ -535,6 +548,7 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── Quick action executor (shared across chat / guided / explorar) ────────
   const runQuickAction = async (label, msg, appendMsg, setLoad) => {
+    markReaderAsked();
     const quote = msg.obra?.quote || msg.ia || '';
     const snippet = quote.slice(0, 400);
     const epoch = threadEpochRef.current;
@@ -602,6 +616,7 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
   const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
+    markReaderAsked();
     const epoch = threadEpochRef.current;
     const append = (m) => { if (epoch === threadEpochRef.current) appendMsg(m); };
     append({ id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: displayText });
@@ -705,6 +720,7 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── Explorar Obras ────────────────────────────────────────────────────────
   const handleAskTopic = async (query, obraId) => {
+    markReaderAsked();
     const userMsg = { id: 'eu' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: query };
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
 
@@ -757,6 +773,7 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── Explorar Obras: free-text chat (appends to existing conversation) ────────
   const handleExplorarChat = async (query, obraId) => {
+    markReaderAsked();
     const userMsg = { id: 'eu' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: query };
     const prevMsgs = explorarMsgs;
     setExplorarMsgs([...prevMsgs, userMsg]);
@@ -1489,7 +1506,7 @@ export default function App({ trilha: trilhaProp = null }) {
           setEstudarSub('picker');
         }}
       />
-      <ConsentBanner theme={theme} />
+      <ConsentBanner theme={theme} show={readerAsked} />
       <Analytics />
       <SpeedInsights />
     </div>

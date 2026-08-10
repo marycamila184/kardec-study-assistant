@@ -13,10 +13,19 @@ import { hasAnswered, grantConsent, revokeConsent } from '../../services/consent
 // Aparece uma vez: respondido, a escolha fica em localStorage e ele não volta.
 // Quem quiser mudar de ideia vai em Configurações → Privacidade.
 //
+// QUANDO ele aparece é decisão de quem o monta, e não deste componente: o
+// `show` sobe na primeira vez que a pessoa pede alguma coisa — digitando ou
+// clicando num chip que produz uma troca de chat — e nunca na chegada. Medido
+// em produção em 2026-08-10: montado incondicionalmente, ele subia por cima do
+// trecho de quem tinha acabado de chegar de uma busca, e chegava a interceptar
+// o clique do onboarding. Quem só lê nunca é interrompido.
+//
+// Ver docs/superpowers/specs/2026-08-10-consentimento-sob-demanda-design.md
+//
 // Ver docs/superpowers/specs/2026-07-28-log-de-sessao-e-feedback-design.md
-export default function ConsentBanner({ theme }) {
+export default function ConsentBanner({ theme, show }) {
   const [dismissed, setDismissed] = useState(hasAnswered);
-  if (dismissed) return null;
+  if (dismissed || !show) return null;
 
   const decide = (fn) => () => {
     fn();
