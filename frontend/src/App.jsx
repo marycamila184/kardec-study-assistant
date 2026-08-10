@@ -253,7 +253,29 @@ export default function App({ trilha: trilhaProp = null }) {
     // A island é client:only, então esse bloco é o que o buscador lê; assim que
     // o app monta, ele sai. É o único ponto em que o app sabe que o Astro
     // existe, e vale mantê-lo num lugar só.
-    document.getElementById('conteudo-estatico')?.remove();
+    const estatico = document.getElementById('conteudo-estatico');
+    if (estatico) {
+      // Sair com transição, não com corte seco: medido em produção em
+      // 2026-08-10, o bloco fica ~320 ms na tela e é substituído de uma vez,
+      // o que lê como a página trocando de identidade na cara de quem chegou.
+      //
+      // O estilo é aplicado por JavaScript, e não por uma classe CSS, porque o
+      // bloco é renderizado por DUAS páginas Astro (index.astro e
+      // trilhas/[slug].astro) e cada uma escopa o próprio <style>. Uma classe
+      // exigiria a mesma regra nos dois arquivos, e a que fosse esquecida
+      // falharia em silêncio — a página funcionaria, só sem transição.
+      estatico.style.transition = 'opacity 150ms ease-out';
+      estatico.style.opacity = '0';
+      // Duas rotas para o mesmo fim, e a segunda é obrigatória: transitionend
+      // NÃO é garantido. Aba em segundo plano, prefers-reduced-motion, ou um
+      // navegador que decida não animar, e o evento nunca chega — o bloco
+      // ficaria empilhado sobre o app, que é pior do que o corte seco que esta
+      // mudança existe para consertar. `once: true` e a checagem de isConnected
+      // fazem a remoção ser idempotente entre os dois caminhos.
+      const remover = () => { if (estatico.isConnected) estatico.remove(); };
+      estatico.addEventListener('transitionend', remover, { once: true });
+      setTimeout(remover, 400);
+    }
     const params = new URLSearchParams(window.location.search);
     const book = params.get('book');
     const itemNumber = params.get('item');
