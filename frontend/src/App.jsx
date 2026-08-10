@@ -160,6 +160,12 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── API state ────────────────────────────────────────────────────────────
   const [evangelhoData, setEvangelhoData] = useState(null);
+  // Sem este estado, "ainda não chegou" e "não vai chegar" são o mesmo valor
+  // (null) e o card fica "Carregando…" para sempre. Medido em 2026-08-10: um
+  // preview esquecido servia o bundle de produção contra a API de produção, o
+  // CORS bloqueou /evangelho — corretamente — e o sintoma na tela não disse
+  // nada, o que fez a procura pela causa começar no lugar errado.
+  const [evangelhoFailed, setEvangelhoFailed] = useState(false);
   const [paths,         setPaths]         = useState([]);
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
@@ -208,7 +214,10 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── On-mount: fetch evangelho + paths ────────────────────────────────────
   useEffect(() => {
-    getEvangelho().then(setEvangelhoData).catch(() => {});
+    // O erro é registrado, não engolido: quem falha aqui é a rede ou o
+    // backend, e o card precisa poder dizer isso em vez de fingir que ainda
+    // está carregando.
+    getEvangelho().then(setEvangelhoData).catch(() => setEvangelhoFailed(true));
     getPaths()
       .then(setPaths)
       .catch(() => setPaths([]))
@@ -1168,6 +1177,7 @@ export default function App({ trilha: trilhaProp = null }) {
               theme={theme}
               isMobile={isMobile}
               evangelhoData={evangelhoData}
+              evangelhoFailed={evangelhoFailed}
               onStudyTrecho={handleStudyTrecho}
             />
           )}

@@ -30,7 +30,8 @@ import TrechoCard from './TrechoCard';
  * subtitle, the passage excerpt — uses `theme.text`.
  */
 export default function HomeLauncher({
-  onPick, theme, isMobile = false, evangelhoData = null, onStudyTrecho,
+  onPick, theme, isMobile = false, evangelhoData = null, evangelhoFailed = false,
+  onStudyTrecho,
 }) {
   return (
     <div style={{
@@ -96,6 +97,7 @@ export default function HomeLauncher({
           <TrechoCard
             theme={theme}
             evangelhoData={evangelhoData}
+            evangelhoFailed={evangelhoFailed}
             onStudyTrecho={onStudyTrecho}
             excerptChars={isMobile ? 110 : 170}
           />

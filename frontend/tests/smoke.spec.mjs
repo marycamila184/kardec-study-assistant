@@ -52,7 +52,13 @@ test('a rota de trilha entrega a trilha ao app, pela API', async ({ page }) => {
   // catch em CI — o rótulo do passo aparece uma segunda vez na tela, e sem
   // `.first()` isso é uma violação de strict mode, não uma falha limpa.
   await expect(page.getByText(trilha.steps[0].label).first()).toBeVisible({ timeout: 15_000 });
-  await expect(page.getByText(`1 de ${trilha.steps.length}`)).toBeVisible();
+  // `exact: true` pelo mesmo motivo do `.first()` acima, e medido em
+  // 2026-08-10: num ambiente COMPLETO o /study responde e o card do passo
+  // ganha o título "… · Passo 1 de 22", que também contém esta string. Em CI
+  // o /study falha e o texto do catch não a contém — então sem isto o teste
+  // passa em CI e quebra na máquina de quem tem índice e chave, que é o pior
+  // dos dois mundos: verde onde ninguém olha, vermelho onde alguém trabalha.
+  await expect(page.getByText(`1 de ${trilha.steps.length}`, { exact: true })).toBeVisible();
 
   const paths = respostas.find(([url]) => url.endsWith(`/paths/${SLUG}`));
   expect(paths, 'nenhuma chamada a /paths/<slug> saiu do navegador').toBeTruthy();
@@ -70,12 +76,37 @@ test('nenhuma chamada sai para um host que não seja a API configurada', async (
   await page.goto(`/trilhas/${SLUG}/`);
   await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
 
-  // fonts.googleapis.com e fonts.gstatic.com são as fontes do <head>. Qualquer
-  // outro host de terceiro aqui é uma chamada que ninguém pediu.
+  // fonts.googleapis.com e fonts.gstatic.com são as fontes do <head>.
+  // va.vercel-scripts.com é o @vercel/analytics que o App monta: fora da
+  // Vercel o /_vercel/insights/script.js dá 404 e ele cai nesse host, então a
+  // chamada aparece ou não conforme o tempo — deixá-la de fora fazia este
+  // teste passar por corrida, não por estar certo. Qualquer OUTRO host de
+  // terceiro aqui é uma chamada que ninguém pediu.
   const inesperados = [...hosts].filter(
-    (h) => !['localhost:4321', 'localhost:8000', 'fonts.googleapis.com', 'fonts.gstatic.com'].includes(h),
+    (h) => ![
+      'localhost:4321', 'localhost:8000',
+      'fonts.googleapis.com', 'fonts.gstatic.com',
+      'va.vercel-scripts.com',
+    ].includes(h),
   );
   expect(inesperados).toEqual([]);
+});
+
+test('uma falha no trecho do dia é dita, não fica carregando para sempre', async ({ page }) => {
+  // O sintoma que motivou este teste, medido em 2026-08-10: um `astro preview`
+  // esquecido servia o bundle de produção contra a API de produção, cujo CORS
+  // (corretamente) não lista localhost. O card ficou "Carregando trecho do
+  // dia…" para sempre, porque getEvangelho() engolia o erro no `.catch(() =>
+  // {})` e o card tratava "sem dado" como "ainda vindo".
+  //
+  // Uma falha silenciosa é pior que um erro: ela consome o tempo de quem
+  // procura a causa no lugar errado. Abortar a chamada aqui é o mesmo estado
+  // que CORS, backend fora do ar ou rede caída produzem no cliente.
+  await page.route('**/evangelho', (route) => route.abort());
+  await page.goto('/');
+
+  await expect(page.getByText('Não foi possível carregar o trecho de hoje.')).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByText('Carregando trecho do dia…')).toHaveCount(0);
 });
 
 test.describe('sem JavaScript', () => {
