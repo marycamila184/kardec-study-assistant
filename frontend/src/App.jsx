@@ -135,7 +135,11 @@ async function streamStudy(book, itemNumber, chapter, part, onPartial) {
   }
 }
 
-export default function App() {
+// `trilha` chega da rota /trilhas/<slug>/, onde a página É o app: o Astro
+// entrega o slug na montagem em vez de fazer a pessoa navegar para
+// /?trilha=<slug>. Na home a prop não existe e o parâmetro da URL continua
+// sendo a fonte — as duas formas convergem no mesmo efeito abaixo.
+export default function App({ trilha: trilhaProp = null }) {
 
   // ── Theme ───────────────────────────────────────────────────────────────
   const { darkMode, toggleDark, theme } = useTheme();
@@ -244,10 +248,15 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     const book = params.get('book');
     const itemNumber = params.get('item');
-    const trilhaId = params.get('trilha');
+    const trilhaId = trilhaProp || params.get('trilha');
     const modeParam = params.get('mode');
     if (!book && !itemNumber && !trilhaId && !modeParam) return;
-    window.history.replaceState({}, '', window.location.pathname);
+    // Só limpa se houver o que limpar: em /trilhas/<slug>/ não há query, e
+    // reescrever o histórico por reescrever é ruído. O caminho não muda — a
+    // URL indexada continua sendo esta.
+    if (window.location.search) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
     // Precedência, do mais específico para o menos: um trecho identifica uma
     // coisa, uma trilha identifica uma sequência, um modo só diz por qual
     // porta a pessoa entrou. Um caminho vencedor só é mais fácil de testar
