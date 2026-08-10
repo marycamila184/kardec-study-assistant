@@ -78,3 +78,4 @@ jobs:
           node scripts/check_cited_text.mjs
           node scripts/check_followup_reply.mjs
           node scripts/check_discovery_assets.mjs
+          node scripts/check_api_base.mjs
