@@ -265,6 +265,12 @@ export default function App({ trilha: trilhaProp = null }) {
       // exigiria a mesma regra nos dois arquivos, e a que fosse esquecida
       // falharia em silêncio — a página funcionaria, só sem transição.
       estatico.style.transition = 'opacity 150ms ease-out';
+      // Forçar o navegador a computar o estilo "antes" com a transição já
+      // registrada; sem isso, `transition` e `opacity` chegam no mesmo
+      // frame, o navegador nunca vê um antes/depois e não anima nada — o
+      // bloco fica opaco até o setTimeout de segurança arrancá-lo, o que é
+      // pior que o corte seco original (o mesmo corte, 400ms mais tarde).
+      void estatico.offsetHeight;
       estatico.style.opacity = '0';
       // Duas rotas para o mesmo fim, e a segunda é obrigatória: transitionend
       // NÃO é garantido. Aba em segundo plano, prefers-reduced-motion, ou um
