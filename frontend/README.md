@@ -12,7 +12,7 @@ The `reference/` folder contains the original **HTML design prototype** — kept
 
 ## Tech Stack
 - React 18 with hooks
-- Vite 5 (build tool)
+- Astro 7 (build and static routing) + `@astrojs/react` — `App.jsx` mounts as an island (`client:only="react"`) because `useTheme`'s initializer reads `localStorage`, which does not exist at build/SSR time
 - No CSS framework — inline `style={{...}}` objects with light/dark theme token objects (`src/constants/theme.js`)
 - localStorage for persistence (no backend session/auth)
 - `fetch` for API calls (`src/services/api.js`)
@@ -58,7 +58,7 @@ sideBg (dark): '#1B3248'
 
 ### Typography
 ```css
-/* Import in index.html or CSS */
+/* Imported in the <head> of frontend/src/layouts/Base.astro, not a hand-placed index.html */
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
 
 /* Body */       font-family: 'DM Sans', system-ui, sans-serif;
@@ -120,6 +120,9 @@ sideBg (dark): '#1B3248'
 
 ---
 
+## Pages / Routes
+Astro owns routing; there is no client-side router. `pages/index.astro` and `pages/trilhas/[slug].astro` both mount the `App` island (`client:only="react"`) — `/` with no `trilha` prop, `/trilhas/<slug>/` with one, read at build time from `frontend/src/content/trilhas/<slug>.json`. `pages/sobre.astro` is the one page that does not mount the island and must never gain a `<script>` — see the discovery-assets rule in the repo's `CLAUDE.md`.
+
 ## Component Architecture
 Actual current tree (see `src/` for implementations):
 
@@ -171,7 +174,7 @@ There is no `QuickActions.jsx` or `EmptyState.jsx` — those pieces live inline 
 ---
 
 ## API Integration
-All backend calls go through `src/services/api.js`, which wraps `fetch` and maps each endpoint's raw JSON into the shape the UI components expect. Base URL: `import.meta.env.VITE_API_URL || 'http://localhost:8000'`.
+All backend calls go through `src/services/api.js`, which wraps `fetch` and maps each endpoint's raw JSON into the shape the UI components expect. Base URL: `import.meta.env.PUBLIC_API_URL`, falling back to the production Cloud Run URL in a production build or `http://localhost:8000` otherwise. This used to read `VITE_API_URL` — Astro only exposes client-side variables prefixed `PUBLIC_`, not `VITE_`, and that line shipped broken on 2026-08-09: the variable came back `undefined`, the `localhost` fallback won, and every visitor's browser tried to talk to their own machine. See the comment above `BASE` in `src/services/api.js` for the full account, and `scripts/check_api_base.mjs`, which now fails the build if `localhost` reappears in the bundle.
 
 ```js
 // src/services/api.js (actual functions)
