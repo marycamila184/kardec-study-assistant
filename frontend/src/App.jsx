@@ -170,10 +170,19 @@ export default function App({ trilha: trilhaProp = null }) {
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
   // ── UI State ────────────────────────────────────────────────────────────
-  // O banner de consentimento só sobe depois que a pessoa pede alguma coisa
-  // por vontade própria — digitar, ou clicar num chip que produz uma troca de
-  // chat. Chegar numa trilha, abrir o trecho do dia ou seguir um deep link são
-  // leitura, e leitura não é interrompida.
+  // O banner de consentimento sobe quando a PRIMEIRA troca que a pessoa
+  // iniciou por vontade própria TERMINA — não no clique que a começa. Cada
+  // chamador faz isso em `finally` (ou equivalente), para subir também quando
+  // o pedido falha: uma resposta que deu errado ainda é uma conversa que a
+  // pessoa começou, e o consentimento não pode depender do backend ter tido
+  // sucesso. Duas razões para não subir no início: o banner cobriria a
+  // composer que a pessoa acabou de usar e parte da resposta enquanto ela
+  // ainda chega — a mesma interceptação que esta mudança existia para tirar,
+  // só deslocada do onboarding para a caixa de texto — e perguntar depois que
+  // a pessoa já viu uma resposta é um consentimento mais bem informado do que
+  // perguntar antes de qualquer troca ter acontecido. Chegar numa trilha,
+  // abrir o trecho do dia ou seguir um deep link continuam sendo leitura, e
+  // leitura não é interrompida.
   //
   // Uma função só, chamada nos CINCO pontos de entrada iniciados pela pessoa, e
   // scripts/check_consent_prompt.mjs para que um sexto não nasça sem ela: um
@@ -267,6 +276,18 @@ export default function App({ trilha: trilhaProp = null }) {
     // existe, e vale mantê-lo num lugar só.
     const estatico = document.getElementById('conteudo-estatico');
     if (estatico) {
+      const remover = () => { if (estatico.isConnected) estatico.remove(); };
+      // O navegador não desativa transições sozinho por prefers-reduced-motion
+      // — só CSS autoral faz isso, e nada aqui fazia até esta linha. Sem esta
+      // checagem, quem pediu menos movimento recebia o fade normalmente,
+      // apesar do que o comentário abaixo dizia. Honrar a preferência é
+      // remover na hora, sem transição — o `setTimeout` de segurança do
+      // caminho animado seria só um atraso de 400ms sem propósito aqui.
+      const reduzMovimento = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      if (reduzMovimento) {
+        remover();
+        return;
+      }
       // Sair com transição, não com corte seco: medido em produção em
       // 2026-08-10, o bloco fica ~320 ms na tela e é substituído de uma vez,
       // o que lê como a página trocando de identidade na cara de quem chegou.
@@ -285,13 +306,20 @@ export default function App({ trilha: trilhaProp = null }) {
       void estatico.offsetHeight;
       estatico.style.opacity = '0';
       // Duas rotas para o mesmo fim, e a segunda é obrigatória: transitionend
-      // NÃO é garantido. Aba em segundo plano, prefers-reduced-motion, ou um
-      // navegador que decida não animar, e o evento nunca chega — o bloco
-      // ficaria empilhado sobre o app, que é pior do que o corte seco que esta
-      // mudança existe para consertar. `once: true` e a checagem de isConnected
-      // fazem a remoção ser idempotente entre os dois caminhos.
-      const remover = () => { if (estatico.isConnected) estatico.remove(); };
-      estatico.addEventListener('transitionend', remover, { once: true });
+      // NÃO é garantido — aba em segundo plano ou um navegador que decida não
+      // animar, e o evento nunca chega — o bloco ficaria empilhado sobre o
+      // app, que é pior do que o corte seco que esta mudança existe para
+      // consertar. A checagem de isConnected dentro de `remover` faz a
+      // remoção ser idempotente entre os dois caminhos.
+      //
+      // `transitionend` sobe (bubbles): sem checar `event.target`, uma futura
+      // transição CSS em qualquer descendente de #conteudo-estatico dispararia
+      // este listener antes da hora, e SEM `once: true` ele dispararia de novo
+      // a cada uma — por isso o alvo é checado explicitamente aqui em vez de
+      // confiar em `once` para descartar o evento errado.
+      estatico.addEventListener('transitionend', (e) => {
+        if (e.target === estatico) remover();
+      });
       setTimeout(remover, 400);
     }
     const params = new URLSearchParams(window.location.search);
@@ -426,7 +454,6 @@ export default function App({ trilha: trilhaProp = null }) {
 
   const sendText = async (txt) => {
     if (!txt) return;
-    markReaderAsked();
     const userMsg = { id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: txt };
     const newMsgs = [...msgs, userMsg];
     setMsgs(newMsgs); setInput(''); setLoading(true);
@@ -489,6 +516,11 @@ export default function App({ trilha: trilhaProp = null }) {
       if (requestId !== requestIdRef.current) return;
       setMsgs([...newMsgs, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
+      // Sobe o banner aqui, na conclusão da troca — não no envio — e
+      // incondicionalmente a requestId, porque mesmo uma resposta descartada
+      // (a pessoa trocou de modo enquanto ela chegava) ainda foi um pedido que
+      // a pessoa fez. Ver a nota em readerAsked/markReaderAsked acima.
+      markReaderAsked();
       if (requestId === requestIdRef.current) {
         setLoading(false);
         scrollToBottom();
@@ -548,7 +580,6 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── Quick action executor (shared across chat / guided / explorar) ────────
   const runQuickAction = async (label, msg, appendMsg, setLoad) => {
-    markReaderAsked();
     const quote = msg.obra?.quote || msg.ia || '';
     const snippet = quote.slice(0, 400);
     const epoch = threadEpochRef.current;
@@ -602,6 +633,10 @@ export default function App({ trilha: trilhaProp = null }) {
       console.error('runQuickAction failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
+      // Só as ações que de fato pedem algo (💡 Explicar simples) chegam até
+      // aqui — 📄 Ler original e 📚 Relacionados voltam mais cedo (acima), sem
+      // request nenhum, porque reler o que já está na tela não é um pedido.
+      markReaderAsked();
       setLoad(false);
       scrollToBottom();
     }
@@ -616,7 +651,6 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── In-context "Tenho uma dúvida" (Guided/Explorar) ────────────────────────
   const askDuvida = async (displayText, queryText, appendMsg, setLoad, bookFilter = null) => {
-    markReaderAsked();
     const epoch = threadEpochRef.current;
     const append = (m) => { if (epoch === threadEpochRef.current) appendMsg(m); };
     append({ id: 'u' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: displayText });
@@ -635,6 +669,7 @@ export default function App({ trilha: trilhaProp = null }) {
       console.error('askDuvida failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
+      markReaderAsked();
       setLoad(false);
       scrollToBottom();
     }
@@ -720,7 +755,6 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── Explorar Obras ────────────────────────────────────────────────────────
   const handleAskTopic = async (query, obraId) => {
-    markReaderAsked();
     const userMsg = { id: 'eu' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: query };
     setExplorarMsgs([userMsg]); setExplorarLoad(true);
 
@@ -757,6 +791,7 @@ export default function App({ trilha: trilhaProp = null }) {
         reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
       }
     } finally {
+      markReaderAsked();
       setExplorarLoad(false);
     }
 
@@ -773,7 +808,6 @@ export default function App({ trilha: trilhaProp = null }) {
 
   // ── Explorar Obras: free-text chat (appends to existing conversation) ────────
   const handleExplorarChat = async (query, obraId) => {
-    markReaderAsked();
     const userMsg = { id: 'eu' + Date.now(), ts: Date.now(), isUser: true, isAI: false, text: query };
     const prevMsgs = explorarMsgs;
     setExplorarMsgs([...prevMsgs, userMsg]);
@@ -802,6 +836,10 @@ export default function App({ trilha: trilhaProp = null }) {
       reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
     }
 
+    // O catch acima já engole o erro (não relança), então este ponto é
+    // alcançado tanto no sucesso quanto na falha — é a conclusão da troca, o
+    // equivalente a um `finally` sem precisar de um.
+    markReaderAsked();
     setExplorarLoad(false);
     const aiMsg = { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
     const updatedMsgs = [...prevMsgs, userMsg, aiMsg];
@@ -898,6 +936,14 @@ export default function App({ trilha: trilhaProp = null }) {
     thread.slice(0, idx).reverse().find(m => m.isUser)?.text;
 
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
+  // Two callers: the deep-link effect near the top (app-generated, from a
+  // static discovery page) and the mode-nudge button built in buildModeNudge
+  // above (a person clicking "📖 Estudar ... na íntegra"). It stays in
+  // NAO_PEDE in scripts/check_consent_prompt.mjs despite the second, person-
+  // initiated caller — that click sits on a reply already produced by
+  // sendText/askDuvida/handleAskTopic/handleExplorarChat, each of which asked
+  // (or will ask, on completion) for the turn that produced the nudge. Asking
+  // again here would be a second prompt for the same conversation.
   const handleGoStudyItem = async (source) => {
     setMode('estudar'); setEstudarSub('explorar');
     const label = formatSourceRef({
@@ -927,6 +973,43 @@ export default function App({ trilha: trilhaProp = null }) {
       setExplorarMsgs([userMsg, { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
       setExplorarLoad(false);
+    }
+  };
+
+  // ── Related-items modal: open one of the listed passages ─────────────────
+  // A person clicking a row in RelatedItemsModal — the modal itself only lists
+  // what buildModeNudge/runQuickAction's "📚 Relacionados" already put on
+  // screen; opening one is a new request the person chose to make, same as
+  // "Tenho uma dúvida" or a topic chip. Named (rather than inline in the JSX)
+  // so scripts/check_consent_prompt.mjs's `corpo()` — which only matches
+  // `const <nome> = ` — can see it at all.
+  const handleSelectRelatedItem = async (item, appendMsg, setLoad) => {
+    setRelatedModal(null);
+    setLoad(true);
+    scrollToBottom();
+    try {
+      // One id for every frame: appendMsg upserts, so the streaming
+      // answer is rewritten in place instead of stacking one message
+      // per token.
+      const msgId = 'a' + Date.now();
+      const reply = await streamStudy(
+        item.book, item.item_number, item.chapter || null, item.part || null,
+        (partial) => {
+          setLoad(false);
+          appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...partial });
+        },
+      );
+      appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...reply });
+    } catch (err) {
+      console.error('handleSelectRelatedItem failed:', err);
+      appendMsg({
+        id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true,
+        hasDaObra: false, obra: null, ia: 'Não foi possível carregar este item.',
+      });
+    } finally {
+      markReaderAsked();
+      setLoad(false);
+      scrollToBottom();
     }
   };
 
@@ -1462,35 +1545,8 @@ export default function App({ trilha: trilhaProp = null }) {
           modal={relatedModal}
           theme={theme}
           onClose={() => setRelatedModal(null)}
-          onSelectItem={async (item) => {
-            const { appendMsg, setLoad } = relatedModal;
-            setRelatedModal(null);
-            setLoad(true);
-            scrollToBottom();
-            try {
-              // One id for every frame: appendMsg upserts, so the streaming
-              // answer is rewritten in place instead of stacking one message
-              // per token.
-              const msgId = 'a' + Date.now();
-              const reply = await streamStudy(
-                item.book, item.item_number, item.chapter || null, item.part || null,
-                (partial) => {
-                  setLoad(false);
-                  appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...partial });
-                },
-              );
-              appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...reply });
-            } catch (err) {
-              console.error('RelatedItemsModal onSelectItem failed:', err);
-              appendMsg({
-                id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true,
-                hasDaObra: false, obra: null, ia: 'Não foi possível carregar este item.',
-              });
-            } finally {
-              setLoad(false);
-              scrollToBottom();
-            }
-          }}
+          onSelectItem={(item) =>
+            handleSelectRelatedItem(item, relatedModal.appendMsg, relatedModal.setLoad)}
         />
       )}
       <TrilhaCompleteModal
