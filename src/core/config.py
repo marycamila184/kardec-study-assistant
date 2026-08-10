@@ -172,7 +172,13 @@ class Settings(BaseSettings):
     chroma_collection: str = "kardec_docs"
     json_dir: str = "data/json_files"
     paths_dir: str = "data/paths"
-    cors_allowed_origins: str = "http://localhost:5173"
+    # 4321 é a porta do Astro (dev e preview), fixada em frontend/astro.config.mjs.
+    # Era 5173, a do Vite, e ficou para trás na migração de 2026-08-09: o front
+    # subia, o backend subia, e toda chamada morria num OPTIONS 400 — o preflight
+    # do CORS recusando uma origem que ninguém tinha atualizado. Produção não usa
+    # este default (CORS_ALLOWED_ORIGINS vem do deploy), então só quem desenvolve
+    # sente, e sem mensagem que aponte para aqui.
+    cors_allowed_origins: str = "http://localhost:4321"
 
     @property
     def cors_allowed_origins_list(self) -> list[str]:

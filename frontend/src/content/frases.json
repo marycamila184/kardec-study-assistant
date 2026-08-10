@@ -1,0 +1,9 @@
+{
+  "o_que_e": "Um assistente de estudo das obras de Allan Kardec. Você pergunta com as suas palavras e ele procura a resposta dentro das obras, mostrando de onde ela veio: a obra, o capítulo e o número da questão ou do item.",
+  "nao_substitui": "Não substitui a leitura das obras nem o estudo em grupo.",
+  "pode_errar": "Ele pode errar.",
+  "separado_da_ia": "O que veio da obra aparece separado do que veio da inteligência artificial: o trecho de um lado, a explicação do outro.",
+  "so_estas_obras": "Todas as respostas saem destas cinco obras, e de nenhuma outra fonte:",
+  "nao_encontrei": "Uma pergunta que as obras não tratam recebe um “não encontrei”, não uma resposta inventada.",
+  "independente": "Projeto independente, feito por quem estuda a doutrina. Sem fins comerciais, sem publicidade e sem cadastro."
+}

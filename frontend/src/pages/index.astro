@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import App from '../App.jsx';
+import frases from '../content/frases.json';
+
+const OBRAS = [
+  'O Livro dos Espíritos',
+  'O Livro dos Médiuns',
+  'O Evangelho Segundo o Espiritismo',
+  'O Céu e o Inferno',
+  'A Gênese',
+];
+---
+<Base
+  title="Dialogando com a Doutrina — assistente de estudo com IA nas obras de Allan Kardec"
+  description="Um assistente de estudo que busca respostas diretamente nas obras da Codificação Espírita, sempre indicando a questão e a obra de origem. Gratuito e sem fins comerciais."
+  canonical="https://dialogandodoutrina.com.br/"
+  ogTitle="Dialogando com a Doutrina"
+  ogDescription="Tire dúvidas sobre a Doutrina Espírita com respostas baseadas nas obras de Allan Kardec, com a fonte sempre citada."
+>
+  {/* Este bloco é o único texto que um buscador lê nesta rota: a island é
+      client:only, então o Astro não emite nada do app no HTML. Ele é removido
+      assim que o app monta — o leitor vê o app, o robô vê isto, e os dois
+      dizem a mesma coisa. */}
+  <div id="conteudo-estatico">
+    <h1>Dialogando com a Doutrina</h1>
+    <p>{frases.o_que_e}</p>
+    <p>{frases.separado_da_ia}</p>
+    <p>{frases.nao_encontrei}</p>
+    <h2>{frases.so_estas_obras}</h2>
+    <ul>{OBRAS.map((obra) => <li>{obra}</li>)}</ul>
+    <p>{frases.nao_substitui} {frases.pode_errar}</p>
+    <p>{frases.independente}</p>
+    <p><a href="/sobre/">Sobre o projeto &rarr;</a></p>
+  </div>
+
+  <App client:only="react" />
+</Base>
+
+<style>
+  /* O app gerencia a própria rolagem e globals.css põe overflow:hidden em
+     html/body por causa disso. Este bloco é o texto que o buscador lê e que
+     alguém sem JavaScript precisa conseguir ler até o fim, então ele rola
+     sozinho em vez de destravar a página inteira. App.jsx o remove ao montar. */
+  #conteudo-estatico { max-height: 100dvh; overflow: auto; padding: 24px; }
+</style>

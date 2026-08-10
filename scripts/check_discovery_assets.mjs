@@ -10,6 +10,20 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 const HOST = 'https://dialogandodoutrina.com.br';
 const MAX_PNG_BYTES = 300 * 1024;
 
+// A guarda lê o artefato construído, não a fonte.
+//
+// Desde a migração para Astro a fonte é um template (.astro), e as meta tags
+// só existem como HTML depois do build. Conferir o que a Vercel realmente
+// serve é mais forte do que conferir o que a gente escreveu — mas custa uma
+// dependência de ordem: `npm run build` antes desta guarda, sempre.
+const DIST = 'frontend/dist';
+
+if (!existsSync(DIST)) {
+  console.log(`FALHA ${DIST} não existe`);
+  console.log('   rode `cd frontend && npm run build` antes desta guarda');
+  process.exit(1);
+}
+
 let falhou = false;
 const check = (label, ok, detalhe = '') => {
   console.log(`${ok ? 'OK  ' : 'FALHA'} ${label}`);
@@ -25,11 +39,30 @@ const ler = (caminho) => {
   }
 };
 
-// --- index.html: as meta tags ---
-const index = ler('frontend/index.html');
-check('frontend/index.html existe', index !== null);
+// As frases vivem em frontend/src/content/frases.json e alimentam a home e a
+// Sobre (ambas Astro). Lidas uma vez aqui e reusadas nas duas checagens
+// abaixo.
+const frases = JSON.parse(
+  readFileSync('frontend/src/content/frases.json', 'utf8'));
+
+// --- index.html: as meta tags e o corpo estático ---
+const index = ler(`${DIST}/index.html`);
+check(`${DIST}/index.html existe`, index !== null);
 
 if (index) {
+  // O bloco #conteudo-estatico é o único texto que um buscador lê nesta
+  // rota: a island é client:only, então o Astro não emite nada do app no
+  // HTML. Apagar o bloco, renomear uma chave de frases.json ou perder uma
+  // expressão no meio de uma edição de estilo derruba a home de volta para
+  // uma página sem corpo — em silêncio, com todo o resto verde.
+  check('a home tem <title> com "IA"', /<title>[^<]*IA[^<]*<\/title>/.test(index));
+  check('a home tem o bloco id="conteudo-estatico"',
+    index.includes('id="conteudo-estatico"'));
+  for (const [chave, valor] of Object.entries(frases)) {
+    check(`a home tem a frase "${chave}" de frases.json`,
+      index.includes(valor), `frase ausente: ${valor}`);
+  }
+
   const tag = (nome, attr = 'property') =>
     index.match(new RegExp(`<meta\\s+${attr}="${nome}"\\s+content="([^"]*)"`, 'i'))?.[1] ?? null;
 
@@ -63,14 +96,14 @@ if (index) {
 
 // --- preview.png: dimensões e peso ---
 // Lê o cabeçalho IHDR do PNG: largura e altura são big-endian nos bytes 16..24.
-const PNG = 'frontend/public/preview.png';
+const PNG = `${DIST}/preview.png`;
 let png = null;
 try {
   png = readFileSync(PNG);
 } catch {
   /* ausente — o check abaixo reporta */
 }
-check('frontend/public/preview.png existe', png !== null);
+check(`${DIST}/preview.png existe`, png !== null);
 
 if (png) {
   const largura = png.readUInt32BE(16);
@@ -83,8 +116,8 @@ if (png) {
 }
 
 // --- a página Sobre ---
-const sobre = ler('frontend/public/sobre/index.html');
-check('frontend/public/sobre/index.html existe', sobre !== null);
+const sobre = ler(`${DIST}/sobre/index.html`);
+check(`${DIST}/sobre/index.html existe`, sobre !== null);
 
 if (sobre) {
   // O ponto inteiro da página é ser lida antes de qualquer bundle carregar.
@@ -99,6 +132,46 @@ if (sobre) {
     sobre.includes(`href="${HOST}/sobre/"`));
   check('og:url da página Sobre também tem barra final',
     sobre.includes(`property="og:url" content="${HOST}/sobre/"`));
+
+  // A Sobre virou frontend/src/pages/sobre.astro e passou a ler as frases de
+  // frases.json (`{frases.chave}`) em vez de copiar o texto à mão. O teste
+  // Python (tests/test_discovery_render.py) confere que a FONTE referencia o
+  // JSON — mas isso não prova que o Astro realmente interpola o valor: uma
+  // chave renomeada, uma falha silenciosa de interpolação ou uma edição de
+  // template que derruba a expressão passariam por aquele teste e ainda
+  // assim publicariam uma Sobre sem a própria frase. Esta guarda lê o HTML
+  // CONSTRUÍDO e confere o texto de verdade — comportamental onde a outra é
+  // estrutural, e juntas cobrem os dois sentidos.
+  for (const [chave, valor] of Object.entries(frases)) {
+    check(`a página Sobre tem a frase "${chave}" de frases.json`,
+      sobre.includes(valor), `frase ausente: ${valor}`);
+  }
+
+  // A página Sobre destrava o overflow:hidden que globals.css põe em
+  // html/body para o app, com uma regra `:global(html), :global(body)` de
+  // mesma especificidade. Ela só vence porque o Astro emite o CSS global
+  // importado ANTES do bloco <style> da página — comportamento documentado,
+  // mas não garantido por nada além da ordem de emissão. Se uma migração de
+  // integração inverter essa ordem, a última declaração de overflow dentro
+  // da regra html,body vira "hidden" e a página trava no primeiro scroll,
+  // sem quebrar nenhum outro sinal visível. Esta checagem lê o CSS
+  // construído e falha se a ORDEM se inverter.
+  // Há DUAS regras "html,body" no CSS construído: a de globals.css (hidden,
+  // para o app) e a desta página (auto). Mesma especificidade — quem vence é
+  // a que aparece por último no documento. Por isso a checagem varre TODAS
+  // as regras html,body em ordem e olha a última declaração overflow entre
+  // todas elas, não só a da primeira regra que casar.
+  const regrasHtmlBody = [...sobre.matchAll(/html\s*,\s*body\s*\{([^}]*)\}/g)];
+  if (regrasHtmlBody.length > 0) {
+    const declaracoesOverflow = regrasHtmlBody
+      .flatMap(m => [...m[1].matchAll(/overflow\s*:\s*([a-z]+)/g)].map(d => d[1]));
+    const ultima = declaracoesOverflow[declaracoesOverflow.length - 1] ?? null;
+    check('a última declaração overflow entre as regras html,body é "auto"',
+      ultima === 'auto',
+      `obtido: ${ultima} (declarações, em ordem: ${declaracoesOverflow.join(', ')})`);
+  } else {
+    check('a página Sobre tem uma regra html,body no CSS construído', false);
+  }
 }
 
 // --- os links internos para /sobre/: a barra final tem que sobreviver aqui
@@ -122,15 +195,15 @@ if (settingsPanel) {
 }
 
 // --- robots e sitemap ---
-const robots = ler('frontend/public/robots.txt');
-check('frontend/public/robots.txt existe', robots !== null);
+const robots = ler(`${DIST}/robots.txt`);
+check(`${DIST}/robots.txt existe`, robots !== null);
 if (robots) {
   check('robots.txt aponta para o sitemap',
     robots.includes(`Sitemap: ${HOST}/sitemap.xml`));
 }
 
-const sitemap = ler('frontend/public/sitemap.xml');
-check('frontend/public/sitemap.xml existe', sitemap !== null);
+const sitemap = ler(`${DIST}/sitemap.xml`);
+check(`${DIST}/sitemap.xml existe`, sitemap !== null);
 if (sitemap) {
   check('sitemap lista a home', sitemap.includes(`<loc>${HOST}/</loc>`));
   check('sitemap lista /sobre/', sitemap.includes(`<loc>${HOST}/sobre/</loc>`));
@@ -142,7 +215,7 @@ if (sitemap) {
 // sitemap sem arquivo é um 404 que só o buscador vê.
 const paginasGeradas = [];
 for (const familia of ['temas', 'trilhas']) {
-  const raiz = `frontend/public/${familia}`;
+  const raiz = `${DIST}/${familia}`;
   if (!existsSync(raiz)) {
     // temas/ só existe quando houver algum tema curado; trilhas/ é obrigatório.
     if (familia === 'trilhas') {
@@ -168,6 +241,51 @@ for (const familia of ['temas', 'trilhas']) {
     check(`${familia}/${slug} não aponta para a URL da Vercel`,
       !html.includes('kardec-study-assistant.vercel.app'));
     check(`${familia}/${slug} tem <h1>`, /<h1>/i.test(html));
+
+    // As portas: o motivo de a página ser uma entrada e não um beco. Somem
+    // numa edição de estilo sem quebrar nada visível.
+    check(`${familia}/${slug} tem a porta do Dialogar`,
+      html.includes(`href="${HOST}/?mode=duvida"`));
+
+    // O cabeçalho: quem chega de uma busca não sabe o que é este site, e a
+    // única página que explica está a um link de rodapé de distância.
+    check(`${familia}/${slug} tem o cabeçalho do projeto`,
+      html.includes('class="cabecalho"'));
+    check(`${familia}/${slug} diz o que o projeto é`,
+      html.includes('Um assistente de estudo das obras de Allan Kardec.'));
+    // A checagem acima passaria com só a primeira frase, se a segunda fosse
+    // cortada em silêncio — esta pega o rabo dela.
+    check(`${familia}/${slug} diz que a resposta vem com a fonte`,
+      html.includes('o número da questão ou do item.'));
+    check(`${familia}/${slug} avisa que pode errar`,
+      html.includes('Ele pode errar.'));
+
+    // Exatamente um trecho aberto. Zero é uma página que parece vazia; dois
+    // desfazem metade do motivo de recolher.
+    const abertos = (html.match(/<details class="passagem" open>/g) || []).length;
+    check(`${familia}/${slug} tem exatamente um trecho aberto`,
+      abertos === 1, `obtido: ${abertos}`);
+
+    // Um <details> por trecho: o link "Abrir no app" é emitido uma vez por
+    // trecho, então os dois números têm de bater. Pega um trecho que perdeu
+    // o seu invólucro numa edição de estilo.
+    const detalhes = (html.match(/<details class="passagem"/g) || []).length;
+    const links = (html.match(/class="abrir"/g) || []).length;
+    check(`${familia}/${slug}: um trecho recolhido por link de abrir`,
+      detalhes === links && detalhes > 0, `details: ${detalhes}, links: ${links}`);
+
+    if (familia === 'trilhas') {
+      check(`${familia}/${slug} tem a porta da trilha, com o slug do diretório`,
+        html.includes(`href="${HOST}/?trilha=${slug}"`));
+      // O botão Estudar só funciona enquanto o slug for o id da trilha.
+      // Renomear um data/paths/*.json e regenerar produz uma página perfeita
+      // com um botão que cai no picker — falha silenciosa clássica aqui.
+      check(`data/paths/${slug}.json existe (o botão Estudar depende do id)`,
+        existsSync(`data/paths/${slug}.json`));
+    } else {
+      check(`${familia}/${slug} (tema) não oferece ?trilha=`,
+        !html.includes('?trilha='));
+    }
   }
 }
 
@@ -184,7 +302,7 @@ if (sitemap) {
     const relativo = url.replace(`${HOST}/`, '');
     if (!relativo.startsWith('temas/') && !relativo.startsWith('trilhas/')) continue;
     check(`a entrada ${url} tem arquivo`,
-      existsSync(`frontend/public/${relativo}index.html`));
+      existsSync(`${DIST}/${relativo}index.html`));
   }
 }
 
@@ -198,6 +316,15 @@ if (app) {
   check('App.jsx lê os parâmetros do deep link',
     app.includes('URLSearchParams') && app.includes("params.get('item')"));
   check('o deep link carrega part', app.includes("params.get('part')"));
+  check('App.jsx lê o parâmetro de trilha', app.includes("params.get('trilha')"));
+  check('App.jsx lê o parâmetro de modo', app.includes("params.get('mode')"));
+  // Ler o parâmetro não basta: a versão que esta guarda deixou passar lia
+  // ?trilha= e chamava startTrilha sem entrar em Estudar, então a trilha
+  // carregava por baixo da tela inicial. Prende o parâmetro à ação.
+  check('a trilha do deep link entra no modo estudar e começa a trilha',
+    /trilhaId[\s\S]{0,400}switchMode\('estudar'\)[\s\S]{0,400}startTrilha\(/.test(app));
+  check('o modo do deep link chama switchMode',
+    /modeParam ===[\s\S]{0,200}switchMode\(modeParam\)/.test(app));
 }
 
 process.exit(falhou ? 1 : 0);

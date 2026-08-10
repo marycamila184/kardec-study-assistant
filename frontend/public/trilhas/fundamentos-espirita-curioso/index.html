@@ -41,19 +41,51 @@
     line-height: 1.65;
   }
   main { max-width: 42rem; margin: 0 auto; }
+  .cabecalho {
+    max-width: 42rem; margin: 0 auto 2rem; padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--borda);
+  }
+  .cabecalho-nome {
+    font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
+    font-size: 1.15rem; color: var(--texto); text-decoration: none;
+    display: inline-block; margin-bottom: .6rem;
+  }
+  .cabecalho p { margin: 0 0 .5rem; color: var(--suave); font-size: .93rem; }
+  .cabecalho-limites { color: var(--tenue); font-size: .88rem; }
+  .cabecalho-mais {
+    color: var(--azul); text-decoration: none; font-size: .88rem;
+  }
+  .cabecalho-mais:hover { text-decoration: underline; }
   h1 {
     font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
     font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem;
   }
-  .intro { color: var(--suave); margin: 0 0 2.5rem; }
+  .intro { color: var(--suave); margin: 0 0 1.5rem; }
+  /* O cartão da home do app: mesmo fundo, borda, raio e espaçamento que
+     HomeLauncher usa, para a página ser reconhecivelmente a mesma casa. */
+  .portas { display: flex; flex-direction: column; gap: .75rem; margin: 0 0 2.5rem; }
+  .porta {
+    display: flex; align-items: center; gap: .9rem;
+    background: var(--cartao); border: 1px solid var(--borda);
+    border-radius: 12px; padding: 1rem 1.15rem;
+    text-decoration: none; color: inherit;
+  }
+  .porta:hover, .porta:focus-visible { border-color: var(--azul); }
+  .porta-icone { font-size: 1.35rem; line-height: 1; }
+  .porta-texto { display: flex; flex-direction: column; }
+  .porta-nome { font-weight: 500; }
+  .porta-desc { font-size: .88rem; color: var(--suave); }
   .passagem {
     background: var(--obra-fundo); border: 1px solid var(--obra-borda);
-    border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 1.5rem;
+    border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 .75rem;
   }
-  .rotulo {
-    font-size: .82rem; text-transform: uppercase; letter-spacing: .06em;
-    color: var(--tenue); margin: 0 0 .6rem;
+  .resumo { cursor: pointer; }
+  .resumo-rotulo { display: block; font-weight: 500; }
+  .resumo-ref {
+    display: block; font-size: .82rem; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--tenue); margin-top: .25rem;
   }
+  .passagem[open] .resumo { margin-bottom: .9rem; }
   /* pre-wrap for the same reason ObraBlock uses it: join_subchunks emits
      single newlines that are the source's own paragraph breaks. */
   .texto { white-space: pre-wrap; margin: 0 0 .9rem; }
@@ -67,58 +99,74 @@
 </style>
 </head>
 <body>
+<header class="cabecalho">
+<a class="cabecalho-nome" href="https://dialogandodoutrina.com.br/">Dialogando com a Doutrina</a>
+<p>Um assistente de estudo das obras de Allan Kardec. Você pergunta com as suas palavras e ele procura a resposta dentro das obras, mostrando de onde ela veio: a obra, o capítulo e o número da questão ou do item.</p>
+<p class="cabecalho-limites">Não substitui a leitura das obras nem o estudo em grupo. Ele pode errar.</p>
+<a class="cabecalho-mais" href="https://dialogandodoutrina.com.br/sobre/">Sobre o projeto &rarr;</a>
+</header>
 <main>
 <h1>Fundamentos da Doutrina Espírita</h1>
 <p class="intro">Para quem está começando. As nove perguntas fundamentais da doutrina, na resposta mais direta que o livro dá.</p>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 1</p>
+<div class="portas">
+<a class="porta" href="https://dialogandodoutrina.com.br/?mode=duvida">
+<span class="porta-icone" aria-hidden="true">💬</span>
+<span class="porta-texto"><span class="porta-nome">Dialogar</span><span class="porta-desc">Faça uma pergunta sobre as obras</span></span>
+</a>
+<a class="porta" href="https://dialogandodoutrina.com.br/?trilha=fundamentos-espirita-curioso">
+<span class="porta-icone" aria-hidden="true">📚</span>
+<span class="porta-texto"><span class="porta-nome">Estudar esta trilha</span><span class="porta-desc">Os 9 trechos, um por vez, no app</span></span>
+</a>
+</div>
+<details class="passagem" open>
+<summary class="resumo"><span class="resumo-rotulo">O que é Deus?</span><span class="resumo-ref">O Livro dos Espíritos —  item 1</span></summary>
 <p class="texto">1. Que é Deus? “Deus é a inteligência suprema, causa primária de todas as coisas” (1). (Vide Nota Especial n° 1, da Editora (FEB), à pág. 494.)</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=1">Abrir “O que é Deus?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 76</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">O que são os Espíritos?</span><span class="resumo-ref">O Livro dos Espíritos —  item 76</span></summary>
 <p class="texto">76. Que definição se pode dar dos Espíritos? “Pode dizer‑se que os Espíritos são os seres inteligentes da criação. Povoam o Universo, fora do mundo material.”
 NOTA ‑ A palavra Espírito é empregada aqui para designar as individualidades dos seres extracorpóreos e não mais o elemento inteligente do Universo.</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=76">Abrir “O que são os Espíritos?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 134</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">O que é a alma?</span><span class="resumo-ref">O Livro dos Espíritos —  item 134</span></summary>
 <p class="texto">134. Que é a alma? “Um Espírito encarnado.”
 a. Que era a alma antes de se unir ao corpo? “Espírito.”
 b. As almas e os Espíritos são, portanto, idênticos, a mesma coisa? “Sim, as almas não são senão os Espíritos. Antes de se unir ao corpo, a alma é um dos seres inteligentes que povoam o mundo invisível, os quais temporariamente revestem um invólucro carnal para se purificarem e esclarecerem.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=134">Abrir “O que é a alma?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 167</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">Para que serve a reencarnação?</span><span class="resumo-ref">O Livro dos Espíritos —  item 167</span></summary>
 <p class="texto">167. Qual o fim objetivado com a reencarnação? “Expiação, melhoramento progressivo da Humanidade. Sem isto, onde a justiça?”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=167">Abrir “Para que serve a reencarnação?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 149</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">O que acontece no instante da morte?</span><span class="resumo-ref">O Livro dos Espíritos —  item 149</span></summary>
 <p class="texto">149. Que sucede à alma no instante da morte? “Volta a ser Espírito, esto é, volve ao mundo dos Espíritos, donde se apartara momentaneamente.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=149">Abrir “O que acontece no instante da morte?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 614</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">O que é a lei natural?</span><span class="resumo-ref">O Livro dos Espíritos —  item 614</span></summary>
 <p class="texto">614. Que se deve entender por lei natural? &quot;A lei natural é a lei de Deus. É a única verdadeira para a felicidade do homem. Indica‑lhe o que deve fazer ou deixar de fazer e ele só é infeliz quando dela se afasta.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=614">Abrir “O que é a lei natural?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 843</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">O que é o livre-arbítrio?</span><span class="resumo-ref">O Livro dos Espíritos —  item 843</span></summary>
 <p class="texto">843. Tem o homem o livre-arbítrio de seus atos? &quot;Pois que tem a liberdade de pensar, tem igualmente a de obrar. Sem o livre‑arbítrio, o homem seria máquina.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=843">Abrir “O que é o livre-arbítrio?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 875</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">O que é a justiça?</span><span class="resumo-ref">O Livro dos Espíritos —  item 875</span></summary>
 <p class="texto">875. Como se pode definir a justiça? “A justiça consiste em cada um respeitar os direitos dos demais.”
 a. Que é o que determina esses direitos? “Duas coisas: a lei humana e a lei natural. Tendo os homens formulado leis apropriadas a seus costumes e caracteres, elas estabeleceram direitos mutáveis com o progresso das luzes. Vede se hoje as vossas leis, aliás imperfeitas, consagram os mesmos direitos que as da Idade Média. Entretanto, esses direitos antiquados, que agora se vos afiguram monstruosos, pareciam justos e naturais naquela época. Nem sempre, pois, é acorde com a justiça o direito que os homens prescrevem. Demais, este direito regula apenas algumas relações sociais, quando é certo que, na vida particular, há uma imensidade de atos unicamente da alçada do tribunal da consciência.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=875">Abrir “O que é a justiça?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 967</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">Em que consiste a felicidade dos bons Espíritos?</span><span class="resumo-ref">O Livro dos Espíritos —  item 967</span></summary>
 <p class="texto">967. Em que consiste a felicidade dos bons Espíritos? “Em conhecerem todas as coisas; em não sentirem ódio, nem ciúme, nem inveja, nem ambição, nem qualquer das paixões que ocasionam a desgraça dos homens. O amor que os une lhes é fonte de suprema felicidade. Não experimentam as necessidades, nem os sofrimentos, nem as angústias da vida material. São felizes pelo bem que fazem. Contudo, a felicidade dos Espíritos é proporcional à elevação de cada um. Somente os puros Espíritos gozam, é exato, da felicidade suprema, mas nem todos os outros são infelizes. Entre os maus e os perfeitos há uma infinidade de graus em que os gozos são relativos ao estado moral. Os que já estão bastante adiantados compreendem a ventura dos que os precederam e aspiram a alcançá‑la. Mas, esta aspiração lhes constitui uma causa de emulação, não de ciúme. Sabem que deles depende o consegui‑la e para a conseguirem trabalham, porém com a calma da consciência tranqüila e ditosos se consideram por não terem que sofrer o que sofrem os maus.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=967">Abrir “Em que consiste a felicidade dos bons Espíritos?” no app &rarr;</a>
-</article>
+</details>
 </main>
 <footer>
 <p>As passagens acima são de Allan Kardec e estão em domínio público.

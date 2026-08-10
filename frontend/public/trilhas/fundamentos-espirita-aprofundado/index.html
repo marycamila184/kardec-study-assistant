@@ -41,19 +41,51 @@
     line-height: 1.65;
   }
   main { max-width: 42rem; margin: 0 auto; }
+  .cabecalho {
+    max-width: 42rem; margin: 0 auto 2rem; padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--borda);
+  }
+  .cabecalho-nome {
+    font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
+    font-size: 1.15rem; color: var(--texto); text-decoration: none;
+    display: inline-block; margin-bottom: .6rem;
+  }
+  .cabecalho p { margin: 0 0 .5rem; color: var(--suave); font-size: .93rem; }
+  .cabecalho-limites { color: var(--tenue); font-size: .88rem; }
+  .cabecalho-mais {
+    color: var(--azul); text-decoration: none; font-size: .88rem;
+  }
+  .cabecalho-mais:hover { text-decoration: underline; }
   h1 {
     font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
     font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem;
   }
-  .intro { color: var(--suave); margin: 0 0 2.5rem; }
+  .intro { color: var(--suave); margin: 0 0 1.5rem; }
+  /* O cartão da home do app: mesmo fundo, borda, raio e espaçamento que
+     HomeLauncher usa, para a página ser reconhecivelmente a mesma casa. */
+  .portas { display: flex; flex-direction: column; gap: .75rem; margin: 0 0 2.5rem; }
+  .porta {
+    display: flex; align-items: center; gap: .9rem;
+    background: var(--cartao); border: 1px solid var(--borda);
+    border-radius: 12px; padding: 1rem 1.15rem;
+    text-decoration: none; color: inherit;
+  }
+  .porta:hover, .porta:focus-visible { border-color: var(--azul); }
+  .porta-icone { font-size: 1.35rem; line-height: 1; }
+  .porta-texto { display: flex; flex-direction: column; }
+  .porta-nome { font-weight: 500; }
+  .porta-desc { font-size: .88rem; color: var(--suave); }
   .passagem {
     background: var(--obra-fundo); border: 1px solid var(--obra-borda);
-    border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 1.5rem;
+    border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 .75rem;
   }
-  .rotulo {
-    font-size: .82rem; text-transform: uppercase; letter-spacing: .06em;
-    color: var(--tenue); margin: 0 0 .6rem;
+  .resumo { cursor: pointer; }
+  .resumo-rotulo { display: block; font-weight: 500; }
+  .resumo-ref {
+    display: block; font-size: .82rem; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--tenue); margin-top: .25rem;
   }
+  .passagem[open] .resumo { margin-bottom: .9rem; }
   /* pre-wrap for the same reason ObraBlock uses it: join_subchunks emits
      single newlines that are the source's own paragraph breaks. */
   .texto { white-space: pre-wrap; margin: 0 0 .9rem; }
@@ -67,36 +99,52 @@
 </style>
 </head>
 <body>
+<header class="cabecalho">
+<a class="cabecalho-nome" href="https://dialogandodoutrina.com.br/">Dialogando com a Doutrina</a>
+<p>Um assistente de estudo das obras de Allan Kardec. Você pergunta com as suas palavras e ele procura a resposta dentro das obras, mostrando de onde ela veio: a obra, o capítulo e o número da questão ou do item.</p>
+<p class="cabecalho-limites">Não substitui a leitura das obras nem o estudo em grupo. Ele pode errar.</p>
+<a class="cabecalho-mais" href="https://dialogandodoutrina.com.br/sobre/">Sobre o projeto &rarr;</a>
+</header>
 <main>
 <h1>Fundamentos da Doutrina Espírita</h1>
 <p class="intro">Para o espírita praticante. Os mesmos nove assuntos, na questão em que a doutrina responde a quem duvida.</p>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 14</p>
+<div class="portas">
+<a class="porta" href="https://dialogandodoutrina.com.br/?mode=duvida">
+<span class="porta-icone" aria-hidden="true">💬</span>
+<span class="porta-texto"><span class="porta-nome">Dialogar</span><span class="porta-desc">Faça uma pergunta sobre as obras</span></span>
+</a>
+<a class="porta" href="https://dialogandodoutrina.com.br/?trilha=fundamentos-espirita-aprofundado">
+<span class="porta-icone" aria-hidden="true">📚</span>
+<span class="porta-texto"><span class="porta-nome">Estudar esta trilha</span><span class="porta-desc">Os 9 trechos, um por vez, no app</span></span>
+</a>
+</div>
+<details class="passagem" open>
+<summary class="resumo"><span class="resumo-rotulo">Deus é distinto, ou a soma das forças do Universo?</span><span class="resumo-ref">O Livro dos Espíritos —  item 14</span></summary>
 <p class="texto">14. Deus é um ser distinto, ou será, como opinam alguns, a resultante de todas as forças e de todas as inteligências do Universo reunidas? “Se fosse assim, Deus não existiria, porquanto seria efeito e não causa. Ele não pode ser ao mesmo tempo uma e outra coisa.
 “Deus existe; disso não podeis duvidar e é o essencial. Crede‑me, não vades além. Não vos percais num labirinto donde não lograríeis sair. Isso não vos tornaria melhores, antes um pouco mais orgulhosos, pois que acreditaríeis saber, quando na realidade nada saberíeis. Deixai, consequentemente, de lado todos esses sistemas; tendes bastantes coisas que vos tocam mais de perto, a começar por vós mesmos. Estudai as vossas próprias imperfeições, a fim de vos libertardes delas, o que será mais útil do que pretenderdes penetrar no que é impenetrável.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=14">Abrir “Deus é distinto, ou a soma das forças do Universo?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 119</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">Não podia Deus poupá-los das provas?</span><span class="resumo-ref">O Livro dos Espíritos —  item 119</span></summary>
 <p class="texto">119. Não podia Deus isentar os Espíritos das provas que lhes cumpre sofrer para chegarem à primeira ordem? “Se Deus os houvesse criado perfeitos, nenhum mérito teriam para gozar dos benefícios dessa perfeição. Onde estaria o merecimento sem a luta? Demais, a desigualdade entre eles existente é necessária às suas personalidades. Acresce ainda que as missões que desempenham nos diferentes graus da escala estão nos desígnios da Providência, para a harmonia do Universo.”
 Pois que, na vida social, todos os homens podem chegar às mais altas funções, seria o caso de perguntar‑se por que o soberano de um país não faz de cada um de seus soldados um general; por que todos os empregados subalternos não são funcionários superiores; por que todos os colegiais não são mestres. Ora, entre a vida social e a espiritual há esta diferença: enquanto que a primeira é limitada e nem sempre permite que o homem suba todos os seus degraus, a segunda é indefinida e a todos oferece a possibilidade de se elevarem ao grau supremo.</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=119">Abrir “Não podia Deus poupá-los das provas?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 139</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">A alma é uma centelha do grande Todo?</span><span class="resumo-ref">O Livro dos Espíritos —  item 139</span></summary>
 <p class="texto">139. Alguns Espíritos e, antes deles, alguns filósofos definiram a alma como sendo: “uma centelha anímica emanada do grande Todo”. Por que essa contradição? “Não há contradição. Tudo depende das acepções das palavras. Por que não tendes uma palavra para cada coisa?”
 O vocábulo alma se emprega para exprimir coisas muito diferentes. Uns chamam alma ao princípio da vida e, nesta acepção, se pode com acerto dizer, figuradamente, que a alma é uma centelha anímica emanada do grande Todo. Estas últimas palavras indicam a fonte universal do princípio vital de que cada ser absorve uma porção e que, após a morte, volta à massa donde saiu. Essa idéia de nenhum modo exclui a de um ser moral, distinto, independente da matéria e que conserva sua individualidade. A esse ser, igualmente, se dá o nome de alma e nesta acepção é que se pode dizer que a alma é um Espírito encarnado. Dando da alma definições diversas, os Espíritos falaram de acordo com o modo por que aplicavam a palavra e com as idéias terrenas de que ainda estavam mais ou menos imbuídos. Isto resulta da deficiência da linguagem humana, que não dispõe de uma palavra para cada idéia, donde uma imensidade de equívocos e discussões. Eis por que os Espíritos superiores nos dizem que primeiro nos entendamos acerca das palavras. (1)</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=139">Abrir “A alma é uma centelha do grande Todo?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 196</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">A vida material é um crisol por onde todos passam?</span><span class="resumo-ref">O Livro dos Espíritos —  item 196</span></summary>
 <p class="texto">196. Não podendo os Espíritos aperfeiçoar-se, a não ser por meio das tribulações da existência corpórea, segue-se que a vida material seja uma espécie de crisol ou de depurador, por onde têm que passar todos os seres do mundo espírita para alcançarem a perfeição? “Sim, é exatamente isso. Eles se melhoram nessa provas, evitando o mal e praticando o bem; porém, somente ao cabo de mais ou menos longo tempo, conforme os esforços que empreguem; somente após muitas encarnações ou depurações sucessivas, atingem a finalidade para que tendem.”
 a. É o corpo que influi sobre o Espírito para que este se melhore, ou o Espírito que influi sobre o corpo? “Teu Espírito é tudo; teu corpo é simples veste que apodrece: eis tudo.”
 O suco da vide nos oferece um símile material dos diferentes graus da depuração da alma. Ele contém o licor que se chama espírito ou álcool, mas enfraquecido por uma imensidade de matérias estranhas, que lhe alteram a essência. Esta só chega à pureza absoluta depois de múltiplas destilações, em cada uma das quais se despoja de algumas impurezas. O corpo é o alambique em que a alma tem que entrar para se purificar. Às matérias estranhas se assemelha o perispírito, que também se depura, à medida que o Espírito se aproxima da perfeição.</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=196">Abrir “A vida material é um crisol por onde todos passam?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 165</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">Conhecer o Espiritismo encurta a perturbação?</span><span class="resumo-ref">O Livro dos Espíritos —  item 165</span></summary>
 <p class="texto">165. O conhecimento do Espiritismo exerce alguma influência sobre a duração, mais ou menos longa, da perturbação? “Influência muito grande, por isso que o Espírito já antecipadamente compreendia a sua situação. Mas, a prática do bem e a consciência pura são o que maior influência exercem.”
 Por ocasião da morte, tudo, a princípio, é confuso. De algum tempo precisa a alma para entrar no conhecimento de si mesma. Ela se acha como que aturdida, no estado de uma pessoa que despertou de profundo sono e procura orientar‑se sobre a sua situação. A lucidez das idéias e a memória do passado lhe voltam, à medida que se apaga a influência da matéria que ela acaba de abandonar, e à medida que se dissipa a espécie de névoa que lhe obscurece os pensamentos.
 Muito variável é o tempo que dura a perturbação que se segue à morte. Pode ser de algumas horas, como também de muitos meses e até de muitos anos. Aqueles que, desde quando ainda viviam na Terra, se identificaram com o estado futuro que os aguardava, são os em quem menos longa ela é, porque esses compreendem imediatamente a posição em que se encontram.
@@ -105,30 +153,30 @@ Todavia, sempre mais generalizada se apresenta entre os que, embora doentes, nã
 A perturbação que se segue à morte nada tem de penosa para o homem de bem, que se conserva calmo, semelhante em tudo a quem acompanha as fases de um tranqüilo despertar. Para aquele cuja consciência ainda não está pura, a perturbação é cheia de ansiedade e de angústias, que aumentam à proporção que ele da sua situação se compenetra.
 Nos casos de morte coletiva, tem sido observado que todos os que perecem ao mesmo tempo nem sempre tornam a ver‑se logo. Presas da perturbação que se segue à morte, cada um vai para seu lado, ou só se preocupa com os que lhe interessam.</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=165">Abrir “Conhecer o Espiritismo encurta a perturbação?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 634</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">Por que o mal está na natureza das coisas?</span><span class="resumo-ref">O Livro dos Espíritos —  item 634</span></summary>
 <p class="texto">634. Por que está o mal na natureza das coisas? Falo do mal moral. Não podia Deus ter criado a Humanidade em melhores condições? &quot;Já te dissemos: os Espíritos foram criados simples e ignorantes (115). Deus deixa que o homem escolha o caminho. Tanto pior para ele, se toma o caminho mau: mais longa será sua peregrinação. Se não existissem montanhas, não compreenderia o homem que se pode subir e descer; se não existissem rochas, não compreenderia que há corpos duros. É preciso que o Espírito ganhe experiência; é preciso, portanto, que conheça o bem e o mau. Eis por que se une ao corpo.” (119)</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=634">Abrir “Por que o mal está na natureza das coisas?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 851</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">Existe fatalidade nos acontecimentos da vida?</span><span class="resumo-ref">O Livro dos Espíritos —  item 851</span></summary>
 <p class="texto">851. Haverá fatalidade nos acontecimentos da vida, conforme ao sentido que se dá a este vocábulo? Quer dizer: todos os acontecimentos são predeterminados? E, neste caso, que vem a ser do livre-arbítrio? &quot;A fatalidade existe unicamente pela escolha que o Espírito fez, ao encarnar, desta ou daquela prova para sofrer. Escolhendo‑a, institui para si uma espécie de destino, que é a conseqüência mesma da posição em que vem a achar‑se colocado. Falo das provas físicas, pois, pelo que toca às provas morais e às tentações, o Espírito, conservando o livre‑arbítrio quanto ao bem e ao mal, é sempre senhor de ceder ou de resistir. Ao vê‑lo fraquejar, um bom Espírito pode vir‑lhe em auxílio, mas não pode influir sobre ele de maneira a dominar‑lhe a vontade. Um Espírito mau, isto é, inferior, mostrando‑lhe, exagerando aos seus olhos um perigo físico, o poderá abalar e amedrontar. Nem por isso, entretanto, a vontade do Espírito encarnado deixa de se conservar livre de quaisquer peias.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=851">Abrir “Existe fatalidade nos acontecimentos da vida?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 887</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">Amar os inimigos não é contrário à natureza?</span><span class="resumo-ref">O Livro dos Espíritos —  item 887</span></summary>
 <p class="texto">887. Jesus também disse: Amai mesmo os vossos inimigos. Ora, o amor aos inimigos não será contrário às nossas tendências naturais e a inimizade não provirá de uma falta de simpatia entre os Espíritos? “Certo ninguém pode votar aos seus inimigos um amor terno e apaixonado. Não foi isso o que Jesus entendeu de dizer. Amar os inimigos é perdoar‑lhes e lhes retribuir o mal com o bem. O que assim procede se torna superior aos seus inimigos, ao passo que abaixo deles se coloca, se procura tomar vingança.”</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=887">Abrir “Amar os inimigos não é contrário à natureza?” no app &rarr;</a>
-</article>
-<article class="passagem">
-<p class="rotulo">O Livro dos Espíritos —  item 1012</p>
+</details>
+<details class="passagem">
+<summary class="resumo"><span class="resumo-rotulo">O céu e o inferno são lugares?</span><span class="resumo-ref">O Livro dos Espíritos —  item 1012</span></summary>
 <p class="texto">1012. Haverá no Universo lugares circunscritos para as penas e gozos dos Espíritos segundo seus merecimentos? (1)
 “Já respondemos a esta pergunta. As penas e os gozos são inerentes ao grau de perfeição dos Espíritos. Cada um tira de si mesmo o princípio de sua felicidade ou de sua desgraça. E como eles estão por toda parte, nenhum lugar circunscrito ou fechado existe especialmente destinado a uma ou outra coisa. Quanto aos encarnados, esses são mais ou menos felizes ou desgraçados, conforme é mais ou menos adiantado o mundo em que habitam.”
 De acordo, então, com o que vindes de dizer, o inferno e o paraíso não existem, tais como o homem os imagina? “São simples alegorias: por toda parte há Espíritos ditosos e inditosos. Entretanto, conforme também há dissemos, os Espíritos de uma mesma ordem se reúnem por simpatia; mas podem reunir‑se onde queiram, quando são perfeitos.”
 A localização absoluta das regiões das penas e das recompensas só na imaginação do homem existe. Provém da sua tendência a materializar e circunscrever as coisas, cuja essência infinita não lhe é possível compreender.</p>
 <a class="abrir" href="https://dialogandodoutrina.com.br/?book=O+Livro+dos+Esp%C3%ADritos&amp;chapter=&amp;item=1012">Abrir “O céu e o inferno são lugares?” no app &rarr;</a>
-</article>
+</details>
 </main>
 <footer>
 <p>As passagens acima são de Allan Kardec e estão em domínio público.
