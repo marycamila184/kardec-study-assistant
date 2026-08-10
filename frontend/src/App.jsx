@@ -184,11 +184,12 @@ export default function App({ trilha: trilhaProp = null }) {
   // abrir o trecho do dia ou seguir um deep link continuam sendo leitura, e
   // leitura não é interrompida.
   //
-  // Uma função só, chamada nos CINCO pontos de entrada iniciados pela pessoa, e
-  // scripts/check_consent_prompt.mjs para que um sexto não nasça sem ela: um
-  // handler que esquecer a chamada continua funcionando perfeitamente, só deixa
-  // de perguntar — que é exatamente a forma do bug que fez este repositório
-  // escrever check_chat_current_mode.mjs.
+  // Uma função só, chamada na conclusão de cada um dos SEIS pontos de entrada
+  // iniciados pela pessoa, e scripts/check_consent_prompt.mjs para que um
+  // sétimo não nasça sem ela: um handler que esquecer a chamada continua
+  // funcionando perfeitamente, só deixa de perguntar — que é exatamente a
+  // forma do bug que fez este repositório escrever
+  // check_chat_current_mode.mjs.
   const [readerAsked, setReaderAsked] = useState(false);
   const markReaderAsked = () => setReaderAsked(true);
   const [mode,          setMode]         = useState(null);

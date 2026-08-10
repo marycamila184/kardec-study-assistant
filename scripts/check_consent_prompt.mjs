@@ -1,11 +1,12 @@
 // Confere que o banner de consentimento continua sendo perguntado onde deve, e
 // só onde deve.
 //
-// O consentimento sobe na primeira vez que a pessoa pede alguma coisa por
-// vontade própria. São CINCO pontos de entrada em App.jsx, e cinco chamadas
-// iguais espalhadas por um arquivo de 1450 linhas é a forma exata do bug que
-// este repositório já pagou: `current_mode` foi corrigido em dois pontos e três
-// ficaram para trás, e a resposta foi scripts/check_chat_current_mode.mjs.
+// O consentimento sobe na conclusão da primeira troca que a pessoa iniciou
+// por vontade própria — não no clique que a pede. São SEIS pontos de entrada
+// em App.jsx, e seis chamadas iguais espalhadas por um arquivo de mais de
+// 1500 linhas é a forma exata do bug que este repositório já pagou:
+// `current_mode` foi corrigido em dois pontos e três ficaram para trás, e a
+// resposta foi scripts/check_chat_current_mode.mjs.
 //
 // A falha aqui é silenciosa por natureza: um handler que esquece a chamada
 // continua funcionando perfeitamente — a resposta chega, a tela pinta — e a
