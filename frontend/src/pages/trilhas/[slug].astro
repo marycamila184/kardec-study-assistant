@@ -1,0 +1,211 @@
+---
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import Base from '../../layouts/Base.astro';
+import App from '../../App.jsx';
+import frases from '../../content/frases.json';
+
+const HOST = 'https://dialogandodoutrina.com.br';
+
+// A porta do chat. O app lê `mode` no boot; `duvida` é o id persistido do modo
+// Dialogar (constants/modes.js) e NUNCA deve ser renomeado.
+const CHAT_LINK = `${HOST}/?mode=duvida`;
+
+export async function getStaticPaths() {
+  // node:fs em vez de import.meta.glob: isto roda no build, em Node, e ler o
+  // diretório não depende de nenhuma API de bundler. O diretório é escrito por
+  // `uv run python -m src.discovery.generate` e commitado — o Python resolve a
+  // identidade das passagens (a regra do "só resolve se houver exatamente um")
+  // e rejunta os subchunks pelas costuras que o split registrou; aqui só se
+  // formata.
+  //
+  // Ancorado em process.cwd() (a raiz do projeto Astro), não em
+  // `new URL(..., import.meta.url)`: no build o Vite reloca este módulo para
+  // dist/.prerender/chunks/, e um caminho relativo a import.meta.url passa a
+  // apontar para dentro de dist/ em vez de src/ — medido 2026-08-10, ENOENT
+  // em dist/content/trilhas/. `astro dev` não expõe isso porque lá o módulo
+  // não é empacotado.
+  //
+  // process.cwd() só funciona porque é o MESMO contrato que astro.config.mjs
+  // já assume: o Astro resolve a raiz do projeto a partir do cwd de onde
+  // `astro build`/`astro dev` roda, que é `frontend/` — nunca a raiz do
+  // monorepo. Isto tem de rodar com cwd = frontend/; um build disparado de
+  // outro diretório (um script na raiz do repo, por exemplo) já falharia
+  // alto no próprio Astro antes de chegar aqui, em vez de silenciosamente
+  // devolver uma lista de páginas vazia — é essa falha alta que torna este
+  // ancoramento seguro. Quem escrever um script de build a partir da raiz do
+  // repo precisa saber disso primeiro.
+  const dir = join(process.cwd(), 'src/content/trilhas');
+  return readdirSync(dir)
+    .filter((nome) => nome.endsWith('.json'))
+    .map((nome) => {
+      const trilha = JSON.parse(readFileSync(join(dir, nome), 'utf8'));
+      return { params: { slug: trilha.id }, props: { trilha } };
+    });
+}
+
+const { trilha } = Astro.props;
+const url = `${HOST}/trilhas/${trilha.id}/`;
+
+// O deep link para um trecho: um IDENTIFICADOR, não texto livre — é o que
+// /study resolve deterministicamente. `part` viaja junto porque O Céu e o
+// Inferno reinicia a numeração por parte, e é omitido quando ausente em vez de
+// enviado vazio, para o app ver a chave faltando e não um valor falsy.
+const deepLink = (p) => {
+  const params = new URLSearchParams({
+    book: p.book,
+    chapter: p.chapter || '',
+    item: p.item_number,
+  });
+  if (p.part) params.set('part', p.part);
+  return `${HOST}/?${params}`;
+};
+
+const legenda = (p) => {
+  const onde = p.part ? `${p.part}, ${p.chapter || ''}` : (p.chapter || '');
+  return `${p.book} — ${onde} item ${p.item_number}`.trim();
+};
+
+const n = trilha.passages.length;
+const descPorta = n === 1 ? 'Um trecho, no app' : `Os ${n} trechos, um por vez, no app`;
+---
+<Base
+  title={trilha.meta_title}
+  description={trilha.meta_description}
+  canonical={url}
+  ogTitle={trilha.meta_title}
+  ogDescription={trilha.meta_description}
+  ogType="article"
+>
+  {/* Esta rota É o app: a island monta na mesma página que o buscador leu, sem
+      navegação e sem tela branca no meio. O bloco abaixo é o que o rastreador
+      lê e o que alguém sem JavaScript usa — App.jsx o remove ao montar.
+      Ele NÃO é decoração: o invariante que substituiu a antiga regra do
+      "<script> proibido" é que o texto dos trechos esteja no HTML servido,
+      verificável com o JavaScript desligado. */}
+  <div id="conteudo-estatico">
+    <header class="cabecalho">
+      <a class="cabecalho-nome" href={`${HOST}/`}>Dialogando com a Doutrina</a>
+      <p>{frases.o_que_e}</p>
+      <p class="cabecalho-limites">{frases.nao_substitui} {frases.pode_errar}</p>
+      <a class="cabecalho-mais" href={`${HOST}/sobre/`}>Sobre o projeto &rarr;</a>
+    </header>
+
+    <main>
+      <h1>{trilha.title}</h1>
+      <p class="intro">{trilha.intro}</p>
+
+      {/* As portas continuam sendo âncoras de verdade: com JavaScript ligado a
+          island já começa a trilha sozinha e ninguém precisa delas, mas sem
+          JavaScript elas são a única entrada. */}
+      <div class="portas">
+        <a class="porta" href={CHAT_LINK}>
+          <span class="porta-icone" aria-hidden="true">💬</span>
+          <span class="porta-texto"><span class="porta-nome">Dialogar</span><span class="porta-desc">Faça uma pergunta sobre as obras</span></span>
+        </a>
+        <a class="porta" href={`${HOST}/?trilha=${trilha.id}`}>
+          <span class="porta-icone" aria-hidden="true">📚</span>
+          <span class="porta-texto"><span class="porta-nome">Estudar esta trilha</span><span class="porta-desc">{descPorta}</span></span>
+        </a>
+      </div>
+
+      {trilha.passages.map((p, i) => (
+        <details class="passagem" open={i === 0}>
+          <summary class="resumo"><span class="resumo-rotulo">{p.label}</span><span class="resumo-ref">{legenda(p)}</span></summary>
+          <p class="texto">{p.text}</p>
+          <a class="abrir" href={deepLink(p)}>Abrir “{p.label}” no app &rarr;</a>
+        </details>
+      ))}
+    </main>
+
+    <footer>
+      <p>As passagens acima são de Allan Kardec e estão em domínio público.
+      <a href={`${HOST}/`}>Ir para o app</a> · <a href={`${HOST}/sobre/`}>Sobre o projeto</a></p>
+    </footer>
+  </div>
+
+  <App client:only="react" trilha={trilha.id} />
+</Base>
+
+<style>
+  /* As variáveis vivem em #conteudo-estatico, e NÃO em :root: o app monta na
+     mesma página e tem a própria paleta em constants/theme.js. Vazar estas
+     cores para o documento inteiro pintaria o app com o tema do sistema em vez
+     do tema que a pessoa escolheu.
+
+     Pelo mesmo motivo o bloco rola dentro de si (como em index.astro) em vez
+     de destravar o overflow:hidden que globals.css põe em html/body para o
+     app. A página Sobre pode destravar porque lá não existe app. */
+  #conteudo-estatico {
+    --fundo: #F6F4EF; --cartao: #FFFFFF; --borda: #E2DDD6;
+    --texto: #3A3028; --suave: #6A5E50; --tenue: #9A8E7E;
+    --obra-fundo: #FBF8F2; --obra-borda: #DDD0B8;
+    --azul: #6B9BB8;
+    max-height: 100dvh; overflow: auto;
+    padding: 2rem 1.25rem 4rem;
+    background: var(--fundo); color: var(--texto);
+    font-family: 'DM Sans', system-ui, sans-serif; font-weight: 300;
+    line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    #conteudo-estatico {
+      --fundo: #111C26; --cartao: #1C2D3C; --borda: #253748;
+      --texto: #D5CCC0; --suave: #B3A899; --tenue: #6A8898;
+      --azul: #8FB9D2;
+    }
+  }
+  main { max-width: 42rem; margin: 0 auto; }
+  .cabecalho {
+    max-width: 42rem; margin: 0 auto 2rem; padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--borda);
+  }
+  .cabecalho-nome {
+    font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
+    font-size: 1.15rem; color: var(--texto); text-decoration: none;
+    display: inline-block; margin-bottom: .6rem;
+  }
+  .cabecalho p { margin: 0 0 .5rem; color: var(--suave); font-size: .93rem; }
+  .cabecalho-limites { color: var(--tenue); font-size: .88rem; }
+  .cabecalho-mais { color: var(--azul); text-decoration: none; font-size: .88rem; }
+  .cabecalho-mais:hover { text-decoration: underline; }
+  h1 {
+    font-family: 'Crimson Pro', Georgia, serif; font-weight: 600;
+    font-size: 1.9rem; line-height: 1.25; margin: 0 0 1rem;
+  }
+  .intro { color: var(--suave); margin: 0 0 1.5rem; }
+  /* O cartão da home do app: mesmo fundo, borda, raio e espaçamento que
+     HomeLauncher usa, para a página ser reconhecivelmente a mesma casa. */
+  .portas { display: flex; flex-direction: column; gap: .75rem; margin: 0 0 2.5rem; }
+  .porta {
+    display: flex; align-items: center; gap: .9rem;
+    background: var(--cartao); border: 1px solid var(--borda);
+    border-radius: 12px; padding: 1rem 1.15rem;
+    text-decoration: none; color: inherit;
+  }
+  .porta:hover, .porta:focus-visible { border-color: var(--azul); }
+  .porta-icone { font-size: 1.35rem; line-height: 1; }
+  .porta-texto { display: flex; flex-direction: column; }
+  .porta-nome { font-weight: 500; }
+  .porta-desc { font-size: .88rem; color: var(--suave); }
+  .passagem {
+    background: var(--obra-fundo); border: 1px solid var(--obra-borda);
+    border-radius: 10px; padding: 1.1rem 1.25rem; margin: 0 0 .75rem;
+  }
+  .resumo { cursor: pointer; }
+  .resumo-rotulo { display: block; font-weight: 500; }
+  .resumo-ref {
+    display: block; font-size: .82rem; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--tenue); margin-top: .25rem;
+  }
+  .passagem[open] .resumo { margin-bottom: .9rem; }
+  /* pre-wrap pelo mesmo motivo que ObraBlock usa: join_item_text emite quebras
+     de linha simples que são os parágrafos do próprio original. */
+  .texto { white-space: pre-wrap; margin: 0 0 .9rem; }
+  .abrir { font-size: .9rem; color: var(--azul); text-decoration: none; }
+  .abrir:hover { text-decoration: underline; }
+  footer {
+    max-width: 42rem; margin: 3rem auto 0; padding-top: 1.5rem;
+    border-top: 1px solid var(--borda); color: var(--tenue); font-size: .9rem;
+  }
+  footer a { color: var(--azul); }
+</style>

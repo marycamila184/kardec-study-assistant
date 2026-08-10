@@ -456,7 +456,7 @@ Worth recording against [the Reflexivo shutdown](superpowers/specs/2026-07-26-de
 
 ### Frontend checks — no test runner, so plain Node scripts
 
-`frontend/` has no vitest or jest. The convention is to extract the decision into a pure function and exercise it in Node:
+`frontend/` has no vitest or jest. The convention is to extract the decision into a pure function and exercise it in Node — with one exception now: Playwright in `frontend/tests/` (see below), which does not test a decision at all but the seam between the built page, the browser and the API.
 
 ```bash
 node scripts/check_cited_text.mjs           # splitByRefs, passageKey, citationLabel
@@ -467,15 +467,19 @@ node scripts/check_discovery_assets.mjs     # meta tags, preview.png, /sobre/, r
 
 The last one is a **static check on call sites**, not a pure function, because the bug it guards *is* a forgotten argument: three call sites inside Estudar omitted `current_mode`, which sends `undefined` and silently re-enables the orchestrator's self-nudging. Two other call sites had already been fixed once and a comment already warned about the trap; it came back through the other three. That is when vigilance gets replaced by a check.
 
-`check_discovery_assets.mjs` is the same idea applied to files instead of code: it reads `frontend/dist/index.html`, `preview.png`'s PNG header, and the built pages under `frontend/dist/` — which means it can only run after `npm run build`, and CI's frontend job builds before the guards step for that reason — and asserts the exact strings a crawler or a share-card fetcher would need — an absolute `og:image`, a canonical that matches the custom domain, `/sobre/` with its trailing slash. None of those failures throw; the app renders fine either way, which is why nothing short of a check catches them.
+`check_discovery_assets.mjs` is the same idea applied to files instead of code: it reads `frontend/dist/index.html`, `preview.png`'s PNG header, and the built pages under `frontend/dist/` — which means it can only run after `npm run build`, and CI's frontend job builds before the guards step for that reason — and asserts the exact strings a crawler or a share-card fetcher would need — an absolute `og:image`, a canonical that matches the custom domain, `/sobre/` with its trailing slash. None of those failures throw; the app renders fine either way, which is why nothing short of a check catches them. For the trilha family specifically, it also asserts the island script is present, and that every passage's text from `frontend/src/content/trilhas/<slug>.json` — HTML entities unescaped first — appears verbatim in the built HTML: a route that emitted only the island, with an empty static block, would pass every other check here and still show a crawler nothing.
 
 ### The discovery surface
 
-`frontend/public/` ships into `dist/` untouched — Astro copies it verbatim rather than bundling it, same as Vite did before the migration. What still lives there is `preview.png`, `robots.txt`, `sitemap.xml` and the trilha pages under `frontend/public/trilhas/`. The Sobre page does not: since the Astro migration it is `frontend/src/pages/sobre.astro`, a scriptless Astro page with no island, not a hand-placed file under `public/`.
+`frontend/public/` ships into `dist/` untouched — Astro copies it verbatim rather than bundling it, same as Vite did before the migration. What lives there today is `preview.png`, `robots.txt`, `sitemap.xml`, and the `temas` pages when any exist (none do today). The trilha pages moved out of `public/` in Phase 2 of the Astro migration: they are now the Astro route `frontend/src/pages/trilhas/[slug].astro`, built from `frontend/src/content/trilhas/<slug>.json`. The Sobre page was never in `public/` either: since the Astro migration it is `frontend/src/pages/sobre.astro`, a scriptless Astro page with no island, not a hand-placed file under `public/`.
 
 The Sobre page is still a **directory index** at the served path — `dist/sobre/index.html`, not `dist/sobre.html` — but that now comes from `format: 'directory'` in `frontend/astro.config.mjs`, which builds `sobre.astro` to that path rather than from a file placed by hand under `public/`. It is served **with the trailing slash**, which is the canonical form (see the CLAUDE.md discovery-assets rule): the project has no `vercel.json`, and Vercel resolves the directory index for both `/sobre` and `/sobre/` — measured against the live site on 2026-08-05, 200 with no redirect either way; an earlier version of this page claimed the bare path fell through to the SPA, which was never re-measured before being repeated. See [the design](superpowers/specs/2026-08-04-discovery-and-about-page-design.md) for why the bare path was the first draft and what serving the built output showed, and [the Astro migration design](superpowers/specs/2026-08-09-migracao-astro-design.md) for the move off `public/`.
 
 `preview.png` (1200×630, under 300 KB — WhatsApp drops larger images) is regenerable, not hand-drawn: its source is the committed `scripts/preview_card.html`, rendered by headless Chrome. Changing the wording means re-running that, not opening an image editor.
+
+### The trilha pipeline
+
+`data/paths/*.json` (curated) → `src/discovery/` → `frontend/src/content/trilhas/*.json` (committed) → `getStaticPaths()` in `frontend/src/pages/trilhas/[slug].astro`. The split of work matters: **identity resolution stays in Python.** `passage_text` (the "resolve only if there is exactly one match" rule) and `join_item_text` (rejoining subchunks at the seams the split recorded) are each rules paid for with a bug and each covered by a test — see the CLAUDE.md rules on both. Reimplementing either in JavaScript to read the corpus straight from the Astro route would duplicate logic that already cost something to get right, with no test on the second copy. The Astro route only formats what `trilha_content()` (`src/discovery/export.py`) already resolved.
 
 ### Metrics, and how to misread them
 

@@ -7,6 +7,7 @@ const {
   canonical,
   ogTitle,
   ogDescription,
+  ogType = 'website',
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -37,7 +38,7 @@ const {
   {/* og:image e og:url precisam ser absolutas: caminho relativo é descartado
       em silêncio por todo crawler. scripts/check_discovery_assets.mjs guarda
       isso, porque a falha não aparece na tela — só no card em branco. */}
-  <meta property="og:type" content="website">
+  <meta property="og:type" content={ogType}>
   <meta property="og:url" content={canonical}>
   <meta property="og:site_name" content="Dialogando com a Doutrina">
   <meta property="og:title" content={ogTitle}>

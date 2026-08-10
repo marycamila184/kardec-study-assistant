@@ -132,6 +132,12 @@ cd frontend
 npx vercel --prod        # a primeira vez pergunta o projeto e cria
 ```
 
+O `cd frontend` acima não é só conveniência: `getStaticPaths()` em
+`frontend/src/pages/trilhas/[slug].astro` ancora em `process.cwd()`, e só
+resolve porque o build roda com esse cwd. Ver o comentário naquele arquivo
+antes de mudar como o build é disparado (por exemplo, de um script na raiz
+do monorepo).
+
 Defina `VITE_API_URL` com a URL do Cloud Run nas variáveis de ambiente do
 projeto na Vercel (Settings → Environment Variables) e refaça o deploy. O
 `frontend/src/services/api.js:3` já lê essa variável.
