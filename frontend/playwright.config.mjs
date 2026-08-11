@@ -20,6 +20,12 @@ export default defineConfig({
   // teste que roda o app de verdade; uma falha remota sem artefato é uma
   // falha que ninguém consegue diagnosticar.
   reporter: [['list'], ['html', { open: 'never' }]],
+  // Uma corrida de partida contra os dois webServer acima falha a suíte
+  // inteira em CI sem segunda chance — já aconteceu uma vez durante a
+  // implementação desta guarda. Uma segunda tentativa cobre a flakiness de
+  // startup; uma quebra de verdade falha nas duas tentativas igualmente, então
+  // isto não mascara falha real, só dá ao servidor a chance de subir.
+  retries: process.env.CI ? 1 : 0,
   use: {
     baseURL: 'http://localhost:4321',
     trace: 'on-first-retry',
