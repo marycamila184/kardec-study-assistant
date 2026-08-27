@@ -1,7 +1,7 @@
 # An installable app, without a service worker
 
 **Date:** 2026-08-27
-**Status:** approved, pending implementation
+**Status:** implemented
 
 ## What was asked for
 
@@ -142,10 +142,20 @@ Files, all in `frontend/public/`:
 
 **Rasterization uses Playwright.** Neither `rsvg-convert`, `inkscape` nor
 ImageMagick is present. Playwright is already a `devDependency` of the frontend
-for the smoke test, so `scripts/make_icons.mjs` renders the SVG in headless
-Chromium and screenshots it at each exact size. No new dependency. The script is
-run by hand when the artwork changes; the PNGs are committed, like every other
-generated asset here.
+for the smoke test, so `frontend/scripts/make-icons.mjs` renders the SVG in
+headless Chromium and screenshots it at each exact size. No new dependency, and
+it is exposed as `npm run icons`.
+
+It lives under `frontend/`, not beside the guards in `scripts/`, because Node
+resolves dependencies from the file's own directory upward: a script in the repo
+root cannot import `@playwright/test` out of `frontend/node_modules`. The root
+guards are dependency-free on purpose; this one is not, so it does not belong
+next to them.
+
+`frontend/public/favicon.svg` is the single source of the geometry — served as
+the favicon *and* the input this script rasterizes, so no second copy of the
+artwork exists to drift. The PNGs are committed, like every other generated
+asset here, and the script runs by hand when the artwork changes.
 
 ### The `<link>` tags
 
@@ -210,3 +220,19 @@ app-owned cache, `screenshots` and `shortcuts` in the manifest.
 | They are actually served | Assertion in `frontend/tests/smoke.spec.mjs`, real browser |
 | The PNGs match their declared sizes | IHDR read inside the guard |
 | It installs | Manual, once, on a real Android and a real iPhone. No automation claims this — every layer above stops at the file, and the one thing that matters is a home screen |
+
+**A pre-existing breakage found while verifying this, and not caused by it:**
+`npm run smoke` cannot complete on this branch or on a pristine `development`.
+Astro 7.2's `astro preview` returns exit code 0 immediately and leaves the
+server running in the background, so Playwright's `webServer` reads it as
+"Process from config.webServer exited early" and aborts before any test runs.
+Confirmed by stashing every change here and reproducing it on the untouched
+tree. That means the CI `smoke` job — the only verification in this project
+that executes the JavaScript in a real browser — is currently failing for
+reasons that have nothing to do with the manifest.
+
+The assertion added here was therefore verified by starting both servers by
+hand and letting `reuseExistingServer` pick them up: all five tests pass, and
+the new one was checked in both directions (breaking `display` and removing an
+icon each make it fail with a useful message). Repairing `npm run smoke` is its
+own fix, deliberately not folded into this branch.

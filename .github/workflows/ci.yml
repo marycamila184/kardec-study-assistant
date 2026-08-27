@@ -69,8 +69,8 @@ jobs:
       # automatically until now. The current_mode one exists because two call
       # sites were fixed by hand and three others kept the bug: without it, a
       # /chat call missing `current_mode` silently re-enables self-nudging.
-      # check_discovery_assets.mjs reads the built artifact in frontend/dist,
-      # so it must run after Build.
+      # check_discovery_assets.mjs and check_pwa_manifest.mjs read the built
+      # artifact in frontend/dist, so they must run after Build.
       - name: Frontend guards
         working-directory: .
         run: |
@@ -79,6 +79,7 @@ jobs:
           node scripts/check_followup_reply.mjs
           node scripts/check_discovery_assets.mjs
           node scripts/check_api_base.mjs
+          node scripts/check_pwa_manifest.mjs
 
   # O único job que executa o JavaScript e fala com a API. Existe porque a
   # migração para Astro publicou duas falhas que passaram por todas as outras

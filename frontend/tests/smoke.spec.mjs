@@ -121,3 +121,37 @@ test.describe('sem JavaScript', () => {
     await expect(page.locator('details.passagem')).toHaveCount(trilha.steps.length);
   });
 });
+
+test('o manifest e os ícones são realmente servidos', async ({ page, request }) => {
+  // O que scripts/check_pwa_manifest.mjs NÃO sabe: aquela guarda lê arquivos
+  // dentro de dist/ como texto. Um arquivo existir no disco e o servidor
+  // entregá-lo são coisas diferentes — e é a segunda que decide se dá para
+  // instalar. Este teste é a única camada aqui que pergunta ao servidor.
+  //
+  // A instalação em si não é testável aqui: o convite é do navegador e do
+  // sistema, não da página. Isto para na costura anterior — os arquivos de
+  // que a instalação depende chegam, e chegam parseáveis.
+  await page.goto('/');
+
+  const href = await page.locator('link[rel="manifest"]').getAttribute('href');
+  expect(href).toBe('/manifest.webmanifest');
+
+  const resposta = await request.get(href);
+  expect(resposta.status()).toBe(200);
+
+  const manifest = JSON.parse(await resposta.text());
+  expect(manifest.short_name).toBe('Dialogando');
+  // Sem standalone o iOS abre com a barra do Safari — deixa de ser app.
+  expect(manifest.display).toBe('standalone');
+
+  // Cada ícone que o manifest promete, mais o do iOS, que não está no JSON.
+  const caminhos = [
+    ...manifest.icons.map((i) => i.src),
+    await page.locator('link[rel="apple-touch-icon"]').getAttribute('href'),
+  ];
+  for (const caminho of caminhos) {
+    const icone = await request.get(caminho);
+    expect(icone.status(), `${caminho} deveria ser servido`).toBe(200);
+    expect(Number(icone.headers()['content-length'] ?? 1)).toBeGreaterThan(0);
+  }
+});
