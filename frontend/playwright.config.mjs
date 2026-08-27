@@ -41,6 +41,26 @@ export default defineConfig({
       url: 'http://localhost:4321/',
       reuseExistingServer: !process.env.CI,
       timeout: 120_000,
+      // Sem isto, `npm run smoke` não roda dentro de um assistente de IA.
+      //
+      // O `astro preview` da v7 chama `isRunByAgent()` (a lib `am-i-vibing`) e,
+      // ao reconhecer o ambiente, sobe o servidor em segundo plano e sai com
+      // código 0 — conveniência para quem conversa com um agente e não quer o
+      // terminal preso. O Playwright, que precisa ser dono do ciclo de vida do
+      // servidor, lê essa saída como "o processo morreu antes da hora" e aborta
+      // a suíte inteira antes do primeiro teste.
+      //
+      // No CI isso nunca aconteceu e não acontece: o GitHub Actions não é um
+      // ambiente de agente, a detecção dá falso e o preview já roda em primeiro
+      // plano. A falha é só de quem desenvolve com assistente — que é
+      // justamente quem mais precisa de rodar esta suíte, porque ela é a única
+      // verificação deste projeto que executa o JavaScript num navegador.
+      //
+      // ASTRO_PREVIEW_BACKGROUND é o mecanismo do próprio Astro: é o que o
+      // processo daemonizador põe no filho para dizer "você É o servidor,
+      // rode aqui e não se desdobre de novo". É exatamente o que queremos do
+      // filho do Playwright.
+      env: { ASTRO_PREVIEW_BACKGROUND: '1' },
     },
   ],
 });
