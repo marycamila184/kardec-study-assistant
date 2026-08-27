@@ -222,17 +222,21 @@ app-owned cache, `screenshots` and `shortcuts` in the manifest.
 | It installs | Manual, once, on a real Android and a real iPhone. No automation claims this — every layer above stops at the file, and the one thing that matters is a home screen |
 
 **A pre-existing breakage found while verifying this, and not caused by it:**
-`npm run smoke` cannot complete on this branch or on a pristine `development`.
-Astro 7.2's `astro preview` returns exit code 0 immediately and leaves the
-server running in the background, so Playwright's `webServer` reads it as
-"Process from config.webServer exited early" and aborts before any test runs.
-Confirmed by stashing every change here and reproducing it on the untouched
-tree. That means the CI `smoke` job — the only verification in this project
-that executes the JavaScript in a real browser — is currently failing for
-reasons that have nothing to do with the manifest.
+`npm run smoke` aborted before running any test, here and on a pristine
+`development`. Astro 7's `preview` calls `isRunByAgent()`; recognising the
+environment, it starts the server detached and exits 0, and Playwright reads
+that as "Process from config.webServer exited early".
 
-The assertion added here was therefore verified by starting both servers by
-hand and letting `reuseExistingServer` pick them up: all five tests pass, and
-the new one was checked in both directions (breaking `display` and removing an
-icon each make it fail with a useful message). Repairing `npm run smoke` is its
-own fix, deliberately not folded into this branch.
+**It was never failing in CI.** GitHub Actions is not an agent environment, the
+detection returns false there, and preview runs in the foreground as it always
+has. The breakage belongs to whoever develops with an AI assistant — which is
+precisely who most needs to run the one suite here that executes the JavaScript
+in a browser. Fixed separately by giving the Playwright `webServer` the
+`ASTRO_PREVIEW_BACKGROUND` variable Astro itself uses to mean "you are the
+server, do not detach".
+
+The assertion added here was verified before that fix existed, by starting both
+servers by hand and letting `reuseExistingServer` pick them up, and again after
+it through `npm run smoke`. All five tests pass, and the new one was checked in
+both directions: breaking `display` and removing an icon each make it fail with
+a useful message.
