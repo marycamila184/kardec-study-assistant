@@ -27,10 +27,21 @@ const svg = readFileSync(join(PUBLIC, 'favicon.svg'), 'utf8');
 // fora some. Como o SVG já tem o retângulo azul de fundo, encolher a arte
 // inteira sobre um campo azul do mesmo tom não deixa emenda visível: o que
 // o recorte come é azul liso.
+//
+// O 0.92 é medido, não arbitrado. Com metade do traço (15), a arte ocupa de
+// x=97 a x=415 e de y=125 a y=391 num quadro de 512, então o canto dela fica
+// a hypot(159, 133) = 207px do centro. A zona segura tem raio 0.4 * 512 =
+// 204.8. Ela estoura por 2px — um recuo mínimo resolve, e 0.92 leva o canto
+// para 190px, dentro com folga.
+//
+// A primeira versão usava 0.78, por prudência e sem conta nenhuma. Renderizada
+// lado a lado com o recorte do ícone quadrado, o livro aparecia nitidamente
+// menor no Android do que em qualquer outro lugar — encolher "por garantia"
+// tem custo visível, e aqui era um custo pago por um problema de 2 pixels.
 const ALVOS = [
   { arquivo: 'icons/icon-192.png',          lado: 192, escala: 1 },
   { arquivo: 'icons/icon-512.png',          lado: 512, escala: 1 },
-  { arquivo: 'icons/icon-maskable-512.png', lado: 512, escala: 0.78 },
+  { arquivo: 'icons/icon-maskable-512.png', lado: 512, escala: 0.92 },
   // O iOS não lê o manifest para isto: lê <link rel="apple-touch-icon">. E
   // compõe transparência sobre preto, então o PNG precisa ser opaco — o que
   // ele é, porque o SVG começa com um <rect> que cobre tudo.
