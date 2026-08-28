@@ -94,6 +94,16 @@ in the runtime dependencies.
 party. That is worse privacy, not better, and it contradicts the only reason
 this spec has rules in it.
 
+### One duplicate a year, on purpose
+
+On daylight-saving fall-back dates, the hour 01:00–01:59 occurs twice in local
+time, and a device set to that hour fires twice. Fixing this would require
+storing `last_sent` per record — a sixth field to track when the notification
+was last delivered — but the spec deliberately holds to five fields to minimize
+what is kept. One duplicate notification per year is an acceptable cost against
+storing more durable state about a person. Spring-forward is unaffected: devices
+set to a non-existent hour are simply skipped that day.
+
 ## The service worker, and why it does not undo yesterday's decision
 
 Push requires a service worker.

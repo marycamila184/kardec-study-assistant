@@ -229,6 +229,17 @@ def test_fuso_desconhecido_nao_explode_e_nao_dispara():
 
 def test_hora_malformada_nao_dispara():
     assert not is_due("banana", "America/Sao_Paulo", _ONZE_UTC, 15)
+
+
+def test_o_horario_de_verao_repete_o_lembrete_uma_vez_por_ano():
+    # Comportamento CONHECIDO E ACEITO, fixado aqui para não voltar a ser
+    # invisível. Em 2026-11-01 Nova York volta o relógio: a hora local 01:30
+    # acontece duas vezes, e quem a escolheu recebe duas vezes.
+    # Ver docs/superpowers/specs/2026-08-27-lembrete-push-design.md
+    primeira = datetime(2026, 11, 1, 5, 30, tzinfo=timezone.utc)
+    segunda = datetime(2026, 11, 1, 6, 30, tzinfo=timezone.utc)
+    assert is_due("01:30", "America/New_York", primeira, 15)
+    assert is_due("01:30", "America/New_York", segunda, 15)
 ```
 
 - [ ] **Step 2: Run them and watch them fail**
@@ -262,6 +273,14 @@ def is_due(
     A janela é [início, início + window_minutes), fechada embaixo e aberta em
     cima — é isso que impede o mesmo registro de disparar em duas execuções
     consecutivas do Job.
+
+    Num fuso com horário de verão, na virada de outono, a hora local entre
+    01:00 e 01:59 acontece duas vezes — e quem escolheu um horário ali recebe
+    o lembrete duas vezes naquele dia. É conhecido e aceito: consertar exigiria
+    guardar a última data de envio por aparelho, um sexto campo num registro
+    que a spec segura em cinco de propósito. Um lembrete repetido uma vez por
+    ano não paga esse preço. A virada da primavera falha para o lado seguro:
+    quem escolheu a hora que não existiu naquele dia simplesmente não recebe.
 
     Entrada malformada (fuso inexistente, hora fora de HH:MM) devolve False em
     vez de levantar: os dados vêm do cliente, e um registro estragado não pode
