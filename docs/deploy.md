@@ -254,6 +254,19 @@ gcloud run services describe kardec-api --region us-central1 \
 gcloud run services update-traffic kardec-api --region us-central1 --to-latest
 ```
 
+### O Job do lembrete não se atualiza sozinho
+
+`gcloud run jobs create` fixa a imagem no momento em que o Job é criado. Um
+redeploy da API publica uma imagem nova e **não** mexe no Job: ele continua
+rodando o código antigo, indefinidamente, sem erro nenhum. Depois de cada
+redeploy que toque `src/push/`:
+
+```bash
+IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
+  --format='value(spec.template.spec.containers[0].image)')
+gcloud run jobs update kardec-push --region us-central1 --image "$IMAGEM"
+```
+
 ## 7. Log de conversas: o sink para BigQuery
 
 O stdout do container já vai para o Cloud Logging. O sink dá durabilidade além
@@ -316,9 +329,33 @@ gcloud firestore databases create --location=us-central1 --type=firestore-native
 
 # 2. Chaves VAPID. A pública vai para o build do frontend; a privada, para o
 #    Secret Manager, pelo mesmo caminho das chaves de LLM.
-uv run python -c "from py_vapid import Vapid01; v=Vapid01(); v.generate_keys(); \
-  print('PUBLIC =', v.public_key_urlsafe_base64); \
-  print('PRIVATE=', v.private_key_urlsafe_base64)"
+#
+# O formato importa e não é o mesmo dos dois lados: o navegador quer o ponto
+# público não comprimido (65 bytes) em base64url, e o pywebpush quer o escalar
+# privado (32 bytes) em base64url. As duas linhas abaixo produzem exatamente
+# isso — foram executadas antes de entrarem aqui.
+uv run python - <<'PY'
+import base64
+from py_vapid import Vapid01
+from cryptography.hazmat.primitives import serialization
+
+v = Vapid01()
+v.generate_keys()
+
+publica = base64.urlsafe_b64encode(
+    v.public_key.public_bytes(
+        serialization.Encoding.X962,
+        serialization.PublicFormat.UncompressedPoint,
+    )
+).decode().rstrip("=")
+
+privada = base64.urlsafe_b64encode(
+    v.private_key.private_numbers().private_value.to_bytes(32, "big")
+).decode().rstrip("=")
+
+print("PUBLIC  (PUBLIC_VAPID_KEY, na Vercel):", publica)
+print("PRIVATE (vapid-private-key, no Secret Manager):", privada)
+PY
 
 printf '%s' 'A_CHAVE_PRIVADA' | gcloud secrets create vapid-private-key --data-file=-
 gcloud secrets add-iam-policy-binding vapid-private-key \
@@ -326,17 +363,34 @@ gcloud secrets add-iam-policy-binding vapid-private-key \
     --format='value(projectNumber)')-compute@developer.gserviceaccount.com" \
   --role=roles/secretmanager.secretAccessor
 
-# 3. O Job: mesma imagem da API, outro comando. Nenhuma superfície pública.
-# --max-retries 0: um retry re-executa o tique inteiro, e `is_due` não guarda
-# estado — quem já recebeu o lembrete recebe de novo. O job é barato o
-# bastante para simplesmente pular um tique em vez de duplicar um envio.
+# 3. O Job: MESMA imagem da API, outro comando. Nenhuma superfície pública.
+#
+# A imagem é lida do serviço que está no ar em vez de escrita à mão: a API sobe
+# com `--source .`, então quem escolhe o nome do repositório é o Cloud Build, e
+# um caminho chutado aqui falha na hora de criar o Job.
+IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
+  --format='value(spec.template.spec.containers[0].image)')
+
+# --max-retries 0: uma execução repetida manda o lembrete de novo. O dispatch
+# não tem idempotência (isso exigiria um sexto campo no registro, recusado), e
+# pular um tique de 15 minutos custa menos que uma notificação duplicada.
 gcloud run jobs create kardec-push \
-  --image us-central1-docker.pkg.dev/$(gcloud config get-value project)/kardec/api:latest \
+  --image "$IMAGEM" \
   --region us-central1 \
   --command /app/.venv/bin/python --args -m,src.push.dispatch \
   --max-retries 0 \
   --set-secrets 'VAPID_PRIVATE_KEY=vapid-private-key:latest' \
   --set-env-vars 'VAPID_PUBLIC_KEY=A_CHAVE_PUBLICA'
+
+# Sem esta permissão o Scheduler recebe 403 a cada 15 minutos, em silêncio, e
+# nenhum lembrete chega — com todo o resto aparentemente configurado.
+CONTA="$(gcloud projects describe $(gcloud config get-value project) \
+  --format='value(projectNumber)')-compute@developer.gserviceaccount.com"
+
+gcloud run jobs add-iam-policy-binding kardec-push \
+  --region us-central1 \
+  --member="serviceAccount:${CONTA}" \
+  --role=roles/run.invoker
 
 # 4. O Scheduler, de 15 em 15 minutos — o passo que cobre fusos de meia e de
 #    quarto de hora.
@@ -345,7 +399,7 @@ gcloud scheduler jobs create http kardec-push-tick \
   --schedule '*/15 * * * *' \
   --uri "https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/$(gcloud config get-value project)/jobs/kardec-push:run" \
   --http-method POST \
-  --oauth-service-account-email "$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')-compute@developer.gserviceaccount.com"
+  --oauth-service-account-email "${CONTA}"
 ```
 
 E na Vercel, a variável de ambiente do frontend: **`PUBLIC_VAPID_KEY`** com a
