@@ -49,6 +49,11 @@ async function registration() {
 export async function subscribe(hour) {
   if (!pushSupported() || needsInstallFirst()) return { ok: false, motivo: 'erro' };
 
+  // Antes de pedir permissão, e não depois: sem a chave a inscrição falha de
+  // qualquer jeito, e o navegador só pergunta uma vez. Gastar o pedido numa
+  // tentativa que não pode dar certo deixa a pessoa sem recurso.
+  if (!VAPID) return { ok: false, motivo: 'erro' };
+
   const permissao = await Notification.requestPermission();
   if (permissao !== 'granted') return { ok: false, motivo: 'permissao' };
 

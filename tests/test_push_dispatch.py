@@ -110,6 +110,21 @@ def test_falha_transitoria_nunca_apaga_a_inscricao():
     assert resultado["failed"] == 1
 
 
+def test_all_subscriptions_e_chamado_uma_vez_so_por_execucao():
+    # 192 varreduras completas por dia (uma para despachar, outra para os 90
+    # dias) cruza o nível grátis do Firestore com poucas centenas de
+    # aparelhos. dispatch.run precisa ler a coleção uma vez e reaproveitar a
+    # lista na varredura dos expirados.
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[]) as buscar,
+        patch("src.push.dispatch.store.delete_stale", return_value=0) as varrer,
+    ):
+        run(now_utc=_AGORA)
+
+    buscar.assert_called_once()
+    assert varrer.call_args.kwargs["subscriptions"] == []
+
+
 def test_apagar_um_morto_falhando_nao_derruba_o_resto():
     # O aparelho morto é o primeiro da lista de propósito: se a falha do
     # delete subisse, o segundo nunca receberia.

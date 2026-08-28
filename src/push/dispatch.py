@@ -29,7 +29,14 @@ def run(now_utc: datetime | None = None) -> dict[str, int]:
     agora = now_utc or datetime.now(timezone.utc)
     contagem = {"sent": 0, "gone": 0, "failed": 0, "expired": 0}
 
-    for sub in store.all_subscriptions():
+    # Uma leitura só da coleção inteira por execução. A varredura dos 90 dias
+    # logo abaixo reaproveita esta mesma lista em vez de ler de novo — ler
+    # duas vezes por tique dobraria as leituras do Firestore (192 varreduras
+    # completas por dia), o que cruza o nível grátis com poucas centenas de
+    # aparelhos e só aparece na fatura.
+    inscricoes = store.all_subscriptions()
+
+    for sub in inscricoes:
         if not is_due(sub.hour, sub.timezone, agora, settings.push_window_minutes):
             continue
         try:
@@ -53,7 +60,9 @@ def run(now_utc: datetime | None = None) -> dict[str, int]:
             contagem["failed"] += 1
 
     contagem["expired"] = store.delete_stale(
-        today=agora.date(), max_age_days=settings.push_expiry_days
+        today=agora.date(),
+        max_age_days=settings.push_expiry_days,
+        subscriptions=inscricoes,
     )
     return contagem
 

@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
+from src.api import limits
 from src.api.main import app
 
 client = TestClient(app)
@@ -68,6 +69,54 @@ def test_subscribe_rejeita_fuso_desconhecido():
     corpo = {**_CORPO, "timezone": "Nao/Existe"}
     r = client.post("/push/subscribe", json=corpo)
     assert r.status_code == 422
+
+
+_ANSWER_RESULT = {
+    "answer": "A reencarnação permite a evolução do espírito.",
+    "sources": [],
+    "not_found": False,
+}
+
+
+def test_subscribe_tem_teto_proprio_independente_do_chat():
+    """O lembrete não pode gastar o orçamento de quem está conversando, nem
+    o contrário: os dois usam a mesma função check_rate_limit, mas com
+    buckets diferentes."""
+    limits.reset()
+    try:
+        with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+            # Esgota o bucket do /chat.
+            for _ in range(limits.RATE_LIMIT_REQUESTS):
+                r = client.post("/chat", json={"question": "oi", "history": []})
+                assert r.status_code != 429
+            r_chat = client.post("/chat", json={"question": "oi", "history": []})
+        assert r_chat.status_code == 429
+
+        # /push/subscribe não é afetado — bucket separado.
+        with patch("src.api.routes.push_store.save"):
+            r_push = client.post("/push/subscribe", json=_CORPO)
+        assert r_push.status_code == 204
+    finally:
+        limits.reset()
+
+
+def test_chat_nao_e_afetado_por_esgotar_o_bucket_do_push():
+    limits.reset()
+    try:
+        # Esgota o bucket do /push/subscribe.
+        with patch("src.api.routes.push_store.save"):
+            for _ in range(limits.RATE_LIMIT_REQUESTS):
+                r = client.post("/push/subscribe", json=_CORPO)
+                assert r.status_code != 429
+            r_push = client.post("/push/subscribe", json=_CORPO)
+        assert r_push.status_code == 429
+
+        # /chat não é afetado — bucket separado.
+        with patch("src.api.routes.generate", return_value=_ANSWER_RESULT):
+            r_chat = client.post("/chat", json={"question": "oi", "history": []})
+        assert r_chat.status_code != 429
+    finally:
+        limits.reset()
 
 
 def test_o_push_nao_acrescenta_campo_nenhum_ao_log_de_turnos():

@@ -39,7 +39,7 @@ if (existsSync(SW)) {
   // delas. Isto é um arame de tropeço contra o descuido, não uma prova contra
   // quem esteja tentando burlá-la.
   const PERMITIDOS = ['push', 'notificationclick'];
-  const escutados = [...sw.matchAll(/addEventListener\s*\(\s*['"]([a-zA-Z]+)['"]/g)]
+  const escutados = [...sw.matchAll(/addEventListener\s*\(\s*['"`]([a-zA-Z]+)['"`]/g)]
     .map((m) => m[1]);
 
   check('o worker escuta pelo menos um evento', escutados.length > 0);

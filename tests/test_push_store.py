@@ -1,7 +1,14 @@
 from datetime import date
 from unittest.mock import MagicMock, patch
 
-from src.push.store import Subscription, delete_stale, from_document, to_document, touch
+from src.push.store import (
+    Subscription,
+    all_subscriptions,
+    delete_stale,
+    from_document,
+    to_document,
+    touch,
+)
 
 
 def _sub(**over):
@@ -31,6 +38,43 @@ def test_o_documento_tem_exatamente_os_cinco_campos():
 def test_ida_e_volta_preserva_o_registro():
     sub = _sub()
     assert from_document(to_document(sub)) == sub
+
+
+def test_all_subscriptions_pula_documento_malformado_sem_derrubar_o_resto():
+    # Um documento sem `hour`, por exemplo, faz from_document levantar
+    # KeyError. Isso não pode derrubar o job inteiro antes de qualquer envio.
+    bom = MagicMock()
+    bom.id = "bom"
+    bom.to_dict.return_value = to_document(_sub())
+
+    ruim = MagicMock()
+    ruim.id = "ruim"
+    ruim.to_dict.return_value = {"endpoint": "https://push.example/incompleto"}
+
+    with patch("src.push.store._colecao") as colecao:
+        colecao.return_value.stream.return_value = [ruim, bom]
+        resultado = all_subscriptions()
+
+    assert resultado == [_sub()]
+
+
+def test_delete_stale_usa_a_lista_recebida_em_vez_de_ler_de_novo():
+    # dispatch.run já leu a coleção uma vez para decidir quem está na janela;
+    # delete_stale não pode ler de novo quando recebe essa lista pronta.
+    velho = _sub(endpoint="https://push.example/velho", last_seen=date(2026, 5, 1))
+    apagados = []
+
+    with (
+        patch("src.push.store.all_subscriptions") as buscar,
+        patch("src.push.store.delete", side_effect=apagados.append),
+    ):
+        n = delete_stale(
+            today=date(2026, 8, 27), max_age_days=90, subscriptions=[velho]
+        )
+
+    buscar.assert_not_called()
+    assert n == 1
+    assert apagados == ["https://push.example/velho"]
 
 
 def test_delete_stale_apaga_quem_passou_do_prazo():

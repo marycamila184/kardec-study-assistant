@@ -392,6 +392,15 @@ gcloud run jobs add-iam-policy-binding kardec-push \
   --member="serviceAccount:${CONTA}" \
   --role=roles/run.invoker
 
+# Sem esta permissão as três rotas /push/* devolvem 500 (a API não consegue
+# ler nem escrever no Firestore) e o Job falha em silêncio a cada 15 minutos,
+# só um `PermissionDenied` no log — com tudo o mais parecendo configurado
+# corretamente. A conta padrão do Cloud Run não tem acesso ao Firestore por
+# padrão; sem o Editor legado do projeto, este passo é obrigatório.
+gcloud projects add-iam-policy-binding "$(gcloud config get-value project)" \
+  --member="serviceAccount:${CONTA}" \
+  --role=roles/datastore.user
+
 # 4. O Scheduler, de 15 em 15 minutos — o passo que cobre fusos de meia e de
 #    quarto de hora.
 gcloud scheduler jobs create http kardec-push-tick \
@@ -406,3 +415,24 @@ E na Vercel, a variável de ambiente do frontend: **`PUBLIC_VAPID_KEY`** com a
 chave pública. O prefixo é `PUBLIC_`, não `VITE_` — o Astro só expõe ao
 cliente as variáveis com esse prefixo, e trocar isso foi o que gravou
 `localhost:8000` dentro do bundle de produção em 2026-08-09.
+
+Depois de configurar `PUBLIC_VAPID_KEY` na Vercel e rodar o build de produção,
+rode `node scripts/check_vapid_key.mjs` (raiz do repo) — ele confirma que a
+chave chegou de verdade ao bundle. Enquanto a variável não estiver configurada
+ele apenas avisa (`AVISO`, saída 0); só falha se a chave estiver presente e
+malformada. Não está na CI de propósito — ver o comentário no topo do arquivo.
+
+**Rotacionar o par VAPID quebra toda inscrição existente, para sempre.**
+`pushManager.subscribe` no navegador levanta exceção ao ser chamado contra uma
+`applicationServerKey` diferente da que gerou a assinatura original — quem já
+tinha o lembrete ligado passa a ver só a falha genérica ("Não deu certo
+agora"), sem nenhum jeito de o app corrigir isso sozinho. A única saída é a
+pessoa limpar os dados do site e ligar de novo. Rotacionar as chaves, portanto,
+significa avisar quem usa o lembrete para reativá-lo — não é uma troca
+transparente.
+
+`VAPID_PUBLIC_KEY` é passada ao Job (`--set-env-vars` no passo 3 acima) mas
+nenhum código Python lê `settings.vapid_public_key` — só `VAPID_PRIVATE_KEY` é
+usada para assinar o envio. Ela fica ali por simetria com a privada (as duas
+chaves do par visíveis juntas no comando que cria o Job) e não é exigida pelo
+Job; não há necessidade de removê-la.

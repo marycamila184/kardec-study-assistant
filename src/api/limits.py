@@ -46,9 +46,15 @@ RATE_LIMITED_MESSAGE = (
     "Tente de novo em alguns minutos — o estudo não tem pressa."
 )
 
-# ip -> timestamps of recent requests. Per instance, deliberately: see the
-# limitation note in check_rate_limit.
+# "bucket:ip" -> timestamps of recent requests. Per instance, deliberately:
+# see the limitation note in check_rate_limit. Keyed by bucket as well as IP
+# so unrelated routes don't share one counter — see check_rate_limit.
 _hits: dict[str, deque] = defaultdict(deque)
+
+# Default bucket name, unchanged from before buckets existed: every call site
+# that does not pass one keeps counting against the same shared counter as
+# always.
+_DEFAULT_BUCKET = "default"
 
 
 def count_words(*texts: str) -> int:
@@ -128,7 +134,7 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-def check_rate_limit(ip: str) -> int | None:
+def check_rate_limit(ip: str, bucket: str = _DEFAULT_BUCKET) -> int | None:
     """Returns seconds to wait when the caller is over the limit, else None.
 
     The counter is per instance and resets on redeploy, so with max-instances 3
@@ -136,9 +142,16 @@ def check_rate_limit(ip: str) -> int | None:
     against abuse, not a contractual quota — the exact version (Redis, Cloud
     Armor) costs money and operations this stage does not justify. The
     imprecision is written down so nobody trusts it as exact.
+
+    `bucket` separates independent counters that share this same function —
+    /chat and /study default to one shared bucket, and /push/subscribe passes
+    its own. Without this, someone who had been asking questions would see
+    the reminder toggle refuse them, and fiddling with the reminder hour could
+    burn the budget for their next real question. The reminder is not a
+    conversation and must not spend the conversation's budget, or vice versa.
     """
     now = time.monotonic()
-    window = _hits[ip]
+    window = _hits[f"{bucket}:{ip}"]
     while window and now - window[0] > RATE_LIMIT_WINDOW_S:
         window.popleft()
     if len(window) >= RATE_LIMIT_REQUESTS:

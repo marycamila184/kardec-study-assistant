@@ -55,6 +55,16 @@ export default function SettingsPanel({
   }, [open]);
   useEscapeKey(onClose, open);
 
+  // Valor exibido no <input type="time">, separado do valor confirmado
+  // (reminder.hour): cada onChange durante o arrasto do seletor de hora
+  // chamaria reminder.setHour, que faz um POST completo de reinscrição.
+  // Aqui só onBlur confirma, então mexer no seletor produz um request, não
+  // uma rajada.
+  const [horaExibida, setHoraExibida] = useState(reminder.hour);
+  useEffect(() => {
+    setHoraExibida(reminder.hour);
+  }, [reminder.hour]);
+
   if (!open) return null;
 
   const Toggle = ({ on, onToggle }) => (
@@ -279,9 +289,14 @@ export default function SettingsPanel({
                 {reminder.enabled && (
                   <input
                     type="time"
-                    value={reminder.hour}
+                    value={horaExibida}
                     disabled={reminder.busy}
-                    onChange={(e) => reminder.setHour(e.target.value)}
+                    onChange={(e) => setHoraExibida(e.target.value)}
+                    onBlur={(e) => {
+                      if (e.target.value && e.target.value !== reminder.hour) {
+                        reminder.setHour(e.target.value);
+                      }
+                    }}
                     style={{
                       width: '100%', background: theme.inputBg,
                       border: `1px solid ${theme.headerBorder}`,

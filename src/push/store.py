@@ -9,11 +9,14 @@ docs/superpowers/specs/2026-08-27-lembrete-push-design.md
 Firestore fora desta função.
 """
 
+import logging
 from dataclasses import dataclass
 from datetime import date, timedelta
 from functools import lru_cache
 
 from src.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -108,23 +111,43 @@ def touch(endpoint: str, today: date) -> None:
 
 
 def all_subscriptions() -> list[Subscription]:
-    return [from_document(d.to_dict()) for d in _colecao().stream()]
+    """Lê a coleção inteira. Um documento ruim é pulado, não derruba o resto.
+
+    Contenção por registro é o padrão do resto do job — `dispatch.run` nunca
+    deixa um aparelho com problema custar o lembrete de todo mundo. Sem esta
+    guarda aqui, um único documento malformado levantaria de dentro de
+    `from_document` (um campo faltando, uma data que não faz parse) e
+    quebraria o job inteiro ANTES de qualquer envio e ANTES da varredura dos
+    90 dias — a única leitura do job virando o único ponto de falha total.
+    """
+    inscricoes = []
+    for doc in _colecao().stream():
+        try:
+            inscricoes.append(from_document(doc.to_dict()))
+        except Exception:
+            logger.exception("documento de inscrição malformado, pulando: %s", doc.id)
+    return inscricoes
 
 
-def delete_stale(today: date, max_age_days: int) -> int:
+def delete_stale(
+    today: date, max_age_days: int, subscriptions: list[Subscription] | None = None
+) -> int:
     """Apaga quem não aparece há mais de `max_age_days`. Devolve quantos.
 
     Existe porque desligar e o 410 não bastam: quem simplesmente parou de usar
     nunca aperta botão nenhum, e sem isto ficaria registrado para sempre. O
     apagamento não pode depender de a pessoa pedir.
 
-    Lê a coleção inteira e filtra aqui em vez de perguntar ao Firestore com
-    um `where`. Na escala deste projeto isso é irrelevante e evita um índice;
-    se um dia forem dezenas de milhares de registros, é este o lugar a mudar.
+    `subscriptions`, se vier, é usado no lugar de ler a coleção de novo — o
+    dispatch já leu tudo uma vez para decidir quem está na janela, e pedir de
+    novo aqui dobraria as leituras: 192 varreduras completas por dia, o que
+    cruza o nível grátis do Firestore com poucas centenas de aparelhos.
+    `None` continua buscando, exatamente como antes; a chamada direta a este
+    módulo (fora do dispatch) não muda.
     """
     limite = today - timedelta(days=max_age_days)
     apagados = 0
-    for sub in all_subscriptions():
+    for sub in subscriptions if subscriptions is not None else all_subscriptions():
         if sub.last_seen < limite:
             delete(sub.endpoint)
             apagados += 1
