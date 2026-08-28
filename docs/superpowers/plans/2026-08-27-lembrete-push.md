@@ -54,9 +54,11 @@ export const PRIVACY_NOTICE =
   'estiver aberta; isso ajuda quando uma resposta ruim só faz sentido junto ' +
   'com o que veio antes. Depois de 12 meses as mensagens serão apagadas. ' +
   'Se você ligar o lembrete diário, guardo o endereço de notificação do seu ' +
-  'aparelho e a hora que você escolheu — só isso, separado das conversas e ' +
-  'sem ligação com elas. Some quando você desliga o lembrete, quando o ' +
-  'aparelho deixa de existir, ou depois de 90 dias sem uso.';
+  'aparelho, a hora que você escolheu e o seu fuso horário — é o que faz a ' +
+  'notificação chegar na hora certa onde você está. Nada disso fica ligado ' +
+  'às suas conversas. O registro some quando você desliga o lembrete, quando ' +
+  'o aparelho deixa de existir, ou depois de 90 dias sem você abrir o app ' +
+  'por um lembrete.';
 ```
 
 - [ ] **Step 3: Add the same promise to the Sobre page**
@@ -66,8 +68,9 @@ In `frontend/src/pages/sobre.astro`, inside the existing privacy/explanation pro
 ```html
 <p>
   Se você ligar o lembrete diário, este site guarda o endereço de notificação
-  do seu aparelho e a hora escolhida — nada além disso, e separado das
-  conversas. Você desliga quando quiser, e o registro é apagado.
+  do seu aparelho, a hora que você escolheu e o seu fuso horário — separado
+  das conversas e sem ligação com elas. Você desliga quando quiser, e o
+  registro é apagado.
 </p>
 ```
 
