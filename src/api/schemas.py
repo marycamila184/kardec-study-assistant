@@ -228,3 +228,19 @@ class EvangelhoResponse(BaseModel):
     content: str
     source: EvangelhoSource
     chapter_summary: str | None = None
+
+
+class PushKeys(BaseModel):
+    p256dh: str
+    auth: str
+
+
+class PushSubscribeRequest(BaseModel):
+    endpoint: str
+    keys: PushKeys
+    hour: str
+    timezone: str
+
+
+class PushEndpointRequest(BaseModel):
+    endpoint: str
