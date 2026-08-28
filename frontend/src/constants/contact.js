@@ -28,7 +28,11 @@ export const PRIVACY_NOTICE =
   'melhorar. Não fica nada que identifique você. Se você autorizar, as ' +
   'perguntas de uma mesma conversa ficam ligadas entre si enquanto a aba ' +
   'estiver aberta; isso ajuda quando uma resposta ruim só faz sentido junto ' +
-  'com o que veio antes. Depois de 12 meses as mensagens serão apagadas.';
+  'com o que veio antes. Depois de 12 meses as mensagens serão apagadas. ' +
+  'Se você ligar o lembrete diário, guardo o endereço de notificação do seu ' +
+  'aparelho e a hora que você escolheu — só isso, separado das conversas e ' +
+  'sem ligação com elas. Some quando você desliga o lembrete, quando o ' +
+  'aparelho deixa de existir, ou depois de 90 dias sem uso.';
 
 export const LOCAL_STORAGE_NOTICE =
   'Suas conversas ficam salvas apenas no seu navegador.';
