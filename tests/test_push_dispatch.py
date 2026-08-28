@@ -89,3 +89,49 @@ def test_a_varredura_dos_90_dias_roda_junto():
 
     assert resultado["expired"] == 3
     assert varrer.call_args.kwargs["max_age_days"] == 90
+
+
+def test_falha_transitoria_nunca_apaga_a_inscricao():
+    # A propriedade mais importante deste arquivo. Apagar por engano tira o
+    # lembrete de alguém que ainda usa, e o teste ao lado só provava isso por
+    # acidente — o cliente real do Firestore explodiria sem credencial, o que
+    # não é prova de nada.
+    sub = _sub("https://push.example/instavel")
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch("src.push.dispatch.store.delete") as apagar,
+        patch("src.push.dispatch.sender.send", side_effect=RuntimeError("timeout")),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    apagar.assert_not_called()
+    assert resultado["failed"] == 1
+
+
+def test_apagar_um_morto_falhando_nao_derruba_o_resto():
+    # O aparelho morto é o primeiro da lista de propósito: se a falha do
+    # delete subisse, o segundo nunca receberia.
+    morto = _sub("https://push.example/morto")
+    vivo = _sub("https://push.example/vivo")
+    enviados = []
+
+    def enviar(sub):
+        if sub.endpoint.endswith("morto"):
+            raise Gone("x")
+        enviados.append(sub.endpoint)
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[morto, vivo]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.store.delete",
+            side_effect=RuntimeError("firestore fora"),
+        ),
+        patch("src.push.dispatch.sender.send", side_effect=enviar),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    assert enviados == ["https://push.example/vivo"]
+    assert resultado["failed"] == 1

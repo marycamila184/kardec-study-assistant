@@ -18,7 +18,14 @@ logger = logging.getLogger(__name__)
 
 
 def run(now_utc: datetime | None = None) -> dict[str, int]:
-    """Envia a quem está na janela e varre os expirados. Devolve a contagem."""
+    """Envia a quem está na janela e varre os expirados. Devolve a contagem.
+
+    Nada aqui garante idempotência: se o agendador disparar duas vezes para o
+    mesmo tique, ou repetir uma execução lenta, `is_due` volta a dizer que sim
+    e a pessoa recebe duas vezes. Consertar exigiria guardar a última data de
+    envio por aparelho — o sexto campo, recusado. A mitigação é operacional: o
+    Job é criado com --max-retries 0. Ver docs/deploy.md.
+    """
     agora = now_utc or datetime.now(timezone.utc)
     contagem = {"sent": 0, "gone": 0, "failed": 0, "expired": 0}
 
@@ -29,8 +36,16 @@ def run(now_utc: datetime | None = None) -> dict[str, int]:
             sender.send(sub)
             contagem["sent"] += 1
         except sender.Gone:
-            store.delete(sub.endpoint)
-            contagem["gone"] += 1
+            # Apagar pode falhar sozinho — rede, permissão. Se falhar, o
+            # registro fica para a varredura dos 90 dias ou para amanhã. O que
+            # não pode acontecer é a exceção subir e levar junto o lembrete de
+            # todo mundo que ainda não foi processado neste ciclo.
+            try:
+                store.delete(sub.endpoint)
+                contagem["gone"] += 1
+            except Exception:
+                logger.exception("falha ao apagar inscrição morta")
+                contagem["failed"] += 1
         except Exception:
             # Um endpoint com problema não pode custar o lembrete de todos os
             # outros. Falha transitória: nada é apagado, tenta amanhã.

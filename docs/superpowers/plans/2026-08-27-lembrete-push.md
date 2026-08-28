@@ -762,10 +762,17 @@ def test_envia_so_para_quem_esta_na_janela():
     mais_tarde = _sub("https://push.example/depois", "20:00")
     enviados = []
 
-    with patch("src.push.dispatch.store.all_subscriptions",
-               return_value=[na_hora, mais_tarde]), \
-         patch("src.push.dispatch.store.delete_stale", return_value=0), \
-         patch("src.push.dispatch.sender.send", side_effect=lambda s: enviados.append(s.endpoint)):
+    with (
+        patch(
+            "src.push.dispatch.store.all_subscriptions",
+            return_value=[na_hora, mais_tarde],
+        ),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda s: enviados.append(s.endpoint),
+        ),
+    ):
         resultado = run(now_utc=_AGORA)
 
     assert enviados == ["https://push.example/agora"]
@@ -776,10 +783,12 @@ def test_Gone_apaga_o_registro():
     sub = _sub("https://push.example/morto")
     apagados = []
 
-    with patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]), \
-         patch("src.push.dispatch.store.delete_stale", return_value=0), \
-         patch("src.push.dispatch.store.delete", side_effect=apagados.append), \
-         patch("src.push.dispatch.sender.send", side_effect=Gone("x")):
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch("src.push.dispatch.store.delete", side_effect=apagados.append),
+        patch("src.push.dispatch.sender.send", side_effect=Gone("x")),
+    ):
         resultado = run(now_utc=_AGORA)
 
     assert apagados == ["https://push.example/morto"]
@@ -798,9 +807,11 @@ def test_uma_falha_nao_impede_os_outros():
             raise RuntimeError("timeout")
         enviados.append(sub.endpoint)
 
-    with patch("src.push.dispatch.store.all_subscriptions", return_value=[ruim, bom]), \
-         patch("src.push.dispatch.store.delete_stale", return_value=0), \
-         patch("src.push.dispatch.sender.send", side_effect=enviar):
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[ruim, bom]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch("src.push.dispatch.sender.send", side_effect=enviar),
+    ):
         resultado = run(now_utc=_AGORA)
 
     assert enviados == ["https://push.example/bom"]
@@ -809,12 +820,60 @@ def test_uma_falha_nao_impede_os_outros():
 
 
 def test_a_varredura_dos_90_dias_roda_junto():
-    with patch("src.push.dispatch.store.all_subscriptions", return_value=[]), \
-         patch("src.push.dispatch.store.delete_stale", return_value=3) as varrer:
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[]),
+        patch("src.push.dispatch.store.delete_stale", return_value=3) as varrer,
+    ):
         resultado = run(now_utc=_AGORA)
 
     assert resultado["expired"] == 3
     assert varrer.call_args.kwargs["max_age_days"] == 90
+
+
+def test_falha_transitoria_nunca_apaga_a_inscricao():
+    # A propriedade mais importante deste arquivo. Apagar por engano tira o
+    # lembrete de alguém que ainda usa, e o teste ao lado só provava isso por
+    # acidente — o cliente real do Firestore explodiria sem credencial, o que
+    # não é prova de nada.
+    sub = _sub("https://push.example/instavel")
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch("src.push.dispatch.store.delete") as apagar,
+        patch("src.push.dispatch.sender.send", side_effect=RuntimeError("timeout")),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    apagar.assert_not_called()
+    assert resultado["failed"] == 1
+
+
+def test_apagar_um_morto_falhando_nao_derruba_o_resto():
+    # O aparelho morto é o primeiro da lista de propósito: se a falha do
+    # delete subisse, o segundo nunca receberia.
+    morto = _sub("https://push.example/morto")
+    vivo = _sub("https://push.example/vivo")
+    enviados = []
+
+    def enviar(sub):
+        if sub.endpoint.endswith("morto"):
+            raise Gone("x")
+        enviados.append(sub.endpoint)
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[morto, vivo]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.store.delete",
+            side_effect=RuntimeError("firestore fora"),
+        ),
+        patch("src.push.dispatch.sender.send", side_effect=enviar),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    assert enviados == ["https://push.example/vivo"]
+    assert resultado["failed"] == 1
 ```
 
 - [ ] **Step 2: Run them and watch them fail**
@@ -847,7 +906,14 @@ logger = logging.getLogger(__name__)
 
 
 def run(now_utc: datetime | None = None) -> dict[str, int]:
-    """Envia a quem está na janela e varre os expirados. Devolve a contagem."""
+    """Envia a quem está na janela e varre os expirados. Devolve a contagem.
+
+    Nada aqui garante idempotência: se o agendador disparar duas vezes para o
+    mesmo tique, ou repetir uma execução lenta, `is_due` volta a dizer que sim
+    e a pessoa recebe duas vezes. Consertar exigiria guardar a última data de
+    envio por aparelho — o sexto campo, recusado. A mitigação é operacional: o
+    Job é criado com --max-retries 0. Ver docs/deploy.md.
+    """
     agora = now_utc or datetime.now(timezone.utc)
     contagem = {"sent": 0, "gone": 0, "failed": 0, "expired": 0}
 
@@ -858,8 +924,16 @@ def run(now_utc: datetime | None = None) -> dict[str, int]:
             sender.send(sub)
             contagem["sent"] += 1
         except sender.Gone:
-            store.delete(sub.endpoint)
-            contagem["gone"] += 1
+            # Apagar pode falhar sozinho — rede, permissão. Se falhar, o
+            # registro fica para a varredura dos 90 dias ou para amanhã. O que
+            # não pode acontecer é a exceção subir e levar junto o lembrete de
+            # todo mundo que ainda não foi processado neste ciclo.
+            try:
+                store.delete(sub.endpoint)
+                contagem["gone"] += 1
+            except Exception:
+                logger.exception("falha ao apagar inscrição morta")
+                contagem["failed"] += 1
         except Exception:
             # Um endpoint com problema não pode custar o lembrete de todos os
             # outros. Falha transitória: nada é apagado, tenta amanhã.
@@ -887,7 +961,7 @@ if __name__ == "__main__":
 - [ ] **Step 4: Run the tests**
 
 Run: `uv run pytest tests/test_push_dispatch.py -v`
-Expected: 4 passed.
+Expected: 6 passed.
 
 - [ ] **Step 5: Commit**
 
