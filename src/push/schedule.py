@@ -18,6 +18,14 @@ def is_due(
     cima — é isso que impede o mesmo registro de disparar em duas execuções
     consecutivas do Job.
 
+    Num fuso com horário de verão, na virada de outono, a hora local entre
+    01:00 e 01:59 acontece duas vezes — e quem escolheu um horário ali recebe
+    o lembrete duas vezes naquele dia. É conhecido e aceito: consertar exigiria
+    guardar a última data de envio por aparelho, um sexto campo num registro
+    que a spec segura em cinco de propósito. Um lembrete repetido uma vez por
+    ano não paga esse preço. A virada da primavera falha para o lado seguro:
+    quem escolheu a hora que não existiu naquele dia simplesmente não recebe.
+
     Entrada malformada (fuso inexistente, hora fora de HH:MM) devolve False em
     vez de levantar: os dados vêm do cliente, e um registro estragado não pode
     derrubar o envio de todos os outros.

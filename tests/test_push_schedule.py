@@ -56,3 +56,14 @@ def test_fuso_desconhecido_nao_explode_e_nao_dispara():
 
 def test_hora_malformada_nao_dispara():
     assert not is_due("banana", "America/Sao_Paulo", _ONZE_UTC, 15)
+
+
+def test_o_horario_de_verao_repete_o_lembrete_uma_vez_por_ano():
+    # Comportamento CONHECIDO E ACEITO, fixado aqui para não voltar a ser
+    # invisível. Em 2026-11-01 Nova York volta o relógio: a hora local 01:30
+    # acontece duas vezes, e quem a escolheu recebe duas vezes.
+    # Ver docs/superpowers/specs/2026-08-27-lembrete-push-design.md
+    primeira = datetime(2026, 11, 1, 5, 30, tzinfo=timezone.utc)
+    segunda = datetime(2026, 11, 1, 6, 30, tzinfo=timezone.utc)
+    assert is_due("01:30", "America/New_York", primeira, 15)
+    assert is_due("01:30", "America/New_York", segunda, 15)
