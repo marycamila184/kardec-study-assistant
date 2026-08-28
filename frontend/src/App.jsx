@@ -28,9 +28,7 @@ import InputBar from './components/chat/InputBar';
 import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
-// Study reminder switched off for production — disconnected, not deleted.
-// See docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
-// import { useReminder } from './hooks/useReminder';
+import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { chapterFilterFromTopic, formatItemRef, formatSourceRef } from './utils/format';
 import { dayLabel, startsNewDay } from './utils/day';
@@ -147,16 +145,9 @@ export default function App({ trilha: trilhaProp = null }) {
   // ── Persistence ─────────────────────────────────────────────────────────
   const [onboarded,    setOnboarded]    = useStorage('dialogando_onboarded', false);
   const [fontSize,     setFontSize]     = useStorage('dialogando_fontsize', 'medium');
-  // Study reminder switched off for production — disconnected, not deleted.
-  // The two localStorage keys are deliberately NOT cleaned up: a reader who had
-  // set a reminder keeps their hour, so switching the feature back on restores
-  // it instead of silently resetting everyone to 08:00. They cost two unread
-  // strings. See docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
-  // const [reminderOn,       setReminderOn]       = useStorage('dialogando_reminder_on', false);
-  // const [reminderTime,     setReminderTime]     = useStorage('dialogando_reminder_time', '08:00');
   const [completedTrilhas, setCompletedTrilhas] = useStorage('dialogando_completed_trilhas', []);
-  // const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
   const { conversations, saveConvo, deleteConvo, toggleConvoFavorite } = useConversations();
+  const reminder = useReminder();
 
   // ── API state ────────────────────────────────────────────────────────────
   const [evangelhoData, setEvangelhoData] = useState(null);
@@ -292,6 +283,11 @@ export default function App({ trilha: trilhaProp = null }) {
       // Lista fechada: `refletir` está desligado em produção e nenhuma URL
       // pode reconectá-lo. Ver 2026-07-26-desligar-reflexivo-design.md
       switchMode(modeParam);
+    } else if (modeParam === 'trecho') {
+      // O destino da notificação do lembrete. Sem este ramo o ?mode=trecho
+      // é ignorado em silêncio e a pessoa cai na home — ver
+      // src/push/sender.py, REMINDER_URL.
+      handleStudyTrecho();
     }
     // Runs once, on mount: the URL is read and cleared before anything else.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1075,28 +1071,6 @@ export default function App({ trilha: trilhaProp = null }) {
     scrollToBottom();
   };
 
-  // ── Reminder ──────────────────────────────────────────────────────────────
-  // Switched off for production 2026-08-05 — disconnected, not deleted, like
-  // Refletir. useReminder.js stays in the tree with no caller; the hook itself
-  // is sound, the mechanism is not. See
-  // docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
-  //
-  // const handleNotificationClick = useCallback(() => {
-  //   switchMode('duvida');
-  //   handleStudyTrecho();
-  // }, [switchMode, handleStudyTrecho]);
-  //
-  // useReminder({
-  //   enabled: reminderOn, time: reminderTime, permission: notifPerm,
-  //   onNotificationClick: handleNotificationClick,
-  // });
-  //
-  // const requestNotif = async () => {
-  //   if (typeof Notification === 'undefined') return;
-  //   const perm = await Notification.requestPermission();
-  //   setNotifPerm(perm);
-  // };
-
   // ── Render ────────────────────────────────────────────────────────────────
   const isHome = mode === null;
   const isEstudar = mode === 'estudar';
@@ -1399,14 +1373,11 @@ export default function App({ trilha: trilhaProp = null }) {
       )}
 
       {/* Modals */}
-      {/* The reminder props are gone with the feature — see the commented block
-          near useReminder above. They were:
-            reminderOn / onToggleReminder, reminderTime / onReminderTime,
-            notifPermission / onRequestNotif */}
       <SettingsPanel
         open={showSettings} onClose={() => setShowSettings(false)}
         darkMode={darkMode} onToggleDark={toggleDark}
         fontSize={fontSize} onFontSize={setFontSize}
+        reminder={reminder}
         profile={profile} onResetProfile={() => setProfile(null)}
         theme={theme}
       />
