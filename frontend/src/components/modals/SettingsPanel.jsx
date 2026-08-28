@@ -252,7 +252,15 @@ export default function SettingsPanel({
                      theme={theme}>
                   <Toggle
                     on={reminder.enabled}
-                    onToggle={() => (reminder.enabled ? reminder.disable() : reminder.enable())}
+                    onToggle={() => {
+                      // Dois toques rápidos disparariam dois enable(), dois
+                      // pedidos de permissão e dois POST — e o teto por IP do
+                      // backend responderia 'limite' a quem só bateu o dedo
+                      // duas vezes.
+                      if (reminder.busy) return;
+                      if (reminder.enabled) reminder.disable();
+                      else reminder.enable();
+                    }}
                   />
                 </Row>
                 {reminder.motivo && (
@@ -265,7 +273,7 @@ export default function SettingsPanel({
                       ? 'Você precisa permitir notificações no navegador.'
                       : reminder.motivo === 'limite'
                       ? 'Muitas tentativas. Tente daqui a pouco.'
-                      : 'Não deu para ligar o lembrete agora.'}
+                      : 'Não deu certo agora. Tente de novo daqui a pouco.'}
                   </p>
                 )}
                 {reminder.enabled && (

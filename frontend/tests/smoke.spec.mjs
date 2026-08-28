@@ -109,6 +109,22 @@ test('uma falha no trecho do dia é dita, não fica carregando para sempre', asy
   await expect(page.getByText('Carregando trecho do dia…')).toHaveCount(0);
 });
 
+test('o ?mode=trecho da notificação abre o trecho do dia', async ({ page }) => {
+  // O destino que a notificação do lembrete abre. O ramo existia e não
+  // funcionava: o efeito de deep link roda no mount, antes de getEvangelho()
+  // responder, e handleStudyTrecho saía pelo early-return — quem tocava na
+  // notificação caía na home. Nenhuma guarda de texto vê isso, e esta suíte
+  // passou 5/5 com o defeito no lugar. Só abrir a URL num navegador de
+  // verdade pega.
+  await page.goto('/?mode=trecho');
+  await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
+  // handleStudyTrecho grava esta mensagem de usuário de forma síncrona, antes
+  // de qualquer chamada a /study — é o sinal de que o ramo ?mode=trecho
+  // realmente rodou (e não só que a página abriu na home), sem depender de o
+  // /study responder com sucesso.
+  await expect(page.getByText('Estudo diário de hoje')).toBeVisible({ timeout: 15_000 });
+});
+
 test.describe('sem JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 

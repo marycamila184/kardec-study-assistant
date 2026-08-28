@@ -157,6 +157,9 @@ export default function App({ trilha: trilhaProp = null }) {
   // CORS bloqueou /evangelho — corretamente — e o sintoma na tela não disse
   // nada, o que fez a procura pela causa começar no lugar errado.
   const [evangelhoFailed, setEvangelhoFailed] = useState(false);
+  // A intenção vinda do ?mode=trecho da notificação, guardada até o trecho do
+  // dia chegar pela rede.
+  const [trechoPedidoPelaURL, setTrechoPedidoPelaURL] = useState(false);
   const [paths,         setPaths]         = useState([]);
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
@@ -284,14 +287,32 @@ export default function App({ trilha: trilhaProp = null }) {
       // pode reconectá-lo. Ver 2026-07-26-desligar-reflexivo-design.md
       switchMode(modeParam);
     } else if (modeParam === 'trecho') {
-      // O destino da notificação do lembrete. Sem este ramo o ?mode=trecho
-      // é ignorado em silêncio e a pessoa cai na home — ver
-      // src/push/sender.py, REMINDER_URL.
-      handleStudyTrecho();
+      // O destino da notificação do lembrete. Não dá para chamar
+      // handleStudyTrecho() aqui: este efeito roda no mount e o trecho do dia
+      // vem por rede, então evangelhoData ainda é null e a função sairia pelo
+      // early-return — a pessoa cairia na home, que é exatamente o que este
+      // ramo existe para evitar. Marca a intenção; o efeito abaixo age quando
+      // o dado chegar. Ver src/push/sender.py, REMINDER_URL.
+      setTrechoPedidoPelaURL(true);
     }
     // Runs once, on mount: the URL is read and cleared before anything else.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // O par do ramo acima: age quando o trecho do dia finalmente chega.
+  useEffect(() => {
+    if (!trechoPedidoPelaURL) return;
+    // Se a busca falhou, não adianta esperar mais: desarma para não ficar
+    // pendurado, e o card de erro do trecho já diz o que houve.
+    if (evangelhoFailed) {
+      setTrechoPedidoPelaURL(false);
+      return;
+    }
+    if (!evangelhoData) return;
+    setTrechoPedidoPelaURL(false);
+    handleStudyTrecho();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trechoPedidoPelaURL, evangelhoData, evangelhoFailed]);
 
   // Scrolls after the next couple of paint frames, once new content has
   // actually been laid out, instead of polling scrollTop for seconds.
