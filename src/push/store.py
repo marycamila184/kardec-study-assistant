@@ -28,6 +28,10 @@ class Subscription:
     # dict, que compara por valor. Escrever um à mão aqui seria pior do que
     # inútil — com eq=True (o padrão) o dataclass instala o dele DEPOIS do
     # corpo da classe, e o escrito à mão sumiria sem aviso.
+    #
+    # Cuidado: `frozen=True` gera um __hash__, mas ele levanta TypeError
+    # porque `keys` é um dict. Ninguém põe uma Subscription num set hoje;
+    # quem for o primeiro descobre aqui em vez de em produção.
 
 
 def to_document(sub: Subscription) -> dict:
@@ -101,6 +105,10 @@ def delete_stale(today: date, max_age_days: int) -> int:
     Existe porque desligar e o 410 não bastam: quem simplesmente parou de usar
     nunca aperta botão nenhum, e sem isto ficaria registrado para sempre. O
     apagamento não pode depender de a pessoa pedir.
+
+    Lê a coleção inteira e filtra aqui em vez de perguntar ao Firestore com
+    um `where`. Na escala deste projeto isso é irrelevante e evita um índice;
+    se um dia forem dezenas de milhares de registros, é este o lugar a mudar.
     """
     limite = today - timedelta(days=max_age_days)
     apagados = 0

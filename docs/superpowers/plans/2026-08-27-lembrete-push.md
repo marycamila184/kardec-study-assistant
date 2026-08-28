@@ -366,9 +366,13 @@ def _sub(**over):
 def test_o_documento_tem_exatamente_os_cinco_campos():
     # A regra dura da spec: um sexto campo exige reabrir a decisão. Este
     # teste é onde essa regra vira código.
-    assert set(to_document(_sub())) == {
-        "endpoint", "keys", "hour", "timezone", "last_seen",
-    }
+    doc = to_document(_sub())
+    assert set(doc) == {"endpoint", "keys", "hour", "timezone", "last_seen"}
+    # E esta asserção é o que dá dentes à de cima: asdict() devolveria o mesmo
+    # conjunto de chaves e deixaria last_seen como um objeto date. Serializar
+    # explicitamente é o que separa os dois, então é isso que se confere.
+    assert doc["last_seen"] == "2026-08-27"
+    assert isinstance(doc["last_seen"], str)
 
 
 def test_ida_e_volta_preserva_o_registro():
@@ -381,8 +385,10 @@ def test_delete_stale_apaga_quem_passou_do_prazo():
     novo = _sub(endpoint="https://push.example/novo", last_seen=date(2026, 8, 20))
     apagados = []
 
-    with patch("src.push.store.all_subscriptions", return_value=[velho, novo]), \
-         patch("src.push.store.delete", side_effect=apagados.append):
+    with (
+        patch("src.push.store.all_subscriptions", return_value=[velho, novo]),
+        patch("src.push.store.delete", side_effect=apagados.append),
+    ):
         n = delete_stale(today=date(2026, 8, 27), max_age_days=90)
 
     assert n == 1
@@ -392,8 +398,10 @@ def test_delete_stale_apaga_quem_passou_do_prazo():
 def test_delete_stale_nao_apaga_exatamente_no_limite():
     # 90 dias exatos ainda está dentro; só o 91º sai.
     no_limite = _sub(last_seen=date(2026, 5, 29))
-    with patch("src.push.store.all_subscriptions", return_value=[no_limite]), \
-         patch("src.push.store.delete") as apagar:
+    with (
+        patch("src.push.store.all_subscriptions", return_value=[no_limite]),
+        patch("src.push.store.delete") as apagar,
+    ):
         n = delete_stale(today=date(2026, 8, 27), max_age_days=90)
 
     assert n == 0
@@ -440,6 +448,10 @@ class Subscription:
     # dict, que compara por valor. Escrever um à mão aqui seria pior do que
     # inútil — com eq=True (o padrão) o dataclass instala o dele DEPOIS do
     # corpo da classe, e o escrito à mão sumiria sem aviso.
+    #
+    # Cuidado: `frozen=True` gera um __hash__, mas ele levanta TypeError
+    # porque `keys` é um dict. Ninguém põe uma Subscription num set hoje;
+    # quem for o primeiro descobre aqui em vez de em produção.
 
 
 def to_document(sub: Subscription) -> dict:
@@ -500,9 +512,7 @@ def delete(endpoint: str) -> None:
 
 def touch(endpoint: str, today: date) -> None:
     """Carimba last_seen. Só a data — nada sobre a visita."""
-    _colecao().document(_doc_id(endpoint)).update(
-        {"last_seen": today.isoformat()}
-    )
+    _colecao().document(_doc_id(endpoint)).update({"last_seen": today.isoformat()})
 
 
 def all_subscriptions() -> list[Subscription]:
@@ -515,6 +525,10 @@ def delete_stale(today: date, max_age_days: int) -> int:
     Existe porque desligar e o 410 não bastam: quem simplesmente parou de usar
     nunca aperta botão nenhum, e sem isto ficaria registrado para sempre. O
     apagamento não pode depender de a pessoa pedir.
+
+    Lê a coleção inteira e filtra aqui em vez de perguntar ao Firestore com
+    um `where`. Na escala deste projeto isso é irrelevante e evita um índice;
+    se um dia forem dezenas de milhares de registros, é este o lugar a mudar.
     """
     limite = today - timedelta(days=max_age_days)
     apagados = 0

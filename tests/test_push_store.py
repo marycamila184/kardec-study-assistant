@@ -19,13 +19,13 @@ def _sub(**over):
 def test_o_documento_tem_exatamente_os_cinco_campos():
     # A regra dura da spec: um sexto campo exige reabrir a decisão. Este
     # teste é onde essa regra vira código.
-    assert set(to_document(_sub())) == {
-        "endpoint",
-        "keys",
-        "hour",
-        "timezone",
-        "last_seen",
-    }
+    doc = to_document(_sub())
+    assert set(doc) == {"endpoint", "keys", "hour", "timezone", "last_seen"}
+    # E esta asserção é o que dá dentes à de cima: asdict() devolveria o mesmo
+    # conjunto de chaves e deixaria last_seen como um objeto date. Serializar
+    # explicitamente é o que separa os dois, então é isso que se confere.
+    assert doc["last_seen"] == "2026-08-27"
+    assert isinstance(doc["last_seen"], str)
 
 
 def test_ida_e_volta_preserva_o_registro():
