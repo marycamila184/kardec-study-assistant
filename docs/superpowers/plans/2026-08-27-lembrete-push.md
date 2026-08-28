@@ -165,7 +165,9 @@ git commit -m "feat(config): add VAPID and push store settings"
 
 **Interfaces:**
 - Consumes: nothing
-- Produces: `is_due(hour: str, timezone: str, now_utc: datetime, window_minutes: int) -> bool`
+- Produces: `is_due(hour: str, timezone_name: str, now_utc: datetime, window_minutes: int) -> bool`
+  (the parameter is `timezone_name`, not `timezone`: this module imports
+  `datetime.timezone`, and a parameter of that name would shadow it)
 
 This is the only real logic in the feature and it touches no network, so it is written first and tested exhaustively. Everything else is plumbing around it.
 
@@ -943,7 +945,7 @@ class PushEndpointRequest(BaseModel):
 In `src/api/routes.py`, add to the imports:
 
 ```python
-from datetime import date, timezone as _tz
+from datetime import date
 
 from src.push import store as push_store
 ```
@@ -1463,6 +1465,30 @@ and inside the component:
 ```
 
 then pass `reminder={reminder}` to `<SettingsPanel ... />`, and accept `reminder` in `SettingsPanel`'s props.
+
+- [ ] **Step 2b: Teach the deep link to open the daily passage**
+
+`sender.py` sends `url: "/?mode=trecho"`, but `App.jsx`'s deep-link reader
+accepts only `'duvida'` and `'estudar'` (around line 291) — `trecho` would be
+ignored in silence and the notification would land on the home screen instead
+of the passage, which is what Task 12 Step 1 checks for.
+
+`handleStudyTrecho` already exists at `App.jsx:1028`. Extend the branch:
+
+```jsx
+    } else if (modeParam === 'duvida' || modeParam === 'estudar') {
+      switchMode(modeParam);
+    } else if (modeParam === 'trecho') {
+      // O destino da notificação do lembrete. Sem este ramo o ?mode=trecho
+      // é ignorado em silêncio e a pessoa cai na home — ver
+      // src/push/sender.py, REMINDER_URL.
+      handleStudyTrecho();
+    }
+```
+
+Keep the existing branch text exactly as it is; only add the new `else if`.
+Read the surrounding lines first — the real code may differ slightly from the
+snippet above, and the existing branches must not be rewritten.
 
 - [ ] **Step 3: Build and run every guard**
 
