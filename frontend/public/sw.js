@@ -12,7 +12,15 @@
 // tamanho.
 
 self.addEventListener('push', (event) => {
-  const dados = event.data ? event.data.json() : {};
+  // O parse fica dentro de um try porque acontece ANTES do waitUntil: um
+  // payload malformado levantaria aqui e o navegador não mostraria nada —
+  // pior que um lembrete feio é um lembrete que não aparece.
+  let dados = {};
+  try {
+    dados = event.data ? event.data.json() : {};
+  } catch {
+    dados = {};
+  }
   event.waitUntil(
     self.registration.showNotification(dados.title || 'Dialogando com a Doutrina', {
       body: dados.body || '',
@@ -48,7 +56,16 @@ self.addEventListener('notificationclick', (event) => {
 
     const abertas = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
     for (const cliente of abertas) {
-      if ('focus' in cliente) return cliente.focus();
+      if ('focus' in cliente) {
+        // Focar sem navegar deixa a pessoa na tela em que já estava, e o
+        // lembrete prometeu o trecho do dia. Navegar pode falhar (o cliente
+        // precisa ser da mesma origem), e nesse caso focar ainda é melhor
+        // que nada.
+        if ('navigate' in cliente) {
+          try { await cliente.navigate(destino); } catch { /* segue e foca */ }
+        }
+        return cliente.focus();
+      }
     }
     return self.clients.openWindow(destino);
   })());

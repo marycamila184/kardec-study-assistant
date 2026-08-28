@@ -26,15 +26,38 @@ check(`${SW} existe`, existsSync(SW));
 
 if (existsSync(SW)) {
   const sw = readFileSync(SW, 'utf8');
-  check('o worker não escuta fetch',
-    !/addEventListener\(\s*['"]fetch['"]/.test(sw),
-    'um handler de fetch devolve ao worker a capacidade de servir versão velha');
-  check('o worker não usa caches',
-    !/\bcaches\b/.test(sw),
+
+  // Lista BRANCA, não lista negra.
+  //
+  // A primeira versão desta guarda procurava `addEventListener('fetch'` e
+  // deixava passar `self.onfetch = ...`, que é a segunda forma mais natural
+  // de escrever a mesma coisa. Enumerar evasões é uma corrida que se perde;
+  // exigir que todo listener esteja numa lista curta inverte o ônus — quem
+  // acrescentar um evento novo tem de vir aqui explicar por quê.
+  //
+  // Nenhuma guarda de regex é completa: 'ca' + 'ches' passa por qualquer uma
+  // delas. Isto é um arame de tropeço contra o descuido, não uma prova contra
+  // quem esteja tentando burlá-la.
+  const PERMITIDOS = ['push', 'notificationclick'];
+  const escutados = [...sw.matchAll(/addEventListener\s*\(\s*['"]([a-zA-Z]+)['"]/g)]
+    .map((m) => m[1]);
+
+  check('o worker escuta pelo menos um evento', escutados.length > 0);
+  check(`o worker só escuta ${PERMITIDOS.join(' e ')}`,
+    escutados.every((e) => PERMITIDOS.includes(e)),
+    `escuta: ${escutados.join(', ') || '(nenhum)'}`);
+  for (const evento of PERMITIDOS) {
+    check(`o worker escuta ${evento}`, escutados.includes(evento));
+  }
+
+  // As três formas de recuperar a capacidade de servir conteúdo velho sem
+  // passar por addEventListener.
+  check('o worker não define onfetch', !/\bonfetch\b/.test(sw),
+    'self.onfetch é um handler de fetch por outro nome');
+  check('o worker não usa caches', !/\bcaches\b/.test(sw),
     'cache aqui é a falha silenciosa que a spec do PWA recusou');
-  check('o worker escuta push', /addEventListener\(\s*['"]push['"]/.test(sw));
-  check('o worker escuta notificationclick',
-    /addEventListener\(\s*['"]notificationclick['"]/.test(sw));
+  check('o worker não carrega código de fora', !/importScripts/.test(sw),
+    'importScripts traz código que esta guarda não lê');
 }
 
 // A cópia de privacidade tem de ter andado antes do store existir. Se
