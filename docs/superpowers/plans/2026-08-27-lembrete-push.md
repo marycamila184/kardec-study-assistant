@@ -585,6 +585,7 @@ from datetime import date
 from unittest.mock import patch
 
 import pytest
+from pywebpush import WebPushException
 
 from src.push.sender import Gone, send
 from src.push.store import Subscription
@@ -598,32 +599,47 @@ _SUB = Subscription(
 )
 
 
-class _Resposta:
-    def __init__(self, status_code):
-        self.status_code = status_code
+def _falha(status):
+    """Uma WebPushException como o pywebpush a levanta de verdade."""
+
+    class _R:
+        status_code = status
+        reason = "erro"
+        text = ""
+
+    return WebPushException("falhou", response=_R())
 
 
 def test_410_vira_Gone():
     # O serviço de push dizendo 410 significa "este aparelho não existe
     # mais". Reenviar é inútil; o registro sai na hora.
-    with patch("src.push.sender.webpush", return_value=_Resposta(410)):
+    with patch("src.push.sender.webpush", side_effect=_falha(410)):
         with pytest.raises(Gone):
             send(_SUB)
 
 
 def test_404_tambem_vira_Gone():
-    with patch("src.push.sender.webpush", return_value=_Resposta(404)):
+    with patch("src.push.sender.webpush", side_effect=_falha(404)):
         with pytest.raises(Gone):
             send(_SUB)
 
 
-def test_201_passa_sem_erro():
-    with patch("src.push.sender.webpush", return_value=_Resposta(201)):
+def test_erro_transitorio_nao_vira_Gone():
+    # 503 é o serviço de push com problema, não o aparelho. Tem de subir como
+    # veio, para que quem chama NÃO apague a inscrição de ninguém por causa
+    # de um minuto ruim.
+    with patch("src.push.sender.webpush", side_effect=_falha(503)):
+        with pytest.raises(WebPushException):
+            send(_SUB)
+
+
+def test_sucesso_nao_levanta():
+    with patch("src.push.sender.webpush", return_value=None):
         send(_SUB)
 
 
 def test_a_notificacao_leva_titulo_corpo_e_destino():
-    with patch("src.push.sender.webpush", return_value=_Resposta(201)) as enviar:
+    with patch("src.push.sender.webpush") as enviar:
         send(_SUB)
     payload = enviar.call_args.kwargs["data"]
     assert "Dialogando" in payload
@@ -644,7 +660,7 @@ Create `src/push/sender.py`:
 
 import json
 
-from pywebpush import webpush
+from pywebpush import WebPushException, webpush
 
 from src.core.config import settings
 from src.push.store import Subscription
@@ -662,26 +678,36 @@ class Gone(Exception):
 def send(sub: Subscription) -> None:
     """Envia o lembrete. Levanta Gone quando o registro deve ser apagado.
 
-    410 e 404 são as duas respostas que significam "esse aparelho acabou" —
-    qualquer outra falha é transitória e o Job simplesmente tenta de novo no
-    dia seguinte, sem apagar nada.
+    O pywebpush não devolve a resposta para quem chama conferir: ele levanta
+    WebPushException em qualquer status acima de 202, com a resposta pendurada
+    em `.response`. Uma versão anterior deste arquivo lia `status_code` do
+    retorno, o que nunca acontecia — o caminho do Gone era código morto e
+    aparelho apagado nunca teria sido apagado do store.
+
+    410 e 404 são as duas respostas que significam "esse aparelho acabou".
+    Qualquer outra falha é transitória e sobe como está: quem chama trata como
+    falha do dia e NÃO apaga nada.
     """
-    resposta = webpush(
-        subscription_info={"endpoint": sub.endpoint, "keys": sub.keys},
-        data=json.dumps(
-            {"title": REMINDER_TITLE, "body": REMINDER_BODY, "url": REMINDER_URL}
-        ),
-        vapid_private_key=settings.vapid_private_key,
-        vapid_claims={"sub": settings.vapid_subject},
-    )
-    if resposta.status_code in (404, 410):
-        raise Gone(sub.endpoint)
+    try:
+        webpush(
+            subscription_info={"endpoint": sub.endpoint, "keys": sub.keys},
+            data=json.dumps(
+                {"title": REMINDER_TITLE, "body": REMINDER_BODY, "url": REMINDER_URL}
+            ),
+            vapid_private_key=settings.vapid_private_key,
+            vapid_claims={"sub": settings.vapid_subject},
+        )
+    except WebPushException as erro:
+        status = getattr(erro.response, "status_code", None)
+        if status in (404, 410):
+            raise Gone(sub.endpoint) from erro
+        raise
 ```
 
 - [ ] **Step 4: Run the tests**
 
 Run: `uv run pytest tests/test_push_sender.py -v`
-Expected: 4 passed.
+Expected: 5 passed.
 
 - [ ] **Step 5: Commit**
 
