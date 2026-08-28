@@ -45,29 +45,40 @@ async function registration() {
     `/sw.js?api=${encodeURIComponent(API_BASE)}`, { scope: '/' });
 }
 
+/** Devolve { ok, motivo } — 'permissao' | 'limite' | 'erro' | null. */
 export async function subscribe(hour) {
-  if (!pushSupported() || needsInstallFirst()) return false;
+  if (!pushSupported() || needsInstallFirst()) return { ok: false, motivo: 'erro' };
+
   const permissao = await Notification.requestPermission();
-  if (permissao !== 'granted') return false;
+  if (permissao !== 'granted') return { ok: false, motivo: 'permissao' };
 
-  const reg = await registration();
-  const sub = await reg.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array(VAPID),
-  });
-  const json = sub.toJSON();
+  try {
+    const reg = await registration();
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID),
+    });
+    const json = sub.toJSON();
 
-  const r = await fetch(`${API_BASE}/push/subscribe`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      endpoint: sub.endpoint,
-      keys: json.keys,
-      hour,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    }),
-  });
-  return r.ok;
+    const r = await fetch(`${API_BASE}/push/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        endpoint: sub.endpoint,
+        keys: json.keys,
+        hour,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      }),
+    });
+    if (r.ok) return { ok: true, motivo: null };
+    // 429 é o teto por IP do backend. Vale distinguir porque é o único caso
+    // em que "tente daqui a pouco" é conselho verdadeiro.
+    return { ok: false, motivo: r.status === 429 ? 'limite' : 'erro' };
+  } catch {
+    // Chave VAPID vazia, permissão revogada no meio, rede caída. Quem chama
+    // precisa saber que falhou; o motivo exato não muda o que dá para dizer.
+    return { ok: false, motivo: 'erro' };
+  }
 }
 
 export async function unsubscribe() {
@@ -75,10 +86,15 @@ export async function unsubscribe() {
   const reg = await navigator.serviceWorker.getRegistration();
   const sub = reg && (await reg.pushManager.getSubscription());
   if (!sub) return;
-  await fetch(`${API_BASE}/push/unsubscribe`, {
+
+  // Avisa o servidor ANTES de desfazer localmente: se a ordem fosse a
+  // inversa e a chamada falhasse, o registro ficaria órfão no store sem
+  // ninguém do lado do navegador para removê-lo depois.
+  const r = await fetch(`${API_BASE}/push/unsubscribe`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ endpoint: sub.endpoint }),
   });
+  if (!r.ok) throw new Error(`unsubscribe falhou: ${r.status}`);
   await sub.unsubscribe();
 }

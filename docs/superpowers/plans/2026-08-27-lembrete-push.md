@@ -1434,7 +1434,7 @@ to pass if src/push/ exists while the privacy copy has not moved."
 
 **Interfaces:**
 - Consumes: `POST /push/subscribe`, `/push/unsubscribe` (Task 7); `PUBLIC_VAPID_KEY`
-- Produces: `useReminder()` returning `{ supported, needsInstall, enabled, hour, setHour, enable, disable, busy }`
+- Produces: `useReminder()` returning `{ supported, needsInstall, enabled, hour, setHour, enable, disable, busy, motivo }`
 
 - [ ] **Step 1: Write the service**
 
@@ -1488,29 +1488,40 @@ async function registration() {
     `/sw.js?api=${encodeURIComponent(API_BASE)}`, { scope: '/' });
 }
 
+/** Devolve { ok, motivo } — 'permissao' | 'limite' | 'erro' | null. */
 export async function subscribe(hour) {
-  if (!pushSupported() || needsInstallFirst()) return false;
+  if (!pushSupported() || needsInstallFirst()) return { ok: false, motivo: 'erro' };
+
   const permissao = await Notification.requestPermission();
-  if (permissao !== 'granted') return false;
+  if (permissao !== 'granted') return { ok: false, motivo: 'permissao' };
 
-  const reg = await registration();
-  const sub = await reg.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array(VAPID),
-  });
-  const json = sub.toJSON();
+  try {
+    const reg = await registration();
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID),
+    });
+    const json = sub.toJSON();
 
-  const r = await fetch(`${API_BASE}/push/subscribe`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      endpoint: sub.endpoint,
-      keys: json.keys,
-      hour,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    }),
-  });
-  return r.ok;
+    const r = await fetch(`${API_BASE}/push/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        endpoint: sub.endpoint,
+        keys: json.keys,
+        hour,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      }),
+    });
+    if (r.ok) return { ok: true, motivo: null };
+    // 429 é o teto por IP do backend. Vale distinguir porque é o único caso
+    // em que "tente daqui a pouco" é conselho verdadeiro.
+    return { ok: false, motivo: r.status === 429 ? 'limite' : 'erro' };
+  } catch {
+    // Chave VAPID vazia, permissão revogada no meio, rede caída. Quem chama
+    // precisa saber que falhou; o motivo exato não muda o que dá para dizer.
+    return { ok: false, motivo: 'erro' };
+  }
 }
 
 export async function unsubscribe() {
@@ -1518,11 +1529,16 @@ export async function unsubscribe() {
   const reg = await navigator.serviceWorker.getRegistration();
   const sub = reg && (await reg.pushManager.getSubscription());
   if (!sub) return;
-  await fetch(`${API_BASE}/push/unsubscribe`, {
+
+  // Avisa o servidor ANTES de desfazer localmente: se a ordem fosse a
+  // inversa e a chamada falhasse, o registro ficaria órfão no store sem
+  // ninguém do lado do navegador para removê-lo depois.
+  const r = await fetch(`${API_BASE}/push/unsubscribe`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ endpoint: sub.endpoint }),
   });
+  if (!r.ok) throw new Error(`unsubscribe falhou: ${r.status}`);
   await sub.unsubscribe();
 }
 ```
@@ -1569,6 +1585,7 @@ export function useReminder() {
   const [busy, setBusy] = useState(false);
   const [supported, setSupported] = useState(false);
   const [needsInstall, setNeedsInstall] = useState(false);
+  const [motivo, setMotivo] = useState(null);
 
   useEffect(() => {
     setSupported(pushSupported());
@@ -1577,31 +1594,53 @@ export function useReminder() {
 
   const enable = async () => {
     setBusy(true);
-    const ok = await subscribe(hour);
-    setEnabled(ok);
-    setBusy(false);
-    return ok;
-  };
-
-  const disable = async () => {
-    setBusy(true);
-    await unsubscribe();
-    setEnabled(false);
-    setBusy(false);
-  };
-
-  // Trocar a hora com o lembrete ligado exige reassinar: a hora vive no
-  // registro do servidor, não no navegador.
-  const setHour = async (nova) => {
-    setHourStored(nova);
-    if (enabled) {
-      setBusy(true);
-      await subscribe(nova);
+    setMotivo(null);
+    try {
+      const r = await subscribe(hour);
+      setEnabled(r.ok);
+      if (!r.ok) setMotivo(r.motivo);
+      return r.ok;
+    } finally {
+      // finally, sempre: sem ele qualquer exceção deixa o botão travado em
+      // "ocupado" até a pessoa recarregar a página.
       setBusy(false);
     }
   };
 
-  return { supported, needsInstall, enabled, hour, setHour, enable, disable, busy };
+  const disable = async () => {
+    setBusy(true);
+    setMotivo(null);
+    try {
+      await unsubscribe();
+      setEnabled(false);
+    } catch {
+      setMotivo('erro');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  // Trocar a hora com o lembrete ligado exige reassinar: a hora vive no
+  // registro do servidor, não no navegador. Só grava a hora nova DEPOIS de o
+  // servidor aceitar — senão o painel mostra um horário que ninguém guardou.
+  const setHour = async (nova) => {
+    if (!enabled) {
+      setHourStored(nova);
+      return true;
+    }
+    setBusy(true);
+    setMotivo(null);
+    try {
+      const r = await subscribe(nova);
+      if (r.ok) setHourStored(nova);
+      else setMotivo(r.motivo);
+      return r.ok;
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return { supported, needsInstall, enabled, hour, setHour, enable, disable, busy, motivo };
 }
 ```
 
@@ -1673,6 +1712,19 @@ In `frontend/src/components/modals/SettingsPanel.jsx`, replace the commented-out
                     onToggle={() => (reminder.enabled ? reminder.disable() : reminder.enable())}
                   />
                 </Row>
+                {reminder.motivo && (
+                  /* subscribe()/unsubscribe() em push.js devolvem o motivo da
+                     falha em vez de um booleano só — permissão negada, teto
+                     de IP e qualquer outro erro pedem frases diferentes, e um
+                     `false` sozinho não dava para dizer nenhuma delas. */
+                  <p style={{ fontSize: 12.5, lineHeight: 1.5, color: theme.subtext, margin: '4px 0 0' }}>
+                    {reminder.motivo === 'permissao'
+                      ? 'Você precisa permitir notificações no navegador.'
+                      : reminder.motivo === 'limite'
+                      ? 'Muitas tentativas. Tente daqui a pouco.'
+                      : 'Não deu para ligar o lembrete agora.'}
+                  </p>
+                )}
                 {reminder.enabled && (
                   <input
                     type="time"

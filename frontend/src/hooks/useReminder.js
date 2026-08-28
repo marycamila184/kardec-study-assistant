@@ -16,6 +16,7 @@ export function useReminder() {
   const [busy, setBusy] = useState(false);
   const [supported, setSupported] = useState(false);
   const [needsInstall, setNeedsInstall] = useState(false);
+  const [motivo, setMotivo] = useState(null);
 
   useEffect(() => {
     setSupported(pushSupported());
@@ -24,29 +25,51 @@ export function useReminder() {
 
   const enable = async () => {
     setBusy(true);
-    const ok = await subscribe(hour);
-    setEnabled(ok);
-    setBusy(false);
-    return ok;
-  };
-
-  const disable = async () => {
-    setBusy(true);
-    await unsubscribe();
-    setEnabled(false);
-    setBusy(false);
-  };
-
-  // Trocar a hora com o lembrete ligado exige reassinar: a hora vive no
-  // registro do servidor, não no navegador.
-  const setHour = async (nova) => {
-    setHourStored(nova);
-    if (enabled) {
-      setBusy(true);
-      await subscribe(nova);
+    setMotivo(null);
+    try {
+      const r = await subscribe(hour);
+      setEnabled(r.ok);
+      if (!r.ok) setMotivo(r.motivo);
+      return r.ok;
+    } finally {
+      // finally, sempre: sem ele qualquer exceção deixa o botão travado em
+      // "ocupado" até a pessoa recarregar a página.
       setBusy(false);
     }
   };
 
-  return { supported, needsInstall, enabled, hour, setHour, enable, disable, busy };
+  const disable = async () => {
+    setBusy(true);
+    setMotivo(null);
+    try {
+      await unsubscribe();
+      setEnabled(false);
+    } catch {
+      setMotivo('erro');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  // Trocar a hora com o lembrete ligado exige reassinar: a hora vive no
+  // registro do servidor, não no navegador. Só grava a hora nova DEPOIS de o
+  // servidor aceitar — senão o painel mostra um horário que ninguém guardou.
+  const setHour = async (nova) => {
+    if (!enabled) {
+      setHourStored(nova);
+      return true;
+    }
+    setBusy(true);
+    setMotivo(null);
+    try {
+      const r = await subscribe(nova);
+      if (r.ok) setHourStored(nova);
+      else setMotivo(r.motivo);
+      return r.ok;
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return { supported, needsInstall, enabled, hour, setHour, enable, disable, busy, motivo };
 }
