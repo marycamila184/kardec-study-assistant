@@ -138,9 +138,13 @@ resolve porque o build roda com esse cwd. Ver o comentário naquele arquivo
 antes de mudar como o build é disparado (por exemplo, de um script na raiz
 do monorepo).
 
-Defina `VITE_API_URL` com a URL do Cloud Run nas variáveis de ambiente do
+Defina `PUBLIC_API_URL` com a URL do Cloud Run nas variáveis de ambiente do
 projeto na Vercel (Settings → Environment Variables) e refaça o deploy. O
-`frontend/src/services/api.js:3` já lê essa variável.
+`frontend/src/services/api.js:3` já lê essa variável. O prefixo é
+`PUBLIC_`, não `VITE_` — desde a migração para Astro só variáveis com esse
+prefixo chegam ao cliente, e essa troca já custou um `localhost:8000` dentro
+do bundle de produção em 2026-08-09; `scripts/check_api_base.mjs` existe por
+causa disso.
 
 `frontend/public/` vai junto com o build, sem configuração nenhuma: o
 `preview.png`, o `robots.txt`, o `sitemap.xml` e a página estática
@@ -300,3 +304,51 @@ bq query --use_legacy_sql=false \
    FROM `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout`
    WHERE jsonPayload.session_id = "teste-do-sink"'
 ```
+
+## Lembrete por push
+
+Uma vez só, no projeto GCP que já roda a API.
+
+```bash
+# 1. Firestore em modo nativo, na mesma região do Cloud Run.
+gcloud services enable firestore.googleapis.com
+gcloud firestore databases create --location=us-central1 --type=firestore-native
+
+# 2. Chaves VAPID. A pública vai para o build do frontend; a privada, para o
+#    Secret Manager, pelo mesmo caminho das chaves de LLM.
+uv run python -c "from py_vapid import Vapid01; v=Vapid01(); v.generate_keys(); \
+  print('PUBLIC =', v.public_key_urlsafe_base64); \
+  print('PRIVATE=', v.private_key_urlsafe_base64)"
+
+printf '%s' 'A_CHAVE_PRIVADA' | gcloud secrets create vapid-private-key --data-file=-
+gcloud secrets add-iam-policy-binding vapid-private-key \
+  --member="serviceAccount:$(gcloud projects describe $(gcloud config get-value project) \
+    --format='value(projectNumber)')-compute@developer.gserviceaccount.com" \
+  --role=roles/secretmanager.secretAccessor
+
+# 3. O Job: mesma imagem da API, outro comando. Nenhuma superfície pública.
+# --max-retries 0: um retry re-executa o tique inteiro, e `is_due` não guarda
+# estado — quem já recebeu o lembrete recebe de novo. O job é barato o
+# bastante para simplesmente pular um tique em vez de duplicar um envio.
+gcloud run jobs create kardec-push \
+  --image us-central1-docker.pkg.dev/$(gcloud config get-value project)/kardec/api:latest \
+  --region us-central1 \
+  --command /app/.venv/bin/python --args -m,src.push.dispatch \
+  --max-retries 0 \
+  --set-secrets 'VAPID_PRIVATE_KEY=vapid-private-key:latest' \
+  --set-env-vars 'VAPID_PUBLIC_KEY=A_CHAVE_PUBLICA'
+
+# 4. O Scheduler, de 15 em 15 minutos — o passo que cobre fusos de meia e de
+#    quarto de hora.
+gcloud scheduler jobs create http kardec-push-tick \
+  --location us-central1 \
+  --schedule '*/15 * * * *' \
+  --uri "https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/$(gcloud config get-value project)/jobs/kardec-push:run" \
+  --http-method POST \
+  --oauth-service-account-email "$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')-compute@developer.gserviceaccount.com"
+```
+
+E na Vercel, a variável de ambiente do frontend: **`PUBLIC_VAPID_KEY`** com a
+chave pública. O prefixo é `PUBLIC_`, não `VITE_` — o Astro só expõe ao
+cliente as variáveis com esse prefixo, e trocar isso foi o que gravou
+`localhost:8000` dentro do bundle de produção em 2026-08-09.

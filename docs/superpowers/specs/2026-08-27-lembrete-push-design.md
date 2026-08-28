@@ -1,7 +1,7 @@
 # The study reminder, by Web Push
 
 **Date:** 2026-08-27
-**Status:** approved, pending implementation
+**Status:** implemented
 
 ## What this reverses, and what it does not
 
