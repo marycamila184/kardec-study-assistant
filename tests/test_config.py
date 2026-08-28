@@ -210,3 +210,16 @@ def test_google_provider_requires_key(monkeypatch):
     s = _settings(monkeypatch, LLM_PROVIDER="google")  # no GOOGLE_API_KEY
     with pytest.raises(ValueError, match="GOOGLE_API_KEY"):
         _ = s.active_api_key
+
+
+def test_push_settings_have_safe_defaults():
+    from src.core.config import Settings
+
+    s = Settings(_env_file=None)
+    # Sem chave configurada o push simplesmente não existe — o dispatch
+    # verifica isto e sai, em vez de tentar enviar sem assinar.
+    assert s.vapid_public_key == ""
+    assert s.vapid_private_key == ""
+    assert s.push_collection == "push_subscriptions"
+    assert s.push_expiry_days == 90
+    assert s.push_window_minutes == 15
