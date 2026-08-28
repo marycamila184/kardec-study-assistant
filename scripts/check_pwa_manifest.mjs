@@ -193,6 +193,11 @@ for (const pagina of paginas) {
     /<link[^>]+rel="manifest"/.test(html));
   check(`${rotulo} linka o apple-touch-icon`,
     /<link[^>]+rel="apple-touch-icon"/.test(html));
+  // Conferir só que favicon.svg chegou ao dist não bastava: apagar o
+  // <link rel="icon"> do Base.astro devolvia a aba ao ícone de página em
+  // branco com o arquivo intacto e a guarda verde.
+  check(`${rotulo} linka o favicon`,
+    /<link[^>]+rel="icon"/.test(html));
 }
 
 process.exit(falhou ? 1 : 0);

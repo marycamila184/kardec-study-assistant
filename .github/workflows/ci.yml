@@ -65,8 +65,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      # The three guards this repo already wrote and that nothing ran
-      # automatically until now. The current_mode one exists because two call
+      # The guards this repo wrote and that nothing ran automatically until
+      # they were wired in here. The current_mode one exists because two call
       # sites were fixed by hand and three others kept the bug: without it, a
       # /chat call missing `current_mode` silently re-enables self-nudging.
       # check_discovery_assets.mjs and check_pwa_manifest.mjs read the built

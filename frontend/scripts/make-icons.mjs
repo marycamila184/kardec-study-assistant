@@ -21,6 +21,19 @@ const PUBLIC = join(AQUI, '..', 'public');
 
 const svg = readFileSync(join(PUBLIC, 'favicon.svg'), 'utf8');
 
+// A cor do campo sai do próprio SVG, não de uma constante aqui.
+//
+// Ela existia escrita à mão como `background: #6B9BB8`, e isso era uma segunda
+// cópia do azul — invisível e pior que as outras: trocar o fill do <rect> e
+// rodar `npm run icons` produziria um maskable com um anel de 4% da cor VELHA
+// em volta da arte nova, e todas as guardas ficariam verdes, porque nenhuma
+// delas lê o SVG. Lendo daqui, a arte tem uma cor só por construção.
+const COR_CAMPO = svg.match(/<rect[^>]*\sfill="(#[0-9A-Fa-f]{6})"/)?.[1];
+if (!COR_CAMPO) {
+  console.error('favicon.svg: não achei o fill do <rect> de fundo — a arte mudou de forma?');
+  process.exit(1);
+}
+
 // `escala` menor que 1 recua a arte para dentro da zona segura.
 //
 // O Android recorta ícone maskable num círculo de 80% do lado, e o que ficar
@@ -57,7 +70,7 @@ for (const { arquivo, lado, escala } of ALVOS) {
     <style>
       html, body { margin: 0; padding: 0; }
       .campo {
-        width: ${lado}px; height: ${lado}px; background: #6B9BB8;
+        width: ${lado}px; height: ${lado}px; background: ${COR_CAMPO};
         display: flex; align-items: center; justify-content: center;
         overflow: hidden;
       }
