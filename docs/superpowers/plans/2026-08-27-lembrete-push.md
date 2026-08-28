@@ -511,8 +511,20 @@ def delete(endpoint: str) -> None:
 
 
 def touch(endpoint: str, today: date) -> None:
-    """Carimba last_seen. Só a data — nada sobre a visita."""
-    _colecao().document(_doc_id(endpoint)).update({"last_seen": today.isoformat()})
+    """Carimba last_seen. Só a data — nada sobre a visita.
+
+    Silencioso quando o documento não existe: o service worker avisa que
+    alguém abriu o app por um lembrete, e nesse meio-tempo a inscrição pode
+    já ter sido desligada ou varrida pelos 90 dias. Isso é uma corrida
+    normal, não um erro — `update()` levantaria NotFound e a rota devolveria
+    500 para um clique que não tem nada de errado.
+    """
+    from google.api_core.exceptions import NotFound
+
+    try:
+        _colecao().document(_doc_id(endpoint)).update({"last_seen": today.isoformat()})
+    except NotFound:
+        pass
 
 
 def all_subscriptions() -> list[Subscription]:
@@ -1042,10 +1054,39 @@ def test_seen_carimba_a_data():
     carimbar.assert_called_once()
 
 
+def test_subscribe_e_limitado_por_taxa():
+    """O único caminho que CRIA registro, e por isso o único com teto: sem
+    isto, qualquer um poderia crescer a coleção que o job de despacho lê
+    inteira a cada 15 minutos."""
+    with patch("src.api.routes.check_rate_limit", return_value=42):
+        r = client.post("/push/subscribe", json=_CORPO)
+    assert r.status_code == 429
+    assert r.headers["Retry-After"] == "42"
+
+
+def test_subscribe_rejeita_hora_malformada():
+    # Sem isto, uma hora que não bate com HH:MM não dá erro nenhum: is_due
+    # devolve False para sempre e o lembrete nunca chega, em silêncio.
+    corpo = {**_CORPO, "hour": "25:99"}
+    r = client.post("/push/subscribe", json=corpo)
+    assert r.status_code == 422
+
+
+def test_subscribe_rejeita_fuso_desconhecido():
+    corpo = {**_CORPO, "timezone": "Nao/Existe"}
+    r = client.post("/push/subscribe", json=corpo)
+    assert r.status_code == 422
+
+
 def test_o_push_nao_acrescenta_campo_nenhum_ao_log_de_turnos():
     # A salvaguarda inteira desta funcionalidade é o store não cruzar com
     # nada. Se alguém um dia acrescentar `endpoint` ou `subscription` ao log,
     # este teste cai — que é o único aviso que existiria.
+    #
+    # É um arame de tropeço, não uma prova: alguém que ligasse os dois com um
+    # campo de outro nome passaria por aqui. O sentido inverso — pôr um
+    # session_id na Subscription — já cai no teste dos cinco campos em
+    # test_push_store.py.
     import inspect
 
     from src.rag import conversation_log
@@ -1073,13 +1114,29 @@ class PushKeys(BaseModel):
 class PushSubscribeRequest(BaseModel):
     endpoint: str
     keys: PushKeys
-    hour: str
+    # HH:MM. Sem isto, uma hora malformada não dá erro nenhum: is_due
+    # devolve False para sempre e a pessoa fica esperando um lembrete que
+    # nunca vem, em silêncio.
+    hour: str = Field(pattern=r"^([01]\d|2[0-3]):[0-5]\d$")
     timezone: str
+
+    @field_validator("timezone")
+    @classmethod
+    def _fuso_existe(cls, valor: str) -> str:
+        from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+        try:
+            ZoneInfo(valor)
+        except (ZoneInfoNotFoundError, ValueError) as erro:
+            raise ValueError(f"fuso desconhecido: {valor}") from erro
+        return valor
 
 
 class PushEndpointRequest(BaseModel):
     endpoint: str
 ```
+
+Import `Field` and `field_validator` from pydantic alongside whatever the file already imports.
 
 - [ ] **Step 4: Add the routes**
 
@@ -1104,7 +1161,11 @@ Then append the routes:
 
 
 @router.post("/push/subscribe", status_code=204)
-def push_subscribe(request: PushSubscribeRequest) -> Response:
+def push_subscribe(request: PushSubscribeRequest, http_request: Request) -> Response:
+    # O único caminho que CRIA registro, e por isso o único com teto. O
+    # limitador é um contador em memória por IP: não guarda nada e não liga o
+    # store de push a coisa nenhuma.
+    _enforce_rate_limit(http_request)
     push_store.save(
         push_store.Subscription(
             endpoint=request.endpoint,
@@ -1136,8 +1197,8 @@ def push_seen(request: PushEndpointRequest) -> Response:
 
 - [ ] **Step 5: Run the tests**
 
-Run: `uv run pytest tests/test_api_push.py -v && uv run pytest -q`
-Expected: 5 passed in the new file; the whole suite still green.
+Run: `uv run pytest tests/test_api_push.py tests/test_push_store.py -v && uv run pytest -q`
+Expected: 8 passed in `test_api_push.py`, 5 passed in `test_push_store.py`; the whole suite still green.
 
 - [ ] **Step 6: Format and commit**
 

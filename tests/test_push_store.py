@@ -1,7 +1,7 @@
 from datetime import date
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
-from src.push.store import Subscription, delete_stale, from_document, to_document
+from src.push.store import Subscription, delete_stale, from_document, to_document, touch
 
 
 def _sub(**over):
@@ -59,3 +59,15 @@ def test_delete_stale_nao_apaga_exatamente_no_limite():
 
     assert n == 0
     apagar.assert_not_called()
+
+
+def test_carimbar_um_registro_que_nao_existe_nao_levanta():
+    # Corrida normal: o clique na notificação chega depois de a inscrição ter
+    # sido desligada ou varrida. Não é erro, e não pode virar 500.
+    from google.api_core.exceptions import NotFound
+
+    doc = MagicMock()
+    doc.update.side_effect = NotFound("sumiu")
+    with patch("src.push.store._colecao") as colecao:
+        colecao.return_value.document.return_value = doc
+        touch("https://push.example/sumido", date(2026, 8, 27))

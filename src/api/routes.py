@@ -579,7 +579,11 @@ def health() -> dict:
 
 
 @router.post("/push/subscribe", status_code=204)
-def push_subscribe(request: PushSubscribeRequest) -> Response:
+def push_subscribe(request: PushSubscribeRequest, http_request: Request) -> Response:
+    # O único caminho que CRIA registro, e por isso o único com teto. O
+    # limitador é um contador em memória por IP: não guarda nada e não liga o
+    # store de push a coisa nenhuma.
+    _enforce_rate_limit(http_request)
     push_store.save(
         push_store.Subscription(
             endpoint=request.endpoint,

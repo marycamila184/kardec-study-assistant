@@ -91,8 +91,20 @@ def delete(endpoint: str) -> None:
 
 
 def touch(endpoint: str, today: date) -> None:
-    """Carimba last_seen. Só a data — nada sobre a visita."""
-    _colecao().document(_doc_id(endpoint)).update({"last_seen": today.isoformat()})
+    """Carimba last_seen. Só a data — nada sobre a visita.
+
+    Silencioso quando o documento não existe: o service worker avisa que
+    alguém abriu o app por um lembrete, e nesse meio-tempo a inscrição pode
+    já ter sido desligada ou varrida pelos 90 dias. Isso é uma corrida
+    normal, não um erro — `update()` levantaria NotFound e a rota devolveria
+    500 para um clique que não tem nada de errado.
+    """
+    from google.api_core.exceptions import NotFound
+
+    try:
+        _colecao().document(_doc_id(endpoint)).update({"last_seen": today.isoformat()})
+    except NotFound:
+        pass
 
 
 def all_subscriptions() -> list[Subscription]:
