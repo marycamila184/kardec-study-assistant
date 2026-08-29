@@ -125,6 +125,21 @@ test('o ?mode=trecho da notificação abre o trecho do dia', async ({ page }) =>
   await expect(page.getByText('Estudo diário de hoje')).toBeVisible({ timeout: 15_000 });
 });
 
+test('chegar numa trilha não pede consentimento por cima do trecho', async ({ page }) => {
+  // A regressão que motivou a mudança, medida em produção em 2026-08-10: o
+  // banner montava incondicionalmente e subia sobre o trecho de quem tinha
+  // acabado de chegar de uma busca — chegou a interceptar o clique do
+  // onboarding. Quem só lê não é interrompido.
+  //
+  // O caso positivo — "clicou um chip e o banner apareceu" — NÃO está aqui: os
+  // chips só existem depois de uma resposta do /study, que precisa do índice
+  // ChromaDB e de chave de LLM, e o CI não tem nenhum dos dois. Fica como
+  // verificação manual, dita em vez de fingida.
+  await page.goto(`/trilhas/${SLUG}/`);
+  await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
+  await expect(page.locator('[role="dialog"][aria-label*="Consentimento"]')).toHaveCount(0);
+});
+
 test.describe('sem JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
