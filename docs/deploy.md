@@ -377,7 +377,10 @@ IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
 gcloud run jobs create kardec-push \
   --image "$IMAGEM" \
   --region us-central1 \
-  --command /app/.venv/bin/python --args -m,src.push.dispatch \
+  # O `=` nos dois é obrigatório: sem ele o gcloud lê o `-m` como uma flag
+  # dele mesmo e recusa o comando com "argument --args: expected one argument".
+  --command=/app/.venv/bin/python \
+  --args=-m,src.push.dispatch \
   --max-retries 0 \
   --set-secrets 'VAPID_PRIVATE_KEY=vapid-private-key:latest' \
   --set-env-vars 'VAPID_PUBLIC_KEY=A_CHAVE_PUBLICA'
