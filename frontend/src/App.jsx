@@ -28,9 +28,7 @@ import InputBar from './components/chat/InputBar';
 import { useTheme } from './hooks/useTheme';
 import { useStorage } from './hooks/useStorage';
 import { useConversations } from './hooks/useConversations';
-// Study reminder switched off for production — disconnected, not deleted.
-// See docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
-// import { useReminder } from './hooks/useReminder';
+import { useReminder } from './hooks/useReminder';
 import { useStickToBottom } from './hooks/useStickToBottom';
 import { chapterFilterFromTopic, formatItemRef, formatSourceRef } from './utils/format';
 import { dayLabel, startsNewDay } from './utils/day';
@@ -147,16 +145,9 @@ export default function App({ trilha: trilhaProp = null }) {
   // ── Persistence ─────────────────────────────────────────────────────────
   const [onboarded,    setOnboarded]    = useStorage('dialogando_onboarded', false);
   const [fontSize,     setFontSize]     = useStorage('dialogando_fontsize', 'medium');
-  // Study reminder switched off for production — disconnected, not deleted.
-  // The two localStorage keys are deliberately NOT cleaned up: a reader who had
-  // set a reminder keeps their hour, so switching the feature back on restores
-  // it instead of silently resetting everyone to 08:00. They cost two unread
-  // strings. See docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
-  // const [reminderOn,       setReminderOn]       = useStorage('dialogando_reminder_on', false);
-  // const [reminderTime,     setReminderTime]     = useStorage('dialogando_reminder_time', '08:00');
   const [completedTrilhas, setCompletedTrilhas] = useStorage('dialogando_completed_trilhas', []);
-  // const [notifPerm,    setNotifPerm]    = useState(() => typeof Notification !== 'undefined' ? Notification.permission : 'default');
   const { conversations, saveConvo, deleteConvo, toggleConvoFavorite } = useConversations();
+  const reminder = useReminder();
 
   // ── API state ────────────────────────────────────────────────────────────
   const [evangelhoData, setEvangelhoData] = useState(null);
@@ -166,10 +157,35 @@ export default function App({ trilha: trilhaProp = null }) {
   // CORS bloqueou /evangelho — corretamente — e o sintoma na tela não disse
   // nada, o que fez a procura pela causa começar no lugar errado.
   const [evangelhoFailed, setEvangelhoFailed] = useState(false);
+  // A intenção vinda do ?mode=trecho da notificação, guardada até o trecho do
+  // dia chegar pela rede.
+  const [trechoPedidoPelaURL, setTrechoPedidoPelaURL] = useState(false);
   const [paths,         setPaths]         = useState([]);
   const [pathsLoading,  setPathsLoading]  = useState(true);
 
   // ── UI State ────────────────────────────────────────────────────────────
+  // O banner de consentimento sobe quando a PRIMEIRA troca que a pessoa
+  // iniciou por vontade própria TERMINA — não no clique que a começa. Cada
+  // chamador faz isso em `finally` (ou equivalente), para subir também quando
+  // o pedido falha: uma resposta que deu errado ainda é uma conversa que a
+  // pessoa começou, e o consentimento não pode depender do backend ter tido
+  // sucesso. Duas razões para não subir no início: o banner cobriria a
+  // composer que a pessoa acabou de usar e parte da resposta enquanto ela
+  // ainda chega — a mesma interceptação que esta mudança existia para tirar,
+  // só deslocada do onboarding para a caixa de texto — e perguntar depois que
+  // a pessoa já viu uma resposta é um consentimento mais bem informado do que
+  // perguntar antes de qualquer troca ter acontecido. Chegar numa trilha,
+  // abrir o trecho do dia ou seguir um deep link continuam sendo leitura, e
+  // leitura não é interrompida.
+  //
+  // Uma função só, chamada na conclusão de cada um dos SEIS pontos de entrada
+  // iniciados pela pessoa, e scripts/check_consent_prompt.mjs para que um
+  // sétimo não nasça sem ela: um handler que esquecer a chamada continua
+  // funcionando perfeitamente, só deixa de perguntar — que é exatamente a
+  // forma do bug que fez este repositório escrever
+  // check_chat_current_mode.mjs.
+  const [readerAsked, setReaderAsked] = useState(false);
+  const markReaderAsked = () => setReaderAsked(true);
   const [mode,          setMode]         = useState(null);
   const [input,         setInput]        = useState('');
   const [msgs,          setMsgs]         = useState([]);
@@ -253,7 +269,54 @@ export default function App({ trilha: trilhaProp = null }) {
     // A island é client:only, então esse bloco é o que o buscador lê; assim que
     // o app monta, ele sai. É o único ponto em que o app sabe que o Astro
     // existe, e vale mantê-lo num lugar só.
-    document.getElementById('conteudo-estatico')?.remove();
+    const estatico = document.getElementById('conteudo-estatico');
+    if (estatico) {
+      const remover = () => { if (estatico.isConnected) estatico.remove(); };
+      // O navegador não desativa transições sozinho por prefers-reduced-motion
+      // — só CSS autoral faz isso, e nada aqui fazia até esta linha. Sem esta
+      // checagem, quem pediu menos movimento recebia o fade normalmente,
+      // apesar do que o comentário abaixo dizia. Honrar a preferência é
+      // remover na hora, sem transição — o `setTimeout` de segurança do
+      // caminho animado seria só um atraso de 400ms sem propósito aqui.
+      const reduzMovimento = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      if (reduzMovimento) {
+        remover();
+        return;
+      }
+      // Sair com transição, não com corte seco: medido em produção em
+      // 2026-08-10, o bloco fica ~320 ms na tela e é substituído de uma vez,
+      // o que lê como a página trocando de identidade na cara de quem chegou.
+      //
+      // O estilo é aplicado por JavaScript, e não por uma classe CSS, porque o
+      // bloco é renderizado por DUAS páginas Astro (index.astro e
+      // trilhas/[slug].astro) e cada uma escopa o próprio <style>. Uma classe
+      // exigiria a mesma regra nos dois arquivos, e a que fosse esquecida
+      // falharia em silêncio — a página funcionaria, só sem transição.
+      estatico.style.transition = 'opacity 150ms ease-out';
+      // Forçar o navegador a computar o estilo "antes" com a transição já
+      // registrada; sem isso, `transition` e `opacity` chegam no mesmo
+      // frame, o navegador nunca vê um antes/depois e não anima nada — o
+      // bloco fica opaco até o setTimeout de segurança arrancá-lo, o que é
+      // pior que o corte seco original (o mesmo corte, 400ms mais tarde).
+      void estatico.offsetHeight;
+      estatico.style.opacity = '0';
+      // Duas rotas para o mesmo fim, e a segunda é obrigatória: transitionend
+      // NÃO é garantido — aba em segundo plano ou um navegador que decida não
+      // animar, e o evento nunca chega — o bloco ficaria empilhado sobre o
+      // app, que é pior do que o corte seco que esta mudança existe para
+      // consertar. A checagem de isConnected dentro de `remover` faz a
+      // remoção ser idempotente entre os dois caminhos.
+      //
+      // `transitionend` sobe (bubbles): sem checar `event.target`, uma futura
+      // transição CSS em qualquer descendente de #conteudo-estatico dispararia
+      // este listener antes da hora, e SEM `once: true` ele dispararia de novo
+      // a cada uma — por isso o alvo é checado explicitamente aqui em vez de
+      // confiar em `once` para descartar o evento errado.
+      estatico.addEventListener('transitionend', (e) => {
+        if (e.target === estatico) remover();
+      });
+      setTimeout(remover, 400);
+    }
     const params = new URLSearchParams(window.location.search);
     const book = params.get('book');
     const itemNumber = params.get('item');
@@ -292,10 +355,33 @@ export default function App({ trilha: trilhaProp = null }) {
       // Lista fechada: `refletir` está desligado em produção e nenhuma URL
       // pode reconectá-lo. Ver 2026-07-26-desligar-reflexivo-design.md
       switchMode(modeParam);
+    } else if (modeParam === 'trecho') {
+      // O destino da notificação do lembrete. Não dá para chamar
+      // handleStudyTrecho() aqui: este efeito roda no mount e o trecho do dia
+      // vem por rede, então evangelhoData ainda é null e a função sairia pelo
+      // early-return — a pessoa cairia na home, que é exatamente o que este
+      // ramo existe para evitar. Marca a intenção; o efeito abaixo age quando
+      // o dado chegar. Ver src/push/sender.py, REMINDER_URL.
+      setTrechoPedidoPelaURL(true);
     }
     // Runs once, on mount: the URL is read and cleared before anything else.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // O par do ramo acima: age quando o trecho do dia finalmente chega.
+  useEffect(() => {
+    if (!trechoPedidoPelaURL) return;
+    // Se a busca falhou, não adianta esperar mais: desarma para não ficar
+    // pendurado, e o card de erro do trecho já diz o que houve.
+    if (evangelhoFailed) {
+      setTrechoPedidoPelaURL(false);
+      return;
+    }
+    if (!evangelhoData) return;
+    setTrechoPedidoPelaURL(false);
+    handleStudyTrecho();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trechoPedidoPelaURL, evangelhoData, evangelhoFailed]);
 
   // Scrolls after the next couple of paint frames, once new content has
   // actually been laid out, instead of polling scrollTop for seconds.
@@ -448,6 +534,11 @@ export default function App({ trilha: trilhaProp = null }) {
       if (requestId !== requestIdRef.current) return;
       setMsgs([...newMsgs, { id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
+      // Sobe o banner aqui, na conclusão da troca — não no envio — e
+      // incondicionalmente a requestId, porque mesmo uma resposta descartada
+      // (a pessoa trocou de modo enquanto ela chegava) ainda foi um pedido que
+      // a pessoa fez. Ver a nota em readerAsked/markReaderAsked acima.
+      markReaderAsked();
       if (requestId === requestIdRef.current) {
         setLoading(false);
         scrollToBottom();
@@ -560,6 +651,10 @@ export default function App({ trilha: trilhaProp = null }) {
       console.error('runQuickAction failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
+      // Só as ações que de fato pedem algo (💡 Explicar simples) chegam até
+      // aqui — 📄 Ler original e 📚 Relacionados voltam mais cedo (acima), sem
+      // request nenhum, porque reler o que já está na tela não é um pedido.
+      markReaderAsked();
       setLoad(false);
       scrollToBottom();
     }
@@ -592,6 +687,7 @@ export default function App({ trilha: trilhaProp = null }) {
       console.error('askDuvida failed:', err);
       append({ id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG });
     } finally {
+      markReaderAsked();
       setLoad(false);
       scrollToBottom();
     }
@@ -713,6 +809,7 @@ export default function App({ trilha: trilhaProp = null }) {
         reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
       }
     } finally {
+      markReaderAsked();
       setExplorarLoad(false);
     }
 
@@ -757,6 +854,10 @@ export default function App({ trilha: trilhaProp = null }) {
       reply = { hasDaObra: false, obra: null, ia: 'Não foi possível obter uma resposta.' };
     }
 
+    // O catch acima já engole o erro (não relança), então este ponto é
+    // alcançado tanto no sucesso quanto na falha — é a conclusão da troca, o
+    // equivalente a um `finally` sem precisar de um.
+    markReaderAsked();
     setExplorarLoad(false);
     const aiMsg = { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...reply };
     const updatedMsgs = [...prevMsgs, userMsg, aiMsg];
@@ -853,6 +954,14 @@ export default function App({ trilha: trilhaProp = null }) {
     thread.slice(0, idx).reverse().find(m => m.isUser)?.text;
 
   // ── Suggested-mode: jump from /chat to a full item study in Explorar ────────
+  // Two callers: the deep-link effect near the top (app-generated, from a
+  // static discovery page) and the mode-nudge button built in buildModeNudge
+  // above (a person clicking "📖 Estudar ... na íntegra"). It stays in
+  // NAO_PEDE in scripts/check_consent_prompt.mjs despite the second, person-
+  // initiated caller — that click sits on a reply already produced by
+  // sendText/askDuvida/handleAskTopic/handleExplorarChat, each of which asked
+  // (or will ask, on completion) for the turn that produced the nudge. Asking
+  // again here would be a second prompt for the same conversation.
   const handleGoStudyItem = async (source) => {
     setMode('estudar'); setEstudarSub('explorar');
     const label = formatSourceRef({
@@ -882,6 +991,43 @@ export default function App({ trilha: trilhaProp = null }) {
       setExplorarMsgs([userMsg, { id: 'ea' + Date.now(), ts: Date.now(), isUser: false, isAI: true, ...ERROR_MSG }]);
     } finally {
       setExplorarLoad(false);
+    }
+  };
+
+  // ── Related-items modal: open one of the listed passages ─────────────────
+  // A person clicking a row in RelatedItemsModal — the modal itself only lists
+  // what buildModeNudge/runQuickAction's "📚 Relacionados" already put on
+  // screen; opening one is a new request the person chose to make, same as
+  // "Tenho uma dúvida" or a topic chip. Named (rather than inline in the JSX)
+  // so scripts/check_consent_prompt.mjs's `corpo()` — which only matches
+  // `const <nome> = ` — can see it at all.
+  const handleSelectRelatedItem = async (item, appendMsg, setLoad) => {
+    setRelatedModal(null);
+    setLoad(true);
+    scrollToBottom();
+    try {
+      // One id for every frame: appendMsg upserts, so the streaming
+      // answer is rewritten in place instead of stacking one message
+      // per token.
+      const msgId = 'a' + Date.now();
+      const reply = await streamStudy(
+        item.book, item.item_number, item.chapter || null, item.part || null,
+        (partial) => {
+          setLoad(false);
+          appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...partial });
+        },
+      );
+      appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...reply });
+    } catch (err) {
+      console.error('handleSelectRelatedItem failed:', err);
+      appendMsg({
+        id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true,
+        hasDaObra: false, obra: null, ia: 'Não foi possível carregar este item.',
+      });
+    } finally {
+      markReaderAsked();
+      setLoad(false);
+      scrollToBottom();
     }
   };
 
@@ -1074,28 +1220,6 @@ export default function App({ trilha: trilhaProp = null }) {
     saveConvo(id, 'Trecho do dia', 'duvida', finalMsgs);
     scrollToBottom();
   };
-
-  // ── Reminder ──────────────────────────────────────────────────────────────
-  // Switched off for production 2026-08-05 — disconnected, not deleted, like
-  // Refletir. useReminder.js stays in the tree with no caller; the hook itself
-  // is sound, the mechanism is not. See
-  // docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
-  //
-  // const handleNotificationClick = useCallback(() => {
-  //   switchMode('duvida');
-  //   handleStudyTrecho();
-  // }, [switchMode, handleStudyTrecho]);
-  //
-  // useReminder({
-  //   enabled: reminderOn, time: reminderTime, permission: notifPerm,
-  //   onNotificationClick: handleNotificationClick,
-  // });
-  //
-  // const requestNotif = async () => {
-  //   if (typeof Notification === 'undefined') return;
-  //   const perm = await Notification.requestPermission();
-  //   setNotifPerm(perm);
-  // };
 
   // ── Render ────────────────────────────────────────────────────────────────
   const isHome = mode === null;
@@ -1399,14 +1523,11 @@ export default function App({ trilha: trilhaProp = null }) {
       )}
 
       {/* Modals */}
-      {/* The reminder props are gone with the feature — see the commented block
-          near useReminder above. They were:
-            reminderOn / onToggleReminder, reminderTime / onReminderTime,
-            notifPermission / onRequestNotif */}
       <SettingsPanel
         open={showSettings} onClose={() => setShowSettings(false)}
         darkMode={darkMode} onToggleDark={toggleDark}
         fontSize={fontSize} onFontSize={setFontSize}
+        reminder={reminder}
         profile={profile} onResetProfile={() => setProfile(null)}
         theme={theme}
       />
@@ -1417,35 +1538,8 @@ export default function App({ trilha: trilhaProp = null }) {
           modal={relatedModal}
           theme={theme}
           onClose={() => setRelatedModal(null)}
-          onSelectItem={async (item) => {
-            const { appendMsg, setLoad } = relatedModal;
-            setRelatedModal(null);
-            setLoad(true);
-            scrollToBottom();
-            try {
-              // One id for every frame: appendMsg upserts, so the streaming
-              // answer is rewritten in place instead of stacking one message
-              // per token.
-              const msgId = 'a' + Date.now();
-              const reply = await streamStudy(
-                item.book, item.item_number, item.chapter || null, item.part || null,
-                (partial) => {
-                  setLoad(false);
-                  appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...partial });
-                },
-              );
-              appendMsg({ id: msgId, ts: Date.now(), isUser: false, isAI: true, ...reply });
-            } catch (err) {
-              console.error('RelatedItemsModal onSelectItem failed:', err);
-              appendMsg({
-                id: 'a' + Date.now(), ts: Date.now(), isUser: false, isAI: true,
-                hasDaObra: false, obra: null, ia: 'Não foi possível carregar este item.',
-              });
-            } finally {
-              setLoad(false);
-              scrollToBottom();
-            }
-          }}
+          onSelectItem={(item) =>
+            handleSelectRelatedItem(item, relatedModal.appendMsg, relatedModal.setLoad)}
         />
       )}
       <TrilhaCompleteModal
@@ -1461,7 +1555,7 @@ export default function App({ trilha: trilhaProp = null }) {
           setEstudarSub('picker');
         }}
       />
-      <ConsentBanner theme={theme} />
+      <ConsentBanner theme={theme} show={readerAsked} />
       <Analytics />
       <SpeedInsights />
     </div>

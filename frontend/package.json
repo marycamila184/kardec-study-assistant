@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "smoke": "PUBLIC_API_URL=http://localhost:8000 astro build && playwright test"
+    "smoke": "PUBLIC_API_URL=http://localhost:8000 astro build && playwright test",
+    "icons": "node scripts/make-icons.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",

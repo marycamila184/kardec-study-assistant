@@ -2,6 +2,7 @@ import json
 import logging
 import time
 from concurrent.futures import ThreadPoolExecutor
+from datetime import date
 from typing import Callable
 
 from fastapi import APIRouter, HTTPException, Request, Response
@@ -17,6 +18,7 @@ from src.api.limits import (
 )
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
+from src.push import store as push_store
 from src.rag.conversation_log import log_chat_turn, log_feedback, log_study_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
@@ -40,6 +42,8 @@ from src.api.schemas import (  # isort: skip
     EvangelhoSource,
     PathDetail,
     PathSummary,
+    PushEndpointRequest,
+    PushSubscribeRequest,
     # ReflectRequest,
     # ReflectResponse,
     Source,
@@ -156,8 +160,13 @@ def _profile_state(profile: ResponseProfile) -> ProfileState:
     )
 
 
-def _enforce_rate_limit(http_request: Request) -> None:
-    retry_after = check_rate_limit(client_ip(http_request))
+# O lembrete não pode gastar o teto de quem está conversando, nem o
+# contrário: ver o comentário em check_rate_limit (src/api/limits.py).
+_PUSH_BUCKET = "push"
+
+
+def _enforce_rate_limit(http_request: Request, bucket: str = "default") -> None:
+    retry_after = check_rate_limit(client_ip(http_request), bucket)
     if retry_after is not None:
         raise HTTPException(
             status_code=429,
@@ -565,3 +574,48 @@ def evangelho() -> EvangelhoResponse:
 @router.get("/health")
 def health() -> dict:
     return {"status": "ok"}
+
+
+# --- Lembrete por push ---
+#
+# Três rotas, todas 204 e sem corpo, e nenhuma delas escreve no log de
+# turnos: o store das subscriptions não cruza com nada. Ver
+# docs/superpowers/specs/2026-08-27-lembrete-push-design.md
+
+
+@router.post("/push/subscribe", status_code=204)
+def push_subscribe(request: PushSubscribeRequest, http_request: Request) -> Response:
+    # O único caminho que CRIA registro, e por isso o único com teto. O
+    # limitador é um contador em memória por IP: não guarda nada e não liga o
+    # store de push a coisa nenhuma. Bucket próprio (_PUSH_BUCKET): sem isso
+    # o lembrete concorreria com /chat e /study pelo mesmo teto — uma pessoa
+    # que já fez perguntas veria "Muitas tentativas" ao ligar o lembrete, e
+    # mexer na hora do lembrete poderia derrubar a próxima pergunta dela.
+    _enforce_rate_limit(http_request, bucket=_PUSH_BUCKET)
+    push_store.save(
+        push_store.Subscription(
+            endpoint=request.endpoint,
+            keys={"p256dh": request.keys.p256dh, "auth": request.keys.auth},
+            hour=request.hour,
+            timezone=request.timezone,
+            last_seen=date.today(),
+        )
+    )
+    return Response(status_code=204)
+
+
+@router.post("/push/unsubscribe", status_code=204)
+def push_unsubscribe(request: PushEndpointRequest) -> Response:
+    push_store.delete(request.endpoint)
+    return Response(status_code=204)
+
+
+@router.post("/push/seen", status_code=204)
+def push_seen(request: PushEndpointRequest) -> Response:
+    """Carimba last_seen quando alguém abre o app por um lembrete.
+
+    Só a data. É o que permite os 90 dias existirem — sem nada registrando
+    atividade, a expiração nunca dispararia.
+    """
+    push_store.touch(request.endpoint, date.today())
+    return Response(status_code=204)

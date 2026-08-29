@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
 
 class Message(BaseModel):
@@ -228,3 +228,33 @@ class EvangelhoResponse(BaseModel):
     content: str
     source: EvangelhoSource
     chapter_summary: str | None = None
+
+
+class PushKeys(BaseModel):
+    p256dh: str
+    auth: str
+
+
+class PushSubscribeRequest(BaseModel):
+    endpoint: str
+    keys: PushKeys
+    # HH:MM. Sem isto, uma hora malformada não dá erro nenhum: is_due
+    # devolve False para sempre e a pessoa fica esperando um lembrete que
+    # nunca vem, em silêncio.
+    hour: str = Field(pattern=r"^([01]\d|2[0-3]):[0-5]\d$")
+    timezone: str
+
+    @field_validator("timezone")
+    @classmethod
+    def _fuso_existe(cls, valor: str) -> str:
+        from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+        try:
+            ZoneInfo(valor)
+        except (ZoneInfoNotFoundError, ValueError) as erro:
+            raise ValueError(f"fuso desconhecido: {valor}") from erro
+        return valor
+
+
+class PushEndpointRequest(BaseModel):
+    endpoint: str

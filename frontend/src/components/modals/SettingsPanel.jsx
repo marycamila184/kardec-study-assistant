@@ -13,12 +13,8 @@ import { grantConsent, hasConsent, revokeConsent } from '../../services/consent'
  *   fontSize       — 'small' | 'medium' | 'large'
  *   onFontSize     — (size) => void
  *   theme
- *
- * The study reminder is switched off for production — disconnected, not
- * deleted, like Refletir. Its props (reminderOn, onToggleReminder,
- * reminderTime, onReminderTime, notifPermission, onRequestNotif) are commented
- * out below along with the section that rendered them. See
- * docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
+ *   reminder       — return value of useReminder(): { supported, needsInstall,
+ *                     enabled, hour, setHour, enable, disable, busy, motivo }
  */
 const CITATION_LABELS = {
   inline: 'no texto',
@@ -41,14 +37,10 @@ const VOCABULARY_LABELS = {
 export default function SettingsPanel({
   open, onClose, darkMode, onToggleDark,
   fontSize, onFontSize,
-  // Study reminder switched off — see the note in the block comment above.
-  // reminderOn, onToggleReminder, reminderTime, onReminderTime,
-  // notifPermission, onRequestNotif,
+  reminder,
   profile, onResetProfile,
   theme,
 }) {
-  // Only consumer was the reminder time input's "Salvo ✓".
-  // const [justSaved, setJustSaved] = useState(false);
   // Lido do localStorage, não recebido por prop: o consentimento não é estado
   // do App, e nenhuma outra tela precisa dele.
   const [consent, setConsent] = useState(hasConsent);
@@ -62,6 +54,16 @@ export default function SettingsPanel({
     if (open) setConsent(hasConsent());
   }, [open]);
   useEscapeKey(onClose, open);
+
+  // Valor exibido no <input type="time">, separado do valor confirmado
+  // (reminder.hour): cada onChange durante o arrasto do seletor de hora
+  // chamaria reminder.setHour, que faz um POST completo de reinscrição.
+  // Aqui só onBlur confirma, então mexer no seletor produz um request, não
+  // uma rajada.
+  const [horaExibida, setHoraExibida] = useState(reminder.hour);
+  useEffect(() => {
+    setHoraExibida(reminder.hour);
+  }, [reminder.hour]);
 
   if (!open) return null;
 
@@ -232,53 +234,80 @@ export default function SettingsPanel({
             </div>
           </Section>
 
-          {/* Lembrete de Estudo — switched off for production 2026-08-05.
-              Disconnected, not deleted; see
-              docs/superpowers/specs/2026-08-05-desligar-lembrete-design.md
-
-              It was a 30s setInterval inside the page, so it could only fire
-              while the tab was open and in the foreground. On a phone that is
-              almost never: backgrounding the browser or locking the screen
-              freezes the timer, and on iOS Safari outside a Home Screen app
-              `window.Notification` does not exist at all, so the button did
-              nothing, silently, forever. The section promised a daily reminder
-              and delivered one only to a reader already looking at the app.
-
-              Bringing it back means Web Push — service worker, VAPID, stored
-              subscriptions and a scheduler — which is a storage and a privacy
-              decision before it is code, not a bigger version of this. */}
-          {/*
+          {/* Lembrete de Estudo — de volta por Web Push em 2026-08-27.
+              O que mudou desde o desligamento de 2026-08-05: a entrega não
+              depende mais da aba estar aberta, e o controle só aparece onde
+              pode funcionar. Ver
+              docs/superpowers/specs/2026-08-27-lembrete-push-design.md */}
           <Section title="Lembrete de Estudo" theme={theme}>
-            <Row label="Ativar lembrete diário" sublabel="Notificação no horário escolhido" theme={theme}>
-              <Toggle on={reminderOn} onToggle={onToggleReminder} />
-            </Row>
-            {reminderOn && (
+            {reminder.needsInstall ? (
+              /* No iPhone, push só existe para app já na tela de início.
+                 Mostrar o interruptor aqui seria repetir o defeito de
+                 2026-08-05: um botão que não fazia nada, não dizia nada, e
+                 continuava se oferecendo. O obstáculo vira o caminho. */
+              <p style={{ fontSize: 12.5, lineHeight: 1.5, color: theme.subtext, margin: 0 }}>
+                Para receber o lembrete no iPhone, primeiro adicione o app à tela
+                de início: toque em <strong>Compartilhar</strong> na barra do
+                Safari e escolha <strong>Adicionar à Tela de Início</strong>.
+                Depois volte aqui.
+              </p>
+            ) : !reminder.supported ? (
+              <p style={{ fontSize: 12.5, lineHeight: 1.5, color: theme.subtext, margin: 0 }}>
+                Este navegador não permite lembretes.
+              </p>
+            ) : (
               <>
-                <input type="time" value={reminderTime} onChange={e => {
-                  onReminderTime(e.target.value);
-                  setJustSaved(true);
-                  setTimeout(() => setJustSaved(false), 1500);
-                }} style={{
-                  width: '100%', background: theme.inputBg,
-                  border: `1px solid ${theme.headerBorder}`,
-                  borderRadius: 7, padding: '8px 10px', fontSize: 13, color: theme.text,
-                  marginBottom: 4,
-                }} />
-                <div style={{ fontSize: 11, color: '#6B9BB8', minHeight: 14, marginBottom: 6 }}>
-                  {justSaved ? 'Salvo ✓' : ''}
-                </div>
-                <button onClick={onRequestNotif} style={{
-                  width: '100%', padding: 8, borderRadius: 7, fontSize: 12, fontWeight: 500, cursor: 'pointer',
-                  border: `1px solid ${notifPermission === 'granted' ? '#6B9BB8' : theme.headerBorder}`,
-                  background: notifPermission === 'granted' ? 'rgba(107,155,184,.1)' : 'transparent',
-                  color: notifPermission === 'granted' ? '#6B9BB8' : theme.text,
-                }}>
-                  {notifPermission === 'granted' ? '✓ Notificações ativas' : 'Ativar notificações do navegador'}
-                </button>
+                <Row label="Ativar lembrete diário"
+                     sublabel="Notificação no horário escolhido"
+                     theme={theme}>
+                  <Toggle
+                    on={reminder.enabled}
+                    onToggle={() => {
+                      // Dois toques rápidos disparariam dois enable(), dois
+                      // pedidos de permissão e dois POST — e o teto por IP do
+                      // backend responderia 'limite' a quem só bateu o dedo
+                      // duas vezes.
+                      if (reminder.busy) return;
+                      if (reminder.enabled) reminder.disable();
+                      else reminder.enable();
+                    }}
+                  />
+                </Row>
+                {reminder.motivo && (
+                  /* subscribe()/unsubscribe() em push.js devolvem o motivo da
+                     falha em vez de um booleano só — permissão negada, teto
+                     de IP e qualquer outro erro pedem frases diferentes, e um
+                     `false` sozinho não dava para dizer nenhuma delas. */
+                  <p style={{ fontSize: 12.5, lineHeight: 1.5, color: theme.subtext, margin: '4px 0 0' }}>
+                    {reminder.motivo === 'permissao'
+                      ? 'Você precisa permitir notificações no navegador.'
+                      : reminder.motivo === 'limite'
+                      ? 'Muitas tentativas. Tente daqui a pouco.'
+                      : 'Não deu certo agora. Tente de novo daqui a pouco.'}
+                  </p>
+                )}
+                {reminder.enabled && (
+                  <input
+                    type="time"
+                    value={horaExibida}
+                    disabled={reminder.busy}
+                    onChange={(e) => setHoraExibida(e.target.value)}
+                    onBlur={(e) => {
+                      if (e.target.value && e.target.value !== reminder.hour) {
+                        reminder.setHour(e.target.value);
+                      }
+                    }}
+                    style={{
+                      width: '100%', background: theme.inputBg,
+                      border: `1px solid ${theme.headerBorder}`,
+                      borderRadius: 7, padding: '8px 10px', fontSize: 13,
+                      color: theme.text, marginBottom: 4,
+                    }}
+                  />
+                )}
               </>
             )}
           </Section>
-          */}
         </div>
       </div>
     </div>

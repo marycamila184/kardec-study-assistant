@@ -4,6 +4,14 @@ The <head> and the palette mirror frontend/src/pages/sobre.astro so these
 pages belong to the same site in both colour schemes. Like that page they
 carry no script: the whole point is that a reader sees the text before any
 bundle loads and a crawler sees text instead of an empty root div.
+
+Mirroring includes the manifest and icon links. These pages do not go through
+Base.astro — this file writes its own <head> — so anything added there has to
+be added here by hand or the two drift. They are landing pages arriving from
+search, which makes them exactly the pages someone might want to install from,
+and scripts/check_pwa_manifest.mjs requires the links on every built page
+without exception. A <link> is not a script, so the no-script rule above is
+untouched.
 """
 
 import json
@@ -245,6 +253,9 @@ def render_page(page: Page) -> str:
 <meta name="description" content="{escape(page.meta_description)}">
 <link rel="canonical" href="{url}">
 <meta name="theme-color" content="#6B9BB8">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{url}">
 <meta property="og:site_name" content="Dialogando com a Doutrina">

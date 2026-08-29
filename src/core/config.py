@@ -180,6 +180,20 @@ class Settings(BaseSettings):
     # sente, e sem mensagem que aponte para aqui.
     cors_allowed_origins: str = "http://localhost:4321"
 
+    # Web Push. Vazias por padrão: sem chave o dispatch não roda, em vez de
+    # tentar enviar sem assinatura. Ver
+    # docs/superpowers/specs/2026-08-27-lembrete-push-design.md
+    vapid_public_key: str = ""
+    vapid_private_key: str = ""
+    # O "subject" do VAPID é um contato que o serviço de push usa se algo der
+    # errado do lado dele. mailto: ou uma URL.
+    vapid_subject: str = "mailto:contato@dialogandodoutrina.com.br"
+    push_collection: str = "push_subscriptions"
+    # Os três números da spec. 90 dias é o único arbitrado — os outros dois
+    # saem de restrição real (fusos de quarto de hora).
+    push_expiry_days: int = 90
+    push_window_minutes: int = 15
+
     @property
     def cors_allowed_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_allowed_origins.split(",") if o.strip()]

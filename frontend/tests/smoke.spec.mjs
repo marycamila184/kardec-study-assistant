@@ -109,6 +109,37 @@ test('uma falha no trecho do dia é dita, não fica carregando para sempre', asy
   await expect(page.getByText('Carregando trecho do dia…')).toHaveCount(0);
 });
 
+test('o ?mode=trecho da notificação abre o trecho do dia', async ({ page }) => {
+  // O destino que a notificação do lembrete abre. O ramo existia e não
+  // funcionava: o efeito de deep link roda no mount, antes de getEvangelho()
+  // responder, e handleStudyTrecho saía pelo early-return — quem tocava na
+  // notificação caía na home. Nenhuma guarda de texto vê isso, e esta suíte
+  // passou 5/5 com o defeito no lugar. Só abrir a URL num navegador de
+  // verdade pega.
+  await page.goto('/?mode=trecho');
+  await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
+  // handleStudyTrecho grava esta mensagem de usuário de forma síncrona, antes
+  // de qualquer chamada a /study — é o sinal de que o ramo ?mode=trecho
+  // realmente rodou (e não só que a página abriu na home), sem depender de o
+  // /study responder com sucesso.
+  await expect(page.getByText('Estudo diário de hoje')).toBeVisible({ timeout: 15_000 });
+});
+
+test('chegar numa trilha não pede consentimento por cima do trecho', async ({ page }) => {
+  // A regressão que motivou a mudança, medida em produção em 2026-08-10: o
+  // banner montava incondicionalmente e subia sobre o trecho de quem tinha
+  // acabado de chegar de uma busca — chegou a interceptar o clique do
+  // onboarding. Quem só lê não é interrompido.
+  //
+  // O caso positivo — "clicou um chip e o banner apareceu" — NÃO está aqui: os
+  // chips só existem depois de uma resposta do /study, que precisa do índice
+  // ChromaDB e de chave de LLM, e o CI não tem nenhum dos dois. Fica como
+  // verificação manual, dita em vez de fingida.
+  await page.goto(`/trilhas/${SLUG}/`);
+  await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
+  await expect(page.locator('[role="dialog"][aria-label*="Consentimento"]')).toHaveCount(0);
+});
+
 test.describe('sem JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
@@ -120,4 +151,38 @@ test.describe('sem JavaScript', () => {
     await expect(page.getByText(trilha.steps[0].label).first()).toBeVisible();
     await expect(page.locator('details.passagem')).toHaveCount(trilha.steps.length);
   });
+});
+
+test('o manifest e os ícones são realmente servidos', async ({ page, request }) => {
+  // O que scripts/check_pwa_manifest.mjs NÃO sabe: aquela guarda lê arquivos
+  // dentro de dist/ como texto. Um arquivo existir no disco e o servidor
+  // entregá-lo são coisas diferentes — e é a segunda que decide se dá para
+  // instalar. Este teste é a única camada aqui que pergunta ao servidor.
+  //
+  // A instalação em si não é testável aqui: o convite é do navegador e do
+  // sistema, não da página. Isto para na costura anterior — os arquivos de
+  // que a instalação depende chegam, e chegam parseáveis.
+  await page.goto('/');
+
+  const href = await page.locator('link[rel="manifest"]').getAttribute('href');
+  expect(href).toBe('/manifest.webmanifest');
+
+  const resposta = await request.get(href);
+  expect(resposta.status()).toBe(200);
+
+  const manifest = JSON.parse(await resposta.text());
+  expect(manifest.short_name).toBe('Dialogando');
+  // Sem standalone o iOS abre com a barra do Safari — deixa de ser app.
+  expect(manifest.display).toBe('standalone');
+
+  // Cada ícone que o manifest promete, mais o do iOS, que não está no JSON.
+  const caminhos = [
+    ...manifest.icons.map((i) => i.src),
+    await page.locator('link[rel="apple-touch-icon"]').getAttribute('href'),
+  ];
+  for (const caminho of caminhos) {
+    const icone = await request.get(caminho);
+    expect(icone.status(), `${caminho} deveria ser servido`).toBe(200);
+    expect(Number(icone.headers()['content-length'] ?? 1)).toBeGreaterThan(0);
+  }
 });
