@@ -14,6 +14,8 @@ dependencies = [
     "uvicorn[standard]>=0.27.0",
     "pydantic-settings>=2.0.0",
     "python-dotenv",
+    "google-cloud-firestore>=2.29.0",
+    "pywebpush>=2.4.0",
 ]
 
 [dependency-groups]

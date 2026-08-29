@@ -23,7 +23,7 @@ import { sessionId } from './consent';
 // bundle construído.
 const PRODUCTION_API = 'https://kardec-api-391789792183.us-central1.run.app';
 
-const BASE =
+export const API_BASE =
   import.meta.env.PUBLIC_API_URL ||
   (import.meta.env.PROD ? PRODUCTION_API : 'http://localhost:8000');
 
@@ -48,7 +48,7 @@ function headers() {
 }
 
 async function request(path, options = {}) {
-  const res = await fetch(BASE + path, {
+  const res = await fetch(API_BASE + path, {
     headers: headers(),
     ...options,
   });
@@ -275,7 +275,7 @@ export async function chatMessage(
 // Throws on any transport problem, so callers can fall back to the plain
 // endpoint — nobody may be left holding half an answer.
 async function streamSSE(path, body, onEvent) {
-  const res = await fetch(BASE + path, {
+  const res = await fetch(API_BASE + path, {
     method: 'POST',
     headers: headers(),
     body: JSON.stringify(body),
@@ -388,7 +388,7 @@ export async function reflectSituation(situation, history = [], currentMode = nu
 export async function sendFeedback(turnId, vote) {
   if (!turnId) return;
   try {
-    await fetch(BASE + '/feedback', {
+    await fetch(API_BASE + '/feedback', {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify({ turn_id: turnId, vote }),

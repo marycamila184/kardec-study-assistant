@@ -138,9 +138,13 @@ resolve porque o build roda com esse cwd. Ver o comentário naquele arquivo
 antes de mudar como o build é disparado (por exemplo, de um script na raiz
 do monorepo).
 
-Defina `VITE_API_URL` com a URL do Cloud Run nas variáveis de ambiente do
+Defina `PUBLIC_API_URL` com a URL do Cloud Run nas variáveis de ambiente do
 projeto na Vercel (Settings → Environment Variables) e refaça o deploy. O
-`frontend/src/services/api.js:3` já lê essa variável.
+`frontend/src/services/api.js:3` já lê essa variável. O prefixo é
+`PUBLIC_`, não `VITE_` — desde a migração para Astro só variáveis com esse
+prefixo chegam ao cliente, e essa troca já custou um `localhost:8000` dentro
+do bundle de produção em 2026-08-09; `scripts/check_api_base.mjs` existe por
+causa disso.
 
 `frontend/public/` vai junto com o build, sem configuração nenhuma: o
 `preview.png`, o `robots.txt`, o `sitemap.xml` e a página estática
@@ -250,6 +254,19 @@ gcloud run services describe kardec-api --region us-central1 \
 gcloud run services update-traffic kardec-api --region us-central1 --to-latest
 ```
 
+### O Job do lembrete não se atualiza sozinho
+
+`gcloud run jobs create` fixa a imagem no momento em que o Job é criado. Um
+redeploy da API publica uma imagem nova e **não** mexe no Job: ele continua
+rodando o código antigo, indefinidamente, sem erro nenhum. Depois de cada
+redeploy que toque `src/push/`:
+
+```bash
+IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
+  --format='value(spec.template.spec.containers[0].image)')
+gcloud run jobs update kardec-push --region us-central1 --image "$IMAGEM"
+```
+
 ## 7. Log de conversas: o sink para BigQuery
 
 O stdout do container já vai para o Cloud Logging. O sink dá durabilidade além
@@ -300,3 +317,122 @@ bq query --use_legacy_sql=false \
    FROM `dialogando-doutrina.kardec_logs.run_googleapis_com_stdout`
    WHERE jsonPayload.session_id = "teste-do-sink"'
 ```
+
+## Lembrete por push
+
+Uma vez só, no projeto GCP que já roda a API.
+
+```bash
+# 1. Firestore em modo nativo, na mesma região do Cloud Run.
+gcloud services enable firestore.googleapis.com
+gcloud firestore databases create --location=us-central1 --type=firestore-native
+
+# 2. Chaves VAPID. A pública vai para o build do frontend; a privada, para o
+#    Secret Manager, pelo mesmo caminho das chaves de LLM.
+#
+# O formato importa e não é o mesmo dos dois lados: o navegador quer o ponto
+# público não comprimido (65 bytes) em base64url, e o pywebpush quer o escalar
+# privado (32 bytes) em base64url. As duas linhas abaixo produzem exatamente
+# isso — foram executadas antes de entrarem aqui.
+uv run python - <<'PY'
+import base64
+from py_vapid import Vapid01
+from cryptography.hazmat.primitives import serialization
+
+v = Vapid01()
+v.generate_keys()
+
+publica = base64.urlsafe_b64encode(
+    v.public_key.public_bytes(
+        serialization.Encoding.X962,
+        serialization.PublicFormat.UncompressedPoint,
+    )
+).decode().rstrip("=")
+
+privada = base64.urlsafe_b64encode(
+    v.private_key.private_numbers().private_value.to_bytes(32, "big")
+).decode().rstrip("=")
+
+print("PUBLIC  (PUBLIC_VAPID_KEY, na Vercel):", publica)
+print("PRIVATE (vapid-private-key, no Secret Manager):", privada)
+PY
+
+printf '%s' 'A_CHAVE_PRIVADA' | gcloud secrets create vapid-private-key --data-file=-
+gcloud secrets add-iam-policy-binding vapid-private-key \
+  --member="serviceAccount:$(gcloud projects describe $(gcloud config get-value project) \
+    --format='value(projectNumber)')-compute@developer.gserviceaccount.com" \
+  --role=roles/secretmanager.secretAccessor
+
+# 3. O Job: MESMA imagem da API, outro comando. Nenhuma superfície pública.
+#
+# A imagem é lida do serviço que está no ar em vez de escrita à mão: a API sobe
+# com `--source .`, então quem escolhe o nome do repositório é o Cloud Build, e
+# um caminho chutado aqui falha na hora de criar o Job.
+IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
+  --format='value(spec.template.spec.containers[0].image)')
+
+# --max-retries 0: uma execução repetida manda o lembrete de novo. O dispatch
+# não tem idempotência (isso exigiria um sexto campo no registro, recusado), e
+# pular um tique de 15 minutos custa menos que uma notificação duplicada.
+gcloud run jobs create kardec-push \
+  --image "$IMAGEM" \
+  --region us-central1 \
+  --command /app/.venv/bin/python --args -m,src.push.dispatch \
+  --max-retries 0 \
+  --set-secrets 'VAPID_PRIVATE_KEY=vapid-private-key:latest' \
+  --set-env-vars 'VAPID_PUBLIC_KEY=A_CHAVE_PUBLICA'
+
+# Sem esta permissão o Scheduler recebe 403 a cada 15 minutos, em silêncio, e
+# nenhum lembrete chega — com todo o resto aparentemente configurado.
+CONTA="$(gcloud projects describe $(gcloud config get-value project) \
+  --format='value(projectNumber)')-compute@developer.gserviceaccount.com"
+
+gcloud run jobs add-iam-policy-binding kardec-push \
+  --region us-central1 \
+  --member="serviceAccount:${CONTA}" \
+  --role=roles/run.invoker
+
+# Sem esta permissão as três rotas /push/* devolvem 500 (a API não consegue
+# ler nem escrever no Firestore) e o Job falha em silêncio a cada 15 minutos,
+# só um `PermissionDenied` no log — com tudo o mais parecendo configurado
+# corretamente. A conta padrão do Cloud Run não tem acesso ao Firestore por
+# padrão; sem o Editor legado do projeto, este passo é obrigatório.
+gcloud projects add-iam-policy-binding "$(gcloud config get-value project)" \
+  --member="serviceAccount:${CONTA}" \
+  --role=roles/datastore.user
+
+# 4. O Scheduler, de 15 em 15 minutos — o passo que cobre fusos de meia e de
+#    quarto de hora.
+gcloud scheduler jobs create http kardec-push-tick \
+  --location us-central1 \
+  --schedule '*/15 * * * *' \
+  --uri "https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/$(gcloud config get-value project)/jobs/kardec-push:run" \
+  --http-method POST \
+  --oauth-service-account-email "${CONTA}"
+```
+
+E na Vercel, a variável de ambiente do frontend: **`PUBLIC_VAPID_KEY`** com a
+chave pública. O prefixo é `PUBLIC_`, não `VITE_` — o Astro só expõe ao
+cliente as variáveis com esse prefixo, e trocar isso foi o que gravou
+`localhost:8000` dentro do bundle de produção em 2026-08-09.
+
+Depois de configurar `PUBLIC_VAPID_KEY` na Vercel e rodar o build de produção,
+rode `node scripts/check_vapid_key.mjs` (raiz do repo) — ele confirma que a
+chave chegou de verdade ao bundle. Enquanto a variável não estiver configurada
+ele apenas avisa (`AVISO`, saída 0); só falha se a chave estiver presente e
+malformada. Não está na CI de propósito — ver o comentário no topo do arquivo.
+
+**Rotacionar o par VAPID quebra toda inscrição existente, para sempre.**
+`pushManager.subscribe` no navegador levanta exceção ao ser chamado contra uma
+`applicationServerKey` diferente da que gerou a assinatura original — quem já
+tinha o lembrete ligado passa a ver só a falha genérica ("Não deu certo
+agora"), sem nenhum jeito de o app corrigir isso sozinho. A única saída é a
+pessoa limpar os dados do site e ligar de novo. Rotacionar as chaves, portanto,
+significa avisar quem usa o lembrete para reativá-lo — não é uma troca
+transparente.
+
+`VAPID_PUBLIC_KEY` é passada ao Job (`--set-env-vars` no passo 3 acima) mas
+nenhum código Python lê `settings.vapid_public_key` — só `VAPID_PRIVATE_KEY` é
+usada para assinar o envio. Ela fica ali por simetria com a privada (as duas
+chaves do par visíveis juntas no comando que cria o Job) e não é exigida pelo
+Job; não há necessidade de removê-la.
