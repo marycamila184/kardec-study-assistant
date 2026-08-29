@@ -1,0 +1,21 @@
+<!--
+  A arte do ícone, fonte única.
+
+  Este arquivo é servido como favicon E é o que `npm run icons` rasteriza para
+  os PNG do manifest e do apple-touch-icon. Editar aqui e rodar o gerador é o
+  caminho inteiro — não existe uma segunda cópia da geometria em lugar nenhum.
+
+  Cores: o azul é BRAND_BLUE (#6B9BB8) de src/constants/theme.js, o mesmo do
+  <meta name="theme-color"> e do theme_color do manifest; os três não podem
+  divergir e scripts/check_pwa_manifest.mjs falha se divergirem. O creme é o
+  #F6F4EF do chatBg, o mesmo fundo do preview.png.
+
+  O traço é 30 e não 26 porque a 16px, no tamanho de aba, 26 sumia.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" fill="#6B9BB8"/>
+  <g fill="none" stroke="#F6F4EF" stroke-width="30" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M256 176 C 216 146, 156 140, 112 152 L 112 352 C 156 340, 216 346, 256 376 Z"/>
+    <path d="M256 176 C 296 146, 356 140, 400 152 L 400 352 C 356 340, 296 346, 256 376 Z"/>
+  </g>
+</svg>

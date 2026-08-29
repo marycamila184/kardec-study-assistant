@@ -32,8 +32,29 @@ const {
   <link rel="canonical" href={canonical}>
 
   {/* Pinta a barra do navegador no Android, que é onde um link encaminhado
-      por WhatsApp costuma aterrissar. É o BRAND_BLUE de constants/theme.js. */}
+      por WhatsApp costuma aterrissar. É o BRAND_BLUE de constants/theme.js.
+      O mesmo hex aparece no theme_color do manifest; scripts/check_pwa_manifest.mjs
+      falha se os três (aqui, o manifest e o theme.js) divergirem. */}
   <meta name="theme-color" content="#6B9BB8">
+
+  {/* O que torna o site instalável: com o manifest a pessoa pode guardar isto
+      na tela de início e abrir numa janela própria, sem barra de endereço.
+      Não há service worker de propósito — os assets com hash já vêm
+      `immutable` da Vercel, então não haveria o que acelerar, e a falha
+      característica de um SW é servir versão velha em silêncio. A decisão e a
+      medição estão em docs/superpowers/specs/2026-08-27-pwa-instalavel-design.md
+
+      Está no layout compartilhado, então /sobre/ e /trilhas/ também o recebem.
+      Isso não fere a regra de "nenhum script na Sobre": <link> não é script. */}
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  {/* O iOS ignora os ícones do manifest e lê este link. O PNG tem de ser
+      opaco — transparência é composta sobre preto. */}
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  {/* Antes daqui o projeto não tinha favicon nenhum: nenhum arquivo e nenhum
+      link, e toda aba mostrava o ícone de página em branco do navegador. */}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   {/* og:image e og:url precisam ser absolutas: caminho relativo é descartado
       em silêncio por todo crawler. scripts/check_discovery_assets.mjs guarda
