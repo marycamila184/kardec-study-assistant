@@ -79,6 +79,7 @@ jobs:
           node scripts/check_followup_reply.mjs
           node scripts/check_discovery_assets.mjs
           node scripts/check_api_base.mjs
+          node scripts/check_consent_prompt.mjs
           node scripts/check_pwa_manifest.mjs
 
   # O único job que executa o JavaScript e fala com a API. Existe porque a
