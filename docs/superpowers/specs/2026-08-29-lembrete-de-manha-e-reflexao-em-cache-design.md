@@ -148,6 +148,40 @@ accepted deliberately, and named here so it is not discovered later.
 Only the **first** message is cached. Everything the reader asks afterwards is
 theirs and is unchanged.
 
+### The cache is warmed before the notification goes out, not after
+
+A lazy cache — filled by whoever opens first — defeats itself here, and
+precisely because the reminder works. At 08:00 the notification reaches
+everyone at once, everyone opens within seconds, everyone finds the cache
+empty, and everyone triggers the generation together. One call a day becomes
+dozens inside one minute, and each of those readers waits for the stream that
+the cache existed to remove.
+
+So the order inside the Job is part of the design, not an implementation
+detail. Each hourly run:
+
+1. **ensures the day's explanation exists** — one cheap Firestore read when it
+   already does, one generation when it does not;
+2. **then** sends the notifications due that hour.
+
+The work is already in the right place: the Job computes `get_daily_passage()`
+anyway, to build the notification body. The first run of the day pays the
+generation; every later run reads. Nobody opens onto a cold cache, whatever
+hour they chose — this is not a property of 08:00, it holds for every hour.
+
+**A failed warm-up must not hold back the notification.** If generation fails —
+the model is down, or `find_unsupported_quotes` withholds — the notification is
+sent regardless. It carries the chapter title and is worth having on its own,
+and whoever opens it falls through to today's normal path, with the stream.
+A cache miss is a slower reader; a suppressed notification is a reader who
+never knew.
+
+**Both paths write the same store.** Until push is provisioned the Job does
+nothing at all — `main()` returns early without VAPID keys — so the cache is
+filled lazily, by the first reader to open the passage. That is the correct
+behaviour for a project where the reminder is off: the caching benefit does not
+depend on push existing, only its warming does.
+
 ## What does not change
 
 The five-field subscription record and its rule against joining. The privacy
@@ -165,6 +199,8 @@ path. `/study` for every other caller.
 | A failure is never cached | test that a withheld answer leaves the store empty |
 | A corpus edit invalidates the cache | test that a different passage identity misses |
 | The cached answer equals the live one | one comparison test, so the cache cannot silently drift from the pipeline |
+| The warm-up runs before the sending | test on the Job's ordering, since the reverse order is silently wrong rather than broken |
+| A failed warm-up still sends | test that a generation error leaves the notifications going out |
 
 ## Prerequisites
 
