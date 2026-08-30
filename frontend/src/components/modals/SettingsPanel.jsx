@@ -288,10 +288,10 @@ export default function SettingsPanel({
                       color: theme.text, marginBottom: 4,
                     }}
                   >
-                    {/* Só horas cheias. O campo livre aceitava 08:07 e o
-                        lembrete chegava 08:15 sem avisar — a mesma regra que
-                        esconde o interruptor num iPhone que não pode usá-lo:
-                        não oferecer o que não se cumpre. */}
+                    {/* Whole hours only. The free field accepted 08:07 and
+                        the reminder arrived at 08:15 without saying so — the
+                        same rule that hides the toggle on an iPhone that
+                        can't use it: don't offer what won't be delivered. */}
                     {Array.from({ length: 24 }, (_, h) => {
                       const valor = `${String(h).padStart(2, '0')}:00`;
                       return <option key={valor} value={valor}>{valor}</option>;

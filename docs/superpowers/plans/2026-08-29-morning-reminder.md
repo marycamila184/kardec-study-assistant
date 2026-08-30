@@ -207,10 +207,10 @@ Replace the `<input type="time">` element (and the `horaExibida` local state tha
                       color: theme.text, marginBottom: 4,
                     }}
                   >
-                    {/* Só horas cheias. O campo livre aceitava 08:07 e o
-                        lembrete chegava 08:15 sem avisar — a mesma regra que
-                        esconde o interruptor num iPhone que não pode usá-lo:
-                        não oferecer o que não se cumpre. */}
+                    {/* Whole hours only. The free field accepted 08:07 and
+                        the reminder arrived at 08:15 without saying so — the
+                        same rule that hides the toggle on an iPhone that
+                        can't use it: don't offer what won't be delivered. */}
                     {Array.from({ length: 24 }, (_, h) => {
                       const valor = `${String(h).padStart(2, '0')}:00`;
                       return <option key={valor} value={valor}>{valor}</option>;
@@ -226,34 +226,54 @@ A `<select>` fires `onChange` only on an actual selection, so it needs no deboun
 A reader who set `06:30` before this change has that value in `localStorage`, and a `<select>` with no matching `<option>` renders blank. In `frontend/src/hooks/useReminder.js`, normalise on read — add immediately after the `useStorage` line for the hour:
 
 ```js
-  // Um horário quebrado guardado antes de o seletor virar horas cheias
-  // (06:30) não casa com nenhuma opção e deixaria o campo em branco. Arredonda
-  // para baixo, para a hora que a pessoa escolheu — 06:30 vira 06:00, não
-  // 07:00: adiantar um lembrete é melhor que atrasá-lo.
-  const horaCheia = `${(hour || '08:00').slice(0, 2)}:00`;
+  // A broken hour stored before the picker became whole-hours-only (06:30)
+  // matches no option and would leave the field blank. Rounds down, to the
+  // hour the person chose — 06:30 becomes 06:00, not 07:00: bringing a
+  // reminder forward beats pushing it back.
+  //
+  // The validation isn't caution for its own sake: the value comes from
+  // localStorage, which may have been written by an old version, another
+  // tab, or by hand. A number stored there has no .slice and would crash the
+  // whole Settings panel render — and "7:00" would become "7::00", which the
+  // server rejects with a 422.
+  const horaCheia = /^([01]\d|2[0-3]):[0-5]\d$/.test(hour)
+    ? `${hour.slice(0, 2)}:00`
+    : '08:00';
 ```
 
 and return `hour: horaCheia` instead of `hour`. Leave the stored value alone — it is only read through this normalisation, and rewriting storage on read is a side effect nobody asked for.
 
+**`enable()` must also subscribe with the normalised value, not the raw stored one** — `subscribe(horaCheia)`, not `subscribe(hour)`. This is the one call site the diff above does not touch: without this fix the panel shows `06:00` while the server is still told `06:30`, and with the 60-minute delivery window that fires at `07:00` — a reminder arrives at an hour nobody chose, which is the exact defect this task exists to remove.
+
 - [ ] **Step 4: Add the smoke assertion**
 
-Append to `frontend/tests/smoke.spec.mjs`:
+Append to `frontend/tests/smoke.spec.mjs`. The test must actually open Settings — `SettingsPanel` returns `null` unless `open`, so an assertion made against `/` alone can never fail, whether or not the old input still exists. Dismiss the first-visit onboarding overlay (it covers the whole screen and intercepts the click) by pre-seeding `localStorage` before navigating, then click the Settings button via its accessible name (`aria-label="Abrir configurações"`, `TopBar.jsx`):
 
 ```js
-test('o seletor de horário do lembrete só oferece horas cheias', async ({ page }) => {
-  // A promessa tem de caber no que o sistema entrega: o agendador roda de
-  // hora em hora, então um campo que aceita 08:07 mente. Este teste falha se
-  // alguém devolver o <input type="time">.
+test('não existe campo de hora livre em Configurações', async ({ page }) => {
+  // The scheduler runs hourly, so a field that accepts 08:07 promises what it
+  // doesn't deliver. This test fails if anyone brings back the
+  // <input type="time">.
+  //
+  // What it does NOT reach, and it's better to say so than to pretend: the
+  // hour picker only appears once the reminder is on, and turning it on
+  // requires notification permission, which CI doesn't grant. What can be
+  // asserted is the negative over everything the panel renders without that
+  // permission — and that's where the old field lived.
+  // The first-visit onboarding covers the whole screen and intercepts the
+  // click on the Settings button; marking it as already seen before
+  // navigating is the same state as someone who has already used the app.
+  await page.addInitScript(() => localStorage.setItem('dialogando_onboarded', 'true'));
   await page.goto('/');
   await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
 
-  // O seletor só existe depois de o lembrete estar ligado, o que exige
-  // permissão de notificação — que o CI não concede. O que dá para afirmar
-  // sem isso é o negativo, e ele é o que importa: não existe campo de hora
-  // livre em lugar nenhum do painel.
+  await page.getByLabel('Abrir configurações').click();
+
   await expect(page.locator('input[type="time"]')).toHaveCount(0);
 });
 ```
+
+**Proof this test can fail:** temporarily reintroducing a stray `<input type="time" />` outside the `reminder.enabled` branch (so it always mounts) makes this test fail with `Expected: 0, Received: 1`; reverting makes it pass again. See the round-1 fix report for both transcripts.
 
 - [ ] **Step 5: Verify and commit**
 

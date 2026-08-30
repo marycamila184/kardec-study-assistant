@@ -187,16 +187,24 @@ test('o manifest e os ícones são realmente servidos', async ({ page, request }
   }
 });
 
-test('o seletor de horário do lembrete só oferece horas cheias', async ({ page }) => {
-  // A promessa tem de caber no que o sistema entrega: o agendador roda de
-  // hora em hora, então um campo que aceita 08:07 mente. Este teste falha se
-  // alguém devolver o <input type="time">.
+test('não existe campo de hora livre em Configurações', async ({ page }) => {
+  // The scheduler runs hourly, so a field that accepts 08:07 promises what it
+  // doesn't deliver. This test fails if anyone brings back the
+  // <input type="time">.
+  //
+  // What it does NOT reach, and it's better to say so than to pretend: the
+  // hour picker only appears once the reminder is on, and turning it on
+  // requires notification permission, which CI doesn't grant. What can be
+  // asserted is the negative over everything the panel renders without that
+  // permission — and that's where the old field lived.
+  // The first-visit onboarding covers the whole screen and intercepts the
+  // click on the Settings button; marking it as already seen before
+  // navigating is the same state as someone who has already used the app.
+  await page.addInitScript(() => localStorage.setItem('dialogando_onboarded', 'true'));
   await page.goto('/');
   await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
 
-  // O seletor só existe depois de o lembrete estar ligado, o que exige
-  // permissão de notificação — que o CI não concede. O que dá para afirmar
-  // sem isso é o negativo, e ele é o que importa: não existe campo de hora
-  // livre em lugar nenhum do painel.
+  await page.getByLabel('Abrir configurações').click();
+
   await expect(page.locator('input[type="time"]')).toHaveCount(0);
 });
