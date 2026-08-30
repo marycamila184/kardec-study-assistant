@@ -189,6 +189,10 @@ class Settings(BaseSettings):
     # errado do lado dele. mailto: ou uma URL.
     vapid_subject: str = "mailto:contato@dialogandodoutrina.com.br"
     push_collection: str = "push_subscriptions"
+    # Separate collection from the subscriptions one, on purpose: the cache
+    # holds the same reflection for everyone, and must never become a field
+    # in one device's record.
+    reflection_collection: str = "daily_reflection"
     # Os três números da spec. 90 dias é o único arbitrado — os outros dois
     # saem de restrição real (fusos de quarto de hora).
     push_expiry_days: int = 90

@@ -224,3 +224,4 @@ def test_push_settings_have_safe_defaults():
     assert s.push_collection == "push_subscriptions"
     assert s.push_expiry_days == 90
     assert s.push_window_minutes == 60
+    assert s.reflection_collection == "daily_reflection"
