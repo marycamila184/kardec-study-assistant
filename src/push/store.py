@@ -5,16 +5,17 @@ com o log de turnos, nunca com o feedback. Essa separação não é detalhe de
 implementação — é a salvaguarda inteira. Ver
 docs/superpowers/specs/2026-08-27-lembrete-push-design.md
 
-`_client()` é a costura: os testes trocam ele, e nada aqui fala com o
-Firestore fora desta função.
+`_colecao()` is the seam: tests swap it, and nothing here talks to
+Firestore outside this function. The client itself now lives in
+src/core/firestore.py, shared with the reflection cache.
 """
 
 import logging
 from dataclasses import dataclass
 from datetime import date, timedelta
-from functools import lru_cache
 
 from src.core.config import settings
+from src.core.firestore import client
 
 logger = logging.getLogger(__name__)
 
@@ -63,13 +64,6 @@ def from_document(doc: dict) -> Subscription:
     )
 
 
-@lru_cache(maxsize=1)
-def _client():
-    from google.cloud import firestore
-
-    return firestore.Client()
-
-
 def _doc_id(endpoint: str) -> str:
     """O id do documento é o hash do endpoint, não o endpoint.
 
@@ -82,7 +76,7 @@ def _doc_id(endpoint: str) -> str:
 
 
 def _colecao():
-    return _client().collection(settings.push_collection)
+    return client().collection(settings.push_collection)
 
 
 def save(sub: Subscription) -> None:

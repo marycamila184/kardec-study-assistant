@@ -13,6 +13,19 @@ export function useReminder() {
   // quem tinha 06:30 guardado recupera o horário em vez de voltar ao padrão.
   const [enabled, setEnabled] = useStorage('dialogando_reminder_on', false);
   const [hour, setHourStored] = useStorage('dialogando_reminder_time', '08:00');
+  // A broken hour stored before the picker became whole-hours-only (06:30)
+  // matches no option and would leave the field blank. Rounds down, to the
+  // hour the person chose — 06:30 becomes 06:00, not 07:00: bringing a
+  // reminder forward beats pushing it back.
+  //
+  // The validation isn't caution for its own sake: the value comes from
+  // localStorage, which may have been written by an old version, another
+  // tab, or by hand. A number stored there has no .slice and would crash the
+  // whole Settings panel render — and "7:00" would become "7::00", which the
+  // server rejects with a 422.
+  const horaCheia = /^([01]\d|2[0-3]):[0-5]\d$/.test(hour)
+    ? `${hour.slice(0, 2)}:00`
+    : '08:00';
   const [busy, setBusy] = useState(false);
   const [supported, setSupported] = useState(false);
   const [needsInstall, setNeedsInstall] = useState(false);
@@ -23,17 +36,28 @@ export function useReminder() {
     setNeedsInstall(needsInstallFirst());
   }, []);
 
+  // A device enabled before the picker became whole-hours-only still carries
+  // its broken hour in the server's record — normalising on read fixed what
+  // the panel shows and nothing re-subscribed the device. The reader would
+  // see 06:00, the record would say 06:30, and the 60-minute window would
+  // deliver at 07:00: an hour later than displayed, and the opposite of what
+  // the comment above promises. One re-subscription, once, on mount.
+  useEffect(() => {
+    if (enabled && hour !== horaCheia) setHour(horaCheia);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled, hour, horaCheia]);
+
   const enable = async () => {
     setBusy(true);
     setMotivo(null);
     try {
-      const r = await subscribe(hour);
+      const r = await subscribe(horaCheia);
       setEnabled(r.ok);
       if (!r.ok) setMotivo(r.motivo);
       return r.ok;
     } finally {
-      // finally, sempre: sem ele qualquer exceção deixa o botão travado em
-      // "ocupado" até a pessoa recarregar a página.
+      // always finally: without it any exception leaves the button stuck in
+      // "busy" until the person reloads the page.
       setBusy(false);
     }
   };
@@ -71,5 +95,5 @@ export function useReminder() {
     }
   };
 
-  return { supported, needsInstall, enabled, hour, setHour, enable, disable, busy, motivo };
+  return { supported, needsInstall, enabled, hour: horaCheia, setHour, enable, disable, busy, motivo };
 }

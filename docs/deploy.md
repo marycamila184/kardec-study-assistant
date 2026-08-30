@@ -327,6 +327,11 @@ Uma vez só, no projeto GCP que já roda a API.
 gcloud services enable firestore.googleapis.com
 gcloud firestore databases create --location=us-central1 --type=firestore-native
 
+# São **duas** coleções, e a separação é a salvaguarda: `push_subscriptions`
+# guarda um registro por aparelho e não cruza com nada; `daily_reflection`
+# guarda a mesma explicação para todo mundo e não guarda nada de ninguém.
+# Nenhuma das duas ganha campo da outra.
+
 # 2. Chaves VAPID. A pública vai para o build do frontend; a privada, para o
 #    Secret Manager, pelo mesmo caminho das chaves de LLM.
 #
@@ -373,16 +378,19 @@ IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
 
 # --max-retries 0: uma execução repetida manda o lembrete de novo. O dispatch
 # não tem idempotência (isso exigiria um sexto campo no registro, recusado), e
-# pular um tique de 15 minutos custa menos que uma notificação duplicada.
+# pular um tique horário custa menos que uma notificação duplicada.
 gcloud run jobs create kardec-push \
   --image "$IMAGEM" \
   --region us-central1 \
-  --command /app/.venv/bin/python --args -m,src.push.dispatch \
+  # O `=` nos dois é obrigatório: sem ele o gcloud lê o `-m` como uma flag
+  # dele mesmo e recusa o comando com "argument --args: expected one argument".
+  --command=/app/.venv/bin/python \
+  --args=-m,src.push.dispatch \
   --max-retries 0 \
   --set-secrets 'VAPID_PRIVATE_KEY=vapid-private-key:latest' \
   --set-env-vars 'VAPID_PUBLIC_KEY=A_CHAVE_PUBLICA'
 
-# Sem esta permissão o Scheduler recebe 403 a cada 15 minutos, em silêncio, e
+# Sem esta permissão o Scheduler recebe 403 a cada hora, em silêncio, e
 # nenhum lembrete chega — com todo o resto aparentemente configurado.
 CONTA="$(gcloud projects describe $(gcloud config get-value project) \
   --format='value(projectNumber)')-compute@developer.gserviceaccount.com"
@@ -393,7 +401,7 @@ gcloud run jobs add-iam-policy-binding kardec-push \
   --role=roles/run.invoker
 
 # Sem esta permissão as três rotas /push/* devolvem 500 (a API não consegue
-# ler nem escrever no Firestore) e o Job falha em silêncio a cada 15 minutos,
+# ler nem escrever no Firestore) e o Job falha em silêncio a cada hora,
 # só um `PermissionDenied` no log — com tudo o mais parecendo configurado
 # corretamente. A conta padrão do Cloud Run não tem acesso ao Firestore por
 # padrão; sem o Editor legado do projeto, este passo é obrigatório.
@@ -401,11 +409,36 @@ gcloud projects add-iam-policy-binding "$(gcloud config get-value project)" \
   --member="serviceAccount:${CONTA}" \
   --role=roles/datastore.user
 
-# 4. O Scheduler, de 15 em 15 minutos — o passo que cobre fusos de meia e de
-#    quarto de hora.
+# 4. O Scheduler, de hora em hora.
+#
+# A cadência e a janela de envio (push_window_minutes, 60) têm de continuar
+# iguais. Se uma mudar sem a outra: cadência menor que a janela manda o
+# lembrete duas vezes, cadência maior que a janela faz alguém não receber
+# nunca — em silêncio, que é pior.
+#
+# ⚠️ ORDEM DE OPERAÇÕES NO DEPLOY: o Scheduler tem de passar para hourly
+# ANTES do código com a janela ampliada subir. A ordem inversa (código antes,
+# Scheduler depois) manda múltiplas notificações por dia enquanto estão fora
+# de sincronia. Medido em 2026-08-30:
+#
+#   scheduler */15  + código 60min  → 4 notificações/pessoa/dia
+#   scheduler 0 *   + código 60min  → 1 notificação/pessoa/dia
+#   scheduler 0 *   + código 15min  → 1 notificação/pessoa/dia (transitório)
+#
+# O Scheduler já foi movido para `0 * * * *` em 2026-08-30, então o próximo
+# deploy fica seguro independentemente.
+#
+# ⚠️ MESMA CLASSE DE PROBLEMA, NO PAR FRONTEND/BACKEND: o frontend tem de
+# subir antes do backend, ou junto — nunca depois. Se o Cloud Run subir
+# primeiro, o bundle antigo ainda oferece "08:07" no seletor enquanto a
+# janela de envio já está em 60 minutos no backend; quem assina nesse
+# intervalo é entregue às 09:00, uma hora depois do que a tela prometeu — em
+# silêncio, a mesma classe de falha do F1 do review, só que limitada à janela
+# do deploy.
+#
 gcloud scheduler jobs create http kardec-push-tick \
   --location us-central1 \
-  --schedule '*/15 * * * *' \
+  --schedule '0 * * * *' \
   --uri "https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/$(gcloud config get-value project)/jobs/kardec-push:run" \
   --http-method POST \
   --oauth-service-account-email "${CONTA}"
