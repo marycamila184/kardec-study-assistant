@@ -1088,6 +1088,42 @@ def test_um_aquecimento_que_falha_ainda_envia():
     assert resultado["sent"] == 1
 ```
 
+- [ ] **Step 1a: Patch the seam for the whole file**
+
+Fix round 1 (found by timing, not by a red test): the pre-existing tests in
+this file never patch `reflection_cache`, so once `run()` warms the cache
+they each build a real Firestore client and attempt the network — about
+12s each, swallowed by the cache's own try/except, so the tests stayed
+green while quietly depending on egress and credentials. The file went
+from 0.29s to 123.7s. Add `import pytest` at the top if not already there,
+and this autouse fixture near the top of `tests/test_push_dispatch.py`,
+after the imports:
+
+```python
+@pytest.fixture(autouse=True)
+def _no_real_firestore():
+    """Keep the warm-up away from a real Firestore client.
+
+    dispatch.run() warms the day's reflection before sending. Without this,
+    every test in this file builds a real client and attempts the network —
+    about 12 seconds each, swallowed by the cache's own try/except, so the
+    tests stay green while quietly depending on egress and credentials. The
+    file went from 0.29s to 123.7s before this fixture existed.
+    """
+    with patch(
+        "src.push.dispatch.reflection_cache.get", return_value={"contexto": "cached"}
+    ), patch("src.push.dispatch.reflection_cache.put"):
+        yield
+```
+
+Returning a non-`None` value from `get` means the warm-up short-circuits
+and never reaches `study_item_fn` — what every test not about warming
+wants. The three warming tests above each patch `reflection_cache.get`
+(and the first also `.put`) themselves inside their own `with` block; a
+nested `patch` on the same target overrides the outer one for the
+duration, so they keep exercising the warm-up genuinely — verify this,
+don't assume it.
+
 - [ ] **Step 2: Run and watch them fail**
 
 Run: `uv run pytest tests/test_push_dispatch.py -v`

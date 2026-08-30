@@ -2,11 +2,33 @@ import json
 from datetime import date, datetime, timezone
 from unittest.mock import patch
 
+import pytest
+
 from src.push.dispatch import run
 from src.push.sender import Gone
 from src.push.store import Subscription
 
 _AGORA = datetime(2026, 8, 27, 11, 0, tzinfo=timezone.utc)  # 08:00 em SP
+
+
+@pytest.fixture(autouse=True)
+def _no_real_firestore():
+    """Keep the warm-up away from a real Firestore client.
+
+    dispatch.run() warms the day's reflection before sending. Without this,
+    every test in this file builds a real client and attempts the network —
+    about 12 seconds each, swallowed by the cache's own try/except, so the
+    tests stay green while quietly depending on egress and credentials. The
+    file went from 0.29s to 123.7s before this fixture existed.
+    """
+    with (
+        patch(
+            "src.push.dispatch.reflection_cache.get",
+            return_value={"contexto": "cached"},
+        ),
+        patch("src.push.dispatch.reflection_cache.put"),
+    ):
+        yield
 
 
 def _sub(endpoint, hour="08:00"):
