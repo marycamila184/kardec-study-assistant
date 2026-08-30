@@ -1,3 +1,4 @@
+import json
 from datetime import date, datetime, timezone
 from unittest.mock import patch
 
@@ -193,3 +194,39 @@ def test_o_lembrete_sai_mesmo_se_o_trecho_do_dia_falhar():
 
     assert enviados == [None]
     assert resultado["sent"] == 1
+
+
+def test_dispatch_calls_the_real_sender():
+    # The two halves are proven separately — sender builds the right body,
+    # dispatch passes the right kwarg — and nothing wires them together. A
+    # signature drift between them raises TypeError on every subscription,
+    # gets caught by the per-device except, is counted as `failed`, and the
+    # job reports success with sent: 0: a programming error wearing the face
+    # of a transient outage.
+    #
+    # So this patches only `webpush`, the network boundary, and lets the real
+    # sender.send run inside the real dispatch.run.
+    sub = _sub("https://push.example/real")
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "OS AFLITOS",
+                    "book": "O Evangelho Segundo o Espiritismo",
+                    "chapter": "CAPÍTULO V",
+                    "item_number": "1",
+                }
+            },
+        ),
+        patch("src.push.sender.webpush") as enviar,
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    # If the signatures had drifted, this would be sent=0 / failed=1.
+    assert resultado == {"sent": 1, "gone": 0, "failed": 0, "expired": 0}
+    payload = json.loads(enviar.call_args.kwargs["data"])
+    assert "OS AFLITOS" in payload["body"]
