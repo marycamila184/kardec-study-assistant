@@ -122,6 +122,11 @@ item_number, part)` plus the date. Keying on the date alone would serve stale
 prose after an edit to `data/markdown_files/trecho_diario.md`, and that file is
 hand-curated precisely because its contents get corrected.
 
+`daily_reflection` tem expiração nenhuma, ao contrário de `push_subscriptions`,
+que tem a varredura dos 90 dias. Isso é inofensivo — um documento por dia, de
+texto, para ninguém — mas fica dito para que a varredura dos 90 dias não seja
+lida como cobrindo as duas coleções.
+
 ### Never cache a failure
 
 If `find_unsupported_quotes` withholds the answer, or generation fails, nothing

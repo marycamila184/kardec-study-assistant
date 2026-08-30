@@ -428,6 +428,14 @@ gcloud projects add-iam-policy-binding "$(gcloud config get-value project)" \
 # O Scheduler já foi movido para `0 * * * *` em 2026-08-30, então o próximo
 # deploy fica seguro independentemente.
 #
+# ⚠️ MESMA CLASSE DE PROBLEMA, NO PAR FRONTEND/BACKEND: o frontend tem de
+# subir antes do backend, ou junto — nunca depois. Se o Cloud Run subir
+# primeiro, o bundle antigo ainda oferece "08:07" no seletor enquanto a
+# janela de envio já está em 60 minutos no backend; quem assina nesse
+# intervalo é entregue às 09:00, uma hora depois do que a tela prometeu — em
+# silêncio, a mesma classe de falha do F1 do review, só que limitada à janela
+# do deploy.
+#
 gcloud scheduler jobs create http kardec-push-tick \
   --location us-central1 \
   --schedule '0 * * * *' \

@@ -26,14 +26,25 @@ logger = logging.getLogger(__name__)
 
 
 def cache_key(passage: dict) -> str:
-    """The passage's identity plus the date — never the date alone.
+    """The passage's identity, the date, and a hash of its text — never the
+    date alone, and never identity alone.
 
     Keying by date alone would serve stale text after a correction to
     data/markdown_files/trecho_diario.md, and that file is hand-curated
-    precisely because it gets corrected.
+    precisely because it gets corrected. But identity — (date, book, chapter,
+    part, item_number) — does not change when only the passage's PROSE is
+    corrected: the reference stays the same item, so keying on identity alone
+    would still serve the stale explanation for the rest of that day. Folding
+    a hash of `content` into the key makes a text-only correction change the
+    key too, so the old cache entry simply misses.
     """
     s = passage.get("source", {})
-    cru = "|".join(
+    # A printable delimiter is unsafe here: a "|" occurring inside a book or
+    # chapter name would let two different passages collapse onto the same
+    # joined string, and one passage's cached explanation would be served as
+    # another's. "\x1f" (ASCII unit separator) cannot appear in any of these
+    # values, so no such collision is possible.
+    cru = "\x1f".join(
         str(x)
         for x in (
             passage.get("date"),
@@ -41,6 +52,7 @@ def cache_key(passage: dict) -> str:
             s.get("chapter"),
             s.get("part"),
             s.get("item_number"),
+            sha256(str(passage.get("content", "")).encode()).hexdigest(),
         )
     )
     return sha256(cru.encode()).hexdigest()

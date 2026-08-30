@@ -36,6 +36,17 @@ export function useReminder() {
     setNeedsInstall(needsInstallFirst());
   }, []);
 
+  // A device enabled before the picker became whole-hours-only still carries
+  // its broken hour in the server's record — normalising on read fixed what
+  // the panel shows and nothing re-subscribed the device. The reader would
+  // see 06:00, the record would say 06:30, and the 60-minute window would
+  // deliver at 07:00: an hour later than displayed, and the opposite of what
+  // the comment above promises. One re-subscription, once, on mount.
+  useEffect(() => {
+    if (enabled && hour !== horaCheia) setHour(horaCheia);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled, hour, horaCheia]);
+
   const enable = async () => {
     setBusy(true);
     setMotivo(null);

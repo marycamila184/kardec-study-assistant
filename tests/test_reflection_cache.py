@@ -4,6 +4,7 @@ from src.rag.reflection_cache import cache_key, get, put
 
 _PASSAGEM = {
     "date": "2026-08-29",
+    "content": "texto original da passagem",
     "source": {
         "book": "O Evangelho Segundo o Espiritismo",
         "chapter": "CAPÍTULO VIII",
@@ -27,6 +28,15 @@ def test_a_chave_muda_quando_o_dia_muda():
 
 def test_a_chave_e_estavel_para_a_mesma_passagem():
     assert cache_key(_PASSAGEM) == cache_key(dict(_PASSAGEM))
+
+
+def test_a_chave_muda_quando_so_o_texto_muda():
+    # Identity (date, book, chapter, part, item_number) is unchanged here —
+    # only the prose is corrected, same as a hand edit to trecho_diario.md
+    # that fixes wording without touching which item it is. The key must
+    # still change, or the stale explanation is served for the rest of the day.
+    corrigida = {**_PASSAGEM, "content": "texto corrigido da passagem"}
+    assert cache_key(_PASSAGEM) != cache_key(corrigida)
 
 
 def test_put_grava_e_get_devolve():

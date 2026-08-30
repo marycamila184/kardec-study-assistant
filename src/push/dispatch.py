@@ -1,10 +1,10 @@
-"""O que o Cloud Run Job executa a cada 15 minutos.
+"""What the Cloud Run Job runs, hourly.
 
-Roda a mesma imagem da API com outro comando, de propósito: um endpoint na
-API exigiria validar OIDC numa superfície pública, e este Job não tem
-superfície nenhuma.
+Runs the same image as the API with a different command, on purpose: an
+endpoint on the API would require validating OIDC on a public surface, and
+this Job has no surface at all.
 
-Rode com: python -m src.push.dispatch
+Run with: python -m src.push.dispatch
 """
 
 import logging
