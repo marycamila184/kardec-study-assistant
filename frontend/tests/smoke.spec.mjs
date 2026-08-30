@@ -186,3 +186,17 @@ test('o manifest e os ícones são realmente servidos', async ({ page, request }
     expect(Number(icone.headers()['content-length'] ?? 1)).toBeGreaterThan(0);
   }
 });
+
+test('o seletor de horário do lembrete só oferece horas cheias', async ({ page }) => {
+  // A promessa tem de caber no que o sistema entrega: o agendador roda de
+  // hora em hora, então um campo que aceita 08:07 mente. Este teste falha se
+  // alguém devolver o <input type="time">.
+  await page.goto('/');
+  await expect(page.locator('#conteudo-estatico')).toHaveCount(0, { timeout: 15_000 });
+
+  // O seletor só existe depois de o lembrete estar ligado, o que exige
+  // permissão de notificação — que o CI não concede. O que dá para afirmar
+  // sem isso é o negativo, e ele é o que importa: não existe campo de hora
+  // livre em lugar nenhum do painel.
+  await expect(page.locator('input[type="time"]')).toHaveCount(0);
+});

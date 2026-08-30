@@ -55,16 +55,6 @@ export default function SettingsPanel({
   }, [open]);
   useEscapeKey(onClose, open);
 
-  // Valor exibido no <input type="time">, separado do valor confirmado
-  // (reminder.hour): cada onChange durante o arrasto do seletor de hora
-  // chamaria reminder.setHour, que faz um POST completo de reinscrição.
-  // Aqui só onBlur confirma, então mexer no seletor produz um request, não
-  // uma rajada.
-  const [horaExibida, setHoraExibida] = useState(reminder.hour);
-  useEffect(() => {
-    setHoraExibida(reminder.hour);
-  }, [reminder.hour]);
-
   if (!open) return null;
 
   const Toggle = ({ on, onToggle }) => (
@@ -287,23 +277,26 @@ export default function SettingsPanel({
                   </p>
                 )}
                 {reminder.enabled && (
-                  <input
-                    type="time"
-                    value={horaExibida}
+                  <select
+                    value={reminder.hour}
                     disabled={reminder.busy}
-                    onChange={(e) => setHoraExibida(e.target.value)}
-                    onBlur={(e) => {
-                      if (e.target.value && e.target.value !== reminder.hour) {
-                        reminder.setHour(e.target.value);
-                      }
-                    }}
+                    onChange={(e) => reminder.setHour(e.target.value)}
                     style={{
                       width: '100%', background: theme.inputBg,
                       border: `1px solid ${theme.headerBorder}`,
                       borderRadius: 7, padding: '8px 10px', fontSize: 13,
                       color: theme.text, marginBottom: 4,
                     }}
-                  />
+                  >
+                    {/* Só horas cheias. O campo livre aceitava 08:07 e o
+                        lembrete chegava 08:15 sem avisar — a mesma regra que
+                        esconde o interruptor num iPhone que não pode usá-lo:
+                        não oferecer o que não se cumpre. */}
+                    {Array.from({ length: 24 }, (_, h) => {
+                      const valor = `${String(h).padStart(2, '0')}:00`;
+                      return <option key={valor} value={valor}>{valor}</option>;
+                    })}
+                  </select>
                 )}
               </>
             )}

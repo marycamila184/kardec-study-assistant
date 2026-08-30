@@ -13,6 +13,11 @@ export function useReminder() {
   // quem tinha 06:30 guardado recupera o horário em vez de voltar ao padrão.
   const [enabled, setEnabled] = useStorage('dialogando_reminder_on', false);
   const [hour, setHourStored] = useStorage('dialogando_reminder_time', '08:00');
+  // Um horário quebrado guardado antes de o seletor virar horas cheias
+  // (06:30) não casa com nenhuma opção e deixaria o campo em branco. Arredonda
+  // para baixo, para a hora que a pessoa escolheu — 06:30 vira 06:00, não
+  // 07:00: adiantar um lembrete é melhor que atrasá-lo.
+  const horaCheia = `${(hour || '08:00').slice(0, 2)}:00`;
   const [busy, setBusy] = useState(false);
   const [supported, setSupported] = useState(false);
   const [needsInstall, setNeedsInstall] = useState(false);
@@ -71,5 +76,5 @@ export function useReminder() {
     }
   };
 
-  return { supported, needsInstall, enabled, hour, setHour, enable, disable, busy, motivo };
+  return { supported, needsInstall, enabled, hour: horaCheia, setHour, enable, disable, busy, motivo };
 }
