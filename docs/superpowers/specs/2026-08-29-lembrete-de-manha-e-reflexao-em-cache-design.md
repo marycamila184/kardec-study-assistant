@@ -1,7 +1,7 @@
 # One reminder a day, in the morning, opening a reflection already written
 
 **Date:** 2026-08-29
-**Status:** approved, pending implementation
+**Status:** implemented
 
 Refines [2026-08-27-lembrete-push-design](2026-08-27-lembrete-push-design.md),
 which is merged but not yet provisioned — no Firestore, no VAPID keys, no

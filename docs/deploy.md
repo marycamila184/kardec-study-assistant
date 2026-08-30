@@ -327,6 +327,11 @@ Uma vez só, no projeto GCP que já roda a API.
 gcloud services enable firestore.googleapis.com
 gcloud firestore databases create --location=us-central1 --type=firestore-native
 
+# São **duas** coleções, e a separação é a salvaguarda: `push_subscriptions`
+# guarda um registro por aparelho e não cruza com nada; `daily_reflection`
+# guarda a mesma explicação para todo mundo e não guarda nada de ninguém.
+# Nenhuma das duas ganha campo da outra.
+
 # 2. Chaves VAPID. A pública vai para o build do frontend; a privada, para o
 #    Secret Manager, pelo mesmo caminho das chaves de LLM.
 #
