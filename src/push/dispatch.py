@@ -13,9 +13,39 @@ from datetime import datetime, timezone
 from src.core.config import settings
 from src.push import sender, store
 from src.push.schedule import is_due
+from src.rag import reflection_cache
 from src.rag.evangelho import get_daily_passage
+from src.rag.explicador import explicar as study_item_fn
 
 logger = logging.getLogger(__name__)
+
+
+def _warm_cache(passage: dict | None) -> None:
+    """Ensures the day's explanation is in the cache, before any sending.
+
+    A lazy cache defeats itself precisely because the reminder works: at
+    08:00 the notification reaches everyone at once, everyone opens within
+    seconds, everyone finds the cache empty, and one call a day becomes
+    dozens inside a minute — each of those readers waiting for the stream
+    the cache existed to remove.
+
+    A failure here must never hold up the reminder: whoever opens it falls
+    through to the normal path, with the stream, exactly as it does today.
+    """
+    if passage is None:
+        return
+    if reflection_cache.get(passage) is not None:
+        return
+    s = passage.get("source", {})
+    try:
+        result = study_item_fn(
+            s.get("book"), s.get("item_number"), s.get("chapter"), s.get("part")
+        )
+    except Exception:
+        logger.exception("failed to warm the reflection cache")
+        return
+    if result and not result.get("generation_failed"):
+        reflection_cache.put(passage, result)
 
 
 def run(now_utc: datetime | None = None) -> dict[str, int]:
@@ -47,6 +77,8 @@ def run(now_utc: datetime | None = None) -> dict[str, int]:
     except Exception:
         logger.exception("falha ao ler o trecho do dia")
         passagem, capitulo = None, None
+
+    _warm_cache(passagem)
 
     for sub in inscricoes:
         if not is_due(sub.hour, sub.timezone, agora, settings.push_window_minutes):

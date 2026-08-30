@@ -230,3 +230,102 @@ def test_dispatch_calls_the_real_sender():
     assert resultado == {"sent": 1, "gone": 0, "failed": 0, "expired": 0}
     payload = json.loads(enviar.call_args.kwargs["data"])
     assert "OS AFLITOS" in payload["body"]
+
+
+def test_the_cache_is_warmed_before_sending():
+    # The order is the design, not a detail: if sending came first, everyone
+    # would open into a cold cache and the whole saving would vanish.
+    order = []
+    sub = _sub("https://push.example/a")
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "X",
+                    "book": "b",
+                    "item_number": "1",
+                    "chapter": None,
+                    "part": None,
+                }
+            },
+        ),
+        patch("src.push.dispatch.reflection_cache.get", return_value=None),
+        patch(
+            "src.push.dispatch.reflection_cache.put",
+            side_effect=lambda *a: order.append("warmed"),
+        ),
+        patch("src.push.dispatch.study_item_fn", return_value={"contexto": "c"}),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda *a, **k: order.append("sent"),
+        ),
+    ):
+        run(now_utc=_AGORA)
+
+    assert order == ["warmed", "sent"]
+
+
+def test_a_warm_cache_does_not_call_the_model():
+    sub = _sub("https://push.example/a")
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "X",
+                    "book": "b",
+                    "item_number": "1",
+                    "chapter": None,
+                    "part": None,
+                }
+            },
+        ),
+        patch("src.push.dispatch.reflection_cache.get", return_value={"contexto": "c"}),
+        patch("src.push.dispatch.study_item_fn") as model,
+        patch("src.push.dispatch.sender.send"),
+    ):
+        run(now_utc=_AGORA)
+
+    model.assert_not_called()
+
+
+def test_a_warm_up_that_fails_still_sends():
+    # A cold cache is a slower reader; a suppressed reminder is a reader who
+    # never knew.
+    sub = _sub("https://push.example/a")
+    sent = []
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "X",
+                    "book": "b",
+                    "item_number": "1",
+                    "chapter": None,
+                    "part": None,
+                }
+            },
+        ),
+        patch("src.push.dispatch.reflection_cache.get", return_value=None),
+        patch(
+            "src.push.dispatch.study_item_fn", side_effect=RuntimeError("model down")
+        ),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda *a, **k: sent.append(1),
+        ),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    assert sent == [1]
+    assert resultado["sent"] == 1
