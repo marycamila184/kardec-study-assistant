@@ -1,3 +1,4 @@
+import json
 from datetime import date
 from unittest.mock import patch
 
@@ -55,9 +56,30 @@ def test_sucesso_nao_levanta():
         send(_SUB)
 
 
-def test_a_notificacao_leva_titulo_corpo_e_destino():
+def test_a_notificacao_leva_o_capitulo_do_dia():
+    with patch("src.push.sender.webpush") as enviar:
+        send(_SUB, chapter_title="BEM-AVENTURADOS OS QUE TÊM PURO O CORAÇÃO")
+    payload = json.loads(enviar.call_args.kwargs["data"])
+    assert payload["title"] == "Dialogando com a Doutrina"
+    assert "BEM-AVENTURADOS OS QUE TÊM PURO O CORAÇÃO" in payload["body"]
+    assert payload["url"] == "/?mode=trecho"
+
+
+def test_sem_capitulo_a_notificacao_ainda_faz_sentido():
+    # Se get_daily_passage falhar, o lembrete sai mesmo assim: melhor um
+    # convite genérico que nenhum lembrete.
     with patch("src.push.sender.webpush") as enviar:
         send(_SUB)
-    payload = enviar.call_args.kwargs["data"]
-    assert "Dialogando" in payload
-    assert "trecho" in payload
+    payload = json.loads(enviar.call_args.kwargs["data"])
+    assert payload["body"]
+    assert payload["url"] == "/?mode=trecho"
+
+
+def test_o_titulo_do_capitulo_nao_e_transformado():
+    # A caixa alta é a do corpus. Baixá-la exigiria uma lista de exceções
+    # para DEUS, JESUS, CRISTO, e errar uma vez custa mais que a caixa alta.
+    with patch("src.push.sender.webpush") as enviar:
+        send(_SUB, chapter_title="AMAI OS VOSSOS INIMIGOS")
+    assert (
+        "AMAI OS VOSSOS INIMIGOS" in json.loads(enviar.call_args.kwargs["data"])["body"]
+    )

@@ -13,6 +13,7 @@ from datetime import datetime, timezone
 from src.core.config import settings
 from src.push import sender, store
 from src.push.schedule import is_due
+from src.rag.evangelho import get_daily_passage
 
 logger = logging.getLogger(__name__)
 
@@ -36,11 +37,22 @@ def run(now_utc: datetime | None = None) -> dict[str, int]:
     # aparelhos e só aparece na fatura.
     inscricoes = store.all_subscriptions()
 
+    # The day's chapter, for the notification body. get_daily_passage is
+    # deterministic and calls no model. If it fails, the reminder still goes
+    # out with the generic text: an invitation with no theme beats no
+    # reminder at all.
+    try:
+        passagem = get_daily_passage()
+        capitulo = (passagem or {}).get("source", {}).get("chapter_title")
+    except Exception:
+        logger.exception("falha ao ler o trecho do dia")
+        passagem, capitulo = None, None
+
     for sub in inscricoes:
         if not is_due(sub.hour, sub.timezone, agora, settings.push_window_minutes):
             continue
         try:
-            sender.send(sub)
+            sender.send(sub, chapter_title=capitulo)
             contagem["sent"] += 1
         except sender.Gone:
             # Apagar pode falhar sozinho — rede, permissão. Se falhar, o

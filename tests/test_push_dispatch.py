@@ -31,7 +31,7 @@ def test_envia_so_para_quem_esta_na_janela():
         patch("src.push.dispatch.store.delete_stale", return_value=0),
         patch(
             "src.push.dispatch.sender.send",
-            side_effect=lambda s: enviados.append(s.endpoint),
+            side_effect=lambda s, chapter_title=None: enviados.append(s.endpoint),
         ),
     ):
         resultado = run(now_utc=_AGORA)
@@ -63,7 +63,7 @@ def test_uma_falha_nao_impede_os_outros():
     bom = _sub("https://push.example/bom")
     enviados = []
 
-    def enviar(sub):
+    def enviar(sub, chapter_title=None):
         if sub.endpoint.endswith("ruim"):
             raise RuntimeError("timeout")
         enviados.append(sub.endpoint)
@@ -132,7 +132,7 @@ def test_apagar_um_morto_falhando_nao_derruba_o_resto():
     vivo = _sub("https://push.example/vivo")
     enviados = []
 
-    def enviar(sub):
+    def enviar(sub, chapter_title=None):
         if sub.endpoint.endswith("morto"):
             raise Gone("x")
         enviados.append(sub.endpoint)
@@ -150,3 +150,46 @@ def test_apagar_um_morto_falhando_nao_derruba_o_resto():
 
     assert enviados == ["https://push.example/vivo"]
     assert resultado["failed"] == 1
+
+
+def test_o_capitulo_do_dia_chega_ao_envio():
+    sub = _sub("https://push.example/a")
+    recebidos = []
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={"source": {"chapter_title": "OS AFLITOS"}},
+        ),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda s, chapter_title=None: recebidos.append(chapter_title),
+        ),
+    ):
+        run(now_utc=_AGORA)
+
+    assert recebidos == ["OS AFLITOS"]
+
+
+def test_o_lembrete_sai_mesmo_se_o_trecho_do_dia_falhar():
+    # Falha ao ler o trecho não pode virar lembrete não enviado.
+    sub = _sub("https://push.example/a")
+    enviados = []
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage", side_effect=OSError("sem arquivo")
+        ),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda s, chapter_title=None: enviados.append(chapter_title),
+        ),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    assert enviados == [None]
+    assert resultado["sent"] == 1
