@@ -192,7 +192,12 @@ class Settings(BaseSettings):
     # Os três números da spec. 90 dias é o único arbitrado — os outros dois
     # saem de restrição real (fusos de quarto de hora).
     push_expiry_days: int = 90
-    push_window_minutes: int = 15
+    # 60, igual à cadência do agendador. Igualar os dois é o que garante que
+    # cada janela contenha exatamente uma execução: ninguém recebe duas vezes,
+    # e ninguém — nem em fuso de minuto quebrado — deixa de receber. Era 15
+    # quando o agendador rodava de 15 em 15. Ver
+    # docs/superpowers/specs/2026-08-29-lembrete-de-manha-e-reflexao-em-cache-design.md
+    push_window_minutes: int = 60
 
     @property
     def cors_allowed_origins_list(self) -> list[str]:

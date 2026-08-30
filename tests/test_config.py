@@ -223,4 +223,4 @@ def test_push_settings_have_safe_defaults():
     assert s.vapid_subject == "mailto:contato@dialogandodoutrina.com.br"
     assert s.push_collection == "push_subscriptions"
     assert s.push_expiry_days == 90
-    assert s.push_window_minutes == 15
+    assert s.push_window_minutes == 60
