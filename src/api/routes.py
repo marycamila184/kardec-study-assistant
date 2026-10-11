@@ -19,6 +19,7 @@ from src.api.limits import (
 from src.api.paths import load_all_paths, load_path
 from src.core.config import settings
 from src.push import store as push_store
+from src.rag import reflection_cache
 from src.rag.conversation_log import log_chat_turn, log_feedback, log_study_turn
 from src.rag.crisis import needs_crisis_note
 from src.rag.evangelho import get_daily_passage
@@ -429,6 +430,28 @@ def get_path(path_id: str) -> PathDetail:
     return PathDetail(**path)
 
 
+def _passagem_do_dia_se_for(request: StudyRequest) -> dict | None:
+    """The daily passage, when the request asks for exactly that one — else None.
+
+    Only the daily passage goes through the cache. /study serves any item in
+    the corpus, and caching all of it is a different decision nobody has made.
+    """
+    try:
+        passagem = get_daily_passage()
+    except Exception:
+        return None
+    if not passagem:
+        return None
+    s = passagem.get("source", {})
+    mesmo = (
+        s.get("book") == request.book
+        and str(s.get("item_number")) == str(request.item_number)
+        and (s.get("chapter") or None) == (request.chapter or None)
+        and (s.get("part") or None) == (request.part or None)
+    )
+    return passagem if mesmo else None
+
+
 @router.post("/study", response_model=StudyResponse)
 def study(request: StudyRequest, http_request: Request) -> StudyResponse:
     # /study was missed when the abuse guards went in, and it is the more
@@ -436,11 +459,29 @@ def study(request: StudyRequest, http_request: Request) -> StudyResponse:
     # public and unauthenticated.
     _enforce_rate_limit(http_request)
     started = time.monotonic()
+
+    passagem = _passagem_do_dia_se_for(request)
+    if passagem is not None:
+        guardado = reflection_cache.get(passagem)
+        if guardado is not None:
+            return _study_response(
+                request,
+                guardado,
+                started_at=started,
+                session_id=session_id_from(http_request),
+            )
+
     result = study_item_fn(
         request.book, request.item_number, request.chapter, request.part
     )
     if result is None:
         raise _item_not_found(request.item_number)
+
+    # Never cache a failure: a withheld answer or a generation_failed stored
+    # here would be served all day, to everyone.
+    if passagem is not None and not result.get("generation_failed"):
+        reflection_cache.put(passagem, result)
+
     return _study_response(
         request, result, started_at=started, session_id=session_id_from(http_request)
     )
@@ -471,6 +512,9 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
     if ctx is None:
         raise _item_not_found(request.item_number)
 
+    passagem = _passagem_do_dia_se_for(request)
+    guardado = reflection_cache.get(passagem) if passagem is not None else None
+
     def events():
         # The passage first. It is known from retrieval, so the reader has the
         # text in front of them before the explanation of it starts arriving —
@@ -480,6 +524,18 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
             "source",
             {"original_text": ctx["original_text"], "sources": build_sources(ctx)},
         )
+        if guardado is not None:
+            # Nothing to stream when there is no wait: the text already
+            # exists, so it goes out whole in one `done`. The stream contract
+            # does not change — `done` is still the source of truth, and it
+            # still ends up identical to what POST /study returns.
+            yield _sse(
+                "done",
+                _study_response(
+                    request, guardado, started_at=started, session_id=session_id
+                ).model_dump(),
+            )
+            return
         for kind, payload in explicar_stream(ctx):
             if kind == "token":
                 yield _sse("token", {"text": payload})
@@ -490,6 +546,9 @@ def study_stream(request: StudyRequest, http_request: Request) -> StreamingRespo
                 response = _study_response(
                     request, payload, started_at=started, session_id=session_id
                 )
+                # Never cache a failure: served all day, to everyone.
+                if passagem is not None and not payload.get("generation_failed"):
+                    reflection_cache.put(passagem, payload)
                 yield _sse("done", response.model_dump())
 
     return _sse_response(events())

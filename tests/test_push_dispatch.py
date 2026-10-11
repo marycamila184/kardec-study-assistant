@@ -1,11 +1,34 @@
+import json
 from datetime import date, datetime, timezone
 from unittest.mock import patch
+
+import pytest
 
 from src.push.dispatch import run
 from src.push.sender import Gone
 from src.push.store import Subscription
 
 _AGORA = datetime(2026, 8, 27, 11, 0, tzinfo=timezone.utc)  # 08:00 em SP
+
+
+@pytest.fixture(autouse=True)
+def _no_real_firestore():
+    """Keep the warm-up away from a real Firestore client.
+
+    dispatch.run() warms the day's reflection before sending. Without this,
+    every test in this file builds a real client and attempts the network —
+    about 12 seconds each, swallowed by the cache's own try/except, so the
+    tests stay green while quietly depending on egress and credentials. The
+    file went from 0.29s to 123.7s before this fixture existed.
+    """
+    with (
+        patch(
+            "src.push.dispatch.reflection_cache.get",
+            return_value={"contexto": "cached"},
+        ),
+        patch("src.push.dispatch.reflection_cache.put"),
+    ):
+        yield
 
 
 def _sub(endpoint, hour="08:00"):
@@ -31,7 +54,7 @@ def test_envia_so_para_quem_esta_na_janela():
         patch("src.push.dispatch.store.delete_stale", return_value=0),
         patch(
             "src.push.dispatch.sender.send",
-            side_effect=lambda s: enviados.append(s.endpoint),
+            side_effect=lambda s, chapter_title=None: enviados.append(s.endpoint),
         ),
     ):
         resultado = run(now_utc=_AGORA)
@@ -63,7 +86,7 @@ def test_uma_falha_nao_impede_os_outros():
     bom = _sub("https://push.example/bom")
     enviados = []
 
-    def enviar(sub):
+    def enviar(sub, chapter_title=None):
         if sub.endpoint.endswith("ruim"):
             raise RuntimeError("timeout")
         enviados.append(sub.endpoint)
@@ -132,7 +155,7 @@ def test_apagar_um_morto_falhando_nao_derruba_o_resto():
     vivo = _sub("https://push.example/vivo")
     enviados = []
 
-    def enviar(sub):
+    def enviar(sub, chapter_title=None):
         if sub.endpoint.endswith("morto"):
             raise Gone("x")
         enviados.append(sub.endpoint)
@@ -150,3 +173,181 @@ def test_apagar_um_morto_falhando_nao_derruba_o_resto():
 
     assert enviados == ["https://push.example/vivo"]
     assert resultado["failed"] == 1
+
+
+def test_o_capitulo_do_dia_chega_ao_envio():
+    sub = _sub("https://push.example/a")
+    recebidos = []
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={"source": {"chapter_title": "OS AFLITOS"}},
+        ),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda s, chapter_title=None: recebidos.append(chapter_title),
+        ),
+    ):
+        run(now_utc=_AGORA)
+
+    assert recebidos == ["OS AFLITOS"]
+
+
+def test_o_lembrete_sai_mesmo_se_o_trecho_do_dia_falhar():
+    # Falha ao ler o trecho não pode virar lembrete não enviado.
+    sub = _sub("https://push.example/a")
+    enviados = []
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage", side_effect=OSError("sem arquivo")
+        ),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda s, chapter_title=None: enviados.append(chapter_title),
+        ),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    assert enviados == [None]
+    assert resultado["sent"] == 1
+
+
+def test_dispatch_calls_the_real_sender():
+    # The two halves are proven separately — sender builds the right body,
+    # dispatch passes the right kwarg — and nothing wires them together. A
+    # signature drift between them raises TypeError on every subscription,
+    # gets caught by the per-device except, is counted as `failed`, and the
+    # job reports success with sent: 0: a programming error wearing the face
+    # of a transient outage.
+    #
+    # So this patches only `webpush`, the network boundary, and lets the real
+    # sender.send run inside the real dispatch.run.
+    sub = _sub("https://push.example/real")
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "OS AFLITOS",
+                    "book": "O Evangelho Segundo o Espiritismo",
+                    "chapter": "CAPÍTULO V",
+                    "item_number": "1",
+                }
+            },
+        ),
+        patch("src.push.sender.webpush") as enviar,
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    # If the signatures had drifted, this would be sent=0 / failed=1.
+    assert resultado == {"sent": 1, "gone": 0, "failed": 0, "expired": 0}
+    payload = json.loads(enviar.call_args.kwargs["data"])
+    assert "OS AFLITOS" in payload["body"]
+
+
+def test_the_cache_is_warmed_before_sending():
+    # The order is the design, not a detail: if sending came first, everyone
+    # would open into a cold cache and the whole saving would vanish.
+    order = []
+    sub = _sub("https://push.example/a")
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "X",
+                    "book": "b",
+                    "item_number": "1",
+                    "chapter": None,
+                    "part": None,
+                }
+            },
+        ),
+        patch("src.push.dispatch.reflection_cache.get", return_value=None),
+        patch(
+            "src.push.dispatch.reflection_cache.put",
+            side_effect=lambda *a: order.append("warmed"),
+        ),
+        patch("src.push.dispatch.study_item_fn", return_value={"contexto": "c"}),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda *a, **k: order.append("sent"),
+        ),
+    ):
+        run(now_utc=_AGORA)
+
+    assert order == ["warmed", "sent"]
+
+
+def test_a_warm_cache_does_not_call_the_model():
+    sub = _sub("https://push.example/a")
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "X",
+                    "book": "b",
+                    "item_number": "1",
+                    "chapter": None,
+                    "part": None,
+                }
+            },
+        ),
+        patch("src.push.dispatch.reflection_cache.get", return_value={"contexto": "c"}),
+        patch("src.push.dispatch.study_item_fn") as model,
+        patch("src.push.dispatch.sender.send"),
+    ):
+        run(now_utc=_AGORA)
+
+    model.assert_not_called()
+
+
+def test_a_warm_up_that_fails_still_sends():
+    # A cold cache is a slower reader; a suppressed reminder is a reader who
+    # never knew.
+    sub = _sub("https://push.example/a")
+    sent = []
+
+    with (
+        patch("src.push.dispatch.store.all_subscriptions", return_value=[sub]),
+        patch("src.push.dispatch.store.delete_stale", return_value=0),
+        patch(
+            "src.push.dispatch.get_daily_passage",
+            return_value={
+                "source": {
+                    "chapter_title": "X",
+                    "book": "b",
+                    "item_number": "1",
+                    "chapter": None,
+                    "part": None,
+                }
+            },
+        ),
+        patch("src.push.dispatch.reflection_cache.get", return_value=None),
+        patch(
+            "src.push.dispatch.study_item_fn", side_effect=RuntimeError("model down")
+        ),
+        patch(
+            "src.push.dispatch.sender.send",
+            side_effect=lambda *a, **k: sent.append(1),
+        ),
+    ):
+        resultado = run(now_utc=_AGORA)
+
+    assert sent == [1]
+    assert resultado["sent"] == 1

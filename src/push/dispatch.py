@@ -1,10 +1,10 @@
-"""O que o Cloud Run Job executa a cada 15 minutos.
+"""What the Cloud Run Job runs, hourly.
 
-Roda a mesma imagem da API com outro comando, de propósito: um endpoint na
-API exigiria validar OIDC numa superfície pública, e este Job não tem
-superfície nenhuma.
+Runs the same image as the API with a different command, on purpose: an
+endpoint on the API would require validating OIDC on a public surface, and
+this Job has no surface at all.
 
-Rode com: python -m src.push.dispatch
+Run with: python -m src.push.dispatch
 """
 
 import logging
@@ -13,8 +13,39 @@ from datetime import datetime, timezone
 from src.core.config import settings
 from src.push import sender, store
 from src.push.schedule import is_due
+from src.rag import reflection_cache
+from src.rag.evangelho import get_daily_passage
+from src.rag.explicador import explicar as study_item_fn
 
 logger = logging.getLogger(__name__)
+
+
+def _warm_cache(passage: dict | None) -> None:
+    """Ensures the day's explanation is in the cache, before any sending.
+
+    A lazy cache defeats itself precisely because the reminder works: at
+    08:00 the notification reaches everyone at once, everyone opens within
+    seconds, everyone finds the cache empty, and one call a day becomes
+    dozens inside a minute — each of those readers waiting for the stream
+    the cache existed to remove.
+
+    A failure here must never hold up the reminder: whoever opens it falls
+    through to the normal path, with the stream, exactly as it does today.
+    """
+    if passage is None:
+        return
+    if reflection_cache.get(passage) is not None:
+        return
+    s = passage.get("source", {})
+    try:
+        result = study_item_fn(
+            s.get("book"), s.get("item_number"), s.get("chapter"), s.get("part")
+        )
+    except Exception:
+        logger.exception("failed to warm the reflection cache")
+        return
+    if result and not result.get("generation_failed"):
+        reflection_cache.put(passage, result)
 
 
 def run(now_utc: datetime | None = None) -> dict[str, int]:
@@ -36,11 +67,24 @@ def run(now_utc: datetime | None = None) -> dict[str, int]:
     # aparelhos e só aparece na fatura.
     inscricoes = store.all_subscriptions()
 
+    # The day's chapter, for the notification body. get_daily_passage is
+    # deterministic and calls no model. If it fails, the reminder still goes
+    # out with the generic text: an invitation with no theme beats no
+    # reminder at all.
+    try:
+        passagem = get_daily_passage()
+        capitulo = (passagem or {}).get("source", {}).get("chapter_title")
+    except Exception:
+        logger.exception("falha ao ler o trecho do dia")
+        passagem, capitulo = None, None
+
+    _warm_cache(passagem)
+
     for sub in inscricoes:
         if not is_due(sub.hour, sub.timezone, agora, settings.push_window_minutes):
             continue
         try:
-            sender.send(sub)
+            sender.send(sub, chapter_title=capitulo)
             contagem["sent"] += 1
         except sender.Gone:
             # Apagar pode falhar sozinho — rede, permissão. Se falhar, o
