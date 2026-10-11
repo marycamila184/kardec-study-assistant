@@ -53,6 +53,18 @@ env:
   GCP_PROJECT: dialogando-doutrina
   GCP_REGION: us-central1
   SERVICE: kardec-api
+  PUSH_JOB: kardec-push
+  # What the RAG pipeline needs to run, declared once because two things run
+  # it: the service, and the reminder job, which warms the day's reflection
+  # through the same Explicador. The job was created with only its VAPID
+  # keys, so every warm-up failed and the cache was never filled before the
+  # morning send. A key alone is not enough: with TOGETHER_API_KEY but no
+  # EMBEDDING_PROVIDER the related-items retrieve fails quietly, the warm-up
+  # succeeds, and a reflection with no related items is cached for everyone
+  # all day. Both must get exactly this set.
+  # The `^@^` prefix switches the separator from comma to `@` (see below).
+  APP_ENV: '^@^LLM_PROVIDER=together@EMBEDDING_PROVIDER=openrouter@CHAT_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo@CONDENSER_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo'
+  APP_SECRETS: 'TOGETHER_API_KEY=together-api-key:latest,OPENROUTER_API_KEY=openrouter-api-key:latest'
 
 permissions:
   contents: read
@@ -150,8 +162,8 @@ jobs:
             --memory 512Mi --cpu 1 \
             --min-instances 0 --max-instances 3 \
             --concurrency 20 --timeout 120 \
-            --set-env-vars '^@^LLM_PROVIDER=together@EMBEDDING_PROVIDER=openrouter@CHAT_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo@CONDENSER_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo@CORS_ALLOWED_ORIGINS=https://kardec-study-assistant.vercel.app,https://dialogandodoutrina.com.br,https://www.dialogandodoutrina.com.br' \
-            --set-secrets 'TOGETHER_API_KEY=together-api-key:latest,OPENROUTER_API_KEY=openrouter-api-key:latest' \
+            --set-env-vars "${APP_ENV}@CORS_ALLOWED_ORIGINS=https://kardec-study-assistant.vercel.app,https://dialogandodoutrina.com.br,https://www.dialogandodoutrina.com.br" \
+            --set-secrets "$APP_SECRETS" \
             --quiet
 
       - name: Check it came up
@@ -216,3 +228,36 @@ jobs:
             fail=1
           fi
           exit $fail
+
+      # Last, so the job only moves to an image that passed every check above.
+      #
+      # `gcloud run jobs create` pins the image, and a service deploy does not
+      # touch the job: it kept running a 2026-08-28 image until 2026-10-11,
+      # through every deploy in between, with no error anywhere. So the job is
+      # moved to whatever image the service now runs, every time.
+      #
+      # `--update-*`, not `--set-*`, unlike the service above: the job also
+      # carries VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY, which only it uses and
+      # which this file does not declare. `--set-*` would delete them and every
+      # reminder would fail to sign. The keys it shares with the service are
+      # declared in full via APP_ENV/APP_SECRETS, so those cannot drift.
+      - name: Point the reminder job at the new image
+        run: |
+          IMAGE=$(gcloud run services describe "$SERVICE" --region "$GCP_REGION" \
+                  --project "$GCP_PROJECT" \
+                  --format='value(spec.template.spec.containers[0].image)')
+          gcloud run jobs update "$PUSH_JOB" \
+            --project "$GCP_PROJECT" \
+            --region "$GCP_REGION" \
+            --image "$IMAGE" \
+            --update-env-vars "$APP_ENV" \
+            --update-secrets "$APP_SECRETS" \
+            --quiet
+          JOB_IMAGE=$(gcloud run jobs describe "$PUSH_JOB" --region "$GCP_REGION" \
+                      --project "$GCP_PROJECT" \
+                      --format='value(spec.template.spec.template.spec.containers[0].image)')
+          if [ "$JOB_IMAGE" != "$IMAGE" ]; then
+            echo "job image $JOB_IMAGE does not match service image $IMAGE"
+            exit 1
+          fi
+          echo "job on $IMAGE"
