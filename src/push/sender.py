@@ -7,9 +7,10 @@ from pywebpush import WebPushException, webpush
 from src.core.config import settings
 from src.push.store import Subscription
 
-REMINDER_TITLE = "Dialogando com a Doutrina 📖"
-REMINDER_BODY = "É a hora do seu estudo. Que tal começar pelo trecho de hoje?"
-# O mesmo destino que o card "☀️ Trecho do dia" da barra lateral já abre.
+REMINDER_TITLE = "Dialogando com a Doutrina"
+# No chapter of the day — only when get_daily_passage fails.
+REMINDER_FALLBACK = "A reflexão de hoje está esperando por você."
+# Same destination the "☀️ Trecho do dia" card in the sidebar already opens.
 REMINDER_URL = "/?mode=trecho"
 
 
@@ -17,7 +18,25 @@ class Gone(Exception):
     """O serviço de push diz que este endpoint não existe mais."""
 
 
-def send(sub: Subscription) -> None:
+def _corpo(chapter_title: str | None) -> str:
+    """The notification body: the day's chapter, unchanged.
+
+    The all-caps form comes from the corpus and is how the app already
+    displays these titles. Lowercasing it would need an exception list for
+    DEUS, JESUS and CRISTO, and getting that wrong once in an app about this
+    doctrine costs more than the capitals do.
+
+    The passage text does not go here: it's ~517 characters, would be
+    truncated, and truncating a passage is the error the 2026-08-05 curation
+    fixed — 23 passages were cut before their ending, which in the Evangelho
+    is usually the merciful part.
+    """
+    if not chapter_title:
+        return REMINDER_FALLBACK
+    return f"Reflexão de hoje — {chapter_title}"
+
+
+def send(sub: Subscription, chapter_title: str | None = None) -> None:
     """Envia o lembrete. Levanta Gone quando o registro deve ser apagado.
 
     O pywebpush não devolve a resposta para quem chama conferir: ele levanta
@@ -34,7 +53,11 @@ def send(sub: Subscription) -> None:
         webpush(
             subscription_info={"endpoint": sub.endpoint, "keys": sub.keys},
             data=json.dumps(
-                {"title": REMINDER_TITLE, "body": REMINDER_BODY, "url": REMINDER_URL}
+                {
+                    "title": REMINDER_TITLE,
+                    "body": _corpo(chapter_title),
+                    "url": REMINDER_URL,
+                }
             ),
             vapid_private_key=settings.vapid_private_key,
             vapid_claims={"sub": settings.vapid_subject},
