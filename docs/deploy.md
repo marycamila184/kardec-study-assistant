@@ -199,6 +199,14 @@ anterior não prova:
 
 ## Redeploy: o comando do passo 3 é para a PRIMEIRA vez
 
+**Todo merge na `main` já publica o backend.** O `.github/workflows/deploy.yml`
+reconstrói o índice, sobe o serviço, confere `/health`, `/evangelho` e o CORS,
+e move o Job do lembrete para a mesma imagem. Depois de mesclar um PR de
+release, não rode `gcloud run deploy` à mão: em 2026-10-11 os dois correram
+juntos e subiram duas revisões com um minuto de diferença. Sem estrago, porque
+o código era o mesmo, mas o deploy manual fica para quando o código que vai
+subir não passou pela `main`.
+
 `--set-env-vars` **substitui o conjunto inteiro**. O serviço no ar hoje tem
 `CHAT_MODEL`, `CONDENSER_MODEL` e `CORS_ALLOWED_ORIGINS`, que aquele comando não
 lista — rodá-lo cru apaga os três, e perder `CHAT_MODEL` é exatamente a
@@ -258,8 +266,14 @@ gcloud run services update-traffic kardec-api --region us-central1 --to-latest
 
 `gcloud run jobs create` fixa a imagem no momento em que o Job é criado. Um
 redeploy da API publica uma imagem nova e **não** mexe no Job: ele continua
-rodando o código antigo, indefinidamente, sem erro nenhum. Depois de cada
-redeploy que toque `src/push/`:
+rodando o código antigo, indefinidamente, sem erro nenhum. Foi o que aconteceu:
+o Job rodou uma imagem de 2026-08-28 até 2026-10-11, atravessando todos os
+deploys do meio.
+
+**No merge na `main` isto é automático:** o último passo do
+`.github/workflows/deploy.yml` move o Job para a imagem do serviço, só depois
+de o serviço passar no `/health` e na preflight de CORS, e falha se as duas não
+baterem. **Num deploy manual continua sendo com você**, depois de cada redeploy:
 
 ```bash
 IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
@@ -379,16 +393,28 @@ IMAGEM=$(gcloud run services describe kardec-api --region us-central1 \
 # --max-retries 0: uma execução repetida manda o lembrete de novo. O dispatch
 # não tem idempotência (isso exigiria um sexto campo no registro, recusado), e
 # pular um tique horário custa menos que uma notificação duplicada.
+#
+# O `=` em --command e --args é obrigatório: sem ele o gcloud lê o `-m` como
+# uma flag dele mesmo e recusa o comando com "argument --args: expected one
+# argument". (Este comentário ficava NO MEIO do comando abaixo até 2026-10-11:
+# um `#` depois de uma linha terminada em `\` encerra o comando ali, e o resto
+# virava lixo.)
+#
+# As chaves de LLM e embeddings não são opcionais: o Job aquece a reflexão do
+# dia rodando o Explicador inteiro antes de enviar. Ele foi criado só com as
+# VAPID, então todo aquecimento falhava e o cache nunca estava pronto às 08:00.
+# E as duas metades valem juntas: só com TOGETHER_API_KEY a busca dos itens
+# relacionados falha calada, o aquecimento "dá certo" e uma reflexão SEM itens
+# relacionados fica em cache para todo mundo o dia inteiro. O conjunto é o
+# mesmo do serviço — `APP_ENV`/`APP_SECRETS` no `.github/workflows/deploy.yml`.
 gcloud run jobs create kardec-push \
   --image "$IMAGEM" \
   --region us-central1 \
-  # O `=` nos dois é obrigatório: sem ele o gcloud lê o `-m` como uma flag
-  # dele mesmo e recusa o comando com "argument --args: expected one argument".
   --command=/app/.venv/bin/python \
   --args=-m,src.push.dispatch \
   --max-retries 0 \
-  --set-secrets 'VAPID_PRIVATE_KEY=vapid-private-key:latest' \
-  --set-env-vars 'VAPID_PUBLIC_KEY=A_CHAVE_PUBLICA'
+  --set-secrets 'VAPID_PRIVATE_KEY=vapid-private-key:latest,TOGETHER_API_KEY=together-api-key:latest,OPENROUTER_API_KEY=openrouter-api-key:latest' \
+  --set-env-vars '^@^VAPID_PUBLIC_KEY=A_CHAVE_PUBLICA@LLM_PROVIDER=together@EMBEDDING_PROVIDER=openrouter@CHAT_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo@CONDENSER_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo'
 
 # Sem esta permissão o Scheduler recebe 403 a cada hora, em silêncio, e
 # nenhum lembrete chega — com todo o resto aparentemente configurado.
